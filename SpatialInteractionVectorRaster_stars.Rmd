@@ -195,7 +195,7 @@ Alternatively, you could use `[]` like as follows to crop a `stars` object.
 tmax_m8_y09_stars[MI_county_sf]
 ```
 
-## Extracting raster cell values for points {#extraction-stars-points}
+## Extracting values for points {#extraction-stars-points}
 
 ```{r create-raster, echo = F}
 set.seed(378533)
@@ -317,14 +317,14 @@ KS_wells <- st_transform(KS_wells, st_crs(tmax_m1_y09_stars))
 
 We now extract the value of rasters in which points are located (this will take a while):  
 
-```{r extracted-points, cache = F, eval = F}
+```{r extracted-points-disp, cache = F, eval = F}
 (
 extracted_tmax <- st_extract(tmax_m1_y09_KS_stars, KS_wells) 
 )
 ```
 
 ```{r extracted-points, cache = F, echo = F}
-saveRDS(extracted_tmax, "./Data/extracted_tmax.rds")
+# saveRDS(extracted_tmax, "./Data/extracted_tmax.rds")
 
 (
 extracted_tmax <- readRDS("./Data/extracted_tmax.rds")
@@ -365,18 +365,59 @@ toc()
 As you can see each date forms a column of extracted values for the points because the third dimension of `tmax_MI` is `Dates` object. So, you can easily turn the outcome to an `sf` object with date as `Date` object as follows.
 
 ```{r convert-to-sf-with-dates}
-pivot_longer(extracted_tmax_sf, - sfc, names_to = "date", values_to = "tmax") %>% 
+(
+extracted_tmax_long <- pivot_longer(extracted_tmax_sf, - sfc, names_to = "date", values_to = "tmax") %>% 
   st_as_sf() %>% 
   mutate(date = ymd(date))
+)
 ```
 
-Finally, you cannot extract values from multiple attributes at the same time. 
+Note that all the other variables than the geometry in the points data (`KS_wells`) are lost at the time of applying `st_extract()`. This is troublesome if we need to process the data further. For example, suppose you would like to calculate monthly mean tmax values for each point. One my think this might do the job:
 
-```{r error-multi-attribute, error = T, cache = F}
-tmax_m1_y09_stars %>%  
-  mutate(second_atr = 1) %>% 
-  st_extract(KS_wells) %>% 
-  st_as_sf()
+```{r error-group-geom, error = TRUE}
+group_by(extracted_tmax_long, sfc, month(date)) %>%  
+  summarize(mean(tmax))
+```
+
+However, you cannot group by the geometry columns (here `sfc`) as you can see from the error message. 
+
+Moreover, note that the extracted dataset is not your main `data.frame` that you use for your regression analysis. Rather it is a `data.frame` that you will merge to the main `data.frame` with all the other information is stored. You can use `st_join()` to merge by `geometry` (here it is called `x`) as long as the main `data.frame` also has `geometry`. But, it is often more convenient to just use the unique object ID (here `well_id`) to merge the data back to the main `data.frame` that holds other information. You can easily achieve this by creating an ID variable like below by taking advantage the fact that the the order of the observations in the returned object is the order of the points (`KS_wells`).
+
+```{r long-with-id}
+(
+extracted_tmax_long <- extracted_tmax_sf %>% 
+  mutate(well_id = KS_wells$well_id) %>% 
+  pivot_longer(c(- sfc, - well_id), names_to = "date", values_to = "tmax") %>% 
+  st_as_sf() %>% 
+  mutate(date = ymd(date))
+)  
+```
+
+Now we can easily calculate monthly mean tmax by point:
+
+```{r monthly-mean-tmax, eval = F}
+extracted_tmax_long %>% 
+  mutate(month = month(date)) %>% 
+  group_by(well_id, month) %>% 
+  summarize(mean(tmax)) 
+```
+
+```{r monthly-mean-tmax-run, echo = F}
+(
+monthly_tmax <- readRDS("./Data/monthly_tmax.rds")
+)
+```
+
+Well, if you actually run the code above it should have takes more than a minute. Here is a better way of getting the same results using `data.table`, which completes the job in a fraction of a second instead of a minute.
+
+```{r dt-option-monthly-mean}
+extracted_tmax_sf %>% 
+  data.table() %>% 
+  .[,well_id := KS_wells$well_id] %>% 
+  melt(id.vars = c("sfc", "well_id")) %>% 
+  setnames("variable", "date") %>% 
+  .[, date := ymd(date)] %>% 
+  .[, .(tmax = mean(value)), by = .(well_id, month(date))]
 ```
 
 ### Extraction using `terra::extract()`
@@ -413,15 +454,8 @@ This is quite a hassle in terms of coding. However, this approach is considerabl
 
 
 
-## Extracting raster cell values for polygons: `aggregate()` {#extraction-stars-polygons}
+## Extracting values for polygons: `aggregate()` {#extraction-stars-polygons}
 
-**Kansas county:**
-
-```{r county-KS}
-KS_county_sf <- st_as_sf(maps::map("county", "kansas", plot = FALSE, fill = TRUE)) %>% 
-  #--- transform using the CRS of the PRISM stars data  ---#
-  st_transform(st_crs(tmax_m1_y09_stars))  
-```
 
 ### Simple visual illustration of raster data extraction for polygons
 
@@ -479,20 +513,23 @@ You can confirm that the value of cells that are partially inside the polygon is
 
 ---
 
-Let's now see a demonstration of the use of `aggregate()`. For polygons data, we use regularly-sized square polygons overlying Michigan.
+Let's now see a demonstration of the use of `aggregate()`. For polygons data, we use Kansas counties.
 
-```{r get-polygons-MI}
-MI_polygons <- st_make_grid(KS_county_sf, n = c(50, 50)) %>% 
-  st_as_sf() %>% 
+```{r county-KS}
+KS_county_sf <- st_as_sf(maps::map("county", "kansas", plot = FALSE, fill = TRUE)) %>% 
+  #--- transform using the CRS of the PRISM stars data  ---#
+  st_transform(st_crs(tmax_m1_y09_stars)) %>% 
+  #--- generate unique id ---# 
   mutate(id = 1:nrow(.))
 ```
 
 Here is what the polygons looks like (Figure \@ref(fig:polygons-location)), superimposed on top of the tmax raster data:
 
-```{r polygons-location, fig.cap = "Map of regularly-sized polygons over Michigan"}
+```{r polygons-location, fig.cap = "Map of Kansas counties over tmax raster data"}
 ggplot() +
-  geom_stars(data = tmax_MI[,,,1]) +
-  geom_sf(data = MI_polygons, fill = NA) +
+  geom_stars(data = tmax_m1_y09_KS_stars[,,,1]) +
+  scale_fill_viridis() +
+  geom_sf(data = KS_county_sf, fill = NA) +
   theme_for_map
 ```
 
@@ -504,7 +541,61 @@ mean_tmax_stars <- aggregate(tmax_m1_y09_stars, KS_county_sf, FUN = mean)
 )
 ```  
 
-Though not the case here, the function will return NA for polygons that intersect with raster cells that have NA values. To ignore the NA values when applying a function, we can add `na.rm=TRUE` option like this:^[Note that `FUN = mean(na.rm = TRUE)` would not work, which I tried first before I googled the problem.]
+As you can see, the `aggregate()` operation returns a `stars` object for polygons. You can convert the `stars` object into an `sf` object using `st_as_sf()`:
+
+```{r to-sf}
+mean_tmax_sf <- st_as_sf(mean_tmax_stars)
+```
+
+As you can see, `aggregate()` function extracted values for the polygons from all the layers across the date dimension, and the values from individual dates become variables where the variables names are the corresponding date values. For further data processing, it is convenient to have a long format, which can be done as following:
+
+```{r tmax-long, eval = F}
+(
+mean_tmax_long <- mean_tmax_sf %>% 
+  pivot_longer(- geom, names_to = "date", values_to = "tmax")
+)
+```      
+
+```{r echo = F}
+# saveRDS(mean_tmax_long, "./Data/mean_tmax_long.rds")
+(
+mean_tmax_long <- readRDS("./Data/mean_tmax_long.rds")
+)
+``` 
+
+Just like the case of raster data extraction for points data we saw above, no information from the polygons (`KS_county_sf`) except the geometry column remains. For further processing of the extracted data and easy merging with the polygons data (`KS_county_sf`), we can assign the unique county id just like we did for the case of points data.   
+ 
+```{r mean-aggregate-na-remove-id, eval = F}
+(
+mean_tmax_long <- aggregate(tmax_m1_y09_stars, KS_county_sf, FUN = mean) %>% 
+  st_as_sf() %>% 
+  #--- drop geometry ---#
+  st_drop_geometry() %>% 
+  #--- assign id before transformation ---#
+  mutate(id = KS_county_sf$id) %>% 
+  #--- then transform ---#
+  pivot_longer(- id, names_to = "date", values_to = "tmax")       
+)
+```
+
+For `data.table` users, this does the job:
+
+```{r mean-aggregate-na-remove-id-dt, eval = F}
+(
+mean_tmax_long <- aggregate(tmax_m1_y09_stars, KS_county_sf, FUN = mean) %>% 
+  st_as_sf() %>% 
+  #--- drop geometry ---#
+  data.table() %>% 
+  #--- assign id before transformation ---#
+  .[,id := KS_county_sf$id] %>% 
+  #--- then transform ---#
+  melt(id.vars = c("geom", "id"))       
+)
+```
+
+---
+
+As an aside, `aggregate()` will return NA for polygons that intersect with raster cells that have NA values. To ignore the NA values when applying a function, we can add `na.rm=TRUE` option like this:^[Note that `FUN = mean(na.rm = TRUE)` would not work, which I tried first before I googled the problem.]
 
 ```{r mean-aggregate-na-remove, eval = F}
 (
@@ -513,48 +604,22 @@ mean_tmax_stars <- aggregate(tmax_MI, MI_polygons, FUN = mean, na.rm = TRUE) %>%
 )
 ```
 
-As you can see, the `aggregate()` operation returns a `stars` object for polygons. You can convert the `stars` object into an `sf` object using `st_as_sf()`:
+## Extracting values for polygons: `exactextractr::exact_extract()` {#ee-extract}
 
-```{r to-sf}
-mean_tmax_sf <- st_as_sf(mean_tmax_stars)
-```
+A great alternative to `aggregate()` is `exact_extract()` from the `exactextractr` package. It is considerably faster than `aggregate()` and it also returns the value of the cells that only partially overlap with polygons as well with `coverage_fraction` which is a measure of the fraction of the overlapping area. 
 
+### Simple visual illustration of raster data extraction for polygons using `exact_extract()`
 
-As you can see, `aggregate()` function extracted values for the polygons from all the layers across the date dimension, and the values from individual dates become variables where the variables names are the corresponding date values. For further data processing, it is convenient to have a long format, which can be done as following:
-
-```{r tmax-long}
-mean_tmax_long <- mean_tmax_sf %>% 
-  pivot_longer(- geom, names_to = "date", values_to = "tmax")       
-```      
-
-Note that all the other variables than the geometry are lost at the time of applying `aggregate()`. Note that the extracted dataset is not your main `data.frame` that you use for your regression analysis. Rather it is a `data.frame` that you will merge to the main `data.frame` with all the other information is stored. You can use `st_join()` to merge by `geometry` (here it is called `x`) as long as the main `data.frame` also has `geometry`. But, it is often more convenient to just use the unique object (polygon) ID (for example county FIPS if the unit of your analysis is county) to merge the data back to the main `data.frame` that holds other information. You can easily achieve this by creating an ID variable like this by taking advantage the fact that the the order of the observations in the returned object is the order of the polygons.
- 
-```{r mean-aggregate-na-remove-id}
-(
-mean_tmax_long <- aggregate(tmax_m1_y09_stars, KS_county_sf, FUN = mean) %>% 
-  st_as_sf() %>% 
-  #--- drop geometry ---#
-  st_drop_geometry() %>% 
-  #--- assign id ---#
-  mutate(id = KS_county_sf$id) %>% 
-  #--- then transform ---#
-  pivot_longer(-id, names_to = "date", values_to = "tmax")       
-)
-```
-
-
-## Extraction using `exactextractr::exact_extract()`
-
-A great alternative is `exact_extract()` from the `exactextractr` package. It is considerably faster than `aggregate()` and it also returns the value of all the cells that partially overlap with polygons with `coverage_fraction` which is a measure of the fraction of the overlapping area. Let's confirm this using the illustrative example. Here is the map of the raster cells and the polygon (Figure \@ref(fig:polygons-extact-viz-2)).
+Here is the map of the raster cells and the polygon (Figure \@ref(fig:polygons-extact-viz-2)).
 
 
 ```{r polygons-extact-viz-2, fig.cap = "Visual illustration of raster data extraction for polygons data", echo = F}
 polygons_extract_viz
 ```
 
-Here is the output when `exact_extract()` is applied to the raster data and  polygon.
+Here is the output when `exact_extract()` is applied to the raster data and the polygon.
 
-```{r , echo = F}
+```{r ee, echo = F}
 (
 extracted_values <- exact_extract(as(stars_cells, "Raster"), st_sfc(polygon_extract))[[1]]
 )
@@ -576,11 +641,11 @@ tmax_m1_y09_KS_rb <- as(tmax_m1_y09_KS_stars, "Raster")
 
 Now, we can use `exact_extract()` as follows:
 
-```{r extracted-values-ee}
+```{r extracted-values-ee, results = "hide"}
 extracted_values <- exact_extract(tmax_m1_y09_KS_rb, KS_county_sf)  
 ``` 
 
-The returned outcome is a list of `data.frame`. $n$th element of the list corresponds to the $n$th polygon (the polygon stored in the $n$th row of the `sf`) in the `sf` object (`KS_county_sf`). Let's take a look at the first 6 rows of the first 5 elements of the list.
+The returned outcome is a list of `data.frame`, where the $n$th element of the list corresponds to the $n$th polygon (the polygon stored in the $n$th row of the `sf`) in the `sf` object (`KS_county_sf`). Let's take a look at the first 6 rows of the first 5 elements of the list.
 
 ```{r take-a-look-ee}
 extracted_values[1:5] %>% lapply(., head)
@@ -590,45 +655,59 @@ As you can see, each `data.frame` has variables called `layer.1`, $\dots$, `laye
 
 --- 
 
-In order to make the results easier to work with, you can process them to get a single `data.frame`, taking advantage of `dplyr::bind_rows()` to combine the list of the datasets into one dataset. In doing so, you can use `.id` option to create a new identifier column that links each row to its original data (`data.table` users can use `rbindlist()` with the `idcol` option).
+In order to make the results easier to work with, you can process them to get a single `data.frame`, taking advantage of `dplyr::bind_rows()` to combine the list of the datasets into one dataset. In doing so, you can use `.id` option to create a new identifier column that links each row to its original data (`data.table` users can use `rbindlist()` with the `idcol` option).  
 
 ```{r single-sf-ee}
+(
 extracted_values_df <- extracted_values %>% 
   #--- combine the list of data.frames ---#
-  bind_rows(., .id = "rowid")  
+  bind_rows(., .id = "rowid") %>% 
+  #--- convert to a data.table  ---#
+  # This is not really necessary for dplyr users. This is strictly for 
+  # displaying the results in a way that is easier for the readers to 
+  # its structure
+  data.table()
+)
 ```
 
 In `extracted_values_df`, parts of the data that comes from $n$th list has `rowid` value of $n$. This means that the data with `rowid == n` is for $n$th polygon in `KS_county_sf`. Therefore, we can easily merge the extracted information and `KS_county_sf` by creating an id variable that is identical with the row numbers.   
 
-```{r create-id-sf}
+<!-- 
+```{r create-id-sf, eval = F}
 KS_county_sf <- KS_county_sf %>% 
   #--- generate numeric id ---#
   mutate(county_num_id = 1:nrow(.)) 
-```
+``` -->
 
 ---
 
 Now that all the extracted data is in a single `data.frame`, we should recover the date information that was lost at the time of `stars` to `RasterBrick` conversion. To do this, we can use `st_get_dimension_values()` to first get the date values in the original `stars` object.
 
 ```{r get-dates-values}
+(
 dates_ls <- st_get_dimension_values(tmax_m1_y09_KS_stars, "date") %>% 
   #--- variable names should be character ---#
   as.character()
+)
 ```
 
 We can then assign the date values as the variable names as follows:
 
 ```{r rename-layer}
+(
 extracted_values_df <- extracted_values_df %>% 
   setnames(paste0("layer.", 1:length(dates_ls)), dates_ls)
+)
 ```
 
 You can easily convert it into a long format, which is typically more convenient for further data processing.   
 
 ```{r wide-to-long}
+(
 extracted_values_long <- pivot_longer(extracted_values_df, c(-rowid, -coverage_fraction), names_to = "date", values_to = "tmax") %>% 
   #--- convert from character to Date ---#
   mutate(date = as.Date(date))
+)
 ```
 
 You can then summarize the data for each polygon-date combination. For example, if you would like coverage-weighted mean of tmax for each polygon, you can do the following:
@@ -644,16 +723,17 @@ extracted_values_long %>%
 
 Instead of returning the value from all the intersecting cells, `exact_extract()` can summarize the extracted values by polygon and then return the summarized numbers. This is much like how `aggregate()` works, which we saw above. There are multiple default options you can choose from. All you need to do is to add the desired summary function name as the third argument of `exact_extract()`. For example, the following will get us the mean of the extracted values weighted by `coverage_fraction`.
 
-```{r mean-cov}
-(
+```{r mean-cov, results = "hide"}
 extacted_mean <- exact_extract(tmax_m1_y09_KS_rb, KS_county_sf, "mean")   
-)
+```
+
+```{r echo = F}
+extacted_mean
 ```
 
 As you can see, the outcome has only the mean of the extracted values weighted by `coverage_fraction`, with only one row per polygon. Since the $n$th row of the outcome is $n$th polygon of the `sf`, it can be easily merged with the `sf` just like the previous no-summary case. Post-extraction process is just as easy as it was for the no-summary case.
 
 ```{r }
-(
 mean_tmax_long <- extacted_mean %>% 
   #--- recover dates  ---#
   setnames(names(.), dates_ls) %>% 
@@ -661,7 +741,9 @@ mean_tmax_long <- extacted_mean %>%
   mutate(rowid = 1:nrow(.)) %>% 
   #--- wide to long ---#
   pivot_longer(-rowid, names_to = "date", values_to = "tmax")
-)
+
+#--- take a look ---#
+head(mean_tmax_long, 10)
 ```
 
 There are other options that may be of interest, such as "max", "min." You can see all the default options at h[the package website](https://isciences.gitlab.io/exactextractr/index.html). 
@@ -709,7 +791,7 @@ A good example of raster data with discrete values are land use data like Cropla
 cdl_KS_stack <- stack("./Data/CDL_2015_20.tif", "./Data/CDL_2016_20.tif") 
 ```
 
-```{r map-cdl-ks, fig.cap = "Map of CDL data for Kansas in 2015"}
+```{r map-cdl-ks, fig.cap = "Map of CDL data for Kansas in 2015 and 2016"}
 plot(cdl_KS_stack)
 ```
 
@@ -717,13 +799,13 @@ plot(cdl_KS_stack)
 extracted_cdl_KS <- exact_extract(cdl_KS_stack, KS_county_sf)
 ```
 
-```{r }
+```{r cdl-extract-head}
 extracted_cdl_KS[1:5] %>% lapply(head) 
 ```
 
 As you can see, the format of the extracted data is exactly the same as the tmax case we saw above. Let's combine them into one `data.frame`. 
 
-```{r }
+```{r cdl-extract-combine}
 extracted_cdl_KS_df <- bind_rows(extracted_cdl_KS, .id = "rowid") 
 
 head(extracted_cdl_KS_df)
@@ -738,6 +820,8 @@ extracted_cdl_KS_df %>%
   summarize(count = n())
 ```
 
+---
+
 Here is the `data.table` way.
 
 ```{r dt-freq}
@@ -751,17 +835,292 @@ extracted_cdl_KS %>%
 ```
 
 
-## Speed Comparison
+## Simple speed comparison
 
 ### Points 
 
-**exact_extract**
+For illustrations we use `KS_wells` as points data and `tmax_m1_y09_KS_stars` as Raster data. `KS_wells` is fairly large containing `r nrow(KS_wells)` points in total. We compare three options: `stars::st_extract()`, `terra::extract()`, and `exact_extract()`. 
 
-```{r }
-temp <- exact_extract(as(tmax_m1_y09_KS_stars, "Raster"), st_buffer(KS_wells, dist = 0.001))  
+**st_extract**
+
+```{r st_extract_disp, eval = F}
+tic()
+extracted_tmax <- st_extract(tmax_m1_y09_KS_stars, KS_wells) 
+toc()
 ```
 
+```{r st_extract_run, echo = F, eval = F}
+tic.clearlog()
+tic()
+extracted_tmax <- st_extract(tmax_m1_y09_KS_stars, KS_wells) 
+toc(log = TRUE, quiet = TRUE)
+log_txt <- tic.log(format = FALSE)
+saveRDS(log_txt, "./Data/extracted_tmax_st_e.rds")
+```
+
+```{r echo = F}
+log_txt <- readRDS("./Data/extracted_tmax_st_e.rds")
+(
+time_elapsed_se <- log_txt[[1]]$toc - log_txt[[1]]$tic
+)
+```
+
+As you can see, it took `r time_elapsed_se` seconds. This is much much slower than the `terra::extract()` option we see below.
+
+**terra::extract()**
+
+```{r extract_te}
+tic()
+#--- convert to SpatRaster ---#
+tmax_m1_y09_KS_rast <- tmax_m1_y09_KS_stars %>%  
+  #--- to RasterBrick ---#
+  as("Raster") %>% 
+  #--- to SpatRaster ---#
+  rast(.)
+
+#--- Step 2: extraction ---#
+extracted_tmax <- terra::extract(tmax_m1_y09_KS_rast, st_coordinates(KS_wells)) %>% 
+  data.frame() %>% 
+  #--- assign id ---#
+  mutate(id = KS_wells$well_id)
+toc()
+```
+
+Great. Only a fraction of a second. The hassles of object type conversions and reassigning dates are well worth it in this example. The comparative advantage of this approach over `st_extract()` will be even larger as you have to repeat similar operations many times.  
+
+**exact_extract**
+
+Even though I did not mention this method above, you could use `exact_extract()` to extract values for points. To do this you can first create small enough buffers around points so that none of the buffers intersect with multiple raster cells. We can then apply `exact_extract()` to the polygons of the buffers.
+
+```{r eval = F}
+tic()
+temp <- exact_extract(as(tmax_m1_y09_KS_stars, "Raster"), st_buffer(KS_wells, dist = 0.001))  
+toc()
+```
+
+```{r ee_extract_run, echo = F, eval = F}
+tic.clearlog()
+tic()
+temp <- exact_extract(as(tmax_m1_y09_KS_stars, "Raster"), st_buffer(KS_wells, dist = 0.001))  
+toc(log = TRUE, quiet = TRUE)
+log_txt <- tic.log(format = FALSE)
+saveRDS(log_txt, "./Data/extracted_tmax_ee.rds")
+```
+
+```{r echo = F}
+log_txt <- readRDS("./Data/extracted_tmax_ee.rds")
+(
+time_elapsed_ee <- log_txt[[1]]$toc - log_txt[[1]]$tic
+)
+```
+
+And you know why I did not introduce this method above. Just use the `terra::extact()` approach if speed is an issue.
+
+In summary, `terra::extract()` is by far the fastest at the moment. If you are looking to speed things up, use `terra::extract()`. The `exact_extract()` option has no place. However, I highly doubt `st_extract()` continues to be this slow. I will update you when things change.   
+
+
 ### Polygons 
+
+Here, `aggregate()` and `exact_extract()` are compared. The comparisons of the two approaches require a lot more elaborations than in the points case. In some cases, `aggregate()` outperforms `exact_extract()`. A rough summary of the comparative advantages of the two methods is the following:
+
++ aggregate() performs well when the raster dataset is small 
++ exact_extract() performs well when the raster dataset is large
++ exact_extract() is relatively slow when the number of polygons is large  
+
+Now, keep in mind that `exact_extract()` is doing more than `aggregate()` as we discussed above. Moreover, they return different values even when the same raster data and polygons data are used because `exact_extract()` returns values for cells that only partially intersect with polygons unlike `aggregate()`. So, the comparisons here are relevant when you can ignore values from partially intersecting cells, which often the case.  
+
+---
+
+Let's start with the example we used above in section \@ref(extraction-stars-polygons) and \@ref(ee-extract) using `KS_county_sf` as the polygons data and `tmax_m1_y09_KS_stars` as the raster data.
+
+
+**aggregate()**
+
+```{r }
+tic()
+extracted_values <- aggregate(tmax_m1_y09_KS_stars, KS_county_sf, FUN = mean) %>% 
+  st_as_sf
+toc()
+```
+
+**exact_extract()**
+
+```{r }
+tic()
+extracted_values <- exact_extract(as(tmax_m1_y09_KS_stars, "Raster"), KS_county_sf, "mean", progress = FALSE)  
+toc() 
+```
+
+Both of them are quite fast. `exact_extract()` is slightly faster. But considering the post-extraction hassles associated with `exact_extract()`, `aggregate()` is the winner here.
+
+---
+
+Now, let's increase the number of polygons without changing the spatial extent of the polygons data. This is done by creating regular grids over Kansas.   
+
+```{r create-grids-KS}
+(
+grids_in_KS <- st_make_grid(KS_county_sf, n = c(100, 100)) 
+)
+```
+
+Here is what the grid look like (Figure \@ref(fig:grids-ks)).
+
+```{r grids-ks, fig.cap = "Grids over tmax data for Kansas"}
+ggplot() +
+  geom_stars(data = tmax_m1_y09_KS_stars[,,,1]) +
+  scale_fill_viridis() +
+  geom_sf(data = grids_in_KS, fill = NA) +
+  theme_for_map 
+```
+
+Now, let's compare the two approaches.
+
+**aggregate()**
+
+```{r more-grids-se}
+tic()
+extracted_values <- aggregate(tmax_m1_y09_KS_stars, grids_in_KS, FUN = mean) %>% 
+  st_as_sf
+toc()
+```
+
+**exact_extract()**
+
+```{r more-grids-ee}
+tic()
+extracted_values <- exact_extract(as(tmax_m1_y09_KS_stars, "Raster"), grids_in_KS, "mean", progress = FALSE)  
+toc()
+``` 
+
+As you can see, `exact_extract()` is affected by an increase in the number of polygons more than `aggregate()` is. 
+
+---
+
+Now, let's make the raster dataset larger by using `tmax_m1_y09_stars`, which covers the entire contiguous U.S., and use the US counties as polygons. 
+
+```{r us-counties}
+US_county_sf <- st_as_sf(maps::map("county", plot = FALSE, fill = TRUE)) %>% 
+  #--- transform using the CRS of the PRISM stars data  ---#
+  st_transform(st_crs(tmax_m1_y09_stars))  
+```
+
+**aggregate()**
+
+```{r ag_dips, eval = F}
+tic()
+extracted_values <- aggregate(tmax_m1_y09_stars, US_county_sf, FUN = mean)
+toc()
+```
+
+```{r ag_run, echo = F, eval = F}
+tic.clearlog()
+tic()
+extracted_values <- aggregate(tmax_m1_y09_stars, US_county_sf, FUN = mean)
+toc(log = TRUE, quiet = TRUE)
+log_txt <- tic.log(format = FALSE)
+saveRDS(log_txt, "./Data/extracted_tmax_ag.rds")
+```
+
+```{r ag_show, echo = F}
+log_txt <- readRDS("./Data/extracted_tmax_ag.rds")
+(
+time_elapsed_ag <- log_txt[[1]]$toc - log_txt[[1]]$tic
+)
+```
+
+**exact_extract()**
+
+```{r ee-disp, eval = F}
+tic()
+extracted_values <- exact_extract(as(tmax_m1_y09_stars, "Raster"), US_county_sf, "mean", progress = FALSE)
+toc()
+```
+
+```{r ee-run, echo = F, eval = F}
+tic.clearlog()
+tic()
+extracted_values <- exact_extract(as(tmax_m1_y09_stars, "Raster"), US_county_sf, "mean", progress = FALSE)
+toc(log = TRUE, quiet = TRUE)
+log_txt <- tic.log(format = FALSE)
+saveRDS(log_txt, "./Data/extracted_tmax_ee_poly.rds")
+```
+
+```{r ee-show, echo = F}
+log_txt <- readRDS("./Data/extracted_tmax_ee_poly.rds")
+(
+time_elapsed_ee <- log_txt[[1]]$toc - log_txt[[1]]$tic
+)
+```
+
+Now, `exact_extract()` outperforms by a large margin. The performance of `exact_extract()` is robust to an increase in the size of raster data because it completes extraction jobs chunk by chunk. But, this is also the reason why it is not so robust to an increase in the number of polygons. When the number of polygons are large, the computational overhead associated with chunk-by-chunk operations accumulate, which leads to a comparative slower performance compared to `aggregate()`.
+
+### Crop first
+
+It typically pays off to first cropping the raster data to the extent of the polygons data first before extraction.
+
+**aggregate()**
+
+Here, the raster dataset is `tmax_m1_y09_stars` which covers the U.S. even though you are extracting values for Kansas (`KS_county_sf`).
+
+```{r without-cropping-ag, eval = F}
+tic()
+extracted_values <- aggregate(tmax_m1_y09_stars, KS_county_sf, FUN = mean)
+toc()
+```
+
+```{r without-cropping-ag-run, echo = F, eval = F}
+tic.clearlog()
+tic()
+extracted_values <- aggregate(tmax_m1_y09_stars, KS_county_sf, FUN = mean)
+toc(log = TRUE, quiet = TRUE)
+log_txt <- tic.log(format = FALSE)
+saveRDS(log_txt, "./Data/extracted_tmax_wo_cropping.rds")
+```
+
+```{r without-cropping-ag-show, echo = F}
+log_txt <- readRDS("./Data/extracted_tmax_wo_cropping.rds")
+(
+time_elapsed_woc <- log_txt[[1]]$toc - log_txt[[1]]$tic
+)
+```
+
+Notice that it took almost the same amount of time as the case with extracting values for `US_county_sf` from `tmax_m1_y09_stars`.
+
+This one first crops the raster data to the extent of Kansas and then extract.
+
+```{r with-cropping-ag}
+tic()
+extracted_values <- tmax_m1_y09_KS_stars %>% 
+  st_crop(st_bbox(KS_county_sf)) %>% 
+  aggregate(KS_county_sf, FUN = mean)
+toc() 
+```
+
+A huge improvement. 
+
+
+**exact_extract()**
+
+Without cropping,
+
+```{r without-cropping-ee}
+tic()
+extracted_values <- exact_extract(as(tmax_m1_y09_stars, "Raster"), KS_county_sf, "mean", progress = FALSE)
+toc()
+```
+
+With cropping,
+
+```{r with-cropping-ee}
+tic()
+results <- tmax_m1_y09_KS_stars %>% 
+  st_crop(st_bbox(KS_county_sf)) %>% 
+  as("Raster") %>% 
+  exact_extract(KS_county_sf, "mean", progress = FALSE)
+toc() 
+```
+
+So, it is still worthwhile to crop first, but the benefit of doing so is not so large (yes, the no-cropping case is fast in the first place). This is again because `exact_extract` does chunk-by-chunk operations where the unnecessary parts of the data are hardly relevant in the entire process.
 
 
 
