@@ -1,0 +1,299 @@
+# Raster Data Handling {#raster-basics}
+
+```{r chap_4_setup, echo = FALSE, results = "hide"}
+library(knitr)
+knitr::opts_chunk$set(
+  echo = TRUE,
+  cache = TRUE,
+  comment = NA,
+  message = FALSE,
+  warning = FALSE,
+  tidy = FALSE,
+  cache.lazy = FALSE
+)
+
+suppressMessages(library(here))
+opts_knit$set(root.dir = here())
+```
+
+```{r , eval = FALSE, echo = FALSE}
+setwd(here())
+```
+
+```{r, echo=FALSE, warning=FALSE, cache = FALSE}
+#--- load packages ---#
+suppressMessages(library(data.table))
+suppressMessages(library(stringr))
+suppressMessages(library(raster))
+suppressMessages(library(terra))
+suppressMessages(library(cdlTools))
+suppressMessages(library(sf))
+suppressMessages(library(tictoc))
+# setwd("/Users/tmieno2/Box/Teaching/AAEA R/GIS")
+```
+
+## Before you start {-}
+
+In this chapter, we will learn how to use the `terra` package to handle raster data. The `raster` package has been (and I must say still is) **THE** package for raster data handling. However, we are in the period of transitioning from the `raster` package to the `terra` package. The `terra` package has been under active development to replace the `raster` package, and its first beta version^[[github page](https://github.com/rspatial/terra)] was just released on CRAN on March 20, 2020. `terra` is written in C++ and thus is faster than the `raster` package in many raster data operations. The `raster` and `terra` packages share the same function name for most of the raster operations. Therefore, learning the `terra` package is almost the same as learning the `raster` package. Key differences will be discussed and will become clear later.
+
+For economists, raster data extraction for vector data will be by far the most common use case of raster data and also the most time-consuming part of the whole raster data handling experience. Therefore, we will introduce only the essential knowledge of raster data operation required to effectively implement the task of extracting values, which will be covered extensively in Chapter \@ref(int-RV). For example, we do not cover raster arithmetic, focal operations, or aggregation. Those who are interested in a fuller treatment of the `terra` or `raster` package are referred to [Spatial Data Science with R and “terra”](https://rspatial.org/terra/spatial/index.html) or Chapters 3, 4, and 5 of [Geocomputation with R](https://geocompr.robinlovelace.net/), respectively.
+
+We still learn the raster object classes defined by the `raster` package and how to switch between the `raster` and `terra` object classes. This is because other useful packages for us economists were written to work with the `raster` object classes and have still not been adapted to support `terra` object classes at the moment. In particular, `exactextractr` is critical for economists who regularly use large spatially fine raster datasets with many temporal dimensions because of its speed advantage over the `terra` package. `terra::extract()` is much faster than `raster::extract()`, which is unbearably slow for large datasets. Unfortunately, `terra::extract()` is still much slower than the extraction function provided by `exactextractr` packages for large datasets^[CDL data is a good example]. Since `exactextractr` works only with objects defined by the `raster` package, you need to convert a `terra` object to a `raster` object if you would like to take advantage of the function. This also means that we need to learn the difference in raster object classes between the two packages. This problem should be resolved in a matter of a year, and most of the spatial packages will add support for `terra`.
+
+Finally, you might benefit from learning the `stars` package for raster data handling and operations (covered in Chapter \@ref(stars-basics)), particularly if you often work with raster data with the temporal dimension (e.g., PRISM, Daymet). It provides a data model that makes working with raster data with temporal dimensions easier. It also allows you to apply `dplyr` verbs for data wrangling.
+
+### Direction for replication {-}
+
+**Datasets**
+
+All the datasets that you need to import are available [here](https://www.dropbox.com/sh/ikcxqqfvw4coc41/AACQYRFrHCxBtATOtAqI2daHa?dl=0). In this chapter, the path to files is set relative to my own working directory (which is hidden). To run the codes without having to mess with paths to the files, follow these steps:
+
++ set a folder (any folder) as the working directory using `setwd()`  
++ create a folder called "Data" inside the folder designated as the working directory (if you have created a "Data" folder previously, skip this step)
++ download the pertinent datasets from [here](https://www.dropbox.com/sh/ikcxqqfvw4coc41/AACQYRFrHCxBtATOtAqI2daHa?dl=0) 
++ place all the files in the downloaded folder in the "Data" folder
+
+**Packages**
+
+Run the following code to install or load (if already installed) the `pacman` package, and then install or load (if already installed) the listed package inside the `pacman::p_load()` function.
+
+```{r Chap4_packages}
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(
+  terra, # handle raster data
+  raster, # handle raster data
+  cdlTools, # download CDL data
+  mapview, # create interactive maps
+  dplyr, # data wrangling
+  sf # vector data handling
+)  
+```
+
+## Raster data object classes  
+
+### `raster` package: `RasterLayer`, `RasterStack`, and `RasterBrick`
+
+Let's start with taking a look at raster data. We will download CDL data for Iowa in 2015. 
+
+```{r read_the_IA_cdl_data, eval = F}
+library(cdlTools)
+
+#--- download the CDL data for Iowa in 2015 ---#
+(
+IA_cdl_2015 <- getCDL("Iowa", 2015)$IA2015
+)
+```
+
+```{r read_the_IA_cdl_data_run, echo = F}
+(
+IA_cdl_2015 <- raster("./Data/IA_cdl_2015.tif")
+)
+```
+
+Evaluating the imported raster object provides you with information about the raster data, such as dimensions (number of cells, number of columns, number of cells), spatial resolution (30 meter by 30 meter for this raster data), extent, CRS and the minimum and maximum values recorded in this raster layer. The class of the downloaded data is `RasterLayer`, which is a raster data class defined by the `raster` package.^[This is what I meant by the `raster` being THE package for raster data handling. The default object class for many raster-related packages is a `raster` object class, instead of a `terra` object class.] A `RasterLayer` consists of only one layer, meaning that only a single variable is associated with the cells (here it is land use category code in integer). Among these spatial characteristics, you often need to extract the CRS of a raster object before you interact it with vector data^[e.g., extracting values from a raster layer to vector data, or cropping a raster layer to the spatial extent of vector data.], which can be done using `projection()`: 
+
+```{r chars}
+projection(IA_cdl_2015)
+```
+
+---
+
+You can stack multiple raster layers of the **same spatial resolution and extent** to create a `RasterStack` using `raster::stack()`. Often times, processing a multi-layer object has computational advantages over processing multiple single-layer one by one^[You will see this in Chapter \@ref(int-RV) where we learn how to extract values from a raster layer for a vector data.]. 
+
+To create a `RasterStack` and `RasterBrick`, let's download the CDL data for IA in 2016 and stack it with the 2015 data.
+
+```{r make_stack, eval = F}
+#--- download the CDL data for Iowa in 2016 ---#
+IA_cdl_2016 <- getCDL("Iowa", 2016)$IA2016 
+
+#--- stack the two ---#
+(
+IA_cdl_stack <- stack(IA_cdl_2015, IA_cdl_2016)
+)
+```  
+
+```{r make_stack_run, echo = F}
+IA_cdl_2016 <- raster("./Data/IA_cdl_2016.tif")
+
+#--- stack the two ---#
+(
+IA_cdl_stack <- stack(IA_cdl_2015, IA_cdl_2016)
+)
+```
+
+`IA_cdl_stack` is of class `RasterStack`, and it has two layers of variables: CDL for 2015 and 2016. You can make it a `RasterBrick` using `raster::brick()`:
+
+```{r make_brick}
+#--- stack the two ---#
+IA_cdl_brick <- brick(IA_cdl_stack)
+
+#--- or this works as well ---#
+# IA_cdl_brick <- brick(IA_cdl_2015, IA_cdl_2016)
+
+#--- take a look ---#
+IA_cdl_brick
+```  
+
+You probably noticed that it took some time to create the `RasterBrick` object^[Read [here](https://geocompr.robinlovelace.net/spatial-class.html#raster-classes) for the subtle difference between `RasterStack` and `RasterBrick`]. While spatial operations on `RasterBrick` are supposedly faster than `RasterStack`, the time to create a `RasterBrick` object itself is often long enough to kill the speed advantage entirely^[We will see this in Chapter , where we compare the speed of data extraction from `RasterStack` and `RasterBrick` objects.]. Often, the three raster object types are collectively referred to as `Raster`$^*$ objects for shorthand in the documentation of the `raster` and other related packages.
+
+### `terra` package: `SpatRaster`
+
+`terra` package has only one object class for raster data, `SpatRaster` and no distinctions between one-layer and multi-layer rasters are necessary. Let's first convert a `RasterLayer` to a `SpatRaster` using `terra::rast()` function.
+
+```{r spat_raster, dependson = "read_the_IA_cdl_data"}
+#--- convert to a SpatRaster ---#
+IA_cdl_2015_sr <- rast(IA_cdl_2015)
+
+#--- take a look ---#
+IA_cdl_2015_sr
+```
+
+You can see that the number of layers (`nlyr`) is $1$ because the original object is a `RasterLayer`, which by definition has only one layer. Now, let's convert a `RasterStack` to a `SpatRaster` using `terra::rast()`.  
+
+```{r spat_raster_nl, cache = F}
+#--- convert to a SpatRaster ---#
+IA_cdl_stack_sr <- rast(IA_cdl_stack)
+
+#--- take a look ---#
+IA_cdl_stack_sr
+```
+
+Again, it is a `SpatRaster`, and you now see that the number of layers is 2. We just confirmed that `terra` has only one class for raster data whether it is single-layer or multiple-layer ones.
+
+Instead of `projection()`, you use `crs()` to extract the CRS.
+
+```{r get_crs_terra}
+crs(IA_cdl_2015_sr)
+```
+
+### Converting a `SpatRaster` object to a `Raster`$^*$ object.
+
+You can convert a `SpatRaster` object to a `Raster`$^*$ object using `raster()`, `stack()`, and `brick()`. Keep in mind that if you use `rater()` even though `SpatRaster` has multiple layers, the resulting `RasterLayer` object has only the first of the multiple layers. 
+
+```{r convert_back}
+#--- RasterLayer (only 1st layer) ---#
+IA_cdl_stack_sr %>% raster()
+
+#--- RasterLayer ---#
+IA_cdl_stack_sr %>% stack()
+
+#--- RasterLayer (this takes some time) ---#
+IA_cdl_stack_sr %>% brick()
+```
+
+### Vector data in the `terra` package
+
+`terra` package has its own class for vector data, called `SpatVector`. While we do not use any of the vector data functionality provided by the `terra` package, we learn how to convert an `sf` object to `SpatVector` because `terra` functions do not support `sf` as of now (this will likely be resolved very soon). We will see some use cases of this conversion in the next chapter when we learn raster value extractions for vector data using `terra::extract()`. 
+
+As an example, let's use Illinois county border data. 
+
+```{r il_county}
+library(maps)
+#--- Illinois county boundary ---#
+(
+IL_county <- st_as_sf(map("county", "illinois", plot = FALSE, fill = TRUE))
+)
+```
+
+You cannot convert an `sf` object directly to `SpatVector`. You first need to turn an `sf` into a spatial object class supported by the `sp` package, and then turn that into a `SpatVector` object using `terra::vect()`.
+
+```{r to_sv}
+IL_county_sv <-	as(IL_county, "Spatial") %>% # to SpatialPolygonsDataFrame  
+	#--- to SpatVectgor ---#
+	vect()
+```
+
+You just need to put the name of your `sf` object in place of `IL_county`. You do not have to understand what `SpatialPolygonsDataFrame` is if you are not familiar with the `sp` package. It is just an intermediate object that you do not really need to understand. Indeed, when the next version of the `terra` packages comes out (The version currently available on CRAN is `0.6-9` at the time of writing), `vect()` will be able to convert a `SpatVector` object to an `sf` object directly without the intermediate step like this (see [here](https://github.com/rspatial/terra/issues/38)):
+
+```{r eval = F}
+#--- NOT RUN ---#	
+IL_county_sv <- vect(IL_county)
+```
+
+To install the development version, visit [here](https://github.com/rspatial/terra) and follow the direction.
+
+
+## Read and write a raster data file  
+
+Sometimes we can download raster data as we saw in Section 3.1. But, most of the time you need to read raster data stored in a file. Raster data files come in numerous formats. For example, PRPISM comes in the Band interleaved by line (BIL) format, some of the Daymet data comes in netCDF format. Other popular formats include GeoTiff, SAGA, ENVI, and many others. 
+
+### Read raster file(s)
+
+You use `terra::rast()` to read raster data of many common formats, and it should be almost always the case that the raster data you got can be read using this function. Here, we read a GeoTiff file (a file with .tif extension):
+
+```{r read_no_eval_terra}
+(
+IA_cdl_2015_sr <- rast("./Data/IA_cdl_2015.tif") 
+)
+```
+
+One important thing to note here is that the cell values of the raster data are actually not in memory when you "read" raster data from a file. 
+You basically just established a connection to the file. This helps to reduce the memory footprint of raster data handling. You can check this by `raster::inMemory()` function for `Raster`$^*$ objects, but the same function has not been implemented for `terra` yet. 
+
+You can read multiple single-layer raster datasets of the same spatial extent and resolution at the same time to have a multi-layer `SpatRaster` object. Here, we import two single-layer raster datasets (IA_cdl_2015.tif and IA_cdl_2016.tif) to create a two-layer `SpatRaster` object.
+
+```{r multiple_files}
+#--- the list of path to the files ---#
+files_list <- c("./Data/IA_cdl_2015.tif", "./Data/IA_cdl_2016.tif")
+
+#--- read the two at the same time ---#
+(
+multi_layer_sr <- rast(files_list) 
+)
+```
+
+Of course, this only works because the two datasets have the identical spatial extent and resolution. There are, however, no restrictions on what variable each of the raster layers represent. For example, you can combine PRISM temperature and precipitation raster layers.
+
+### Write raster files
+
+You can write a `SpatRaster` object using `terra::writeRaster()`.
+
+```{r write_terra, eval = F}
+terra::writeRaster(IA_cdl_2015_sr, "./Data/IA_cdl_stack.tif", format = "GTiff", overwrite = TRUE)
+```
+
+The above code saves `IA_cdl_2015_sr` (a `SpatRaster` object) as a GeoTiff file.^[There are many other alternative formats (see [here](https://www.rdocumentation.org/packages/raster/versions/3.0-12/topics/writeRaster))] The format option can be dropped as `writeRaster()` infers the format from the extension of the file name. The `overwrite = TRUE` option is necessary if a file with the same name already exists and you are overwriting it. This is one of the many areas `terra` is better than `raster`. `raster::writeRaster()` can be frustratingly slow for a large `Raster`$^*$ object. `terra::writeRaster()` is much faster.
+
+You can also save a multi-layer `SpatRster` object just like you save a single-layer `SpatRster` object. 
+
+```{r write_terra_2, eval = F}
+terra::writeRaster(IA_cdl_stack_sr, "./Data/IA_cdl_stack.tif", format = "GTiff", overwrite = TRUE)
+```
+
+The saved file is a multi-band raster datasets. So, if you have many raster files of the same spatial extent and resolution, you can "stack" them on R and then export it to a single multi-band raster datasets, which cleans up your data folder.
+ 
+## Access values 
+
+Sometime, it is nice to be able to see the data values in a raster dataset or visualize the data for various kinds of checks. You can access the values stored in a `SpatRaster` object using `values()` function:
+
+```{r values}
+#--- terra::values ---#
+values_from_rs <- values(IA_cdl_stack_sr) 
+
+#--- take a look ---#
+head(values_from_rs)
+``` 
+
+The returned values come in a matrix form of two columns because we are getting values from a two-layer `SpatRaster` object (one column for each layer). 
+
+## Quick plot and interactive map 
+
+To have a quick visualization of the data values of `SpatRaster` objects, you can simply use `plot()`:
+
+```{r plot_stack}
+plot(IA_cdl_stack_sr)
+```
+
+If you would like to have an interactive view of raster datasets, you can use the `mapView()` function from the `mapview` package just like we did for `sf` objects in Chapter \@ref(int-vv). It sill does not support `terra` objects, so you first need to convert a `SpatRaster` object into `Raster`$^*$ objects first and then apply `mapView()`. 
+
+<br>
+
+```{r int-map-raster, cache = F}
+mapView(stack(IA_cdl_stack_sr))
+```
+
+<br>
+
+By clicking on the white box beneath the $+$ and $-$ signs, you can pick the layers to display (here, CDL for Iowa in 2015 and 2016). Note that, in the map above, the raster values are modified because the number of cells of the raster layers are too large. `mapView()` reduced the resolution when creating the map, changing the values during the process. You can specify the maximum number of cells using the `mapview.maxpixels` option.
+
+

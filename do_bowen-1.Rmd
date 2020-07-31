@@ -1,0 +1,275 @@
+---
+title: "CDL with `CropScapeR`"
+author: "Bowen Chen"
+date: "7/3/2020"
+output: 
+  html_document:
+    toc: true
+    number_sections: true
+---
+
+```{r setup, include=TRUE, message=FALSE, warning=F}
+library(CropScapeR)
+library(dplyr)
+library(raster)
+library(tidycensus)
+library(parallel)
+```
+
+```{r, include=F, message=F}
+httr::set_config(httr::config(ssl_verifypeer = 0L))
+
+data <- GetCDLData(aoi = 17019, year = 2018, type = 'f', save_path = 'data.tif')
+
+data_mat <- GetCDLData(aoi = 17019, year = 2018, type = 'f', save_path = 'data_mat.tif', mat = T)
+data_tri <- GetCDLData(aoi = c(-88.3, 40, -88.1, 40.1, -88.2, 40.2), year = 2018, type = 'ps', crs = '+init=epsg:4326', save_path = 'data_tri.tif')
+data_box <- GetCDLData(aoi = c(-88.2, 40.03, -88.1, 40.1), year = '2018', type = 'b', crs = '+init=epsg:4326', save_path = 'data_box.tif')
+data_IL <- readRDS(file = './Data/data_IL.rds')
+```
+
+The Cropland Data Layer (CDL) is a data product produced by the National Agricultural Statistics Service of U.S. Department of Agriculture. CDL provides geo-referenced, high accuracy, 30 or 56 meter resolution, crop-specific cropland land cover information for up to 48 contiguous states in the U.S. from 1997 to the present. This data product has been extensively used in agricultural research. 'CropScape' is an interactive Web CDL exploring system (<https://nassgeodata.gmu.edu/CropScape/>), and it was developed to query, visualize, disseminate, and analyze CDL data geospatially through standard geospatial web services in a publicly accessible online environment (Han et al., 2012). 
+
+
+Here we use the `CropScapeR` package developed by Dr. Bowen Chen (<http://www.bwchen.com/>) to explore the CDL data. The `CropScapeR` package implements some of the most useful geospatial processing services provided by the 'CropScape', and it allows users to efficiently process the CDL data within the `R` environment.  
+
+# Package installation   
+
+The `CropScapeR` package can be installed directly from 'CRAN':    
+```{r, eval  = F}
+install.packages("CropScapeR")
+```
+
+The development version of the package can be downloaded from its GitHub website (<https://github.com/cbw1243/CropScapeR>) using the following codes:   
+
+```{r, eval  = F}
+devtools::install_github("cbw1243/CropSca##peR")  
+```
+
+Note that the `devtools` package is used here and must be installed. 
+
+# Key functionalities in `CropScapeR`   
+
+The `CropScapeR` package provides four functions that implement four different geospatial processing services provided by the 'CropScape'. This section introduces these four functions while providing some examples.   
+
+## `GetCDLData`: Access the CDL data    
+
+The `GetCDLData` function fetches the cropland land cover data directly from the CDL. This is done in two steps: use the GET function from the httr package to send data requests; then use the `raster` function from the `raster` package to read the requested CDL data (a raster TIF file). 
+
+A main feature of this function is to allow users to obtain the CDL data for any Area of Interest (AOI) in a given year. The AOI can be a county (defined by a 5-digit county FIPS code), a triangle area (defined by three coordinates), a box area (defined by four corner points), or a single point (defined by a coordinate). 
+
+Note that `GetCDLData` is not designed to download data for a very large spatial unit, such as a state, at once. Instead, it is encouraged to cut the large spatial unit into many small spatial units, and then download data for these small spatial units using parallel computing (see more details in section 3). This is important to achieve high efficiency of processing the CDL data at scale. If you are interested in downloading the state level CDL data, you might consider using the `cdlTools` package. You can also download the national level CDL data from the NASS website: <https://www.nass.usda.gov/Research_and_Science/Cropland/Release/index.php> 
+
+The `GetCDLData` function requires three necessary parameters to make a valid data request: 
+
+  + `aoi`: Area of Interest (AOI).     
+  + `year`: Year of the data to request.    
+  + `type`: Type of AOI.    
+
+The AOI can be a county, user-defined triangle area, user-defined box, or single point. We show how to obtain CDL data for a county and bounding box.   
+
+
+In the following example, I make request for the CDL data for the Champaign county (FIPS code: 17019) in the state of Illinois in 2018. Because a county is used here, the `type` argument is specified as 'f'.    
+
+```{r eval = F}
+data <- GetCDLData(aoi = 17019, year = 2018, type = 'f')
+```
+
+By default, `GetCDLData` returns a raster TIF file, stored as a 'RasterLayer' object defined by the `raster` package. The raster data can be visualized simply by calling the `plot` function in the `raster` package.   
+```{r fig.width=3, fig.height=3, fig.align='center'}
+# Plot the data
+raster::plot(data)
+```
+
+The `GetCDLData` function allows you to convert the raster TIF file into a data frame. This can be done by letting `mat`=`TRUE`. 
+
+```{r eval = F}
+data_mat <- GetCDLData(aoi = 17019, year = 2018, type = 'f', mat = TRUE)
+# Show data in the first 5 rows
+head(data_mat, n = 5)
+``` 
+
+You can see that the data table has three columns. The first two columns ('x' and 'y') are coordinates. Note that the default coordinate system used by CDL is a projected coordinate system called Albers projection (or Albers equal-area conic projection). The third column ('value') is the crop code. To find out crop names associated with the crop codes, you can download the reference table (a EXCEL file) at <https://www.nass.usda.gov/Research_and_Science/Cropland/docs/cdl_codes_names.xlsx>. Alternatively, you can access the reference table from the `CropScapeR` package using `data(linkdata)`. Then, you can merge the two data sets based on the crop codes:
+
+```{r}
+data("linkdata")
+data_mat_crop <- dplyr::left_join(data_mat, linkdata, by = c('value' = 'MasterCat'))
+head(data_mat_crop, n = 5)
+``` 
+
+Now you can see that the top 5 rows in `data_mat` are zeros, representing 'NoData'. These points with 'NoData' can be removed by using the `filter` function. Next, you can count the number of pixels by crop categories in the selected AOI. To calculate acreage, multiply the count by the square meters conversion factor which is dependent upon the CDL pixel size. The conversion factor for 30 meter pixels is 0.222394. The conversion factor for 56 meter pixels is 0.774922. Here we use 0.222394 because the downloaded raster file is at 30-meter resolution. The results show that the top crops planted in the Champaign county in 2018 was corn (269395.42 acres) and soybeans (260901.52 acres). 
+
+```{r}
+# Show resolution of the downloaded raster file
+res(data) 
+# Calculate pixel counts/acreage by crop names for Champaign county in 2018.
+data_mat_crop <- data_mat_crop %>%
+  filter(Crop != 'NoData') %>%
+  group_by(Crop) %>%
+  summarise(Num = n()) %>%
+  mutate(Acres = Num*0.222394) %>% 
+  arrange(desc(Acres))
+
+head(data_mat_crop, n = 5)
+``` 
+
+Below are additional examples that show how to retrieve data for a triangle area, a box area, and a single point. As mentioned above, the CDL uses the Albers projection system. If longitude/latitude are used to define the coordinates, you should let `crs` = '+init=epsg:4326'. 
+
+When requesting data for a triangle area, you are expected to provide a vector with six numerical values (representing three coordinates) as an input for AOI. For instance, if latitude/longitude is used, users should specify the AOI as (longitude 1, latitude 1, longitude 2, latitude 2, longitude 3, latitude 3). When requesting data for a box area, you are expected to provided a vector with four numerical values (representing corner points of the box) as an input for AOI. For instance, if latitude/longitude is used, users should specify the AOI as (Lower longitude, Lower latitude, Higher longitude, Higher latitude). 
+
+```{r fig.width=3, fig.height=3, eval = F}
+data_tri <- GetCDLData(aoi = c(-88.3, 40, -88.1, 40.1, -88.2, 40.2), year = 2018, type = 'ps', crs = '+init=epsg:4326')
+
+data_box <- GetCDLData(aoi = c(-88.2, 40.03, -88.1, 40.1), year = '2018', type = 'b', crs = '+init=epsg:4326')
+``` 
+
+Similarily, you can visualize the raster data using the `plot` function:
+```{r fig.width=3, fig.height=3, eval = T}
+raster::plot(data_tri)
+raster::plot(data_box)
+``` 
+
+The raster data for a single point cannot be visualized, because the returned object is a matrix with one row that displays the crop category for the point. 
+```{r fig.width=3, fig.height=3, eval = T}
+data_point <- GetCDLData(aoi = c(-94.6754,42.1197), year = 2018, type = 'p', crs = '+init=epsg:4326')
+data_point
+```
+The `GetCDLData` function also allows you to save the requested raster data as a TIF file in your local drive. This can be done by specifying the directory to save the TIF file in `save_path`. The default value of  `save_path` is `NULL`, and the data will not be saved in your local drive. 
+
+
+## `GetCDLComp`: Request data on land use changes  
+
+The `GetCDLComp` function allows users to request data on changes in land cover over time from the CDL. Specifically, this function returns acres changed from one crop category to another crop category between two years for a user-defined AOI. 
+
+Let's see an example. The following codes request data on acreage changes in land cover for the Champaign county (FIPS = 17019) from 2017 to 2018. What is returned is a data table that has 5 columns. The columns "From" and "To" are crop names. The column "Count" is the pixel count, and "Acreage" is the acres corresponding to the pixel counts. The last column "aoi" is just the selected AOI. The first row of the returned data table shows the acreage (i.e., 40,362 acres) of continuous corn during 2017 and 2018. The third row shows the acreage (i.e., 240,506 acres) rotated from corn to soybeans during 2017 and 2018.   
+
+```{r}
+data_change <- GetCDLComp(aoi = '17019', year1 = 2017, year2 = 2018, type = 'f')
+head(data_change, 5)
+```
+
+## GetCDLImage: Download the image files of the CDL data
+The `GetCDLImage` function allows users to download the image files of the CDL data. This function is very similar to the `GetCDLData` function, except that image files are returned. This function can be helpful if you only want to look at the picture of the CDL data. Be default, the picture is saved as the 'png' format. You can also save it in the 'kml' format. 
+
+```{r}
+GetCDLImage(aoi = 17019, year = 2018, type = 'f', verbose = F)
+``` 
+
+## GetCDLStat: Get acreage estimates from the CDL      
+The `GetCDLStat` function allows users to get acreage by land cover categories for the user defined AOI in a year. For example, the following codes request data on acreage by land cover categories for the Champaign county in Illinois in 2018. You can see that the pixel counts are already converted to acres and category names are attached.   
+```{r}
+data_stat <- GetCDLStat(aoi = 17019, year = 2018, type = 'f')
+head(data_stat)
+``` 
+
+# Efficient processing of the CDL data   
+
+A key advantage of the `CropScapeR` package is that it allows users to efficiently process the CDL data in `R`. This is imporant because it is usually challenging to process the CDL data for a large area of interest, say, a state. A CDL file for a single state can take about 1 GB of the system's memory. Even though the computers nowdays are more powerful than before, processing a raster TIF file with the size of 1 GB can be very tedious. Here I demonstrate how to process the CDL data for a large area efficiently using `CropScapeR` package in combination with the parallel computing technique in `R`. 
+
+Let's assume that you are interested in obtaining crop acreage in the state of Illinois from the CDL. To get the data, you can download a state CDL file for Illinois and then count for crop acres. This approach will take a lot of time. Alternatively, you can download county CDL files for all counties in the Illinois and then aggregate the data to state level. This approach cut the big task into pieces and can be speeded up using the parallel computing technique
+
+To begin with, we need to know the FIPS codes for all counties in Illinois. The data can be obtained from the `fips_codes` dataset saved in the `tidycensus` package. This dataset has the state names, county names, and their FIPS codes for all counties in the U.S. Because we are interested in the state of Illinois only, we use the `filter` function to extract county data for Illlinois (abbreviated as 'IL'). Meanwhile, we create five-digit county FIPS codes by combining the 'state_code' with the 'county_code'. The filtered dataset shows that there are 102 counties in Illinois. 
+
+```{r}
+# Get FIPS codes for all states 
+data(fips_codes)
+# Show top five rows in the dataset
+head(fips_codes, n = 5)
+# Get data for Illinois
+fips_codes_IL <- fips_codes %>%
+  filter(state == 'IL') %>%
+  mutate(fips = paste0(state_code, county_code))
+# Number of counties
+nrow(fips_codes_IL)
+# Show top five rows in the dataset
+head(fips_codes_IL, n = 5)
+```
+
+Next, we download the crop-specific acreage data for each county in the state of Illinois using the parallel computing technique. In Windows, this can be completed in four steps. At step 1, specify the number of cores that you want to use. These cores will be used as clusters to process the data in parallel. You can use `detectCores()` to detect the maximum number of cores that you can use. I have 8 cores in my computer and I use all of them. At step 2, export the `CropScapeR` package into the clusters using the `clusterEvalQ` function. At step 3, download the crop acreage data for all counties in Illinois in the year of 2018. Now we use the `GetCDLStat` function that is suitable for this task. Note that FIPS codes have been added to the returned dataset.  At step 4, turn off the clusters. The four steps take less than 3 seconds on my computer. If you use fewer cores, more time is expected. 
+
+```{r message = F, eval = F}
+# Step 1. Specify the number of cores to use. 
+cl <- makeCluster(8) # Use 8 cores
+# Step 2. Export the CropScapeR package into clusters
+clusterEvalQ(cl, library(CropScapeR))
+# Step 3. Download data 
+data_IL <- parLapply(cl, fips_codes_IL$fips, function(x) {
+  temp <- GetCDLStat(aoi = x, year = 2018, type = 'f')
+  temp$fips <- x # Add fips codes to the returned dataset
+  return(temp)
+})
+# Step 4. Turn off the clusters.
+stopCluster(cl)
+```
+
+Lastly, once the county-level data are obtained, you can aggregate the county-level data into the state level. Note that the `parLapply` function returns a list, and we can convert the list back to a data table using the `bind_rows` function. To see the county names, merge the crop acreage data with the 'fips_codes_IL' dataset. The finally obtained 'data_IL_long' dataset records crop-specific acres for all counties in Illinois.  
+
+```{r eval = F}
+data_IL_long <- data_IL %>% 
+  bind_rows() %>%
+  left_join(., fips_codes_IL, by = 'fips')
+```
+
+To see which county produces most corn in Illinois in 2018:  
+```{r eval = F}
+data_IL_corn <- data_IL_long %>%
+  filter(Category == 'Corn') %>%
+  arrange(desc(Acreage))
+  
+head(data_IL_corn, n = 5)
+```
+
+To see the top crops planted in Illinois in 2018, aggregate the data by land cover categories: 
+```{r eval = F}
+data_IL_crop <- data_IL_long %>%
+  group_by(Category) %>%
+  summarise(Acreage = sum(Acreage)) %>%
+  arrange(desc(Acreage))
+  
+head(data_IL_crop, n = 5)
+```
+The processed CDL data shows that 10.77 million acres were planted with corn and 10.38 million acres were planted with soybeans in Illinois in 2018. These numbers are close to numbers recorded in the USDA-NASS survey (i.e., 11 million acres for corn, 10.8 million acres for soybeans). 
+
+
+# Technical notes    
+
+## SSL certificate   
+The `CropScapeR` package was developed under the Windows system. Some unanticipated technical issues might occur when using the `CropScapeR` package to request the CDL data in Mac operating system. A notable one is the SSL certificate problem. SSL refers to the Secure Sockets Layer, and SSL certificate displays important information for verifying the owner of a website and encrypting web traffic with SSL/TLS for securing connecttion. Several Mac users have reported errors called 'SSL certificate problem: SSL certificate expired'. As the name suggests, this is because CropScape server has an expired certificate, which affects the Mac users. Windows users should not expect this issue. 
+
+With an invalid SSL certificate, the `GetCDLData` function would fail because: (1) it cannot send httr GET request any more; and (2) it cannot read the requested raster TIF data via the `raster` function any more. Here is a two-step workaround of the certificate issue. At step 1, specify in `R` that you want to skip the certificate validation when making the httr GET request. At step 2, download the raster TIF data into your local drive using the `download.file` function with `wget`, and then read the downloaded raster file using the `raster` function. The second step is automatically processed inside the `GetCDLData` function. So you just have to do the first step manually. Below is an example to get the CDL data for the Champaign county in 2018 on a Mac computer.  
+
+```{r eval = F}
+# Skip the SSL check
+httr::set_config(httr::config(ssl_verifypeer = 0L))
+# Automatically generate a temporary path to save the data
+tif_file <- tempfile(fileext = '.tif')
+# Download the raster TIF file into specified path, also read into R 
+data <- GetCDLData(aoi = 17019, year = 2018, type = 'f', save_path = tif_file)
+```
+
+## Parallel computing on Mac   
+The usage of parallel computing is relatively easier in a Mac computer. Again, the SSL check needs to be skipped if there is issue with the SSL certificate.
+
+```{r message = T, eval = F}
+# Get county fips codes
+data(fips_codes)
+# Use fips codes for Illinois counties only 
+fips_codes_IL <- fips_codes %>%
+  filter(state == 'IL') %>%
+  mutate(fips = paste0(state_code, county_code))
+# Skip SSL check for Mac
+httr::set_config(httr::config(ssl_verifypeer = 0L))
+# Download the data in parallel
+data_IL <- mclapply(fips_codes_IL$fips, function(x) {
+   temp <- GetCDLStat(aoi = x, year = 2018, type = 'f')
+   temp$fips <- x # Add fips codes to the returned dataset
+   return(temp)
+}, mc.cores = 4)
+```
+
+
+## Unequal spatial resolutions  
+
+The 'CropScape' server might fail to return data on land use changes if the two raster files (from two different years) have different spatial resolutions. This is because raster files with different resolutions cannot be merged together directly. This issue usually happens when you deal with the CDL data in 2006 or 2007, which are at 56-meter resolution. While in years after 2007, the CDL data are at 30-meter resolution. Hence, if you choose year1 to be 2007 (or 2006) and year2 to be a year after 2007 (say, 2008), an error ('Mismatch size of file 1 and file 2') will be returned from the 'CropScape' server. 
+
+The `GetCDLComp` function addresses the issue caused by unequal resolutions by manually resampling the raster data using the nearest neighbor resampling technique such that both CDL rasters have the same resolutions  (the finer resolution raster is downscaled to lower resolution). So the resampled raster files can be directly merger together. By default, the munual processing is attempted whenever the 'CropScape' server fails to return the requested data. If the results from manual processing are used, a warning message will show up. Yet, you can turn off the manual processing by using `manual_try` = `FALSE`. 
+

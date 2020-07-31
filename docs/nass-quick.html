@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>9.1 USDA NASS QuickStat with tidyUSDA | R as GIS for Economists</title>
+  <meta name="description" content="This is a book for Economists who regularly use spatial datasets for their econometric work." />
+  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="9.1 USDA NASS QuickStat with tidyUSDA | R as GIS for Economists" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a book for Economists who regularly use spatial datasets for their econometric work." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="9.1 USDA NASS QuickStat with tidyUSDA | R as GIS for Economists" />
+  
+  <meta name="twitter:description" content="This is a book for Economists who regularly use spatial datasets for their econometric work." />
+  
+
+<meta name="author" content="Taro Mieno" />
+
+
+<meta name="date" content="2020-07-31" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="before-you-start-8.html"/>
+<link rel="next" href="CropScapeR.html"/>
+<script src="libs/header-attrs-2.1/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/Proj4Leaflet-1.0.1/proj4-compressed.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.0.3/leaflet.js"></script>
+<script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script>
+<script src="libs/leaflet-providers-plugin-2.0.3/leaflet-providers-plugin.js"></script>
+<link href="libs/HomeButton-0.0.1/home-button.css" rel="stylesheet" />
+<script src="libs/HomeButton-0.0.1/home-button.js"></script>
+<script src="libs/HomeButton-0.0.1/easy-button-src.min.js"></script>
+<script src="libs/clipboard-0.0.1/setClipboardText.js"></script>
+<link href="libs/PopupTable-0.0.1/popup.css" rel="stylesheet" />
+<script src="libs/IA_cdl_2015-1/data_stars_IA_cdl_2015492be3.txt"></script>
+<script src="libs/joda-0.0.1/joda.js"></script>
+<script src="libs/joda-0.0.1/addImageQuery-bindings.js"></script>
+<script src="libs/IA_cdl_2016-1/data_stars_IA_cdl_2016d254a6.txt"></script>
+<script src="libs/prcp_tmax_PRISM_m8_y09["tmax", , , ] - 1-1/data_stars_prcp_tmax_PRISM_m8_y09tmax1d57104.txt"></script>
+<script src="libs/layer.1-1/data_stars_layer1ade7f0.txt"></script>
+<script src="libs/layer.2-1/data_stars_layer2a3e1c2.txt"></script>
+<script src="libs/layer.3-1/data_stars_layer39bf0c4.txt"></script>
+<script src="libs/layer.4-1/data_stars_layer4281e67.txt"></script>
+<script src="libs/layer.5-1/data_stars_layer5da8bef.txt"></script>
+<script src="libs/layer.6-1/data_stars_layer60a163b.txt"></script>
+<script src="libs/layer.7-1/data_stars_layer72c54d1.txt"></script>
+<script src="libs/layer.8-1/data_stars_layer8fc014d.txt"></script>
+<script src="libs/layer.9-1/data_stars_layer9f9bcad.txt"></script>
+<script src="libs/layer.10-1/data_stars_layer10ea3f98.txt"></script>
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.13/datatables.js"></script>
+<link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
+<link href="libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">R as GIS for Economists</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="why-r-as-gis-for-economists.html"><a href="why-r-as-gis-for-economists.html"><i class="fa fa-check"></i>Why R as GIS for Economists?</a>
+<ul>
+<li class="chapter" data-level="" data-path="why-r-as-gis-for-economists.html"><a href="why-r-as-gis-for-economists.html#r-vs-python"><i class="fa fa-check"></i>R vs Python</a></li>
+<li class="chapter" data-level="" data-path="why-r-as-gis-for-economists.html"><a href="why-r-as-gis-for-economists.html#r-vs-arcgis-or-qgis"><i class="fa fa-check"></i>R vs ArcGIS or QGIS</a></li>
+<li class="chapter" data-level="" data-path="why-r-as-gis-for-economists.html"><a href="why-r-as-gis-for-economists.html#summary"><i class="fa fa-check"></i>Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="how-is-this-book-different-from-other-online-books-and-resources.html"><a href="how-is-this-book-different-from-other-online-books-and-resources.html"><i class="fa fa-check"></i>How is this book different from other online books and resources?</a></li>
+<li class="chapter" data-level="" data-path="what-is-going-to-be-covered-in-this-book.html"><a href="what-is-going-to-be-covered-in-this-book.html"><i class="fa fa-check"></i>What is going to be covered in this book?</a></li>
+<li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html"><i class="fa fa-check"></i>Conventions of the book and some notes</a>
+<ul>
+<li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html#texts-in-gray-boxes"><i class="fa fa-check"></i>Texts in gray boxes</a></li>
+<li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html#colored-boxes"><i class="fa fa-check"></i>Colored Boxes</a></li>
+<li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html#parentheses-around-codes"><i class="fa fa-check"></i>Parentheses around codes</a></li>
+<li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html#footnotes"><i class="fa fa-check"></i>Footnotes</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="session-information.html"><a href="session-information.html"><i class="fa fa-check"></i>Session Information</a></li>
+</ul></li>
+<li class="part"><span><b>I Demonstration</b></span></li>
+<li class="chapter" data-level="1" data-path="demo.html"><a href="demo.html"><i class="fa fa-check"></i><b>1</b> R as GIS: Demonstrations</a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start.html"><a href="before-you-start.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start.html"><a href="before-you-start.html#target-audience"><i class="fa fa-check"></i>Target Audience</a></li>
+<li class="chapter" data-level="" data-path="before-you-start.html"><a href="before-you-start.html#direction-for-replication"><i class="fa fa-check"></i>Direction for replication</a></li>
+</ul></li>
+<li class="chapter" data-level="1.1" data-path="Demo1.html"><a href="Demo1.html"><i class="fa fa-check"></i><b>1.1</b> Demonstration 1: The impact of groundwater pumping on depth to water table</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="Demo1.html"><a href="Demo1.html#project-overview"><i class="fa fa-check"></i><b>1.1.1</b> Project Overview</a></li>
+<li class="chapter" data-level="1.1.2" data-path="Demo1.html"><a href="Demo1.html#project-demonstration"><i class="fa fa-check"></i><b>1.1.2</b> Project Demonstration</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="demonstration-2-precision-agriculture.html"><a href="demonstration-2-precision-agriculture.html"><i class="fa fa-check"></i><b>1.2</b> Demonstration 2: Precision Agriculture</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="demonstration-2-precision-agriculture.html"><a href="demonstration-2-precision-agriculture.html#project-overview-1"><i class="fa fa-check"></i><b>1.2.1</b> Project Overview</a></li>
+<li class="chapter" data-level="1.2.2" data-path="demonstration-2-precision-agriculture.html"><a href="demonstration-2-precision-agriculture.html#project-demonstration-1"><i class="fa fa-check"></i><b>1.2.2</b> Project Demonstration</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="demo3.html"><a href="demo3.html"><i class="fa fa-check"></i><b>1.3</b> Demonstration 3: Land Use and Weather</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="demo3.html"><a href="demo3.html#project-overview-2"><i class="fa fa-check"></i><b>1.3.1</b> Project Overview</a></li>
+<li class="chapter" data-level="1.3.2" data-path="demo3.html"><a href="demo3.html#project-demonstration-2"><i class="fa fa-check"></i><b>1.3.2</b> Project Demonstration</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="demo4.html"><a href="demo4.html"><i class="fa fa-check"></i><b>1.4</b> Demonstration 4: The Impact of Railroad Presence on Corn Planted Acreage</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="demo4.html"><a href="demo4.html#project-overview-3"><i class="fa fa-check"></i><b>1.4.1</b> Project Overview</a></li>
+<li class="chapter" data-level="1.4.2" data-path="demo4.html"><a href="demo4.html#project-demonstration-3"><i class="fa fa-check"></i><b>1.4.2</b> Project Demonstration</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="demonstration-5-groundwater-use-for-agricultural-irrigation.html"><a href="demonstration-5-groundwater-use-for-agricultural-irrigation.html"><i class="fa fa-check"></i><b>1.5</b> Demonstration 5: Groundwater use for agricultural irrigation</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="demonstration-5-groundwater-use-for-agricultural-irrigation.html"><a href="demonstration-5-groundwater-use-for-agricultural-irrigation.html#project-overview-4"><i class="fa fa-check"></i><b>1.5.1</b> Project Overview</a></li>
+<li class="chapter" data-level="1.5.2" data-path="demonstration-5-groundwater-use-for-agricultural-irrigation.html"><a href="demonstration-5-groundwater-use-for-agricultural-irrigation.html#project-demonstration-4"><i class="fa fa-check"></i><b>1.5.2</b> Project Demonstration</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>II Foundations</b></span></li>
+<li class="chapter" data-level="2" data-path="vector-basics.html"><a href="vector-basics.html"><i class="fa fa-check"></i><b>2</b> Vector Data Handling with <code>sf</code></a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-1.html"><a href="before-you-start-1.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
+<li><a href="before-you-start-1.html#sf-or-sp"><code>sf</code> or <code>sp</code>?</a></li>
+<li class="chapter" data-level="" data-path="before-you-start-1.html"><a href="before-you-start-1.html#direction-for-replication-1"><i class="fa fa-check"></i>Direction for replication</a></li>
+</ul></li>
+<li class="chapter" data-level="2.1" data-path="spatial-data-structure.html"><a href="spatial-data-structure.html"><i class="fa fa-check"></i><b>2.1</b> Spatial Data Structure</a></li>
+<li class="chapter" data-level="2.2" data-path="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html"><i class="fa fa-check"></i><b>2.2</b> Simple feature geometry, simple feature geometry list-column, and simple feature</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#simple-feature-geometry-sfg"><i class="fa fa-check"></i><b>2.2.1</b> Simple feature geometry (<code>sfg</code>)</a></li>
+<li class="chapter" data-level="2.2.2" data-path="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#create-simple-feature-geometry-list-column-sfc-and-simple-feature-sf-from-scratch"><i class="fa fa-check"></i><b>2.2.2</b> Create simple feature geometry list-column (<code>sfc</code>) and simple feature (<code>sf</code>) from scratch</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="reading-and-writing-vector-data.html"><a href="reading-and-writing-vector-data.html"><i class="fa fa-check"></i><b>2.3</b> Reading and writing vector data</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="reading-and-writing-vector-data.html"><a href="reading-and-writing-vector-data.html#reading-a-shapefile"><i class="fa fa-check"></i><b>2.3.1</b> Reading a shapefile</a></li>
+<li class="chapter" data-level="2.3.2" data-path="reading-and-writing-vector-data.html"><a href="reading-and-writing-vector-data.html#writing-to-a-shapefile"><i class="fa fa-check"></i><b>2.3.2</b> Writing to a shapefile</a></li>
+<li class="chapter" data-level="2.3.3" data-path="reading-and-writing-vector-data.html"><a href="reading-and-writing-vector-data.html#better-alternatives"><i class="fa fa-check"></i><b>2.3.3</b> Better alternatives</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="projection-with-a-different-coordinate-reference-systems.html"><a href="projection-with-a-different-coordinate-reference-systems.html"><i class="fa fa-check"></i><b>2.4</b> Projection with a different Coordinate Reference Systems</a></li>
+<li class="chapter" data-level="2.5" data-path="quick-and-interactive-view-of-an-sf-object.html"><a href="quick-and-interactive-view-of-an-sf-object.html"><i class="fa fa-check"></i><b>2.5</b> Quick and interactive view of an <code>sf</code> object</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="quick-and-interactive-view-of-an-sf-object.html"><a href="quick-and-interactive-view-of-an-sf-object.html#quick-view"><i class="fa fa-check"></i><b>2.5.1</b> Quick view</a></li>
+<li class="chapter" data-level="2.5.2" data-path="quick-and-interactive-view-of-an-sf-object.html"><a href="quick-and-interactive-view-of-an-sf-object.html#interactive-view"><i class="fa fa-check"></i><b>2.5.2</b> Interactive view</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="turning-a-data-frame-of-points-into-an-sf.html"><a href="turning-a-data-frame-of-points-into-an-sf.html"><i class="fa fa-check"></i><b>2.6</b> Turning a data.frame of points into an <code>sf</code></a></li>
+<li class="chapter" data-level="2.7" data-path="conv-sp.html"><a href="conv-sp.html"><i class="fa fa-check"></i><b>2.7</b> Conversion to and from sp</a></li>
+<li class="chapter" data-level="2.8" data-path="non-spatial-transformation-of-sf.html"><a href="non-spatial-transformation-of-sf.html"><i class="fa fa-check"></i><b>2.8</b> Non-spatial transformation of sf</a>
+<ul>
+<li class="chapter" data-level="2.8.1" data-path="non-spatial-transformation-of-sf.html"><a href="non-spatial-transformation-of-sf.html#using-dplyr"><i class="fa fa-check"></i><b>2.8.1</b> Using <code>dplyr</code></a></li>
+<li class="chapter" data-level="2.8.2" data-path="non-spatial-transformation-of-sf.html"><a href="non-spatial-transformation-of-sf.html#using-data.table"><i class="fa fa-check"></i><b>2.8.2</b> Using <code>data.table</code></a></li>
+</ul></li>
+<li class="chapter" data-level="2.9" data-path="non-interactive-geometrical-operations.html"><a href="non-interactive-geometrical-operations.html"><i class="fa fa-check"></i><b>2.9</b> Non-interactive geometrical operations</a>
+<ul>
+<li class="chapter" data-level="2.9.1" data-path="non-interactive-geometrical-operations.html"><a href="non-interactive-geometrical-operations.html#st_buffer"><i class="fa fa-check"></i><b>2.9.1</b> st_buffer</a></li>
+<li class="chapter" data-level="2.9.2" data-path="non-interactive-geometrical-operations.html"><a href="non-interactive-geometrical-operations.html#st_area"><i class="fa fa-check"></i><b>2.9.2</b> st_area</a></li>
+<li class="chapter" data-level="2.9.3" data-path="non-interactive-geometrical-operations.html"><a href="non-interactive-geometrical-operations.html#st_centroid"><i class="fa fa-check"></i><b>2.9.3</b> st_centroid</a></li>
+<li class="chapter" data-level="2.9.4" data-path="non-interactive-geometrical-operations.html"><a href="non-interactive-geometrical-operations.html#st_length"><i class="fa fa-check"></i><b>2.9.4</b> st_length</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="int-vv.html"><a href="int-vv.html"><i class="fa fa-check"></i><b>3</b> Spatial Interactions of Vector Data: Subsetting and Joining</a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-2.html"><a href="before-you-start-2.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-2.html"><a href="before-you-start-2.html#direction-for-replication-2"><i class="fa fa-check"></i>Direction for replication</a></li>
+</ul></li>
+<li class="chapter" data-level="3.1" data-path="topo.html"><a href="topo.html"><i class="fa fa-check"></i><b>3.1</b> Topological relations</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="topo.html"><a href="topo.html#st_intersects"><i class="fa fa-check"></i><b>3.1.1</b> st_intersects()</a></li>
+<li class="chapter" data-level="3.1.2" data-path="topo.html"><a href="topo.html#st_is_within_distance"><i class="fa fa-check"></i><b>3.1.2</b> st_is_within_distance()</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html"><i class="fa fa-check"></i><b>3.2</b> Spatial Subsetting (or Flagging)</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#polygons-source-vs-polygons-target"><i class="fa fa-check"></i><b>3.2.1</b> polygons (source) vs polygons (target)</a></li>
+<li class="chapter" data-level="3.2.2" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#points-source-vs-polygons-target"><i class="fa fa-check"></i><b>3.2.2</b> points (source) vs polygons (target)</a></li>
+<li class="chapter" data-level="3.2.3" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#lines_polygons"><i class="fa fa-check"></i><b>3.2.3</b> lines (source) vs polygons (target)</a></li>
+<li class="chapter" data-level="3.2.4" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#polygons_points"><i class="fa fa-check"></i><b>3.2.4</b> polygons (source) vs points (target)</a></li>
+<li class="chapter" data-level="3.2.5" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#subsetting-to-a-geograpchic-extent-bounding-box"><i class="fa fa-check"></i><b>3.2.5</b> Subsetting to a geograpchic extent (bounding box)</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="sp-join.html"><a href="sp-join.html"><i class="fa fa-check"></i><b>3.3</b> Spatial Join</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="sp-join.html"><a href="sp-join.html#case-1-points-target-vs-polygons-source"><i class="fa fa-check"></i><b>3.3.1</b> Case 1: points (target) vs polygons (source)</a></li>
+<li class="chapter" data-level="3.3.2" data-path="sp-join.html"><a href="sp-join.html#case-2-polygons-target-vs-points-source"><i class="fa fa-check"></i><b>3.3.2</b> Case 2: polygons (target) vs points (source)</a></li>
+<li class="chapter" data-level="3.3.3" data-path="sp-join.html"><a href="sp-join.html#polygon-polygon"><i class="fa fa-check"></i><b>3.3.3</b> Case 3: polygons (target) vs polygons (source)</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="spatial-intersection-cropping-join.html"><a href="spatial-intersection-cropping-join.html"><i class="fa fa-check"></i><b>3.4</b> Spatial Intersection (cropping join)</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="spatial-intersection-cropping-join.html"><a href="spatial-intersection-cropping-join.html#st_intersection"><i class="fa fa-check"></i><b>3.4.1</b> <code>st_intersection()</code></a></li>
+<li class="chapter" data-level="3.4.2" data-path="spatial-intersection-cropping-join.html"><a href="spatial-intersection-cropping-join.html#area-weighted-average"><i class="fa fa-check"></i><b>3.4.2</b> Area-weighted average</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="raster-basics.html"><a href="raster-basics.html"><i class="fa fa-check"></i><b>4</b> Raster Data Handling</a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-3.html"><a href="before-you-start-3.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-3.html"><a href="before-you-start-3.html#direction-for-replication-3"><i class="fa fa-check"></i>Direction for replication</a></li>
+</ul></li>
+<li class="chapter" data-level="4.1" data-path="raster-data-object-classes.html"><a href="raster-data-object-classes.html"><i class="fa fa-check"></i><b>4.1</b> Raster data object classes</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="raster-data-object-classes.html"><a href="raster-data-object-classes.html#raster-package-rasterlayer-rasterstack-and-rasterbrick"><i class="fa fa-check"></i><b>4.1.1</b> <code>raster</code> package: <code>RasterLayer</code>, <code>RasterStack</code>, and <code>RasterBrick</code></a></li>
+<li class="chapter" data-level="4.1.2" data-path="raster-data-object-classes.html"><a href="raster-data-object-classes.html#terra-package-spatraster"><i class="fa fa-check"></i><b>4.1.2</b> <code>terra</code> package: <code>SpatRaster</code></a></li>
+<li class="chapter" data-level="4.1.3" data-path="raster-data-object-classes.html"><a href="raster-data-object-classes.html#converting-a-spatraster-object-to-a-raster-object."><i class="fa fa-check"></i><b>4.1.3</b> Converting a <code>SpatRaster</code> object to a <code>Raster</code><span class="math inline">\(^*\)</span> object.</a></li>
+<li class="chapter" data-level="4.1.4" data-path="raster-data-object-classes.html"><a href="raster-data-object-classes.html#vector-data-in-the-terra-package"><i class="fa fa-check"></i><b>4.1.4</b> Vector data in the <code>terra</code> package</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="read-and-write-a-raster-data-file.html"><a href="read-and-write-a-raster-data-file.html"><i class="fa fa-check"></i><b>4.2</b> Read and write a raster data file</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="read-and-write-a-raster-data-file.html"><a href="read-and-write-a-raster-data-file.html#read-raster-files"><i class="fa fa-check"></i><b>4.2.1</b> Read raster file(s)</a></li>
+<li class="chapter" data-level="4.2.2" data-path="read-and-write-a-raster-data-file.html"><a href="read-and-write-a-raster-data-file.html#write-raster-files"><i class="fa fa-check"></i><b>4.2.2</b> Write raster files</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="access-values.html"><a href="access-values.html"><i class="fa fa-check"></i><b>4.3</b> Access values</a></li>
+<li class="chapter" data-level="4.4" data-path="quick-plot-and-interactive-map.html"><a href="quick-plot-and-interactive-map.html"><i class="fa fa-check"></i><b>4.4</b> Quick plot and interactive map</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="int-RV.html"><a href="int-RV.html"><i class="fa fa-check"></i><b>5</b> Spatial Interactions of Vector and Raster Data</a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-4.html"><a href="before-you-start-4.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-4.html"><a href="before-you-start-4.html#direction-for-replication-4"><i class="fa fa-check"></i>Direction for replication</a></li>
+</ul></li>
+<li class="chapter" data-level="5.1" data-path="raster-crop.html"><a href="raster-crop.html"><i class="fa fa-check"></i><b>5.1</b> Cropping (Spatial subsetting) to the Area of Interest</a></li>
+<li class="chapter" data-level="5.2" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html"><i class="fa fa-check"></i><b>5.2</b> Extracting Values from Raster Layers for Vector Data</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#points"><i class="fa fa-check"></i><b>5.2.1</b> Points</a></li>
+<li class="chapter" data-level="5.2.2" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#polygons-terra-way"><i class="fa fa-check"></i><b>5.2.2</b> Polygons (<code>terra</code> way)</a></li>
+<li class="chapter" data-level="5.2.3" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#polygons-exactextractr-way"><i class="fa fa-check"></i><b>5.2.3</b> Polygons (<code>exactextractr</code> way)</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="extract-speed.html"><a href="extract-speed.html"><i class="fa fa-check"></i><b>5.3</b> Extraction speed comparison</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="extract-speed.html"><a href="extract-speed.html#points-terraextract-and-rasterextract"><i class="fa fa-check"></i><b>5.3.1</b> Points: <code>terra::extract()</code> and <code>raster::extract()</code></a></li>
+<li class="chapter" data-level="5.3.2" data-path="extract-speed.html"><a href="extract-speed.html#polygons-exact_extract-terraextract-and-rasterextract"><i class="fa fa-check"></i><b>5.3.2</b> Polygons: <code>exact_extract()</code>, <code>terra::extract()</code>, and <code>raster::extract()</code></a></li>
+<li class="chapter" data-level="5.3.3" data-path="extract-speed.html"><a href="extract-speed.html#single-layer-vs-multi-layer"><i class="fa fa-check"></i><b>5.3.3</b> Single-layer vs multi-layer</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>III (slightly) Advanced Topics</b></span></li>
+<li class="chapter" data-level="6" data-path="EE.html"><a href="EE.html"><i class="fa fa-check"></i><b>6</b> Speed Things Up</a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-5.html"><a href="before-you-start-5.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-5.html"><a href="before-you-start-5.html#direction-for-replication-5"><i class="fa fa-check"></i>Direction for replication</a></li>
+</ul></li>
+<li class="chapter" data-level="6.1" data-path="single-raster-layer.html"><a href="single-raster-layer.html"><i class="fa fa-check"></i><b>6.1</b> Single raster layer</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="single-raster-layer.html"><a href="single-raster-layer.html#datasets"><i class="fa fa-check"></i><b>6.1.1</b> Datasets</a></li>
+<li class="chapter" data-level="6.1.2" data-path="single-raster-layer.html"><a href="single-raster-layer.html#parallelization"><i class="fa fa-check"></i><b>6.1.2</b> Parallelization</a></li>
+<li class="chapter" data-level="6.1.3" data-path="single-raster-layer.html"><a href="single-raster-layer.html#summary-1"><i class="fa fa-check"></i><b>6.1.3</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="many-multi-layer.html"><a href="many-multi-layer.html"><i class="fa fa-check"></i><b>6.2</b> Many multi-layer raster files</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="many-multi-layer.html"><a href="many-multi-layer.html#datasets-1"><i class="fa fa-check"></i><b>6.2.1</b> Datasets</a></li>
+<li class="chapter" data-level="6.2.2" data-path="many-multi-layer.html"><a href="many-multi-layer.html#non-par-ext-multi"><i class="fa fa-check"></i><b>6.2.2</b> Non-parallelized extraction</a></li>
+<li class="chapter" data-level="6.2.3" data-path="many-multi-layer.html"><a href="many-multi-layer.html#approach-1-parallelize-over-polygons-and-do-regular-loop-over-year-month"><i class="fa fa-check"></i><b>6.2.3</b> Approach 1: parallelize over polygons and do regular loop over year-month</a></li>
+<li class="chapter" data-level="6.2.4" data-path="many-multi-layer.html"><a href="many-multi-layer.html#approach-2-parallelize-over-the-temporal-dimension-year-month"><i class="fa fa-check"></i><b>6.2.4</b> Approach 2: parallelize over the temporal dimension (year-month)</a></li>
+<li class="chapter" data-level="6.2.5" data-path="many-multi-layer.html"><a href="many-multi-layer.html#memory-consideration"><i class="fa fa-check"></i><b>6.2.5</b> Memory consideration</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="stars-basics.html"><a href="stars-basics.html"><i class="fa fa-check"></i><b>7</b> Spatiotemporal Raster Data Handling with <code>stars</code></a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-6.html"><a href="before-you-start-6.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-6.html"><a href="before-you-start-6.html#direction-for-replication-6"><i class="fa fa-check"></i>Direction for replication</a></li>
+</ul></li>
+<li class="chapter" data-level="7.1" data-path="stars-structure.html"><a href="stars-structure.html"><i class="fa fa-check"></i><b>7.1</b> Understanding the structure of a <code>stars</code> object</a></li>
+<li class="chapter" data-level="7.2" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html"><i class="fa fa-check"></i><b>7.2</b> Some basic operations on <code>stars</code> objects</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html#subset-a-stars-object-by-index"><i class="fa fa-check"></i><b>7.2.1</b> Subset a <code>stars</code> object by index</a></li>
+<li class="chapter" data-level="7.2.2" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html#set-attribute-names"><i class="fa fa-check"></i><b>7.2.2</b> Set attribute names</a></li>
+<li class="chapter" data-level="7.2.3" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html#get-the-coordinate-reference-system"><i class="fa fa-check"></i><b>7.2.3</b> Get the coordinate reference system</a></li>
+<li class="chapter" data-level="7.2.4" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html#get-the-dimension-characteristics-and-values"><i class="fa fa-check"></i><b>7.2.4</b> Get the dimension characteristics and values</a></li>
+<li class="chapter" data-level="7.2.5" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html#attributes-to-dimensions-and-vice-versa"><i class="fa fa-check"></i><b>7.2.5</b> Attributes to dimensions, and vice versa</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="quick-visualization-for-exploration.html"><a href="quick-visualization-for-exploration.html"><i class="fa fa-check"></i><b>7.3</b> Quick visualization for exploration</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="quick-visualization-for-exploration.html"><a href="quick-visualization-for-exploration.html#quick-static-map"><i class="fa fa-check"></i><b>7.3.1</b> quick static map</a></li>
+<li class="chapter" data-level="7.3.2" data-path="quick-visualization-for-exploration.html"><a href="quick-visualization-for-exploration.html#interactive-map"><i class="fa fa-check"></i><b>7.3.2</b> interactive map</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="read-write-stars.html"><a href="read-write-stars.html"><i class="fa fa-check"></i><b>7.4</b> Reading and writing raster data</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="read-write-stars.html"><a href="read-write-stars.html#reading-raster-data"><i class="fa fa-check"></i><b>7.4.1</b> Reading raster data</a></li>
+<li class="chapter" data-level="7.4.2" data-path="read-write-stars.html"><a href="read-write-stars.html#writing-a-stars-object-to-a-file"><i class="fa fa-check"></i><b>7.4.2</b> Writing a <code>stars</code> object to a file</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="stars-set-time.html"><a href="stars-set-time.html"><i class="fa fa-check"></i><b>7.5</b> Setting the time dimension manually</a></li>
+<li class="chapter" data-level="7.6" data-path="dplyr-op.html"><a href="dplyr-op.html"><i class="fa fa-check"></i><b>7.6</b> <code>dplyr</code>-like operations</a>
+<ul>
+<li class="chapter" data-level="7.6.1" data-path="dplyr-op.html"><a href="dplyr-op.html#filter"><i class="fa fa-check"></i><b>7.6.1</b> <code>filter()</code></a></li>
+<li class="chapter" data-level="7.6.2" data-path="dplyr-op.html"><a href="dplyr-op.html#select"><i class="fa fa-check"></i><b>7.6.2</b> <code>select()</code></a></li>
+<li class="chapter" data-level="7.6.3" data-path="dplyr-op.html"><a href="dplyr-op.html#mutate"><i class="fa fa-check"></i><b>7.6.3</b> <code>mutate()</code></a></li>
+<li class="chapter" data-level="7.6.4" data-path="dplyr-op.html"><a href="dplyr-op.html#pull"><i class="fa fa-check"></i><b>7.6.4</b> <code>pull()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="merging-stars-objects-using-c-and-st-mosaic.html"><a href="merging-stars-objects-using-c-and-st-mosaic.html"><i class="fa fa-check"></i><b>7.7</b> Merging <code>stars</code> objects using <code>c()</code> and <code>st_mosaic()</code></a>
+<ul>
+<li class="chapter" data-level="7.7.1" data-path="merging-stars-objects-using-c-and-st-mosaic.html"><a href="merging-stars-objects-using-c-and-st-mosaic.html#merging-stars-objects-along-the-third-dimension-band"><i class="fa fa-check"></i><b>7.7.1</b> Merging <code>stars</code> objects along the third dimension (band)</a></li>
+<li class="chapter" data-level="7.7.2" data-path="merging-stars-objects-using-c-and-st-mosaic.html"><a href="merging-stars-objects-using-c-and-st-mosaic.html#merge-two"><i class="fa fa-check"></i><b>7.7.2</b> Merging <code>stars</code> objects of different attributes</a></li>
+<li class="chapter" data-level="7.7.3" data-path="merging-stars-objects-using-c-and-st-mosaic.html"><a href="merging-stars-objects-using-c-and-st-mosaic.html#merging-stars-objects-of-different-spatial-extents"><i class="fa fa-check"></i><b>7.7.3</b> Merging <code>stars</code> objects of different spatial extents</a></li>
+</ul></li>
+<li class="chapter" data-level="7.8" data-path="convert-to-rb.html"><a href="convert-to-rb.html"><i class="fa fa-check"></i><b>7.8</b> Convert from and to <code>Raster</code><span class="math inline">\(^*\)</span> objects</a></li>
+<li class="chapter" data-level="7.9" data-path="spatial-cropping.html"><a href="spatial-cropping.html"><i class="fa fa-check"></i><b>7.9</b> Spatial cropping</a></li>
+<li class="chapter" data-level="7.10" data-path="extraction-stars.html"><a href="extraction-stars.html"><i class="fa fa-check"></i><b>7.10</b> Extracting values from <code>stars</code> for vector data</a>
+<ul>
+<li class="chapter" data-level="7.10.1" data-path="extraction-stars.html"><a href="extraction-stars.html#points-1"><i class="fa fa-check"></i><b>7.10.1</b> Points</a></li>
+<li class="chapter" data-level="7.10.2" data-path="extraction-stars.html"><a href="extraction-stars.html#polygons"><i class="fa fa-check"></i><b>7.10.2</b> Polygons</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>IV Extensions</b></span></li>
+<li class="chapter" data-level="8" data-path="create-maps.html"><a href="create-maps.html"><i class="fa fa-check"></i><b>8</b> Creating Maps using <code>ggplot2</code></a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-7.html"><a href="before-you-start-7.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-7.html"><a href="before-you-start-7.html#direction-for-replication-7"><i class="fa fa-check"></i>Direction for replication</a></li>
+</ul></li>
+<li class="chapter" data-level="8.1" data-path="geom-sf.html"><a href="geom-sf.html"><i class="fa fa-check"></i><b>8.1</b> Creating maps from <code>sf</code> objects</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="geom-sf.html"><a href="geom-sf.html#datasets-2"><i class="fa fa-check"></i><b>8.1.1</b> Datasets</a></li>
+<li class="chapter" data-level="8.1.2" data-path="geom-sf.html"><a href="geom-sf.html#basic-usage-of-geom_sf"><i class="fa fa-check"></i><b>8.1.2</b> Basic usage of <code>geom_sf()</code></a></li>
+<li class="chapter" data-level="8.1.3" data-path="geom-sf.html"><a href="geom-sf.html#specifying-the-aesthetics"><i class="fa fa-check"></i><b>8.1.3</b> Specifying the aesthetics</a></li>
+<li class="chapter" data-level="8.1.4" data-path="geom-sf.html"><a href="geom-sf.html#plotting-multiple-spatial-objects-in-one-figure"><i class="fa fa-check"></i><b>8.1.4</b> Plotting multiple spatial objects in one figure</a></li>
+<li class="chapter" data-level="8.1.5" data-path="geom-sf.html"><a href="geom-sf.html#crs"><i class="fa fa-check"></i><b>8.1.5</b> CRS</a></li>
+<li class="chapter" data-level="8.1.6" data-path="geom-sf.html"><a href="geom-sf.html#faceting"><i class="fa fa-check"></i><b>8.1.6</b> Faceting</a></li>
+<li class="chapter" data-level="8.1.7" data-path="geom-sf.html"><a href="geom-sf.html#adding-texts-labels-on-a-map"><i class="fa fa-check"></i><b>8.1.7</b> Adding texts (labels) on a map</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="geom-raster.html"><a href="geom-raster.html"><i class="fa fa-check"></i><b>8.2</b> Raster data visualization: <code>geom_raster()</code> and <code>geom_stars()</code></a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="geom-raster.html"><a href="geom-raster.html#visualize-raster-with-geom_raster"><i class="fa fa-check"></i><b>8.2.1</b> Visualize <code>Raster</code><span class="math inline">\(^*\)</span> with <code>geom_raster()</code></a></li>
+<li class="chapter" data-level="8.2.2" data-path="geom-raster.html"><a href="geom-raster.html#visualize-stars-with-geom_raster"><i class="fa fa-check"></i><b>8.2.2</b> Visualize <code>stars</code> with <code>geom_raster()</code></a></li>
+<li class="chapter" data-level="8.2.3" data-path="geom-raster.html"><a href="geom-raster.html#visualize-stars-with-geom_stars"><i class="fa fa-check"></i><b>8.2.3</b> Visualize <code>stars</code> with <code>geom_stars()</code></a></li>
+<li class="chapter" data-level="8.2.4" data-path="geom-raster.html"><a href="geom-raster.html#adding-geom_sf-layers"><i class="fa fa-check"></i><b>8.2.4</b> adding <code>geom_sf()</code> layers</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="color-scale.html"><a href="color-scale.html"><i class="fa fa-check"></i><b>8.3</b> Color scale</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="color-scale.html"><a href="color-scale.html#viridis-color-maps"><i class="fa fa-check"></i><b>8.3.1</b> Viridis color maps</a></li>
+<li class="chapter" data-level="8.3.2" data-path="color-scale.html"><a href="color-scale.html#rcolorbrewer-scale__distiller-and-scale__brewer"><i class="fa fa-check"></i><b>8.3.2</b> <code>RColorBrewer</code>: <code>scale_*_distiller()</code> and <code>scale_*_brewer()</code></a></li>
+<li class="chapter" data-level="8.3.3" data-path="color-scale.html"><a href="color-scale.html#colorspace-package"><i class="fa fa-check"></i><b>8.3.3</b> <code>colorspace</code> package</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="arranging-maps.html"><a href="arranging-maps.html"><i class="fa fa-check"></i><b>8.4</b> Arranging maps</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="arranging-maps.html"><a href="arranging-maps.html#multiple-panels-of-figures-as-a-single-figure"><i class="fa fa-check"></i><b>8.4.1</b> Multiple panels of figures as a single figure</a></li>
+<li class="chapter" data-level="8.4.2" data-path="arranging-maps.html"><a href="arranging-maps.html#a-map-in-a-map-inset"><i class="fa fa-check"></i><b>8.4.2</b> A map in a map: inset</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="fine-tune.html"><a href="fine-tune.html"><i class="fa fa-check"></i><b>8.5</b> Fine-tuning maps for publication</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="fine-tune.html"><a href="fine-tune.html#theme"><i class="fa fa-check"></i><b>8.5.1</b> Setting the theme</a></li>
+<li class="chapter" data-level="8.5.2" data-path="fine-tune.html"><a href="fine-tune.html#legend"><i class="fa fa-check"></i><b>8.5.2</b> Legend</a></li>
+<li class="chapter" data-level="8.5.3" data-path="fine-tune.html"><a href="fine-tune.html#facet-strips"><i class="fa fa-check"></i><b>8.5.3</b> Facet strips</a></li>
+<li class="chapter" data-level="8.5.4" data-path="fine-tune.html"><a href="fine-tune.html#north-arrow-and-scale-bar"><i class="fa fa-check"></i><b>8.5.4</b> North arrow and scale bar</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="ggsave.html"><a href="ggsave.html"><i class="fa fa-check"></i><b>8.6</b> Saving a <code>ggplot</code> object as an image</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="download-data.html"><a href="download-data.html"><i class="fa fa-check"></i><b>9</b> Download and process spatial datasets from within R</a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-8.html"><a href="before-you-start-8.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-8.html"><a href="before-you-start-8.html#direction-for-replication-8"><i class="fa fa-check"></i>Direction for replication</a></li>
+</ul></li>
+<li class="chapter" data-level="9.1" data-path="nass-quick.html"><a href="nass-quick.html"><i class="fa fa-check"></i><b>9.1</b> USDA NASS QuickStat with <code>tidyUSDA</code></a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="nass-quick.html"><a href="nass-quick.html#look-for-parameter-values"><i class="fa fa-check"></i><b>9.1.1</b> Look for parameter values</a></li>
+<li class="chapter" data-level="9.1.2" data-path="nass-quick.html"><a href="nass-quick.html#caveats"><i class="fa fa-check"></i><b>9.1.2</b> Caveats</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="CropScapeR.html"><a href="CropScapeR.html"><i class="fa fa-check"></i><b>9.2</b> CDL with <code>CropScapeR</code></a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="CropScapeR.html"><a href="CropScapeR.html#getcdldata-download-the-cdl-data-as-raster-data"><i class="fa fa-check"></i><b>9.2.1</b> <code>GetCDLData</code>: Download the CDL data as raster data</a></li>
+<li class="chapter" data-level="9.2.2" data-path="CropScapeR.html"><a href="CropScapeR.html#data-processing-after-downloading-data"><i class="fa fa-check"></i><b>9.2.2</b> Data processing after downloading data</a></li>
+<li class="chapter" data-level="9.2.3" data-path="CropScapeR.html"><a href="CropScapeR.html#other-forms-of-cdl-data"><i class="fa fa-check"></i><b>9.2.3</b> Other forms of CDL data</a></li>
+<li class="chapter" data-level="9.2.4" data-path="CropScapeR.html"><a href="CropScapeR.html#mac-problem"><i class="fa fa-check"></i><b>9.2.4</b> SSL certificate problem on Mac</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="download-prism.html"><a href="download-prism.html"><i class="fa fa-check"></i><b>9.3</b> PRISM with <code>prism</code></a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="download-prism.html"><a href="download-prism.html#basics"><i class="fa fa-check"></i><b>9.3.1</b> Basics</a></li>
+<li class="chapter" data-level="9.3.2" data-path="download-prism.html"><a href="download-prism.html#download-daily-prism-data-for-many-years-and-build-your-own-datasets"><i class="fa fa-check"></i><b>9.3.2</b> Download daily PRISM data for many years and build your own datasets</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="daymet-with-daymetr-and-feddata.html"><a href="daymet-with-daymetr-and-feddata.html"><i class="fa fa-check"></i><b>9.4</b> Daymet with <code>daymetr</code> and <code>FedData</code></a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="daymet-with-daymetr-and-feddata.html"><a href="daymet-with-daymetr-and-feddata.html#for-points-data"><i class="fa fa-check"></i><b>9.4.1</b> For points data</a></li>
+<li class="chapter" data-level="9.4.2" data-path="daymet-with-daymetr-and-feddata.html"><a href="daymet-with-daymetr-and-feddata.html#daymet-poly"><i class="fa fa-check"></i><b>9.4.2</b> For polygons data</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="usgs-under-construction.html"><a href="usgs-under-construction.html"><i class="fa fa-check"></i><b>9.5</b> USGS (under construction)</a></li>
+<li class="chapter" data-level="9.6" data-path="sentinel-with-sen2r-under-construction.html"><a href="sentinel-with-sen2r-under-construction.html"><i class="fa fa-check"></i><b>9.6</b> Sentinel with <code>sen2r</code> (under construction)</a></li>
+<li class="chapter" data-level="9.7" data-path="census-with-tidycensus-under-construction.html"><a href="census-with-tidycensus-under-construction.html"><i class="fa fa-check"></i><b>9.7</b> Census with <code>tidycensus</code> (under construction)</a></li>
+</ul></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="par-comp.html"><a href="par-comp.html"><i class="fa fa-check"></i><b>A</b> Loop and Parallel Computing</a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-9.html"><a href="before-you-start-9.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-9.html"><a href="before-you-start-9.html#direction-for-replication-9"><i class="fa fa-check"></i>Direction for replication</a></li>
+<li class="chapter" data-level="" data-path="before-you-start-9.html"><a href="before-you-start-9.html#packages-to-install-and-load"><i class="fa fa-check"></i>Packages to install and load</a></li>
+</ul></li>
+<li class="chapter" data-level="A.1" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html"><i class="fa fa-check"></i><b>A.1</b> Repetitive processes and looping</a>
+<ul>
+<li class="chapter" data-level="A.1.1" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html#what-is-looping"><i class="fa fa-check"></i><b>A.1.1</b> What is looping?</a></li>
+<li class="chapter" data-level="A.1.2" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html#for-loop"><i class="fa fa-check"></i><b>A.1.2</b> For loop</a></li>
+<li class="chapter" data-level="A.1.3" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html#for-loop-using-the-lapply-function"><i class="fa fa-check"></i><b>A.1.3</b> For loop using the <code>lapply()</code> function</a></li>
+<li class="chapter" data-level="A.1.4" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html#looping-over-multiple-variables-using-lapply"><i class="fa fa-check"></i><b>A.1.4</b> Looping over multiple variables using lapply()</a></li>
+<li class="chapter" data-level="A.1.5" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html#do-you-really-need-to-loop"><i class="fa fa-check"></i><b>A.1.5</b> Do you really need to loop?</a></li>
+</ul></li>
+<li class="chapter" data-level="A.2" data-path="parcomp.html"><a href="parcomp.html"><i class="fa fa-check"></i><b>A.2</b> Parallelization of embarrassingly parallel processes</a>
+<ul>
+<li class="chapter" data-level="A.2.1" data-path="parcomp.html"><a href="parcomp.html#mac-or-linux-users"><i class="fa fa-check"></i><b>A.2.1</b> Mac or Linux users</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="B" data-path="ggplot2-minimals.html"><a href="ggplot2-minimals.html"><i class="fa fa-check"></i><b>B</b> ggplot2 minimals</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R as GIS for Economists</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<link href="style.css" rel="stylesheet" type="text/css">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-59758608-3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-59758608-3');
+</script>
+
+<div id="nass-quick" class="section level2" number="9.1">
+<h2><span class="header-section-number">9.1</span> USDA NASS QuickStat with <code>tidyUSDA</code></h2>
+<p>There are several packages that lets you download data from the USDA NASS QuickStat. Here we use the <code>tidyUSDA</code> package <span class="citation">(Lindblad <a href="#ref-tidyUSDA" role="doc-biblioref">2020</a>)</span>. A nice thing about <a href="https://github.com/bradlindblad/tidyUSDA">tidyUSDA</a> is that it gives you an option to download data as an <code>sf</code> object, which means you can immediately visualize the data or spatially interact it with other spatial objects.</p>
+<p>First thing you want to do is to get an API key from this <a href="https://quickstats.nass.usda.gov/api">website</a>, which you need to actually download data.</p>
+<p>You can download data using <code>getQuickstat()</code>. There are number of options you can use to narrow down the scope of the data you are downloading including <code>data_item</code>, <code>geographic_level</code>, <code>year</code>, <code>commodity</code>, and so on. See its <a href="https://cran.r-project.org/web/packages/tidyUSDA/tidyUSDA.pdf">manual</a> for the full list of parameters you can set. As an example, the code below download corn-related data by county in Illinois for year 2016 as an <code>sf</code> object.</p>
+<div class="sourceCode" id="cb748"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb748-1"><a href="nass-quick.html#cb748-1"></a>(</span>
+<span id="cb748-2"><a href="nass-quick.html#cb748-2"></a>IL_corn_yield &lt;-<span class="st"> </span><span class="kw">getQuickstat</span>(</span>
+<span id="cb748-3"><a href="nass-quick.html#cb748-3"></a>    <span class="co">#--- put your API key in place of key_get() ---#</span></span>
+<span id="cb748-4"><a href="nass-quick.html#cb748-4"></a>    <span class="dt">key =</span> <span class="kw">key_get</span>(<span class="st">&quot;usda_nass_qs_api&quot;</span>),</span>
+<span id="cb748-5"><a href="nass-quick.html#cb748-5"></a>    <span class="dt">program =</span> <span class="st">&quot;SURVEY&quot;</span>,</span>
+<span id="cb748-6"><a href="nass-quick.html#cb748-6"></a>    <span class="dt">commodity =</span> <span class="st">&quot;CORN&quot;</span>,</span>
+<span id="cb748-7"><a href="nass-quick.html#cb748-7"></a>    <span class="dt">geographic_level =</span> <span class="st">&quot;COUNTY&quot;</span>,</span>
+<span id="cb748-8"><a href="nass-quick.html#cb748-8"></a>    <span class="dt">state =</span> <span class="st">&quot;ILLINOIS&quot;</span>,</span>
+<span id="cb748-9"><a href="nass-quick.html#cb748-9"></a>    <span class="dt">year =</span> <span class="st">&quot;2016&quot;</span>,</span>
+<span id="cb748-10"><a href="nass-quick.html#cb748-10"></a>    <span class="dt">geometry =</span> <span class="ot">TRUE</span></span>
+<span id="cb748-11"><a href="nass-quick.html#cb748-11"></a>  )  <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb748-12"><a href="nass-quick.html#cb748-12"></a><span class="st">  </span><span class="co">#--- keep only some of the variables ---#</span></span>
+<span id="cb748-13"><a href="nass-quick.html#cb748-13"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(year, NAME, county_code, short_desc, Value)</span>
+<span id="cb748-14"><a href="nass-quick.html#cb748-14"></a>)</span></code></pre></div>
+<pre><code>Simple feature collection with 384 features and 5 fields (with 16 geometries empty)
+geometry type:  MULTIPOLYGON
+dimension:      XY
+bbox:           xmin: -91.51308 ymin: 36.9703 xmax: -87.01993 ymax: 42.50848
+CRS:            +proj=longlat +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +no_defs 
+First 10 features:
+   year        NAME county_code           short_desc  Value
+1  2016      Bureau         011 CORN - ACRES PLANTED 273500
+2  2016     Carroll         015 CORN - ACRES PLANTED 147500
+3  2016       Henry         073 CORN - ACRES PLANTED 235000
+4  2016  Jo Daviess         085 CORN - ACRES PLANTED 100500
+5  2016         Lee         103 CORN - ACRES PLANTED 258500
+6  2016      Mercer         131 CORN - ACRES PLANTED 142500
+7  2016        Ogle         141 CORN - ACRES PLANTED 228000
+8  2016      Putnam         155 CORN - ACRES PLANTED  37200
+9  2016 Rock Island         161 CORN - ACRES PLANTED  65000
+10 2016  Stephenson         177 CORN - ACRES PLANTED 179500
+                         geometry
+1  MULTIPOLYGON (((-89.8569 41...
+2  MULTIPOLYGON (((-90.16133 4...
+3  MULTIPOLYGON (((-90.43227 4...
+4  MULTIPOLYGON (((-90.50668 4...
+5  MULTIPOLYGON (((-89.63118 4...
+6  MULTIPOLYGON (((-90.99255 4...
+7  MULTIPOLYGON (((-89.68598 4...
+8  MULTIPOLYGON (((-89.33303 4...
+9  MULTIPOLYGON (((-90.33573 4...
+10 MULTIPOLYGON (((-89.9205 42...</code></pre>
+<p>As you can see, it is an <code>sf</code> object with <code>geometry</code> column due to <code>geometry = TRUE</code> option. This means that you can immediately create a map with the data (Figure <a href="nass-quick.html#fig:corn-yield-IL">9.1</a>):</p>
+<div class="sourceCode" id="cb750"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb750-1"><a href="nass-quick.html#cb750-1"></a><span class="kw">ggplot</span>() <span class="op">+</span></span>
+<span id="cb750-2"><a href="nass-quick.html#cb750-2"></a><span class="st">  </span><span class="kw">geom_sf</span>(</span>
+<span id="cb750-3"><a href="nass-quick.html#cb750-3"></a>    <span class="dt">data =</span> <span class="kw">filter</span>(IL_corn_yield, short_desc <span class="op">==</span><span class="st"> &quot;CORN, GRAIN - YIELD, MEASURED IN BU / ACRE&quot;</span>), </span>
+<span id="cb750-4"><a href="nass-quick.html#cb750-4"></a>    <span class="kw">aes</span>(<span class="dt">fill =</span> Value)</span>
+<span id="cb750-5"><a href="nass-quick.html#cb750-5"></a>  ) <span class="op">+</span></span>
+<span id="cb750-6"><a href="nass-quick.html#cb750-6"></a><span class="st">  </span>theme_for_map</span></code></pre></div>
+<div class="figure"><span id="fig:corn-yield-IL"></span>
+<img src="R_GIS_Book_files/figure-html/corn-yield-IL-1.png" alt="Corn Yield (bu/acre) in Illinois in 2016" width="672" />
+<p class="caption">
+Figure 9.1: Corn Yield (bu/acre) in Illinois in 2016
+</p>
+</div>
+<p>You can download data for multiple states and years at the same time like below (of course, if you want the whole U.S., don’t specify the state parameter.).</p>
+<div class="sourceCode" id="cb751"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb751-1"><a href="nass-quick.html#cb751-1"></a>(</span>
+<span id="cb751-2"><a href="nass-quick.html#cb751-2"></a>IL_CO_NE_corn &lt;-<span class="st"> </span><span class="kw">getQuickstat</span>(</span>
+<span id="cb751-3"><a href="nass-quick.html#cb751-3"></a>    <span class="dt">key =</span> <span class="kw">key_get</span>(<span class="st">&quot;usda_nass_qs_api&quot;</span>),</span>
+<span id="cb751-4"><a href="nass-quick.html#cb751-4"></a>    <span class="dt">program =</span> <span class="st">&quot;SURVEY&quot;</span>,</span>
+<span id="cb751-5"><a href="nass-quick.html#cb751-5"></a>    <span class="dt">commodity =</span> <span class="st">&quot;CORN&quot;</span>,</span>
+<span id="cb751-6"><a href="nass-quick.html#cb751-6"></a>    <span class="dt">geographic_level =</span> <span class="st">&quot;COUNTY&quot;</span>,</span>
+<span id="cb751-7"><a href="nass-quick.html#cb751-7"></a>    <span class="dt">state =</span> <span class="kw">c</span>(<span class="st">&quot;ILLINOIS&quot;</span>, <span class="st">&quot;COLORADO&quot;</span>, <span class="st">&quot;NEBRASKA&quot;</span>),</span>
+<span id="cb751-8"><a href="nass-quick.html#cb751-8"></a>    <span class="dt">year =</span> <span class="kw">paste</span>(<span class="dv">2014</span><span class="op">:</span><span class="dv">2018</span>),</span>
+<span id="cb751-9"><a href="nass-quick.html#cb751-9"></a>    <span class="dt">geometry =</span> <span class="ot">TRUE</span></span>
+<span id="cb751-10"><a href="nass-quick.html#cb751-10"></a>  ) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb751-11"><a href="nass-quick.html#cb751-11"></a><span class="st">  </span><span class="co">#--- keep only some of the variables ---#</span></span>
+<span id="cb751-12"><a href="nass-quick.html#cb751-12"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(year, NAME, county_code, short_desc, Value)</span>
+<span id="cb751-13"><a href="nass-quick.html#cb751-13"></a>)</span></code></pre></div>
+<pre><code>Simple feature collection with 6384 features and 5 fields (with 588 geometries empty)
+geometry type:  MULTIPOLYGON
+dimension:      XY
+bbox:           xmin: -109.0459 ymin: 36.9703 xmax: -87.01993 ymax: 43.00171
+CRS:            +proj=longlat +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +no_defs 
+First 10 features:
+   year    NAME county_code           short_desc Value
+1  2017 Boulder         013 CORN - ACRES PLANTED  3000
+2  2016 Boulder         013 CORN - ACRES PLANTED  3300
+3  2016 Larimer         069 CORN - ACRES PLANTED 12800
+4  2015 Larimer         069 CORN - ACRES PLANTED 14900
+5  2014 Larimer         069 CORN - ACRES PLANTED 13600
+6  2015   Logan         075 CORN - ACRES PLANTED 74500
+7  2014   Logan         075 CORN - ACRES PLANTED 86100
+8  2018  Morgan         087 CORN - ACRES PLANTED 78300
+9  2017  Morgan         087 CORN - ACRES PLANTED 78200
+10 2015  Morgan         087 CORN - ACRES PLANTED 60200
+                         geometry
+1  MULTIPOLYGON (((-105.6486 4...
+2  MULTIPOLYGON (((-105.6486 4...
+3  MULTIPOLYGON (((-105.8225 4...
+4  MULTIPOLYGON (((-105.8225 4...
+5  MULTIPOLYGON (((-105.8225 4...
+6  MULTIPOLYGON (((-103.5737 4...
+7  MULTIPOLYGON (((-103.5737 4...
+8  MULTIPOLYGON (((-103.7148 4...
+9  MULTIPOLYGON (((-103.7148 4...
+10 MULTIPOLYGON (((-103.7148 4...</code></pre>
+<div id="look-for-parameter-values" class="section level3" number="9.1.1">
+<h3><span class="header-section-number">9.1.1</span> Look for parameter values</h3>
+<p>This package has a function that lets you see all the possible parameter values you can use for many of these parameters. For example, suppose you know you would like irrigated corn yields in Colorado, but you are not sure what parameter value (string) you should supply to the <code>data_item</code> parameter. Then, you can do this:<a href="#fn97" class="footnote-ref" id="fnref97"><sup>97</sup></a></p>
+<div class="sourceCode" id="cb753"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb753-1"><a href="nass-quick.html#cb753-1"></a><span class="co">#--- get all the possible values for data_item ---#</span></span>
+<span id="cb753-2"><a href="nass-quick.html#cb753-2"></a>all_items &lt;-<span class="st"> </span>tidyUSDA<span class="op">::</span>allDataItem </span>
+<span id="cb753-3"><a href="nass-quick.html#cb753-3"></a></span>
+<span id="cb753-4"><a href="nass-quick.html#cb753-4"></a><span class="co">#--- take a look at the first six ---#</span></span>
+<span id="cb753-5"><a href="nass-quick.html#cb753-5"></a><span class="kw">head</span>(all_items)</span></code></pre></div>
+<pre><code>                                                                           short_desc1 
+                                                                     &quot;AG LAND - ACRES&quot; 
+                                                                           short_desc2 
+                                                      &quot;AG LAND - NUMBER OF OPERATIONS&quot; 
+                                                                           short_desc3 
+                                                   &quot;AG LAND - OPERATIONS WITH TREATED&quot; 
+                                                                           short_desc4 
+                                                &quot;AG LAND - TREATED, MEASURED IN ACRES&quot; 
+                                                                           short_desc5 
+                           &quot;AG LAND, (EXCL CROPLAND &amp; PASTURELAND &amp; WOODLAND) - ACRES&quot; 
+                                                                           short_desc6 
+&quot;AG LAND, (EXCL CROPLAND &amp; PASTURELAND &amp; WOODLAND) - AREA, MEASURED IN PCT OF AG LAND&quot; </code></pre>
+<p>You can use key words like “CORN”, “YIELD”, “IRRIGATED” to narrow the entire list using <code>grep()</code><a href="#fn98" class="footnote-ref" id="fnref98"><sup>98</sup></a>:</p>
+<div class="sourceCode" id="cb755"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb755-1"><a href="nass-quick.html#cb755-1"></a>all_items <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb755-2"><a href="nass-quick.html#cb755-2"></a><span class="st">  </span><span class="kw">grep</span>(<span class="dt">pattern =</span> <span class="st">&quot;CORN&quot;</span>, ., <span class="dt">value =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb755-3"><a href="nass-quick.html#cb755-3"></a><span class="st">  </span><span class="kw">grep</span>(<span class="dt">pattern =</span> <span class="st">&quot;YIELD&quot;</span>, ., <span class="dt">value =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb755-4"><a href="nass-quick.html#cb755-4"></a><span class="st">  </span><span class="kw">grep</span>(<span class="dt">pattern =</span> <span class="st">&quot;IRRIGATED&quot;</span>, ., <span class="dt">value =</span> <span class="ot">TRUE</span>)  </span></code></pre></div>
+<pre><code>                                                          short_desc9227 
+                 &quot;CORN, GRAIN, IRRIGATED - YIELD, MEASURED IN BU / ACRE&quot; 
+                                                          short_desc9228 
+     &quot;CORN, GRAIN, IRRIGATED - YIELD, MEASURED IN BU / NET PLANTED ACRE&quot; 
+                                                          short_desc9233 
+    &quot;CORN, GRAIN, IRRIGATED, ENTIRE CROP - YIELD, MEASURED IN BU / ACRE&quot; 
+                                                          short_desc9236 
+   &quot;CORN, GRAIN, IRRIGATED, NONE OF CROP - YIELD, MEASURED IN BU / ACRE&quot; 
+                                                          short_desc9238 
+   &quot;CORN, GRAIN, IRRIGATED, PART OF CROP - YIELD, MEASURED IN BU / ACRE&quot; 
+                                                          short_desc9249 
+             &quot;CORN, GRAIN, NON-IRRIGATED - YIELD, MEASURED IN BU / ACRE&quot; 
+                                                          short_desc9250 
+ &quot;CORN, GRAIN, NON-IRRIGATED - YIELD, MEASURED IN BU / NET PLANTED ACRE&quot; 
+                                                          short_desc9291 
+              &quot;CORN, SILAGE, IRRIGATED - YIELD, MEASURED IN TONS / ACRE&quot; 
+                                                          short_desc9296 
+ &quot;CORN, SILAGE, IRRIGATED, ENTIRE CROP - YIELD, MEASURED IN TONS / ACRE&quot; 
+                                                          short_desc9299 
+&quot;CORN, SILAGE, IRRIGATED, NONE OF CROP - YIELD, MEASURED IN TONS / ACRE&quot; 
+                                                          short_desc9301 
+&quot;CORN, SILAGE, IRRIGATED, PART OF CROP - YIELD, MEASURED IN TONS / ACRE&quot; 
+                                                          short_desc9307 
+          &quot;CORN, SILAGE, NON-IRRIGATED - YIELD, MEASURED IN TONS / ACRE&quot; 
+                                                         short_desc28557 
+                 &quot;SWEET CORN, IRRIGATED - YIELD, MEASURED IN CWT / ACRE&quot; 
+                                                         short_desc28564 
+             &quot;SWEET CORN, NON-IRRIGATED - YIELD, MEASURED IN CWT / ACRE&quot; </code></pre>
+<p>Looking at the list, we know the exact text value we want, which is the first entry of the vector.</p>
+<div class="sourceCode" id="cb757"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb757-1"><a href="nass-quick.html#cb757-1"></a>(</span>
+<span id="cb757-2"><a href="nass-quick.html#cb757-2"></a>CO_ir_corn_yield &lt;-<span class="st"> </span><span class="kw">getQuickstat</span>(</span>
+<span id="cb757-3"><a href="nass-quick.html#cb757-3"></a>    <span class="dt">key =</span> <span class="kw">key_get</span>(<span class="st">&quot;usda_nass_qs_api&quot;</span>),</span>
+<span id="cb757-4"><a href="nass-quick.html#cb757-4"></a>    <span class="dt">program =</span> <span class="st">&quot;SURVEY&quot;</span>,</span>
+<span id="cb757-5"><a href="nass-quick.html#cb757-5"></a>    <span class="dt">data_item =</span> <span class="st">&quot;CORN, GRAIN, IRRIGATED - YIELD, MEASURED IN BU / ACRE&quot;</span>,</span>
+<span id="cb757-6"><a href="nass-quick.html#cb757-6"></a>    <span class="dt">geographic_level =</span> <span class="st">&quot;COUNTY&quot;</span>,</span>
+<span id="cb757-7"><a href="nass-quick.html#cb757-7"></a>    <span class="dt">state =</span> <span class="st">&quot;COLORADO&quot;</span>,</span>
+<span id="cb757-8"><a href="nass-quick.html#cb757-8"></a>    <span class="dt">year =</span> <span class="st">&quot;2018&quot;</span>,</span>
+<span id="cb757-9"><a href="nass-quick.html#cb757-9"></a>    <span class="dt">geometry =</span> <span class="ot">TRUE</span></span>
+<span id="cb757-10"><a href="nass-quick.html#cb757-10"></a>  ) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb757-11"><a href="nass-quick.html#cb757-11"></a><span class="st">  </span><span class="co">#--- keep only some of the variables ---#</span></span>
+<span id="cb757-12"><a href="nass-quick.html#cb757-12"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(year, NAME, county_code, short_desc, Value)</span>
+<span id="cb757-13"><a href="nass-quick.html#cb757-13"></a>)</span></code></pre></div>
+<pre><code>Simple feature collection with 4 features and 5 fields (with 1 geometry empty)
+geometry type:  MULTIPOLYGON
+dimension:      XY
+bbox:           xmin: -103.7071 ymin: 38.61245 xmax: -102.0448 ymax: 40.43851
+CRS:            +proj=longlat +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +no_defs 
+  year       NAME county_code
+1 2018   Cheyenne         017
+2 2018 Kit Carson         063
+3 2018 Washington         121
+4 2018       &lt;NA&gt;         998
+                                             short_desc Value
+1 CORN, GRAIN, IRRIGATED - YIELD, MEASURED IN BU / ACRE 189.3
+2 CORN, GRAIN, IRRIGATED - YIELD, MEASURED IN BU / ACRE 186.2
+3 CORN, GRAIN, IRRIGATED - YIELD, MEASURED IN BU / ACRE 148.8
+4 CORN, GRAIN, IRRIGATED - YIELD, MEASURED IN BU / ACRE 218.6
+                        geometry
+1 MULTIPOLYGON (((-102.5769 3...
+2 MULTIPOLYGON (((-102.4257 3...
+3 MULTIPOLYGON (((-103.472 40...
+4             MULTIPOLYGON EMPTY</code></pre>
+<p>Here is the complete list of functions that gives you the possible values of the parameters for <code>getQuickstat()</code>.</p>
+<div class="sourceCode" id="cb759"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb759-1"><a href="nass-quick.html#cb759-1"></a>tidyUSDA<span class="op">::</span>allCategory </span>
+<span id="cb759-2"><a href="nass-quick.html#cb759-2"></a>tidyUSDA<span class="op">::</span>allSector </span>
+<span id="cb759-3"><a href="nass-quick.html#cb759-3"></a>tidyUSDA<span class="op">::</span>allGroup </span>
+<span id="cb759-4"><a href="nass-quick.html#cb759-4"></a>tidyUSDA<span class="op">::</span>allCommodity </span>
+<span id="cb759-5"><a href="nass-quick.html#cb759-5"></a>tidyUSDA<span class="op">::</span>allDomain </span>
+<span id="cb759-6"><a href="nass-quick.html#cb759-6"></a>tidyUSDA<span class="op">::</span>allCounty </span>
+<span id="cb759-7"><a href="nass-quick.html#cb759-7"></a>tidyUSDA<span class="op">::</span>allProgram </span>
+<span id="cb759-8"><a href="nass-quick.html#cb759-8"></a>tidyUSDA<span class="op">::</span>allDataItem </span>
+<span id="cb759-9"><a href="nass-quick.html#cb759-9"></a>tidyUSDA<span class="op">::</span>allState </span>
+<span id="cb759-10"><a href="nass-quick.html#cb759-10"></a>tidyUSDA<span class="op">::</span>allGeogLevel </span></code></pre></div>
+</div>
+<div id="caveats" class="section level3" number="9.1.2">
+<h3><span class="header-section-number">9.1.2</span> Caveats</h3>
+<p>You cannot retrieve more than <span class="math inline">\(50,000\)</span> (the limit is set by QuickStat) rows of data. The query below requests much more than <span class="math inline">\(50,000\)</span> observations, and fail. In this case, you need to narrow the search and chop the task into smaller tasks.</p>
+<div class="sourceCode" id="cb760"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb760-1"><a href="nass-quick.html#cb760-1"></a>many_states_corn &lt;-<span class="st"> </span><span class="kw">getQuickstat</span>(</span>
+<span id="cb760-2"><a href="nass-quick.html#cb760-2"></a>    <span class="dt">key =</span> <span class="kw">key_get</span>(<span class="st">&quot;usda_nass_qs_api&quot;</span>),</span>
+<span id="cb760-3"><a href="nass-quick.html#cb760-3"></a>    <span class="dt">program =</span> <span class="st">&quot;SURVEY&quot;</span>,</span>
+<span id="cb760-4"><a href="nass-quick.html#cb760-4"></a>    <span class="dt">commodity =</span> <span class="st">&quot;CORN&quot;</span>,</span>
+<span id="cb760-5"><a href="nass-quick.html#cb760-5"></a>    <span class="dt">geographic_level =</span> <span class="st">&quot;COUNTY&quot;</span>,</span>
+<span id="cb760-6"><a href="nass-quick.html#cb760-6"></a>    <span class="dt">state =</span> <span class="kw">c</span>(<span class="st">&quot;ILLINOIS&quot;</span>, <span class="st">&quot;COLORADO&quot;</span>, <span class="st">&quot;NEBRASKA&quot;</span>, <span class="st">&quot;IOWA&quot;</span>, <span class="st">&quot;KANSAS&quot;</span>),</span>
+<span id="cb760-7"><a href="nass-quick.html#cb760-7"></a>    <span class="dt">year =</span> <span class="kw">paste</span>(<span class="dv">1995</span><span class="op">:</span><span class="dv">2018</span>),</span>
+<span id="cb760-8"><a href="nass-quick.html#cb760-8"></a>    <span class="dt">geometry =</span> <span class="ot">TRUE</span></span>
+<span id="cb760-9"><a href="nass-quick.html#cb760-9"></a>  ) </span></code></pre></div>
+<pre><code>Error in open.connection(con, &quot;rb&quot;): HTTP error 413.</code></pre>
+<p>Another caveat is that the query returns an error when there is no observation that satisfy your query criteria. For example, even though “CORN, GRAIN, IRRIGATED - YIELD, MEASURED IN BU / ACRE” is one of the values you can use for <code>data_item</code>, there is no entry for the statistic in Illinois in 2018. Therefore, the following query fails.</p>
+<div class="sourceCode" id="cb762"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb762-1"><a href="nass-quick.html#cb762-1"></a>many_states_corn &lt;-<span class="st"> </span><span class="kw">getQuickstat</span>(</span>
+<span id="cb762-2"><a href="nass-quick.html#cb762-2"></a>    <span class="dt">key =</span> <span class="kw">key_get</span>(<span class="st">&quot;usda_nass_qs_api&quot;</span>),</span>
+<span id="cb762-3"><a href="nass-quick.html#cb762-3"></a>    <span class="dt">program =</span> <span class="st">&quot;SURVEY&quot;</span>,</span>
+<span id="cb762-4"><a href="nass-quick.html#cb762-4"></a>    <span class="dt">data_item =</span> <span class="st">&quot;CORN, GRAIN, IRRIGATED - YIELD, MEASURED IN BU / ACRE&quot;</span>,</span>
+<span id="cb762-5"><a href="nass-quick.html#cb762-5"></a>    <span class="dt">geographic_level =</span> <span class="st">&quot;COUNTY&quot;</span>,</span>
+<span id="cb762-6"><a href="nass-quick.html#cb762-6"></a>    <span class="dt">state =</span> <span class="st">&quot;ILLINOIS&quot;</span>,</span>
+<span id="cb762-7"><a href="nass-quick.html#cb762-7"></a>    <span class="dt">year =</span> <span class="st">&quot;2018&quot;</span>,</span>
+<span id="cb762-8"><a href="nass-quick.html#cb762-8"></a>    <span class="dt">geometry =</span> <span class="ot">TRUE</span></span>
+<span id="cb762-9"><a href="nass-quick.html#cb762-9"></a>  ) </span></code></pre></div>
+<pre><code>Error in open.connection(con, &quot;rb&quot;): HTTP error 400.</code></pre>
+<!-- 
+#/*=================================================*/
+#' # CDL
+#/*=================================================*/
+-->
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-tidyUSDA">
+<p>Lindblad, Brad. 2020. <em>tidyUSDA: A Minimal Tool Set for Gathering Usda Quick Stat Data for Analysis and Visualization</em>. <a href="https://bradlindblad.github.io/tidyUSDA/">https://bradlindblad.github.io/tidyUSDA/</a>.</p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="97">
+<li id="fn97"><p>Of course, you can alternatively go to the QuickStat website and look for the text values.<a href="nass-quick.html#fnref97" class="footnote-back">↩︎</a></p></li>
+<li id="fn98"><p><code>grep()</code> is part of the base package, and you do not need to install any package to use it.<a href="nass-quick.html#fnref98" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="before-you-start-8.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="CropScapeR.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection",
+"toc_depth": 3,
+"scroll_highlight": true
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

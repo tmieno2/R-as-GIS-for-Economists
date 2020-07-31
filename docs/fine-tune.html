@@ -1,0 +1,1281 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>8.5 Fine-tuning maps for publication | R as GIS for Economists</title>
+  <meta name="description" content="This is a book for Economists who regularly use spatial datasets for their econometric work." />
+  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="8.5 Fine-tuning maps for publication | R as GIS for Economists" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a book for Economists who regularly use spatial datasets for their econometric work." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="8.5 Fine-tuning maps for publication | R as GIS for Economists" />
+  
+  <meta name="twitter:description" content="This is a book for Economists who regularly use spatial datasets for their econometric work." />
+  
+
+<meta name="author" content="Taro Mieno" />
+
+
+<meta name="date" content="2020-07-31" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="arranging-maps.html"/>
+<link rel="next" href="ggsave.html"/>
+<script src="libs/header-attrs-2.1/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/Proj4Leaflet-1.0.1/proj4-compressed.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.0.3/leaflet.js"></script>
+<script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script>
+<script src="libs/leaflet-providers-plugin-2.0.3/leaflet-providers-plugin.js"></script>
+<link href="libs/HomeButton-0.0.1/home-button.css" rel="stylesheet" />
+<script src="libs/HomeButton-0.0.1/home-button.js"></script>
+<script src="libs/HomeButton-0.0.1/easy-button-src.min.js"></script>
+<script src="libs/clipboard-0.0.1/setClipboardText.js"></script>
+<link href="libs/PopupTable-0.0.1/popup.css" rel="stylesheet" />
+<script src="libs/IA_cdl_2015-1/data_stars_IA_cdl_2015492be3.txt"></script>
+<script src="libs/joda-0.0.1/joda.js"></script>
+<script src="libs/joda-0.0.1/addImageQuery-bindings.js"></script>
+<script src="libs/IA_cdl_2016-1/data_stars_IA_cdl_2016d254a6.txt"></script>
+<script src="libs/prcp_tmax_PRISM_m8_y09["tmax", , , ] - 1-1/data_stars_prcp_tmax_PRISM_m8_y09tmax1d57104.txt"></script>
+<script src="libs/layer.1-1/data_stars_layer1ade7f0.txt"></script>
+<script src="libs/layer.2-1/data_stars_layer2a3e1c2.txt"></script>
+<script src="libs/layer.3-1/data_stars_layer39bf0c4.txt"></script>
+<script src="libs/layer.4-1/data_stars_layer4281e67.txt"></script>
+<script src="libs/layer.5-1/data_stars_layer5da8bef.txt"></script>
+<script src="libs/layer.6-1/data_stars_layer60a163b.txt"></script>
+<script src="libs/layer.7-1/data_stars_layer72c54d1.txt"></script>
+<script src="libs/layer.8-1/data_stars_layer8fc014d.txt"></script>
+<script src="libs/layer.9-1/data_stars_layer9f9bcad.txt"></script>
+<script src="libs/layer.10-1/data_stars_layer10ea3f98.txt"></script>
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.13/datatables.js"></script>
+<link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
+<link href="libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">R as GIS for Economists</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="why-r-as-gis-for-economists.html"><a href="why-r-as-gis-for-economists.html"><i class="fa fa-check"></i>Why R as GIS for Economists?</a>
+<ul>
+<li class="chapter" data-level="" data-path="why-r-as-gis-for-economists.html"><a href="why-r-as-gis-for-economists.html#r-vs-python"><i class="fa fa-check"></i>R vs Python</a></li>
+<li class="chapter" data-level="" data-path="why-r-as-gis-for-economists.html"><a href="why-r-as-gis-for-economists.html#r-vs-arcgis-or-qgis"><i class="fa fa-check"></i>R vs ArcGIS or QGIS</a></li>
+<li class="chapter" data-level="" data-path="why-r-as-gis-for-economists.html"><a href="why-r-as-gis-for-economists.html#summary"><i class="fa fa-check"></i>Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="how-is-this-book-different-from-other-online-books-and-resources.html"><a href="how-is-this-book-different-from-other-online-books-and-resources.html"><i class="fa fa-check"></i>How is this book different from other online books and resources?</a></li>
+<li class="chapter" data-level="" data-path="what-is-going-to-be-covered-in-this-book.html"><a href="what-is-going-to-be-covered-in-this-book.html"><i class="fa fa-check"></i>What is going to be covered in this book?</a></li>
+<li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html"><i class="fa fa-check"></i>Conventions of the book and some notes</a>
+<ul>
+<li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html#texts-in-gray-boxes"><i class="fa fa-check"></i>Texts in gray boxes</a></li>
+<li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html#colored-boxes"><i class="fa fa-check"></i>Colored Boxes</a></li>
+<li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html#parentheses-around-codes"><i class="fa fa-check"></i>Parentheses around codes</a></li>
+<li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html#footnotes"><i class="fa fa-check"></i>Footnotes</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="session-information.html"><a href="session-information.html"><i class="fa fa-check"></i>Session Information</a></li>
+</ul></li>
+<li class="part"><span><b>I Demonstration</b></span></li>
+<li class="chapter" data-level="1" data-path="demo.html"><a href="demo.html"><i class="fa fa-check"></i><b>1</b> R as GIS: Demonstrations</a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start.html"><a href="before-you-start.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start.html"><a href="before-you-start.html#target-audience"><i class="fa fa-check"></i>Target Audience</a></li>
+<li class="chapter" data-level="" data-path="before-you-start.html"><a href="before-you-start.html#direction-for-replication"><i class="fa fa-check"></i>Direction for replication</a></li>
+</ul></li>
+<li class="chapter" data-level="1.1" data-path="Demo1.html"><a href="Demo1.html"><i class="fa fa-check"></i><b>1.1</b> Demonstration 1: The impact of groundwater pumping on depth to water table</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="Demo1.html"><a href="Demo1.html#project-overview"><i class="fa fa-check"></i><b>1.1.1</b> Project Overview</a></li>
+<li class="chapter" data-level="1.1.2" data-path="Demo1.html"><a href="Demo1.html#project-demonstration"><i class="fa fa-check"></i><b>1.1.2</b> Project Demonstration</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="demonstration-2-precision-agriculture.html"><a href="demonstration-2-precision-agriculture.html"><i class="fa fa-check"></i><b>1.2</b> Demonstration 2: Precision Agriculture</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="demonstration-2-precision-agriculture.html"><a href="demonstration-2-precision-agriculture.html#project-overview-1"><i class="fa fa-check"></i><b>1.2.1</b> Project Overview</a></li>
+<li class="chapter" data-level="1.2.2" data-path="demonstration-2-precision-agriculture.html"><a href="demonstration-2-precision-agriculture.html#project-demonstration-1"><i class="fa fa-check"></i><b>1.2.2</b> Project Demonstration</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="demo3.html"><a href="demo3.html"><i class="fa fa-check"></i><b>1.3</b> Demonstration 3: Land Use and Weather</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="demo3.html"><a href="demo3.html#project-overview-2"><i class="fa fa-check"></i><b>1.3.1</b> Project Overview</a></li>
+<li class="chapter" data-level="1.3.2" data-path="demo3.html"><a href="demo3.html#project-demonstration-2"><i class="fa fa-check"></i><b>1.3.2</b> Project Demonstration</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="demo4.html"><a href="demo4.html"><i class="fa fa-check"></i><b>1.4</b> Demonstration 4: The Impact of Railroad Presence on Corn Planted Acreage</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="demo4.html"><a href="demo4.html#project-overview-3"><i class="fa fa-check"></i><b>1.4.1</b> Project Overview</a></li>
+<li class="chapter" data-level="1.4.2" data-path="demo4.html"><a href="demo4.html#project-demonstration-3"><i class="fa fa-check"></i><b>1.4.2</b> Project Demonstration</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="demonstration-5-groundwater-use-for-agricultural-irrigation.html"><a href="demonstration-5-groundwater-use-for-agricultural-irrigation.html"><i class="fa fa-check"></i><b>1.5</b> Demonstration 5: Groundwater use for agricultural irrigation</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="demonstration-5-groundwater-use-for-agricultural-irrigation.html"><a href="demonstration-5-groundwater-use-for-agricultural-irrigation.html#project-overview-4"><i class="fa fa-check"></i><b>1.5.1</b> Project Overview</a></li>
+<li class="chapter" data-level="1.5.2" data-path="demonstration-5-groundwater-use-for-agricultural-irrigation.html"><a href="demonstration-5-groundwater-use-for-agricultural-irrigation.html#project-demonstration-4"><i class="fa fa-check"></i><b>1.5.2</b> Project Demonstration</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>II Foundations</b></span></li>
+<li class="chapter" data-level="2" data-path="vector-basics.html"><a href="vector-basics.html"><i class="fa fa-check"></i><b>2</b> Vector Data Handling with <code>sf</code></a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-1.html"><a href="before-you-start-1.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
+<li><a href="before-you-start-1.html#sf-or-sp"><code>sf</code> or <code>sp</code>?</a></li>
+<li class="chapter" data-level="" data-path="before-you-start-1.html"><a href="before-you-start-1.html#direction-for-replication-1"><i class="fa fa-check"></i>Direction for replication</a></li>
+</ul></li>
+<li class="chapter" data-level="2.1" data-path="spatial-data-structure.html"><a href="spatial-data-structure.html"><i class="fa fa-check"></i><b>2.1</b> Spatial Data Structure</a></li>
+<li class="chapter" data-level="2.2" data-path="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html"><i class="fa fa-check"></i><b>2.2</b> Simple feature geometry, simple feature geometry list-column, and simple feature</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#simple-feature-geometry-sfg"><i class="fa fa-check"></i><b>2.2.1</b> Simple feature geometry (<code>sfg</code>)</a></li>
+<li class="chapter" data-level="2.2.2" data-path="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#create-simple-feature-geometry-list-column-sfc-and-simple-feature-sf-from-scratch"><i class="fa fa-check"></i><b>2.2.2</b> Create simple feature geometry list-column (<code>sfc</code>) and simple feature (<code>sf</code>) from scratch</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="reading-and-writing-vector-data.html"><a href="reading-and-writing-vector-data.html"><i class="fa fa-check"></i><b>2.3</b> Reading and writing vector data</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="reading-and-writing-vector-data.html"><a href="reading-and-writing-vector-data.html#reading-a-shapefile"><i class="fa fa-check"></i><b>2.3.1</b> Reading a shapefile</a></li>
+<li class="chapter" data-level="2.3.2" data-path="reading-and-writing-vector-data.html"><a href="reading-and-writing-vector-data.html#writing-to-a-shapefile"><i class="fa fa-check"></i><b>2.3.2</b> Writing to a shapefile</a></li>
+<li class="chapter" data-level="2.3.3" data-path="reading-and-writing-vector-data.html"><a href="reading-and-writing-vector-data.html#better-alternatives"><i class="fa fa-check"></i><b>2.3.3</b> Better alternatives</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="projection-with-a-different-coordinate-reference-systems.html"><a href="projection-with-a-different-coordinate-reference-systems.html"><i class="fa fa-check"></i><b>2.4</b> Projection with a different Coordinate Reference Systems</a></li>
+<li class="chapter" data-level="2.5" data-path="quick-and-interactive-view-of-an-sf-object.html"><a href="quick-and-interactive-view-of-an-sf-object.html"><i class="fa fa-check"></i><b>2.5</b> Quick and interactive view of an <code>sf</code> object</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="quick-and-interactive-view-of-an-sf-object.html"><a href="quick-and-interactive-view-of-an-sf-object.html#quick-view"><i class="fa fa-check"></i><b>2.5.1</b> Quick view</a></li>
+<li class="chapter" data-level="2.5.2" data-path="quick-and-interactive-view-of-an-sf-object.html"><a href="quick-and-interactive-view-of-an-sf-object.html#interactive-view"><i class="fa fa-check"></i><b>2.5.2</b> Interactive view</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="turning-a-data-frame-of-points-into-an-sf.html"><a href="turning-a-data-frame-of-points-into-an-sf.html"><i class="fa fa-check"></i><b>2.6</b> Turning a data.frame of points into an <code>sf</code></a></li>
+<li class="chapter" data-level="2.7" data-path="conv-sp.html"><a href="conv-sp.html"><i class="fa fa-check"></i><b>2.7</b> Conversion to and from sp</a></li>
+<li class="chapter" data-level="2.8" data-path="non-spatial-transformation-of-sf.html"><a href="non-spatial-transformation-of-sf.html"><i class="fa fa-check"></i><b>2.8</b> Non-spatial transformation of sf</a>
+<ul>
+<li class="chapter" data-level="2.8.1" data-path="non-spatial-transformation-of-sf.html"><a href="non-spatial-transformation-of-sf.html#using-dplyr"><i class="fa fa-check"></i><b>2.8.1</b> Using <code>dplyr</code></a></li>
+<li class="chapter" data-level="2.8.2" data-path="non-spatial-transformation-of-sf.html"><a href="non-spatial-transformation-of-sf.html#using-data.table"><i class="fa fa-check"></i><b>2.8.2</b> Using <code>data.table</code></a></li>
+</ul></li>
+<li class="chapter" data-level="2.9" data-path="non-interactive-geometrical-operations.html"><a href="non-interactive-geometrical-operations.html"><i class="fa fa-check"></i><b>2.9</b> Non-interactive geometrical operations</a>
+<ul>
+<li class="chapter" data-level="2.9.1" data-path="non-interactive-geometrical-operations.html"><a href="non-interactive-geometrical-operations.html#st_buffer"><i class="fa fa-check"></i><b>2.9.1</b> st_buffer</a></li>
+<li class="chapter" data-level="2.9.2" data-path="non-interactive-geometrical-operations.html"><a href="non-interactive-geometrical-operations.html#st_area"><i class="fa fa-check"></i><b>2.9.2</b> st_area</a></li>
+<li class="chapter" data-level="2.9.3" data-path="non-interactive-geometrical-operations.html"><a href="non-interactive-geometrical-operations.html#st_centroid"><i class="fa fa-check"></i><b>2.9.3</b> st_centroid</a></li>
+<li class="chapter" data-level="2.9.4" data-path="non-interactive-geometrical-operations.html"><a href="non-interactive-geometrical-operations.html#st_length"><i class="fa fa-check"></i><b>2.9.4</b> st_length</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="int-vv.html"><a href="int-vv.html"><i class="fa fa-check"></i><b>3</b> Spatial Interactions of Vector Data: Subsetting and Joining</a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-2.html"><a href="before-you-start-2.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-2.html"><a href="before-you-start-2.html#direction-for-replication-2"><i class="fa fa-check"></i>Direction for replication</a></li>
+</ul></li>
+<li class="chapter" data-level="3.1" data-path="topo.html"><a href="topo.html"><i class="fa fa-check"></i><b>3.1</b> Topological relations</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="topo.html"><a href="topo.html#st_intersects"><i class="fa fa-check"></i><b>3.1.1</b> st_intersects()</a></li>
+<li class="chapter" data-level="3.1.2" data-path="topo.html"><a href="topo.html#st_is_within_distance"><i class="fa fa-check"></i><b>3.1.2</b> st_is_within_distance()</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html"><i class="fa fa-check"></i><b>3.2</b> Spatial Subsetting (or Flagging)</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#polygons-source-vs-polygons-target"><i class="fa fa-check"></i><b>3.2.1</b> polygons (source) vs polygons (target)</a></li>
+<li class="chapter" data-level="3.2.2" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#points-source-vs-polygons-target"><i class="fa fa-check"></i><b>3.2.2</b> points (source) vs polygons (target)</a></li>
+<li class="chapter" data-level="3.2.3" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#lines_polygons"><i class="fa fa-check"></i><b>3.2.3</b> lines (source) vs polygons (target)</a></li>
+<li class="chapter" data-level="3.2.4" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#polygons_points"><i class="fa fa-check"></i><b>3.2.4</b> polygons (source) vs points (target)</a></li>
+<li class="chapter" data-level="3.2.5" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#subsetting-to-a-geograpchic-extent-bounding-box"><i class="fa fa-check"></i><b>3.2.5</b> Subsetting to a geograpchic extent (bounding box)</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="sp-join.html"><a href="sp-join.html"><i class="fa fa-check"></i><b>3.3</b> Spatial Join</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="sp-join.html"><a href="sp-join.html#case-1-points-target-vs-polygons-source"><i class="fa fa-check"></i><b>3.3.1</b> Case 1: points (target) vs polygons (source)</a></li>
+<li class="chapter" data-level="3.3.2" data-path="sp-join.html"><a href="sp-join.html#case-2-polygons-target-vs-points-source"><i class="fa fa-check"></i><b>3.3.2</b> Case 2: polygons (target) vs points (source)</a></li>
+<li class="chapter" data-level="3.3.3" data-path="sp-join.html"><a href="sp-join.html#polygon-polygon"><i class="fa fa-check"></i><b>3.3.3</b> Case 3: polygons (target) vs polygons (source)</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="spatial-intersection-cropping-join.html"><a href="spatial-intersection-cropping-join.html"><i class="fa fa-check"></i><b>3.4</b> Spatial Intersection (cropping join)</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="spatial-intersection-cropping-join.html"><a href="spatial-intersection-cropping-join.html#st_intersection"><i class="fa fa-check"></i><b>3.4.1</b> <code>st_intersection()</code></a></li>
+<li class="chapter" data-level="3.4.2" data-path="spatial-intersection-cropping-join.html"><a href="spatial-intersection-cropping-join.html#area-weighted-average"><i class="fa fa-check"></i><b>3.4.2</b> Area-weighted average</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="raster-basics.html"><a href="raster-basics.html"><i class="fa fa-check"></i><b>4</b> Raster Data Handling</a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-3.html"><a href="before-you-start-3.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-3.html"><a href="before-you-start-3.html#direction-for-replication-3"><i class="fa fa-check"></i>Direction for replication</a></li>
+</ul></li>
+<li class="chapter" data-level="4.1" data-path="raster-data-object-classes.html"><a href="raster-data-object-classes.html"><i class="fa fa-check"></i><b>4.1</b> Raster data object classes</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="raster-data-object-classes.html"><a href="raster-data-object-classes.html#raster-package-rasterlayer-rasterstack-and-rasterbrick"><i class="fa fa-check"></i><b>4.1.1</b> <code>raster</code> package: <code>RasterLayer</code>, <code>RasterStack</code>, and <code>RasterBrick</code></a></li>
+<li class="chapter" data-level="4.1.2" data-path="raster-data-object-classes.html"><a href="raster-data-object-classes.html#terra-package-spatraster"><i class="fa fa-check"></i><b>4.1.2</b> <code>terra</code> package: <code>SpatRaster</code></a></li>
+<li class="chapter" data-level="4.1.3" data-path="raster-data-object-classes.html"><a href="raster-data-object-classes.html#converting-a-spatraster-object-to-a-raster-object."><i class="fa fa-check"></i><b>4.1.3</b> Converting a <code>SpatRaster</code> object to a <code>Raster</code><span class="math inline">\(^*\)</span> object.</a></li>
+<li class="chapter" data-level="4.1.4" data-path="raster-data-object-classes.html"><a href="raster-data-object-classes.html#vector-data-in-the-terra-package"><i class="fa fa-check"></i><b>4.1.4</b> Vector data in the <code>terra</code> package</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="read-and-write-a-raster-data-file.html"><a href="read-and-write-a-raster-data-file.html"><i class="fa fa-check"></i><b>4.2</b> Read and write a raster data file</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="read-and-write-a-raster-data-file.html"><a href="read-and-write-a-raster-data-file.html#read-raster-files"><i class="fa fa-check"></i><b>4.2.1</b> Read raster file(s)</a></li>
+<li class="chapter" data-level="4.2.2" data-path="read-and-write-a-raster-data-file.html"><a href="read-and-write-a-raster-data-file.html#write-raster-files"><i class="fa fa-check"></i><b>4.2.2</b> Write raster files</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="access-values.html"><a href="access-values.html"><i class="fa fa-check"></i><b>4.3</b> Access values</a></li>
+<li class="chapter" data-level="4.4" data-path="quick-plot-and-interactive-map.html"><a href="quick-plot-and-interactive-map.html"><i class="fa fa-check"></i><b>4.4</b> Quick plot and interactive map</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="int-RV.html"><a href="int-RV.html"><i class="fa fa-check"></i><b>5</b> Spatial Interactions of Vector and Raster Data</a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-4.html"><a href="before-you-start-4.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-4.html"><a href="before-you-start-4.html#direction-for-replication-4"><i class="fa fa-check"></i>Direction for replication</a></li>
+</ul></li>
+<li class="chapter" data-level="5.1" data-path="raster-crop.html"><a href="raster-crop.html"><i class="fa fa-check"></i><b>5.1</b> Cropping (Spatial subsetting) to the Area of Interest</a></li>
+<li class="chapter" data-level="5.2" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html"><i class="fa fa-check"></i><b>5.2</b> Extracting Values from Raster Layers for Vector Data</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#points"><i class="fa fa-check"></i><b>5.2.1</b> Points</a></li>
+<li class="chapter" data-level="5.2.2" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#polygons-terra-way"><i class="fa fa-check"></i><b>5.2.2</b> Polygons (<code>terra</code> way)</a></li>
+<li class="chapter" data-level="5.2.3" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#polygons-exactextractr-way"><i class="fa fa-check"></i><b>5.2.3</b> Polygons (<code>exactextractr</code> way)</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="extract-speed.html"><a href="extract-speed.html"><i class="fa fa-check"></i><b>5.3</b> Extraction speed comparison</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="extract-speed.html"><a href="extract-speed.html#points-terraextract-and-rasterextract"><i class="fa fa-check"></i><b>5.3.1</b> Points: <code>terra::extract()</code> and <code>raster::extract()</code></a></li>
+<li class="chapter" data-level="5.3.2" data-path="extract-speed.html"><a href="extract-speed.html#polygons-exact_extract-terraextract-and-rasterextract"><i class="fa fa-check"></i><b>5.3.2</b> Polygons: <code>exact_extract()</code>, <code>terra::extract()</code>, and <code>raster::extract()</code></a></li>
+<li class="chapter" data-level="5.3.3" data-path="extract-speed.html"><a href="extract-speed.html#single-layer-vs-multi-layer"><i class="fa fa-check"></i><b>5.3.3</b> Single-layer vs multi-layer</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>III (slightly) Advanced Topics</b></span></li>
+<li class="chapter" data-level="6" data-path="EE.html"><a href="EE.html"><i class="fa fa-check"></i><b>6</b> Speed Things Up</a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-5.html"><a href="before-you-start-5.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-5.html"><a href="before-you-start-5.html#direction-for-replication-5"><i class="fa fa-check"></i>Direction for replication</a></li>
+</ul></li>
+<li class="chapter" data-level="6.1" data-path="single-raster-layer.html"><a href="single-raster-layer.html"><i class="fa fa-check"></i><b>6.1</b> Single raster layer</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="single-raster-layer.html"><a href="single-raster-layer.html#datasets"><i class="fa fa-check"></i><b>6.1.1</b> Datasets</a></li>
+<li class="chapter" data-level="6.1.2" data-path="single-raster-layer.html"><a href="single-raster-layer.html#parallelization"><i class="fa fa-check"></i><b>6.1.2</b> Parallelization</a></li>
+<li class="chapter" data-level="6.1.3" data-path="single-raster-layer.html"><a href="single-raster-layer.html#summary-1"><i class="fa fa-check"></i><b>6.1.3</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="many-multi-layer.html"><a href="many-multi-layer.html"><i class="fa fa-check"></i><b>6.2</b> Many multi-layer raster files</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="many-multi-layer.html"><a href="many-multi-layer.html#datasets-1"><i class="fa fa-check"></i><b>6.2.1</b> Datasets</a></li>
+<li class="chapter" data-level="6.2.2" data-path="many-multi-layer.html"><a href="many-multi-layer.html#non-par-ext-multi"><i class="fa fa-check"></i><b>6.2.2</b> Non-parallelized extraction</a></li>
+<li class="chapter" data-level="6.2.3" data-path="many-multi-layer.html"><a href="many-multi-layer.html#approach-1-parallelize-over-polygons-and-do-regular-loop-over-year-month"><i class="fa fa-check"></i><b>6.2.3</b> Approach 1: parallelize over polygons and do regular loop over year-month</a></li>
+<li class="chapter" data-level="6.2.4" data-path="many-multi-layer.html"><a href="many-multi-layer.html#approach-2-parallelize-over-the-temporal-dimension-year-month"><i class="fa fa-check"></i><b>6.2.4</b> Approach 2: parallelize over the temporal dimension (year-month)</a></li>
+<li class="chapter" data-level="6.2.5" data-path="many-multi-layer.html"><a href="many-multi-layer.html#memory-consideration"><i class="fa fa-check"></i><b>6.2.5</b> Memory consideration</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="stars-basics.html"><a href="stars-basics.html"><i class="fa fa-check"></i><b>7</b> Spatiotemporal Raster Data Handling with <code>stars</code></a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-6.html"><a href="before-you-start-6.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-6.html"><a href="before-you-start-6.html#direction-for-replication-6"><i class="fa fa-check"></i>Direction for replication</a></li>
+</ul></li>
+<li class="chapter" data-level="7.1" data-path="stars-structure.html"><a href="stars-structure.html"><i class="fa fa-check"></i><b>7.1</b> Understanding the structure of a <code>stars</code> object</a></li>
+<li class="chapter" data-level="7.2" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html"><i class="fa fa-check"></i><b>7.2</b> Some basic operations on <code>stars</code> objects</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html#subset-a-stars-object-by-index"><i class="fa fa-check"></i><b>7.2.1</b> Subset a <code>stars</code> object by index</a></li>
+<li class="chapter" data-level="7.2.2" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html#set-attribute-names"><i class="fa fa-check"></i><b>7.2.2</b> Set attribute names</a></li>
+<li class="chapter" data-level="7.2.3" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html#get-the-coordinate-reference-system"><i class="fa fa-check"></i><b>7.2.3</b> Get the coordinate reference system</a></li>
+<li class="chapter" data-level="7.2.4" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html#get-the-dimension-characteristics-and-values"><i class="fa fa-check"></i><b>7.2.4</b> Get the dimension characteristics and values</a></li>
+<li class="chapter" data-level="7.2.5" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html#attributes-to-dimensions-and-vice-versa"><i class="fa fa-check"></i><b>7.2.5</b> Attributes to dimensions, and vice versa</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="quick-visualization-for-exploration.html"><a href="quick-visualization-for-exploration.html"><i class="fa fa-check"></i><b>7.3</b> Quick visualization for exploration</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="quick-visualization-for-exploration.html"><a href="quick-visualization-for-exploration.html#quick-static-map"><i class="fa fa-check"></i><b>7.3.1</b> quick static map</a></li>
+<li class="chapter" data-level="7.3.2" data-path="quick-visualization-for-exploration.html"><a href="quick-visualization-for-exploration.html#interactive-map"><i class="fa fa-check"></i><b>7.3.2</b> interactive map</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="read-write-stars.html"><a href="read-write-stars.html"><i class="fa fa-check"></i><b>7.4</b> Reading and writing raster data</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="read-write-stars.html"><a href="read-write-stars.html#reading-raster-data"><i class="fa fa-check"></i><b>7.4.1</b> Reading raster data</a></li>
+<li class="chapter" data-level="7.4.2" data-path="read-write-stars.html"><a href="read-write-stars.html#writing-a-stars-object-to-a-file"><i class="fa fa-check"></i><b>7.4.2</b> Writing a <code>stars</code> object to a file</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="stars-set-time.html"><a href="stars-set-time.html"><i class="fa fa-check"></i><b>7.5</b> Setting the time dimension manually</a></li>
+<li class="chapter" data-level="7.6" data-path="dplyr-op.html"><a href="dplyr-op.html"><i class="fa fa-check"></i><b>7.6</b> <code>dplyr</code>-like operations</a>
+<ul>
+<li class="chapter" data-level="7.6.1" data-path="dplyr-op.html"><a href="dplyr-op.html#filter"><i class="fa fa-check"></i><b>7.6.1</b> <code>filter()</code></a></li>
+<li class="chapter" data-level="7.6.2" data-path="dplyr-op.html"><a href="dplyr-op.html#select"><i class="fa fa-check"></i><b>7.6.2</b> <code>select()</code></a></li>
+<li class="chapter" data-level="7.6.3" data-path="dplyr-op.html"><a href="dplyr-op.html#mutate"><i class="fa fa-check"></i><b>7.6.3</b> <code>mutate()</code></a></li>
+<li class="chapter" data-level="7.6.4" data-path="dplyr-op.html"><a href="dplyr-op.html#pull"><i class="fa fa-check"></i><b>7.6.4</b> <code>pull()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="merging-stars-objects-using-c-and-st-mosaic.html"><a href="merging-stars-objects-using-c-and-st-mosaic.html"><i class="fa fa-check"></i><b>7.7</b> Merging <code>stars</code> objects using <code>c()</code> and <code>st_mosaic()</code></a>
+<ul>
+<li class="chapter" data-level="7.7.1" data-path="merging-stars-objects-using-c-and-st-mosaic.html"><a href="merging-stars-objects-using-c-and-st-mosaic.html#merging-stars-objects-along-the-third-dimension-band"><i class="fa fa-check"></i><b>7.7.1</b> Merging <code>stars</code> objects along the third dimension (band)</a></li>
+<li class="chapter" data-level="7.7.2" data-path="merging-stars-objects-using-c-and-st-mosaic.html"><a href="merging-stars-objects-using-c-and-st-mosaic.html#merge-two"><i class="fa fa-check"></i><b>7.7.2</b> Merging <code>stars</code> objects of different attributes</a></li>
+<li class="chapter" data-level="7.7.3" data-path="merging-stars-objects-using-c-and-st-mosaic.html"><a href="merging-stars-objects-using-c-and-st-mosaic.html#merging-stars-objects-of-different-spatial-extents"><i class="fa fa-check"></i><b>7.7.3</b> Merging <code>stars</code> objects of different spatial extents</a></li>
+</ul></li>
+<li class="chapter" data-level="7.8" data-path="convert-to-rb.html"><a href="convert-to-rb.html"><i class="fa fa-check"></i><b>7.8</b> Convert from and to <code>Raster</code><span class="math inline">\(^*\)</span> objects</a></li>
+<li class="chapter" data-level="7.9" data-path="spatial-cropping.html"><a href="spatial-cropping.html"><i class="fa fa-check"></i><b>7.9</b> Spatial cropping</a></li>
+<li class="chapter" data-level="7.10" data-path="extraction-stars.html"><a href="extraction-stars.html"><i class="fa fa-check"></i><b>7.10</b> Extracting values from <code>stars</code> for vector data</a>
+<ul>
+<li class="chapter" data-level="7.10.1" data-path="extraction-stars.html"><a href="extraction-stars.html#points-1"><i class="fa fa-check"></i><b>7.10.1</b> Points</a></li>
+<li class="chapter" data-level="7.10.2" data-path="extraction-stars.html"><a href="extraction-stars.html#polygons"><i class="fa fa-check"></i><b>7.10.2</b> Polygons</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>IV Extensions</b></span></li>
+<li class="chapter" data-level="8" data-path="create-maps.html"><a href="create-maps.html"><i class="fa fa-check"></i><b>8</b> Creating Maps using <code>ggplot2</code></a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-7.html"><a href="before-you-start-7.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-7.html"><a href="before-you-start-7.html#direction-for-replication-7"><i class="fa fa-check"></i>Direction for replication</a></li>
+</ul></li>
+<li class="chapter" data-level="8.1" data-path="geom-sf.html"><a href="geom-sf.html"><i class="fa fa-check"></i><b>8.1</b> Creating maps from <code>sf</code> objects</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="geom-sf.html"><a href="geom-sf.html#datasets-2"><i class="fa fa-check"></i><b>8.1.1</b> Datasets</a></li>
+<li class="chapter" data-level="8.1.2" data-path="geom-sf.html"><a href="geom-sf.html#basic-usage-of-geom_sf"><i class="fa fa-check"></i><b>8.1.2</b> Basic usage of <code>geom_sf()</code></a></li>
+<li class="chapter" data-level="8.1.3" data-path="geom-sf.html"><a href="geom-sf.html#specifying-the-aesthetics"><i class="fa fa-check"></i><b>8.1.3</b> Specifying the aesthetics</a></li>
+<li class="chapter" data-level="8.1.4" data-path="geom-sf.html"><a href="geom-sf.html#plotting-multiple-spatial-objects-in-one-figure"><i class="fa fa-check"></i><b>8.1.4</b> Plotting multiple spatial objects in one figure</a></li>
+<li class="chapter" data-level="8.1.5" data-path="geom-sf.html"><a href="geom-sf.html#crs"><i class="fa fa-check"></i><b>8.1.5</b> CRS</a></li>
+<li class="chapter" data-level="8.1.6" data-path="geom-sf.html"><a href="geom-sf.html#faceting"><i class="fa fa-check"></i><b>8.1.6</b> Faceting</a></li>
+<li class="chapter" data-level="8.1.7" data-path="geom-sf.html"><a href="geom-sf.html#adding-texts-labels-on-a-map"><i class="fa fa-check"></i><b>8.1.7</b> Adding texts (labels) on a map</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="geom-raster.html"><a href="geom-raster.html"><i class="fa fa-check"></i><b>8.2</b> Raster data visualization: <code>geom_raster()</code> and <code>geom_stars()</code></a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="geom-raster.html"><a href="geom-raster.html#visualize-raster-with-geom_raster"><i class="fa fa-check"></i><b>8.2.1</b> Visualize <code>Raster</code><span class="math inline">\(^*\)</span> with <code>geom_raster()</code></a></li>
+<li class="chapter" data-level="8.2.2" data-path="geom-raster.html"><a href="geom-raster.html#visualize-stars-with-geom_raster"><i class="fa fa-check"></i><b>8.2.2</b> Visualize <code>stars</code> with <code>geom_raster()</code></a></li>
+<li class="chapter" data-level="8.2.3" data-path="geom-raster.html"><a href="geom-raster.html#visualize-stars-with-geom_stars"><i class="fa fa-check"></i><b>8.2.3</b> Visualize <code>stars</code> with <code>geom_stars()</code></a></li>
+<li class="chapter" data-level="8.2.4" data-path="geom-raster.html"><a href="geom-raster.html#adding-geom_sf-layers"><i class="fa fa-check"></i><b>8.2.4</b> adding <code>geom_sf()</code> layers</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="color-scale.html"><a href="color-scale.html"><i class="fa fa-check"></i><b>8.3</b> Color scale</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="color-scale.html"><a href="color-scale.html#viridis-color-maps"><i class="fa fa-check"></i><b>8.3.1</b> Viridis color maps</a></li>
+<li class="chapter" data-level="8.3.2" data-path="color-scale.html"><a href="color-scale.html#rcolorbrewer-scale__distiller-and-scale__brewer"><i class="fa fa-check"></i><b>8.3.2</b> <code>RColorBrewer</code>: <code>scale_*_distiller()</code> and <code>scale_*_brewer()</code></a></li>
+<li class="chapter" data-level="8.3.3" data-path="color-scale.html"><a href="color-scale.html#colorspace-package"><i class="fa fa-check"></i><b>8.3.3</b> <code>colorspace</code> package</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="arranging-maps.html"><a href="arranging-maps.html"><i class="fa fa-check"></i><b>8.4</b> Arranging maps</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="arranging-maps.html"><a href="arranging-maps.html#multiple-panels-of-figures-as-a-single-figure"><i class="fa fa-check"></i><b>8.4.1</b> Multiple panels of figures as a single figure</a></li>
+<li class="chapter" data-level="8.4.2" data-path="arranging-maps.html"><a href="arranging-maps.html#a-map-in-a-map-inset"><i class="fa fa-check"></i><b>8.4.2</b> A map in a map: inset</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="fine-tune.html"><a href="fine-tune.html"><i class="fa fa-check"></i><b>8.5</b> Fine-tuning maps for publication</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="fine-tune.html"><a href="fine-tune.html#theme"><i class="fa fa-check"></i><b>8.5.1</b> Setting the theme</a></li>
+<li class="chapter" data-level="8.5.2" data-path="fine-tune.html"><a href="fine-tune.html#legend"><i class="fa fa-check"></i><b>8.5.2</b> Legend</a></li>
+<li class="chapter" data-level="8.5.3" data-path="fine-tune.html"><a href="fine-tune.html#facet-strips"><i class="fa fa-check"></i><b>8.5.3</b> Facet strips</a></li>
+<li class="chapter" data-level="8.5.4" data-path="fine-tune.html"><a href="fine-tune.html#north-arrow-and-scale-bar"><i class="fa fa-check"></i><b>8.5.4</b> North arrow and scale bar</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="ggsave.html"><a href="ggsave.html"><i class="fa fa-check"></i><b>8.6</b> Saving a <code>ggplot</code> object as an image</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="download-data.html"><a href="download-data.html"><i class="fa fa-check"></i><b>9</b> Download and process spatial datasets from within R</a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-8.html"><a href="before-you-start-8.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-8.html"><a href="before-you-start-8.html#direction-for-replication-8"><i class="fa fa-check"></i>Direction for replication</a></li>
+</ul></li>
+<li class="chapter" data-level="9.1" data-path="nass-quick.html"><a href="nass-quick.html"><i class="fa fa-check"></i><b>9.1</b> USDA NASS QuickStat with <code>tidyUSDA</code></a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="nass-quick.html"><a href="nass-quick.html#look-for-parameter-values"><i class="fa fa-check"></i><b>9.1.1</b> Look for parameter values</a></li>
+<li class="chapter" data-level="9.1.2" data-path="nass-quick.html"><a href="nass-quick.html#caveats"><i class="fa fa-check"></i><b>9.1.2</b> Caveats</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="CropScapeR.html"><a href="CropScapeR.html"><i class="fa fa-check"></i><b>9.2</b> CDL with <code>CropScapeR</code></a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="CropScapeR.html"><a href="CropScapeR.html#getcdldata-download-the-cdl-data-as-raster-data"><i class="fa fa-check"></i><b>9.2.1</b> <code>GetCDLData</code>: Download the CDL data as raster data</a></li>
+<li class="chapter" data-level="9.2.2" data-path="CropScapeR.html"><a href="CropScapeR.html#data-processing-after-downloading-data"><i class="fa fa-check"></i><b>9.2.2</b> Data processing after downloading data</a></li>
+<li class="chapter" data-level="9.2.3" data-path="CropScapeR.html"><a href="CropScapeR.html#other-forms-of-cdl-data"><i class="fa fa-check"></i><b>9.2.3</b> Other forms of CDL data</a></li>
+<li class="chapter" data-level="9.2.4" data-path="CropScapeR.html"><a href="CropScapeR.html#mac-problem"><i class="fa fa-check"></i><b>9.2.4</b> SSL certificate problem on Mac</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="download-prism.html"><a href="download-prism.html"><i class="fa fa-check"></i><b>9.3</b> PRISM with <code>prism</code></a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="download-prism.html"><a href="download-prism.html#basics"><i class="fa fa-check"></i><b>9.3.1</b> Basics</a></li>
+<li class="chapter" data-level="9.3.2" data-path="download-prism.html"><a href="download-prism.html#download-daily-prism-data-for-many-years-and-build-your-own-datasets"><i class="fa fa-check"></i><b>9.3.2</b> Download daily PRISM data for many years and build your own datasets</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="daymet-with-daymetr-and-feddata.html"><a href="daymet-with-daymetr-and-feddata.html"><i class="fa fa-check"></i><b>9.4</b> Daymet with <code>daymetr</code> and <code>FedData</code></a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="daymet-with-daymetr-and-feddata.html"><a href="daymet-with-daymetr-and-feddata.html#for-points-data"><i class="fa fa-check"></i><b>9.4.1</b> For points data</a></li>
+<li class="chapter" data-level="9.4.2" data-path="daymet-with-daymetr-and-feddata.html"><a href="daymet-with-daymetr-and-feddata.html#daymet-poly"><i class="fa fa-check"></i><b>9.4.2</b> For polygons data</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="usgs-under-construction.html"><a href="usgs-under-construction.html"><i class="fa fa-check"></i><b>9.5</b> USGS (under construction)</a></li>
+<li class="chapter" data-level="9.6" data-path="sentinel-with-sen2r-under-construction.html"><a href="sentinel-with-sen2r-under-construction.html"><i class="fa fa-check"></i><b>9.6</b> Sentinel with <code>sen2r</code> (under construction)</a></li>
+<li class="chapter" data-level="9.7" data-path="census-with-tidycensus-under-construction.html"><a href="census-with-tidycensus-under-construction.html"><i class="fa fa-check"></i><b>9.7</b> Census with <code>tidycensus</code> (under construction)</a></li>
+</ul></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="par-comp.html"><a href="par-comp.html"><i class="fa fa-check"></i><b>A</b> Loop and Parallel Computing</a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-9.html"><a href="before-you-start-9.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-9.html"><a href="before-you-start-9.html#direction-for-replication-9"><i class="fa fa-check"></i>Direction for replication</a></li>
+<li class="chapter" data-level="" data-path="before-you-start-9.html"><a href="before-you-start-9.html#packages-to-install-and-load"><i class="fa fa-check"></i>Packages to install and load</a></li>
+</ul></li>
+<li class="chapter" data-level="A.1" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html"><i class="fa fa-check"></i><b>A.1</b> Repetitive processes and looping</a>
+<ul>
+<li class="chapter" data-level="A.1.1" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html#what-is-looping"><i class="fa fa-check"></i><b>A.1.1</b> What is looping?</a></li>
+<li class="chapter" data-level="A.1.2" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html#for-loop"><i class="fa fa-check"></i><b>A.1.2</b> For loop</a></li>
+<li class="chapter" data-level="A.1.3" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html#for-loop-using-the-lapply-function"><i class="fa fa-check"></i><b>A.1.3</b> For loop using the <code>lapply()</code> function</a></li>
+<li class="chapter" data-level="A.1.4" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html#looping-over-multiple-variables-using-lapply"><i class="fa fa-check"></i><b>A.1.4</b> Looping over multiple variables using lapply()</a></li>
+<li class="chapter" data-level="A.1.5" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html#do-you-really-need-to-loop"><i class="fa fa-check"></i><b>A.1.5</b> Do you really need to loop?</a></li>
+</ul></li>
+<li class="chapter" data-level="A.2" data-path="parcomp.html"><a href="parcomp.html"><i class="fa fa-check"></i><b>A.2</b> Parallelization of embarrassingly parallel processes</a>
+<ul>
+<li class="chapter" data-level="A.2.1" data-path="parcomp.html"><a href="parcomp.html#mac-or-linux-users"><i class="fa fa-check"></i><b>A.2.1</b> Mac or Linux users</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="B" data-path="ggplot2-minimals.html"><a href="ggplot2-minimals.html"><i class="fa fa-check"></i><b>B</b> ggplot2 minimals</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R as GIS for Economists</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<link href="style.css" rel="stylesheet" type="text/css">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-59758608-3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-59758608-3');
+</script>
+
+<div id="fine-tune" class="section level2" number="8.5">
+<h2><span class="header-section-number">8.5</span> Fine-tuning maps for publication</h2>
+<p>This section presents a number of small tips to beautify your maps so that they can be publishable in professional reports. Often times, academic journals have their own particular sets of rules about figures, and reviewers or your boss might have their own views of what maps should look like. Whatever the requirements or requests, you need to accommodate their requests and modify the maps accordingly. It is worth mentioning that there is really nothing specific to creating maps here. Techniques presented here are applicable to any kind of figure. It is just that we limit ourselves to specific components of a figure that you are likely to want to modify from the default when creating maps. Specifically, pre-made <code>ggplot2</code> themes and how to modify legends and facet strips are discussed.</p>
+<div class="sourceCode" id="cb697"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb697-1"><a href="fine-tune.html#cb697-1"></a>(</span>
+<span id="cb697-2"><a href="fine-tune.html#cb697-2"></a>gw_by_county &lt;-<span class="st"> </span><span class="kw">st_join</span>(KS_county, gw_KS_sf) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb697-3"><a href="fine-tune.html#cb697-3"></a><span class="st">    </span><span class="kw">data.table</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb697-4"><a href="fine-tune.html#cb697-4"></a><span class="st">    </span>.[, .(<span class="dt">af_used =</span> <span class="kw">sum</span>(af_used, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)), <span class="dt">by =</span> .(COUNTYFP, year)] <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb697-5"><a href="fine-tune.html#cb697-5"></a><span class="st">    </span><span class="kw">left_join</span>(KS_county, ., <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;COUNTYFP&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb697-6"><a href="fine-tune.html#cb697-6"></a><span class="st">    </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(year))</span>
+<span id="cb697-7"><a href="fine-tune.html#cb697-7"></a>)</span></code></pre></div>
+<pre><code>Simple feature collection with 184 features and 11 fields
+geometry type:  MULTIPOLYGON
+dimension:      XY
+bbox:           xmin: -102.0517 ymin: 36.99308 xmax: -94.59193 ymax: 40.00308
+CRS:            EPSG:4269
+First 10 features:
+   STATEFP COUNTYFP COUNTYNS       AFFGEOID GEOID     NAME LSAD      ALAND
+1       20      133 00485030 0500000US20133 20133   Neosho   06 1480111173
+2       20      133 00485030 0500000US20133 20133   Neosho   06 1480111173
+3       20      075 00485327 0500000US20075 20075 Hamilton   06 2580958328
+4       20      075 00485327 0500000US20075 20075 Hamilton   06 2580958328
+5       20      123 00485026 0500000US20123 20123 Mitchell   06 1817632933
+6       20      123 00485026 0500000US20123 20123 Mitchell   06 1817632933
+7       20      189 00485056 0500000US20189 20189  Stevens   06 1883595654
+8       20      189 00485056 0500000US20189 20189  Stevens   06 1883595654
+9       20      155 00485041 0500000US20155 20155     Reno   06 3251786677
+10      20      155 00485041 0500000US20155 20155     Reno   06 3251786677
+     AWATER year     af_used                       geometry
+1  16369480 2010      0.0000 MULTIPOLYGON (((-95.5255 37...
+2  16369480 2011      0.0000 MULTIPOLYGON (((-95.5255 37...
+3   2893322 2010  37754.3807 MULTIPOLYGON (((-102.0446 3...
+4   2893322 2011  44740.8271 MULTIPOLYGON (((-102.0446 3...
+5  44979980 2010    609.9637 MULTIPOLYGON (((-98.48738 3...
+6  44979980 2011    660.4279 MULTIPOLYGON (((-98.48738 3...
+7    464936 2010 218616.6302 MULTIPOLYGON (((-101.5566 3...
+8    464936 2011 297064.4280 MULTIPOLYGON (((-101.5566 3...
+9  42963060 2010  53573.3553 MULTIPOLYGON (((-98.47279 3...
+10 42963060 2011  78664.0507 MULTIPOLYGON (((-98.47279 3...</code></pre>
+<div class="sourceCode" id="cb699"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb699-1"><a href="fine-tune.html#cb699-1"></a>(</span>
+<span id="cb699-2"><a href="fine-tune.html#cb699-2"></a>g_base &lt;-<span class="st"> </span><span class="kw">ggplot</span>() <span class="op">+</span><span class="st">    </span></span>
+<span id="cb699-3"><a href="fine-tune.html#cb699-3"></a><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> gw_by_county, <span class="kw">aes</span>(<span class="dt">fill =</span> af_used)) <span class="op">+</span></span>
+<span id="cb699-4"><a href="fine-tune.html#cb699-4"></a><span class="st">    </span><span class="kw">facet_wrap</span>(. <span class="op">~</span><span class="st"> </span>year)</span>
+<span id="cb699-5"><a href="fine-tune.html#cb699-5"></a>)</span></code></pre></div>
+<p><img src="R_GIS_Book_files/figure-html/base-map-fine-1.png" width="672" /></p>
+<div id="theme" class="section level3" number="8.5.1">
+<h3><span class="header-section-number">8.5.1</span> Setting the theme</h3>
+<!-- https://ggplot2-book.org/polishing.html -->
+<p>Right now, the map shows geographic coordinates, gray background, and grid lines. They are not very aesthetically appealing. Adding the pre-defined theme by <code>theme_*()</code> can alter the theme of a map very quickly. One of the themes suitable for maps is <code>theme_void()</code>.</p>
+<div class="sourceCode" id="cb700"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb700-1"><a href="fine-tune.html#cb700-1"></a>g_base <span class="op">+</span><span class="st"> </span><span class="kw">theme_void</span>()   </span></code></pre></div>
+<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-61-1.png" width="672" /></p>
+<p>As you can see, all the axes information (<code>axis.title</code>, <code>axis.ticks</code>, <code>axis.text</code>,) and panel information (<code>panel.background</code>, <code>panel.border</code>, <code>panel.grid</code>) are gone among other parts of the figure. You can confirm this by evaluating <code>theme_void()</code>.</p>
+<div class="sourceCode" id="cb701"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb701-1"><a href="fine-tune.html#cb701-1"></a><span class="kw">theme_void</span>()    </span></code></pre></div>
+<pre><code>List of 92
+ $ line                      : list()
+  ..- attr(*, &quot;class&quot;)= chr [1:2] &quot;element_blank&quot; &quot;element&quot;
+ $ rect                      : list()
+  ..- attr(*, &quot;class&quot;)= chr [1:2] &quot;element_blank&quot; &quot;element&quot;
+ $ text                      :List of 11
+  ..$ family       : chr &quot;&quot;
+  ..$ face         : chr &quot;plain&quot;
+  ..$ colour       : chr &quot;black&quot;
+  ..$ size         : num 11
+  ..$ hjust        : num 0.5
+  ..$ vjust        : num 0.5
+  ..$ angle        : num 0
+  ..$ lineheight   : num 0.9
+  ..$ margin       : &#39;margin&#39; num [1:4] 0points 0points 0points 0points
+  .. ..- attr(*, &quot;unit&quot;)= int 8
+  ..$ debug        : logi FALSE
+  ..$ inherit.blank: logi TRUE
+  ..- attr(*, &quot;class&quot;)= chr [1:2] &quot;element_text&quot; &quot;element&quot;
+ $ title                     : NULL
+ $ aspect.ratio              : NULL
+ $ axis.title                : list()
+  ..- attr(*, &quot;class&quot;)= chr [1:2] &quot;element_blank&quot; &quot;element&quot;
+ $ axis.title.x              : NULL
+ $ axis.title.x.top          : NULL
+ $ axis.title.x.bottom       : NULL
+ $ axis.title.y              : NULL
+ $ axis.title.y.left         : NULL
+ $ axis.title.y.right        : NULL
+ $ axis.text                 : list()
+  ..- attr(*, &quot;class&quot;)= chr [1:2] &quot;element_blank&quot; &quot;element&quot;
+ $ axis.text.x               : NULL
+ $ axis.text.x.top           : NULL
+ $ axis.text.x.bottom        : NULL
+ $ axis.text.y               : NULL
+ $ axis.text.y.left          : NULL
+ $ axis.text.y.right         : NULL
+ $ axis.ticks                : NULL
+ $ axis.ticks.x              : NULL
+ $ axis.ticks.x.top          : NULL
+ $ axis.ticks.x.bottom       : NULL
+ $ axis.ticks.y              : NULL
+ $ axis.ticks.y.left         : NULL
+ $ axis.ticks.y.right        : NULL
+ $ axis.ticks.length         : &#39;simpleUnit&#39; num 0points
+  ..- attr(*, &quot;unit&quot;)= int 8
+ $ axis.ticks.length.x       : NULL
+ $ axis.ticks.length.x.top   : NULL
+ $ axis.ticks.length.x.bottom: NULL
+ $ axis.ticks.length.y       : NULL
+ $ axis.ticks.length.y.left  : NULL
+ $ axis.ticks.length.y.right : NULL
+ $ axis.line                 : NULL
+ $ axis.line.x               : NULL
+ $ axis.line.x.top           : NULL
+ $ axis.line.x.bottom        : NULL
+ $ axis.line.y               : NULL
+ $ axis.line.y.left          : NULL
+ $ axis.line.y.right         : NULL
+ $ legend.background         : NULL
+ $ legend.margin             : NULL
+ $ legend.spacing            : NULL
+ $ legend.spacing.x          : NULL
+ $ legend.spacing.y          : NULL
+ $ legend.key                : NULL
+ $ legend.key.size           : &#39;simpleUnit&#39; num 1.2lines
+  ..- attr(*, &quot;unit&quot;)= int 3
+ $ legend.key.height         : NULL
+ $ legend.key.width          : NULL
+ $ legend.text               :List of 11
+  ..$ family       : NULL
+  ..$ face         : NULL
+  ..$ colour       : NULL
+  ..$ size         : &#39;rel&#39; num 0.8
+  ..$ hjust        : NULL
+  ..$ vjust        : NULL
+  ..$ angle        : NULL
+  ..$ lineheight   : NULL
+  ..$ margin       : NULL
+  ..$ debug        : NULL
+  ..$ inherit.blank: logi TRUE
+  ..- attr(*, &quot;class&quot;)= chr [1:2] &quot;element_text&quot; &quot;element&quot;
+ $ legend.text.align         : NULL
+ $ legend.title              :List of 11
+  ..$ family       : NULL
+  ..$ face         : NULL
+  ..$ colour       : NULL
+  ..$ size         : NULL
+  ..$ hjust        : num 0
+  ..$ vjust        : NULL
+  ..$ angle        : NULL
+  ..$ lineheight   : NULL
+  ..$ margin       : NULL
+  ..$ debug        : NULL
+  ..$ inherit.blank: logi TRUE
+  ..- attr(*, &quot;class&quot;)= chr [1:2] &quot;element_text&quot; &quot;element&quot;
+ $ legend.title.align        : NULL
+ $ legend.position           : chr &quot;right&quot;
+ $ legend.direction          : NULL
+ $ legend.justification      : NULL
+ $ legend.box                : NULL
+ $ legend.box.just           : NULL
+ $ legend.box.margin         : NULL
+ $ legend.box.background     : NULL
+ $ legend.box.spacing        : NULL
+ $ panel.background          : NULL
+ $ panel.border              : NULL
+ $ panel.spacing             : &#39;simpleUnit&#39; num 5.5points
+  ..- attr(*, &quot;unit&quot;)= int 8
+ $ panel.spacing.x           : NULL
+ $ panel.spacing.y           : NULL
+ $ panel.grid                : NULL
+ $ panel.grid.major          : NULL
+ $ panel.grid.minor          : NULL
+ $ panel.grid.major.x        : NULL
+ $ panel.grid.major.y        : NULL
+ $ panel.grid.minor.x        : NULL
+ $ panel.grid.minor.y        : NULL
+ $ panel.ontop               : logi FALSE
+ $ plot.background           : NULL
+ $ plot.title                :List of 11
+  ..$ family       : NULL
+  ..$ face         : NULL
+  ..$ colour       : NULL
+  ..$ size         : &#39;rel&#39; num 1.2
+  ..$ hjust        : num 0
+  ..$ vjust        : num 1
+  ..$ angle        : NULL
+  ..$ lineheight   : NULL
+  ..$ margin       : &#39;margin&#39; num [1:4] 5.5points 0points 0points 0points
+  .. ..- attr(*, &quot;unit&quot;)= int 8
+  ..$ debug        : NULL
+  ..$ inherit.blank: logi TRUE
+  ..- attr(*, &quot;class&quot;)= chr [1:2] &quot;element_text&quot; &quot;element&quot;
+ $ plot.title.position       : chr &quot;panel&quot;
+ $ plot.subtitle             :List of 11
+  ..$ family       : NULL
+  ..$ face         : NULL
+  ..$ colour       : NULL
+  ..$ size         : NULL
+  ..$ hjust        : num 0
+  ..$ vjust        : num 1
+  ..$ angle        : NULL
+  ..$ lineheight   : NULL
+  ..$ margin       : &#39;margin&#39; num [1:4] 5.5points 0points 0points 0points
+  .. ..- attr(*, &quot;unit&quot;)= int 8
+  ..$ debug        : NULL
+  ..$ inherit.blank: logi TRUE
+  ..- attr(*, &quot;class&quot;)= chr [1:2] &quot;element_text&quot; &quot;element&quot;
+ $ plot.caption              :List of 11
+  ..$ family       : NULL
+  ..$ face         : NULL
+  ..$ colour       : NULL
+  ..$ size         : &#39;rel&#39; num 0.8
+  ..$ hjust        : num 1
+  ..$ vjust        : num 1
+  ..$ angle        : NULL
+  ..$ lineheight   : NULL
+  ..$ margin       : &#39;margin&#39; num [1:4] 5.5points 0points 0points 0points
+  .. ..- attr(*, &quot;unit&quot;)= int 8
+  ..$ debug        : NULL
+  ..$ inherit.blank: logi TRUE
+  ..- attr(*, &quot;class&quot;)= chr [1:2] &quot;element_text&quot; &quot;element&quot;
+ $ plot.caption.position     : chr &quot;panel&quot;
+ $ plot.tag                  :List of 11
+  ..$ family       : NULL
+  ..$ face         : NULL
+  ..$ colour       : NULL
+  ..$ size         : &#39;rel&#39; num 1.2
+  ..$ hjust        : num 0.5
+  ..$ vjust        : num 0.5
+  ..$ angle        : NULL
+  ..$ lineheight   : NULL
+  ..$ margin       : NULL
+  ..$ debug        : NULL
+  ..$ inherit.blank: logi TRUE
+  ..- attr(*, &quot;class&quot;)= chr [1:2] &quot;element_text&quot; &quot;element&quot;
+ $ plot.tag.position         : chr &quot;topleft&quot;
+ $ plot.margin               : &#39;simpleUnit&#39; num [1:4] 0lines 0lines 0lines 0lines
+  ..- attr(*, &quot;unit&quot;)= int 3
+ $ strip.background          : NULL
+ $ strip.background.x        : NULL
+ $ strip.background.y        : NULL
+ $ strip.placement           : NULL
+ $ strip.text                :List of 11
+  ..$ family       : NULL
+  ..$ face         : NULL
+  ..$ colour       : NULL
+  ..$ size         : &#39;rel&#39; num 0.8
+  ..$ hjust        : NULL
+  ..$ vjust        : NULL
+  ..$ angle        : NULL
+  ..$ lineheight   : NULL
+  ..$ margin       : NULL
+  ..$ debug        : NULL
+  ..$ inherit.blank: logi TRUE
+  ..- attr(*, &quot;class&quot;)= chr [1:2] &quot;element_text&quot; &quot;element&quot;
+ $ strip.text.x              : NULL
+ $ strip.text.y              : NULL
+ $ strip.switch.pad.grid     : &#39;simpleUnit&#39; num 2.75points
+  ..- attr(*, &quot;unit&quot;)= int 8
+ $ strip.switch.pad.wrap     : &#39;simpleUnit&#39; num 2.75points
+  ..- attr(*, &quot;unit&quot;)= int 8
+ - attr(*, &quot;class&quot;)= chr [1:2] &quot;theme&quot; &quot;gg&quot;
+ - attr(*, &quot;complete&quot;)= logi TRUE
+ - attr(*, &quot;validate&quot;)= logi TRUE</code></pre>
+<p>Applying the theme to a map obviates the need to suppress parts of a figure individually. You can suppress parts of the figure individually using <code>theme()</code>. For example, the following code gets rid of <code>axis.text</code>.</p>
+<div class="sourceCode" id="cb703"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb703-1"><a href="fine-tune.html#cb703-1"></a>g_base <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.text =</span> <span class="kw">element_blank</span>())     </span></code></pre></div>
+<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-63-1.png" width="672" /></p>
+<p>So, if <code>theme_void()</code> is overdoing things, you can build your own theme specifically for maps. For example, this is the theme I used for maps in Chapter <a href="demo.html#demo">1</a>.</p>
+<div class="sourceCode" id="cb704"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb704-1"><a href="fine-tune.html#cb704-1"></a>theme_for_map &lt;-<span class="st"> </span><span class="kw">theme</span>(</span>
+<span id="cb704-2"><a href="fine-tune.html#cb704-2"></a>  <span class="dt">axis.ticks =</span> <span class="kw">element_blank</span>(),</span>
+<span id="cb704-3"><a href="fine-tune.html#cb704-3"></a>  <span class="dt">axis.text=</span> <span class="kw">element_blank</span>(), </span>
+<span id="cb704-4"><a href="fine-tune.html#cb704-4"></a>  <span class="dt">axis.line =</span> <span class="kw">element_blank</span>(),</span>
+<span id="cb704-5"><a href="fine-tune.html#cb704-5"></a>  <span class="dt">panel.border =</span> <span class="kw">element_blank</span>(),</span>
+<span id="cb704-6"><a href="fine-tune.html#cb704-6"></a>  <span class="dt">panel.grid =</span> <span class="kw">element_line</span>(<span class="dt">color=</span><span class="st">&#39;transparent&#39;</span>),</span>
+<span id="cb704-7"><a href="fine-tune.html#cb704-7"></a>  <span class="dt">panel.background =</span> <span class="kw">element_blank</span>(),</span>
+<span id="cb704-8"><a href="fine-tune.html#cb704-8"></a>  <span class="dt">plot.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="st">&quot;transparent&quot;</span>,<span class="dt">color=</span><span class="st">&#39;transparent&#39;</span>)</span>
+<span id="cb704-9"><a href="fine-tune.html#cb704-9"></a>)</span></code></pre></div>
+<p>Applying the theme to the map:</p>
+<div class="sourceCode" id="cb705"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb705-1"><a href="fine-tune.html#cb705-1"></a>g_base <span class="op">+</span><span class="st"> </span>theme_for_map</span></code></pre></div>
+<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-65-1.png" width="672" /></p>
+<p>This is very similar to <code>theme_void()</code> except that <code>strip.background</code> is not lost.</p>
+<p>You can use <code>theme_void()</code> as a starting point and override components of it like this.</p>
+<div class="sourceCode" id="cb706"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb706-1"><a href="fine-tune.html#cb706-1"></a><span class="co">#--- bring back a color to strip.background  ---#</span></span>
+<span id="cb706-2"><a href="fine-tune.html#cb706-2"></a>theme_for_map_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">theme_void</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">strip.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="st">&quot;gray&quot;</span>))</span>
+<span id="cb706-3"><a href="fine-tune.html#cb706-3"></a></span>
+<span id="cb706-4"><a href="fine-tune.html#cb706-4"></a><span class="co">#--- apply the new theme ---#</span></span>
+<span id="cb706-5"><a href="fine-tune.html#cb706-5"></a>g_base <span class="op">+</span><span class="st"> </span>theme_for_map_<span class="dv">2</span></span></code></pre></div>
+<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-66-1.png" width="672" /></p>
+<hr />
+<p><code>theme_bw()</code> is also a good theme for maps.</p>
+<div class="sourceCode" id="cb707"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb707-1"><a href="fine-tune.html#cb707-1"></a><span class="kw">ggplot</span>() <span class="op">+</span><span class="st">  </span></span>
+<span id="cb707-2"><a href="fine-tune.html#cb707-2"></a><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> gw_by_county, <span class="kw">aes</span>(<span class="dt">fill =</span> af_used)) <span class="op">+</span></span>
+<span id="cb707-3"><a href="fine-tune.html#cb707-3"></a><span class="st">    </span><span class="kw">facet_grid</span>(year <span class="op">~</span><span class="st"> </span>.) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb707-4"><a href="fine-tune.html#cb707-4"></a><span class="st">    </span><span class="kw">theme_bw</span>()</span></code></pre></div>
+<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-67-1.png" width="672" /></p>
+<p>If you do not like the gray grid lines, you can remove them like this.</p>
+<div class="sourceCode" id="cb708"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb708-1"><a href="fine-tune.html#cb708-1"></a><span class="kw">ggplot</span>() <span class="op">+</span><span class="st">  </span></span>
+<span id="cb708-2"><a href="fine-tune.html#cb708-2"></a><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> gw_by_county, <span class="kw">aes</span>(<span class="dt">fill =</span> af_used)) <span class="op">+</span></span>
+<span id="cb708-3"><a href="fine-tune.html#cb708-3"></a><span class="st">    </span><span class="kw">facet_grid</span>(year <span class="op">~</span><span class="st"> </span>.) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb708-4"><a href="fine-tune.html#cb708-4"></a><span class="st">    </span><span class="kw">theme_bw</span>() <span class="op">+</span></span>
+<span id="cb708-5"><a href="fine-tune.html#cb708-5"></a><span class="st">    </span><span class="kw">theme</span>(</span>
+<span id="cb708-6"><a href="fine-tune.html#cb708-6"></a>        <span class="dt">panel.grid =</span> <span class="kw">element_line</span>(<span class="dt">color=</span><span class="st">&#39;transparent&#39;</span>)</span>
+<span id="cb708-7"><a href="fine-tune.html#cb708-7"></a>    )</span></code></pre></div>
+<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-68-1.png" width="672" /></p>
+<hr />
+<p>Not all themes are suitable for maps. For example, <code>theme_classic()</code> is not a very good option as you can see below:</p>
+<div class="sourceCode" id="cb709"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb709-1"><a href="fine-tune.html#cb709-1"></a>g_base <span class="op">+</span><span class="st"> </span><span class="kw">theme_classic</span>()    </span></code></pre></div>
+<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-69-1.png" width="672" /></p>
+<p>If you are not satisfied with <code>theme_void()</code> and not willing to make up your own theme, then you may want to take a look at other pre-made themes that are available from <code>ggplot2</code> (see <a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">here</a>) and <code>ggthemes</code> (see <a href="https://yutannihilation.github.io/allYourFigureAreBelongToUs/ggthemes/">here</a>). Note that some themes are more invasive than <code>theme_void()</code>, altering the default color scale.</p>
+</div>
+<div id="legend" class="section level3" number="8.5.2">
+<h3><span class="header-section-number">8.5.2</span> Legend</h3>
+<p>Legends can be modified using <code>legend.*()</code> options for <code>theme()</code> and <code>guide_*()</code>. It is impossible to discuss every single one of all the options for these functions. So, this section focuses on the most common and useful (that I consider) modifications you can make to legends.</p>
+<p>A legend consists of three elements: legend title, legend key (e.g., color bar), and legend label (or legend text). For example, in the figure below, <code>af_used</code> is the legend title, the color bar is the legend key, and the numbers below the color bar are legend labels. Knowing the name of these elements helps because the name of the options contains the name of the specific part of the legend.</p>
+<div class="sourceCode" id="cb710"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb710-1"><a href="fine-tune.html#cb710-1"></a>(</span>
+<span id="cb710-2"><a href="fine-tune.html#cb710-2"></a>g_legend &lt;-<span class="st"> </span><span class="kw">ggplot</span>() <span class="op">+</span><span class="st">  </span></span>
+<span id="cb710-3"><a href="fine-tune.html#cb710-3"></a><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> gw_by_county, <span class="kw">aes</span>(<span class="dt">fill =</span> af_used)) <span class="op">+</span></span>
+<span id="cb710-4"><a href="fine-tune.html#cb710-4"></a><span class="st">    </span><span class="kw">facet_wrap</span>(. <span class="op">~</span><span class="st"> </span>year) <span class="op">+</span></span>
+<span id="cb710-5"><a href="fine-tune.html#cb710-5"></a><span class="st">    </span><span class="kw">theme_void</span>() </span>
+<span id="cb710-6"><a href="fine-tune.html#cb710-6"></a>)</span></code></pre></div>
+<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-70-1.png" width="672" /></p>
+<p>Let’s first change the color scale to Viridis using <code>scale_fill_viridis_c()</code> (see section <a href="color-scale.html#color-scale">8.3</a> for picking a color scale).</p>
+<div class="sourceCode" id="cb711"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb711-1"><a href="fine-tune.html#cb711-1"></a>g_legend <span class="op">+</span></span>
+<span id="cb711-2"><a href="fine-tune.html#cb711-2"></a><span class="st">    </span><span class="kw">scale_fill_viridis_c</span>()  </span></code></pre></div>
+<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-71-1.png" width="672" /></p>
+<p>Right now, the legend title is <code>af_used</code>, which does not tell the readers what it means. In general, you can change the title of a legend by using the <code>name</code> option inside the <code>scale</code> function for the legend (here, <code>scale_fill_viridis_c()</code>). So, this one works:</p>
+<div class="sourceCode" id="cb712"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb712-1"><a href="fine-tune.html#cb712-1"></a>g_legend <span class="op">+</span></span>
+<span id="cb712-2"><a href="fine-tune.html#cb712-2"></a><span class="st">    </span><span class="kw">scale_fill_viridis_c</span>(<span class="dt">name =</span> <span class="st">&quot;Groundwater pumping (acre-feet)&quot;</span>)  </span></code></pre></div>
+<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-72-1.png" width="672" /></p>
+<p>Alternatively, you can use <code>labs()</code> function.<a href="#fn95" class="footnote-ref" id="fnref95"><sup>95</sup></a>. Since the legend is for the <code>fill</code> aesthetic attribute, you should add <code>fill = "legend title"</code> as follows:</p>
+<div class="sourceCode" id="cb713"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb713-1"><a href="fine-tune.html#cb713-1"></a>g_legend <span class="op">+</span></span>
+<span id="cb713-2"><a href="fine-tune.html#cb713-2"></a><span class="st">    </span><span class="kw">scale_fill_viridis_c</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb713-3"><a href="fine-tune.html#cb713-3"></a><span class="st">    </span><span class="kw">labs</span>(<span class="dt">fill =</span> <span class="st">&quot;Groundwater pumping (acre-feet)&quot;</span>) </span></code></pre></div>
+<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-73-1.png" width="672" /></p>
+<p>Since the legend title is long, the legend is taking up about the half of the space of the entire figure. So, let’s put the legend below the maps (bottom of the figure) by adding <code>theme(legend.position = "bottom")</code>.</p>
+<div class="sourceCode" id="cb714"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb714-1"><a href="fine-tune.html#cb714-1"></a>g_legend <span class="op">+</span><span class="st"> </span></span>
+<span id="cb714-2"><a href="fine-tune.html#cb714-2"></a><span class="st">    </span><span class="kw">scale_fill_viridis_c</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb714-3"><a href="fine-tune.html#cb714-3"></a><span class="st">    </span><span class="kw">labs</span>(<span class="dt">fill =</span> <span class="st">&quot;Groundwater pumping (acre-feet)&quot;</span>) <span class="op">+</span></span>
+<span id="cb714-4"><a href="fine-tune.html#cb714-4"></a><span class="st">    </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
+<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-74-1.png" width="672" /></p>
+<p>It would be aesthetically better to have the legend title on top of the color bar. This can be done by using the <code>guides()</code> function. Since we would like to alter the aesthetics of the legend for <code>fill</code> involving a color bar, we use <code>fill = guide_colorbar()</code>. To place the legend title on top, you add <code>title.position="top"</code> inside the <code>guide_colorbar()</code> function as follows:</p>
+<div class="sourceCode" id="cb715"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb715-1"><a href="fine-tune.html#cb715-1"></a>g_legend <span class="op">+</span><span class="st"> </span></span>
+<span id="cb715-2"><a href="fine-tune.html#cb715-2"></a><span class="st">    </span><span class="kw">scale_fill_viridis_c</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb715-3"><a href="fine-tune.html#cb715-3"></a><span class="st">    </span><span class="kw">labs</span>(<span class="dt">fill =</span> <span class="st">&quot;Groundwater pumping (acre-feet)&quot;</span>) <span class="op">+</span></span>
+<span id="cb715-4"><a href="fine-tune.html#cb715-4"></a><span class="st">    </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>) <span class="op">+</span></span>
+<span id="cb715-5"><a href="fine-tune.html#cb715-5"></a><span class="st">    </span><span class="kw">guides</span>(<span class="dt">fill =</span> <span class="kw">guide_colorbar</span>(<span class="dt">title.position=</span><span class="st">&quot;top&quot;</span>))</span></code></pre></div>
+<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-75-1.png" width="672" /></p>
+<p>This looks better. But, the legend labels are too close to each other so it is hard to read them because the color bar is too short. Let’s elongate the color bar so that we have enough space between legend labels using <code>legend.key.width =</code> option for <code>theme()</code>. Let’s also make the legend thinner using <code>legend.key.height =</code> option.</p>
+<div class="sourceCode" id="cb716"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb716-1"><a href="fine-tune.html#cb716-1"></a>g_legend <span class="op">+</span><span class="st"> </span></span>
+<span id="cb716-2"><a href="fine-tune.html#cb716-2"></a><span class="st">    </span><span class="kw">scale_fill_viridis_c</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb716-3"><a href="fine-tune.html#cb716-3"></a><span class="st">    </span><span class="kw">labs</span>(<span class="dt">fill =</span> <span class="st">&quot;Groundwater pumping (acre-feet)&quot;</span>) <span class="op">+</span></span>
+<span id="cb716-4"><a href="fine-tune.html#cb716-4"></a><span class="st">    </span><span class="kw">theme</span>(</span>
+<span id="cb716-5"><a href="fine-tune.html#cb716-5"></a>        <span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>,</span>
+<span id="cb716-6"><a href="fine-tune.html#cb716-6"></a>        <span class="co">#--- NEW LINES HERE!! ---#</span></span>
+<span id="cb716-7"><a href="fine-tune.html#cb716-7"></a>        <span class="dt">legend.key.height =</span> <span class="kw">unit</span>(<span class="fl">0.5</span>, <span class="st">&quot;cm&quot;</span>),</span>
+<span id="cb716-8"><a href="fine-tune.html#cb716-8"></a>        <span class="dt">legend.key.width =</span> <span class="kw">unit</span>(<span class="dv">2</span>, <span class="st">&quot;cm&quot;</span>)</span>
+<span id="cb716-9"><a href="fine-tune.html#cb716-9"></a>    ) <span class="op">+</span></span>
+<span id="cb716-10"><a href="fine-tune.html#cb716-10"></a><span class="st">    </span><span class="kw">guides</span>(<span class="dt">fill =</span> <span class="kw">guide_colorbar</span>(<span class="dt">title.position=</span><span class="st">&quot;top&quot;</span>))</span></code></pre></div>
+<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-76-1.png" width="672" /></p>
+<p>If the journal you are submitting an article to is requesting a specific font family for the texts in the figure, you can use <code>legend.text = element_text()</code> and <code>legend.title = element_text()</code> inside <code>theme()</code> for the legend labels and legend title, respectively. The following code uses the font family of “Times” and font size of 12 for both the labels and the title.</p>
+<div class="sourceCode" id="cb717"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb717-1"><a href="fine-tune.html#cb717-1"></a>g_legend <span class="op">+</span><span class="st"> </span></span>
+<span id="cb717-2"><a href="fine-tune.html#cb717-2"></a><span class="st">    </span><span class="kw">scale_fill_viridis_c</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb717-3"><a href="fine-tune.html#cb717-3"></a><span class="st">    </span><span class="kw">labs</span>(<span class="dt">fill =</span> <span class="st">&quot;Groundwater pumping (acre-feet)&quot;</span>) <span class="op">+</span></span>
+<span id="cb717-4"><a href="fine-tune.html#cb717-4"></a><span class="st">    </span><span class="kw">theme</span>(</span>
+<span id="cb717-5"><a href="fine-tune.html#cb717-5"></a>        <span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>,</span>
+<span id="cb717-6"><a href="fine-tune.html#cb717-6"></a>        <span class="dt">legend.key.height =</span> <span class="kw">unit</span>(<span class="fl">0.5</span>, <span class="st">&quot;cm&quot;</span>),</span>
+<span id="cb717-7"><a href="fine-tune.html#cb717-7"></a>        <span class="dt">legend.key.width =</span> <span class="kw">unit</span>(<span class="dv">2</span>, <span class="st">&quot;cm&quot;</span>),</span>
+<span id="cb717-8"><a href="fine-tune.html#cb717-8"></a>        <span class="dt">legend.text =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">12</span>, <span class="dt">family =</span> <span class="st">&quot;Times&quot;</span>),</span>
+<span id="cb717-9"><a href="fine-tune.html#cb717-9"></a>        <span class="dt">legend.title =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">12</span>, <span class="dt">family =</span> <span class="st">&quot;Times&quot;</span>)</span>
+<span id="cb717-10"><a href="fine-tune.html#cb717-10"></a>        <span class="co">#--- NEW LINES HERE!! ---#</span></span>
+<span id="cb717-11"><a href="fine-tune.html#cb717-11"></a>    ) <span class="op">+</span></span>
+<span id="cb717-12"><a href="fine-tune.html#cb717-12"></a><span class="st">    </span><span class="kw">guides</span>(<span class="dt">fill =</span> <span class="kw">guide_colorbar</span>(<span class="dt">title.position=</span><span class="st">&quot;top&quot;</span>))</span></code></pre></div>
+<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-77-1.png" width="672" /></p>
+<p>For the other options to control the legend with a color bar, see <a href="https://ggplot2.tidyverse.org/reference/guide_colorbar.html">here</a>.</p>
+<hr />
+<p>When the legend is made for discrete values, you can use <code>guide_legend()</code>. Let’s use the following map as a starting point.</p>
+<div class="sourceCode" id="cb718"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb718-1"><a href="fine-tune.html#cb718-1"></a><span class="co">#--- convert af_used to a discrete variable ---#</span></span>
+<span id="cb718-2"><a href="fine-tune.html#cb718-2"></a>gw_Stevens &lt;-<span class="st"> </span><span class="kw">mutate</span>(gw_Stevens, <span class="dt">af_used_cat =</span> <span class="kw">cut_number</span>(af_used, <span class="dt">n =</span> <span class="dv">5</span>))</span>
+<span id="cb718-3"><a href="fine-tune.html#cb718-3"></a></span>
+<span id="cb718-4"><a href="fine-tune.html#cb718-4"></a>(</span>
+<span id="cb718-5"><a href="fine-tune.html#cb718-5"></a>g_legend_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> gw_Stevens) <span class="op">+</span><span class="st">   </span></span>
+<span id="cb718-6"><a href="fine-tune.html#cb718-6"></a><span class="st">    </span><span class="kw">geom_sf</span>(<span class="kw">aes</span>(<span class="dt">color =</span> af_used_cat), <span class="dt">size =</span> <span class="dv">2</span>) <span class="op">+</span></span>
+<span id="cb718-7"><a href="fine-tune.html#cb718-7"></a><span class="st">    </span><span class="kw">scale_color_viridis</span>(<span class="dt">discrete =</span> <span class="ot">TRUE</span>, <span class="dt">option =</span> <span class="st">&quot;C&quot;</span>) <span class="op">+</span></span>
+<span id="cb718-8"><a href="fine-tune.html#cb718-8"></a><span class="st">    </span><span class="kw">labs</span>(<span class="dt">color =</span> <span class="st">&quot;Groundwater pumping (acre-feet)&quot;</span>)  <span class="op">+</span></span>
+<span id="cb718-9"><a href="fine-tune.html#cb718-9"></a><span class="st">    </span><span class="kw">theme_void</span>() <span class="op">+</span></span>
+<span id="cb718-10"><a href="fine-tune.html#cb718-10"></a><span class="st">    </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>) </span>
+<span id="cb718-11"><a href="fine-tune.html#cb718-11"></a>)</span></code></pre></div>
+<p><img src="R_GIS_Book_files/figure-html/tmax-viridis-D-discrete-guide-1.png" width="672" /></p>
+<p>The legend is too long, so first put the legend title on top of the legend labels using the code below:</p>
+<div class="sourceCode" id="cb719"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb719-1"><a href="fine-tune.html#cb719-1"></a>g_legend_<span class="dv">2</span> <span class="op">+</span></span>
+<span id="cb719-2"><a href="fine-tune.html#cb719-2"></a><span class="st">    </span><span class="kw">guides</span>(</span>
+<span id="cb719-3"><a href="fine-tune.html#cb719-3"></a>        <span class="dt">color =</span> <span class="kw">guide_legend</span>(<span class="dt">title.position=</span><span class="st">&quot;top&quot;</span>) </span>
+<span id="cb719-4"><a href="fine-tune.html#cb719-4"></a>    )</span></code></pre></div>
+<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-78-1.png" width="672" /></p>
+<p>Since the legend is for the <code>color</code> aesthetic attribute, <code>color = guide_legend()</code> was used. The legend labels are still a bit too long, so let’s arrange them in two rows using the <code>nrow =</code> option.</p>
+<div class="sourceCode" id="cb720"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb720-1"><a href="fine-tune.html#cb720-1"></a>g_legend_<span class="dv">2</span> <span class="op">+</span></span>
+<span id="cb720-2"><a href="fine-tune.html#cb720-2"></a><span class="st">    </span><span class="kw">guides</span>(</span>
+<span id="cb720-3"><a href="fine-tune.html#cb720-3"></a>        <span class="dt">color =</span> <span class="kw">guide_legend</span>(<span class="dt">title.position=</span><span class="st">&quot;top&quot;</span>, <span class="dt">nrow =</span> <span class="dv">2</span>) </span>
+<span id="cb720-4"><a href="fine-tune.html#cb720-4"></a>    )</span></code></pre></div>
+<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-79-1.png" width="672" /></p>
+<p>For the other options for <code>guide_legend()</code>, see <a href="https://ggplot2.tidyverse.org/reference/guide_legend.html">here</a>.</p>
+<!-- 
+#/*=================================================*/
+#' # Saving a `ggplot` object as an image
+#/*=================================================*/   
+-->
+</div>
+<div id="facet-strips" class="section level3" number="8.5.3">
+<h3><span class="header-section-number">8.5.3</span> Facet strips</h3>
+<p>Facet strips refer to the area of boxed where the values of faceting variables are printed. In the figure below, it’s gray strips on top of the maps. You can change how they look using <code>strip.*</code> options in <code>theme()</code> and also partially inside <code>facet_wrap()</code> and <code>facet_grid()</code>. Here is the list of available options:</p>
+<ul>
+<li><code>strip.background</code>, <code>strip.background.x</code>, <code>strip.background.y</code></li>
+<li><code>strip.placement</code></li>
+<li><code>strip.text</code>, <code>strip.text.x</code>, <code>strip.text.y</code></li>
+<li><code>strip.switch.pad.grid</code></li>
+<li><code>strip.switch.pad.wrap</code></li>
+</ul>
+<div class="sourceCode" id="cb721"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb721-1"><a href="fine-tune.html#cb721-1"></a><span class="kw">ggplot</span>() <span class="op">+</span><span class="st">  </span></span>
+<span id="cb721-2"><a href="fine-tune.html#cb721-2"></a><span class="st">    </span><span class="co">#--- KS county boundary ---#</span></span>
+<span id="cb721-3"><a href="fine-tune.html#cb721-3"></a><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> <span class="kw">st_transform</span>(KS_county, <span class="dv">32614</span>)) <span class="op">+</span></span>
+<span id="cb721-4"><a href="fine-tune.html#cb721-4"></a><span class="st">    </span><span class="co">#--- wells ---#</span></span>
+<span id="cb721-5"><a href="fine-tune.html#cb721-5"></a><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> gw_KS_sf, <span class="kw">aes</span>(<span class="dt">color =</span> af_used)) <span class="op">+</span></span>
+<span id="cb721-6"><a href="fine-tune.html#cb721-6"></a><span class="st">    </span><span class="co">#--- facet by year (side by side) ---#</span></span>
+<span id="cb721-7"><a href="fine-tune.html#cb721-7"></a><span class="st">    </span><span class="kw">facet_wrap</span>((af_used <span class="op">&gt;</span><span class="st"> </span><span class="dv">500</span>) <span class="op">~</span><span class="st"> </span>year) <span class="op">+</span></span>
+<span id="cb721-8"><a href="fine-tune.html#cb721-8"></a><span class="st">    </span><span class="kw">theme_void</span>() <span class="op">+</span></span>
+<span id="cb721-9"><a href="fine-tune.html#cb721-9"></a><span class="st">    </span><span class="kw">scale_color_viridis_c</span>() <span class="op">+</span></span>
+<span id="cb721-10"><a href="fine-tune.html#cb721-10"></a><span class="st">    </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
+<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-80-1.png" width="672" /></p>
+<p>To make texts in the strips more descriptive of what they actually mean you can make variable that have texts you want to show on the map as their values.</p>
+<div class="sourceCode" id="cb722"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb722-1"><a href="fine-tune.html#cb722-1"></a>gw_KS_sf &lt;-<span class="st"> </span>gw_KS_sf <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb722-2"><a href="fine-tune.html#cb722-2"></a><span class="st">    </span><span class="kw">mutate</span>(</span>
+<span id="cb722-3"><a href="fine-tune.html#cb722-3"></a>        <span class="dt">high_low =</span> <span class="kw">ifelse</span>(af_used <span class="op">&gt;</span><span class="st"> </span><span class="dv">500</span>, <span class="st">&quot;High water use&quot;</span>, <span class="st">&quot;Low water use&quot;</span>),</span>
+<span id="cb722-4"><a href="fine-tune.html#cb722-4"></a>        <span class="dt">year_txt =</span> <span class="kw">paste</span>(<span class="st">&quot;Year: &quot;</span>, year)</span>
+<span id="cb722-5"><a href="fine-tune.html#cb722-5"></a>    )  </span>
+<span id="cb722-6"><a href="fine-tune.html#cb722-6"></a></span>
+<span id="cb722-7"><a href="fine-tune.html#cb722-7"></a>(</span>
+<span id="cb722-8"><a href="fine-tune.html#cb722-8"></a>g_facet &lt;-<span class="st"> </span><span class="kw">ggplot</span>() <span class="op">+</span><span class="st">   </span></span>
+<span id="cb722-9"><a href="fine-tune.html#cb722-9"></a><span class="st">    </span><span class="co">#--- KS county boundary ---#</span></span>
+<span id="cb722-10"><a href="fine-tune.html#cb722-10"></a><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> <span class="kw">st_transform</span>(KS_county, <span class="dv">32614</span>)) <span class="op">+</span></span>
+<span id="cb722-11"><a href="fine-tune.html#cb722-11"></a><span class="st">    </span><span class="co">#--- wells ---#</span></span>
+<span id="cb722-12"><a href="fine-tune.html#cb722-12"></a><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> gw_KS_sf, <span class="kw">aes</span>(<span class="dt">color =</span> af_used)) <span class="op">+</span></span>
+<span id="cb722-13"><a href="fine-tune.html#cb722-13"></a><span class="st">    </span><span class="co">#--- facet by year (side by side) ---#</span></span>
+<span id="cb722-14"><a href="fine-tune.html#cb722-14"></a><span class="st">    </span><span class="kw">facet_wrap</span>(high_low <span class="op">~</span><span class="st"> </span>year_txt) <span class="op">+</span></span>
+<span id="cb722-15"><a href="fine-tune.html#cb722-15"></a><span class="st">    </span><span class="kw">theme_void</span>() <span class="op">+</span></span>
+<span id="cb722-16"><a href="fine-tune.html#cb722-16"></a><span class="st">    </span><span class="kw">scale_color_viridis_c</span>() <span class="op">+</span></span>
+<span id="cb722-17"><a href="fine-tune.html#cb722-17"></a><span class="st">    </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</span>
+<span id="cb722-18"><a href="fine-tune.html#cb722-18"></a>)</span></code></pre></div>
+<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-81-1.png" width="672" /></p>
+<p>You probably noticed that the high water use cases are now appear on top. This is because the panels of figures are arranged in a way that the strip texts are alphabetically ordered. <code>High water use</code> precedes <code>Low water use</code>. Sometimes, this is not desirable. To force a specific order, you can turn the faceting variable (here <code>high_low</code>) into a <code>factor</code> with the order of its values defined using <code>levels =</code>. The following code converts <code>high_low</code> into a factor where “Low water use” is the first level and “High water use” is the second level.</p>
+<div class="sourceCode" id="cb723"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb723-1"><a href="fine-tune.html#cb723-1"></a>gw_KS_sf &lt;-<span class="st"> </span><span class="kw">mutate</span>(gw_KS_sf, <span class="dt">high_low =</span> <span class="kw">factor</span>(high_low, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;Low water use&quot;</span>, <span class="st">&quot;High water use&quot;</span>)))</span></code></pre></div>
+<p>Now, “Low water use” cases appear first (on top).</p>
+<div class="sourceCode" id="cb724"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb724-1"><a href="fine-tune.html#cb724-1"></a>g_facet &lt;-<span class="st"> </span><span class="kw">ggplot</span>() <span class="op">+</span><span class="st">   </span></span>
+<span id="cb724-2"><a href="fine-tune.html#cb724-2"></a><span class="st">    </span><span class="co">#--- KS county boundary ---#</span></span>
+<span id="cb724-3"><a href="fine-tune.html#cb724-3"></a><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> <span class="kw">st_transform</span>(KS_county, <span class="dv">32614</span>)) <span class="op">+</span></span>
+<span id="cb724-4"><a href="fine-tune.html#cb724-4"></a><span class="st">    </span><span class="co">#--- wells ---#</span></span>
+<span id="cb724-5"><a href="fine-tune.html#cb724-5"></a><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> gw_KS_sf, <span class="kw">aes</span>(<span class="dt">color =</span> af_used)) <span class="op">+</span></span>
+<span id="cb724-6"><a href="fine-tune.html#cb724-6"></a><span class="st">    </span><span class="co">#--- facet by year (side by side) ---#</span></span>
+<span id="cb724-7"><a href="fine-tune.html#cb724-7"></a><span class="st">    </span><span class="kw">facet_wrap</span>(high_low <span class="op">~</span><span class="st"> </span>year_txt) <span class="op">+</span></span>
+<span id="cb724-8"><a href="fine-tune.html#cb724-8"></a><span class="st">    </span><span class="kw">theme_void</span>() <span class="op">+</span></span>
+<span id="cb724-9"><a href="fine-tune.html#cb724-9"></a><span class="st">    </span><span class="kw">scale_color_viridis_c</span>() <span class="op">+</span></span>
+<span id="cb724-10"><a href="fine-tune.html#cb724-10"></a><span class="st">    </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</span>
+<span id="cb724-11"><a href="fine-tune.html#cb724-11"></a></span>
+<span id="cb724-12"><a href="fine-tune.html#cb724-12"></a>g_facet</span></code></pre></div>
+<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-83-1.png" width="672" /></p>
+<p>You can control how strip texts and strip boxes appear using <code>strip.text</code> and <code>strip.background</code> options. Here is an example:</p>
+<div class="sourceCode" id="cb725"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb725-1"><a href="fine-tune.html#cb725-1"></a>g_facet <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(</span>
+<span id="cb725-2"><a href="fine-tune.html#cb725-2"></a>    <span class="dt">strip.text.x =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">12</span>, <span class="dt">family =</span> <span class="st">&quot;Times&quot;</span>, <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>),</span>
+<span id="cb725-3"><a href="fine-tune.html#cb725-3"></a>    <span class="dt">strip.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>)</span>
+<span id="cb725-4"><a href="fine-tune.html#cb725-4"></a>)   </span></code></pre></div>
+<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-84-1.png" width="672" /></p>
+<p>Instead of having descriptions of cases on top of the figures, you could have one of the descriptions on the right side of the figures using <code>facet_grid()</code>.</p>
+<div class="sourceCode" id="cb726"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb726-1"><a href="fine-tune.html#cb726-1"></a>g_facet <span class="op">+</span></span>
+<span id="cb726-2"><a href="fine-tune.html#cb726-2"></a><span class="st">    </span><span class="co">#--- this overrides facet_wrap(high_low ~ year_txt) ---#</span></span>
+<span id="cb726-3"><a href="fine-tune.html#cb726-3"></a><span class="st">    </span><span class="kw">facet_grid</span>(high_low <span class="op">~</span><span class="st"> </span>year_txt)</span></code></pre></div>
+<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-85-1.png" width="672" /></p>
+<p>Now case descriptions for <code>high_low</code> are too long and it is squeezing the space for maps. Let’s flip <code>high_low</code> and <code>year</code>.</p>
+<div class="sourceCode" id="cb727"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb727-1"><a href="fine-tune.html#cb727-1"></a>g_facet <span class="op">+</span><span class="st"> </span></span>
+<span id="cb727-2"><a href="fine-tune.html#cb727-2"></a><span class="st">    </span><span class="co">#--- this overrides facet_grid(high_low ~ year_txt) ---#</span></span>
+<span id="cb727-3"><a href="fine-tune.html#cb727-3"></a><span class="st">    </span><span class="kw">facet_grid</span>(year_txt <span class="op">~</span><span class="st"> </span>high_low) </span></code></pre></div>
+<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-86-1.png" width="672" /></p>
+<p>This is slightly better than before, but not much. Let’s rotate strip texts for <code>year</code> using the <code>angle =</code> option.</p>
+<div class="sourceCode" id="cb728"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb728-1"><a href="fine-tune.html#cb728-1"></a>g_facet <span class="op">+</span><span class="st"> </span></span>
+<span id="cb728-2"><a href="fine-tune.html#cb728-2"></a><span class="st">    </span><span class="co">#--- this overrides facet_grid(high_low ~ year_txt) ---#</span></span>
+<span id="cb728-3"><a href="fine-tune.html#cb728-3"></a><span class="st">    </span><span class="kw">facet_grid</span>(year_txt <span class="op">~</span><span class="st"> </span>high_low) <span class="op">+</span></span>
+<span id="cb728-4"><a href="fine-tune.html#cb728-4"></a><span class="st">    </span><span class="kw">theme</span>(</span>
+<span id="cb728-5"><a href="fine-tune.html#cb728-5"></a>        <span class="dt">strip.text.y =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="op">-</span><span class="st"> </span><span class="dv">90</span>)</span>
+<span id="cb728-6"><a href="fine-tune.html#cb728-6"></a>    )</span></code></pre></div>
+<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-87-1.png" width="672" /></p>
+<p>Since we only want to change the angle of strip texts for the second faceting variable, we need to work on <code>strip.text.y</code> (if you want to work on the first one, you use <code>strip.text.x</code>.).</p>
+<p>Let’s change the size of the strip texts to 12 and use <code>Times</code> font family.</p>
+<div class="sourceCode" id="cb729"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb729-1"><a href="fine-tune.html#cb729-1"></a>g_facet <span class="op">+</span><span class="st"> </span></span>
+<span id="cb729-2"><a href="fine-tune.html#cb729-2"></a><span class="st">    </span><span class="co">#--- this overrides facet_grid(high_low ~ year_txt) ---#</span></span>
+<span id="cb729-3"><a href="fine-tune.html#cb729-3"></a><span class="st">    </span><span class="kw">facet_grid</span>(year_txt <span class="op">~</span><span class="st"> </span>high_low) <span class="op">+</span></span>
+<span id="cb729-4"><a href="fine-tune.html#cb729-4"></a><span class="st">    </span><span class="kw">theme</span>(</span>
+<span id="cb729-5"><a href="fine-tune.html#cb729-5"></a>        <span class="dt">strip.text.y =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="op">-</span><span class="st"> </span><span class="dv">90</span>, <span class="dt">size =</span> <span class="dv">12</span>, <span class="dt">family =</span> <span class="st">&quot;Times&quot;</span>),</span>
+<span id="cb729-6"><a href="fine-tune.html#cb729-6"></a>        <span class="co">#--- moves up the strip texts ---#</span></span>
+<span id="cb729-7"><a href="fine-tune.html#cb729-7"></a>        <span class="dt">strip.text.x =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">12</span>, <span class="dt">family =</span> <span class="st">&quot;Times&quot;</span>)</span>
+<span id="cb729-8"><a href="fine-tune.html#cb729-8"></a>    )</span></code></pre></div>
+<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-88-1.png" width="672" /></p>
+<p>The strip texts for <code>high_low</code> are too close to maps that letter “g” in “High” is truncated. Let’s move them up.</p>
+<div class="sourceCode" id="cb730"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb730-1"><a href="fine-tune.html#cb730-1"></a>g_facet <span class="op">+</span><span class="st"> </span></span>
+<span id="cb730-2"><a href="fine-tune.html#cb730-2"></a><span class="st">    </span><span class="co">#--- this overrides facet_grid(high_low ~ year_txt) ---#</span></span>
+<span id="cb730-3"><a href="fine-tune.html#cb730-3"></a><span class="st">    </span><span class="kw">facet_grid</span>(year_txt <span class="op">~</span><span class="st"> </span>high_low) <span class="op">+</span></span>
+<span id="cb730-4"><a href="fine-tune.html#cb730-4"></a><span class="st">    </span><span class="kw">theme</span>(</span>
+<span id="cb730-5"><a href="fine-tune.html#cb730-5"></a>        <span class="dt">strip.text.y =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="op">-</span><span class="st"> </span><span class="dv">90</span>, <span class="dt">size =</span> <span class="dv">12</span>, <span class="dt">family =</span> <span class="st">&quot;Times&quot;</span>),</span>
+<span id="cb730-6"><a href="fine-tune.html#cb730-6"></a>        <span class="co">#--- moves up the strip texts ---#</span></span>
+<span id="cb730-7"><a href="fine-tune.html#cb730-7"></a>        <span class="dt">strip.text.x =</span> <span class="kw">element_text</span>(<span class="dt">vjust =</span> <span class="dv">2</span>, <span class="dt">size =</span> <span class="dv">12</span>, <span class="dt">family =</span> <span class="st">&quot;Times&quot;</span>)</span>
+<span id="cb730-8"><a href="fine-tune.html#cb730-8"></a>    )</span></code></pre></div>
+<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-89-1.png" width="672" /></p>
+<p>Now the upper part of the letters is truncated. We could just put more margin below the texts using the <code>margin = margin(top, right, bottom, left, unit in text)</code> option.</p>
+<div class="sourceCode" id="cb731"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb731-1"><a href="fine-tune.html#cb731-1"></a>g_facet <span class="op">+</span><span class="st"> </span></span>
+<span id="cb731-2"><a href="fine-tune.html#cb731-2"></a><span class="st">    </span><span class="co">#--- this overrides facet_grid(high_low ~ year_txt) ---#</span></span>
+<span id="cb731-3"><a href="fine-tune.html#cb731-3"></a><span class="st">    </span><span class="kw">facet_grid</span>(year_txt <span class="op">~</span><span class="st"> </span>high_low) <span class="op">+</span></span>
+<span id="cb731-4"><a href="fine-tune.html#cb731-4"></a><span class="st">    </span><span class="kw">theme</span>(</span>
+<span id="cb731-5"><a href="fine-tune.html#cb731-5"></a>        <span class="dt">strip.text.y =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="op">-</span><span class="st"> </span><span class="dv">90</span>, <span class="dt">size =</span> <span class="dv">12</span>, <span class="dt">family =</span> <span class="st">&quot;Times&quot;</span>),</span>
+<span id="cb731-6"><a href="fine-tune.html#cb731-6"></a>        <span class="dt">strip.text.x =</span> <span class="kw">element_text</span>(<span class="dt">margin =</span> <span class="kw">margin</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="fl">0.2</span>, <span class="dv">0</span>, <span class="st">&quot;cm&quot;</span>), <span class="dt">size =</span> <span class="dv">12</span>, <span class="dt">family =</span> <span class="st">&quot;Times&quot;</span>)</span>
+<span id="cb731-7"><a href="fine-tune.html#cb731-7"></a>    )</span></code></pre></div>
+<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-90-1.png" width="672" /></p>
+<p>For completeness, let’s make the legend look better as well (this is discussed in section <a href="fine-tune.html#theme">8.5.1</a>).</p>
+<div class="sourceCode" id="cb732"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb732-1"><a href="fine-tune.html#cb732-1"></a>(</span>
+<span id="cb732-2"><a href="fine-tune.html#cb732-2"></a>g_facet &lt;-<span class="st"> </span>g_facet <span class="op">+</span><span class="st"> </span></span>
+<span id="cb732-3"><a href="fine-tune.html#cb732-3"></a><span class="st">    </span><span class="co">#--- this overrides facet_grid(high_low ~ year_txt) ---#</span></span>
+<span id="cb732-4"><a href="fine-tune.html#cb732-4"></a><span class="st">    </span><span class="kw">facet_grid</span>(year_txt <span class="op">~</span><span class="st"> </span>high_low) <span class="op">+</span></span>
+<span id="cb732-5"><a href="fine-tune.html#cb732-5"></a><span class="st">    </span><span class="kw">theme</span>(</span>
+<span id="cb732-6"><a href="fine-tune.html#cb732-6"></a>        <span class="dt">strip.text.y =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="op">-</span><span class="st"> </span><span class="dv">90</span>, <span class="dt">size =</span> <span class="dv">12</span>, <span class="dt">family =</span> <span class="st">&quot;Times&quot;</span>),</span>
+<span id="cb732-7"><a href="fine-tune.html#cb732-7"></a>        <span class="dt">strip.text.x =</span> <span class="kw">element_text</span>(<span class="dt">margin =</span> <span class="kw">margin</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="fl">0.2</span>, <span class="dv">0</span>, <span class="st">&quot;cm&quot;</span>), <span class="dt">size =</span> <span class="dv">12</span>, <span class="dt">family =</span> <span class="st">&quot;Times&quot;</span>)</span>
+<span id="cb732-8"><a href="fine-tune.html#cb732-8"></a>    ) <span class="op">+</span></span>
+<span id="cb732-9"><a href="fine-tune.html#cb732-9"></a><span class="st">    </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>) <span class="op">+</span></span>
+<span id="cb732-10"><a href="fine-tune.html#cb732-10"></a><span class="st">    </span><span class="kw">labs</span>(<span class="dt">color =</span> <span class="st">&quot;Groundwater pumping (acre-feet)&quot;</span>)  <span class="op">+</span></span>
+<span id="cb732-11"><a href="fine-tune.html#cb732-11"></a><span class="st">    </span><span class="kw">theme</span>(</span>
+<span id="cb732-12"><a href="fine-tune.html#cb732-12"></a>        <span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>,</span>
+<span id="cb732-13"><a href="fine-tune.html#cb732-13"></a>        <span class="dt">legend.key.height =</span> <span class="kw">unit</span>(<span class="fl">0.5</span>, <span class="st">&quot;cm&quot;</span>),</span>
+<span id="cb732-14"><a href="fine-tune.html#cb732-14"></a>        <span class="dt">legend.key.width =</span> <span class="kw">unit</span>(<span class="dv">2</span>, <span class="st">&quot;cm&quot;</span>),</span>
+<span id="cb732-15"><a href="fine-tune.html#cb732-15"></a>        <span class="dt">legend.text =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">12</span>, <span class="dt">family =</span> <span class="st">&quot;Times&quot;</span>),</span>
+<span id="cb732-16"><a href="fine-tune.html#cb732-16"></a>        <span class="dt">legend.title =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">12</span>, <span class="dt">family =</span> <span class="st">&quot;Times&quot;</span>)</span>
+<span id="cb732-17"><a href="fine-tune.html#cb732-17"></a>        <span class="co">#--- NEW LINES HERE!! ---#</span></span>
+<span id="cb732-18"><a href="fine-tune.html#cb732-18"></a>    ) <span class="op">+</span></span>
+<span id="cb732-19"><a href="fine-tune.html#cb732-19"></a><span class="st">    </span><span class="kw">guides</span>(<span class="dt">color =</span> <span class="kw">guide_colorbar</span>(<span class="dt">title.position=</span><span class="st">&quot;top&quot;</span>))</span>
+<span id="cb732-20"><a href="fine-tune.html#cb732-20"></a>)</span></code></pre></div>
+<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-91-1.png" width="672" /></p>
+<p>Alright, setting aside the problem of whether the information provided in the maps is meaningful or not, the maps look great at least.</p>
+</div>
+<div id="north-arrow-and-scale-bar" class="section level3" number="8.5.4">
+<h3><span class="header-section-number">8.5.4</span> North arrow and scale bar</h3>
+<p>The <code>ggspatial</code> package lets you put a north arrow and scale bar on a map using <code>annotation_scale()</code> and <code>annotation_north_arrow()</code>.</p>
+<div class="sourceCode" id="cb733"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb733-1"><a href="fine-tune.html#cb733-1"></a><span class="co">#--- get North Carolina county borders ---#</span></span>
+<span id="cb733-2"><a href="fine-tune.html#cb733-2"></a>nc &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="kw">system.file</span>(<span class="st">&quot;shape/nc.shp&quot;</span>, <span class="dt">package=</span><span class="st">&quot;sf&quot;</span>)) </span></code></pre></div>
+<pre><code>Reading layer `nc&#39; from data source `/Library/Frameworks/R.framework/Versions/4.0/Resources/library/sf/shape/nc.shp&#39; using driver `ESRI Shapefile&#39;
+Simple feature collection with 100 features and 14 fields
+geometry type:  MULTIPOLYGON
+dimension:      XY
+bbox:           xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965
+CRS:            4267</code></pre>
+<div class="sourceCode" id="cb735"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb735-1"><a href="fine-tune.html#cb735-1"></a>(</span>
+<span id="cb735-2"><a href="fine-tune.html#cb735-2"></a><span class="co">#--- create a simple map ---#</span></span>
+<span id="cb735-3"><a href="fine-tune.html#cb735-3"></a>g_nc &lt;-<span class="st"> </span><span class="kw">ggplot</span>(nc) <span class="op">+</span><span class="st"> </span><span class="kw">geom_sf</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme_void</span>()</span>
+<span id="cb735-4"><a href="fine-tune.html#cb735-4"></a>)</span></code></pre></div>
+<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-92-1.png" width="672" /></p>
+<p>Here is an example code that adds a scale bar:</p>
+<div class="sourceCode" id="cb736"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb736-1"><a href="fine-tune.html#cb736-1"></a><span class="co">#--- load ggspatial ---#</span></span>
+<span id="cb736-2"><a href="fine-tune.html#cb736-2"></a><span class="kw">library</span>(ggspatial)</span>
+<span id="cb736-3"><a href="fine-tune.html#cb736-3"></a></span>
+<span id="cb736-4"><a href="fine-tune.html#cb736-4"></a><span class="co">#--- add scale bar ---#</span></span>
+<span id="cb736-5"><a href="fine-tune.html#cb736-5"></a>g_nc <span class="op">+</span><span class="st"> </span></span>
+<span id="cb736-6"><a href="fine-tune.html#cb736-6"></a><span class="st">  </span><span class="kw">annotation_scale</span>(</span>
+<span id="cb736-7"><a href="fine-tune.html#cb736-7"></a>    <span class="dt">location =</span> <span class="st">&quot;bl&quot;</span>, </span>
+<span id="cb736-8"><a href="fine-tune.html#cb736-8"></a>    <span class="dt">width_hint =</span> <span class="fl">0.2</span></span>
+<span id="cb736-9"><a href="fine-tune.html#cb736-9"></a>  ) </span></code></pre></div>
+<p><code>location</code> determines where the scale bar is. The first letter is either <code>t</code> (top) or <code>b</code> (bottom), and the second letter is either <code>l (left)</code> or <code>r</code> (right). <code>width_hint</code> is the length of the scale bar relative to the plot. The distance number (200 km) was generated automatically according to the length of the bar.</p>
+<p>You can add pads from the plot border to fine tune the location of the scale bar:</p>
+<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-94-1.png" width="672" /></p>
+<p>A positive number means that the scale bar will be placed further away from closest border of the plot.</p>
+<p>You can add a north arrow using <code>annotation_north_arrow()</code>. Accepted arguments are similar to those for <code>annotation_scale()</code>.</p>
+<div class="sourceCode" id="cb737"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb737-1"><a href="fine-tune.html#cb737-1"></a>g_nc <span class="op">+</span><span class="st"> </span></span>
+<span id="cb737-2"><a href="fine-tune.html#cb737-2"></a><span class="st">  </span><span class="kw">annotation_scale</span>(</span>
+<span id="cb737-3"><a href="fine-tune.html#cb737-3"></a>    <span class="dt">location =</span> <span class="st">&quot;bl&quot;</span>, </span>
+<span id="cb737-4"><a href="fine-tune.html#cb737-4"></a>    <span class="dt">width_hint =</span> <span class="fl">0.2</span>,</span>
+<span id="cb737-5"><a href="fine-tune.html#cb737-5"></a>        <span class="dt">pad_x =</span> <span class="kw">unit</span>(<span class="dv">3</span>, <span class="st">&quot;cm&quot;</span>)</span>
+<span id="cb737-6"><a href="fine-tune.html#cb737-6"></a>  ) <span class="op">+</span></span>
+<span id="cb737-7"><a href="fine-tune.html#cb737-7"></a><span class="st">  </span><span class="co">#--- add north arrow ---#</span></span>
+<span id="cb737-8"><a href="fine-tune.html#cb737-8"></a><span class="st">  </span><span class="kw">annotation_north_arrow</span>(</span>
+<span id="cb737-9"><a href="fine-tune.html#cb737-9"></a>    <span class="dt">location =</span> <span class="st">&quot;tl&quot;</span>, </span>
+<span id="cb737-10"><a href="fine-tune.html#cb737-10"></a>    <span class="dt">pad_x =</span> <span class="kw">unit</span>(<span class="fl">0.5</span>, <span class="st">&quot;in&quot;</span>), </span>
+<span id="cb737-11"><a href="fine-tune.html#cb737-11"></a>    <span class="dt">pad_y =</span> <span class="kw">unit</span>(<span class="fl">0.1</span>, <span class="st">&quot;in&quot;</span>),</span>
+<span id="cb737-12"><a href="fine-tune.html#cb737-12"></a>    <span class="dt">style =</span> north_arrow_fancy_orienteering</span>
+<span id="cb737-13"><a href="fine-tune.html#cb737-13"></a>   ) </span></code></pre></div>
+<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-95-1.png" width="672" /></p>
+<p>There are several <code>style</code>s you can pick from. Run <code>?north_arrow_orienteering</code> to see other options.</p>
+<!-- ----
+
+Sometimes, it is hard to find the right place to put a scale bar or north arrow. For example, the bottom right corner of each panel seems to be the right place to put a scale bar for the following map: 
+
+
+```r
+g_facet_gw <- ggplot() +    
+    #--- KS county boundary ---#
+    geom_sf(data = st_transform(KS_county, 32614)) +
+    #--- wells ---#
+    geom_sf(data = gw_KS_sf, aes(color = af_used)) +
+    #--- facet by year (side by side) ---#
+    facet_wrap(high_low ~ year_txt) +
+    theme_void() +
+    scale_color_viridis_c() +
+    theme(legend.position = "bottom")   
+```
+
+Let's add a scale bar:
+
+
+```r
+g_facet_gw +
+    #--- add a scale bar ---#
+    annotation_scale(
+    location = "br", 
+    width_hint = 0.2,
+        pad_x = unit(1, "cm"),
+        pad_y = unit(0.3, "cm")
+  )
+```
+
+Well, it is hard to see the scale bars, and it is probably better to put them outside of the Kansas state border. 
+
+
+
+```r
+g_facet_gw +
+    #--- add a scale bar ---#
+    annotation_scale(
+    location = "br", 
+    width_hint = 0.2,
+        pad_x = unit(1, "cm"),
+        pad_y = unit(-0.1, "cm")
+  )
+```
+
+
+```r
+     +
+    annotation_scale(
+    location = "bl", 
+    width_hint = 0.2,
+        pad_y = unit(-0.1, "cm")
+  )
+
+KS_county_buf <- st_transform(KS_county, 32614) %>% 
+    st_bbox() %>% 
+    st_as_sfc() %>% 
+    st_buffer(15000)
+
+g_facet + 
+    geom_sf(data = KS_county_buf, fill = NA) 
+```
+
+
+```r
+g_facet + 
+    geom_sf(data = KS_county_buf, fill = NA, color = NA) +
+  annotation_scale(
+    location = "br", 
+    line_width = 0.4,
+        pad_x = unit(0.3, "in"),
+        pad_y = unit(-0.001, "in")
+  )
+```
+
+ -->
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="95">
+<li id="fn95"><p><code>labs()</code> can also be used to specify the x- and y-axis titles.<a href="fine-tune.html#fnref95" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="arranging-maps.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="ggsave.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection",
+"toc_depth": 3,
+"scroll_highlight": true
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

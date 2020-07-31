@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 Spatial Interactions of Vector Data: Subsetting and Joining | R as GIS for Economists</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 3 Spatial Interactions of Vector Data: Subsetting and Joining | R as GIS for Economists" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 Spatial Interactions of Vector Data: Subsetting and Joining | R as GIS for Economists" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Taro Mieno" />
+
+
+<meta name="date" content="2020-05-14" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="vector-basics.html"/>
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">R as GIS for Economists</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html#why-r-as-gis-for-economists"><i class="fa fa-check"></i>Why R as GIS for Economists?</a><ul>
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html#r-vs-python"><i class="fa fa-check"></i>R vs Python</a></li>
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html#r-vs-arcgis-or-qgis"><i class="fa fa-check"></i>R vs ArcGIS or QGIS</a></li>
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html#summary"><i class="fa fa-check"></i>Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html#how-is-this-book-different-from-other-online-books-and-resources"><i class="fa fa-check"></i>How is this book different from other online books and resources?</a></li>
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html#what-is-going-to-be-covered-in-this-book"><i class="fa fa-check"></i>What is going to be covered in this book?</a></li>
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html#conventions-of-the-book-and-some-notes"><i class="fa fa-check"></i>Conventions of the book and some notes</a><ul>
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html#texts-in-gray-boxes"><i class="fa fa-check"></i>Texts in gray boxes</a></li>
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html#colored-boxes"><i class="fa fa-check"></i>Colored Boxes</a></li>
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html#parentheses-around-codes"><i class="fa fa-check"></i>Parentheses around codes</a></li>
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html#footnotes"><i class="fa fa-check"></i>Footnotes</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html#session-information"><i class="fa fa-check"></i>Session Information</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="demo.html"><a href="demo.html"><i class="fa fa-check"></i><b>1</b> R as GIS: Demonstrations</a><ul>
+<li class="chapter" data-level="" data-path="demo.html"><a href="demo.html#before-you-start"><i class="fa fa-check"></i>Before you start</a><ul>
+<li class="chapter" data-level="" data-path="demo.html"><a href="demo.html#target-audience"><i class="fa fa-check"></i>Target Audience</a></li>
+<li class="chapter" data-level="" data-path="demo.html"><a href="demo.html#direction-for-replication"><i class="fa fa-check"></i>Direction for replication</a></li>
+</ul></li>
+<li class="chapter" data-level="1.1" data-path="demo.html"><a href="demo.html#Demo1"><i class="fa fa-check"></i><b>1.1</b> Demonstration 1: The impact of groundwater pumping on depth to water table</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="demo.html"><a href="demo.html#project-overview"><i class="fa fa-check"></i><b>1.1.1</b> Project Overview</a></li>
+<li class="chapter" data-level="1.1.2" data-path="demo.html"><a href="demo.html#project-demonstration"><i class="fa fa-check"></i><b>1.1.2</b> Project Demonstration</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="demo.html"><a href="demo.html#demonstration-2-precision-agriculture"><i class="fa fa-check"></i><b>1.2</b> Demonstration 2: Precision Agriculture</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="demo.html"><a href="demo.html#project-overview-1"><i class="fa fa-check"></i><b>1.2.1</b> Project Overview</a></li>
+<li class="chapter" data-level="1.2.2" data-path="demo.html"><a href="demo.html#project-demonstration-1"><i class="fa fa-check"></i><b>1.2.2</b> Project Demonstration</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="demo.html"><a href="demo.html#demonstration-3-land-use-and-weather"><i class="fa fa-check"></i><b>1.3</b> Demonstration 3: Land Use and Weather</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="demo.html"><a href="demo.html#project-overview-2"><i class="fa fa-check"></i><b>1.3.1</b> Project Overview</a></li>
+<li class="chapter" data-level="1.3.2" data-path="demo.html"><a href="demo.html#project-demonstration-2"><i class="fa fa-check"></i><b>1.3.2</b> Project Demonstration</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="demo.html"><a href="demo.html#demo4"><i class="fa fa-check"></i><b>1.4</b> Demonstration 4: The Impact of Railroad Presence on Corn Planted Acreage</a><ul>
+<li class="chapter" data-level="1.4.1" data-path="demo.html"><a href="demo.html#project-overview-3"><i class="fa fa-check"></i><b>1.4.1</b> Project Overview</a></li>
+<li class="chapter" data-level="1.4.2" data-path="demo.html"><a href="demo.html#project-demonstration-3"><i class="fa fa-check"></i><b>1.4.2</b> Project Demonstration</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="demo.html"><a href="demo.html#demonstration-5-groundwater-use-for-agricultural-irrigation"><i class="fa fa-check"></i><b>1.5</b> Demonstration 5: Groundwater use for agricultural irrigation</a><ul>
+<li class="chapter" data-level="1.5.1" data-path="demo.html"><a href="demo.html#project-overview-4"><i class="fa fa-check"></i><b>1.5.1</b> Project Overview</a></li>
+<li class="chapter" data-level="1.5.2" data-path="demo.html"><a href="demo.html#project-demonstration-4"><i class="fa fa-check"></i><b>1.5.2</b> Project Demonstration</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="vector-basics.html"><a href="vector-basics.html"><i class="fa fa-check"></i><b>2</b> Handle vector data using the sf package</a><ul>
+<li class="chapter" data-level="" data-path="vector-basics.html"><a href="vector-basics.html#before-you-start-1"><i class="fa fa-check"></i>Before you start</a><ul>
+<li><a href="vector-basics.html#sf-or-sp"><code>sf</code> or <code>sp</code>?</a></li>
+</ul></li>
+<li class="chapter" data-level="2.1" data-path="vector-basics.html"><a href="vector-basics.html#spatial-data-structure"><i class="fa fa-check"></i><b>2.1</b> Spatial Data Structure</a></li>
+<li class="chapter" data-level="2.2" data-path="vector-basics.html"><a href="vector-basics.html#simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature"><i class="fa fa-check"></i><b>2.2</b> Simple feature geometry, simple feature geometry list-column, and simple feature</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="vector-basics.html"><a href="vector-basics.html#simple-feature-geometry-sfg"><i class="fa fa-check"></i><b>2.2.1</b> Simple feature geometry (<code>sfg</code>)</a></li>
+<li class="chapter" data-level="2.2.2" data-path="vector-basics.html"><a href="vector-basics.html#create-simple-feature-geometry-list-column-sfc-and-simple-feature-sf-from-scratch"><i class="fa fa-check"></i><b>2.2.2</b> Create simple feature geometry list-column (<code>sfc</code>) and simple feature (<code>sf</code>) from scratch</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="vector-basics.html"><a href="vector-basics.html#reading-and-writing-vector-data"><i class="fa fa-check"></i><b>2.3</b> Reading and writing vector data</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="vector-basics.html"><a href="vector-basics.html#reading-a-shapefile"><i class="fa fa-check"></i><b>2.3.1</b> Reading a shapefile</a></li>
+<li class="chapter" data-level="2.3.2" data-path="vector-basics.html"><a href="vector-basics.html#writing-to-a-shapefile"><i class="fa fa-check"></i><b>2.3.2</b> Writing to a shapefile</a></li>
+<li class="chapter" data-level="2.3.3" data-path="vector-basics.html"><a href="vector-basics.html#better-alternatives"><i class="fa fa-check"></i><b>2.3.3</b> Better alternatives</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="vector-basics.html"><a href="vector-basics.html#projection-with-a-different-coordinate-reference-systems"><i class="fa fa-check"></i><b>2.4</b> Projection with a different Coordinate Reference Systems</a></li>
+<li class="chapter" data-level="2.5" data-path="vector-basics.html"><a href="vector-basics.html#non-spatial-transformation-of-sf"><i class="fa fa-check"></i><b>2.5</b> Non-spatial transformation of sf</a></li>
+<li class="chapter" data-level="2.6" data-path="vector-basics.html"><a href="vector-basics.html#turning-a-data.frame-of-points-into-an-sf"><i class="fa fa-check"></i><b>2.6</b> Turning a data.frame of points into an <code>sf</code></a></li>
+<li class="chapter" data-level="2.7" data-path="vector-basics.html"><a href="vector-basics.html#conversion-to-and-from-sp"><i class="fa fa-check"></i><b>2.7</b> Conversion to and from sp</a></li>
+<li class="chapter" data-level="2.8" data-path="vector-basics.html"><a href="vector-basics.html#geometrical-operations"><i class="fa fa-check"></i><b>2.8</b> Geometrical operations</a><ul>
+<li class="chapter" data-level="2.8.1" data-path="vector-basics.html"><a href="vector-basics.html#st_buffer"><i class="fa fa-check"></i><b>2.8.1</b> st_buffer</a></li>
+<li class="chapter" data-level="2.8.2" data-path="vector-basics.html"><a href="vector-basics.html#st_area"><i class="fa fa-check"></i><b>2.8.2</b> st_area</a></li>
+<li class="chapter" data-level="2.8.3" data-path="vector-basics.html"><a href="vector-basics.html#st_centroid"><i class="fa fa-check"></i><b>2.8.3</b> st_centroid</a></li>
+<li class="chapter" data-level="2.8.4" data-path="vector-basics.html"><a href="vector-basics.html#st_length"><i class="fa fa-check"></i><b>2.8.4</b> st_length</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="spatial-interactions-of-vector-data-subsetting-and-joining.html"><a href="spatial-interactions-of-vector-data-subsetting-and-joining.html"><i class="fa fa-check"></i><b>3</b> Spatial Interactions of Vector Data: Subsetting and Joining</a><ul>
+<li class="chapter" data-level="3.1" data-path="spatial-interactions-of-vector-data-subsetting-and-joining.html"><a href="spatial-interactions-of-vector-data-subsetting-and-joining.html#topological-relations"><i class="fa fa-check"></i><b>3.1</b> Topological relations</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="spatial-interactions-of-vector-data-subsetting-and-joining.html"><a href="spatial-interactions-of-vector-data-subsetting-and-joining.html#st_intersects"><i class="fa fa-check"></i><b>3.1.1</b> st_intersects()</a></li>
+<li class="chapter" data-level="3.1.2" data-path="spatial-interactions-of-vector-data-subsetting-and-joining.html"><a href="spatial-interactions-of-vector-data-subsetting-and-joining.html#st_intersection"><i class="fa fa-check"></i><b>3.1.2</b> st_intersection()</a></li>
+<li class="chapter" data-level="3.1.3" data-path="spatial-interactions-of-vector-data-subsetting-and-joining.html"><a href="spatial-interactions-of-vector-data-subsetting-and-joining.html#st_is_within_distance"><i class="fa fa-check"></i><b>3.1.3</b> st_is_within_distance()</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="spatial-interactions-of-vector-data-subsetting-and-joining.html"><a href="spatial-interactions-of-vector-data-subsetting-and-joining.html#spatial-subsetting-or-flagging"><i class="fa fa-check"></i><b>3.2</b> Spatial Subsetting (or Flagging)</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="spatial-interactions-of-vector-data-subsetting-and-joining.html"><a href="spatial-interactions-of-vector-data-subsetting-and-joining.html#polygons-vs-polygons"><i class="fa fa-check"></i><b>3.2.1</b> polygons vs polygons</a></li>
+<li class="chapter" data-level="3.2.2" data-path="spatial-interactions-of-vector-data-subsetting-and-joining.html"><a href="spatial-interactions-of-vector-data-subsetting-and-joining.html#points-vs-polygons"><i class="fa fa-check"></i><b>3.2.2</b> points vs polygons</a></li>
+<li class="chapter" data-level="3.2.3" data-path="spatial-interactions-of-vector-data-subsetting-and-joining.html"><a href="spatial-interactions-of-vector-data-subsetting-and-joining.html#lines-vs-polygons"><i class="fa fa-check"></i><b>3.2.3</b> lines vs polygons</a></li>
+<li class="chapter" data-level="3.2.4" data-path="spatial-interactions-of-vector-data-subsetting-and-joining.html"><a href="spatial-interactions-of-vector-data-subsetting-and-joining.html#flagging-instead-of-subsetting"><i class="fa fa-check"></i><b>3.2.4</b> Flagging instead of subsetting</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="spatial-interactions-of-vector-data-subsetting-and-joining.html"><a href="spatial-interactions-of-vector-data-subsetting-and-joining.html#spatial-join"><i class="fa fa-check"></i><b>3.3</b> Spatial Join</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="spatial-interactions-of-vector-data-subsetting-and-joining.html"><a href="spatial-interactions-of-vector-data-subsetting-and-joining.html#case-1-points-target-vs-polygons-source"><i class="fa fa-check"></i><b>3.3.1</b> Case 1: points (target) vs polygons (source)</a></li>
+<li class="chapter" data-level="3.3.2" data-path="spatial-interactions-of-vector-data-subsetting-and-joining.html"><a href="spatial-interactions-of-vector-data-subsetting-and-joining.html#case-2-polygons-target-vs-points-source"><i class="fa fa-check"></i><b>3.3.2</b> Case 2: polygons (target) vs points (source)</a></li>
+<li class="chapter" data-level="3.3.3" data-path="spatial-interactions-of-vector-data-subsetting-and-joining.html"><a href="spatial-interactions-of-vector-data-subsetting-and-joining.html#polygon-polygon"><i class="fa fa-check"></i><b>3.3.3</b> Case 3: polygons (target) vs polygons (source)</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R as GIS for Economists</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<link href="style.css" rel="stylesheet" type="text/css">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-59758608-3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-59758608-3');
+</script>
+<div id="spatial-interactions-of-vector-data-subsetting-and-joining" class="section level1">
+<h1><span class="header-section-number">Chapter 3</span> Spatial Interactions of Vector Data: Subsetting and Joining</h1>
+<p><strong>Introduction</strong></p>
+<div id="topological-relations" class="section level2">
+<h2><span class="header-section-number">3.1</span> Topological relations</h2>
+<p>Before we learn spatial subsetting and joining, we first look at topological relations. Topological relations refer to the way multiple spatial objects are spatially related to one another. You can identify various types of spatial relations using the <code>sf</code> package. Our main focus is on the intersections of spatial objects, which can be found using <code>st_intersects()</code>.<a href="#fn64" class="footnote-ref" id="fnref64"><sup>64</sup></a> We also briefly cover <code>st_is_within_distance()</code><a href="#fn65" class="footnote-ref" id="fnref65"><sup>65</sup></a>.</p>
+<hr />
+<p>We first create <code>sf</code> objects we are going to use for illustrations.</p>
+<p><strong>POINTS</strong></p>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb186-1" data-line-number="1"><span class="co">#--- create points ---#</span></a>
+<a class="sourceLine" id="cb186-2" data-line-number="2">point_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">st_point</span>(<span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb186-3" data-line-number="3">point_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">st_point</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</a>
+<a class="sourceLine" id="cb186-4" data-line-number="4">point_<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw">st_point</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>))</a>
+<a class="sourceLine" id="cb186-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb186-6" data-line-number="6"><span class="co">#--- combine the points to make a single  sf of points ---#</span></a>
+<a class="sourceLine" id="cb186-7" data-line-number="7">(</a>
+<a class="sourceLine" id="cb186-8" data-line-number="8">points &lt;-<span class="st"> </span><span class="kw">list</span>(point_<span class="dv">1</span>, point_<span class="dv">2</span>, point_<span class="dv">3</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb186-9" data-line-number="9"><span class="st">  </span><span class="kw">st_sfc</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb186-10" data-line-number="10"><span class="st">  </span><span class="kw">st_as_sf</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb186-11" data-line-number="11"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">name =</span> <span class="kw">c</span>(<span class="st">&quot;point 1&quot;</span>, <span class="st">&quot;point 2&quot;</span>, <span class="st">&quot;point 3&quot;</span>))</a>
+<a class="sourceLine" id="cb186-12" data-line-number="12">)</a></code></pre></div>
+<pre><code>Simple feature collection with 3 features and 1 field
+geometry type:  POINT
+dimension:      XY
+bbox:           xmin: 1 ymin: 1 xmax: 2 ymax: 3
+CRS:            NA
+            x    name
+1 POINT (2 2) point 1
+2 POINT (1 1) point 2
+3 POINT (1 3) point 3</code></pre>
+<hr />
+<p><strong>LINES</strong></p>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb188-1" data-line-number="1"><span class="co">#--- create points ---#</span></a>
+<a class="sourceLine" id="cb188-2" data-line-number="2">line_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">st_linestring</span>(<span class="kw">rbind</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="kw">c</span>(<span class="fl">2.5</span>, <span class="fl">0.5</span>)))</a>
+<a class="sourceLine" id="cb188-3" data-line-number="3">line_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">st_linestring</span>(<span class="kw">rbind</span>(<span class="kw">c</span>(<span class="fl">1.5</span>, <span class="fl">0.5</span>), <span class="kw">c</span>(<span class="fl">2.5</span>, <span class="dv">2</span>)))</a>
+<a class="sourceLine" id="cb188-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb188-5" data-line-number="5"><span class="co">#--- combine the points to make a single  sf of points ---#</span></a>
+<a class="sourceLine" id="cb188-6" data-line-number="6">(</a>
+<a class="sourceLine" id="cb188-7" data-line-number="7">lines &lt;-<span class="st"> </span><span class="kw">list</span>(line_<span class="dv">1</span>, line_<span class="dv">2</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb188-8" data-line-number="8"><span class="st">  </span><span class="kw">st_sfc</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb188-9" data-line-number="9"><span class="st">  </span><span class="kw">st_as_sf</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb188-10" data-line-number="10"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">name =</span> <span class="kw">c</span>(<span class="st">&quot;line 1&quot;</span>, <span class="st">&quot;line 2&quot;</span>))</a>
+<a class="sourceLine" id="cb188-11" data-line-number="11">)</a></code></pre></div>
+<pre><code>Simple feature collection with 2 features and 1 field
+geometry type:  LINESTRING
+dimension:      XY
+bbox:           xmin: 0 ymin: 0 xmax: 2.5 ymax: 2
+CRS:            NA
+                            x   name
+1   LINESTRING (0 0, 2.5 0.5) line 1
+2 LINESTRING (1.5 0.5, 2.5 2) line 2</code></pre>
+<hr />
+<p><strong>POLYGONS</strong></p>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb190-1" data-line-number="1"><span class="co">#--- create polygons ---#</span></a>
+<a class="sourceLine" id="cb190-2" data-line-number="2">polygon_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">st_polygon</span>(<span class="kw">list</span>(</a>
+<a class="sourceLine" id="cb190-3" data-line-number="3">  <span class="kw">rbind</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">0</span>), <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">2</span>), <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)) </a>
+<a class="sourceLine" id="cb190-4" data-line-number="4">))</a>
+<a class="sourceLine" id="cb190-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb190-6" data-line-number="6">polygon_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">st_polygon</span>(<span class="kw">list</span>(</a>
+<a class="sourceLine" id="cb190-7" data-line-number="7">  <span class="kw">rbind</span>(<span class="kw">c</span>(<span class="fl">0.5</span>, <span class="fl">1.5</span>), <span class="kw">c</span>(<span class="fl">0.5</span>, <span class="fl">3.5</span>), <span class="kw">c</span>(<span class="fl">2.5</span>, <span class="fl">3.5</span>), <span class="kw">c</span>(<span class="fl">2.5</span>, <span class="fl">1.5</span>), <span class="kw">c</span>(<span class="fl">0.5</span>, <span class="fl">1.5</span>)) </a>
+<a class="sourceLine" id="cb190-8" data-line-number="8">))</a>
+<a class="sourceLine" id="cb190-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb190-10" data-line-number="10">polygon_<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw">st_polygon</span>(<span class="kw">list</span>(</a>
+<a class="sourceLine" id="cb190-11" data-line-number="11">  <span class="kw">rbind</span>(<span class="kw">c</span>(<span class="fl">0.5</span>, <span class="fl">2.5</span>), <span class="kw">c</span>(<span class="fl">0.5</span>, <span class="fl">3.2</span>), <span class="kw">c</span>(<span class="fl">2.3</span>, <span class="fl">3.2</span>), <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="kw">c</span>(<span class="fl">0.5</span>, <span class="fl">2.5</span>)) </a>
+<a class="sourceLine" id="cb190-12" data-line-number="12">))</a>
+<a class="sourceLine" id="cb190-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb190-14" data-line-number="14"><span class="co">#--- combine the polygons to make an sf of polygons ---#</span></a>
+<a class="sourceLine" id="cb190-15" data-line-number="15">(</a>
+<a class="sourceLine" id="cb190-16" data-line-number="16">polygons &lt;-<span class="st"> </span><span class="kw">list</span>(polygon_<span class="dv">1</span>, polygon_<span class="dv">2</span>, polygon_<span class="dv">3</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb190-17" data-line-number="17"><span class="st">  </span><span class="kw">st_sfc</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb190-18" data-line-number="18"><span class="st">  </span><span class="kw">st_as_sf</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb190-19" data-line-number="19"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">name =</span> <span class="kw">c</span>(<span class="st">&quot;polygon 1&quot;</span>, <span class="st">&quot;polygon 2&quot;</span>, <span class="st">&quot;polygon 3&quot;</span>))</a>
+<a class="sourceLine" id="cb190-20" data-line-number="20">)</a></code></pre></div>
+<pre><code>Simple feature collection with 3 features and 1 field
+geometry type:  POLYGON
+dimension:      XY
+bbox:           xmin: 0 ymin: 0 xmax: 2.5 ymax: 3.5
+CRS:            NA
+                               x      name
+1 POLYGON ((0 0, 2 0, 2 2, 0 ... polygon 1
+2 POLYGON ((0.5 1.5, 0.5 3.5,... polygon 2
+3 POLYGON ((0.5 2.5, 0.5 3.2,... polygon 3</code></pre>
+<hr />
+<p>Figure <a href="spatial-interactions-of-vector-data-subsetting-and-joining.html#fig:plot-point-polygons">3.1</a> shows how they look:</p>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb192-1" data-line-number="1"><span class="kw">ggplot</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb192-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> polygons, <span class="kw">aes</span>(<span class="dt">fill =</span> name), <span class="dt">alpha =</span> <span class="fl">0.3</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb192-3" data-line-number="3"><span class="st">  </span><span class="kw">scale_fill_discrete</span>(<span class="dt">name =</span> <span class="st">&quot;Polygons&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb192-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> lines, <span class="kw">aes</span>(<span class="dt">color =</span> name)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb192-5" data-line-number="5"><span class="st">  </span><span class="kw">scale_color_discrete</span>(<span class="dt">name =</span> <span class="st">&quot;Lines&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb192-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> points, <span class="kw">aes</span>(<span class="dt">shape =</span> name), <span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb192-7" data-line-number="7"><span class="st">  </span><span class="kw">scale_shape_discrete</span>(<span class="dt">name =</span> <span class="st">&quot;Points&quot;</span>)  </a></code></pre></div>
+<div class="figure"><span id="fig:plot-point-polygons"></span>
+<img src="SpatialInteractionVectorVector_files/figure-html/plot-point-polygons-1.png" alt="Visualization of the points, lines, and polygons" width="672" />
+<p class="caption">
+Figure 3.1: Visualization of the points, lines, and polygons
+</p>
+</div>
+<div id="st_intersects" class="section level3">
+<h3><span class="header-section-number">3.1.1</span> st_intersects()</h3>
+<p>This function identifies which <code>sfg</code> object in an <code>sf</code> (or <code>sfc</code>) intersects with <code>sfg</code> object(s) in another <code>sf</code>. For example, you can use the function to identify which well is located within which NRD. <code>st_intersects()</code> is the most commonly used topological relations, and it is the default topological relation used when performing spatial subsetting and joining, which we will cover later.</p>
+<hr />
+<p><strong>points and polygons</strong></p>
+<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb193-1" data-line-number="1"><span class="kw">st_intersects</span>(points, polygons)</a></code></pre></div>
+<pre><code>Sparse geometry binary predicate list of length 3, where the predicate was `intersects&#39;
+ 1: 1, 2, 3
+ 2: 1
+ 3: 2, 3</code></pre>
+<p>As you can see, the output is a list of which polygon(s) each of the points intersect with. 1, 2, and 3 for the first row means that 1st (polygon 1), 2nd (polygon 2), and 3rd (polygon 3) objects of the <code>polygons</code> intersect with the first point (point 1) of the <code>points</code> object. The fact that point 1 is considered to be intersecting with polygon 2 means that the area inside the border is considered a part of the polygon (of course).</p>
+<p>If you would like the results of <code>st_intersects()</code> in a matrix form with boolean values filling the matrix, you can add <code>sparse = FALSE</code> option.</p>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb195-1" data-line-number="1"><span class="kw">st_intersects</span>(points, polygons, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<pre><code>      [,1]  [,2]  [,3]
+[1,]  TRUE  TRUE  TRUE
+[2,]  TRUE FALSE FALSE
+[3,] FALSE  TRUE  TRUE</code></pre>
+<hr />
+<p><strong>lines and polygons</strong></p>
+<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb197-1" data-line-number="1"><span class="kw">st_intersects</span>(lines, polygons)</a></code></pre></div>
+<pre><code>Sparse geometry binary predicate list of length 2, where the predicate was `intersects&#39;
+ 1: 1
+ 2: 1, 2</code></pre>
+<p>The output is a list of which polygon(s) each of the lines intersect with.</p>
+<hr />
+<p><strong>polygons and polygons</strong></p>
+<p>For polygons vs polygons interaction, <code>st_intersects()</code> identifies any polygons that either touches (even at a point) or share some area.</p>
+<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb199-1" data-line-number="1"><span class="kw">st_intersects</span>(polygons, polygons)</a></code></pre></div>
+<pre><code>Sparse geometry binary predicate list of length 3, where the predicate was `intersects&#39;
+ 1: 1, 2, 3
+ 2: 1, 2, 3
+ 3: 1, 2, 3</code></pre>
+</div>
+<div id="st_intersection" class="section level3">
+<h3><span class="header-section-number">3.1.2</span> st_intersection()</h3>
+<p>Instead of getting just indices of intersecting objects, <strong>st_intersection()</strong> returns intersecting spatial objects.</p>
+<hr />
+<p><strong>lines and polygons</strong></p>
+<p>The following code gets the intersection of line 2 and the polygons.</p>
+<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb201-1" data-line-number="1">intersections &lt;-<span class="st"> </span><span class="kw">st_intersection</span>(lines[<span class="dv">2</span>, ], polygons) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb201-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">int_name =</span> <span class="kw">paste0</span>(name, <span class="st">&quot;-&quot;</span>, name<span class="fl">.1</span>))</a>
+<a class="sourceLine" id="cb201-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb201-4" data-line-number="4"><span class="co">#--- take a look ---#</span></a>
+<a class="sourceLine" id="cb201-5" data-line-number="5">intersections</a></code></pre></div>
+<pre><code>Simple feature collection with 2 features and 3 fields
+geometry type:  LINESTRING
+dimension:      XY
+bbox:           xmin: 1.5 ymin: 0.5 xmax: 2.5 ymax: 2
+CRS:            NA
+    name    name.1                              x         int_name
+1 line 2 polygon 1   LINESTRING (1.5 0.5, 2 1.25) line 2-polygon 1
+2 line 2 polygon 2 LINESTRING (2.166667 1.5, 2... line 2-polygon 2</code></pre>
+<p>As you can see in Figure <a href="spatial-interactions-of-vector-data-subsetting-and-joining.html#fig:lines-polygons-int">3.2</a> below, each instance of the intersections of the line and polygons become an observation (line 2-polygon 1 and line 2-polygon 2). Note also that the part of the line that did not intersect is cut out and does not remain in the returned <code>sf</code>.<a href="#fn66" class="footnote-ref" id="fnref66"><sup>66</sup></a></p>
+<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb203-1" data-line-number="1"><span class="kw">ggplot</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb203-2" data-line-number="2"><span class="st">  </span><span class="co">#--- here are all the original polygons  ---#</span></a>
+<a class="sourceLine" id="cb203-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> polygons, <span class="kw">aes</span>(<span class="dt">fill =</span> name), <span class="dt">alpha =</span> <span class="fl">0.1</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb203-4" data-line-number="4"><span class="st">  </span><span class="co">#--- here is what is returned after st_intersection ---#</span></a>
+<a class="sourceLine" id="cb203-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> intersections, <span class="kw">aes</span>(<span class="dt">color =</span> int_name), <span class="dt">size =</span> <span class="fl">1.5</span>)</a></code></pre></div>
+<div class="figure"><span id="fig:lines-polygons-int"></span>
+<img src="SpatialInteractionVectorVector_files/figure-html/lines-polygons-int-1.png" alt="The outcome of the intersections of the lines and polygons" width="672" />
+<p class="caption">
+Figure 3.2: The outcome of the intersections of the lines and polygons
+</p>
+</div>
+<hr />
+<p><strong>polygons and polygons</strong></p>
+<p>The following code gets the intersection of polygon 1 and polygon 3 with polygon 2.</p>
+<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb204-1" data-line-number="1">intersections &lt;-<span class="st"> </span><span class="kw">st_intersection</span>(polygons[<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>), ], polygons[<span class="dv">2</span>, ]) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb204-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">int_name =</span> <span class="kw">paste0</span>(name, <span class="st">&quot;-&quot;</span>, name<span class="fl">.1</span>))</a>
+<a class="sourceLine" id="cb204-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb204-4" data-line-number="4"><span class="co">#--- take a look ---#</span></a>
+<a class="sourceLine" id="cb204-5" data-line-number="5">intersections</a></code></pre></div>
+<pre><code>Simple feature collection with 2 features and 3 fields
+geometry type:  POLYGON
+dimension:      XY
+bbox:           xmin: 0.5 ymin: 1.5 xmax: 2.3 ymax: 3.2
+CRS:            NA
+       name    name.1                              x            int_name
+1 polygon 1 polygon 2 POLYGON ((0.5 2, 2 2, 2 1.5... polygon 1-polygon 2
+2 polygon 3 polygon 2 POLYGON ((0.5 2.5, 0.5 3.2,... polygon 3-polygon 2</code></pre>
+<p>As you can see in Figure <a href="spatial-interactions-of-vector-data-subsetting-and-joining.html#fig:polygons-polygons-int">3.3</a>, each instance of the intersections of polygons 1 and 3 against polygon 2 becomes an observation (polygon 1-polygon 2 and polygon 3-polygon 2). Just like the lines-polygons case, the non-intersecting part of polygons 1 and 3 are cut out and do not remain in the returned <code>sf</code>. We will see later that <code>st_intersection()</code> can be used to find area-weighted values from the intersecting polygons with a help from <code>st_area()</code>.</p>
+<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb206-1" data-line-number="1"><span class="kw">ggplot</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb206-2" data-line-number="2"><span class="st">  </span><span class="co">#--- here are all the original polygons  ---#</span></a>
+<a class="sourceLine" id="cb206-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> polygons, <span class="kw">aes</span>(<span class="dt">fill =</span> name), <span class="dt">alpha =</span> <span class="fl">0.1</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb206-4" data-line-number="4"><span class="st">  </span><span class="co">#--- here is what is returned after st_intersection ---#</span></a>
+<a class="sourceLine" id="cb206-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> intersections, <span class="kw">aes</span>(<span class="dt">fill =</span> int_name))</a></code></pre></div>
+<div class="figure"><span id="fig:polygons-polygons-int"></span>
+<img src="SpatialInteractionVectorVector_files/figure-html/polygons-polygons-int-1.png" alt="The outcome of the intersections of polygon 2 and polygons 1 and 3" width="672" />
+<p class="caption">
+Figure 3.3: The outcome of the intersections of polygon 2 and polygons 1 and 3
+</p>
+</div>
+</div>
+<div id="st_is_within_distance" class="section level3">
+<h3><span class="header-section-number">3.1.3</span> st_is_within_distance()</h3>
+<p>This function identifies whether two spatial objects are within the distance you specify as the name suggests<a href="#fn67" class="footnote-ref" id="fnref67"><sup>67</sup></a>.</p>
+<p>Let’s first create two sets of points.</p>
+<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb207-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">38424738</span>)</a>
+<a class="sourceLine" id="cb207-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb207-3" data-line-number="3">points_set_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="cf">function</span>(x) <span class="kw">st_point</span>(<span class="kw">runif</span>(<span class="dv">2</span>))) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb207-4" data-line-number="4"><span class="st">  </span><span class="kw">st_sfc</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_as_sf</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb207-5" data-line-number="5"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">id =</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(.))</a>
+<a class="sourceLine" id="cb207-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb207-7" data-line-number="7">points_set_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="cf">function</span>(x) <span class="kw">st_point</span>(<span class="kw">runif</span>(<span class="dv">2</span>))) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb207-8" data-line-number="8"><span class="st">  </span><span class="kw">st_sfc</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_as_sf</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb207-9" data-line-number="9"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">id =</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(.))</a></code></pre></div>
+<p>Here is how they are spatially distributed (Figure <a href="spatial-interactions-of-vector-data-subsetting-and-joining.html#fig:map-points-points-points">3.4</a>). Instead of circles of points, their corresponding <code>id</code> (or equivalently row number here) values are displayed.</p>
+<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb208-1" data-line-number="1"><span class="kw">ggplot</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb208-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_sf_text</span>(<span class="dt">data =</span> points_set_<span class="dv">1</span>, <span class="kw">aes</span>(<span class="dt">label =</span> id), <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb208-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_sf_text</span>(<span class="dt">data =</span> points_set_<span class="dv">2</span>, <span class="kw">aes</span>(<span class="dt">label =</span> id), <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>) </a></code></pre></div>
+<div class="figure"><span id="fig:map-points-points-points"></span>
+<img src="SpatialInteractionVectorVector_files/figure-html/map-points-points-points-1.png" alt="The locations of the set of points" width="672" />
+<p class="caption">
+Figure 3.4: The locations of the set of points
+</p>
+</div>
+<p>We want to know which of the blue points (points_set_2) are located within 0.2 from each of the red points (points_set_1). The following figure (Figure <a href="spatial-interactions-of-vector-data-subsetting-and-joining.html#fig:points-points-within">3.5</a>) gives use the answer visually.</p>
+<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb209-1" data-line-number="1"><span class="co">#--- create 0.2 buffers around points in points_set_1 ---#</span></a>
+<a class="sourceLine" id="cb209-2" data-line-number="2">buffer_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">st_buffer</span>(points_set_<span class="dv">1</span>, <span class="dt">dist =</span> <span class="fl">0.2</span>)</a>
+<a class="sourceLine" id="cb209-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb209-4" data-line-number="4"><span class="kw">ggplot</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb209-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> buffer_<span class="dv">1</span>, <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">fill =</span> <span class="ot">NA</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb209-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_sf_text</span>(<span class="dt">data =</span> points_set_<span class="dv">1</span>, <span class="kw">aes</span>(<span class="dt">label =</span> id), <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb209-7" data-line-number="7"><span class="st">  </span><span class="kw">geom_sf_text</span>(<span class="dt">data =</span> points_set_<span class="dv">2</span>, <span class="kw">aes</span>(<span class="dt">label =</span> id), <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>) </a></code></pre></div>
+<div class="figure"><span id="fig:points-points-within"></span>
+<img src="SpatialInteractionVectorVector_files/figure-html/points-points-within-1.png" alt="The blue points within 0.2 radius of the red points" width="672" />
+<p class="caption">
+Figure 3.5: The blue points within 0.2 radius of the red points
+</p>
+</div>
+<p>Confirm your visual inspection results with the outcome of the following code using <code>st_is_within_distance()</code> function.</p>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb210-1" data-line-number="1"><span class="kw">st_is_within_distance</span>(points_set_<span class="dv">1</span>, points_set_<span class="dv">2</span>, <span class="dt">dist =</span> <span class="fl">0.2</span>)</a></code></pre></div>
+<pre><code>Sparse geometry binary predicate list of length 5, where the predicate was `is_within_distance&#39;
+ 1: 1
+ 2: (empty)
+ 3: (empty)
+ 4: (empty)
+ 5: 3</code></pre>
+</div>
+</div>
+<div id="spatial-subsetting-or-flagging" class="section level2">
+<h2><span class="header-section-number">3.2</span> Spatial Subsetting (or Flagging)</h2>
+<p>Spatial subsetting refers to operations that narrow down the geographic scope of a spatial object based on another spatial object. We illustrate spatial subsetting using Kansas county borders, the boundary of the High-Plains Aquifer (HPA), and agricultural irrigation wells in Kansas.</p>
+<p>First, let’s import all the files we will use in this section.</p>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb212-1" data-line-number="1"><span class="co">#--- Kansas county borders ---#</span></a>
+<a class="sourceLine" id="cb212-2" data-line-number="2">KS_counties &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;./Data/KS_county_borders.rds&quot;</span>)</a>
+<a class="sourceLine" id="cb212-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb212-4" data-line-number="4"><span class="co">#--- HPA boundary ---#</span></a>
+<a class="sourceLine" id="cb212-5" data-line-number="5">hpa &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="dt">dsn =</span> <span class="st">&quot;./Data&quot;</span>, <span class="dt">layer =</span> <span class="st">&quot;hp_bound2010&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb212-6" data-line-number="6"><span class="st">  </span>.[<span class="dv">1</span>, ] <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb212-7" data-line-number="7"><span class="st">  </span><span class="kw">st_transform</span>(<span class="kw">st_crs</span>(KS_counties))  </a>
+<a class="sourceLine" id="cb212-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb212-9" data-line-number="9"><span class="co">#--- all the irrigation wells in KS ---#</span></a>
+<a class="sourceLine" id="cb212-10" data-line-number="10">KS_wells &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;./Data/Kansas_wells.rds&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb212-11" data-line-number="11"><span class="st">  </span><span class="kw">st_transform</span>(<span class="kw">st_crs</span>(KS_counties))</a>
+<a class="sourceLine" id="cb212-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb212-13" data-line-number="13"><span class="co">#--- US railroad ---#</span></a>
+<a class="sourceLine" id="cb212-14" data-line-number="14">rail_roads &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="dt">dsn =</span> <span class="st">&quot;./Data/&quot;</span>, <span class="dt">layer =</span> <span class="st">&quot;tl_2015_us_rails&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb212-15" data-line-number="15"><span class="st">  </span><span class="kw">st_transform</span>(<span class="kw">st_crs</span>(KS_counties)) </a></code></pre></div>
+<div id="polygons-vs-polygons" class="section level3">
+<h3><span class="header-section-number">3.2.1</span> polygons vs polygons</h3>
+<p>The following map (Figure <a href="spatial-interactions-of-vector-data-subsetting-and-joining.html#fig:overlap-KS-county-HPA">3.6</a>) shows the Kansas portion of the HPA and KS counties.</p>
+<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb213-1" data-line-number="1"><span class="co">#--- add US counties layer ---#</span></a>
+<a class="sourceLine" id="cb213-2" data-line-number="2"><span class="kw">tm_shape</span>(KS_counties) <span class="op">+</span></a>
+<a class="sourceLine" id="cb213-3" data-line-number="3"><span class="st">  </span><span class="kw">tm_polygons</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb213-4" data-line-number="4"><span class="co">#--- add High-Plains Aquifer layer ---#</span></a>
+<a class="sourceLine" id="cb213-5" data-line-number="5"><span class="kw">tm_shape</span>(hpa) <span class="op">+</span></a>
+<a class="sourceLine" id="cb213-6" data-line-number="6"><span class="st">  </span><span class="kw">tm_fill</span>(<span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.3</span>)</a></code></pre></div>
+<div class="figure"><span id="fig:overlap-KS-county-HPA"></span>
+<img src="SpatialInteractionVectorVector_files/figure-html/overlap-KS-county-HPA-1.png" alt="Kansas portion of High-Plains Aquifer and Kansas counties" width="672" />
+<p class="caption">
+Figure 3.6: Kansas portion of High-Plains Aquifer and Kansas counties
+</p>
+</div>
+<p>The goal here is to select only the counties that intersects with the HPA boundary. When subsetting a data.frame by specifying the row numbers you would like to select, you can do</p>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb214-1" data-line-number="1">data.frame[vector of row numbers, ]</a></code></pre></div>
+<p>Spatial subsetting of sf objects works in a similar syntax:</p>
+<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb215-1" data-line-number="1">sf_<span class="dv">1</span>[sf_<span class="dv">2</span>, ]</a></code></pre></div>
+<p>where you are subsetting sf_1 based on sf_2. Instead of row numbers, you provide another sf object in place. The following code spatially subsets KS counties based on the HPA boundary.</p>
+<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb216-1" data-line-number="1">counties_in_hpa &lt;-<span class="st"> </span>KS_counties[hpa, ]</a></code></pre></div>
+<p>See the results below in Figure <a href="#fig:"><strong>??</strong></a>.</p>
+<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb217-1" data-line-number="1"><span class="co">#--- add US counties layer ---#</span></a>
+<a class="sourceLine" id="cb217-2" data-line-number="2"><span class="kw">tm_shape</span>(counties_in_hpa) <span class="op">+</span></a>
+<a class="sourceLine" id="cb217-3" data-line-number="3"><span class="st">  </span><span class="kw">tm_polygons</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb217-4" data-line-number="4"><span class="co">#--- add High-Plains Aquifer layer ---#</span></a>
+<a class="sourceLine" id="cb217-5" data-line-number="5"><span class="kw">tm_shape</span>(hpa) <span class="op">+</span></a>
+<a class="sourceLine" id="cb217-6" data-line-number="6"><span class="st">  </span><span class="kw">tm_fill</span>(<span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.3</span>)</a></code></pre></div>
+<div class="figure">
+<img src="SpatialInteractionVectorVector_files/figure-html/default_subset-1.png" alt="The results of spatially subsetting KS counties based on HPA boundary" width="672" />
+<p class="caption">
+(#fig:default_subset)The results of spatially subsetting KS counties based on HPA boundary
+</p>
+</div>
+<p>You can see that only the counties that intersect with the HPA boundary remained. This is because when you use the above syntax of <code>sf_1[sf_2, ]</code>, the default underlying topological relations is <code>st_intersects()</code>. So, if an object in <code>sf_1</code> intersects with any of the objects in <code>sf_2</code> even slightly, then it will remain after subsetting.</p>
+<p>You can specify the spatial operation to be used as an option as in</p>
+<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb218-1" data-line-number="1">sf_<span class="dv">1</span>[sf_<span class="dv">2</span>, op =<span class="st"> </span>topological_relation_type] </a></code></pre></div>
+<p>For example, if you only want counties that are completely within the HPA boundary, you can do the following (the map of the results in Figure <a href="spatial-interactions-of-vector-data-subsetting-and-joining.html#fig:within-subset">3.7</a>):</p>
+<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb219-1" data-line-number="1">counties_within_hpa &lt;-<span class="st"> </span>KS_counties[hpa, , op =<span class="st"> </span>st_within]</a></code></pre></div>
+<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb220-1" data-line-number="1"><span class="co">#--- add US counties layer ---#</span></a>
+<a class="sourceLine" id="cb220-2" data-line-number="2"><span class="kw">tm_shape</span>(counties_within_hpa) <span class="op">+</span></a>
+<a class="sourceLine" id="cb220-3" data-line-number="3"><span class="st">  </span><span class="kw">tm_polygons</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb220-4" data-line-number="4"><span class="co">#--- add High-Plains Aquifer layer ---#</span></a>
+<a class="sourceLine" id="cb220-5" data-line-number="5"><span class="kw">tm_shape</span>(hpa) <span class="op">+</span></a>
+<a class="sourceLine" id="cb220-6" data-line-number="6"><span class="st">  </span><span class="kw">tm_fill</span>(<span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.3</span>)</a></code></pre></div>
+<div class="figure"><span id="fig:within-subset"></span>
+<img src="SpatialInteractionVectorVector_files/figure-html/within-subset-1.png" alt="Kansas counties that are completely within HPA boundary" width="672" />
+<p class="caption">
+Figure 3.7: Kansas counties that are completely within HPA boundary
+</p>
+</div>
+<!-- 
+#%%%%%%%%%%%%%%%%%%%%%
+# Points vs Polygons 
+#%%%%%%%%%%%%%%%%%%%%%
+-->
+</div>
+<div id="points-vs-polygons" class="section level3">
+<h3><span class="header-section-number">3.2.2</span> points vs polygons</h3>
+<p>The following map (Figure <a href="spatial-interactions-of-vector-data-subsetting-and-joining.html#fig:map-wells-county">3.8</a>) shows the Kansas portion of the HPA and all the irrigation wells in KS.</p>
+<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb221-1" data-line-number="1"><span class="kw">tm_shape</span>(KS_wells) <span class="op">+</span></a>
+<a class="sourceLine" id="cb221-2" data-line-number="2"><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">size =</span> <span class="fl">0.1</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb221-3" data-line-number="3"><span class="kw">tm_shape</span>(hpa) <span class="op">+</span></a>
+<a class="sourceLine" id="cb221-4" data-line-number="4"><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.1</span>) </a></code></pre></div>
+<div class="figure"><span id="fig:map-wells-county"></span>
+<img src="SpatialInteractionVectorVector_files/figure-html/map-wells-county-1.png" alt="A map of Kansas irrigation wells and HPA" width="672" />
+<p class="caption">
+Figure 3.8: A map of Kansas irrigation wells and HPA
+</p>
+</div>
+<p>We can select only wells that reside within the HPA boundary using the same syntax as the above example.</p>
+<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb222-1" data-line-number="1">KS_wells_in_hpa &lt;-<span class="st"> </span>KS_wells[hpa, ]</a></code></pre></div>
+<p>As you can see in Figure <a href="spatial-interactions-of-vector-data-subsetting-and-joining.html#fig:map-wells-in-hpa">3.9</a> below, only the wells that are inside (or intersects with) the HPA remained as the default topological relation is <code>st_intersects()</code>.</p>
+<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb223-1" data-line-number="1"><span class="kw">tm_shape</span>(KS_wells_in_hpa) <span class="op">+</span></a>
+<a class="sourceLine" id="cb223-2" data-line-number="2"><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">size =</span> <span class="fl">0.1</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb223-3" data-line-number="3"><span class="kw">tm_shape</span>(hpa) <span class="op">+</span></a>
+<a class="sourceLine" id="cb223-4" data-line-number="4"><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.1</span>) </a></code></pre></div>
+<div class="figure"><span id="fig:map-wells-in-hpa"></span>
+<img src="SpatialInteractionVectorVector_files/figure-html/map-wells-in-hpa-1.png" alt="A map of Kansas irrigation wells and HPA" width="672" />
+<p class="caption">
+Figure 3.9: A map of Kansas irrigation wells and HPA
+</p>
+</div>
+<!-- 
+#%%%%%%%%%%%%%%%%%%%%%
+# Lines vs Polygons 
+#%%%%%%%%%%%%%%%%%%%%%
+-->
+</div>
+<div id="lines-vs-polygons" class="section level3">
+<h3><span class="header-section-number">3.2.3</span> lines vs polygons</h3>
+<p>The following map (Figure <a href="spatial-interactions-of-vector-data-subsetting-and-joining.html#fig:mapl-lines-county">3.10</a>) shows the Kansas counties and U.S. railroads.</p>
+<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb224-1" data-line-number="1"><span class="kw">ggplot</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb224-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> rail_roads, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb224-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> KS_counties, <span class="dt">fill =</span> <span class="ot">NA</span>)  </a></code></pre></div>
+<div class="figure"><span id="fig:mapl-lines-county"></span>
+<img src="SpatialInteractionVectorVector_files/figure-html/mapl-lines-county-1.png" alt="U.S. railroads and Kansas county boundary" width="672" />
+<p class="caption">
+Figure 3.10: U.S. railroads and Kansas county boundary
+</p>
+</div>
+<p>We can select only railroads that intersects with Kansas.</p>
+<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb225-1" data-line-number="1">railroads_KS &lt;-<span class="st"> </span>rail_roads[KS_counties, ]</a></code></pre></div>
+<p>As you can see in Figure <a href="spatial-interactions-of-vector-data-subsetting-and-joining.html#fig:map-rail-ks">3.11</a> below, only the railroads that intersect with Kansas were selected. Note the the lines that go beyond the Kansas boundary are also selected. Remember, the default is <code>st_intersect()</code>. If you would like the lines beyond the state boundary to be cut out, but the intersecting parts of those lines to remain, use <code>st_intersection()</code>.</p>
+<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb226-1" data-line-number="1"><span class="kw">tm_shape</span>(railroads_KS) <span class="op">+</span></a>
+<a class="sourceLine" id="cb226-2" data-line-number="2"><span class="st">  </span><span class="kw">tm_lines</span>(<span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb226-3" data-line-number="3"><span class="kw">tm_shape</span>(KS_counties) <span class="op">+</span></a>
+<a class="sourceLine" id="cb226-4" data-line-number="4"><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">alpha =</span> <span class="dv">0</span>)  <span class="op">+</span></a>
+<a class="sourceLine" id="cb226-5" data-line-number="5"><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">frame =</span> <span class="ot">FALSE</span>) </a></code></pre></div>
+<div class="figure"><span id="fig:map-rail-ks"></span>
+<img src="SpatialInteractionVectorVector_files/figure-html/map-rail-ks-1.png" alt="Railroads that intersects Kansas county boundary" width="672" />
+<p class="caption">
+Figure 3.11: Railroads that intersects Kansas county boundary
+</p>
+</div>
+</div>
+<div id="flagging-instead-of-subsetting" class="section level3">
+<h3><span class="header-section-number">3.2.4</span> Flagging instead of subsetting</h3>
+<p>Sometimes, you just want to flag whether two spatial objects intersect or not, instead of dropping non-overlapping observations. In that case, you can use <code>st_intersects()</code>.</p>
+<hr />
+<p><strong>Counties (polygons) against HPA boundary (polygons)</strong></p>
+<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb227-1" data-line-number="1"><span class="co">#--- county ---#</span></a>
+<a class="sourceLine" id="cb227-2" data-line-number="2">KS_counties &lt;-<span class="st"> </span><span class="kw">mutate</span>(KS_counties, <span class="dt">intersects_hpa  =</span> <span class="kw">st_intersects</span>(KS_counties, hpa, <span class="dt">sparse =</span> <span class="ot">FALSE</span>))</a>
+<a class="sourceLine" id="cb227-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb227-4" data-line-number="4"><span class="co">#--- take a look ---#</span></a>
+<a class="sourceLine" id="cb227-5" data-line-number="5">dplyr<span class="op">::</span><span class="kw">select</span>(KS_counties, COUNTYFP, intersects_hpa)</a></code></pre></div>
+<pre><code>Simple feature collection with 105 features and 2 fields
+geometry type:  MULTIPOLYGON
+dimension:      XY
+bbox:           xmin: -102.0517 ymin: 36.99308 xmax: -94.59193 ymax: 40.00308
+CRS:            EPSG:4269
+First 10 features:
+   COUNTYFP intersects_hpa                       geometry
+1       133          FALSE MULTIPOLYGON (((-95.5255 37...
+2       075           TRUE MULTIPOLYGON (((-102.0446 3...
+3       123          FALSE MULTIPOLYGON (((-98.48738 3...
+4       189           TRUE MULTIPOLYGON (((-101.5566 3...
+5       155           TRUE MULTIPOLYGON (((-98.47279 3...
+6       129           TRUE MULTIPOLYGON (((-102.0419 3...
+7       073          FALSE MULTIPOLYGON (((-96.52278 3...
+8       023           TRUE MULTIPOLYGON (((-102.0517 4...
+9       089           TRUE MULTIPOLYGON (((-98.50445 4...
+10      059          FALSE MULTIPOLYGON (((-95.50827 3...</code></pre>
+<hr />
+<p><strong>Wells (points) against HPA boundary (polygons)</strong></p>
+<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb229-1" data-line-number="1"><span class="co">#--- wells ---#</span></a>
+<a class="sourceLine" id="cb229-2" data-line-number="2">KS_wells &lt;-<span class="st"> </span><span class="kw">mutate</span>(KS_wells, <span class="dt">in_hpa  =</span> <span class="kw">st_intersects</span>(KS_wells, hpa, <span class="dt">sparse =</span> <span class="ot">FALSE</span>))</a>
+<a class="sourceLine" id="cb229-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb229-4" data-line-number="4"><span class="co">#--- take a look ---#</span></a>
+<a class="sourceLine" id="cb229-5" data-line-number="5">dplyr<span class="op">::</span><span class="kw">select</span>(KS_wells, site, in_hpa)</a></code></pre></div>
+<pre><code>Simple feature collection with 37647 features and 2 fields
+geometry type:  POINT
+dimension:      XY
+bbox:           xmin: -102.0495 ymin: 36.99552 xmax: -94.62089 ymax: 40.00199
+CRS:            EPSG:4269
+First 10 features:
+   site in_hpa                   geometry
+1     1   TRUE POINT (-100.4423 37.52046)
+2     3   TRUE POINT (-100.7118 39.91526)
+3     5   TRUE POINT (-99.15168 38.48849)
+4     7   TRUE POINT (-101.8995 38.78077)
+5     8   TRUE  POINT (-100.7122 38.0731)
+6     9  FALSE POINT (-97.70265 39.04055)
+7    11   TRUE POINT (-101.7114 39.55035)
+8    12  FALSE POINT (-95.97031 39.16121)
+9    15   TRUE POINT (-98.30759 38.26787)
+10   17   TRUE POINT (-100.2785 37.71539)</code></pre>
+<hr />
+<p><strong>U.S. railroads (lines) against Kansas county (polygons)</strong></p>
+<p>Unlike the previous two cases, multiple objects (lines) are checked against multiple objects (polygons) for intersection<a href="#fn68" class="footnote-ref" id="fnref68"><sup>68</sup></a>. Therefore, we cannot use the strategy we took above of returning a vector of true or false using <code>sparse = TRUE</code> option. Here, we need to count the number of intersecting counties and then assign <code>TRUE</code> if the number is greater than 0.</p>
+<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb231-1" data-line-number="1"><span class="co">#--- check the number of intersecting KS counties ---#</span></a>
+<a class="sourceLine" id="cb231-2" data-line-number="2">int_mat &lt;-<span class="st"> </span><span class="kw">st_intersects</span>(rail_roads, KS_counties) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb231-3" data-line-number="3"><span class="st">  </span><span class="kw">lapply</span>(length) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb231-4" data-line-number="4"><span class="st">  </span><span class="kw">unlist</span>() </a>
+<a class="sourceLine" id="cb231-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb231-6" data-line-number="6"><span class="co">#--- railroads ---#</span></a>
+<a class="sourceLine" id="cb231-7" data-line-number="7">rail_roads &lt;-<span class="st"> </span><span class="kw">mutate</span>(rail_roads, <span class="dt">intersect_ks  =</span> int_mat <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb231-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb231-9" data-line-number="9"><span class="co">#--- take a look ---#</span></a>
+<a class="sourceLine" id="cb231-10" data-line-number="10">dplyr<span class="op">::</span><span class="kw">select</span>(rail_roads, LINEARID, intersect_ks)</a></code></pre></div>
+<pre><code>Simple feature collection with 180958 features and 2 fields
+geometry type:  MULTILINESTRING
+dimension:      XY
+bbox:           xmin: -165.4011 ymin: 17.95174 xmax: -65.74931 ymax: 65.00006
+CRS:            4269
+First 10 features:
+      LINEARID intersect_ks                       geometry
+1  11020239500        FALSE MULTILINESTRING ((-79.47058...
+2  11020239501        FALSE MULTILINESTRING ((-79.46687...
+3  11020239502        FALSE MULTILINESTRING ((-79.66819...
+4  11020239503        FALSE MULTILINESTRING ((-79.46687...
+5  11020239504        FALSE MULTILINESTRING ((-79.74031...
+6  11020239575        FALSE MULTILINESTRING ((-79.43695...
+7  11020239576        FALSE MULTILINESTRING ((-79.47852...
+8  11020239577        FALSE MULTILINESTRING ((-79.43695...
+9  11020239589        FALSE MULTILINESTRING ((-79.38736...
+10 11020239591        FALSE MULTILINESTRING ((-79.53848...</code></pre>
+</div>
+</div>
+<div id="spatial-join" class="section level2">
+<h2><span class="header-section-number">3.3</span> Spatial Join</h2>
+<p>By spatial join, we mean spatial operations that involve the followings:</p>
+<ol style="list-style-type: decimal">
+<li>overlay one spatial layer (target layer) onto another spatial layer (source layer)</li>
+<li>for each of the observation in the target layer</li>
+</ol>
+<ul>
+<li>identify which objects in the source layer it geographically intersects (or being close) with<br />
+</li>
+<li>extract values associated with the intersecting objects in the source layer (and summarize if necessary),</li>
+<li>assign the extracted value to the object in the target layer</li>
+</ul>
+<p>For economists, this is probably the most common motivation of using GIS software, with the ultimate goal being including the spatially joined variables as covariates in regression analysis.</p>
+<p>We can classify spatial join into four categories by the type of the underlying spatial objects:</p>
+<ul>
+<li>vector-vector: vector data (target) against vector data (source)<br />
+</li>
+<li>vector-raster: vector data (target) against raster data (source)<br />
+</li>
+<li>raster-vector: raster data (target) against vector data (source)<br />
+</li>
+<li>raster-raster: raster data (target) against raster data (source)</li>
+</ul>
+<p>Among the four, our focus here is the first case. The second case will be discussed in Chapter 5. We will not cover the third and fourth cases in this class.<a href="#fn69" class="footnote-ref" id="fnref69"><sup>69</sup></a></p>
+<p>Category 1 can be further broken down into different sub categories depending on the type of spatial objects (point, line, and polygon). Here, we will ignore any spatial joins that involve lines. This is because objects represented by lines are rarely observations units in econometric analysis nor the source data that we will extract values from.<a href="#fn70" class="footnote-ref" id="fnref70"><sup>70</sup></a>. So, here is the list of the types of spatial joins we will learn.</p>
+<ol style="list-style-type: decimal">
+<li>points (target) against polygons (source)</li>
+<li>polygons (target) against points (source)</li>
+<li>polygons (target) against polygons (source)</li>
+</ol>
+<!-- 
+#=========================================
+# Spatial Joining 
+#=========================================
+-->
+<div id="case-1-points-target-vs-polygons-source" class="section level3">
+<h3><span class="header-section-number">3.3.1</span> Case 1: points (target) vs polygons (source)</h3>
+<p>Case 1, for each of the observations (points) in the target data, finds which polygon in the source file it intersects, and then assign the value associated with the polygon to the point<a href="#fn71" class="footnote-ref" id="fnref71"><sup>71</sup></a>. In order to achieve this, we can use the <code>st_join()</code> function, whose syntax is as follows:</p>
+<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb233-1" data-line-number="1"><span class="kw">st_join</span>(target_sf, source_sf)</a></code></pre></div>
+<p>Similar to spatial subsetting, the default topological relation is <code>st_intersects()</code><a href="#fn72" class="footnote-ref" id="fnref72"><sup>72</sup></a>.</p>
+<p>We use the KS irrigation wells data (points) and KS county boundary data (polygons) for a demonstration. Our goal is to assign the county-level corn price information from the KS county data to wells. First let me create and add a fake county-level corn price variable to the KS county data.</p>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb234-1" data-line-number="1">KS_corn_price &lt;-<span class="st"> </span>KS_counties <span class="op">%&gt;%</span><span class="st">  </span></a>
+<a class="sourceLine" id="cb234-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(</a>
+<a class="sourceLine" id="cb234-3" data-line-number="3">    <span class="dt">corn_price =</span> <span class="kw">seq</span>(<span class="fl">3.2</span>, <span class="fl">3.9</span>, <span class="dt">length =</span> <span class="kw">nrow</span>(.)) </a>
+<a class="sourceLine" id="cb234-4" data-line-number="4">  ) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb234-5" data-line-number="5"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(COUNTYFP, corn_price)</a></code></pre></div>
+<p>Here is the map of KS county color-differentiated by fake corn price (Figure <a href="spatial-interactions-of-vector-data-subsetting-and-joining.html#fig:map-corn-price">3.12</a>):</p>
+<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb235-1" data-line-number="1"><span class="kw">tm_shape</span>(KS_corn_price) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb235-2" data-line-number="2"><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;corn_price&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb235-3" data-line-number="3"><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">frame =</span> <span class="ot">FALSE</span>, <span class="dt">legend.outside =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="figure"><span id="fig:map-corn-price"></span>
+<img src="SpatialInteractionVectorVector_files/figure-html/map-corn-price-1.png" alt="Map of county-level fake corn price" width="672" />
+<p class="caption">
+Figure 3.12: Map of county-level fake corn price
+</p>
+</div>
+<p>For this particular context, the following code will do the job:</p>
+<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb236-1" data-line-number="1"><span class="co">#--- spatial join ---#</span></a>
+<a class="sourceLine" id="cb236-2" data-line-number="2">(</a>
+<a class="sourceLine" id="cb236-3" data-line-number="3">KS_wells_County &lt;-<span class="st"> </span><span class="kw">st_join</span>(KS_wells, KS_corn_price)</a>
+<a class="sourceLine" id="cb236-4" data-line-number="4">)</a></code></pre></div>
+<pre><code>Simple feature collection with 37647 features and 5 fields
+geometry type:  POINT
+dimension:      XY
+bbox:           xmin: -102.0495 ymin: 36.99552 xmax: -94.62089 ymax: 40.00199
+CRS:            EPSG:4269
+First 10 features:
+   site    af_used in_hpa COUNTYFP corn_price                   geometry
+1     1 232.099948   TRUE      069   3.556731 POINT (-100.4423 37.52046)
+2     3  13.183940   TRUE      039   3.449038 POINT (-100.7118 39.91526)
+3     5  99.187052   TRUE      165   3.287500 POINT (-99.15168 38.48849)
+4     7   0.000000   TRUE      199   3.644231 POINT (-101.8995 38.78077)
+5     8 145.520499   TRUE      055   3.832692  POINT (-100.7122 38.0731)
+6     9   3.614535  FALSE      143   3.799038 POINT (-97.70265 39.04055)
+7    11 188.423543   TRUE      181   3.590385 POINT (-101.7114 39.55035)
+8    12  77.335960  FALSE      177   3.550000 POINT (-95.97031 39.16121)
+9    15   0.000000   TRUE      159   3.610577 POINT (-98.30759 38.26787)
+10   17 167.819034   TRUE      069   3.556731 POINT (-100.2785 37.71539)</code></pre>
+<p>You can see from Figure <a href="spatial-interactions-of-vector-data-subsetting-and-joining.html#fig:map-corn-wells">3.13</a> below that all the wells inside the same county has the same corn price value.</p>
+<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb238-1" data-line-number="1"><span class="kw">tm_shape</span>(KS_counties) <span class="op">+</span></a>
+<a class="sourceLine" id="cb238-2" data-line-number="2"><span class="st">  </span><span class="kw">tm_polygons</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb238-3" data-line-number="3"><span class="kw">tm_shape</span>(KS_wells_County) <span class="op">+</span></a>
+<a class="sourceLine" id="cb238-4" data-line-number="4"><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">col =</span> <span class="st">&quot;corn_price&quot;</span>, <span class="dt">size =</span> <span class="fl">0.2</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb238-5" data-line-number="5"><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">frame =</span> <span class="ot">FALSE</span>, <span class="dt">legend.outside =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="figure"><span id="fig:map-corn-wells"></span>
+<img src="SpatialInteractionVectorVector_files/figure-html/map-corn-wells-1.png" alt="Map of wells color-differentiated by corn price" width="672" />
+<p class="caption">
+Figure 3.13: Map of wells color-differentiated by corn price
+</p>
+</div>
+</div>
+<div id="case-2-polygons-target-vs-points-source" class="section level3">
+<h3><span class="header-section-number">3.3.2</span> Case 2: polygons (target) vs points (source)</h3>
+<p>Case 2, for each of the observations (polygons) in the target data, find which observations (points) in the source file it intersects, and then assign the values associated with the points to the polygon. We use the same function: <code>st_join()</code><a href="#fn73" class="footnote-ref" id="fnref73"><sup>73</sup></a>.</p>
+<p>Suppose you are now interested in county-level analysis and you would like to get county-level total groundwater pumping. The target file is <code>KS_counties</code>, and the source file is <code>KS_wells</code>.</p>
+<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb239-1" data-line-number="1"><span class="co">#--- spatial join ---#</span></a>
+<a class="sourceLine" id="cb239-2" data-line-number="2">KS_County_wells &lt;-<span class="st"> </span><span class="kw">st_join</span>(KS_counties, KS_wells)</a>
+<a class="sourceLine" id="cb239-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb239-4" data-line-number="4"><span class="co">#--- take a look ---#</span></a>
+<a class="sourceLine" id="cb239-5" data-line-number="5">dplyr<span class="op">::</span><span class="kw">select</span>(KS_County_wells, COUNTYFP, site, af_used)</a></code></pre></div>
+<pre><code>Simple feature collection with 37652 features and 3 fields
+geometry type:  MULTIPOLYGON
+dimension:      XY
+bbox:           xmin: -102.0517 ymin: 36.99308 xmax: -94.59193 ymax: 40.00308
+CRS:            EPSG:4269
+First 10 features:
+    COUNTYFP  site   af_used                       geometry
+1        133 53861  17.01790 MULTIPOLYGON (((-95.5255 37...
+1.1      133 70592   0.00000 MULTIPOLYGON (((-95.5255 37...
+2        075   328 394.04513 MULTIPOLYGON (((-102.0446 3...
+2.1      075   336  80.65036 MULTIPOLYGON (((-102.0446 3...
+2.2      075   436 568.25359 MULTIPOLYGON (((-102.0446 3...
+2.3      075  1007 215.80416 MULTIPOLYGON (((-102.0446 3...
+2.4      075  1170   0.00000 MULTIPOLYGON (((-102.0446 3...
+2.5      075  1192  77.39120 MULTIPOLYGON (((-102.0446 3...
+2.6      075  1249   0.00000 MULTIPOLYGON (((-102.0446 3...
+2.7      075  1300 320.22612 MULTIPOLYGON (((-102.0446 3...</code></pre>
+<p>As you can see, in the resulting dataset, all the unique polygon - point intersecting combinations comprise the observations. For each of the polygons, you will have as many observations as the number of wells that intersect with the polygon. Once you joined the two layers, you can find statistics by polygon (county here). Since we want groundwater extraction by county, the following does the job.</p>
+<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb241-1" data-line-number="1">KS_County_wells <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb241-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(COUNTYFP) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb241-3" data-line-number="3"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">af_used =</span> <span class="kw">sum</span>(af_used, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) </a></code></pre></div>
+<pre><code>Simple feature collection with 105 features and 2 fields
+geometry type:  MULTIPOLYGON
+dimension:      XY
+bbox:           xmin: -102.0517 ymin: 36.99308 xmax: -94.59193 ymax: 40.00308
+CRS:            EPSG:4269
+# A tibble: 105 x 3
+   COUNTYFP af_used                                                     geometry
+   &lt;fct&gt;      &lt;dbl&gt;                                           &lt;MULTIPOLYGON [°]&gt;
+ 1 001           0  (((-95.51931 37.82026, -95.51897 38.03823, -95.07788 38.037…
+ 2 003           0  (((-95.50833 38.39028, -95.06583 38.38994, -95.07788 38.037…
+ 3 005         771. (((-95.56413 39.65287, -95.33974 39.65298, -95.11519 39.652…
+ 4 007        4972. (((-99.0126 37.47042, -98.46466 37.47101, -98.46493 37.3841…
+ 5 009       61083. (((-99.03297 38.69676, -98.48611 38.69688, -98.47991 38.681…
+ 6 011           0  (((-95.08808 37.73248, -95.07969 37.8198, -95.07788 38.0377…
+ 7 013         480. (((-95.78811 40.00047, -95.78457 40.00046, -95.3399 40.0000…
+ 8 015         343. (((-97.15248 37.91273, -97.15291 38.0877, -96.84077 38.0856…
+ 9 017           0  (((-96.83765 38.34864, -96.81951 38.52245, -96.35378 38.521…
+10 019           0  (((-96.52487 37.30273, -95.9644 37.29923, -95.96427 36.9992…
+# … with 95 more rows</code></pre>
+<p>Of course, it is just as easy to get other types of statistics by simply modifying the <code>summarize()</code> part.</p>
+<p>However, this two step process can be actually done in one step using the <code>aggregate()</code> function as follows:</p>
+<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb243-1" data-line-number="1"><span class="co">#--- mean ---#</span></a>
+<a class="sourceLine" id="cb243-2" data-line-number="2"><span class="kw">aggregate</span>(KS_wells, KS_counties, <span class="dt">FUN =</span> mean)</a></code></pre></div>
+<pre><code>Simple feature collection with 105 features and 3 fields
+geometry type:  MULTIPOLYGON
+dimension:      XY
+bbox:           xmin: -102.0517 ymin: 36.99308 xmax: -94.59193 ymax: 40.00308
+CRS:            EPSG:4269
+First 10 features:
+       site    af_used    in_hpa                       geometry
+1  62226.50   8.508950 0.0000000 MULTIPOLYGON (((-95.5255 37...
+2  35184.64 176.390742 0.4481793 MULTIPOLYGON (((-102.0446 3...
+3  40086.82  35.465123 0.0000000 MULTIPOLYGON (((-98.48738 3...
+4  40179.41 285.672916 1.0000000 MULTIPOLYGON (((-101.5566 3...
+5  51249.39  46.048048 0.9743783 MULTIPOLYGON (((-98.47279 3...
+6  33033.13 202.612377 1.0000000 MULTIPOLYGON (((-102.0419 3...
+7  29840.40   0.000000 0.0000000 MULTIPOLYGON (((-96.52278 3...
+8  28235.82  94.585634 0.9736842 MULTIPOLYGON (((-102.0517 4...
+9  36180.06  44.033911 0.3000000 MULTIPOLYGON (((-98.50445 4...
+10 40016.00   1.142775 0.0000000 MULTIPOLYGON (((-95.50827 3...</code></pre>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb245-1" data-line-number="1"><span class="co">#--- sum ---#</span></a>
+<a class="sourceLine" id="cb245-2" data-line-number="2"><span class="kw">aggregate</span>(KS_wells, KS_counties, <span class="dt">FUN =</span> sum)</a></code></pre></div>
+<pre><code>Simple feature collection with 105 features and 3 fields
+geometry type:  MULTIPOLYGON
+dimension:      XY
+bbox:           xmin: -102.0517 ymin: 36.99308 xmax: -94.59193 ymax: 40.00308
+CRS:            EPSG:4269
+First 10 features:
+       site      af_used in_hpa                       geometry
+1    124453 1.701790e+01      0 MULTIPOLYGON (((-95.5255 37...
+2  12560917 6.297149e+04    160 MULTIPOLYGON (((-102.0446 3...
+3   1964254 1.737791e+03      0 MULTIPOLYGON (((-98.48738 3...
+4  42389277 3.013849e+05   1055 MULTIPOLYGON (((-101.5566 3...
+5  68007942 6.110576e+04   1293 MULTIPOLYGON (((-98.47279 3...
+6  15756801 9.664610e+04    477 MULTIPOLYGON (((-102.0419 3...
+7    149202 0.000000e+00      0 MULTIPOLYGON (((-96.52278 3...
+8  17167377 5.750807e+04    592 MULTIPOLYGON (((-102.0517 4...
+9   1809003 2.201696e+03     15 MULTIPOLYGON (((-98.50445 4...
+10   160064 4.571102e+00      0 MULTIPOLYGON (((-95.50827 3...</code></pre>
+<p>Notice that the <code>mean()</code> function was applied to all the columns in <code>KS_wells</code>, including site id number. So, you might want to select variables you want to join before you apply the <code>aggregate()</code> function like this:</p>
+<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb247-1" data-line-number="1"><span class="kw">aggregate</span>(dplyr<span class="op">::</span><span class="kw">select</span>(KS_wells, af_used), KS_counties, <span class="dt">FUN =</span> mean)</a></code></pre></div>
+<pre><code>Simple feature collection with 105 features and 1 field
+geometry type:  MULTIPOLYGON
+dimension:      XY
+bbox:           xmin: -102.0517 ymin: 36.99308 xmax: -94.59193 ymax: 40.00308
+CRS:            EPSG:4269
+First 10 features:
+      af_used                       geometry
+1    8.508950 MULTIPOLYGON (((-95.5255 37...
+2  176.390742 MULTIPOLYGON (((-102.0446 3...
+3   35.465123 MULTIPOLYGON (((-98.48738 3...
+4  285.672916 MULTIPOLYGON (((-101.5566 3...
+5   46.048048 MULTIPOLYGON (((-98.47279 3...
+6  202.612377 MULTIPOLYGON (((-102.0419 3...
+7    0.000000 MULTIPOLYGON (((-96.52278 3...
+8   94.585634 MULTIPOLYGON (((-102.0517 4...
+9   44.033911 MULTIPOLYGON (((-98.50445 4...
+10   1.142775 MULTIPOLYGON (((-95.50827 3...</code></pre>
+</div>
+<div id="polygon-polygon" class="section level3">
+<h3><span class="header-section-number">3.3.3</span> Case 3: polygons (target) vs polygons (source)</h3>
+<p>For this case, <code>st_join(target_sf, source_sf)</code> will return all the unique intersecting polygon-polygon combinations with the information of the polygon from source_sf attached.</p>
+<p>We will use county-level corn acres in Iowa in 2018 from USDA NASS<a href="#fn74" class="footnote-ref" id="fnref74"><sup>74</sup></a> and Hydrologic Units<a href="#fn75" class="footnote-ref" id="fnref75"><sup>75</sup></a> Our objective here is to find corn acres by HUC units based on the county-level corn acres data<a href="#fn76" class="footnote-ref" id="fnref76"><sup>76</sup></a>.</p>
+<p>We first import the Iowa corn acre data:</p>
+<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb249-1" data-line-number="1"><span class="co">#--- IA boundary ---#</span></a>
+<a class="sourceLine" id="cb249-2" data-line-number="2">IA_corn &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;./Data/IA_corn.rds&quot;</span>)</a>
+<a class="sourceLine" id="cb249-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb249-4" data-line-number="4"><span class="co">#--- take a look ---#</span></a>
+<a class="sourceLine" id="cb249-5" data-line-number="5">IA_corn</a></code></pre></div>
+<pre><code>Simple feature collection with 93 features and 3 fields
+geometry type:  MULTIPOLYGON
+dimension:      XY
+bbox:           xmin: 203228.6 ymin: 4470941 xmax: 736832.9 ymax: 4822687
+CRS:            EPSG:26915
+First 10 features:
+   county_code year  acres                       geometry
+1          083 2018 183500 MULTIPOLYGON (((458997 4711...
+2          141 2018 167000 MULTIPOLYGON (((267700.8 47...
+3          081 2018 184500 MULTIPOLYGON (((421231.2 47...
+4          019 2018 189500 MULTIPOLYGON (((575285.6 47...
+5          023 2018 165500 MULTIPOLYGON (((497947.5 47...
+6          195 2018 111500 MULTIPOLYGON (((459791.6 48...
+7          063 2018 110500 MULTIPOLYGON (((345214.3 48...
+8          027 2018 183000 MULTIPOLYGON (((327408.5 46...
+9          121 2018  70000 MULTIPOLYGON (((396378.1 45...
+10         077 2018 107000 MULTIPOLYGON (((355180.1 46...</code></pre>
+<p>Here is the map of IA county color-differentiated by corn acres (Figure <a href="spatial-interactions-of-vector-data-subsetting-and-joining.html#fig:map-IA-corn">3.14</a>):</p>
+<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb251-1" data-line-number="1"><span class="co">#--- here is the map ---#</span></a>
+<a class="sourceLine" id="cb251-2" data-line-number="2"><span class="kw">tm_shape</span>(IA_corn) <span class="op">+</span></a>
+<a class="sourceLine" id="cb251-3" data-line-number="3"><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;acres&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb251-4" data-line-number="4"><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">frame =</span> <span class="ot">FALSE</span>, <span class="dt">legend.outside =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="figure"><span id="fig:map-IA-corn"></span>
+<img src="SpatialInteractionVectorVector_files/figure-html/map-IA-corn-1.png" alt="Map of Iowa counties color-differentiated by corn planted acreage" width="672" />
+<p class="caption">
+Figure 3.14: Map of Iowa counties color-differentiated by corn planted acreage
+</p>
+</div>
+<p>Now import the HUC units data:</p>
+<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb252-1" data-line-number="1"><span class="co">#--- import HUC units ---#</span></a>
+<a class="sourceLine" id="cb252-2" data-line-number="2">HUC_IA &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="dt">dsn =</span> <span class="st">&quot;./Data/huc250k_shp&quot;</span>, <span class="dt">layer =</span> <span class="st">&quot;huc250k&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb252-3" data-line-number="3"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(HUC_CODE) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb252-4" data-line-number="4"><span class="st">  </span><span class="co">#--- reproject to the CRS of IA ---#</span></a>
+<a class="sourceLine" id="cb252-5" data-line-number="5"><span class="st">  </span><span class="kw">st_transform</span>(<span class="kw">st_crs</span>(IA_corn)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb252-6" data-line-number="6"><span class="st">  </span><span class="co">#--- select HUC units that overlaps with IA ---#</span></a>
+<a class="sourceLine" id="cb252-7" data-line-number="7"><span class="st">  </span>.[IA_corn, ]</a></code></pre></div>
+<p>Here is the map of HUC units (Figure <a href="spatial-interactions-of-vector-data-subsetting-and-joining.html#fig:HUC-map">3.15</a>):</p>
+<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb253-1" data-line-number="1"><span class="kw">tm_shape</span>(HUC_IA) <span class="op">+</span></a>
+<a class="sourceLine" id="cb253-2" data-line-number="2"><span class="st">  </span><span class="kw">tm_polygons</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb253-3" data-line-number="3"><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">frame =</span> <span class="ot">FALSE</span>, <span class="dt">legend.outside =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="figure"><span id="fig:HUC-map"></span>
+<img src="SpatialInteractionVectorVector_files/figure-html/HUC-map-1.png" alt="Map of HUC units that intersect with Iowa state boundary" width="672" />
+<p class="caption">
+Figure 3.15: Map of HUC units that intersect with Iowa state boundary
+</p>
+</div>
+<p>IA county with HUC units superimposed on top (Figure <a href="spatial-interactions-of-vector-data-subsetting-and-joining.html#fig:HUC-county-map">3.16</a>):</p>
+<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb254-1" data-line-number="1"><span class="kw">tm_shape</span>(IA_corn) <span class="op">+</span></a>
+<a class="sourceLine" id="cb254-2" data-line-number="2"><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;acres&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb254-3" data-line-number="3"><span class="kw">tm_shape</span>(HUC_IA) <span class="op">+</span></a>
+<a class="sourceLine" id="cb254-4" data-line-number="4"><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">alpha =</span> <span class="dv">0</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb254-5" data-line-number="5"><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">frame =</span> <span class="ot">FALSE</span>, <span class="dt">legend.outside =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="figure"><span id="fig:HUC-county-map"></span>
+<img src="SpatialInteractionVectorVector_files/figure-html/HUC-county-map-1.png" alt="Map of HUC units superimposed on Iowas counties" width="672" />
+<p class="caption">
+Figure 3.16: Map of HUC units superimposed on Iowas counties
+</p>
+</div>
+<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb255-1" data-line-number="1">HUC_joined &lt;-<span class="st"> </span><span class="kw">st_join</span>(HUC_IA, IA_corn)</a></code></pre></div>
+<hr />
+<p>To find an area-weighted average, we can first use <code>st_intersection()</code>. For each of the polygons in the target layer, this function, finds the intersecting polygons from the source data, and then divide the target polygon into parts based on the boundary of the intersecting polygons.</p>
+<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb256-1" data-line-number="1">HUC_intersections &lt;-<span class="st"> </span><span class="kw">st_intersection</span>(HUC_IA, IA_corn) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb256-2" data-line-number="2"><span class="st">  </span><span class="kw">arrange</span>(HUC_CODE) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb256-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">huc_county =</span> <span class="kw">paste0</span>(HUC_CODE, <span class="st">&quot;-&quot;</span>, county_code))</a></code></pre></div>
+<p>The key difference from the <code>st_join()</code> example (see @ref(st_intersection)) is that it returns a geometry variable that represents the intersecting area of the HUC units and the counties as shown in Figure <a href="spatial-interactions-of-vector-data-subsetting-and-joining.html#fig:inter-ex">3.17</a> below.</p>
+<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb257-1" data-line-number="1"><span class="kw">tm_shape</span>(<span class="kw">filter</span>(HUC_intersections, HUC_CODE <span class="op">==</span><span class="st"> &quot;07020009&quot;</span>)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb257-2" data-line-number="2"><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;huc_county&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb257-3" data-line-number="3"><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">frame =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="figure"><span id="fig:inter-ex"></span>
+<img src="SpatialInteractionVectorVector_files/figure-html/inter-ex-1.png" alt="Intersections of a HUC unit and Iowa counties" width="672" />
+<p class="caption">
+Figure 3.17: Intersections of a HUC unit and Iowa counties
+</p>
+</div>
+<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb258-1" data-line-number="1">HUC_aw_acres &lt;-<span class="st"> </span>HUC_intersections <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb258-2" data-line-number="2"><span class="st">  </span><span class="co">#--- get area ---#</span></a>
+<a class="sourceLine" id="cb258-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">area =</span> <span class="kw">as.numeric</span>(<span class="kw">st_area</span>(.))) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb258-4" data-line-number="4"><span class="st">  </span><span class="co">#--- get area-weight by HUC unit ---#</span></a>
+<a class="sourceLine" id="cb258-5" data-line-number="5"><span class="st">  </span><span class="kw">group_by</span>(HUC_CODE) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb258-6" data-line-number="6"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">weight =</span> area <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(area)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb258-7" data-line-number="7"><span class="st">  </span><span class="co">#--- calculate area-weighted corn acreage ---#</span></a>
+<a class="sourceLine" id="cb258-8" data-line-number="8"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">aw_acres =</span> <span class="kw">sum</span>(weight <span class="op">*</span><span class="st"> </span>acres))  </a></code></pre></div>
+
+<div id="refs" class="references">
+<div>
+<p>Pebesma, Edzer. 2018. “Simple Features for R: Standardized Support for Spatial Vector Data.” <em>R Journal</em> 10 (1).</p>
+</div>
+<div>
+<p>Wickham, Hadley, and Jay Hesselberth. 2020. <em>Pkgdown: Make Static Html Documentation for a Package</em>. <a href="https://CRAN.R-project.org/package=pkgdown">https://CRAN.R-project.org/package=pkgdown</a>.</p>
+</div>
+<div>
+<p>Xie, Yihui. 2016. <em>Bookdown: Authoring Books and Technical Documents with R Markdown</em>. Boca Raton, Florida: Chapman; Hall/CRC. <a href="https://github.com/rstudio/bookdown">https://github.com/rstudio/bookdown</a>.</p>
+</div>
+<div>
+<p>Xie, Yihui, Alison Presmanes Hill, and Amber Thomas. 2017. <em>Blogdown: Creating Websites with R Markdown</em>. Boca Raton, Florida: Chapman; Hall/CRC. <a href="https://github.com/rstudio/blogdown">https://github.com/rstudio/blogdown</a>.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="footnotes">
+<hr />
+<ol start="64">
+<li id="fn64"><p>I would say it is very rare that you use other topological relations like <code>st_within()</code> or <code>st_touches()</code>.<a href="spatial-interactions-of-vector-data-subsetting-and-joining.html#fnref64" class="footnote-back">↩</a></p></li>
+<li id="fn65"><p>Run <code>?geos_binary_pred</code> to see other topological relations you can find.<a href="spatial-interactions-of-vector-data-subsetting-and-joining.html#fnref65" class="footnote-back">↩</a></p></li>
+<li id="fn66"><p>See Chapter 1, Demonstration 3 for an example of lines-polygons intersection in an economic study.<a href="spatial-interactions-of-vector-data-subsetting-and-joining.html#fnref66" class="footnote-back">↩</a></p></li>
+<li id="fn67"><p>This function can be useful to identify neighbors. For example, you may want to find irrigation wells located around well <span class="math inline">\(i\)</span> to label them as well <span class="math inline">\(i\)</span>’s neighbor.<a href="spatial-interactions-of-vector-data-subsetting-and-joining.html#fnref67" class="footnote-back">↩</a></p></li>
+<li id="fn68"><p>Of course, this situation arises for a polygons-polygons case as well. The above polygons-polygons example was an exception because the <code>hpa</code> has only one polygon object.<a href="spatial-interactions-of-vector-data-subsetting-and-joining.html#fnref68" class="footnote-back">↩</a></p></li>
+<li id="fn69"><p>This is because it is almost always the case that our target data is a vector data (e.g., city or farm fields as points, political boundaries as polygons, etc).<a href="spatial-interactions-of-vector-data-subsetting-and-joining.html#fnref69" class="footnote-back">↩</a></p></li>
+<li id="fn70"><p>Note that we did not extract any attribute values of railroads in Chapter 1, Demonstration 4. We just calculated the travel length of the railroads, which does not fall under our definition of spatial join.<a href="spatial-interactions-of-vector-data-subsetting-and-joining.html#fnref70" class="footnote-back">↩</a></p></li>
+<li id="fn71"><p>You can see a practical example of this case in action in Demonstration 1 of Chapter X.<a href="spatial-interactions-of-vector-data-subsetting-and-joining.html#fnref71" class="footnote-back">↩</a></p></li>
+<li id="fn72"><p>While it is unlikely you face the need to change the topological relation, you could do so using the <code>join</code> option.<a href="spatial-interactions-of-vector-data-subsetting-and-joining.html#fnref72" class="footnote-back">↩</a></p></li>
+<li id="fn73"><p>You can see a practical example of this case in action in Demonstration 2 of Chapter X.<a href="spatial-interactions-of-vector-data-subsetting-and-joining.html#fnref73" class="footnote-back">↩</a></p></li>
+<li id="fn74"><p>see <a href="link_here">here</a> for how to download Quick Stats data from within R.<a href="spatial-interactions-of-vector-data-subsetting-and-joining.html#fnref74" class="footnote-back">↩</a></p></li>
+<li id="fn75"><p>see <a href="https://water.usgs.gov/GIS/huc.html">here</a> for explanation of what they are. You do not really need to know what HUC units are to understand what’s done in this section.<a href="spatial-interactions-of-vector-data-subsetting-and-joining.html#fnref75" class="footnote-back">↩</a></p></li>
+<li id="fn76"><p>Yes, there will be substantial measurement errors as the source polygons (corn acres by county) are large relative to the target polygons (HUC units). But, this serves as a good illustration of a polygon-polygon join.<a href="spatial-interactions-of-vector-data-subsetting-and-joining.html#fnref76" class="footnote-back">↩</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="vector-basics.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,1835 @@
+
+
+```{r setup, echo = FALSE}
+library(tufte)
+library(knitr)
+knitr::opts_chunk$set(
+  echo = TRUE,
+  cache = TRUE,
+  comment = NA,
+  message = FALSE,
+  warning = FALSE,
+  tidy = FALSE,
+  cache.lazy = FALSE
+)
+
+opts_knit$set(
+  root.dir = "/Users/tmieno2/Box/Teaching/AAEA R/GIS"
+)
+```
+
+```{r packages, echo=FALSE, warning=FALSE, cache = FALSE}
+#--- load packages ---#
+suppressMessages(library(data.table))
+suppressMessages(library(dtplyr))
+suppressMessages(library(rgdal))
+suppressMessages(library(stringr))
+suppressMessages(library(rgeos))
+suppressMessages(library(sf))
+suppressMessages(library(parallel))
+suppressMessages(library(ggplot2))
+suppressMessages(library(raster))
+suppressMessages(library(tidyverse))
+suppressMessages(library(stargazer))
+suppressMessages(library(tmap))
+suppressMessages(library(exactextractr))
+suppressMessages(library(prism))
+suppressMessages(library(microbenchmark))
+suppressMessages(library(future.apply))
+suppressMessages(library(lubridate))
+suppressMessages(library(velox))
+suppressMessages(library(maps))
+suppressMessages(library(bench))
+suppressMessages(library(tictoc))
+suppressMessages(library(profvis))
+```
+
+```{r, eval = F}
+setwd("/Users/tmieno2/Box/Teaching/AAEA R/GIS")
+```
+
+# Introduction
+
+First, do not even bother to read this section if you have never encountered a case where you feel like you need to speed up your raster-polygon extraction jobs. The time you will spend to process the information presented here will not justify the time you can save by taking advantage of knowledge you gain by reading this section.  
+
+In Chapter ?, we saw that **raster::extract()** is much slower than **exactextracr::exact_extract()** and **velox::extract()**. Here, we will compare  
+
+
+## Take-away messages
++ If you intend or expect to use the raster layers for other projects of different geographic or temporal focus, then it might make sense to combine multiple raster layers into multi-band raster files and save them, which can be used for much faster data extraction than multiple individual single-band raster files
++ If this is the last time you are extracting values from the raster files, then you do not want to brick them before value extraction. **stack()** them and then use either **exact_extract()** or **velox::extract()**. 
++ Do not parallelize over geographic units within an **sf** object 
++ Do not parallelize in a way that each core work on a single layer at a time.    
+
+# Alternative ways to extract values and speed comparison
+
+I the previous sections, we learned how to extract values from raster layers for point and polygons data. There are several other ways of extracting values from a raster layer. If you are satisfied with `raster::extact()` points data and `exact_extract()` for polygons data, then look no further.
+
+For most of the applications, **raster::extract()** and **exact_extract()** are sufficient. However, when you need to process many many large raster files and you desire to shorten the processing time, there are better options that can reduce processing time substantially if used right. The first option uses the **velox** package, and the second option uses cell numbers to extract values. Here, we discuss the basics of how they work. How to utilized them effectively will be discussed in [Chapter  ?]().
+
+
+### The **velox**^[Its github page is [here](http://philipphunziker.com/velox/).] package
+
+At the time of writing, **velox** is not available from CRAN as it was pulled out from the CRAN due to maintenance issues.^[This package is in the process of changing its maintainer (see [here](https://github.com/hunzikp/velox/issues/43)). Hopefully, it will be back on CRAN soon.] So, you need to install the **velox** package using the following code:
+
+```{r install_velox, eval = F}
+require(devtools)
+
+#--- install velox ---#
+devtools::install_github('hunzikp/velox') 
+```
+
+You may encounter an error when you try to install the package^[See [here](https://github.com/hunzikp/velox/issues/44)]. I did encounter an error. For me, installing this version of **Rcpp** solved the problem.
+
+```{r install_rcpp, eval = F}
+install.packages("Rcpp", repos="https://RcppCore.github.io/drat")
+```
+
+But, you may encounter a different problem. 
+
+```{r other_problmes}
+vr_raster <- velox(prism_tmax_0702_fn)
+```
+
+```{r velox_extract}
+head(vr_raster$extract(KS_county, df = TRUE))
+```
+
+### Extraction by cell numbers
+
+This option is meaningful only when you intend to extract values from multiple raster files that are of exactly the same resolution and geographic coverage (e.g., daily PRISM raster files). This option makes use of the **exact_extact()** and **raster::cellFromXY()**. 
+
+First, we get the coordinates of the overlapping cells by adding the **include_XY = TRUE** option to **exact_extract()** as follows: 
+
+```{r extract_xy_coordinates, results = "hide"}
+XY <- exact_extract(prism_tmax_0701_KS, KS_county, include_xy = TRUE, progress = FALSE) %>% 
+  bind_rows(.id = "county_id") %>% 
+  dplyr::select(county_id, x, y, coverage_fraction)
+
+#--- take a look ---#
+XY
+```
+
+We then use the coordinates to extract cell numbers using the **raster::cellFromXY()** as follows:
+
+```{r get_cellid}
+prism_cell_id <- cellFromXY(prism_tmax_0701_KS, XY[, c("x", "y")])
+```
+
+Now, assign the extracted cell numbers to **XY**.
+
+```{r cellid_xy}
+XY <- mutate(XY, prism_cell_id = prism_cell_id)
+
+#--- take a look ---#
+head(XY)
+```
+
+As you can see, this dataset tells us which county overlaps which cells (represented by cell numbers) along with their coverage fractions. We can use this data to extract values from another raster layer that is known to have exactly the same spatial resolution and geographic extent. Here, consider extracting data from **prism_tmax_0701**.
+
+```{r combine_data}
+#--- extract unique cell numbers ---#
+cell_num_ls <- XY$prism_cell_id %>% unique
+
+#--- get tmax data ---#
+tmax_data <- data.frame(
+  #--- cell number as ids ---#
+  prism_cell_id = cell_num_ls,
+  #--- extract values associated with cells ---#
+  value = getValues(prism_tmax_0702)[cell_num_ls]
+)
+
+#--- take a loo ---#
+head(tmax_data)
+```
+
+We can merge the extracted data to **XY** and calculate coverage-weighted tmax for each county.
+
+```{r final_step}
+XY <- left_join(XY, tmax_data, by = "prism_cell_id") %>% 
+  group_by(county_id) %>% 
+  #--- get coverage-weighted tmax values by county ---#
+  summarize(tmax = sum(value * coverage_fraction) / sum(coverage_fraction))
+
+#--- take a look ---#
+head(XY)
+```
+
+While this option looks rather awkward compared to the other options, a variant of this option (extracting values from many raster files at the same time) turns out to be by far the fastest option (though associated with higher risk if not careful) for some data extraction applications with many temporally disaggregated raster files. The validity of this option depends on the fact that other raster layers you would like to extract values from have exactly the same spatial resolution and geographic extent as the raster layer you obtained the polygon-cell(s) (or point-cell(s)) correspondence. Many applications have this trait. A good example is PRISM. All the daily PRISM raster files have exactly the same spatial resolution and geographic extent. This option can cause serious errors if the spatial resolution and geographic extent of the raster file is different. A good example of that is CDL data, which changed their spatial resolution from 56 meter to 30 meter in late 2000s' due to the change in the underlying remote sensing images^[see Section 3 of (this website)[https://www.nass.usda.gov/Research_and_Science/Cropland/sarsfaqs2.php]]. Therefore, it is important to confirm that all the raster layers are indeed of the same spatial resolution and extent prior to using this extraction method.
+
+
+### **terra::extract()**  
+
+While **terra::extract()** is certainly faster than its counterpart in the **raster** package (its predecessor), it is still far slower than *exact_extractr()* and *velox::extract()* especially when you are dealing with large files (e.g., CDL data). 
+
+Here, we will compare **terra::extract()** and **exact_extract()** using a PRISM layer and HUC units^[HUC consists of many hydrologic units covering the entire mainland US. See map below.]. Let's do some preparation^[I am importing the HUC shape file twice because there does not seem any function from the **terra** package that converts an **sf** object to **SpatRaster** at the time of writing.]. 
+
+```{r pic_huc, echo = F, eval = F}
+prism_huc <- tm_shape(prism_tmax_0701_KS) + 
+  tm_raster() +
+tm_shape(HUC_sf) + 
+  tm_polygons(alpha = 0)
+
+tmap_save(prism_huc, file = "./Data/prism_HUC_us.png", dpi = 300)
+```
+
+```{r echo = F, fig.cap="Map of HUC units overlaid on PRISM data", fig.margin = T}
+knitr::include_graphics("./Data/prism_HUC_us.png")
+```
+
+```{r terra_preparem, cache = F, results = "hide"}
+library(terra)
+
+#--- read a PRISM dataset as RasterLayer  ---#
+prism_tmax_temp <- raster(prism_tmax_0702_fn)
+
+#--- import HUC as an sf and reproject ---#
+HUC_sf <- st_read(dsn = here::here("Data", "huc250k_shp"), layer = "huc250k") %>% 
+  st_transform(projection(prism_tmax_temp)) %>% 
+  simplify()
+
+#--- read a PRISM dataset as SpatRaster ---#
+prism_rs_temp <- rast(prism_tmax_0702_fn)
+
+#--- import HUC as SpatVector and reproject ---#
+HUC_spat <- vect(here::here("Data", "huc250k_shp", "huc250k.shp")) %>% 
+  #--- project to the CRS of the raster file ---#
+  project(., prism_rs_temp)
+```
+
+Let's compare the two approaches.
+
+```{r compare_extract_terra, cache = T}
+#--- terra::extract() ---#
+tic()
+temp <- terra::extract(prism_rs_temp, HUC_spat)
+toc()
+
+#--- exact_extract() ---#
+tic()
+temp <- exact_extract(prism_tmax_0701_KS, HUC_sf, progress = F)
+toc()
+```
+
+As you can see, **terra::extract()** is much slower than **exact_extract()**. You would save much more time using **exact_extract()** for a much larger raster file (e.g., CDL data). Unless the speed of **terra::extract()** improves dramatically, there is no reason to use it over other much faster approaches at least at the moment.
+
+
+
+<!--  ```{r, cache=TRUE}
+ggplot() +
+  geom_sf(data=urnrd_isc,aes(fill=factor(new_id)),alpha=0.3) +
+  scale_fill_viridis(discrete=TRUE,option='magma',name='') +
+  theme_bw() +
+  theme(
+    legend.position='bottom'
+    )
+``` -->
+
+
+<!-- wells <- st_read(dsn = "~/Dropbox/Teaching/UNL/EconometricsMaster/aecn892_2017/labs/bookdown/Data/", "registration")
+st_write(filter(wells,nrdname=='Upper Republican'),dsn = "~/Dropbox/Teaching/UNL/EconometricsMaster/aecn892_2017/labs/bookdown/Data/",layer='URNRD_wells.shp',driver='ESRI Shapefile',layer_options = 'OVERWRITE=YES', update = TRUE) -->
+
+
+# Single raster layer    
+
+## Processing time at varying levels of cell and polygon density  
+
+```{r read_data, eval = F}
+library(cdlTools)
+
+#--- download the CDL data for Iowa in 2015 ---#
+IA_cdl_2015 <- getCDL("Iowa", 2015)$IA2015
+
+#--- save it as a GeoTif file ---#
+velox(IA_cdl_2015)$write(path = "./Data/IA_cdl_2015.tif", overwrite = T)
+```
+
+```{r create_lower_resolution_cdl, eval = F}
+IA_cdl_2015_2 <- aggregate(IA_cdl_2015, fact = 2)
+values(IA_cdl_2015_2) <- getValues(IA_cdl_2015_2) %>% round(digits = 0)
+velox(IA_cdl_2015_2)$write(path = "./Data/IA_cdl_2015_ag_2.tif", overwrite = T)
+
+IA_cdl_2015_5 <- aggregate(IA_cdl_2015, fact = 5)
+values(IA_cdl_2015_5) <- getValues(IA_cdl_2015_5) %>% round(digits = 0)
+velox(IA_cdl_2015_5)$write(path = "./Data/IA_cdl_2015_ag_5.tif", overwrite = T)
+
+IA_cdl_2015_10 <- aggregate(IA_cdl_2015, fact = 10)
+values(IA_cdl_2015_10) <- getValues(IA_cdl_2015_10) %>% round(digits = 0)
+velox(IA_cdl_2015_10)$write(path = "./Data/IA_cdl_2015_ag_10.tif", overwrite = T)
+
+IA_cdl_2015_20 <- aggregate(IA_cdl_2015, fact = 20)
+values(IA_cdl_2015_20) <- getValues(IA_cdl_2015_20) %>% round(digits = 0)
+velox(IA_cdl_2015_20)$write(path = "./Data/IA_cdl_2015_ag_20.tif", overwrite = T)
+```
+
+```{r prepare_grids_over_IA}
+IA_boundary <- st_as_sf(map("state", "iowa", plot = FALSE, fill = TRUE)) 
+
+raster_ls <- c("./Data/IA_cdl_2015.tif", paste0("./Data/IA_cdl_2015_ag_", c(2, 5, 10, 20), ".tif"))
+
+grids_ls <- lapply(c(10, 20, 50, 100), 
+  function(x) st_make_grid(IA_boundary, n = c(x, x)) %>% 
+    st_as_sf() %>% 
+    st_transform(projection(raster("./Data/IA_cdl_2015.tif")))
+  )
+```
+
+Both **exactextracr::exact_extract()** and **velox::extract()** use C++ as their backend and are much faster than **raster::extract()**. But, which one is faster? Does the winner change depending on the nature of the raster and polygon data? We try to answer this question here. Specifically, we compare **exactextracr::exact_extract()** and **velox::extract** for various levels of cell and polygon density. The base raster file we use is Iowas CDL data for 2015, which has `r ncell(raster("./Data/IA_cdl_2015.tif"))` cells. We then aggregate it using the **raster::aggregate()** function to the factor of 2, 5, 10, and 20. The resulting cell numbers after the aggregations are `r ncell(raster("./Data/IA_cdl_2015_ag_2.tif"))` , `r ncell(raster("./Data/IA_cdl_2015_ag_5.tif"))`, `r ncell(raster("./Data/IA_cdl_2015_ag_10.tif"))`, and `r ncell(raster("./Data/IA_cdl_2015_ag_20.tif"))` cells, respectively. For polygon data, we use regular grids drawn over IA state border with varying spatial resolutions. A set of the number of polygons we will look at are `r nrow(grids_ls[[1]])`, `r nrow(grids_ls[[2]])`, `r nrow(grids_ls[[3]])`, and `r nrow(grids_ls[[4]])`. 
+
+
+https://github.com/rstudio/profvis/issues/72
+
+```{r single_layer_not_parallelized, eval = FALSE}
+pars_data <- expand.grid(
+  raster = seq_along(raster_ls), 
+  polygons = seq_along(grids_ls)
+) %>% 
+data.table() 
+
+ee_nonpar <- function(raster_file, polygons){
+
+  temp <- raster(raster_file) %>% 
+    exact_extract(., polygons) %>% 
+    rbindlist(idcol = "id") %>% 
+    .[, .N, by =  .(id, value)]
+
+  return(temp)
+
+  gc()
+}
+
+v_nonpar <- function(raster_file, polygons){
+
+  temp <- velox(raster_file)$extract(polygons, df = TRUE) %>% 
+    data.table() %>% 
+    setnames(names(.), c("id", "value")) %>% 
+    .[, .N, by =  .(id, value)]
+
+  return(temp)
+
+  gc()
+}
+
+mb_wrap <- function(i){
+
+  temp_raster_file <- raster_ls[pars_data[i, raster]]  
+  temp_polygons  <- grids_ls[[pars_data[i, polygons]]]
+
+  mb <- microbenchmark(
+    "e" = {
+      temp <- ee_nonpar(temp_raster_file, temp_polygons)
+    },
+    "p" = {pause(30)},
+    "v" = {
+      temp <- v_nonpar(temp_raster_file, temp_polygons)
+    },
+    times = 5
+  ) %>% 
+  data.table() %>% 
+  .[, ncells := ncell(raster(temp_raster_file))] %>% 
+  .[, npolygons := nrow(temp_polygons)]  
+
+  return(mb)
+}
+
+mb_nonpar <- lapply(1:nrow(pars_data), mb_wrap) %>% 
+  rbindlist()
+
+saveRDS(mb_nonpar, "./Data/mb_non_par_static.rds")
+```
+
+The figure displays the results of the comparison using **microbenchmark()** with 10 replications^[It would be better to have more replications, but it just takes too much time. If you want to be absolutely sure about the reliability of this benchmarking test. Try with more replications. Nobody is stopping you. It will sure take you very very long though.]. At the smallest numbers of polygons, **exact_extract()** performs just as well as **velox::extract()** at low raster cell numbers, but performs clearly better at very high raster cell numbers. At 200 million cells, **exact_extract()** completes value extraction 15 seconds faster. The computation time of **exact_extract()** naturally goes up as the number of polygons increases (not sure what happened with # of polygons at 342). It is particularly interesting that **exact_extract()** seems to have an overhead of about 10 seconds irrespective of the cell density when the number of polygons is 7962. On the other hand, **velox::extract()** is much faster at low cell densities when the number of polygons is 7962. Indeed, it seems like the performance of **velox::extract()** is not affected by the number of polygons at all. 
+
+```{r disp_mb_nonpar}
+mb_nonpar <- readRDS("./Data/mb_non_par_static.rds") %>% 
+  .[expr != "p", ]
+
+npolygons_ls <- mb_nonpar[, npolygons] %>% unique()
+
+mb_nonpar_plot <- mb_nonpar %>% 
+  .[, .(time = mean(time)) , by = .(expr, ncells, npolygons)] %>% 
+  .[, npolygons_txt := paste0("# of polygons = ", npolygons)] %>% 
+  .[, npolygons_txt := factor(npolygons_txt, levels = paste0("# of polygons = ", npolygons_ls))] %>% 
+  .[, method := ifelse(expr == "e", "exact_extract()", "velox::extract()")]
+
+ggplot(mb_nonpar_plot) + 
+  geom_line(aes(y = time/1e9, x = ncells/1e6, color = method)) +
+  geom_point(aes(y = time/1e9, x = ncells/1e6, color = method)) +
+  facet_wrap(npolygons_txt ~ .) +
+  scale_fill_discrete(name = "") +
+  xlab("# of cells in the raster layers (million cells)") +
+  ylab("Time (seconds)") +
+  theme(
+    legend.position = "bottom"
+  )
+```
+
+Looking at the profile of **velox::extact()** and **exact_extact()** at extreme cases is revealing. First, let's try profiling them for the case of **IA_cdl_2015** (highest cell density) and only one polygon. For the **velox** approach, we divide the whole process into two parts: **velox()** (to read the raster file) and **velox::extact()**. As can be seen in the profiling result, it takes about $8$ seconds to transform the imported data, and then spends about $10$ seconds to extract values for the single polygon^[Time numbers are in milliseconds]. Notice also that it allocated about 6 GB of memory. This is because **velox()** reads in all the raster values data^[**getRasterData** function you can see in the left bottom part of the figure is responsible for reading the data.] and hold it in memory. Once all the data is read, then values are extracted, where the computation happens in C++ utilizing the boost Geometry library. 
+
+```{r prof_v}
+profvis({
+  vrs <- velox("./Data/IA_cdl_2015.tif")
+  values <- vrs$extract(grids_ls[[4]][1, ])
+})
+```
+
+Note that **profvis()**^[or more precisely **Rprof()**, the results of which it visualizes] does not include time spent outside of R is not included in the profile^[https://github.com/rstudio/profvis/issues/72]. So, the sum of the time from **profvis()** is smaller than the actual time the process spent to complete. The elapsed time by **system.time()** from the following code is similar to the number we saw in the benchmark figure. 
+
+```{r system_all_v}
+system.time({
+  vrs <- velox("./Data/IA_cdl_2015.tif")
+  values <- vrs$extract(grids_ls[[4]][1, ])
+})
+```
+As you can see, system spends about 10 seconds^[system time refers to the time spent by the operating system on behalf of the current R process (see William Dunlap's explanation [here](https://r.789695.n4.nabble.com/Meaning-of-proc-time-td2303263.html#a2306691)).]. Further breaking down the whole process into two, you can see that it takes about 2 seconds for the OS to import the data, and about 7 seconds to transfer the data between R and C++^[This is only my guess. I really do not know how the system is spending time exactly. But, they seem to be the most significant job that the OS is handling on behalf of R.].    
+
+```{r system_1_v}
+system.time({
+  vrs <- velox("./Data/IA_cdl_2015.tif")
+})
+```
+
+```{r system_2_v}
+system.time({
+  values <- vrs$extract(grids_ls[[4]][1, ])
+})
+```
+
+This is in stark contrast to **exact_extract()**. It takes only 0.23 seconds to complete the process. Also, note that it used only 2.5 MB of memory. This is because **raster::raster()** does not read the raster values data in memory unlike **velox()**. Without actually reading in all the data at the beginning, **exact_extract()** uses **raster::getsValueBlock()** to read in only the relevant part of the data for the polygon.
+
+```{r }
+profvis({
+  IA_CDL_2015 <- raster("./Data/IA_cdl_2015.tif")
+  temp <- exact_extract(IA_CDL_2015, grids_ls[[4]][1, ])
+})
+```
+
+As you can see, system is much less involved in the whole process compared to the **velox** approach. 
+
+```{r }
+system.time({
+  temp <- exact_extract(raster("./Data/IA_cdl_2015.tif"), grids_ls[[4]][1,])
+})
+```
+
+Now, let's take a look at how much it takes to extract values for all the $7962$ polygons. 
+
+```{r }
+profvis({
+  vrs <- velox("./Data/IA_cdl_2015.tif")
+  values <- vrs$extract(grids_ls[[4]])
+})
+```
+
+Naturally, more memory was allocated to the extraction part at about $5.5$ GB. 
+
+```{r }
+system.time({
+  values <- vrs$extract(grids_ls[[4]])
+})
+```
+
+So, it took about 9 seconds more to extract values for $7961$ more polygons (both user and system times included). On the other hand, **exact_extract()** uses 18GB of memory, which is much larger than that of the **velox** approach.
+
+```{r }
+profvis({
+  temp <- exact_extract(raster("./Data/IA_cdl_2015.tif"), grids_ls[[4]])
+})
+```
+
+Similar to the 1-polygon case, most of the computation happens on R with the system comprising a relatively small portion of the entire process.
+
+```{r }
+system.time({
+  temp <- exact_extract(raster("./Data/IA_cdl_2015.tif"), grids_ls[[4]])
+})
+```
+
+Here are the summary of findings here:
+
++ the **velox** approach is faster (slower) than the **exact_extract** approach when the number of raster cells are small (large) and the number of polygons are large (small).
++ the **exact_extract()** approach is more memory-efficient when the number of polygons is small, but becomes worse than the **velox** approach when the number of polygons is large. 
+
+Now, if you are doing only a single extraction task with one raster file against one polygon file and you will never repeat the same process, it does not really matter which option you go for. Just go for the one you are comfortable with. 15 seconds difference is not much if you are doing it only once. You have 9 raster files (say CDL data from 2010 to 2018)? It still does not really matter which option to pick. 135 seconds is still not much. The time you need to spend to test which one is faster (the time you spend to code the test and actually running the test) could easily kill much of the 135 second you try to save in the first place. You are doing thousands of value extractions? Then, you might want to do a quick test first.   
+
+---
+
+With that said, we will still examine how parallelization over polygons can help reduce computation time. Here, We use 5 cores. For the **velox** approach, since velox first reads in the whole raster values data, extraction of values for one polygon can be done very quickly by first cropping the raster to the polygon you are working on and then extract values for it.
+
+```{r }
+vrs <- velox("./Data/IA_cdl_2015.tif")
+
+system.time({
+  vrs_copy <- vrs$copy()
+  vrs_copy$crop(grids_ls[[4]][1,])
+  dt_return <- vrs_copy$extract(grids_ls[[4]][1,])
+})
+```
+
+Note also that **vrs$copy()** does not double the memory of holding the raster data in memory.   
+
+```{r }
+profvis({
+  vrs_copy <- vrs$copy()
+  vrs_copy$crop(grids_ls[[4]][1,])
+  dt_return <- vrs_copy$extract(grids_ls[[4]][1,])
+})
+```
+
+For **exact_extract()**, cropping first does not make sense at least just for one polygon.
+
+```{r }
+system.time({
+  temp <- exact_extract(raster("./Data/IA_cdl_2015.tif"), grids_ls[[4]][1, ])
+})
+
+system.time({
+  temp <- raster("./Data/IA_cdl_2015.tif") %>% 
+    crop(., grids_ls[[4]][1, ]) %>% 
+    exact_extract(., grids_ls[[4]][1, ])
+})
+```
+
+Also, notice that the amount of time you process a single polygon is significant at about $0.2$ seconds. This is much much slower than how the **velox** approach handle a single polygon. This suggests that looping over polygons one by one would not work well for the **exact_extract** approach. Instead, we can divide the polygons to several blocks and then process them in parallel. For **exact_extract()**, this has an added benefit of reducing the overhead it has when it needs to handle many many cells. 
+
+
+## Parallelized over polygons
+
+```{r }
+source("./Codes/ParallelizedSingleRasterExtract.R")
+```
+
+```{r single_layer_parallelized, eval = FALSE}
+mb_wrap_par_e <- function(i){
+
+  temp_raster_file <- raster_ls[pars_data[i, raster]]  
+  temp_polygons  <- grids_ls[[pars_data[i, polygons]]]
+
+  mb <- microbenchmark(
+    "e_one" = {
+      temp <- ee_par_one(temp_raster_file, temp_polygons)
+    },
+    "e_block" = {
+      temp <- ee_par_block(temp_raster_file, temp_polygons)
+    },
+    times = 1
+  ) %>% 
+  data.table() %>% 
+  .[, ncells := ncell(raster(temp_raster_file))] %>% 
+  .[, npolygons := nrow(temp_polygons)]  
+
+  return(mb)
+}
+
+mb_par_e <- lapply(1:nrow(pars_data), mb_wrap_par_e) %>% 
+  rbindlist()
+
+saveRDS(mb_par_e, "./Data/mb_par_static_e.rds")
+
+#--------------------------
+# Only velox
+#--------------------------
+
+polygons <- grids_ls[[1]]
+raster_layer <- "./Data/IA_cdl_2015.tif"
+
+# tic()
+# v_par_block("./Data/IA_cdl_2015.tif", grids_ls[[1]])
+# toc()
+
+tic()
+v_par_one("./Data/IA_cdl_2015.tif", grids_ls[[1]])
+toc()
+
+# tic()
+# v_nonpar("./Data/IA_cdl_2015_ag_20.tif", grids_ls[[4]])
+# toc()
+
+mb_wrap_par_v <- function(i){
+
+  temp_raster_file <- raster_ls[pars_data[i, raster]]  
+  temp_polygons  <- grids_ls[[pars_data[i, polygons]]]
+
+  mb <- microbenchmark(
+    "v_one" = {
+      temp <- v_par_one(temp_raster_file, temp_polygons)
+    },
+    "v_block" = {
+      temp <- v_par_block(temp_raster_file, temp_polygons)
+    },
+    times = 1
+  ) %>% 
+  data.table() %>% 
+  .[, ncells := ncell(raster(temp_raster_file))] %>% 
+  .[, npolygons := nrow(temp_polygons)]  
+
+  return(mb)
+}
+
+mb_par_v <- lapply(1:nrow(pars_data), mb_wrap_par_v) %>% 
+  rbindlist()
+
+saveRDS(mb_par_v, "./Data/mb_par_static_v.rds")
+```
+
+
+
+```{r disp_mb_par}
+mb_par_e <- readRDS("./Data/mb_par_static_e.rds")
+mb_par_v <- readRDS("./Data/mb_par_static_v.rds")
+
+mb_par <- rbind(mb_par_e, mb_par_v)
+npolygons_ls <- mb_par[, npolygons] %>% unique()
+
+mb_par_plot <- mb_par %>% 
+  .[, .(time = median(time)) , by = .(expr, ncells, npolygons)] %>% 
+  .[, npolygons_txt := paste0("# of polygons = ", npolygons)] %>% 
+  .[, npolygons_txt := factor(npolygons_txt, levels = paste0("# of polygons = ", npolygons_ls))]
+
+ggplot(mb_par_plot) + 
+  geom_line(aes(y = time/1e9, x = ncells/1e6, color = expr)) +
+  geom_point(aes(y = time/1e9, x = ncells/1e6, color = expr)) +
+  facet_wrap(npolygons_txt ~ .) +
+  scale_fill_discrete(name = "") +
+  xlab("# of cells in the raster layers (million cells)") +
+  ylab("Time (seconds)") +
+  theme(
+    legend.position = "bottom"
+  )
+```
+
+```{r }
+ggplot(mb_par_plot[expr != "e_one",]) + 
+  geom_line(aes(y = time/1e9, x = ncells/1e6, color = expr)) +
+  geom_point(aes(y = time/1e9, x = ncells/1e6, color = expr)) +
+  facet_wrap(npolygons_txt ~ .) +
+  scale_fill_discrete(name = "") +
+  xlab("# of cells in the raster layers (million cells)") +
+  ylab("Time (seconds)") +
+  theme(
+    legend.position = "bottom"
+  )
+```
+
+```{r }
+mb_all <- rbind(mb_nonpar_plot, mb_par_plot, fill = TRUE)
+
+ggplot(mb_all[expr %in% c("v", "v_one", "v_block"),]) + 
+  geom_line(aes(y = time/1e9, x = ncells/1e6, color = expr)) +
+  geom_point(aes(y = time/1e9, x = ncells/1e6, color = expr)) +
+  facet_wrap(npolygons_txt ~ .) +
+  scale_fill_discrete(name = "") +
+  xlab("# of cells in the raster layers (million cells)") +
+  ylab("Time (seconds)") +
+  theme(
+    legend.position = "bottom"
+  )
+```
+
+```{r }
+mb_all <- rbind(mb_nonpar_plot, mb_par_plot, fill = TRUE)
+
+ggplot(mb_all[expr %in% c("e", "e_block"),]) + 
+  geom_line(aes(y = time/1e9, x = ncells/1e6, color = expr)) +
+  geom_point(aes(y = time/1e9, x = ncells/1e6, color = expr)) +
+  facet_wrap(npolygons_txt ~ .) +
+  scale_fill_discrete(name = "") +
+  xlab("# of cells in the raster layers (million cells)") +
+  ylab("Time (seconds)") +
+  theme(
+    legend.position = "bottom"
+  )
+```
+
+# Extracting values from many raster files of the same spatial resolution and extent for the static polygons  
+
+
+```{r read_data, eval = F}
+#/*=================================================*/
+#' # Data preparation
+#/*=================================================*/ 
+#--------------------------
+# PRISM
+#--------------------------
+date <- "2014-04-01"
+
+get_prism_dailys(
+  type = "ppt", 
+  date = date, 
+  keepZip = FALSE 
+)
+
+date_text <- str_remove_all(date, "-")
+
+folder_name <- paste0("PRISM_ppt_stable_4kmD2_", date_text, "_bil") 
+file_name <- paste0("PRISM_ppt_stable_4kmD2_", date_text, "_bil.bil") 
+file_path <- paste0("./Data/PRISM/", folder_name, "/", file_name)
+
+prism_rs <- raster(file_path)
+
+#--------------------------
+# HUC
+#--------------------------
+HUC <- st_read(dsn = "./Data/huc250k_shp", layer = "huc250k") %>% 
+  st_transform(projection(prism_rs))
+
+# tic()
+# HUC_cells <- raster::extract(prism_rs, HUC, cellnumbers = TRUE)
+# toc()
+
+# saveRDS(HUC_cells, "./Data/HUC_cellnumbers.rds")
+
+#--------------------------
+# KS county
+#--------------------------
+KS_county <- st_as_sf(map("county", "kansas", plot = FALSE, fill = TRUE)) %>% 
+  st_transform(projection(prism_rs))
+```
+
+```{r data_read_run, echo = F}
+#/*=================================================*/
+#' # Read the data necessary for benchmarking
+#/*=================================================*/ 
+date <- "2014-04-01"
+
+date_text <- str_remove_all(date, "-")
+
+folder_name <- paste0("PRISM_ppt_stable_4kmD2_", date_text, "_bil") 
+file_name <- paste0("PRISM_ppt_stable_4kmD2_", date_text, "_bil.bil") 
+file_path <- paste0("./Data/PRISM/", folder_name, "/", file_name)
+
+prism_rs <- raster(file_path)
+
+#--------------------------
+# HUC
+#--------------------------
+HUC <- st_read(dsn = "./Data/huc250k_shp", layer = "huc250k") %>% 
+  st_transform(projection(prism_rs))
+
+# tic()
+# HUC_cells <- raster::extract(prism_rs, HUC, cellnumbers = TRUE)
+# toc()
+
+# saveRDS(HUC_cells, "./Data/HUC_cellnumbers.rds")
+
+#--------------------------
+# KS county
+#--------------------------
+KS_county <- st_as_sf(map("county", "kansas", plot = FALSE, fill = TRUE)) %>% 
+  st_transform(projection(prism_rs))
+```
+
+
+```{r prepare_bricks_stacks_grd, echo = F}
+#/*=================================================*/
+#' # Prepare bricks, stacks, and grd for benchmarking 
+#/*=================================================*/ 
+#===================================
+# Create RasterStack and RasterBrick ()
+#===================================
+it_ls <- c( 1, 5, 10 , 20, 50)
+
+gen_stack <- function(i, file_path) {
+
+  temp <- stack(rep(file_path, i, quick = TRUE))
+
+  return(temp)
+
+}
+
+gen_brick <- function(i, file_path) {
+
+  temp <- brick(stack(rep(file_path, i, quick = TRUE)))
+
+  return(temp)
+
+}
+
+brick_ls <- lapply(it_ls, function(x) gen_brick(x, file_path))
+stack_ls <- lapply(it_ls, function(x) gen_stack(x, file_path))
+
+#===================================
+# Create multi-band raster file 
+#===================================
+save_stack <- function(it, file_path) {
+
+  temp <- stack(rep(file_path, it, quick = TRUE))
+
+  writeRaster(temp, paste0("./Data/multi_grid_", it, ".grd"), overwrite = T)
+
+}
+
+lapply(it_ls, function(x) save_stack(x, file_path))
+```
+
+In some cases, you need to process many raster files of the same spatial resolution and extent for the static polygons (polygons that do not alter theirs shapes over time). For example, suppose you need daily precipitation data by county for the entire mainland US for 30 years. You would be processing more than 10,000 raster files. Fortunately, processing many raster files of the same spatial resolution and extent can be done much more efficiently than processing the same number of raster files with differing spatial characteristics. There are many alternative ways to tackle the challenge of processing so many files. We will compare various alternatives including naive ones (which R users who are not experienced in spatial data handling may fall into the trap of doing) and smarter ones.
+
+We will first benchmark the following four options. For each approach, we will use either **exact_extract()** and **velox::extract()**. Since the code to implement this benchmark is too long to display here, it is saved as a separate R program, named ......
+
++ Approach 1: process 50 individually-stored raster files one by one (no parallelization)
++ Approach 2: process 50 individually-stored raster files one by one with parallelization (5 cores)
++ Approach 3: stack 50 individually-stored raster files first and then process into a RasterStack and then process it
++ Approach 4: stack and then brick 50 individually-stored raster files process into a RasterBrick and then process it
+
+Approach 1 is a rather naive way of completing the task. Approach 2 is also naive. Yes, it will be faster than option 2 because it's the parallelized version of option 1, but still naive. The problem with these approaches is that you repeat the process of identifying the topological relations (intersection) of the raster cells and polygons over and over again 50 times. This is naive because the underlying topological relations stays exactly the same across all the raster layers (look at the title of this section) and also because topological relations identification is the most time-consuming part of the whole value extraction task. So, better approaches should avoid repeating that process. Approaches 3 and 4 do exactly that. They first stack (Approach 3) and brick (Approach 4) 50 files of the raster files and then extract values.   
+
+For the benchmarking, we will be using a single raster (PRISM) file and then replicate it many times to act like we are dealing with many raster files^[This way, this demonstration does not populate your computer with many individual PRISM files.]. We use **HUC** (`r nrow(HUC)` polygons) as the polygon to which values are extracted to.
+
+```{r prallelize_multiple_files_large_polygon, echo = FALSE, eval = FALSE}
+
+read_RL_ee <- function(){ exact_extract(raster(file_path), HUC) } 
+read_RL_v <- function(){ velox(raster(file_path))$extract(HUC) } 
+
+#--------------------------
+# block-parallel
+#--------------------------
+files_ls <- rep(file_path, it)
+file_len <- length(files_ls)
+num_core <- 5
+files_per_core <- file_len/num_core
+
+extract_by_block_ee <- function(i, files_per_core) {
+
+  #--- files processed by core  ---#
+  start_file_index <- (i-1) * files_per_core + 1
+  #--- indexes for files to process ---#
+  file_index <- seq(
+    from = start_file_index,
+    to = min((start_file_index + files_per_core), file_len),
+    by = 1
+  )
+
+  data_temp <- files_ls[file_index] %>% # get file names
+    #--- stack files ---#
+    stack() %>% 
+    #--- extract ---#
+    exact_extract(., HUC) 
+
+  return(data_temp)
+}
+
+extract_by_block_v <- function(i, files_per_core) {
+
+  #--- files processed by core  ---#
+  start_file_index <- (i-1) * files_per_core + 1
+  #--- indexes for files to process ---#
+  file_index <- seq(
+    from = start_file_index,
+    to = min((start_file_index + files_per_core), file_len),
+    by = 1
+  )
+
+  data_temp <- velox(stack(files_ls[file_index]))$extract(HUC) 
+
+  return(data_temp)
+}
+
+# tic()
+# a <- velox(paste0("./Data/multi_grid_", files_per_core, ".grd"))$extract(HUC)
+# toc()
+
+# tic()
+# a <- velox(paste0("./Data/multi_grid_", files_per_core, ".grd"))$extract(HUC, function(x) mean(x, na.rm = TRUE))
+# toc()
+
+plan(multiprocess, workers = 5)
+
+#--------------------------
+# Run benchmark
+#--------------------------
+mb <- microbenchmark(
+  #--- one by one ---#
+  "method_1_ee" = { temp <- lapply(1:it, function(x) read_RL_ee()) },
+  "method_1_v" = { temp <- lapply(1:it, function(x) read_RL_v()) },
+  #--- parallelized one by one ---#
+  "method_2_ee" = { temp <- future_lapply(1:it, function(x) read_RL_ee()) },
+  "method_2_v" = { temp <- future_lapply(1:it, function(x) read_RL_v()) },
+  #--- stack and extract all at once ---#
+  "method_3_ee" = { temp <- exact_extract(stack(rep(file_path, it)), HUC) },
+  "method_3_v" = { temp <- velox(stack(rep(file_path, it)))$extract(HUC) },
+  #--- brick and extract all at once ---#
+  "method_4_ee" = { temp <- exact_extract(brick(stack(rep(file_path, it))), HUC) },
+  "method_4_v" = { temp <- velox(brick(stack(rep(file_path, it))))$extract(HUC) },
+  #--- pre-maid multi-band ---#
+  "method_5_ee" = { temp <- exact_extract(stack(paste0("./Data/multi_grid_", it, ".grd")), HUC) },
+  "method_5_v" = { temp <- velox(paste0("./Data/multi_grid_", it, ".grd"))$extract(HUC) },
+  #--- parallelization by block (individual files stacked before extract) ---#
+  "method_6_ee" = { temp <- future_lapply(1:num_core, function(x) extract_by_block_ee(x, files_per_core))},
+  "method_6_v" = { temp <- future_lapply(1:num_core, function(x) extract_by_block_v(x, files_per_core))},
+  #--- parallelization by block (multi-band raster file) ---#
+  "method_7_ee" = { temp <- future_lapply(1:num_core, function(x) exact_extract(stack(paste0("./Data/multi_grid_", files_per_core, ".grd")), HUC))},
+  "method_7_v" = { temp <- future_lapply(1:num_core, function(x) velox(paste0("./Data/multi_grid_", files_per_core, ".grd"))$extract(HUC))},
+  times = 1
+)
+
+saveRDS(mb, "./Data/mb_many_filed_large_polygons.rds")
+```
+
+```{r gen_tables, echo = FALSE}
+mb_plot_data <- readRDS("./Data/mb_many_filed_large_polygons.rds") %>% 
+  data.table() %>% 
+  .[, time := time/1e9] %>% 
+  .[, extract_type := ifelse(str_detect(expr, "ee"), "exact_extract()", "velox::extract()")] %>% 
+  .[, method := str_extract(expr, "method_[0-9]{1}") %>%  gsub("method_", "Option ", .)] %>% 
+  .[, option_number := gsub("Option ", "", method) %>% as.numeric()]
+```
+
+The figure below shows the results of the benchmarking of the four approaches. As expected, Approach 1 is the slowest, and Approach 2 does better than Approach 1 because the extraction process is parallelized. Approaches 3 does better than these two naive approaches even though it is not parallelized. This is the benefit of not repeating topological relations identifications over and over again. Approaches 4 does better than the naive ones, but does worse than Approach 3. This may come as a surprise as extracting values from a RasterBrick is supposed to be faster than from a RasterStack. The problem of Approach 4 is that it takes long enough to just create a RasterBrick to kill all the time saving coming from extracting values from a RasterBrick instead of a RasterStack. Finally, **velox::extract()** does always better (sometimes significantly) than **exact_extract()**. But, as we saw earlier, this may change depending of the raster cell and polygon density. 
+
+```{r mb_table_first_4}
+ggplot(mb_plot_data[option_number <= 4, ]) +
+  geom_bar(aes(y = time, x = factor(method), fill = extract_type), stat = "identity", position = "dodge") +
+  scale_fill_discrete(name = "") +
+  xlab("Options to process 50 raster layers (or bands)") +
+  ylab("Time (seconds)") +
+  theme(
+    legend.position = "bottom"
+  )
+```
+
+We now consider the following three additional approaches.
+
++ Approach 5: each of the 5 cores stacks 10 individually-stored raster files and then processes it
++ Approach 6: process a 50-band raster file ("grd")
++ Approach 7: each of the 5 cores reads a 10-band raster file ("grd") and processes it
+
+Approach 5 simply parallelize Approach 3, which is the fastest among the four approaches tested earlier. Approach 6 reads in a 50-band raster file which was created by combining the 50 raster layers priori, and then extract values for the polygons. In Approach 7, each of the five cores reads in a 10-band raster file (created and saved priori), extract values, and then combine them.
+
+The following figure shows the benchmarking results of the three approaches and also Approach 3:
+
+```{r mb_table_first_4}
+ggplot(mb_plot_data[option_number %in% c(3, 5, 6, 7), ]) +
+  geom_bar(aes(y = time, x = factor(method), fill = extract_type), stat = "identity", position = "dodge") +
+  scale_fill_discrete(name = "") +
+  xlab("Options to process 50 raster layers (or bands)") +
+  ylab("Time (seconds)") +
+  theme(
+    legend.position = "bottom"
+  )
+```
+
+## Small polygons
+
+```{r prallelize_multiple_files_small_polygon}
+
+it <- 50
+
+read_RL_ee <- function(){ exact_extract(raster(file_path), KS_county) } 
+read_RL_v <- function(){ velox(raster(file_path))$extract(KS_county) } 
+
+#--------------------------
+# block-parallel
+#--------------------------
+files_ls <- rep(file_path, it)
+file_len <- length(files_ls)
+num_core <- 5
+files_per_core <- file_len/num_core
+
+extract_by_block_ee <- function(i, files_per_core) {
+
+  #--- files processed by core  ---#
+  start_file_index <- (i-1) * files_per_core + 1
+  #--- indexes for files to process ---#
+  file_index <- seq(
+    from = start_file_index,
+    to = min((start_file_index + files_per_core), file_len),
+    by = 1
+  )
+
+  data_temp <- files_ls[file_index] %>% # get file names
+    #--- stack files ---#
+    stack() %>% 
+    #--- extract ---#
+    exact_extract(., KS_county) 
+
+  return(data_temp)
+}
+
+extract_by_block_v <- function(i, files_per_core) {
+
+  #--- files processed by core  ---#
+  start_file_index <- (i-1) * files_per_core + 1
+  #--- indexes for files to process ---#
+  file_index <- seq(
+    from = start_file_index,
+    to = min((start_file_index + files_per_core), file_len),
+    by = 1
+  )
+
+  data_temp <- velox(stack(files_ls[file_index]))$extract(KS_county) 
+
+  return(data_temp)
+}
+
+# tic()
+# a <- velox(paste0("./Data/multi_grid_", files_per_core, ".grd"))$extract(KS_county)
+# toc()
+
+# tic()
+# a <- velox(paste0("./Data/multi_grid_", files_per_core, ".grd"))$extract(KS_county, function(x) mean(x, na.rm = TRUE))
+# toc()
+
+#--------------------------
+# Run benchmark
+#--------------------------
+mb_poly_small <- microbenchmark(
+  #--- one by one ---#
+  "method_1_ee" = { temp <- lapply(1:it, function(x) read_RL_ee()) },
+  "method_1_v" = { temp <- lapply(1:it, function(x) read_RL_v()) },
+  #--- parallelized one by one ---#
+  "method_2_ee" = { temp <- future_lapply(1:it, function(x) read_RL_ee()) },
+  "method_2_v" = { temp <- future_lapply(1:it, function(x) read_RL_v()) },
+  #--- stack and extract all at once ---#
+  "method_3_ee" = { temp <- exact_extract(stack(rep(file_path, it)), KS_county) },
+  "method_3_v" = { temp <- velox(stack(rep(file_path, it)))$extract(KS_county) },
+  #--- brick and extract all at once ---#
+  "method_4_ee" = { temp <- exact_extract(brick(stack(rep(file_path, it))), KS_county) },
+  "method_4_v" = { temp <- velox(brick(stack(rep(file_path, it))))$extract(KS_county) },
+  #--- pre-maid multi-band ---#
+  "method_5_ee" = { temp <- exact_extract(stack(paste0("./Data/multi_grid_", it, ".grd")), KS_county) },
+  "method_5_v" = { temp <- velox(paste0("./Data/multi_grid_", it, ".grd"))$extract(KS_county) },
+  #--- parallelization by block (individual files stacked before extract) ---#
+  "method_6_ee" = { temp <- future_lapply(1:num_core, function(x) extract_by_block_ee(x, files_per_core))},
+  "method_6_v" = { temp <- future_lapply(1:num_core, function(x) extract_by_block_v(x, files_per_core))},
+  #--- parallelization by block (multi-band raster file) ---#
+  "method_7_ee" = { temp <- future_lapply(1:num_core, function(x) exact_extract(stack(paste0("./Data/multi_grid_", files_per_core, ".grd")), KS_county))},
+  "method_7_v" = { temp <- future_lapply(1:num_core, function(x) velox(paste0("./Data/multi_grid_", files_per_core, ".grd"))$extract(KS_county))},
+  times = 1
+)
+
+saveRDS(mb_poly_small, "./Data/mb_many_filed_small_polygons.rds")
+```
+
+```{r mb_table}
+mb_plot_data <- readRDS("./Data/mb_many_filed_small_polygons.rds") %>% 
+  data.table() %>% 
+  .[, time := time/1e9] %>% 
+  .[, extract_type := ifelse(str_detect(expr, "ee"), "exact_extract()", "velox::extract()")] %>% 
+  .[, method := str_extract(expr, "method_[0-9]{1}") %>%  gsub("method_", "Option ", .)]
+
+ggplot(mb_plot_data) +
+  geom_bar(aes(y = time, x = factor(method), fill = extract_type), stat = "identity", position = "dodge") +
+  scale_fill_discrete(name = "") +
+  xlab("Options to process 50 raster layers (or bands)") +
+  ylab("Time (seconds)") +
+  theme(
+    legend.position = "bottom"
+  )
+```
+
+
+# Small tricks (yet could be significant) for faster computing   
+
+## Writing a raster file: **velox::write()** or **raster::write()**?
+
+Use **velox::write()**, which is much much faster. See the comparison below. Both codes stack 50 PRISM individually-stored raster files and then save the combined multi-band raster layer as a GeoTiff file.
+
+```{r compare_write_speed}
+#--- velox::write ---#
+tic()
+velox(stack(rep(file_path, it)))$write(path = "./Data/velox_test.tif", overwrite = T)
+toc()
+
+#--- raster::writeRaster ---#
+tic()
+stack(rep(file_path, it)) %>% 
+  writeRaster("./Data/write_test.tif", format = "GTiff", overwrite = T)
+toc()
+```
+
+## do within-unit aggregation inside **velox::extract()** or outside? 
+
+First one calculates the mean of extracted values by polygon. The second one does that outside of **velox::extract()** using **data.table** functionality. The third one does the same as the second one but using **dplyr**/**tidyr**. 
+
+```{r do_calculation_within}
+#--- finding mean inside the velox::extract() function ---#
+tic()
+temp <- velox(paste0("./Data/multi_grid_50.grd"))$extract(HUC, function(x) mean(x, na.rm = TRUE)) %>% 
+  data.table() %>% 
+  .[, id := 1:nrow(.)] %>% 
+  melt(id.var = "id")
+toc()
+
+#--- finding mean outside (data.table) ---#
+tic()
+temp <- velox(paste0("./Data/multi_grid_50.grd"))$extract(HUC, df = TRUE) %>% 
+  data.table() %>% 
+  melt(id.var = "ID_sp") %>% 
+  .[, .(value = mean(value, na.rm = T)), by = .(ID_sp, variable)]  
+toc()
+
+#--- finding mean outside (dplyr) ---#
+tic()
+temp <- velox(paste0("./Data/multi_grid_50.grd"))$extract(HUC, df = TRUE) %>% 
+  gather("variable", "precip", -ID_sp) %>% 
+  # pivot_longer(-ID_sp, names_to = "variable", values_to = "prcip") %>% # pivot is slower
+  group_by(ID_sp, variable) %>% 
+  summarize(precip = mean(precip, na.rm = TRUE))
+toc()
+```
+
+## How much does pre-cropping help?
+
+```{r precrop_or_not_run, echo = FALSE, eval = FALSE}
+mb_crop <-microbenchmark(
+
+  #--- pre-cropping ---#
+  "Pre-croping" = { 
+    temp <- velox(paste0("./Data/multi_grid_50.grd"))
+    temp$crop(extent(KS_county))
+    temp_2 <- temp$extract(KS_county)
+  },
+
+  #--- no cropping ---#
+  "No-cropping" = {
+    temp <- velox(paste0("./Data/multi_grid_50.grd"))$extract(KS_county)
+  },
+
+  times = 10
+)
+
+saveRDS(mb_crop, "./Data/mb_precrop.rds")
+```
+
+```{r precrop_or_not, eval = FALSE}
+mb_crop <-microbenchmark(
+
+  #--- pre-cropping ---#
+  "Pre-croping" = { 
+    temp <- velox(paste0("./Data/multi_grid_50.grd"))
+    temp$crop(extent(KS_county))
+    temp_2 <- temp$extract(KS_county)
+  },
+
+  #--- no cropping ---#
+  "No-cropping" = {
+    temp <- velox(paste0("./Data/multi_grid_50.grd"))$extract(KS_county)
+  },
+
+  times = 10
+)
+
+#--- take a look at the results ---#
+mb_crop
+```
+
+```{r disp_mb_crop_results, echo = FALSE}
+readRDS(mb_crop, "./Data/mb_precrop.rds")
+mb_crop
+```
+
+## When accurate area-weighted mean is appropriate    
+
+brazil$mean_prec_weighted <- exact_extract(prec, brazil, 'weighted_mean', weights=area(prec))
+
+
+# Work flow demonstration
+
+## Large temporal dimensions (e.g., PRISM)
+
++ download files, save multiple of them as a tif file using velox::write()
++ process the multiband raster using velox::extract() with parallelization over time    
+
+```{r prism_work_flow, eval = FALSE}
+#/*=================================================*/
+#' # Download the data and save them as multi-band tif files by year-month
+#/*=================================================*/ 
+
+options(prism.path = "~/Box/Teaching/AAEA R/GIS/Data/PRISM")
+
+month_year_data <- expand.grid(month  = 1:12, year = 2014:2018) %>% 
+  data.table()
+
+get_prism <- function(i, var_type) {
+
+  temp_month <- month_year_data[i, month]
+  temp_year <- month_year_data[i, year]
+
+  start_date <- as.Date(paste0("1/", temp_month, "/", temp_year), "%d/%m/%Y")
+
+  if (temp_month < 12){
+
+    end_date <- as.Date(paste0("1/", temp_month + 1, "/", temp_year), "%d/%m/%Y") - 1
+
+  } else {
+    end_date <- as.Date(paste0("1/", 1, "/", temp_year + 1), "%d/%m/%Y") - 1
+  }
+  
+  get_prism_dailys(
+    type = var_type,
+    minDate = as.character(start_date),
+    maxDate = as.character(end_date),
+    keepZip = FALSE
+  ) 
+
+  dates_ls <- seq(start_date, end_date, "days") 
+
+  dates_prism_txt <- str_remove_all(dates_ls, "-")
+
+  folder_name <- paste0("PRISM_", var_type, "_stable_4kmD2_", dates_prism_txt, "_bil") 
+  file_name <- paste0("PRISM_", var_type, "_stable_4kmD2_", dates_prism_txt, "_bil.bil") 
+  file_path <- paste0("./Data/PRISM/", folder_name, "/", file_name)
+
+  #--- save as a multi-band GeoTiff file ---#
+  velox(stack(file_path))$write(path = paste0("./Data/PRISM/PRISM_", var_type, "_", temp_year, "_", temp_month, ".tif"), overwrite = T)
+
+  #--- delete all the downloaded files ---#
+  unlink(paste0("./Data/PRISM/", folder_name), recursive = TRUE)
+
+}
+
+plan(multiprocess, workers = 6)
+
+mclapply(
+  1:nrow(month_year_data), 
+  function (x) get_prism(x, "ppt"), 
+  mc.cores = 6
+)
+```
+
+```{r }
+options(prism.path = "~/Box/Teaching/AAEA R/GIS/Data/PRISM")
+
+year <- 2013
+var_type <- "ppt"
+
+get_prism <- function(year, var_type) {
+
+  start_date <- as.Date(paste0("1/1/", year), "%d/%m/%Y")
+  end_date <- as.Date(paste0("1/1/", year+1), "%d/%m/%Y") - 1
+  
+  get_prism_dailys(
+    type = var_type,
+    minDate = as.character(start_date),
+    maxDate = as.character(end_date),
+    keepZip = FALSE
+  ) 
+
+  dates_ls <- seq(start_date, end_date, "days") 
+
+  dates_prism_txt <- str_remove_all(dates_ls, "-")
+
+  folder_name <- paste0("PRISM_", var_type, "_stable_4kmD2_", dates_prism_txt, "_bil") 
+  file_name <- paste0("PRISM_", var_type, "_stable_4kmD2_", dates_prism_txt, "_bil.bil") 
+  file_path <- paste0("./Data/PRISM/", folder_name, "/", file_name)
+
+  #--- save as a multi-band GeoTiff file ---#
+  velox(stack(file_path))$write(path = paste0("./Data/PRISM/PRISM_", var_type, "_", year, ".tif"), overwrite = T)
+
+  #--- delete all the downloaded files ---#
+  unlink(paste0("./Data/PRISM/", folder_name), recursive = TRUE)
+
+}
+
+lapply(
+  2013, 
+  function (x) get_prism(x, "ppt") 
+)
+
+mclapply(
+  2013, 
+  function (x) get_prism(x, "ppt"), 
+  mc.cores = 6
+)
+
+var_type <- "ppt"
+year <- 2013
+tic()
+extracted_data <- velox(paste0("./Data/PRISM/PRISM_", var_type, "_", year, ".tif"))$extract(IA_rp, function(x) mean(x, na.rm = TRUE)) 
+toc()
+
+bench_process_memory()
+```
+
+Suppose you are interested in getting county-level monthly total precipitation for Iowa. Let's first define a function that extracts PRISM precipitation values by month for a given **sf** of polygons.
+
+```{r }
+assign_prism <- function(i, var_type, polygon) {
+
+  temp_month <- month_year_data[i, month]
+  temp_year <- month_year_data[i, year]
+
+  raster_file_name <- paste0("./Data/PRISM/PRISM_", var_type, "_", temp_year, "_", temp_month, ".tif")
+
+  #--- variables names (from which we extract dates later) ---#
+  # reading a raster file using **velox()** loses the original band names 
+  var_names <- stack(raster_file_name) %>%  
+    names() %>% 
+    gsub(paste0("PRISM_", var_type, "_"), "", .)  
+
+  #--- save as a multi-band GeoTiff file ---#
+  extracted_data <- velox(raster_file_name)$extract(polygon, function(x) mean(x, na.rm = TRUE)) %>% 
+    data.table() %>% 
+    setnames(names(.), c(var_names)) %>% 
+    .[, id := 1:nrow(.)] %>% 
+    melt(id.var = "id") %>% 
+    .[, date := as.Date(variable, "%Y_%m.%d")] %>% 
+    .[, variable := NULL]
+
+  return(extracted_data)
+   
+}
+```
+
+Let's use the function to achieve the goal.
+
+```{r }
+IA_county <- st_as_sf(map("county", "iowa", plot = FALSE, fill = TRUE)) 
+
+tic()
+IA_monthly_precip <-  
+  mclapply(
+    1:nrow(month_year_data), 
+    function(x) assign_prism(x, "ppt", IA_county) , 
+    mc.cores = 6
+  ) %>% 
+  rbindlist() %>% 
+  .[, .(ppt = sum(value)), by = .(id, month(date), year(date))]
+toc()
+
+bench_process_memory()
+```
+
+It is easy to slightly modify the above code to extract values for points data, instead of polygons data.
+
+```{r }
+assign_prism_points <- function(i, var_type, points) {
+
+  temp_month <- month_year_data[i, month]
+  temp_year <- month_year_data[i, year]
+
+  raster_file_name <- paste0("./Data/PRISM/PRISM_", var_type, "_", temp_year, "_", temp_month, ".tif")
+
+  #--- variables names (from which we extract dates later) ---#
+  # reading a raster file using **velox()** loses the original band names 
+  var_names <- stack(raster_file_name) %>%  
+    names() %>% 
+    gsub(paste0("PRISM_", var_type, "_"), "", .)  
+
+  #--- save as a multi-band GeoTiff file ---#
+  extracted_data <- velox(raster_file_name)$extract_points(points) %>% 
+    data.table() %>% 
+    setnames(names(.), c(var_names)) %>% 
+    .[, id := 1:nrow(.)] %>% 
+    melt(id.var = "id") %>% 
+    .[, date := as.Date(variable, "%Y_%m.%d")] %>% 
+    .[, variable := NULL]
+
+  return(extracted_data)
+   
+}
+```
+
+```{r }
+KS_wells <- readRDS( "./Data/gw_KS_sf.rds") %>% 
+  unique(by = "well_id") %>% 
+  dplyr::select(well_id) 
+
+tic()
+KS_monthly_precip <-  
+  mclapply(
+    1:nrow(month_year_data), 
+    function(x) assign_prism_points(x, "ppt", KS_wells) , 
+    mc.cores = 6
+  ) %>% 
+  rbindlist() %>% 
+  .[, .(ppt = sum(value)), by = .(id, month(date))]
+toc()
+```
+
+## No temporal dimension
+
+## 
+
+```{r }
+
+get_prism_dt <- function(i, var_type) {
+
+  temp_month <- month_year_data[i, month]
+  temp_year <- month_year_data[i, year]
+
+  raster_file_name <- paste0("./Data/PRISM/PRISM_", var_type, "_", temp_year, "_", temp_month, ".tif")
+
+  #--- variables names (from which we extract dates later) ---#
+  # reading a raster file using **velox()** loses the original band names 
+  temp <- stack(raster_file_name)   
+
+
+  value <- getValues(temp) %>% 
+    data.table()
+
+  temp <- value %>% 
+    data.table() %>% 
+    .[, prism_id := 1:nrow(.)] %>% 
+    melt(id.var = "prism_id") %>% 
+    .[!is.na(value),] %>% 
+    .[, variable := gsub(paste0("PRISM_", var_type, "_"), "", variable)] %>% 
+    .[, date := as.Date(variable, "%Y_%m.%d")] %>% 
+    .[, variable := NULL]
+
+  return(temp)
+   
+}
+```
+
+```{r }
+prism_data <- mclapply(
+    1:12, 
+    function(x) get_prism_dt(x, "ppt"), 
+    mc.cores = 6
+  ) %>% 
+  rbindlist()
+
+saveRDS(rbindlist(prism_data), "./Data/prism_2014.rds")
+
+rbindlist(prism_data) %>% object.size()
+
+
+IA_rp <- st_transform(IA_county, projection(prism_rs))
+
+
+XY <- exact_extract(prism_rs, IA_rp, include_xy = T)
+
+prism_county <- lapply(1:length(XY), function(x) 
+  data.table(
+    county_id = x,
+    prism_id = cellFromXY(prism_rs, XY[[x]][, c("x", "y")])
+  )
+) %>% 
+rbindlist()
+
+IA_monthly_precip <- prism_2014 <- readRDS("./Data/prism_2014.rds") %>% 
+  .[prism_county, on = "prism_id"] %>% 
+  .[,.(value = mean(value)), by = .(county_id, date)] %>% 
+  .[, .(precip = sum(value)), by = .(county_id, month(date))]
+toc()
+
+IA_monthly_precip[year == 2014, ]
+```
+
+
+# dplyr or data.table
+
+Typically, significant data transformations are required before you can use the extracted data for your regression analysis. When the datasets you are processing are small, whether you use __dplyr__ and __data.table__ makes no practical difference in terms of processing time. However, many of us (economists) increasingly use large enough spatial datasets that your package choice makes a significant difference.   
+
+[data.table and sf](https://www.r-bloggers.com/speeding-up-spatial-analyses-by-integrating-sf-and-data-table-a-test-case/)
+
+[fast subsetting data.table](https://cran.r-project.org/web/packages/data.table/vignettes/datatable-keys-fast-subset.html)
+
+Here, we are going to use the 100-PRISM-file example for illustration. But, first let's take a look at the structure of the extracted data after using method 2 with 3-PRISM-layer stack. 
+
+```{r}
+#--- extract the PRISM data ---#
+data_after_extraction <- exact_extract(stack(rep(file_path, 3)), HUC)
+
+lapply(data_after_extraction[1:2], head)
+```
+
+
+
+As you can see the difference in completion time is substantial. Again, imagine processing 10,000 of PRISM files and also the amount of time you save by using __data.table__ instead of __dplyr__. Note also that data.table is not really hard to learn. Yes, there are many esoteric-looking data.table tricks you can find online^[]. But, what you need to know for 99.99 % of the time is just how to combine list of datasets into one (__rbindlist__), reshape (__melt__ and __dcast__), filter rows, select variables, generate a new variable, and summarize by group. 
+
+<!-- 
+```{r }
+library(dplyr)
+library(rnaturalearth)
+library(sf)
+
+MA_state <- st_as_sf(map("state", "massachusetts", plot = FALSE, fill = TRUE)) %>% 
+  st_transform(crs = "+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=23 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs") %>% 
+  as("Spatial")
+
+proj4string(MA_state)
+
+pts <- st_sample(MA_state, size = 10, type = "regular")
+
+install.packages("devtools")
+devtools::install_github("ropensci/FedData")
+
+get_nlcd(template = paleocar::mvnp, year = 2011, dataset = "Tree_Canopy", label = "NLCD2011can")
+
+# Plot!
+plot(nlcd)
+plot(pts, col="black", pch=20, cex=1.5, add=T)
+
+``` -->
+
+<!-- ```{r, cache=TRUE}
+pumping_neaby <- st_join(buffers, urnrd_gw) %>% 
+  group_by(site_no, year) %>% 
+  summarize(sum(vol_af, na.rm = TRUE))
+
+pumping_neaby <- st_join(buffers, urnrd_gw) %>% 
+  data.table() %>% 
+  .[, .(pumping = sum(vol_af, na.rm = TRUE)), by = .(site_no, year)]
+``` -->
+
+# st_intersection or st_intersects-loop 
+
+```{r, eval = FALSE, echo = FALSE}
+prism_sf <- raster(file_path) %>% 
+  as("SpatialPolygonsDataFrame") %>% 
+  st_as_sf()
+
+saveRDS(prism_sf, "./Data/prism_sf.rds")
+```
+
+```{r, cache=TRUE}
+huc_prism <- st_intersection(PRISM, HUC)
+
+prism_sf <- readRDS("./Data/prism_sf.rds")
+
+tic()
+huc_prism_intersects <- st_intersects(HUC, prism_sf)
+toc()
+
+i <- 1
+get_prism_sf <- function(i) {
+
+  temp_int <- st_intersection(HUC[i, ], prism_sf[huc_prism_intersects[[i]],])
+
+} 
+
+```
+
+
+# Converting a raster layer to a polygon data
+
+When I first started using R as GIS, my first project was to get PRISM 
+
+
+```{r, cache=TRUE}
+
+prism_ppt_RL <- raster(file_path)
+num_cell <- ncell(prism_ppt_RL)
+
+get_prism_precip <- function(date) {
+
+  #--- remove the hyphens ---# 
+  date_text <- str_remove_all(date, "-")
+
+  #--- define the file name to read ---#
+  folder_name <- paste0("PRISM_ppt_stable_4kmD2_", date_text, "_bil") 
+  file_name <- paste0("PRISM_ppt_stable_4kmD2_", date_text, "_bil.bil") 
+  file_path <- paste0("./Data/PRISM/", folder_name, "/", file_name)
+
+  #--- crop the PRISM data to KS ---#
+  prism_KS_temp <- raster(file_path)
+  
+  #--- define the data to return ---# 
+  data_return <- data.table(
+      prism_id = 1:num_cell, 
+      precip = getValues(prism_KS_temp),
+      date = as.Date(date)
+    )
+
+  return(data_return)
+} 
+
+#--- get area-weighted precipitation values ---#
+datas_ls <- rep(date, 100) 
+tic()
+all_precip <- mclapply(datas_ls, get_prism_precip, mc.cores = 7) %>% 
+  rbindlist()
+toc()
+
+
+cov_frac <- coverage_fraction(prism_ppt_RL, HUC)
+
+cov_frac[[1]]
+
+#--- number of PRISM grids ---#
+num_cell <- ncell(prism_cropped)
+
+
+get_prism_cov <- function(i) {
+
+  prism_cov_frac <- data.table(
+    prism_id = 1:num_cell,
+    fraction = getValues(cov_frac[[i]])
+  ) %>%
+  #--- remove non-overlapping PRISM grids ---# 
+  .[fraction > 0, ] 
+
+  return(prism_cov_frac)
+
+}
+
+get_prism_cov(1)
+
+#--- get daily precipitation values ---#
+prism_cov <- mclapply(1:nrow(HUC), get_prism_cov, mc.cores = 7) %>% 
+  rbindlist()  
+
+#--- define the function to get daily precipitation  ---#
+get_daily_precip <- function(i) {
+
+  # Note: this function relies on grid_id is the same as row number 
+
+  temp_precip_data <- data.table(
+    prism_id = 1:num_cell,
+    fraction = getValues(cov_frac[[i]])
+  ) %>%
+  #--- remove non-overlapping PRISM grids ---# 
+  .[fraction > 0, ] %>% 
+  #--- merge with the precipitation data ---#
+  all_precip[., on = "prism_id"] %>% 
+  #--- get daily area-weighted precipitation by date ---#
+  .[, .(precip = sum(precip * fraction) / sum(fraction)), by = date] %>% 
+  #--- assign grid_id ---#
+  .[, grid_id := HUC_ls[i]] 
+
+  return(temp_precip_data)
+
+}
+
+#--- get the list of analysis grids to loop over ---#
+HUC_ls <- HUC$HUC_CODE
+
+#--- get daily precipitation values ---#
+daily_precip_data <- future_lapply(
+    1:nrow(HUC), 
+    get_daily_precip
+  ) %>% 
+  rbindlist()  
+
+``` 
+
+```{r, cache=TRUE}
+extract get index number 
+```
+
+
+# processing by indexes
+
+To do this, we will first get area fraction values for the geographically overlapping PRISM grids for each of the analysis grids using the **coverage_fraction()** function from the **exactextractr** package. We then loop over days, where area-weighted precipitation is calculated in each iteration. We will parallelize the loop using the **future_lapply()** function from the **future.apply** package.
+
+---
+
+We first get the area fraction values of overlapping PRISM grids for each of the analysis grids.
+
+```{r Demo4_cov_frac}
+#--- get the geographic extent of the Iowa grids ---#
+extent_IA_grids <- extent(IA_grids_rp_prism)
+
+#--- crop the prism data to the geographic extent of Iowa ---#
+prism_cropped <- crop(prism_whole, extent_IA_grids)
+
+#--- get the area fraction of overlapping PRISM grids ---#
+cov_frac <- coverage_fraction(prism_cropped, IA_grids_rp_prism)
+```
+
+---
+
+We now combine all the PRISM data (stored as bil files by day) into one dataset^[**all_precip** is available as **all_precip.rds** in the data repository. Instead of running the code below, you can just use the **readRDS()** function to read **all_precip.rds**.].
+
+```{r Demo4_get_prism_precip, eval = FALSE}
+#--- define the list of dates to loop over ---#
+dates_ls <- seq(as.Date("2014-04-01"), as.Date("2014-09-30"), "days") 
+
+#--- define the function to read in a daily precip data and extract values ---#
+get_prism_precip <- function(date) {
+
+  #--- remove the hyphens ---# 
+  date_text <- str_remove_all(date, "-")
+
+  #--- define the file name to read ---#
+  folder_name <- paste0("PRISM_ppt_stable_4kmD2_", date_text, "_bil") 
+  file_name <- paste0("PRISM_ppt_stable_4kmD2_", date_text, "_bil.bil") 
+  file_path <- paste0("./Data/PRISM/", folder_name, "/", file_name)
+
+  #--- crop the PRISM data to KS ---#
+  prism_KS_temp <- raster(file_path) %>% 
+    crop(., extent_IA_grids)
+  
+  #--- define the data to return ---# 
+  data_return <- data.table(
+      prism_id = 1:num_cell, 
+      precip = getValues(prism_KS_temp),
+      date = as.Date(date)
+    )
+
+  return(data_return)
+} 
+
+#--- get area-weighted precipitation values ---#
+all_precip <- future_lapply(datas_ls, get_prism_precip) %>% 
+  rbindlist()
+
+#--- take a look ---#
+all_precip
+```
+
+```{r Demo4_read_all_precip, echo = FALSE}
+#--- define the list of dates to loop over ---#
+datas_ls <- seq(as.Date("2014-04-01"), as.Date("2014-09-30"), "days") 
+# saveRDS(all_precip, "./Data/all_precip.rds")
+all_precip <- readRDS("./Data/all_precip.rds")
+all_precip
+```
+
+---
+
+Now we have a single PRISM data that contain precipitation values for PRISM grids that overlap with Iowa. Next, we will loop over analysis grids to get daily area-weighted precipitation and calculate total precipitation for critical and non-critical periods during the growing season. 
+
+```{r Demo4_assign}
+#--- number of PRISM grids ---#
+num_cell <- ncell(prism_cropped)
+
+#--- define the function to get daily precipitation  ---#
+get_daily_precip <- function(i) {
+
+  # Note: this function relies on grid_id is the same as row number 
+
+  temp_precip_data <- data.table(
+    prism_id = 1:num_cell,
+    fraction = getValues(cov_frac[[i]])
+  ) %>%
+  #--- remove non-overlapping PRISM grids ---# 
+  .[fraction > 0, ] %>% 
+  #--- merge with the precipitation data ---#
+  all_precip[., on = "prism_id"] %>% 
+  #--- get daily area-weighted precipitation by date ---#
+  .[, .(precip = sum(precip * fraction) / sum(fraction)), by = date] %>% 
+  #--- assign grid_id ---#
+  .[, grid_id := i] 
+
+  return(temp_precip_data)
+
+}
+
+#--- get the list of analysis grids to loop over ---#
+grid_ls <- IA_grids_rp_prism$grid_id
+
+#--- get daily precipitation values ---#
+daily_precip_data <- future_lapply(
+    1:nrow(IA_grids_rp_prism), 
+    get_daily_precip
+  ) %>% 
+  rbindlist()  
+
+#--- find total precipitation for critical and non-critical periods ---#
+precip_by_period <- daily_precip_data %>% 
+  #--- define critical period ---#
+  .[,critical := "non_critical"] %>% 
+  .[month(date) %in% 6:8, critical := "critical"] %>% 
+  #--- total precipitation by critical dummy  ---#
+  .[,.(precip=sum(precip)), by = .(grid_id, critical)] %>%
+  #--- wide to long ---#
+  dcast(grid_id ~ critical, value.var = "precip")
+```
+
+# rasterize vs extract vs cell number
+
+https://gis.stackexchange.com/questions/130522/increasing-speed-of-crop-mask-extract-raster-by-many-polygons-in-r
+
+
+
+<!-- # Overhead (Appendix)
+
+As you can see, method 2 performs the best. __exact_extract__ first identifies the geographic overlap of polygons and raster grids, then extract values from the overlapping raster grids. By far the most time-consuming part is the first step. To see this let's do the following benchmarking study.
+
+```{r mb_stack_echo, eval = FALSE}
+mb_stack <- microbenchmark(
+    "1" = {res <- exact_extract(stack(rep(file_path, 1)), HUC)}, 
+    "2" = {res <- exact_extract(stack(rep(file_path, 2)), HUC)}, 
+    "4" = {res <- exact_extract(stack(rep(file_path, 4)), HUC)}, 
+    "7" = {res <- exact_extract(stack(rep(file_path, 7)), HUC)}, 
+    "10" = {res <- exact_extract(stack(rep(file_path, 10)), HUC)}, 
+    "20" = {res <- exact_extract(stack(rep(file_path, 20)), HUC)}, 
+    "40" = {res <- exact_extract(stack(rep(file_path, 40)), HUC)}, 
+    times = 1
+  )
+```
+
+```{r mb_stack}
+mb_stack <- microbenchmark(
+    "1" = {res <- exact_extract(stack(rep(file_path, 1)), HUC)}, 
+    "2" = {res <- exact_extract(stack(rep(file_path, 2)), HUC)}, 
+    "4" = {res <- exact_extract(stack(rep(file_path, 4)), HUC)}, 
+    "7" = {res <- exact_extract(stack(rep(file_path, 7)), HUC)}, 
+    "10" = {res <- exact_extract(stack(rep(file_path, 10)), HUC)}, 
+    "20" = {res <- exact_extract(stack(rep(file_path, 20)), HUC)}, 
+    "40" = {res <- exact_extract(stack(rep(file_path, 40)), HUC)}, 
+    times = 1
+  )
+
+saveRDS(mb_stack, "./Data/mb_stack.rds")
+```
+
+The upper (bottom) panel plots the total (average) time against the number of layers to process.    
+
+```{r, echo = FALSE}
+mb_stack <- readRDS("./Data/mb_stack.rds")
+
+plot_data <- data.table(
+    test = as.numeric(as.character(mb_stack$expr)),
+    time = mb_stack$time / 1e9
+  ) %>% 
+  .[, average_time := time / test] %>% 
+  melt(id.var = "test") %>% 
+  .[, type := ifelse(variable == "time", "Total Time", "Average Time")] %>% 
+  .[, type := factor(type, levels = c("Total Time", "Average Time"))]
+``` 
+
+```{r, echo = FALSE}
+ggplot(data = plot_data) +
+  geom_line(aes(y = value, x = test)) +
+  geom_point(aes(y = value, x = test), size = 1, col = "red") +
+  facet_wrap(type ~ ., nrow = 2, scales = "free_y") +
+  scale_x_continuous(breaks = c(1, 2, 4, 7, 10, 20, 40)) + 
+  ylim(0, NA) +
+  ylab("Seconds") +
+  xlab("Number of Raster Layers to Process")
+```
+
+As you can see processing 1 file takes about `r plot_data[test == 1, time]` seconds. But, processing 2 layers as a stack takes only `r plot_data[test == 2, time]` instead of two times the time spent for a single layer. This is because __exact_extract__ does step 1 only once even though it is trying to extract values from two layers. This is because the spatial relationships of the polygons and raster grids are the same across different rater files because of the regularity in the spatial resolution and extent of the raster files^[This will be likely the case for the majority of your applications]. The time difference between the 1-layer and 2-layer case comes from the time spent to do step 2 (extracting values) for an additional layer. So, it is clear that step 2 takes much less time than step 1.
+
+This further means that it would be better to just do step 1 once and the reuse it for different days of raster files, which is what method 2 does. Method 1 instead commits the error of repeating step 1 over and over again for each of all the raster files. Method 3 commits the same error. Yes, it is faster than method 1 because method 3 is the parallelized version of method 1, but it is much slower than method 2, which is non-parallelized, because of the reason we just mentioned.
+
+As the bottom panel suggests, the average time continue to go down at the decreasing rate as the number of layers to process goes up. At 20 and 40 layers, the average time spent per layer is about the same. It was not clever to let each core processes one layer at a time in method 3. But, it makes sense to let each core processes a number of layers as a stack (method 4).
+
+```{r pal_block, cache=TRUE}
+
+files_ls <- rep(file_path, 100)
+file_len <- length(files_ls)
+num_core <- 5
+files_per_core <- file_len/num_core
+
+plan(multiprocess, workers = 5)
+
+extract_by_block <- function(i, files_per_core) {
+
+  #--- files processed by core  ---#
+  start_file_index <- (i-1) * files_per_core + 1
+  #--- indexes for files to process ---#
+  file_index <- seq(
+    from = start_file_index,
+    to = min((start_file_index + files_per_core), file_len),
+    by = 1
+  )
+
+  data_temp <- files_ls[file_index] %>% # get file names
+    #--- stack files ---#
+    stack() %>% 
+    #--- extract ---#
+    exact_extract(., HUC) 
+
+  return(data_temp)
+}
+
+mb_p_block <- microbenchmark(
+    "block_pallalelized" = {
+      res <- future_lapply(
+        1:num_core, 
+        function(x) extract_by_block(x, files_per_core)
+      )
+    }, 
+    times = 1
+  )
+
+saveRDS(mb_p_block, mc.cores = "./Data/mb_p_block.rds")
+```
+
+As you can see, we see that the total processing time is much less than method 2. But, note that I have to write more lines of code to do that (I spent about five minutes to write the above code). Yes, taking advantage of parallelized process typically takes more (not much though once you get used to it) elaborations on the coding side. If you think about the total time I spent to process the files, I should have gone for method 2. So, don't just mind-numbingly try to do a clever parallelization. For a relatively small number of small-size files, you should just go simple (here, method 2). Time spent coding will be way more than the time saved by the code. But, of course, if you are dealing with many more files and/or bigger (higher spatial resolution) files, then coding a clever parallelization will be worth it. For example, if you are processing PRISM data for three variables (say, precipitation, tmin, and tmax) for "1990-01-01" to "2018-12-31", then you would be processing `r 3 * seq(as.Date("1990-01-01"), as.Date("2018-12-31"), "days") %>% length()` files. You better be parallelizing this.
+ -->

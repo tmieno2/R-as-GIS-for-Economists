@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2.2 Simple feature geometry, simple feature geometry list-column, and simple feature | R as GIS for Economists</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="2.2 Simple feature geometry, simple feature geometry list-column, and simple feature | R as GIS for Economists" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2.2 Simple feature geometry, simple feature geometry list-column, and simple feature | R as GIS for Economists" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Taro Mieno" />
+
+
+<meta name="date" content="2020-05-14" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="spatial-data-structure.html"/>
+<link rel="next" href="reading-and-writing-vector-data.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">R as GIS for Economists</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="why-r-as-gis-for-economists.html"><a href="why-r-as-gis-for-economists.html"><i class="fa fa-check"></i>Why R as GIS for Economists?</a><ul>
+<li class="chapter" data-level="" data-path="why-r-as-gis-for-economists.html"><a href="why-r-as-gis-for-economists.html#r-vs-python"><i class="fa fa-check"></i>R vs Python</a></li>
+<li class="chapter" data-level="" data-path="why-r-as-gis-for-economists.html"><a href="why-r-as-gis-for-economists.html#r-vs-arcgis-or-qgis"><i class="fa fa-check"></i>R vs ArcGIS or QGIS</a></li>
+<li class="chapter" data-level="" data-path="why-r-as-gis-for-economists.html"><a href="why-r-as-gis-for-economists.html#summary"><i class="fa fa-check"></i>Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="how-is-this-book-different-from-other-online-books-and-resources.html"><a href="how-is-this-book-different-from-other-online-books-and-resources.html"><i class="fa fa-check"></i>How is this book different from other online books and resources?</a></li>
+<li class="chapter" data-level="" data-path="what-is-going-to-be-covered-in-this-book.html"><a href="what-is-going-to-be-covered-in-this-book.html"><i class="fa fa-check"></i>What is going to be covered in this book?</a></li>
+<li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html"><i class="fa fa-check"></i>Conventions of the book and some notes</a><ul>
+<li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html#texts-in-gray-boxes"><i class="fa fa-check"></i>Texts in gray boxes</a></li>
+<li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html#colored-boxes"><i class="fa fa-check"></i>Colored Boxes</a></li>
+<li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html#parentheses-around-codes"><i class="fa fa-check"></i>Parentheses around codes</a></li>
+<li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html#footnotes"><i class="fa fa-check"></i>Footnotes</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="session-information.html"><a href="session-information.html"><i class="fa fa-check"></i>Session Information</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="demo.html"><a href="demo.html"><i class="fa fa-check"></i><b>1</b> R as GIS: Demonstrations</a><ul>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="1.1" data-path="Demo1.html"><a href="Demo1.html"><i class="fa fa-check"></i><b>1.1</b> Demonstration 1: The impact of groundwater pumping on depth to water table</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="Demo1.html"><a href="Demo1.html#project-overview"><i class="fa fa-check"></i><b>1.1.1</b> Project Overview</a></li>
+<li class="chapter" data-level="1.1.2" data-path="Demo1.html"><a href="Demo1.html#project-demonstration"><i class="fa fa-check"></i><b>1.1.2</b> Project Demonstration</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="demonstration-2-precision-agriculture.html"><a href="demonstration-2-precision-agriculture.html"><i class="fa fa-check"></i><b>1.2</b> Demonstration 2: Precision Agriculture</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="demonstration-2-precision-agriculture.html"><a href="demonstration-2-precision-agriculture.html#project-overview-1"><i class="fa fa-check"></i><b>1.2.1</b> Project Overview</a></li>
+<li class="chapter" data-level="1.2.2" data-path="demonstration-2-precision-agriculture.html"><a href="demonstration-2-precision-agriculture.html#project-demonstration-1"><i class="fa fa-check"></i><b>1.2.2</b> Project Demonstration</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="demonstration-3-land-use-and-weather.html"><a href="demonstration-3-land-use-and-weather.html"><i class="fa fa-check"></i><b>1.3</b> Demonstration 3: Land Use and Weather</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="demonstration-3-land-use-and-weather.html"><a href="demonstration-3-land-use-and-weather.html#project-overview-2"><i class="fa fa-check"></i><b>1.3.1</b> Project Overview</a></li>
+<li class="chapter" data-level="1.3.2" data-path="demonstration-3-land-use-and-weather.html"><a href="demonstration-3-land-use-and-weather.html#project-demonstration-2"><i class="fa fa-check"></i><b>1.3.2</b> Project Demonstration</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="demo4.html"><a href="demo4.html"><i class="fa fa-check"></i><b>1.4</b> Demonstration 4: The Impact of Railroad Presence on Corn Planted Acreage</a><ul>
+<li class="chapter" data-level="1.4.1" data-path="demo4.html"><a href="demo4.html#project-overview-3"><i class="fa fa-check"></i><b>1.4.1</b> Project Overview</a></li>
+<li class="chapter" data-level="1.4.2" data-path="demo4.html"><a href="demo4.html#project-demonstration-3"><i class="fa fa-check"></i><b>1.4.2</b> Project Demonstration</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="demonstration-5-groundwater-use-for-agricultural-irrigation.html"><a href="demonstration-5-groundwater-use-for-agricultural-irrigation.html"><i class="fa fa-check"></i><b>1.5</b> Demonstration 5: Groundwater use for agricultural irrigation</a><ul>
+<li class="chapter" data-level="1.5.1" data-path="demonstration-5-groundwater-use-for-agricultural-irrigation.html"><a href="demonstration-5-groundwater-use-for-agricultural-irrigation.html#project-overview-4"><i class="fa fa-check"></i><b>1.5.1</b> Project Overview</a></li>
+<li class="chapter" data-level="1.5.2" data-path="demonstration-5-groundwater-use-for-agricultural-irrigation.html"><a href="demonstration-5-groundwater-use-for-agricultural-irrigation.html#project-demonstration-4"><i class="fa fa-check"></i><b>1.5.2</b> Project Demonstration</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="vector-basics.html"><a href="vector-basics.html"><i class="fa fa-check"></i><b>2</b> Handle vector data using the sf package</a><ul>
+<li class="chapter" data-level="" data-path="introduction-1.html"><a href="introduction-1.html"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="2.1" data-path="spatial-data-structure.html"><a href="spatial-data-structure.html"><i class="fa fa-check"></i><b>2.1</b> Spatial Data Structure</a></li>
+<li class="chapter" data-level="2.2" data-path="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html"><i class="fa fa-check"></i><b>2.2</b> Simple feature geometry, simple feature geometry list-column, and simple feature</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#simple-feature-geometry-sfg"><i class="fa fa-check"></i><b>2.2.1</b> Simple feature geometry (<code>sfg</code>)</a></li>
+<li class="chapter" data-level="2.2.2" data-path="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#create-simple-feature-geometry-list-column-sfc-and-simple-feature-sf-from-scratch"><i class="fa fa-check"></i><b>2.2.2</b> Create simple feature geometry list-column (<code>sfc</code>) and simple feature (<code>sf</code>) from scratch</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="reading-and-writing-vector-data.html"><a href="reading-and-writing-vector-data.html"><i class="fa fa-check"></i><b>2.3</b> Reading and writing vector data</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="reading-and-writing-vector-data.html"><a href="reading-and-writing-vector-data.html#reading-a-shapefile"><i class="fa fa-check"></i><b>2.3.1</b> Reading a shapefile</a></li>
+<li class="chapter" data-level="2.3.2" data-path="reading-and-writing-vector-data.html"><a href="reading-and-writing-vector-data.html#writing-to-a-shapefile"><i class="fa fa-check"></i><b>2.3.2</b> Writing to a shapefile</a></li>
+<li class="chapter" data-level="2.3.3" data-path="reading-and-writing-vector-data.html"><a href="reading-and-writing-vector-data.html#better-alternatives"><i class="fa fa-check"></i><b>2.3.3</b> Better alternatives</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="projection-with-a-different-coordinate-reference-systems.html"><a href="projection-with-a-different-coordinate-reference-systems.html"><i class="fa fa-check"></i><b>2.4</b> Projection with a different Coordinate Reference Systems</a></li>
+<li class="chapter" data-level="2.5" data-path="non-spatial-transformation-of-sf.html"><a href="non-spatial-transformation-of-sf.html"><i class="fa fa-check"></i><b>2.5</b> Non-spatial transformation of sf</a></li>
+<li class="chapter" data-level="2.6" data-path="turning-a-data-frame-of-points-into-an-sf.html"><a href="turning-a-data-frame-of-points-into-an-sf.html"><i class="fa fa-check"></i><b>2.6</b> Turning a data.frame of points into an <code>sf</code></a></li>
+<li class="chapter" data-level="2.7" data-path="conversion-to-and-from-sp.html"><a href="conversion-to-and-from-sp.html"><i class="fa fa-check"></i><b>2.7</b> Conversion to and from sp</a></li>
+<li class="chapter" data-level="2.8" data-path="geometrical-operations.html"><a href="geometrical-operations.html"><i class="fa fa-check"></i><b>2.8</b> Geometrical operations</a><ul>
+<li class="chapter" data-level="2.8.1" data-path="geometrical-operations.html"><a href="geometrical-operations.html#st_buffer"><i class="fa fa-check"></i><b>2.8.1</b> st_buffer</a></li>
+<li class="chapter" data-level="2.8.2" data-path="geometrical-operations.html"><a href="geometrical-operations.html#st_area"><i class="fa fa-check"></i><b>2.8.2</b> st_area</a></li>
+<li class="chapter" data-level="2.8.3" data-path="geometrical-operations.html"><a href="geometrical-operations.html#st_centroid"><i class="fa fa-check"></i><b>2.8.3</b> st_centroid</a></li>
+<li class="chapter" data-level="2.8.4" data-path="geometrical-operations.html"><a href="geometrical-operations.html#st_length"><i class="fa fa-check"></i><b>2.8.4</b> st_length</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="spatial-interactions-of-vector-data-subsetting-and-joining.html"><a href="spatial-interactions-of-vector-data-subsetting-and-joining.html"><i class="fa fa-check"></i><b>3</b> Spatial Interactions of Vector Data: Subsetting and Joining</a><ul>
+<li class="chapter" data-level="3.1" data-path="topological-relations.html"><a href="topological-relations.html"><i class="fa fa-check"></i><b>3.1</b> Topological relations</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="topological-relations.html"><a href="topological-relations.html#st_intersects"><i class="fa fa-check"></i><b>3.1.1</b> st_intersects()</a></li>
+<li class="chapter" data-level="3.1.2" data-path="topological-relations.html"><a href="topological-relations.html#st_intersection"><i class="fa fa-check"></i><b>3.1.2</b> st_intersection()</a></li>
+<li class="chapter" data-level="3.1.3" data-path="topological-relations.html"><a href="topological-relations.html#st_is_within_distance"><i class="fa fa-check"></i><b>3.1.3</b> st_is_within_distance()</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html"><i class="fa fa-check"></i><b>3.2</b> Spatial Subsetting (or Flagging)</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#polygons-vs-polygons"><i class="fa fa-check"></i><b>3.2.1</b> polygons vs polygons</a></li>
+<li class="chapter" data-level="3.2.2" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#points-vs-polygons"><i class="fa fa-check"></i><b>3.2.2</b> points vs polygons</a></li>
+<li class="chapter" data-level="3.2.3" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#lines-vs-polygons"><i class="fa fa-check"></i><b>3.2.3</b> lines vs polygons</a></li>
+<li class="chapter" data-level="3.2.4" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#flagging-instead-of-subsetting"><i class="fa fa-check"></i><b>3.2.4</b> Flagging instead of subsetting</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="spatial-join.html"><a href="spatial-join.html"><i class="fa fa-check"></i><b>3.3</b> Spatial Join</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="spatial-join.html"><a href="spatial-join.html#case-1-points-target-vs-polygons-source"><i class="fa fa-check"></i><b>3.3.1</b> Case 1: points (target) vs polygons (source)</a></li>
+<li class="chapter" data-level="3.3.2" data-path="spatial-join.html"><a href="spatial-join.html#case-2-polygons-target-vs-points-source"><i class="fa fa-check"></i><b>3.3.2</b> Case 2: polygons (target) vs points (source)</a></li>
+<li class="chapter" data-level="3.3.3" data-path="spatial-join.html"><a href="spatial-join.html#polygon-polygon"><i class="fa fa-check"></i><b>3.3.3</b> Case 3: polygons (target) vs polygons (source)</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R as GIS for Economists</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<link href="style.css" rel="stylesheet" type="text/css">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-59758608-3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-59758608-3');
+</script>
+<div id="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature" class="section level2">
+<h2><span class="header-section-number">2.2</span> Simple feature geometry, simple feature geometry list-column, and simple feature</h2>
+<p>Here, we learn how different types of <code>sfg</code> are constructed. We also learn how to create <code>sfc</code> and <code>sf</code> from <code>sfg</code> from scratch.<a href="#fn40" class="footnote-ref" id="fnref40"><sup>40</sup></a></p>
+<div id="simple-feature-geometry-sfg" class="section level3">
+<h3><span class="header-section-number">2.2.1</span> Simple feature geometry (<code>sfg</code>)</h3>
+<p>The <code>sf</code> package uses a class of <code>sfg</code> (simple feature geometry) objects to represent a geometry of a single geometric feature (say, a city as a point, a river as a line, county and school district as polygons). There are different types of <code>sfg</code>s. Here are some example feature types that we commonly encounter as an economist<a href="#fn41" class="footnote-ref" id="fnref41"><sup>41</sup></a>:</p>
+<ul>
+<li><code>POINT</code>: area-less feature that represents a point (e.g., well, city, farmland)</li>
+<li><code>LINESTRING</code>: (e.g., a tributary of a river)</li>
+<li><code>MULTILINESTRING</code>: (e.g., river with more than one tributaries)</li>
+<li><code>POLYGON</code>: geometry with a positive area (e.g., county, state, country)</li>
+<li><code>MULTIPOLYGON</code>: collection of polygons to represent a single object (e.g., countries with islands: U.S., Japan)</li>
+</ul>
+<hr />
+<p><code>POINT</code> is the simplest geometry type, and is represented by a vector of two<a href="#fn42" class="footnote-ref" id="fnref42"><sup>42</sup></a> numeric values. An example below shows how a <code>POINT</code> feature can be made from scratch<a href="#fn43" class="footnote-ref" id="fnref43"><sup>43</sup></a>:</p>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb98-1" data-line-number="1"><span class="co">#--- create a POINT ---#</span></a>
+<a class="sourceLine" id="cb98-2" data-line-number="2">a_point &lt;-<span class="st"> </span><span class="kw">st_point</span>(<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">1</span>))</a></code></pre></div>
+<p>The <code>st_point()</code> function creates a <code>POINT</code> object when supplied with a vector of two numeric values. If you check the class of the newly created object,</p>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb99-1" data-line-number="1"><span class="co">#--- check the class of the object ---#</span></a>
+<a class="sourceLine" id="cb99-2" data-line-number="2"><span class="kw">class</span>(a_point)</a></code></pre></div>
+<pre><code>[1] &quot;XY&quot;    &quot;POINT&quot; &quot;sfg&quot;  </code></pre>
+<p>You can see that it’s indeed a <code>POINT</code> object. But, it’s also an <code>sfg</code> object. So, <code>a_point</code> is an <code>sfg</code> object of type <code>POINT</code>.</p>
+<hr />
+<p>A <code>LINESTRING</code> objects are represented by a sequence of points:</p>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb101-1" data-line-number="1"><span class="co">#--- collection of points in a matrix form ---#</span></a>
+<a class="sourceLine" id="cb101-2" data-line-number="2">s1 &lt;-<span class="st"> </span><span class="kw">rbind</span>(<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">3</span>),<span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">4</span>),<span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">5</span>),<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">5</span>))</a>
+<a class="sourceLine" id="cb101-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb101-4" data-line-number="4"><span class="co">#--- see what s1 looks like ---#</span></a>
+<a class="sourceLine" id="cb101-5" data-line-number="5">s1</a></code></pre></div>
+<pre><code>     [,1] [,2]
+[1,]    2    3
+[2,]    3    4
+[3,]    3    5
+[4,]    1    5</code></pre>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb103-1" data-line-number="1"><span class="co">#--- create a &quot;LINESTRING&quot; ---#</span></a>
+<a class="sourceLine" id="cb103-2" data-line-number="2">a_linestring &lt;-<span class="st"> </span><span class="kw">st_linestring</span>(s1)</a>
+<a class="sourceLine" id="cb103-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb103-4" data-line-number="4"><span class="co">#--- check the class ---#</span></a>
+<a class="sourceLine" id="cb103-5" data-line-number="5"><span class="kw">class</span>(a_linestring)</a></code></pre></div>
+<pre><code>[1] &quot;XY&quot;         &quot;LINESTRING&quot; &quot;sfg&quot;       </code></pre>
+<p><code>s1</code> is a matrix where each row represents a point. By applying <code>st_linestring()</code> function to <code>s1</code>, you create a <code>LINESTRING</code> object. Let’s see what the line looks like.</p>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb105-1" data-line-number="1"><span class="kw">plot</span>(a_linestring)</a></code></pre></div>
+<p><img src="VectorDataBasics_files/figure-html/plot_line-1.png" width="672" /></p>
+<p>As you can see, each pair of consecutive points in the matrix are connected by a straight line to form a line.</p>
+<hr />
+<p>A <code>POLYGON</code> is very similar to <code>LINESTRING</code> in the manner it is represented.</p>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb106-1" data-line-number="1"><span class="co">#--- collection of points in a matrix form ---#</span></a>
+<a class="sourceLine" id="cb106-2" data-line-number="2">p1 &lt;-<span class="st"> </span><span class="kw">rbind</span>(<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>), <span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">0</span>), <span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">2</span>), <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">5</span>), <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>), <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>))</a>
+<a class="sourceLine" id="cb106-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb106-4" data-line-number="4"><span class="co">#--- see what s1 looks like ---#</span></a>
+<a class="sourceLine" id="cb106-5" data-line-number="5">p1</a></code></pre></div>
+<pre><code>     [,1] [,2]
+[1,]    0    0
+[2,]    3    0
+[3,]    3    2
+[4,]    2    5
+[5,]    1    3
+[6,]    0    0</code></pre>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb108-1" data-line-number="1"> <span class="co">#--- create a &quot;LINESTRING&quot; ---#</span></a>
+<a class="sourceLine" id="cb108-2" data-line-number="2">a_polygon &lt;-<span class="st"> </span><span class="kw">st_polygon</span>(<span class="kw">list</span>(p1))</a>
+<a class="sourceLine" id="cb108-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb108-4" data-line-number="4"><span class="co">#--- check the class ---#</span></a>
+<a class="sourceLine" id="cb108-5" data-line-number="5"><span class="kw">class</span>(a_polygon)</a></code></pre></div>
+<pre><code>[1] &quot;XY&quot;      &quot;POLYGON&quot; &quot;sfg&quot;    </code></pre>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb110-1" data-line-number="1"><span class="co">#--- see what it looks like ---#</span></a>
+<a class="sourceLine" id="cb110-2" data-line-number="2"><span class="kw">plot</span>(a_polygon)</a></code></pre></div>
+<p><img src="VectorDataBasics_files/figure-html/polygon_1-1.png" width="672" /></p>
+<p>Just like the <code>LINESTRING</code> object we created earlier, a <code>POLYGON</code> is represented by a collection of points. The biggest difference between them is that we need to have some positive area enclosed by lines connecting the points. To do that, you have the the same point for the first and last points to close the loop: here, it’s <code>c(0,0)</code>. A <code>POLYGON</code> can have a hole in it. The first matrix of a list becomes the exterior ring, and all the subsequent matrices will be holes within the exterior ring.</p>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb111-1" data-line-number="1"><span class="co">#--- a hole within p1 ---#</span></a>
+<a class="sourceLine" id="cb111-2" data-line-number="2">p2 &lt;-<span class="st"> </span><span class="kw">rbind</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>), <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>), <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</a>
+<a class="sourceLine" id="cb111-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb111-4" data-line-number="4"><span class="co">#--- create a polygon with hole ---#</span></a>
+<a class="sourceLine" id="cb111-5" data-line-number="5">a_plygon_with_a_hole &lt;-<span class="st"> </span><span class="kw">st_polygon</span>(<span class="kw">list</span>(p1,p2))</a>
+<a class="sourceLine" id="cb111-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb111-7" data-line-number="7"><span class="co">#--- see what it looks like ---#</span></a>
+<a class="sourceLine" id="cb111-8" data-line-number="8"><span class="kw">plot</span>(a_plygon_with_a_hole)</a></code></pre></div>
+<p><img src="VectorDataBasics_files/figure-html/polygon_hole-1.png" width="672" /></p>
+<hr />
+<p>You can create a <code>MULTIPOLYGON</code> object in a similar manner. The only difference is that you supply a list of lists of matrices, with each inner list representing a polygon. An example below:</p>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb112-1" data-line-number="1"><span class="co">#--- second polygon ---#</span></a>
+<a class="sourceLine" id="cb112-2" data-line-number="2">p3 &lt;-<span class="st"> </span><span class="kw">rbind</span>(<span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">0</span>), <span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">0</span>), <span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">3</span>), <span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">2</span>), <span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">0</span>)) </a>
+<a class="sourceLine" id="cb112-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb112-4" data-line-number="4"><span class="co">#--- create a multipolygon ---#</span></a>
+<a class="sourceLine" id="cb112-5" data-line-number="5">a_multipolygon &lt;-<span class="st"> </span><span class="kw">st_multipolygon</span>(<span class="kw">list</span>(<span class="kw">list</span>(p1,p2), <span class="kw">list</span>(p3)))</a>
+<a class="sourceLine" id="cb112-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb112-7" data-line-number="7"><span class="co">#--- see what it looks like ---#</span></a>
+<a class="sourceLine" id="cb112-8" data-line-number="8"><span class="kw">plot</span>(a_multipolygon)</a></code></pre></div>
+<p><img src="VectorDataBasics_files/figure-html/multi_polygon-1.png" width="672" /></p>
+<p>Each of <code>list(p1,p2)</code>, <code>list(p3,p4)</code>, <code>list(p5)</code> represents a polygon. You supply a list of these lists to the <code>st_multipolygon()</code> function to make a <code>MULTIPOLYGON</code> object.</p>
+</div>
+<div id="create-simple-feature-geometry-list-column-sfc-and-simple-feature-sf-from-scratch" class="section level3">
+<h3><span class="header-section-number">2.2.2</span> Create simple feature geometry list-column (<code>sfc</code>) and simple feature (<code>sf</code>) from scratch</h3>
+<p>To make a simple feature geometry list-column (<code>sfc</code>), you can simply supply a list of <code>sfg</code> to the <code>st_sfc()</code> function as follows:</p>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb113-1" data-line-number="1"><span class="co">#--- create an sfc ---#</span></a>
+<a class="sourceLine" id="cb113-2" data-line-number="2">sfc_ex &lt;-<span class="st"> </span><span class="kw">st_sfc</span>(<span class="kw">list</span>(a_point,a_linestring,a_polygon,a_multipolygon))</a></code></pre></div>
+<p>To create an <code>sf</code> object, you first add an <code>sfc</code> as a column to a <code>data.frame</code>.</p>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb114-1" data-line-number="1"><span class="co">#--- create a data.frame ---#</span></a>
+<a class="sourceLine" id="cb114-2" data-line-number="2">df_ex &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</a>
+<a class="sourceLine" id="cb114-3" data-line-number="3">  <span class="dt">name=</span><span class="kw">c</span>(<span class="st">&#39;A&#39;</span>,<span class="st">&#39;B&#39;</span>,<span class="st">&#39;C&#39;</span>,<span class="st">&#39;D&#39;</span>)</a>
+<a class="sourceLine" id="cb114-4" data-line-number="4">)</a>
+<a class="sourceLine" id="cb114-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb114-6" data-line-number="6"><span class="co">#--- add the sfc as a column ---#</span></a>
+<a class="sourceLine" id="cb114-7" data-line-number="7">df_ex<span class="op">$</span>geometry &lt;-<span class="st"> </span>sfc_ex </a>
+<a class="sourceLine" id="cb114-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb114-9" data-line-number="9"><span class="co">#--- take a look ---#</span></a>
+<a class="sourceLine" id="cb114-10" data-line-number="10">df_ex</a></code></pre></div>
+<pre><code>  name                       geometry
+1    A                    POINT (2 1)
+2    B LINESTRING (2 3, 3 4, 3 5, ...
+3    C POLYGON ((0 0, 3 0, 3 2, 2 ...
+4    D MULTIPOLYGON (((0 0, 3 0, 3...</code></pre>
+<p>At this point, it is not recognized as an <code>sf</code> by R yet.</p>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb116-1" data-line-number="1"><span class="co">#--- see what it looks like (this is not an sf object yet) ---#</span></a>
+<a class="sourceLine" id="cb116-2" data-line-number="2"><span class="kw">class</span>(df_ex)</a></code></pre></div>
+<pre><code>[1] &quot;data.frame&quot;</code></pre>
+<p>You can register it as an <code>sf</code> object using <code>st_as_sf()</code>.</p>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb118-1" data-line-number="1"><span class="co">#--- let R recognize the data frame as sf ---#</span></a>
+<a class="sourceLine" id="cb118-2" data-line-number="2">sf_ex &lt;-<span class="st"> </span><span class="kw">st_as_sf</span>(df_ex)</a>
+<a class="sourceLine" id="cb118-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb118-4" data-line-number="4"><span class="co">#--- see what it looks like ---#</span></a>
+<a class="sourceLine" id="cb118-5" data-line-number="5">sf_ex</a></code></pre></div>
+<pre><code>Simple feature collection with 4 features and 1 field
+geometry type:  GEOMETRY
+dimension:      XY
+bbox:           xmin: 0 ymin: 0 xmax: 5 ymax: 5
+CRS:            NA
+  name                       geometry
+1    A                    POINT (2 1)
+2    B LINESTRING (2 3, 3 4, 3 5, ...
+3    C POLYGON ((0 0, 3 0, 3 2, 2 ...
+4    D MULTIPOLYGON (((0 0, 3 0, 3...</code></pre>
+<p>As you can see <code>sf_ex</code> is now recognized also as an <code>sf</code> object.</p>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb120-1" data-line-number="1"><span class="co">#--- check the class ---#</span></a>
+<a class="sourceLine" id="cb120-2" data-line-number="2"><span class="kw">class</span>(sf_ex)</a></code></pre></div>
+<pre><code>[1] &quot;sf&quot;         &quot;data.frame&quot;</code></pre>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="40">
+<li id="fn40"><p>I must say that creating spatial objects from scratch yourself is an unnecessary skill for many of us as an economist. But, it is still good to know the underlying structure of the data. Also, occasionally the need arises. For example, I had to construct spatial objects from scratch when I designed on-farm randomized nitrogen trials. In such cases, it is of course necessary to understand how different types of <code>sfg</code> are constructed, create <code>sfc</code> from a collection of <code>sfg</code>s, and then create an <code>sf</code> from an <code>sfc</code>.<a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#fnref40" class="footnote-back">↩</a></p></li>
+<li id="fn41"><p>You will hardly see the other geometry types: MULTIPOINT and GEOMETRYCOLLECTION. You may see GEOMETRYCOLLECTION after intersecting two spatial objects. You can see <a href="https://r-spatial.github.io/sf/articles/sf1.html#sfg-simple-feature-geometry-1">here</a> if you are interested in learning what they are.<a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#fnref41" class="footnote-back">↩</a></p></li>
+<li id="fn42"><p>or three to represent a point in the three-dimensional space<a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#fnref42" class="footnote-back">↩</a></p></li>
+<li id="fn43"><p>we will learn how to make <code>sfg</code> objects from scratch because it helps to better understand how the spatial data is stored.<a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#fnref43" class="footnote-back">↩</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="spatial-data-structure.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="reading-and-writing-vector-data.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

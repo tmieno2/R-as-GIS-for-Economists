@@ -1,0 +1,745 @@
+# Spatial Interactions of Vector and Raster Data {#int-RV}
+
+```{r chap5_setup, echo = FALSE, results = "hide"}
+library(knitr)
+knitr::opts_chunk$set(
+  echo = TRUE,
+  cache = TRUE,
+  comment = NA,
+  message = FALSE,
+  warning = FALSE,
+  tidy = FALSE,
+  cache.lazy = FALSE
+)
+
+suppressMessages(library(here))
+opts_knit$set(root.dir = here())
+```
+
+```{r , eval = FALSE, echo = FALSE}
+setwd(here())
+```
+
+```{r, echo=FALSE, warning=FALSE, cache = FALSE}
+#--- load packages ---#
+suppressMessages(library(data.table))
+suppressMessages(library(exactextractr))
+suppressMessages(library(prism))
+suppressMessages(library(sf))
+suppressMessages(library(terra))
+suppressMessages(library(raster))
+suppressMessages(library(tidyverse))
+suppressMessages(library(DT))
+suppressMessages(library(tictoc))
+suppressMessages(library(tmap))
+suppressMessages(library(parallel))
+suppressMessages(library(maps))
+```
+
+
+```{r figure_setup, echo = FALSE}
+theme_update(
+  axis.title.x = element_text(size=12,angle=0,hjust=.5,vjust=-0.3,face="plain",family="Times"),
+  axis.title.y = element_text(size=12,angle=90,hjust=.5,vjust=.9,face="plain",family="Times"),
+
+  axis.text.x = element_text(size=10,angle=0,hjust=.5,vjust=1.5,face="plain",family="Times"),
+  axis.text.y = element_text(size=10,angle=0,hjust=1,vjust=0,face="plain",family="Times"),
+
+  axis.ticks = element_line(size=0.3, linetype="solid"),
+  # axis.ticks = element_blank(),
+  axis.ticks.length = unit(.15,'cm'),
+  # axis.ticks.margin = unit(.1,'cm'),
+  # axis.text = element_text(margin=unit(.1,'cm')),
+
+  #--- legend ---#
+  legend.text = element_text(size=10,angle=0,hjust=0,vjust=0,face="plain",family="Times"),
+  legend.title = element_text(size=10,angle=0,hjust=0,vjust=0,face="plain",family="Times"),
+  legend.key.size = unit(0.5, "cm"),
+
+  #--- strip (for faceting) ---#
+  strip.text = element_text(size = 10,family="Times"),
+
+  #--- plot title ---#
+  plot.title=element_text(family="Times", face="bold", size=12),
+
+  #--- margin ---#
+  # plot.margin = margin(0, 0, 0, 0, "cm"),
+
+  #--- panel ---#
+  panel.grid.major = element_blank(),
+  panel.grid.minor = element_blank(),
+  panel.background = element_blank(),
+  panel.border = element_rect(fill=NA)
+  )
+```
+
+
+
+
+## Before you start {-}
+
+In this chapter we learn the spatial interactions of a vector and raster dataset. We first look at how to crop (spatially subset) a raster dataset based on the geographic extent of a vector dataset. We then cover how to extract values from raster data for points and polygons. To be precise, here is what we mean by raster data extraction and what it does for points and polygons data:
+
++ **Points**: For each of the points, find which raster cell it is located within, and assign the value of the cell to the point.  
+ 
++ **Polygons**: For each of the polygons, identify all the raster cells that intersect with the polygon, and assign a vector of the cell values to the polygon
+
+This is probably the most important operation economists run on raster datasets. 
+
+We will show how we can use `terra::extract()` for both cases. But, we will also see that for polygons, `exact_extract()` from the `exactextractr` package is often considerably faster than `terra::extract()`.
+
+Finally, you will see conversions between `Raster`$^*$ (`raster` package) objects and `SpatRaster` object (`terra` package) because of the incompatibility of object classes across the key packages. I believe that these hassles will go away soon when they start supporting each other.  
+
+### Direction for replication {-}
+
+**Datasets**
+
+All the datasets that you need to import are available [here](https://www.dropbox.com/sh/ayw6rz1wg0fmz2v/AADgKprG9P5xRBjvWE4eRSN2a?dl=0). In this chapter, the path to files is set relative to my own working directory (which is hidden). To run the codes without having to mess with paths to the files, follow these steps:
+
++ set a folder (any folder) as the working directory using `setwd()`  
++ create a folder called "Data" inside the folder designated as the working directory (if you have created a "Data" folder previously, skip this step)
++ download the pertinent datasets from [here](https://www.dropbox.com/sh/ayw6rz1wg0fmz2v/AADgKprG9P5xRBjvWE4eRSN2a?dl=0) 
++ place all the files in the downloaded folder in the "Data" folder
+
+**Packages**
+
+Run the following code to install or load (if already installed) the `pacman` package, and then install or load (if already installed) the listed package inside the `pacman::p_load()` function.
+
+```{r Chap5_packages}
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(
+  terra, # handle raster data
+  raster, # handle raster data
+  exactextractr, # fast extractions
+  sf, # vector data operations
+  dplyr, # data wrangling
+  tidyr, # data wrangling
+  data.table, # data wrangling
+  prism, # download PRISM data
+  tictoc # timing codes
+)  
+```
+
+(**Important** as of 06//15/2020)  
+You can make `exactextractr` even faster by installing the most recent versions of the `raster` (which `exactextractr` partially depends on) and `exactextractr` packages available on their respective github pages as follows:
+
+```{r , eval = F}
+library(remotes)  
+install_github("isciences/exactextractr") 
+install_github("rspatial/raster") 
+``` 
+
+This will alleviate the significant overhead associated with many `getValuesBlock()` calls from `exactextractr::exact_extract`, and makes it much faster. See some benchmarks [here](https://github.com/isciences/exactextractr/issues/34). But, the installation of this version of the `raster` package causes an error with `mapview()` function. Therefore, this book is compiled with the CRAN version of the `raster` package to make all the codes in this book run without errors. This of course means that the relative performance of `exact_extract()` over other options can be even more impressive than what you will see in this book.  
+
+## Cropping (Spatial subsetting) to the Area of Interest {#raster-crop}
+
+Here we use PRISM maximum temperature (tmax) data as a raster dataset and Kansas county boundaries as a vector dataset. 
+
+Let's download the tmax data for July 1, 2018 (Figure \@ref(fig:prism-tmax-map)).
+
+```{r prism_download, cache = F, results = "hide"}
+#--- set the path to the folder to which you save the downloaded PRISM data ---#
+# This code sets the current working directory as the designated folder
+options(prism.path = "./Data")
+
+#--- download PRISM precipitation data ---#
+get_prism_dailys(
+  type = "tmax", 
+  date = "2018-07-01", 
+  keepZip = FALSE 
+)
+
+#--- the file name of the PRISM data just downloaded ---#
+prism_file <- "./Data/PRISM_tmax_stable_4kmD2_20180701_bil/PRISM_tmax_stable_4kmD2_20180701_bil.bil"
+
+#--- read in the prism data ---#
+prism_tmax_0701 <- raster(prism_file) 
+```
+
+```{r prism-tmax-map, echo = F, fig.cap = "Map of PRISM tmax data on July 1, 2018"}
+tm_shape(prism_tmax_0701) +
+  tm_raster() +
+  tm_layout(frame = NA)
+```
+
+We now get Kansas county border data from the `tigris` package (Figure \@ref(fig:ks-county-map)) as `sf`. 
+
+
+```{r get_KS_county, cache = F, results = "hide"}
+library(tigris)
+
+#--- Kansas boundary (sf) ---#
+KS_county_sf <- counties(state = "Kansas", cb = TRUE) %>% 
+  #--- sp to sf ---#
+  st_as_sf() %>% 
+  #--- transform using the CRS of the PRISM tmax data  ---#
+  st_transform(projection(prism_tmax_0701)) 
+
+```
+
+```{r ks-county-map, echo = FALSE, fig.cap = "Kansas county boundaries"}
+#--- gen map ---#
+tm_shape(KS_county_sf) +
+  tm_polygons() +
+tm_layout(
+  frame = NA
+)
+```
+
+---
+
+Sometimes, it is convenient to crop a raster layer to the specific area of interest so that you do not have to carry around unnecessary parts of the raster layer. Moreover, it takes less time to extract values from a raster layer when the size of the raster layer is smaller. You can crop a raster layer by using `raster::crop()`. It works like this:
+
+```{r crop_syntax, eval = FALSE}
+#--- syntax (NOT RUN) ---#
+crop(raster object, geographic extent)
+```
+
+To find the geographic extent of a vector data, you can use `raster::extent()`. 
+
+```{r raster_extent_sf, cache = F}
+KS_extent <- raster::extent(KS_county_sf)
+```
+
+As you can see, it consists of four points. Four pairs of these values (xmin, ymin), (xmin, ymax), (xmax, ymin), and (xmax, ymax) form a rectangle that encompasses the Kansas state boundary. We will crop the PRISM raster layer to the rectangle:
+
+```{r crop_prism_to_KS, cache = F}
+#--- crop the entire PRISM to its KS portion---#
+prism_tmax_0701_KS_sr <- crop(prism_tmax_0701, KS_extent)
+```
+
+The figure below (Figure \@ref(fig:prism-ks-viz)) shows the PRISM tmax raster data cropped to the geographic extent of Kansas. Notice that the cropped raster layer extends beyond the outer boundary of Kansas state boundary (it is a bit hard to see, but look at the upper right corner).  
+
+```{r prism-ks-viz, fig.cap = "PRISM tmax raster data cropped to the geographic extent of Kansas", echo = F}
+tm_shape(raster(prism_tmax_0701_KS_sr)) +
+  tm_raster() +
+tm_shape(KS_county_sf) +
+  tm_polygons(alpha = 0)
+```
+
+<!-- 
+You can mask the values (set values to NA) outside of the vectors data.
+
+```{r mask_prism, eval = F}
+#--- syntax ---#
+mask(raster object, sf object)
+
+#--- example ---#
+masked_prism_IL <- mask(prism_for_IL, IL_county)
+```
+
+```{r mask_prism_run, echo = F, eval = F}
+#--- example ---#
+masked_prism_IL <- mask(prism_for_IL, IL_county)
+```
+
+```{r prism_ks_masked_viz, eval = F}
+tm_shape(masked_prism_IL) +
+  tm_raster() +
+tm_shape(IL_county) +
+  tm_polygons(alpha = 0)
+```
+
+ -->
+
+
+## Extracting Values from Raster Layers for Vector Data 
+
+In this section, we will learn how to extract information from raster layers for spatial units represented as vector data (points and polygons). For the illustrations in this section, we use the following datasets:
+
++ Raster: PRISM tmax data cropped to Kansas state border for 07/01/2018 (obtained in \@ref(raster-crop)) and 07/02/2018 (downloaded below)
++ Polygons: Kansas county boundaries (obtained in \@ref(raster-crop))
++ Points: Irrigation wells in Kansas (imported below) 
+
+**PRISM tmax data for 07/02/2018**
+
+```{r download_07022018, cache = F, results = "hide"}
+#--- download PRISM precipitation data ---#
+get_prism_dailys(
+  type = "tmax", 
+  date = "2018-07-02", 
+  keepZip = FALSE 
+)
+
+#--- the file name of the PRISM data just downloaded ---#
+prism_file <- "Data/PRISM_tmax_stable_4kmD2_20180702_bil/PRISM_tmax_stable_4kmD2_20180702_bil.bil"
+
+#--- read in the prism data and crop it to Kansas state border ---#
+prism_tmax_0702_KS_sr <- rast(prism_file) %>% 
+  terra::crop(KS_extent)
+```
+
+**Irrigation wells in Kansas:**
+
+```{r import_KS_wells}
+#--- read in the KS points data ---#
+(
+KS_wells <- readRDS("./Data/Chap_5_wells_KS.rds") 
+)
+```
+
+---
+
+Here is how the wells are spatially distributed over the PRISM grids and Kansas county borders (Figure \@ref(fig:tmax-prism-wells)):
+
+```{r tmax-prism-wells, fig.cap = "Map of Kansas county borders, irrigation wells, and PRISM tmax", echo = F}
+tm_shape(raster(prism_tmax_0701_KS_sr)) +
+  tm_raster(title = "tmax", alpha = 0.7) +
+tm_shape(KS_county_sf) +
+  tm_polygons(alpha = 0) +
+tm_shape(KS_wells) +
+  tm_symbols(size = 0.02) +
+  tm_layout(
+    frame = FALSE, 
+    legend.outside = TRUE,
+    legend.outside.position = "bottom"
+  )
+```
+
+
+### Points 
+
+You can extract values from raster layers to points using `terra::extract()`. `terra::extract()` finds which raster cell each of the points is located within and assigns the value of the cell to the point. One complication that we have to deal with at the moment is the fact that `terra` does not support `sf` yet. However, `terra::extract()` accepts a longitude and latitude matrix. Therefore, the following works:^[I believe this issue will be resolved soon and you can just supply an `sf` object instead of coordinates.]  
+
+```{r eval = F}
+#--- syntax (NOT RUN) ---#
+terra::extract(raster object, st_coordinates(sf object)) 
+```
+
+Let's extract tmax values from the PRISM tmax layer to the irrigation wells:
+
+```{r extract_tmax}
+#--- extract tmax values ---#
+tmax_from_prism <- terra::extract(prism_tmax_0701_KS_sr, st_coordinates(KS_wells))
+
+#--- take a look ---#
+head(tmax_from_prism)
+```
+
+`terra::extract()` returns the extracted values as a vector when the raster object is single-layer raster data. Since the order of the values are consistent with the order of the observations in the points data, you can simply assign the vector as a new variable of the points data as follows:
+
+```{r, cache=TRUE}
+KS_wells$tmax_07_01 <- tmax_from_prism
+```   
+
+Extracting values from a multi-layer `SpatRaster` works the same way. Here, we combine `prism_tmax_0701_KS_sr` and `prism_tmax_0703_KS_sr` to create a multi-layer `SpatRaster`.
+
+```{r extract_tmax_run_stack}
+#--- create a multi-layer SpatRaster ---#
+prism_tmax_stack <- c(prism_tmax_0701_KS_sr, prism_tmax_0702_KS_sr)
+
+#--- extract tmax values ---#
+tmax_from_prism_stack <- terra::extract(prism_tmax_stack, st_coordinates(KS_wells))
+
+#--- take a look ---#
+head(tmax_from_prism_stack)
+```
+
+Instead of a vector, the returned object is a matrix with each of the raster layers forming a column.    
+
+### Polygons (`terra` way)
+
+**Caution:** Recently, `terra::extract()` crashed R sessions on RStudio several times when I tried to extract values from a large raster dataset (1.6 GB) for polygons. I did not see any problem when extracting for points data even if the raster data is very large, For now, I recommend `exact_extract()` to extract values for polygons, which is detailed in the next section. `exact_extract()` is faster for a large raster dataset anyway.  
+
+Remember that the `terra` packages does not support an `sf` object yet. So, an `sf` object of polygons needs to be converted to a `SpatVector` object before we use any functions from the `terra` packages.^[See Chapter \@ref(raster-basics) to learn what `SpatVector` is and how to convert `sf` to `SpatRaster`.] 
+
+```{r convert-sv}
+#--- Kansas boundary (SpatVector) ---#
+KS_county_sv <- KS_county_sf %>% 
+  #--- convert to a SpatVector object ---#
+  as(., "Spatial") %>% vect() 
+```
+
+You can use the same `terra::extract()` function to extract values from a raster layer for polygons. For each of the polygons, it will identify all the raster cells whose center lies inside the polygon and assign the vector of values of the cells to the polygon (You can change this to the cells that intersect with polygons using the `touch = TRUE` option). 
+
+
+```{r terra_extract_polygon}
+#--- extract values from the raster for each county ---#
+tmax_by_county <- terra::extract(prism_tmax_0701_KS_sr, KS_county_sv)  
+
+#--- take a look at the first 2 elements of the list ---#
+tmax_by_county[1:2] 
+```
+
+`terra::extract()` returns a list, where its $i$th element corresponds to the $i$th row of observation in the polygon data (`KS_county_sv`). Each of the list elements is also a list, and the list has a vector of extracted values for the corresponding polygon.  
+
+```{r tmax_for_one_county}
+#--- see the first element of the list ---#
+tmax_by_county[[1]]
+
+#--- check the class ---#
+tmax_by_county[[1]] %>% class()
+```
+
+In order to make the results usable, you can process them to get a single `data.frame`, taking advantage of `dplyr::bind_rows()` to combine the list of the datasets into one dataset. In doing so, you can use `.id` option to create a new identifier column that links each row to its original data (`data.table` users can use `rbindlist()` with the `idcol` option).
+
+```{r tmax_for_one_county_to_df}
+(
+tmax_by_county_df <- tmax_by_county %>%  
+  #--- apply unlist to the lists to have vectors as the list elements ---#
+  lapply(unlist) %>% 
+  #--- convert vectors to data.frames ---#
+  lapply(as_tibble) %>% 
+  #--- combine the list of data.frames ---#
+  bind_rows(., .id = "rowid") %>% 
+  #--- rename the value variable ---# 
+  rename(tmax = value)
+)
+```
+
+Note that `rowid` represents the row number of polygons in `KS_county_sv`. Now, we can easily summarize the data by polygon (county). For example, the code below finds a simple average of tmax by county.
+
+```{r mean_tmax}
+tmax_by_county_df %>% 
+  group_by(rowid) %>% 
+  summarize(tmax = mean(tmax))
+```
+
+For `data.table` users, here is how you can do the same:
+
+```{r data_table_way}
+tmax_by_county %>%  
+  #--- apply unlist to the lists to have vectors as the list elements ---#
+  lapply(unlist) %>% 
+  #--- convert vectors to data.frames ---#
+  lapply(data.table) %>% 
+  #--- combine the list ---#
+  rbindlist(., idcol = "rowid") %>% 
+  #--- rename the value variable ---# 
+  setnames("V1", "tmax") %>% 
+  #--- find the mean of tmax ---#
+  .[, .(tmax = mean(tmax)), by = rowid]
+```
+
+---
+
+Extracting values from a multi-layer raster data works exactly the same way except that data processing after the value extraction is slightly more complicated. 
+
+```{r terra_exatrac_from_stack_run}
+#--- extract from a multi-layer raster object ---#
+tmax_by_county_from_stack <- terra::extract(prism_tmax_stack, KS_county_sv) 
+
+#--- take a look at the first element ---#
+tmax_by_county_from_stack[[1]]
+```
+
+Just like the single-layer case, $i$th element of the list corresponds to $i$th polygon. However, each element of the list has two lists of extracted values because we are extracting from a two-layer raster object. This makes it a bit complicated to process them to have nicely-formatted data. The following code transform the list to a single `data.frame`: 
+
+```{r process_eval_stack}
+#--- extraction from a multi-layer raster object ---#
+tmax_long_from_stack <- tmax_by_county_from_stack %>% 
+  lapply(., function(x) bind_rows(lapply(x, as_tibble), .id = "layer")) %>% 
+  bind_rows(., .id = "rowid")
+
+#--- take a look ---#
+head(tmax_long_from_stack)
+```
+
+Note that this code works for a raster object with any number of layers including the single-layer case we saw above. 
+
+We can then summarize the extracted data by polygon and raster layer.   
+
+```{r mean_tmax_layer_county}
+tmax_long_from_stack %>% 
+  group_by(rowid, layer) %>% 
+  summarize(tmax = mean(value))
+```
+
+Here is the `data.table` way:
+
+```{r process_eval_stack_dt}
+(
+tmax_by_county_layer <- tmax_by_county_from_stack %>% 
+  lapply(., function(x) rbindlist(lapply(x, data.table), idcol = "layer")) %>% 
+  rbindlist(., idcol = "rowid") %>% 
+  .[, .(tmax = mean(V1)), by = .(rowid, layer)]
+)
+```
+
+### Polygons (`exactextractr` way)
+
+`exact_extract()` function from the `exactextractr` package is a faster alternative than `terra::extract()` for large raster data as we confirm later (`exact_extract()` does not work with points data at the moment).^[See [here](https://github.com/isciences/exactextract) for how it does extraction tasks differently from other major GIS software.] `exact_extract()` also provides a coverage fraction value for each of the cell-polygon intersections. However, as mentioned in Chapter \@ref(raster-basics), it only works with `Raster`$^*$ objects. So, we first need to convert a `SpatRaster` object to a `Raster`$^*$ object. The syntax of `exact_extract()` is very much similar to `terra::extract()`. 
+
+```{r eval = FALSE}
+#--- syntax (NOT RUN) ---#
+exact_extract(raster, sf) 
+```
+
+So, to get tmax values from the PRISM raster layer for Kansas county polygons, the following does the job: 
+
+```{r exact_extract, eval = F}
+#--- convert to a RasterLayer ---#
+prism_tmax_0701_KS_rl <- raster(prism_tmax_0701_KS_sr)
+
+library("exactextractr")
+
+#--- extract values from the raster for each county ---#
+tmax_by_county <- exact_extract(prism_tmax_0701_KS_rl, KS_county_sf)  
+
+#--- take a look at the first 6 rows of the first two list elements ---#
+tmax_by_county[1:2] %>% lapply(function(x) head(x))
+```
+
+```{r exact_extract_run, echo = F, results = "hide"}
+library("exactextractr")
+
+#--- extract values from the raster for each county ---#
+tmax_by_county <- exact_extract(raster(prism_tmax_0701_KS_sr), KS_county_sf)  
+```
+
+```{r show_the_results, echo = F}
+#--- convert to a RasterLayer ---#
+prism_tmax_0701_KS_rl <- raster(prism_tmax_0701_KS_sr)
+
+#--- take a look at the first 6 rows of the first two list elements ---#
+tmax_by_county[1:2] %>% lapply(function(x) head(x))
+```
+
+`exact_extract()` returns a list, where its $i$th element corresponds to the $i$th row of observation in the polygon data (`KS_county_sf`). For each element of the list, you see `value` and `coverage_fraction`. `value` is the tmax value of the intersecting raster cells, and `coverage_fraction` is the fraction of the intersecting area relative to the full raster grid, which can help find coverage-weighted summary of the extracted values. 
+
+```{r combine_after_ee}
+#--- combine ---#
+tmax_combined <- bind_rows(tmax_by_county, .id = "id")
+
+#--- take a look ---#
+head(tmax_combined)
+```
+
+We can now summarize the data by `id`. Here, we calculate coverage-weighted mean of tmax.
+
+```{r transform_after_ee}
+tmax_by_id <- tmax_combined %>% 
+  #--- convert from character to numeric  ---#
+  mutate(id = as.numeric(id)) %>% 
+  #--- group summary ---#
+  group_by(id) %>% 
+  summarise(tmax = sum(value * coverage_fraction) / sum(coverage_fraction))
+
+#--- take a look ---#
+head(tmax_by_id)
+```
+
+Remember that `id` values are row numbers in the polygon data (`KS_county_sf`). So, we can assign the tmax values to KS_county_sf as follows:
+
+```{r asign_values_after_ee}
+KS_county_sf$tmax_07_01 <- tmax_by_id$tmax
+```
+
+---
+
+Extracting values from `RasterStack` works in exactly the same manner as `RasterLayer`. Do not forget that you need to use `stack()` instead of `raster()` to convert a multi-layer `SpatRaster` to `RasterStack`.
+
+```{r exatrac_from_stack_run}
+tmax_by_county_stack <- stack(prism_tmax_stack) %>% # convert to RasterStack
+  #--- extract from a stack ---#
+  exact_extract(., KS_county_sf, progress = F) 
+
+#--- take a look at the first 6 lines of the first element---#
+tmax_by_county_stack[[1]] %>% head()
+```
+
+As you can see above, `exact_extract()` appends additional columns for additional layers, unlike the results of `terra::extract()` that creates additional lists for additional layers. This makes the post-extraction processing much simpler.
+
+```{r combine_them}
+#--- combine them ---#
+tmax_all_combined <- tmax_by_county_stack %>% 
+  bind_rows(.id = "id") 
+
+#--- take a look ---#
+head(tmax_all_combined)
+```
+
+In order to find the coverage-weighted tmax by date, you can first pivot it to a long format using `dplyr::pivot_longer()`.
+
+```{r pivot_to_longer}
+#--- pivot to a longer format ---#
+(
+tmax_long <- pivot_longer(
+  tmax_all_combined, 
+  -c(id, coverage_fraction), 
+  names_to = "date",
+  values_to = "tmax"
+  )  
+)
+```
+
+And then find coverage-weighted tmax by date:
+
+```{r dplyr_way_tmax_cov}
+(
+tmax_long %>% 
+  group_by(id, date) %>% 
+  summarize(tmax = sum(tmax * coverage_fraction) / sum(coverage_fraction))
+)
+```
+
+For `data.table` users, this does the same:
+
+```{r datatable_way_tmax_cov}
+(
+tmax_all_combined %>% 
+  data.table() %>% 
+  melt(id.var = c("id", "coverage_fraction")) %>% 
+  .[, .(tmax = sum(value * coverage_fraction) / sum(coverage_fraction)), by = .(id, variable)]
+)
+```
+
+## Extraction speed comparison {#extract-speed}
+
+Here we compare the extraction speed of `raster::extract()`, `terra::extract()`, and `exact_extract()`. 
+
+### Points: `terra::extract()` and `raster::extract()`
+
+`exact_extract()` uses C++ as the backend. Therefore, it is considerably faster than `raster::extract()`.
+
+```{r points_extraction_comp}
+#--- terra ---#
+tic()
+temp <- terra::extract(prism_tmax_0701_KS_sr, st_coordinates(KS_wells))
+toc()
+
+#--- raster ---#
+tic()
+temp <- raster::extract(raster(prism_tmax_0701_KS_sr), KS_wells)
+toc()
+```
+
+As you can see, `terra::extract()` is much faster. The time differential between the two packages can be substantial as the raster data becomes larger.
+
+### Polygons: `exact_extract()`, `terra::extract()`, and `raster::extract()`
+
+`terra::extract()` is faster than `exact_extract()` for a relatively small raster data. Let's time them and see the difference.  
+
+```{r extract_from_polygons}
+library(tictoc)
+
+#--- terra extract ---#
+tic()
+terra_extract_temp <- terra::extract(prism_tmax_0701_KS_sr, KS_county_sv, progress = FALSE)  
+toc()
+
+#--- exact extract ---#
+tic()
+exact_extract_temp <- exact_extract(prism_tmax_0701_KS_rl, KS_county_sf, progress = FALSE)  
+toc()
+
+#--- raster::extract ---#
+tic()
+raster_extract_temp <- raster::extract(prism_tmax_0701_KS_rl, KS_county_sf)  
+toc()
+```
+
+As you can see, `raster::extract()` is by far the slowest. `terra::extract()` is faster than `exact_extract()`. However, once the raster data becomes larger (or spatially finer), then `exact_extact()` starts to shine. 
+
+---
+
+Let's disaggregate the prism data by a factor of 10 to create a much larger raster data.^[We did not introduce this function as it is very rare that you need this function in research projects.]
+
+```{r prism_disaggregate}
+#--- disaggregate ---#
+(
+prism_tmax_0701_KS_sr_10 <- terra::disaggregate(prism_tmax_0701_KS_sr, fact = 10)
+)
+
+#--- convert the disaggregated PRISM data to RasterLayer ---#
+prism_tmax_0701_KS_rl_10 <- raster(prism_tmax_0701_KS_sr_10)
+```
+
+The disaggregated PRISM data now has 10 times more rows and columns (see below).   
+
+```{r dimensions}
+#--- original ---#
+dim(prism_tmax_0701_KS_sr)  
+
+#--- disaggregated ---#
+dim(prism_tmax_0701_KS_sr_10)  
+``` 
+
+---
+
+Now, let's compare `terra::extrct()` and `exact_extrct()` using the disaggregated data.
+
+```{r extract_from_polygons_comp_2}
+#--- terra extract ---#
+tic()
+terra_extract_temp <- terra::extract(prism_tmax_0701_KS_sr_10, KS_county_sv)  
+toc()
+
+#--- exact extract ---#
+tic()
+exact_extract_temp <- exact_extract(prism_tmax_0701_KS_rl_10, KS_county_sf, progress = FALSE)  
+toc()
+```
+
+As you can see, `exact_extract()` is considerably faster. The difference in time becomes even more pronounced as the size of the raster data becomes larger and the number of polygons are greater. The time difference of several seconds seem nothing, but imagine processing PRISM files for the entire US over 20 years, then you would appreciate the speed of `exact_extract()`. 
+
+### Single-layer vs multi-layer
+
+Pretend that you have five dates of PRISM tmax data (here we repeat the same file five times) and would like to extract values from all of them. Extracting values from a multi-layer raster objects (`RasterStack` for `raster` package) takes less time than extracting values from the individual layers one at a time. This can be observed below.   
+
+---
+
+**`terra::extract()`**
+
+```{r write_raster_prism_10, echo = F}
+# terra::writeRaster(prism_tmax_0701_KS_sr_10, "./Data/prism_tmax_0701_KS_sr_10.tif", format = "GTiff", overwrite = TRUE)
+
+prism_tmax_0701_KS_sr_10 <- rast("./Data/prism_tmax_0701_KS_sr_10.tif")
+```
+
+```{r compare_speed_te}
+#--- extract from 5 layers one at a time ---#
+tic()
+temp <- terra::extract(prism_tmax_0701_KS_sr_10, KS_county_sv)
+temp <- terra::extract(prism_tmax_0701_KS_sr_10, KS_county_sv)
+temp <- terra::extract(prism_tmax_0701_KS_sr_10, KS_county_sv)
+temp <- terra::extract(prism_tmax_0701_KS_sr_10, KS_county_sv)
+temp <- terra::extract(prism_tmax_0701_KS_sr_10, KS_county_sv)
+toc()
+
+#--- extract from a 5-layer stack ---#
+prism_tmax_ml_5 <- c(
+    prism_tmax_0701_KS_sr_10, 
+    prism_tmax_0701_KS_sr_10, 
+    prism_tmax_0701_KS_sr_10, 
+    prism_tmax_0701_KS_sr_10, 
+    prism_tmax_0701_KS_sr_10
+  )
+
+tic()
+temp <- terra::extract(prism_tmax_ml_5, KS_county_sv)
+toc()
+```
+
+---
+
+**`exact_extract()`**
+
+```{r compare_speed_ee}
+#--- extract from 5 layers one at a time ---#
+tic()
+temp <- exact_extract(prism_tmax_0701_KS_rl_10, KS_county_sf, progress = FALSE)
+temp <- exact_extract(prism_tmax_0701_KS_rl_10, KS_county_sf, progress = FALSE)
+temp <- exact_extract(prism_tmax_0701_KS_rl_10, KS_county_sf, progress = FALSE)
+temp <- exact_extract(prism_tmax_0701_KS_rl_10, KS_county_sf, progress = FALSE)
+temp <- exact_extract(prism_tmax_0701_KS_rl_10, KS_county_sf, progress = FALSE)
+toc()
+
+#--- extract from from a 5-layer stack ---#
+prism_tmax_stack_5 <- stack(
+    prism_tmax_0701_KS_rl_10, 
+    prism_tmax_0701_KS_rl_10, 
+    prism_tmax_0701_KS_rl_10, 
+    prism_tmax_0701_KS_rl_10, 
+    prism_tmax_0701_KS_rl_10
+  )
+
+tic()
+temp <- exact_extract(prism_tmax_stack_5, KS_county_sf, progress = FALSE)
+toc()
+```
+
+The reduction in computation time for both methods makes sense. Since both layers have exactly the same geographic extent and resolution, finding the polygons-cells correspondence is done once and then it can be used repeatedly across the layers for the multi-layer `SparRaster` and `RasterStack`. This clearly suggests that when you are processing many layers of the same spatial resolution and extent, you should first stack them and then extract values at the same time instead of processing them one by one as long as your memory allows you to do so. 
+
+<!-- There is much more to discuss about the computation speed of raster data extraction for polygons. For those who are interested in this topic, go to Chapter \@ref(EE). -->
+

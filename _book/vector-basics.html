@@ -1,0 +1,1246 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 2 Handle vector data using the sf package | R as GIS for Economists</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 2 Handle vector data using the sf package | R as GIS for Economists" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 Handle vector data using the sf package | R as GIS for Economists" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Taro Mieno" />
+
+
+<meta name="date" content="2020-05-14" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="demo.html"/>
+<link rel="next" href="spatial-interactions-of-vector-data-subsetting-and-joining.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">R as GIS for Economists</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html#why-r-as-gis-for-economists"><i class="fa fa-check"></i>Why R as GIS for Economists?</a><ul>
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html#r-vs-python"><i class="fa fa-check"></i>R vs Python</a></li>
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html#r-vs-arcgis-or-qgis"><i class="fa fa-check"></i>R vs ArcGIS or QGIS</a></li>
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html#summary"><i class="fa fa-check"></i>Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html#how-is-this-book-different-from-other-online-books-and-resources"><i class="fa fa-check"></i>How is this book different from other online books and resources?</a></li>
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html#what-is-going-to-be-covered-in-this-book"><i class="fa fa-check"></i>What is going to be covered in this book?</a></li>
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html#conventions-of-the-book-and-some-notes"><i class="fa fa-check"></i>Conventions of the book and some notes</a><ul>
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html#texts-in-gray-boxes"><i class="fa fa-check"></i>Texts in gray boxes</a></li>
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html#colored-boxes"><i class="fa fa-check"></i>Colored Boxes</a></li>
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html#parentheses-around-codes"><i class="fa fa-check"></i>Parentheses around codes</a></li>
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html#footnotes"><i class="fa fa-check"></i>Footnotes</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html#session-information"><i class="fa fa-check"></i>Session Information</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="demo.html"><a href="demo.html"><i class="fa fa-check"></i><b>1</b> R as GIS: Demonstrations</a><ul>
+<li class="chapter" data-level="" data-path="demo.html"><a href="demo.html#before-you-start"><i class="fa fa-check"></i>Before you start</a><ul>
+<li class="chapter" data-level="" data-path="demo.html"><a href="demo.html#target-audience"><i class="fa fa-check"></i>Target Audience</a></li>
+<li class="chapter" data-level="" data-path="demo.html"><a href="demo.html#direction-for-replication"><i class="fa fa-check"></i>Direction for replication</a></li>
+</ul></li>
+<li class="chapter" data-level="1.1" data-path="demo.html"><a href="demo.html#Demo1"><i class="fa fa-check"></i><b>1.1</b> Demonstration 1: The impact of groundwater pumping on depth to water table</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="demo.html"><a href="demo.html#project-overview"><i class="fa fa-check"></i><b>1.1.1</b> Project Overview</a></li>
+<li class="chapter" data-level="1.1.2" data-path="demo.html"><a href="demo.html#project-demonstration"><i class="fa fa-check"></i><b>1.1.2</b> Project Demonstration</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="demo.html"><a href="demo.html#demonstration-2-precision-agriculture"><i class="fa fa-check"></i><b>1.2</b> Demonstration 2: Precision Agriculture</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="demo.html"><a href="demo.html#project-overview-1"><i class="fa fa-check"></i><b>1.2.1</b> Project Overview</a></li>
+<li class="chapter" data-level="1.2.2" data-path="demo.html"><a href="demo.html#project-demonstration-1"><i class="fa fa-check"></i><b>1.2.2</b> Project Demonstration</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="demo.html"><a href="demo.html#demonstration-3-land-use-and-weather"><i class="fa fa-check"></i><b>1.3</b> Demonstration 3: Land Use and Weather</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="demo.html"><a href="demo.html#project-overview-2"><i class="fa fa-check"></i><b>1.3.1</b> Project Overview</a></li>
+<li class="chapter" data-level="1.3.2" data-path="demo.html"><a href="demo.html#project-demonstration-2"><i class="fa fa-check"></i><b>1.3.2</b> Project Demonstration</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="demo.html"><a href="demo.html#demo4"><i class="fa fa-check"></i><b>1.4</b> Demonstration 4: The Impact of Railroad Presence on Corn Planted Acreage</a><ul>
+<li class="chapter" data-level="1.4.1" data-path="demo.html"><a href="demo.html#project-overview-3"><i class="fa fa-check"></i><b>1.4.1</b> Project Overview</a></li>
+<li class="chapter" data-level="1.4.2" data-path="demo.html"><a href="demo.html#project-demonstration-3"><i class="fa fa-check"></i><b>1.4.2</b> Project Demonstration</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="demo.html"><a href="demo.html#demonstration-5-groundwater-use-for-agricultural-irrigation"><i class="fa fa-check"></i><b>1.5</b> Demonstration 5: Groundwater use for agricultural irrigation</a><ul>
+<li class="chapter" data-level="1.5.1" data-path="demo.html"><a href="demo.html#project-overview-4"><i class="fa fa-check"></i><b>1.5.1</b> Project Overview</a></li>
+<li class="chapter" data-level="1.5.2" data-path="demo.html"><a href="demo.html#project-demonstration-4"><i class="fa fa-check"></i><b>1.5.2</b> Project Demonstration</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="vector-basics.html"><a href="vector-basics.html"><i class="fa fa-check"></i><b>2</b> Handle vector data using the sf package</a><ul>
+<li class="chapter" data-level="" data-path="vector-basics.html"><a href="vector-basics.html#before-you-start-1"><i class="fa fa-check"></i>Before you start</a><ul>
+<li><a href="vector-basics.html#sf-or-sp"><code>sf</code> or <code>sp</code>?</a></li>
+</ul></li>
+<li class="chapter" data-level="2.1" data-path="vector-basics.html"><a href="vector-basics.html#spatial-data-structure"><i class="fa fa-check"></i><b>2.1</b> Spatial Data Structure</a></li>
+<li class="chapter" data-level="2.2" data-path="vector-basics.html"><a href="vector-basics.html#simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature"><i class="fa fa-check"></i><b>2.2</b> Simple feature geometry, simple feature geometry list-column, and simple feature</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="vector-basics.html"><a href="vector-basics.html#simple-feature-geometry-sfg"><i class="fa fa-check"></i><b>2.2.1</b> Simple feature geometry (<code>sfg</code>)</a></li>
+<li class="chapter" data-level="2.2.2" data-path="vector-basics.html"><a href="vector-basics.html#create-simple-feature-geometry-list-column-sfc-and-simple-feature-sf-from-scratch"><i class="fa fa-check"></i><b>2.2.2</b> Create simple feature geometry list-column (<code>sfc</code>) and simple feature (<code>sf</code>) from scratch</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="vector-basics.html"><a href="vector-basics.html#reading-and-writing-vector-data"><i class="fa fa-check"></i><b>2.3</b> Reading and writing vector data</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="vector-basics.html"><a href="vector-basics.html#reading-a-shapefile"><i class="fa fa-check"></i><b>2.3.1</b> Reading a shapefile</a></li>
+<li class="chapter" data-level="2.3.2" data-path="vector-basics.html"><a href="vector-basics.html#writing-to-a-shapefile"><i class="fa fa-check"></i><b>2.3.2</b> Writing to a shapefile</a></li>
+<li class="chapter" data-level="2.3.3" data-path="vector-basics.html"><a href="vector-basics.html#better-alternatives"><i class="fa fa-check"></i><b>2.3.3</b> Better alternatives</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="vector-basics.html"><a href="vector-basics.html#projection-with-a-different-coordinate-reference-systems"><i class="fa fa-check"></i><b>2.4</b> Projection with a different Coordinate Reference Systems</a></li>
+<li class="chapter" data-level="2.5" data-path="vector-basics.html"><a href="vector-basics.html#non-spatial-transformation-of-sf"><i class="fa fa-check"></i><b>2.5</b> Non-spatial transformation of sf</a></li>
+<li class="chapter" data-level="2.6" data-path="vector-basics.html"><a href="vector-basics.html#turning-a-data.frame-of-points-into-an-sf"><i class="fa fa-check"></i><b>2.6</b> Turning a data.frame of points into an <code>sf</code></a></li>
+<li class="chapter" data-level="2.7" data-path="vector-basics.html"><a href="vector-basics.html#conversion-to-and-from-sp"><i class="fa fa-check"></i><b>2.7</b> Conversion to and from sp</a></li>
+<li class="chapter" data-level="2.8" data-path="vector-basics.html"><a href="vector-basics.html#geometrical-operations"><i class="fa fa-check"></i><b>2.8</b> Geometrical operations</a><ul>
+<li class="chapter" data-level="2.8.1" data-path="vector-basics.html"><a href="vector-basics.html#st_buffer"><i class="fa fa-check"></i><b>2.8.1</b> st_buffer</a></li>
+<li class="chapter" data-level="2.8.2" data-path="vector-basics.html"><a href="vector-basics.html#st_area"><i class="fa fa-check"></i><b>2.8.2</b> st_area</a></li>
+<li class="chapter" data-level="2.8.3" data-path="vector-basics.html"><a href="vector-basics.html#st_centroid"><i class="fa fa-check"></i><b>2.8.3</b> st_centroid</a></li>
+<li class="chapter" data-level="2.8.4" data-path="vector-basics.html"><a href="vector-basics.html#st_length"><i class="fa fa-check"></i><b>2.8.4</b> st_length</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="spatial-interactions-of-vector-data-subsetting-and-joining.html"><a href="spatial-interactions-of-vector-data-subsetting-and-joining.html"><i class="fa fa-check"></i><b>3</b> Spatial Interactions of Vector Data: Subsetting and Joining</a><ul>
+<li class="chapter" data-level="3.1" data-path="spatial-interactions-of-vector-data-subsetting-and-joining.html"><a href="spatial-interactions-of-vector-data-subsetting-and-joining.html#topological-relations"><i class="fa fa-check"></i><b>3.1</b> Topological relations</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="spatial-interactions-of-vector-data-subsetting-and-joining.html"><a href="spatial-interactions-of-vector-data-subsetting-and-joining.html#st_intersects"><i class="fa fa-check"></i><b>3.1.1</b> st_intersects()</a></li>
+<li class="chapter" data-level="3.1.2" data-path="spatial-interactions-of-vector-data-subsetting-and-joining.html"><a href="spatial-interactions-of-vector-data-subsetting-and-joining.html#st_intersection"><i class="fa fa-check"></i><b>3.1.2</b> st_intersection()</a></li>
+<li class="chapter" data-level="3.1.3" data-path="spatial-interactions-of-vector-data-subsetting-and-joining.html"><a href="spatial-interactions-of-vector-data-subsetting-and-joining.html#st_is_within_distance"><i class="fa fa-check"></i><b>3.1.3</b> st_is_within_distance()</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="spatial-interactions-of-vector-data-subsetting-and-joining.html"><a href="spatial-interactions-of-vector-data-subsetting-and-joining.html#spatial-subsetting-or-flagging"><i class="fa fa-check"></i><b>3.2</b> Spatial Subsetting (or Flagging)</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="spatial-interactions-of-vector-data-subsetting-and-joining.html"><a href="spatial-interactions-of-vector-data-subsetting-and-joining.html#polygons-vs-polygons"><i class="fa fa-check"></i><b>3.2.1</b> polygons vs polygons</a></li>
+<li class="chapter" data-level="3.2.2" data-path="spatial-interactions-of-vector-data-subsetting-and-joining.html"><a href="spatial-interactions-of-vector-data-subsetting-and-joining.html#points-vs-polygons"><i class="fa fa-check"></i><b>3.2.2</b> points vs polygons</a></li>
+<li class="chapter" data-level="3.2.3" data-path="spatial-interactions-of-vector-data-subsetting-and-joining.html"><a href="spatial-interactions-of-vector-data-subsetting-and-joining.html#lines-vs-polygons"><i class="fa fa-check"></i><b>3.2.3</b> lines vs polygons</a></li>
+<li class="chapter" data-level="3.2.4" data-path="spatial-interactions-of-vector-data-subsetting-and-joining.html"><a href="spatial-interactions-of-vector-data-subsetting-and-joining.html#flagging-instead-of-subsetting"><i class="fa fa-check"></i><b>3.2.4</b> Flagging instead of subsetting</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="spatial-interactions-of-vector-data-subsetting-and-joining.html"><a href="spatial-interactions-of-vector-data-subsetting-and-joining.html#spatial-join"><i class="fa fa-check"></i><b>3.3</b> Spatial Join</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="spatial-interactions-of-vector-data-subsetting-and-joining.html"><a href="spatial-interactions-of-vector-data-subsetting-and-joining.html#case-1-points-target-vs-polygons-source"><i class="fa fa-check"></i><b>3.3.1</b> Case 1: points (target) vs polygons (source)</a></li>
+<li class="chapter" data-level="3.3.2" data-path="spatial-interactions-of-vector-data-subsetting-and-joining.html"><a href="spatial-interactions-of-vector-data-subsetting-and-joining.html#case-2-polygons-target-vs-points-source"><i class="fa fa-check"></i><b>3.3.2</b> Case 2: polygons (target) vs points (source)</a></li>
+<li class="chapter" data-level="3.3.3" data-path="spatial-interactions-of-vector-data-subsetting-and-joining.html"><a href="spatial-interactions-of-vector-data-subsetting-and-joining.html#polygon-polygon"><i class="fa fa-check"></i><b>3.3.3</b> Case 3: polygons (target) vs polygons (source)</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R as GIS for Economists</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<link href="style.css" rel="stylesheet" type="text/css">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-59758608-3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-59758608-3');
+</script>
+<div id="vector-basics" class="section level1">
+<h1><span class="header-section-number">Chapter 2</span> Handle vector data using the sf package</h1>
+<div id="before-you-start-1" class="section level2 unnumbered">
+<h2>Before you start</h2>
+<p>In this chapter we learn how to use the <code>sf</code> package to handle and operate on spatial datasets. The <code>sf</code> package uses the class of simple feature (<code>sf</code>)<a href="#fn36" class="footnote-ref" id="fnref36"><sup>36</sup></a> for spatial objects in R. We first learn how <code>sf</code> objects store and represent spatial datasets. We then move on to the following practical topics:</p>
+<ul>
+<li>read and write a shapefile and spatial data in other formats (and why you might not want to use the shapefile system any more, but use other alternative formats)</li>
+<li>project and reproject spatial objects</li>
+<li>convert <code>sf</code> objects into <code>sp</code> objective, vice versa</li>
+<li>confirm that <code>dplyr</code> works well with <code>sf</code> objects</li>
+<li>implement non-interactive (does not involve two <code>sf</code> objects) geometric operations on <code>sf</code> objects
+<ul>
+<li>create buffers</li>
+<li>find the area of polygons</li>
+<li>find the centroid of polygons</li>
+<li>calculate the length of lines</li>
+</ul></li>
+</ul>
+<div id="sf-or-sp" class="section level3 unnumbered">
+<h3><code>sf</code> or <code>sp</code>?</h3>
+<p>The <code>sf</code> package was designed to replace the <code>sp</code> package, which has been one of the most popular and powerful spatial packages in R for more than a decade. It has been about four years since <code>sf</code> package was first registered on CRAN. A couple of years back, many other spatial packages did not have support for the package yet. In this <a href="https://www.r-bloggers.com/should-i-learn-sf-or-sp-for-spatial-r-programming/">blog post</a> that asked the question of whether one should learn <code>sp</code> of <code>sf</code>, the author said:</p>
+<p>&quot;That’s a tough question. If you have time, I would say, learn to use both. sf is pretty new, so a lot of packages that depend on spatial classes still rely on sp. So you will need to know sp if you want to do any integration with many other packages, including raster (as of March 2018).</p>
+<p>However, in the future we should see an increasing shift toward the sf package and greater use of sf classes in other packages. I also think that sf is easier to learn to use than sp.&quot;</p>
+<p>The future has come, and it’s not a tough question anymore. I cannot think of any major spatial packages that do not support <code>sf</code> package, and <code>sf</code> has largely becomes the standard for handling vector data in <span class="math inline">\(R\)</span>. Thus, this lecture note does not cover how to use <code>sp</code> at all.<a href="#fn37" class="footnote-ref" id="fnref37"><sup>37</sup></a></p>
+<p><code>sf</code> has several advantages over <code>sp</code> package <span class="citation">(Pebesma <a href="#ref-pebesma2018simple">2018</a>)</span>.<a href="#fn38" class="footnote-ref" id="fnref38"><sup>38</sup></a> First, it cut off the tie that <code>sp</code> had with ESRI shapefile system, which has somewhat loose way of representing spatial data. Instead, it uses <em>simple feature access</em>, which is an open standard supported by Open Geospatial Consortium (OGC). Another important benefit is its compatibility with the <code>tidyverse</code> package, which include widely popular packages like <code>ggplot2</code> and <code>dplyr</code>. Consequently, map-making with <code>ggplot()</code> and data wrangling with a family of <code>dplyr</code> functions come very natural to many <span class="math inline">\(R\)</span> users. <code>sp</code> objects have different slots for spatial information and attributes data, and they are not amenable to <code>dplyr</code> way of data transformation.</p>
+</div>
+</div>
+<div id="spatial-data-structure" class="section level2">
+<h2><span class="header-section-number">2.1</span> Spatial Data Structure</h2>
+<p>Here, we learn how the <code>sf</code> package stores spatial data, along with the definition of three key <code>sf</code> object classes: simple feature geometry (<code>sfg</code>), simple feature geometry list-column (<code>sfc</code>), and simple feature (<code>sf</code>). The <code>sf</code> package provides a simply way of storing geographic information and the attributes of the geographic units in a single dataset. This special type of dataset is called simple feature (<code>sf</code>). It is best to take a look at an example to see how this is achieved. We use North Carolina county boundaries with county attributes (Figure <a href="vector-basics.html#fig:nc-county">2.1</a>).</p>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb87-1" data-line-number="1"><span class="co">#--- a dataset that comes with the sf package ---#</span></a>
+<a class="sourceLine" id="cb87-2" data-line-number="2">nc &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="kw">system.file</span>(<span class="st">&quot;shape/nc.shp&quot;</span>, <span class="dt">package=</span><span class="st">&quot;sf&quot;</span>)) </a></code></pre></div>
+<pre><code>Reading layer `nc&#39; from data source `/Library/Frameworks/R.framework/Versions/4.0/Resources/library/sf/shape/nc.shp&#39; using driver `ESRI Shapefile&#39;
+Simple feature collection with 100 features and 14 fields
+geometry type:  MULTIPOLYGON
+dimension:      XY
+bbox:           xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965
+CRS:            4267</code></pre>
+<div class="figure"><span id="fig:nc-county"></span>
+<img src="VectorDataBasics_files/figure-html/nc-county-1.png" alt="North Carolina county boundary" width="672" />
+<p class="caption">
+Figure 2.1: North Carolina county boundary
+</p>
+</div>
+<p>As you can see below, this dataset is of class <code>sf</code> (and <code>data.frame</code> at the same time).</p>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb89-1" data-line-number="1"><span class="kw">class</span>(nc)</a></code></pre></div>
+<pre><code>[1] &quot;sf&quot;         &quot;data.frame&quot;</code></pre>
+<p>Now, let’s take a look inside of <code>nc</code>.</p>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb91-1" data-line-number="1"><span class="co">#--- take a look at the data ---#</span></a>
+<a class="sourceLine" id="cb91-2" data-line-number="2"><span class="kw">head</span>(nc)</a></code></pre></div>
+<pre><code>Simple feature collection with 6 features and 14 fields
+geometry type:  MULTIPOLYGON
+dimension:      XY
+bbox:           xmin: -81.74107 ymin: 36.07282 xmax: -75.77316 ymax: 36.58965
+CRS:            4267
+   AREA PERIMETER CNTY_ CNTY_ID        NAME  FIPS FIPSNO CRESS_ID BIR74 SID74
+1 0.114     1.442  1825    1825        Ashe 37009  37009        5  1091     1
+2 0.061     1.231  1827    1827   Alleghany 37005  37005        3   487     0
+3 0.143     1.630  1828    1828       Surry 37171  37171       86  3188     5
+4 0.070     2.968  1831    1831   Currituck 37053  37053       27   508     1
+5 0.153     2.206  1832    1832 Northampton 37131  37131       66  1421     9
+6 0.097     1.670  1833    1833    Hertford 37091  37091       46  1452     7
+  NWBIR74 BIR79 SID79 NWBIR79                       geometry
+1      10  1364     0      19 MULTIPOLYGON (((-81.47276 3...
+2      10   542     3      12 MULTIPOLYGON (((-81.23989 3...
+3     208  3616     6     260 MULTIPOLYGON (((-80.45634 3...
+4     123   830     2     145 MULTIPOLYGON (((-76.00897 3...
+5    1066  1606     3    1197 MULTIPOLYGON (((-77.21767 3...
+6     954  1838     5    1237 MULTIPOLYGON (((-76.74506 3...</code></pre>
+<p>Just like a regular <code>data.frame</code>, you see a number of variables (attributes) except that you have a variable called <code>geometry</code> at the end. Each row represents a single geographic unit (here, county). Ashe County (1st row) has area of <span class="math inline">\(0.114\)</span>, FIPS code of <span class="math inline">\(37009\)</span>, and so on. And the entry in <code>geometry</code> column at the first row represents the geographic information of Ashe County. An entry in the <code>geometry</code> column is a simple feature geometry (<code>sfg</code>), which is an <span class="math inline">\(R\)</span> object that represents the geographic information of a single geometric feature (county in this example). There are different types of <code>sfg</code>s (<code>POINT</code>, <code>LINESTRING</code>, <code>POLYGON</code>, <code>MULTIPOLYGON</code>, etc). Here, <code>sfg</code>s representing counties in NC are of type <code>MULTIPOLYGON</code>. Let’s take a look inside the <code>sfg</code> for Ashe County using <code>st_geometry()</code>.</p>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb93-1" data-line-number="1"><span class="kw">st_geometry</span>(nc[<span class="dv">1</span>, ])[[<span class="dv">1</span>]][[<span class="dv">1</span>]]</a></code></pre></div>
+<pre><code>[[1]]
+           [,1]     [,2]
+ [1,] -81.47276 36.23436
+ [2,] -81.54084 36.27251
+ [3,] -81.56198 36.27359
+ [4,] -81.63306 36.34069
+ [5,] -81.74107 36.39178
+ [6,] -81.69828 36.47178
+ [7,] -81.70280 36.51934
+ [8,] -81.67000 36.58965
+ [9,] -81.34530 36.57286
+[10,] -81.34754 36.53791
+[11,] -81.32478 36.51368
+[12,] -81.31332 36.48070
+[13,] -81.26624 36.43721
+[14,] -81.26284 36.40504
+[15,] -81.24069 36.37942
+[16,] -81.23989 36.36536
+[17,] -81.26424 36.35241
+[18,] -81.32899 36.36350
+[19,] -81.36137 36.35316
+[20,] -81.36569 36.33905
+[21,] -81.35413 36.29972
+[22,] -81.36745 36.27870
+[23,] -81.40639 36.28505
+[24,] -81.41233 36.26729
+[25,] -81.43104 36.26072
+[26,] -81.45289 36.23959
+[27,] -81.47276 36.23436</code></pre>
+<p>As you can see, the <code>sfg</code> consists of a number of points (pairs of two numbers). Connecting the points in the order they are stored delineate the Ashe County boundary.</p>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb95-1" data-line-number="1"><span class="kw">plot</span>(<span class="kw">st_geometry</span>(nc[<span class="dv">1</span>, ])) </a></code></pre></div>
+<p><img src="VectorDataBasics_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>We will take a closer look at different types of <code>sfg</code> in the next section.</p>
+<p>Finally, the <code>geometry</code> variable is a list of individual <code>sfg</code>s, called simple feature geometry list-column (<code>sfc</code>).</p>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb96-1" data-line-number="1">dplyr<span class="op">::</span><span class="kw">select</span>(nc, geometry)</a></code></pre></div>
+<pre><code>Simple feature collection with 100 features and 0 fields
+geometry type:  MULTIPOLYGON
+dimension:      XY
+bbox:           xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965
+CRS:            4267
+First 10 features:
+                         geometry
+1  MULTIPOLYGON (((-81.47276 3...
+2  MULTIPOLYGON (((-81.23989 3...
+3  MULTIPOLYGON (((-80.45634 3...
+4  MULTIPOLYGON (((-76.00897 3...
+5  MULTIPOLYGON (((-77.21767 3...
+6  MULTIPOLYGON (((-76.74506 3...
+7  MULTIPOLYGON (((-76.00897 3...
+8  MULTIPOLYGON (((-76.56251 3...
+9  MULTIPOLYGON (((-78.30876 3...
+10 MULTIPOLYGON (((-80.02567 3...</code></pre>
+<p>Elements of a geometry list-column are allowed to be different in nature from other elements<a href="#fn39" class="footnote-ref" id="fnref39"><sup>39</sup></a>. In the <code>nc</code> data, all the elements (<code>sfg</code>s) in <code>geometry</code> column are <code>MULTIPOLYGON</code>. However, you could also have <code>LINESTRING</code> or <code>POINT</code> objects mixed with <code>MULTIPOLYGONS</code> objects in a single <code>sf</code> object if you would like.</p>
+</div>
+<div id="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature" class="section level2">
+<h2><span class="header-section-number">2.2</span> Simple feature geometry, simple feature geometry list-column, and simple feature</h2>
+<p>Here, we learn how different types of <code>sfg</code> are constructed. We also learn how to create <code>sfc</code> and <code>sf</code> from <code>sfg</code> from scratch.<a href="#fn40" class="footnote-ref" id="fnref40"><sup>40</sup></a></p>
+<div id="simple-feature-geometry-sfg" class="section level3">
+<h3><span class="header-section-number">2.2.1</span> Simple feature geometry (<code>sfg</code>)</h3>
+<p>The <code>sf</code> package uses a class of <code>sfg</code> (simple feature geometry) objects to represent a geometry of a single geometric feature (say, a city as a point, a river as a line, county and school district as polygons). There are different types of <code>sfg</code>s. Here are some example feature types that we commonly encounter as an economist<a href="#fn41" class="footnote-ref" id="fnref41"><sup>41</sup></a>:</p>
+<ul>
+<li><code>POINT</code>: area-less feature that represents a point (e.g., well, city, farmland)</li>
+<li><code>LINESTRING</code>: (e.g., a tributary of a river)</li>
+<li><code>MULTILINESTRING</code>: (e.g., river with more than one tributaries)</li>
+<li><code>POLYGON</code>: geometry with a positive area (e.g., county, state, country)</li>
+<li><code>MULTIPOLYGON</code>: collection of polygons to represent a single object (e.g., countries with islands: U.S., Japan)</li>
+</ul>
+<hr />
+<p><code>POINT</code> is the simplest geometry type, and is represented by a vector of two<a href="#fn42" class="footnote-ref" id="fnref42"><sup>42</sup></a> numeric values. An example below shows how a <code>POINT</code> feature can be made from scratch<a href="#fn43" class="footnote-ref" id="fnref43"><sup>43</sup></a>:</p>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb98-1" data-line-number="1"><span class="co">#--- create a POINT ---#</span></a>
+<a class="sourceLine" id="cb98-2" data-line-number="2">a_point &lt;-<span class="st"> </span><span class="kw">st_point</span>(<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">1</span>))</a></code></pre></div>
+<p>The <code>st_point()</code> function creates a <code>POINT</code> object when supplied with a vector of two numeric values. If you check the class of the newly created object,</p>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb99-1" data-line-number="1"><span class="co">#--- check the class of the object ---#</span></a>
+<a class="sourceLine" id="cb99-2" data-line-number="2"><span class="kw">class</span>(a_point)</a></code></pre></div>
+<pre><code>[1] &quot;XY&quot;    &quot;POINT&quot; &quot;sfg&quot;  </code></pre>
+<p>You can see that it’s indeed a <code>POINT</code> object. But, it’s also an <code>sfg</code> object. So, <code>a_point</code> is an <code>sfg</code> object of type <code>POINT</code>.</p>
+<hr />
+<p>A <code>LINESTRING</code> objects are represented by a sequence of points:</p>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb101-1" data-line-number="1"><span class="co">#--- collection of points in a matrix form ---#</span></a>
+<a class="sourceLine" id="cb101-2" data-line-number="2">s1 &lt;-<span class="st"> </span><span class="kw">rbind</span>(<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">3</span>),<span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">4</span>),<span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">5</span>),<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">5</span>))</a>
+<a class="sourceLine" id="cb101-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb101-4" data-line-number="4"><span class="co">#--- see what s1 looks like ---#</span></a>
+<a class="sourceLine" id="cb101-5" data-line-number="5">s1</a></code></pre></div>
+<pre><code>     [,1] [,2]
+[1,]    2    3
+[2,]    3    4
+[3,]    3    5
+[4,]    1    5</code></pre>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb103-1" data-line-number="1"><span class="co">#--- create a &quot;LINESTRING&quot; ---#</span></a>
+<a class="sourceLine" id="cb103-2" data-line-number="2">a_linestring &lt;-<span class="st"> </span><span class="kw">st_linestring</span>(s1)</a>
+<a class="sourceLine" id="cb103-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb103-4" data-line-number="4"><span class="co">#--- check the class ---#</span></a>
+<a class="sourceLine" id="cb103-5" data-line-number="5"><span class="kw">class</span>(a_linestring)</a></code></pre></div>
+<pre><code>[1] &quot;XY&quot;         &quot;LINESTRING&quot; &quot;sfg&quot;       </code></pre>
+<p><code>s1</code> is a matrix where each row represents a point. By applying <code>st_linestring()</code> function to <code>s1</code>, you create a <code>LINESTRING</code> object. Let’s see what the line looks like.</p>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb105-1" data-line-number="1"><span class="kw">plot</span>(a_linestring)</a></code></pre></div>
+<p><img src="VectorDataBasics_files/figure-html/plot_line-1.png" width="672" /></p>
+<p>As you can see, each pair of consecutive points in the matrix are connected by a straight line to form a line.</p>
+<hr />
+<p>A <code>POLYGON</code> is very similar to <code>LINESTRING</code> in the manner it is represented.</p>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb106-1" data-line-number="1"><span class="co">#--- collection of points in a matrix form ---#</span></a>
+<a class="sourceLine" id="cb106-2" data-line-number="2">p1 &lt;-<span class="st"> </span><span class="kw">rbind</span>(<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>), <span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">0</span>), <span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">2</span>), <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">5</span>), <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>), <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>))</a>
+<a class="sourceLine" id="cb106-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb106-4" data-line-number="4"><span class="co">#--- see what s1 looks like ---#</span></a>
+<a class="sourceLine" id="cb106-5" data-line-number="5">p1</a></code></pre></div>
+<pre><code>     [,1] [,2]
+[1,]    0    0
+[2,]    3    0
+[3,]    3    2
+[4,]    2    5
+[5,]    1    3
+[6,]    0    0</code></pre>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb108-1" data-line-number="1"> <span class="co">#--- create a &quot;LINESTRING&quot; ---#</span></a>
+<a class="sourceLine" id="cb108-2" data-line-number="2">a_polygon &lt;-<span class="st"> </span><span class="kw">st_polygon</span>(<span class="kw">list</span>(p1))</a>
+<a class="sourceLine" id="cb108-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb108-4" data-line-number="4"><span class="co">#--- check the class ---#</span></a>
+<a class="sourceLine" id="cb108-5" data-line-number="5"><span class="kw">class</span>(a_polygon)</a></code></pre></div>
+<pre><code>[1] &quot;XY&quot;      &quot;POLYGON&quot; &quot;sfg&quot;    </code></pre>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb110-1" data-line-number="1"><span class="co">#--- see what it looks like ---#</span></a>
+<a class="sourceLine" id="cb110-2" data-line-number="2"><span class="kw">plot</span>(a_polygon)</a></code></pre></div>
+<p><img src="VectorDataBasics_files/figure-html/polygon_1-1.png" width="672" /></p>
+<p>Just like the <code>LINESTRING</code> object we created earlier, a <code>POLYGON</code> is represented by a collection of points. The biggest difference between them is that we need to have some positive area enclosed by lines connecting the points. To do that, you have the the same point for the first and last points to close the loop: here, it’s <code>c(0,0)</code>. A <code>POLYGON</code> can have a hole in it. The first matrix of a list becomes the exterior ring, and all the subsequent matrices will be holes within the exterior ring.</p>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb111-1" data-line-number="1"><span class="co">#--- a hole within p1 ---#</span></a>
+<a class="sourceLine" id="cb111-2" data-line-number="2">p2 &lt;-<span class="st"> </span><span class="kw">rbind</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>), <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>), <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</a>
+<a class="sourceLine" id="cb111-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb111-4" data-line-number="4"><span class="co">#--- create a polygon with hole ---#</span></a>
+<a class="sourceLine" id="cb111-5" data-line-number="5">a_plygon_with_a_hole &lt;-<span class="st"> </span><span class="kw">st_polygon</span>(<span class="kw">list</span>(p1,p2))</a>
+<a class="sourceLine" id="cb111-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb111-7" data-line-number="7"><span class="co">#--- see what it looks like ---#</span></a>
+<a class="sourceLine" id="cb111-8" data-line-number="8"><span class="kw">plot</span>(a_plygon_with_a_hole)</a></code></pre></div>
+<p><img src="VectorDataBasics_files/figure-html/polygon_hole-1.png" width="672" /></p>
+<hr />
+<p>You can create a <code>MULTIPOLYGON</code> object in a similar manner. The only difference is that you supply a list of lists of matrices, with each inner list representing a polygon. An example below:</p>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb112-1" data-line-number="1"><span class="co">#--- second polygon ---#</span></a>
+<a class="sourceLine" id="cb112-2" data-line-number="2">p3 &lt;-<span class="st"> </span><span class="kw">rbind</span>(<span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">0</span>), <span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">0</span>), <span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">3</span>), <span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">2</span>), <span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">0</span>)) </a>
+<a class="sourceLine" id="cb112-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb112-4" data-line-number="4"><span class="co">#--- create a multipolygon ---#</span></a>
+<a class="sourceLine" id="cb112-5" data-line-number="5">a_multipolygon &lt;-<span class="st"> </span><span class="kw">st_multipolygon</span>(<span class="kw">list</span>(<span class="kw">list</span>(p1,p2), <span class="kw">list</span>(p3)))</a>
+<a class="sourceLine" id="cb112-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb112-7" data-line-number="7"><span class="co">#--- see what it looks like ---#</span></a>
+<a class="sourceLine" id="cb112-8" data-line-number="8"><span class="kw">plot</span>(a_multipolygon)</a></code></pre></div>
+<p><img src="VectorDataBasics_files/figure-html/multi_polygon-1.png" width="672" /></p>
+<p>Each of <code>list(p1,p2)</code>, <code>list(p3,p4)</code>, <code>list(p5)</code> represents a polygon. You supply a list of these lists to the <code>st_multipolygon()</code> function to make a <code>MULTIPOLYGON</code> object.</p>
+</div>
+<div id="create-simple-feature-geometry-list-column-sfc-and-simple-feature-sf-from-scratch" class="section level3">
+<h3><span class="header-section-number">2.2.2</span> Create simple feature geometry list-column (<code>sfc</code>) and simple feature (<code>sf</code>) from scratch</h3>
+<p>To make a simple feature geometry list-column (<code>sfc</code>), you can simply supply a list of <code>sfg</code> to the <code>st_sfc()</code> function as follows:</p>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb113-1" data-line-number="1"><span class="co">#--- create an sfc ---#</span></a>
+<a class="sourceLine" id="cb113-2" data-line-number="2">sfc_ex &lt;-<span class="st"> </span><span class="kw">st_sfc</span>(<span class="kw">list</span>(a_point,a_linestring,a_polygon,a_multipolygon))</a></code></pre></div>
+<p>To create an <code>sf</code> object, you first add an <code>sfc</code> as a column to a <code>data.frame</code>.</p>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb114-1" data-line-number="1"><span class="co">#--- create a data.frame ---#</span></a>
+<a class="sourceLine" id="cb114-2" data-line-number="2">df_ex &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</a>
+<a class="sourceLine" id="cb114-3" data-line-number="3">  <span class="dt">name=</span><span class="kw">c</span>(<span class="st">&#39;A&#39;</span>,<span class="st">&#39;B&#39;</span>,<span class="st">&#39;C&#39;</span>,<span class="st">&#39;D&#39;</span>)</a>
+<a class="sourceLine" id="cb114-4" data-line-number="4">)</a>
+<a class="sourceLine" id="cb114-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb114-6" data-line-number="6"><span class="co">#--- add the sfc as a column ---#</span></a>
+<a class="sourceLine" id="cb114-7" data-line-number="7">df_ex<span class="op">$</span>geometry &lt;-<span class="st"> </span>sfc_ex </a>
+<a class="sourceLine" id="cb114-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb114-9" data-line-number="9"><span class="co">#--- take a look ---#</span></a>
+<a class="sourceLine" id="cb114-10" data-line-number="10">df_ex</a></code></pre></div>
+<pre><code>  name                       geometry
+1    A                    POINT (2 1)
+2    B LINESTRING (2 3, 3 4, 3 5, ...
+3    C POLYGON ((0 0, 3 0, 3 2, 2 ...
+4    D MULTIPOLYGON (((0 0, 3 0, 3...</code></pre>
+<p>At this point, it is not recognized as an <code>sf</code> by R yet.</p>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb116-1" data-line-number="1"><span class="co">#--- see what it looks like (this is not an sf object yet) ---#</span></a>
+<a class="sourceLine" id="cb116-2" data-line-number="2"><span class="kw">class</span>(df_ex)</a></code></pre></div>
+<pre><code>[1] &quot;data.frame&quot;</code></pre>
+<p>You can register it as an <code>sf</code> object using <code>st_as_sf()</code>.</p>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb118-1" data-line-number="1"><span class="co">#--- let R recognize the data frame as sf ---#</span></a>
+<a class="sourceLine" id="cb118-2" data-line-number="2">sf_ex &lt;-<span class="st"> </span><span class="kw">st_as_sf</span>(df_ex)</a>
+<a class="sourceLine" id="cb118-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb118-4" data-line-number="4"><span class="co">#--- see what it looks like ---#</span></a>
+<a class="sourceLine" id="cb118-5" data-line-number="5">sf_ex</a></code></pre></div>
+<pre><code>Simple feature collection with 4 features and 1 field
+geometry type:  GEOMETRY
+dimension:      XY
+bbox:           xmin: 0 ymin: 0 xmax: 5 ymax: 5
+CRS:            NA
+  name                       geometry
+1    A                    POINT (2 1)
+2    B LINESTRING (2 3, 3 4, 3 5, ...
+3    C POLYGON ((0 0, 3 0, 3 2, 2 ...
+4    D MULTIPOLYGON (((0 0, 3 0, 3...</code></pre>
+<p>As you can see <code>sf_ex</code> is now recognized also as an <code>sf</code> object.</p>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb120-1" data-line-number="1"><span class="co">#--- check the class ---#</span></a>
+<a class="sourceLine" id="cb120-2" data-line-number="2"><span class="kw">class</span>(sf_ex)</a></code></pre></div>
+<pre><code>[1] &quot;sf&quot;         &quot;data.frame&quot;</code></pre>
+</div>
+</div>
+<div id="reading-and-writing-vector-data" class="section level2">
+<h2><span class="header-section-number">2.3</span> Reading and writing vector data</h2>
+<p>I claimed that you do not need ArcGIS <span class="math inline">\(99\%\)</span> of your work as an economist. However, the vast majority of people still use ArcGIS to handle spatial data, which has its own system of storing spatial data<a href="#fn44" class="footnote-ref" id="fnref44"><sup>44</sup></a> called shapefile. So, chances are that your collaborators still use shapefiles. Moreover, there are many GIS data online that are available only as shapefiles. So, it is important to learn how to read and write shapefiles.</p>
+<div id="reading-a-shapefile" class="section level3">
+<h3><span class="header-section-number">2.3.1</span> Reading a shapefile</h3>
+<p>We can use <code>st_read()</code> function to read a shapefile. It reads in a shapefile and then turn the data into an sf object. Let’s take a look at an example.</p>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb122-1" data-line-number="1"><span class="co">#--- read a NE county boundary shapefile ---#</span></a>
+<a class="sourceLine" id="cb122-2" data-line-number="2">nc_loaded &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="dt">dsn =</span> <span class="st">&quot;./Data&quot;</span>, <span class="st">&quot;nc&quot;</span>) </a></code></pre></div>
+<pre><code>Reading layer `nc&#39; from data source `/Users/tmieno2/Box/Teaching/AAEA R/GIS/Data&#39; using driver `ESRI Shapefile&#39;
+Simple feature collection with 100 features and 1 field
+geometry type:  MULTIPOLYGON
+dimension:      XY
+bbox:           xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965
+CRS:            4267</code></pre>
+<p>Typically, you have two arguments to specify for <code>st_read()</code>. The first one is <code>dsn</code>, which is basically the path to the shapefile you want to import. The second one is the name of the shapefile. Notice that you do not add <code>.shp</code> extension to the file name: <em>NE_county</em>, not <em>NE_county.shp</em>.<a href="#fn45" class="footnote-ref" id="fnref45"><sup>45</sup></a>.</p>
+</div>
+<div id="writing-to-a-shapefile" class="section level3">
+<h3><span class="header-section-number">2.3.2</span> Writing to a shapefile</h3>
+<p>Writing an <code>sf</code> object as a shapefile is just as easy. You use the <code>st_write()</code> function, with the first argument being the name of the <code>sf</code> object you are exporting, and the second being the name of the new shapefile. For example, the code below will export an <code>sf</code> object called <code>NE_county</code> as <code>NE_county_2.shp</code> (along with other supporting files).</p>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb124-1" data-line-number="1"><span class="kw">st_write</span>(nc_loaded, <span class="dt">dsn=</span><span class="st">&quot;./Data&quot;</span>, <span class="st">&quot;nc&quot;</span>, <span class="dt">driver=</span><span class="st">&quot;ESRI Shapefile&quot;</span>, <span class="dt">append =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<p><code>append = FALSE</code> forces writing the data when there already exists a file with the same name. Without the option, this happens.</p>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb125-1" data-line-number="1"><span class="kw">st_write</span>(nc_loaded, <span class="dt">dsn=</span><span class="st">&quot;./Data&quot;</span>, <span class="st">&quot;nc&quot;</span>, <span class="dt">driver=</span><span class="st">&quot;ESRI Shapefile&quot;</span>)</a></code></pre></div>
+<pre><code>Layer nc in dataset ./Data already exists:
+use either append=TRUE to append to layer or append=FALSE to overwrite layer</code></pre>
+<pre><code>Error in CPL_write_ogr(obj, dsn, layer, driver, as.character(dataset_options), : Dataset already exists.</code></pre>
+</div>
+<div id="better-alternatives" class="section level3">
+<h3><span class="header-section-number">2.3.3</span> Better alternatives</h3>
+<p>Now, if your collaborator is using ArcGIS and demanding that he/she needs a shapefile for his/her work, sure you can use the above command to write a shapefile. But, there is really no need to work with the shapefile system. One of the alternative data formats that are considered superior to the shapefile system is GeoPackage<a href="#fn46" class="footnote-ref" id="fnref46"><sup>46</sup></a>, which overcomes various limitations associated with shapefile<a href="#fn47" class="footnote-ref" id="fnref47"><sup>47</sup></a>. Unlike the shapefile system, it produces only a single file with .gpkg extension. Note that GeoPackage file can also be easily read into ArcGIS. So, it might be worthwhile to convince your collaborators to stop using shapefiles and start using GeoPackage.</p>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb128-1" data-line-number="1"><span class="co">#--- write as a gpkg file ---#</span></a>
+<a class="sourceLine" id="cb128-2" data-line-number="2"><span class="kw">st_write</span>(nc, <span class="dt">dsn =</span> <span class="st">&quot;./Data/nc.gpkg&quot;</span>)</a>
+<a class="sourceLine" id="cb128-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb128-4" data-line-number="4"><span class="co">#--- read a gpkg file ---#</span></a>
+<a class="sourceLine" id="cb128-5" data-line-number="5">nc &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&quot;./Data/nc.gpkg&quot;</span>)</a></code></pre></div>
+<p>Or better yet, if your collaborator uses R (or if it is only you who is going to use the data), then just save it as an rds file using <code>saveRDS()</code>, which can be of course read using <code>readRDS()</code>.</p>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb129-1" data-line-number="1"><span class="co">#--- save as an rds ---#</span></a>
+<a class="sourceLine" id="cb129-2" data-line-number="2"><span class="kw">saveRDS</span>(nc, <span class="st">&quot;/Users/tmieno2/Box/Teaching/AAEA R/GIS/nc_county.rds&quot;</span>)</a>
+<a class="sourceLine" id="cb129-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb129-4" data-line-number="4"><span class="co">#--- read an rds ---#</span></a>
+<a class="sourceLine" id="cb129-5" data-line-number="5">nc &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;/Users/tmieno2/Box/Teaching/AAEA R/GIS/nc_county.rds&quot;</span>)</a></code></pre></div>
+<p>The use of rds files can be particularly attractive when the dataset is large because rds files are typically more memory efficient than shapefiles, eating up less of your disk memory.</p>
+</div>
+</div>
+<div id="projection-with-a-different-coordinate-reference-systems" class="section level2">
+<h2><span class="header-section-number">2.4</span> Projection with a different Coordinate Reference Systems</h2>
+<p>You often need to reproject an <code>sf</code> using a different coordinate reference system (CRS) because you need it to have the same CRS as an <code>sf</code> object that you are interacting it with (spatial join) or mapping it with. In order to check the current CRS for an <code>sf</code> object, you can use the <code>st_crs()</code> function.</p>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb130-1" data-line-number="1"><span class="kw">st_crs</span>(nc)</a></code></pre></div>
+<pre><code>Coordinate Reference System:
+  User input: 4267 
+  wkt:
+GEOGCS[&quot;NAD27&quot;,
+    DATUM[&quot;North_American_Datum_1927&quot;,
+        SPHEROID[&quot;Clarke 1866&quot;,6378206.4,294.9786982138982,
+            AUTHORITY[&quot;EPSG&quot;,&quot;7008&quot;]],
+        AUTHORITY[&quot;EPSG&quot;,&quot;6267&quot;]],
+    PRIMEM[&quot;Greenwich&quot;,0,
+        AUTHORITY[&quot;EPSG&quot;,&quot;8901&quot;]],
+    UNIT[&quot;degree&quot;,0.0174532925199433,
+        AUTHORITY[&quot;EPSG&quot;,&quot;9122&quot;]],
+    AUTHORITY[&quot;EPSG&quot;,&quot;4267&quot;]]</code></pre>
+<p><code>wkt</code> stands for <strong>Well Known Text</strong><a href="#fn48" class="footnote-ref" id="fnref48"><sup>48</sup></a>, which is one of many many formats to store CRS information.<a href="#fn49" class="footnote-ref" id="fnref49"><sup>49</sup></a> 4267 is the SRID (Spatial Reference System Identifier) defined by the European Petroleum Survey Group (EPSG) for the CRS<a href="#fn50" class="footnote-ref" id="fnref50"><sup>50</sup></a>.</p>
+<p>When you transform your <code>sf</code> using a different CRS, you can use its EPSG number if the CRS has an EPSG number.<a href="#fn51" class="footnote-ref" id="fnref51"><sup>51</sup></a> Let’s transform the <code>sf</code> to <code>WGS 84</code> (another commonly used GCS), whose EPSG number is 4326. We can use the <code>st_transform()</code> function to achieve that, with the first argument being the <code>sf</code> object you are transforming and the second being the EPSG number of the new CRS.</p>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb132-1" data-line-number="1"><span class="co">#--- transform ---#</span></a>
+<a class="sourceLine" id="cb132-2" data-line-number="2">nc_wgs84 &lt;-<span class="st"> </span><span class="kw">st_transform</span>(nc, <span class="dv">4326</span>)</a>
+<a class="sourceLine" id="cb132-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb132-4" data-line-number="4"><span class="co">#--- check if the transformation was successful ---#</span></a>
+<a class="sourceLine" id="cb132-5" data-line-number="5"><span class="kw">st_crs</span>(nc_wgs84)</a></code></pre></div>
+<pre><code>Coordinate Reference System:
+  User input: EPSG:4326 
+  wkt:
+GEOGCS[&quot;WGS 84&quot;,
+    DATUM[&quot;WGS_1984&quot;,
+        SPHEROID[&quot;WGS 84&quot;,6378137,298.257223563,
+            AUTHORITY[&quot;EPSG&quot;,&quot;7030&quot;]],
+        AUTHORITY[&quot;EPSG&quot;,&quot;6326&quot;]],
+    PRIMEM[&quot;Greenwich&quot;,0,
+        AUTHORITY[&quot;EPSG&quot;,&quot;8901&quot;]],
+    UNIT[&quot;degree&quot;,0.0174532925199433,
+        AUTHORITY[&quot;EPSG&quot;,&quot;9122&quot;]],
+    AUTHORITY[&quot;EPSG&quot;,&quot;4326&quot;]]</code></pre>
+<p>Notice that <code>wkt</code> was also altered accordingly to reflect the change in CRS: datum was changed to WGS 84. Now, let’s transform (reproject) the data using <code>NAD83 / UTM zone 17N</code> CRS. Its EPSG number is <span class="math inline">\(26917\)</span>.<a href="#fn52" class="footnote-ref" id="fnref52"><sup>52</sup></a> So, the following code does the job.</p>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb134-1" data-line-number="1"><span class="co">#--- transform ---#</span></a>
+<a class="sourceLine" id="cb134-2" data-line-number="2">nc_utm17N &lt;-<span class="st"> </span><span class="kw">st_transform</span>(nc_wgs84, <span class="dv">26917</span>)</a>
+<a class="sourceLine" id="cb134-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb134-4" data-line-number="4"><span class="co">#--- check if the transformation was successful ---#</span></a>
+<a class="sourceLine" id="cb134-5" data-line-number="5"><span class="kw">st_crs</span>(nc_utm17N)</a></code></pre></div>
+<pre><code>Coordinate Reference System:
+  User input: EPSG:26917 
+  wkt:
+PROJCS[&quot;NAD83 / UTM zone 17N&quot;,
+    GEOGCS[&quot;NAD83&quot;,
+        DATUM[&quot;North_American_Datum_1983&quot;,
+            SPHEROID[&quot;GRS 1980&quot;,6378137,298.257222101,
+                AUTHORITY[&quot;EPSG&quot;,&quot;7019&quot;]],
+            TOWGS84[0,0,0,0,0,0,0],
+            AUTHORITY[&quot;EPSG&quot;,&quot;6269&quot;]],
+        PRIMEM[&quot;Greenwich&quot;,0,
+            AUTHORITY[&quot;EPSG&quot;,&quot;8901&quot;]],
+        UNIT[&quot;degree&quot;,0.0174532925199433,
+            AUTHORITY[&quot;EPSG&quot;,&quot;9122&quot;]],
+        AUTHORITY[&quot;EPSG&quot;,&quot;4269&quot;]],
+    PROJECTION[&quot;Transverse_Mercator&quot;],
+    PARAMETER[&quot;latitude_of_origin&quot;,0],
+    PARAMETER[&quot;central_meridian&quot;,-81],
+    PARAMETER[&quot;scale_factor&quot;,0.9996],
+    PARAMETER[&quot;false_easting&quot;,500000],
+    PARAMETER[&quot;false_northing&quot;,0],
+    UNIT[&quot;metre&quot;,1,
+        AUTHORITY[&quot;EPSG&quot;,&quot;9001&quot;]],
+    AXIS[&quot;Easting&quot;,EAST],
+    AXIS[&quot;Northing&quot;,NORTH],
+    AUTHORITY[&quot;EPSG&quot;,&quot;26917&quot;]]</code></pre>
+<p>As you can see in its CRS information, the projection system is now UTM zone 17N.</p>
+<p>You often need to change the CRS of an <code>sf</code> object when you interact<a href="#fn53" class="footnote-ref" id="fnref53"><sup>53</sup></a> it with another <code>sf</code> object. In such a case, you can extract the CRS of the other <code>sf</code> object using <code>st_crs()</code> and use it for transformation<a href="#fn54" class="footnote-ref" id="fnref54"><sup>54</sup></a>.</p>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb136-1" data-line-number="1"><span class="co">#--- transform ---#</span></a>
+<a class="sourceLine" id="cb136-2" data-line-number="2">nc_utm17N_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">st_transform</span>(nc_wgs84, <span class="kw">st_crs</span>(nc_utm17N))</a>
+<a class="sourceLine" id="cb136-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb136-4" data-line-number="4"><span class="co">#--- check if the transformation was successful ---#</span></a>
+<a class="sourceLine" id="cb136-5" data-line-number="5"><span class="kw">st_crs</span>(nc_utm17N_<span class="dv">2</span>)</a></code></pre></div>
+<pre><code>Coordinate Reference System:
+  User input: EPSG:26917 
+  wkt:
+PROJCS[&quot;NAD83 / UTM zone 17N&quot;,
+    GEOGCS[&quot;NAD83&quot;,
+        DATUM[&quot;North_American_Datum_1983&quot;,
+            SPHEROID[&quot;GRS 1980&quot;,6378137,298.257222101,
+                AUTHORITY[&quot;EPSG&quot;,&quot;7019&quot;]],
+            TOWGS84[0,0,0,0,0,0,0],
+            AUTHORITY[&quot;EPSG&quot;,&quot;6269&quot;]],
+        PRIMEM[&quot;Greenwich&quot;,0,
+            AUTHORITY[&quot;EPSG&quot;,&quot;8901&quot;]],
+        UNIT[&quot;degree&quot;,0.0174532925199433,
+            AUTHORITY[&quot;EPSG&quot;,&quot;9122&quot;]],
+        AUTHORITY[&quot;EPSG&quot;,&quot;4269&quot;]],
+    PROJECTION[&quot;Transverse_Mercator&quot;],
+    PARAMETER[&quot;latitude_of_origin&quot;,0],
+    PARAMETER[&quot;central_meridian&quot;,-81],
+    PARAMETER[&quot;scale_factor&quot;,0.9996],
+    PARAMETER[&quot;false_easting&quot;,500000],
+    PARAMETER[&quot;false_northing&quot;,0],
+    UNIT[&quot;metre&quot;,1,
+        AUTHORITY[&quot;EPSG&quot;,&quot;9001&quot;]],
+    AXIS[&quot;Easting&quot;,EAST],
+    AXIS[&quot;Northing&quot;,NORTH],
+    AUTHORITY[&quot;EPSG&quot;,&quot;26917&quot;]]</code></pre>
+<!-- However, notice that the `epsg` component of CRS is $NA$. ESRI shapefile format uses WTK (Well-known Text) format to refer to the CRS in use, which is saved in .prj file. So, if there is no corresponding SRID number for the CRS in use, the `epsg` component number would get lost when you save an `sf` object when you save it as an ESRI shapefile. This is exactly what happened to 
+ -->
+</div>
+<div id="non-spatial-transformation-of-sf" class="section level2">
+<h2><span class="header-section-number">2.5</span> Non-spatial transformation of sf</h2>
+<p>An important feature of an <code>sf</code> object is that it is basically a <code>data.frame</code> with geometric information stored as a variable (column). This means that transforming an <code>sf</code> object works just like transforming a <code>data.frame</code>. Basically, everything you can do to a <code>data.frame</code>, you can do to an <code>sf</code> as well. The code below just provides an example of basic operations including <code>select()</code>, <code>filter()</code>, and <code>mutate()</code> in action with an <code>sf</code> object to just confirm that <code>dplyr</code> operations works with an sf object just like a <code>data.frame</code>.</p>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb138-1" data-line-number="1"><span class="co">#--- here is what the data looks like ---#</span></a>
+<a class="sourceLine" id="cb138-2" data-line-number="2">dplyr<span class="op">::</span><span class="kw">select</span>(wells_sf, wellid, nrdname, acres, regdate, nrdname)</a></code></pre></div>
+<pre><code>Simple feature collection with 105822 features and 4 fields
+geometry type:  POINT
+dimension:      XY
+bbox:           xmin: -104.0531 ymin: 40.00161 xmax: -96.87681 ymax: 41.85942
+CRS:            unknown
+First 10 features:
+   wellid           nrdname acres  regdate                   geometry
+1       2    Central Platte   160 12/30/55 POINT (-99.58401 40.69825)
+2       3      South Platte    46  4/29/31 POINT (-102.6249 41.11699)
+3       4      South Platte    46  4/29/31 POINT (-102.6249 41.11699)
+4       5      South Platte    46  4/29/31 POINT (-102.6249 41.11699)
+5       6    Central Platte   160  8/29/32  POINT (-99.6258 40.73268)
+6       7    Central Platte   120  2/15/35 POINT (-99.64524 40.73164)
+7       8      South Platte   113   8/7/37 POINT (-103.5257 41.24492)
+8      10      South Platte   160   5/4/38 POINT (-103.0284 41.13243)
+9      11 Middle Republican   807   5/6/38  POINT (-101.1193 40.3527)
+10     12 Middle Republican   148 11/29/77 POINT (-101.1146 40.35631)</code></pre>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb140-1" data-line-number="1"><span class="co">#--- do some transformations ---#</span></a>
+<a class="sourceLine" id="cb140-2" data-line-number="2">wells_sf <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb140-3" data-line-number="3"><span class="st">  </span><span class="co">#--- select variables (geometry will always remain after select) ---#</span></a>
+<a class="sourceLine" id="cb140-4" data-line-number="4"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(wellid, nrdname, acres, regdate, nrdname) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb140-5" data-line-number="5"><span class="st">  </span><span class="co">#--- removes observations with acre &lt; 30  ---#</span></a>
+<a class="sourceLine" id="cb140-6" data-line-number="6"><span class="st">  </span><span class="kw">filter</span>(acres <span class="op">&gt;</span><span class="st"> </span><span class="dv">30</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb140-7" data-line-number="7"><span class="st">  </span><span class="co">#--- hectare instead of acre ---#</span></a>
+<a class="sourceLine" id="cb140-8" data-line-number="8"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">hectare =</span> acres <span class="op">*</span><span class="st"> </span><span class="fl">0.404686</span>) </a></code></pre></div>
+<pre><code>Simple feature collection with 63271 features and 5 fields
+geometry type:  POINT
+dimension:      XY
+bbox:           xmin: -104.0529 ymin: 40.00161 xmax: -96.87681 ymax: 41.73599
+CRS:            unknown
+First 10 features:
+   wellid           nrdname acres  regdate                   geometry   hectare
+1       2    Central Platte   160 12/30/55 POINT (-99.58401 40.69825)  64.74976
+2       3      South Platte    46  4/29/31 POINT (-102.6249 41.11699)  18.61556
+3       4      South Platte    46  4/29/31 POINT (-102.6249 41.11699)  18.61556
+4       5      South Platte    46  4/29/31 POINT (-102.6249 41.11699)  18.61556
+5       6    Central Platte   160  8/29/32  POINT (-99.6258 40.73268)  64.74976
+6       7    Central Platte   120  2/15/35 POINT (-99.64524 40.73164)  48.56232
+7       8      South Platte   113   8/7/37 POINT (-103.5257 41.24492)  45.72952
+8      10      South Platte   160   5/4/38 POINT (-103.0284 41.13243)  64.74976
+9      11 Middle Republican   807   5/6/38  POINT (-101.1193 40.3527) 326.58160
+10     12 Middle Republican   148 11/29/77 POINT (-101.1146 40.35631)  59.89353</code></pre>
+<p>Now, let’s try to get a summary of a variable by group using the <code>group_by()</code> and <code>summarize()</code> functions.</p>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb142-1" data-line-number="1"><span class="co">#--- summary by group ---#</span></a>
+<a class="sourceLine" id="cb142-2" data-line-number="2">wells_by_nrd &lt;-<span class="st"> </span>wells_sf <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb142-3" data-line-number="3"><span class="st">  </span><span class="co">#--- group by nrdname ---#</span></a>
+<a class="sourceLine" id="cb142-4" data-line-number="4"><span class="st">  </span><span class="kw">group_by</span>(nrdname) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb142-5" data-line-number="5"><span class="st">  </span><span class="co">#--- summarize ---#</span></a>
+<a class="sourceLine" id="cb142-6" data-line-number="6"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">tot_acres =</span> <span class="kw">sum</span>(acres, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</a>
+<a class="sourceLine" id="cb142-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb142-8" data-line-number="8"><span class="co">#--- take a look ---#</span></a>
+<a class="sourceLine" id="cb142-9" data-line-number="9">wells_by_nrd</a></code></pre></div>
+<pre><code>Simple feature collection with 9 features and 2 fields
+geometry type:  MULTIPOINT
+dimension:      XY
+bbox:           xmin: -104.0531 ymin: 40.00161 xmax: -96.87681 ymax: 41.85942
+CRS:            unknown
+# A tibble: 9 x 3
+  nrdname       tot_acres                                               geometry
+  &lt;chr&gt;             &lt;dbl&gt;                                       &lt;MULTIPOINT [°]&gt;
+1 Central Plat…  1890918. ((-100.2329 41.14385), (-100.2328 41.05678), (-100.23…
+2 Little Blue     995900. ((-98.72659 40.30463), (-98.72434 40.68021), (-98.724…
+3 Lower Republ…   543079. ((-100.1968 40.32314), (-100.196 40.33553), (-100.195…
+4 Middle Repub…   443472. ((-101.3691 40.1208), (-101.3448 40.64638), (-101.344…
+5 South Platte    216109. ((-104.0531 41.18248), (-104.053 41.19347), (-104.052…
+6 Tri-Basin       847058. ((-100.0927 40.42312), (-100.0904 40.43158), (-100.08…
+7 Twin Platte     452678. ((-102.0557 41.05204), (-102.0556 41.05488), (-102.05…
+8 Upper Big Bl…  1804782. ((-98.83619 40.85932), (-98.81149 40.78093), (-98.549…
+9 Upper Republ…   551906. ((-102.0516 40.24644), (-102.0515 40.6287), (-102.051…</code></pre>
+<p>So, we got total acres by NRD as we expected. One interesting change that happened is geometry variable. Each NRD now has <code>multipoint</code> sfg, which is the combination of all the wells (points) located inside the NRD as you can see below.</p>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb144-1" data-line-number="1"><span class="kw">tm_shape</span>(wells_by_nrd) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb144-2" data-line-number="2"><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">col =</span> <span class="st">&quot;nrdname&quot;</span>, <span class="dt">size =</span> <span class="fl">0.2</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb144-3" data-line-number="3"><span class="st">  </span><span class="kw">tm_layout</span>(</a>
+<a class="sourceLine" id="cb144-4" data-line-number="4">    <span class="dt">frame =</span> <span class="ot">NA</span>,</a>
+<a class="sourceLine" id="cb144-5" data-line-number="5">    <span class="dt">legend.outside =</span> <span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb144-6" data-line-number="6">    <span class="dt">legend.outside.position =</span> <span class="st">&quot;bottom&quot;</span></a>
+<a class="sourceLine" id="cb144-7" data-line-number="7">  )</a></code></pre></div>
+<p><img src="VectorDataBasics_files/figure-html/map_combine-1.png" width="672" /></p>
+<p>This feature is unlikely to be of much use to us. If you would like to drop a geometry column, you can use the <code>st_drop_geometry()</code> function:</p>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb145-1" data-line-number="1"><span class="co">#--- remove geometry ---#</span></a>
+<a class="sourceLine" id="cb145-2" data-line-number="2">wells_no_longer_sf &lt;-<span class="st"> </span><span class="kw">st_drop_geometry</span>(wells_by_nrd)</a>
+<a class="sourceLine" id="cb145-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb145-4" data-line-number="4"><span class="co">#--- take a look ---#</span></a>
+<a class="sourceLine" id="cb145-5" data-line-number="5">wells_no_longer_sf</a></code></pre></div>
+<pre><code># A tibble: 9 x 2
+  nrdname           tot_acres
+* &lt;chr&gt;                 &lt;dbl&gt;
+1 Central Platte     1890918.
+2 Little Blue         995900.
+3 Lower Republican    543079.
+4 Middle Republican   443472.
+5 South Platte        216109.
+6 Tri-Basin           847058.
+7 Twin Platte         452678.
+8 Upper Big Blue     1804782.
+9 Upper Republican    551906.</code></pre>
+<p>Finally, <code>data.table</code> does not work as well with sf objects as <code>dplyr</code> does.</p>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb147-1" data-line-number="1"><span class="co">#--- convert an sf to data.table ---#</span></a>
+<a class="sourceLine" id="cb147-2" data-line-number="2">wells_by_nrd_dt &lt;-<span class="st"> </span><span class="kw">data.table</span>(wells_by_nrd)</a>
+<a class="sourceLine" id="cb147-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb147-4" data-line-number="4"><span class="co">#--- take a look ---#</span></a>
+<a class="sourceLine" id="cb147-5" data-line-number="5">wells_by_nrd_dt</a></code></pre></div>
+<pre><code>             nrdname tot_acres                           geometry
+1:    Central Platte 1890918.2 MULTIPOINT ((-100.2329 41.1...,...
+2:       Little Blue  995900.3 MULTIPOINT ((-98.72659 40.3...,...
+3:  Lower Republican  543079.2 MULTIPOINT ((-100.1968 40.3...,...
+4: Middle Republican  443472.2 MULTIPOINT ((-101.3691 40.1...,...
+5:      South Platte  216109.0 MULTIPOINT ((-104.0531 41.1...,...
+6:         Tri-Basin  847058.4 MULTIPOINT ((-100.0927 40.4...,...
+7:       Twin Platte  452677.6 MULTIPOINT ((-102.0557 41.0...,...
+8:    Upper Big Blue 1804781.5 MULTIPOINT ((-98.83619 40.8...,...
+9:  Upper Republican  551906.2 MULTIPOINT ((-102.0516 40.2...,...</code></pre>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb149-1" data-line-number="1"><span class="co">#--- check the class ---#</span></a>
+<a class="sourceLine" id="cb149-2" data-line-number="2"><span class="kw">class</span>(wells_by_nrd_dt)</a></code></pre></div>
+<pre><code>[1] &quot;data.table&quot; &quot;data.frame&quot;</code></pre>
+<p>You see that <code>wells_by_nrd_dt</code> is no longer an sf object even though geometry still remains in the data. If you try to run <code>sf</code> operations on it, it will of course give you an error. Like this:</p>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb151-1" data-line-number="1"><span class="kw">st_buffer</span>(wells_by_nrd_dt, <span class="dt">dist =</span> <span class="dv">2</span>)</a></code></pre></div>
+<pre><code>Error in UseMethod(&quot;st_buffer&quot;): no applicable method for &#39;st_buffer&#39; applied to an object of class &quot;c(&#39;data.table&#39;, &#39;data.frame&#39;)&quot;</code></pre>
+<p>But, it is easy to revert it back to an <code>sf</code> object again by using the <code>st_as_sf()</code> function<a href="#fn55" class="footnote-ref" id="fnref55"><sup>55</sup></a>.</p>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb153-1" data-line-number="1">wells_by_nrd_sf_again &lt;-<span class="st"> </span><span class="kw">st_as_sf</span>(wells_by_nrd_dt)</a></code></pre></div>
+<p>So, this means that if you need fast data transformation, you can first turn an <code>sf</code> to a <code>data.table</code>, transform the data using the <code>data.table</code> functionality, and then revert back to <code>sf</code><a href="#fn56" class="footnote-ref" id="fnref56"><sup>56</sup></a>. However, for most economists, the geometry variable itself is not of interest in the sense that it never enters econometric models. For most of us, the geographic information contained in the geometry variable is just a glue to tie two datasets together by geographic referencing. Once we get values of spatial variables of interest, then there is no point in keeping your data an sf object. Personally, whenever I no longer need to carry around the geometry variable, I immediately turn an sf object into a <code>data.table</code> for fast data transformation especially when the data is large.</p>
+</div>
+<div id="turning-a-data.frame-of-points-into-an-sf" class="section level2">
+<h2><span class="header-section-number">2.6</span> Turning a data.frame of points into an <code>sf</code></h2>
+<p>Often times, you have a dataset with geographic coordinates as variables in a csv or other formats, which would not be recognized as a spatial dataset by R immediately when it is read into R. In this case, you need to identify which variables represent the geographic coordinates from the data set, and create an <code>sf</code> yourself. Fortunately, it is easy to do so using the <code>st_as_sf()</code> function.</p>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb154-1" data-line-number="1"><span class="co">#--- read well registration data ---#</span></a>
+<a class="sourceLine" id="cb154-2" data-line-number="2">wells &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&#39;./Data/registration.rds&#39;</span>) </a>
+<a class="sourceLine" id="cb154-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb154-4" data-line-number="4"><span class="co">#--- recognize it as an sf ---#</span></a>
+<a class="sourceLine" id="cb154-5" data-line-number="5">wells_sf &lt;-<span class="st"> </span><span class="kw">st_as_sf</span>(wells, <span class="dt">coords =</span> <span class="kw">c</span>(<span class="st">&quot;longdd&quot;</span>,<span class="st">&quot;latdd&quot;</span>))</a>
+<a class="sourceLine" id="cb154-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb154-7" data-line-number="7"><span class="co">#--- take a look at the data ---#</span></a>
+<a class="sourceLine" id="cb154-8" data-line-number="8"><span class="kw">head</span>(wells_sf[,<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>])</a></code></pre></div>
+<pre><code>Simple feature collection with 6 features and 5 fields
+geometry type:  POINT
+dimension:      XY
+bbox:           xmin: -102.6249 ymin: 40.69824 xmax: -99.58401 ymax: 41.11699
+CRS:            NA
+  wellid long_utm lat_utm useid ownerid                   geometry
+1      2 450660.7 4505424     I  106106 POINT (-99.58401 40.69825)
+2      3 195648.1 4558080     I   14133 POINT (-102.6249 41.11699)
+3      4 195648.1 4558080     I   14133 POINT (-102.6249 41.11699)
+4      5 195648.1 4558080     I   14133 POINT (-102.6249 41.11699)
+5      6 447157.4 4509271     I   15837  POINT (-99.6258 40.73268)
+6      7 445515.0 4509168     I   90248 POINT (-99.64524 40.73164)</code></pre>
+<p>Note that the CRS of <code>wells_sf</code> is NA. Obviously, <span class="math inline">\(R\)</span> does not know the reference system without you telling it. We know<a href="#fn57" class="footnote-ref" id="fnref57"><sup>57</sup></a> that the geographic coordinates in the wells data is NAD 83 (<span class="math inline">\(epsg=4269\)</span>) for this dataset. So, we can assign the right CRS using either <code>st_set_crs()</code> or <code>st_crs()</code>.</p>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb156-1" data-line-number="1"><span class="co">#--- set CRS ---#</span></a>
+<a class="sourceLine" id="cb156-2" data-line-number="2">wells_sf &lt;-<span class="st"> </span><span class="kw">st_set_crs</span>(wells_sf, <span class="dv">4269</span>) </a>
+<a class="sourceLine" id="cb156-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb156-4" data-line-number="4"><span class="co">#--- or this ---#</span></a>
+<a class="sourceLine" id="cb156-5" data-line-number="5"><span class="kw">st_crs</span>(wells_sf) &lt;-<span class="st"> </span><span class="dv">4269</span></a>
+<a class="sourceLine" id="cb156-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb156-7" data-line-number="7"><span class="co">#--- see the change ---#</span></a>
+<a class="sourceLine" id="cb156-8" data-line-number="8"><span class="kw">head</span>(wells_sf[,<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>])</a></code></pre></div>
+<pre><code>Simple feature collection with 6 features and 5 fields
+geometry type:  POINT
+dimension:      XY
+bbox:           xmin: -102.6249 ymin: 40.69824 xmax: -99.58401 ymax: 41.11699
+CRS:            EPSG:4269
+  wellid long_utm lat_utm useid ownerid                   geometry
+1      2 450660.7 4505424     I  106106 POINT (-99.58401 40.69825)
+2      3 195648.1 4558080     I   14133 POINT (-102.6249 41.11699)
+3      4 195648.1 4558080     I   14133 POINT (-102.6249 41.11699)
+4      5 195648.1 4558080     I   14133 POINT (-102.6249 41.11699)
+5      6 447157.4 4509271     I   15837  POINT (-99.6258 40.73268)
+6      7 445515.0 4509168     I   90248 POINT (-99.64524 40.73164)</code></pre>
+</div>
+<div id="conversion-to-and-from-sp" class="section level2">
+<h2><span class="header-section-number">2.7</span> Conversion to and from sp</h2>
+<p>Though unlikely, you may find instances where <code>sp</code> objects are necessary or desirable.<a href="#fn58" class="footnote-ref" id="fnref58"><sup>58</sup></a> In that case, it is good to know how to convert an <code>sf</code> object to an <code>sp</code> object, vice versa. You can convert an <code>sf</code> object to its <code>sp</code> counterpart using <code>as(sf_object, &quot;Spatial&quot;)</code>:</p>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb158-1" data-line-number="1"><span class="co">#--- conversion ---#</span></a>
+<a class="sourceLine" id="cb158-2" data-line-number="2">wells_sp &lt;-<span class="st"> </span><span class="kw">as</span>(wells_sf,<span class="st">&quot;Spatial&quot;</span>)</a>
+<a class="sourceLine" id="cb158-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb158-4" data-line-number="4"><span class="co">#--- check the class of NE_sp ---#</span></a>
+<a class="sourceLine" id="cb158-5" data-line-number="5"><span class="kw">class</span>(wells_sp)</a></code></pre></div>
+<pre><code>[1] &quot;SpatialPointsDataFrame&quot;
+attr(,&quot;package&quot;)
+[1] &quot;sp&quot;</code></pre>
+<!-- ```{r }
+list(a_point, a_polygon) %>% st_sfc() %>% st_as_sf() %>% 
+  as("Spatial")
+```
+
+ -->
+<p>As you can see <code>NE_sp</code> is a class of <code>SpatialPointsDataFrame</code>, polygons with data frame supported by the <code>sp</code> package. The above syntax works for converting an <code>sf</code> of polygons into <code>SpatialPolygonsDataFrame</code> as well<a href="#fn59" class="footnote-ref" id="fnref59"><sup>59</sup></a>.</p>
+<p>You can revert <code>NE_sp</code> back to an <code>sf</code> object using the <code>st_as_sf()</code> function, as follows:</p>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb160-1" data-line-number="1"><span class="co">#--- revert back to sf ---#</span></a>
+<a class="sourceLine" id="cb160-2" data-line-number="2">wells_sf &lt;-<span class="st"> </span><span class="kw">st_as_sf</span>(wells_sp)</a>
+<a class="sourceLine" id="cb160-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb160-4" data-line-number="4"><span class="co">#--- check the class ---#</span></a>
+<a class="sourceLine" id="cb160-5" data-line-number="5"><span class="kw">class</span>(wells_sf)</a></code></pre></div>
+<pre><code>[1] &quot;sf&quot;         &quot;data.frame&quot;</code></pre>
+<p>We do not cover how to use the <code>sp</code> package as the benefit of learning it has become marginal compared to when <code>sf</code> was just introduced a few years back<a href="#fn60" class="footnote-ref" id="fnref60"><sup>60</sup></a>.</p>
+</div>
+<div id="geometrical-operations" class="section level2">
+<h2><span class="header-section-number">2.8</span> Geometrical operations</h2>
+<p>There are various geometrical operations that are particularly useful for economists. Here, some of the most commonly used geometrical operations are introduced<a href="#fn61" class="footnote-ref" id="fnref61"><sup>61</sup></a>. You can see the practical use of some of these functions in Chapter <a href="demo.html#demo">1</a>.</p>
+<div id="st_buffer" class="section level3">
+<h3><span class="header-section-number">2.8.1</span> st_buffer</h3>
+<p><code>st_buffer()</code> creates a buffer around points, lines, or the border of polygons.</p>
+<p>Let’s create buffers around points. First, we read well locations data.</p>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb162-1" data-line-number="1"><span class="co">#--- read wells location data ---#</span></a>
+<a class="sourceLine" id="cb162-2" data-line-number="2">urnrd_wells_sf &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;./Data/urnrd_wells.rds&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb162-3" data-line-number="3"><span class="st">  </span><span class="co">#--- project to UTM 14N WGS 84 ---#</span></a>
+<a class="sourceLine" id="cb162-4" data-line-number="4"><span class="st">  </span><span class="kw">st_transform</span>(<span class="dv">32614</span>)  </a></code></pre></div>
+<p>Here is the spatial distribution of the wells (Figure <a href="vector-basics.html#fig:urnrd-wells">2.2</a>).</p>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb163-1" data-line-number="1"><span class="kw">tm_shape</span>(urnrd_wells_sf) <span class="op">+</span></a>
+<a class="sourceLine" id="cb163-2" data-line-number="2"><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">col =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">size =</span> <span class="fl">0.1</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb163-3" data-line-number="3"><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">frame =</span> <span class="ot">NA</span>)</a></code></pre></div>
+<div class="figure"><span id="fig:urnrd-wells"></span>
+<img src="VectorDataBasics_files/figure-html/urnrd-wells-1.png" alt="Map of the wells" width="672" />
+<p class="caption">
+Figure 2.2: Map of the wells
+</p>
+</div>
+<p>Let’s create buffers around the wells.</p>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb164-1" data-line-number="1"><span class="co">#--- create a one-mile buffer around the wells ---#</span></a>
+<a class="sourceLine" id="cb164-2" data-line-number="2">wells_buffer &lt;-<span class="st"> </span><span class="kw">st_buffer</span>(urnrd_wells_sf, <span class="dt">dist =</span> <span class="dv">1600</span>)</a></code></pre></div>
+<p>As you can see, you see bunch of circles around wells with the radius of <span class="math inline">\(1,600\)</span> meters (Figure <a href="vector-basics.html#fig:buffer-points-map">2.3</a>).</p>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb165-1" data-line-number="1"><span class="kw">tm_shape</span>(wells_buffer) <span class="op">+</span></a>
+<a class="sourceLine" id="cb165-2" data-line-number="2"><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">alpha =</span> <span class="dv">0</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb165-3" data-line-number="3"><span class="kw">tm_shape</span>(urnrd_wells_sf) <span class="op">+</span></a>
+<a class="sourceLine" id="cb165-4" data-line-number="4"><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">col =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">size =</span> <span class="fl">0.1</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb165-5" data-line-number="5"><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">frame =</span> <span class="ot">NA</span>)</a></code></pre></div>
+<div class="figure"><span id="fig:buffer-points-map"></span>
+<img src="VectorDataBasics_files/figure-html/buffer-points-map-1.png" alt="Buffers around wells" width="672" />
+<p class="caption">
+Figure 2.3: Buffers around wells
+</p>
+</div>
+<p>A practical application of buffer creation will be seen in Chapter <a href="demo.html#Demo1">1.1</a>.</p>
+<hr />
+<p>We now create buffers around polygons. First, read NE county boundary data and select three counties (Chase, Dundy, and Perkins).</p>
+<p>Here is what they look like (Figure <a href="vector-basics.html#fig:map-three-counties">2.4</a>):</p>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb166-1" data-line-number="1"><span class="kw">tm_shape</span>(NE_counties) <span class="op">+</span></a>
+<a class="sourceLine" id="cb166-2" data-line-number="2"><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="st">&#39;NAME&#39;</span>, <span class="dt">palette=</span><span class="st">&quot;RdYlGn&quot;</span>, <span class="dt">contrast=</span>.<span class="dv">3</span>, <span class="dt">title=</span><span class="st">&quot;County&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb166-3" data-line-number="3"><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">frame =</span> <span class="ot">NA</span>)</a></code></pre></div>
+<div class="figure"><span id="fig:map-three-counties"></span>
+<img src="VectorDataBasics_files/figure-html/map-three-counties-1.png" alt="Map of the three counties" width="672" />
+<p class="caption">
+Figure 2.4: Map of the three counties
+</p>
+</div>
+<p>The following code creates buffers around polygons (see the results in Figure <a href="vector-basics.html#fig:buffer-county">2.5</a>):</p>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb167-1" data-line-number="1">NE_buffer &lt;-<span class="st"> </span><span class="kw">st_buffer</span>(NE_counties, <span class="dt">dist =</span> <span class="dv">2000</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb168-1" data-line-number="1"><span class="kw">tm_shape</span>(NE_buffer) <span class="op">+</span></a>
+<a class="sourceLine" id="cb168-2" data-line-number="2"><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col=</span><span class="st">&#39;blue&#39;</span>,<span class="dt">alpha=</span><span class="fl">0.2</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb168-3" data-line-number="3"><span class="kw">tm_shape</span>(NE_counties) <span class="op">+</span></a>
+<a class="sourceLine" id="cb168-4" data-line-number="4"><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="st">&#39;NAME&#39;</span>, <span class="dt">palette=</span><span class="st">&quot;RdYlGn&quot;</span>, <span class="dt">contrast=</span>.<span class="dv">3</span>, <span class="dt">title=</span><span class="st">&quot;County&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb168-5" data-line-number="5"><span class="st">  </span><span class="kw">tm_layout</span>(</a>
+<a class="sourceLine" id="cb168-6" data-line-number="6">    <span class="dt">legend.outside=</span><span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb168-7" data-line-number="7">    <span class="dt">frame=</span><span class="ot">FALSE</span></a>
+<a class="sourceLine" id="cb168-8" data-line-number="8">  )</a></code></pre></div>
+<div class="figure"><span id="fig:buffer-county"></span>
+<img src="VectorDataBasics_files/figure-html/buffer-county-1.png" alt="Buffers around the three counties" width="672" />
+<p class="caption">
+Figure 2.5: Buffers around the three counties
+</p>
+</div>
+<p>For example, this can use useful to identify observations are close enough to the border of political boundaries when you want to take advantage of spatial discontinuity of policies across adjacent political boundaries.</p>
+</div>
+<div id="st_area" class="section level3">
+<h3><span class="header-section-number">2.8.2</span> st_area</h3>
+<p>The <code>st_area()</code> function calculates the area of polygons.</p>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb169-1" data-line-number="1"><span class="co">#--- generate area by polygon ---#</span></a>
+<a class="sourceLine" id="cb169-2" data-line-number="2">(</a>
+<a class="sourceLine" id="cb169-3" data-line-number="3">  NE_counties &lt;-<span class="st"> </span><span class="kw">mutate</span>(NE_counties, <span class="dt">area =</span> <span class="kw">st_area</span>(NE_counties))</a>
+<a class="sourceLine" id="cb169-4" data-line-number="4">)</a></code></pre></div>
+<pre><code>Simple feature collection with 3 features and 10 fields
+geometry type:  MULTIPOLYGON
+dimension:      XY
+bbox:           xmin: 239494.1 ymin: 4430632 xmax: 310778.1 ymax: 4543676
+CRS:            EPSG:32614
+  STATEFP COUNTYFP COUNTYNS       AFFGEOID GEOID    NAME LSAD      ALAND
+1      31      135 00835889 0500000US31135 31135 Perkins   06 2287828025
+2      31      029 00835836 0500000US31029 31029   Chase   06 2316533447
+3      31      057 00835850 0500000US31057 31057   Dundy   06 2381956151
+   AWATER                       geometry             area
+1 2840176 MULTIPOLYGON (((243340.2 45... 2302174854 [m^2]
+2 7978172 MULTIPOLYGON (((241201.4 44... 2316908196 [m^2]
+3 3046331 MULTIPOLYGON (((240811.3 44... 2389890531 [m^2]</code></pre>
+<p>Now, as you can see below, the default class of the results of <code>st_area()</code> is <code>units</code>, which does not accept numerical operations.</p>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb171-1" data-line-number="1"><span class="kw">class</span>(NE_counties<span class="op">$</span>area)</a></code></pre></div>
+<pre><code>[1] &quot;units&quot;</code></pre>
+<p>So, let’s turn it into double.</p>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb173-1" data-line-number="1">(</a>
+<a class="sourceLine" id="cb173-2" data-line-number="2">NE_counties &lt;-<span class="st"> </span><span class="kw">mutate</span>(NE_counties, <span class="dt">area =</span> <span class="kw">as.numeric</span>(area))</a>
+<a class="sourceLine" id="cb173-3" data-line-number="3">)</a></code></pre></div>
+<pre><code>Simple feature collection with 3 features and 10 fields
+geometry type:  MULTIPOLYGON
+dimension:      XY
+bbox:           xmin: 239494.1 ymin: 4430632 xmax: 310778.1 ymax: 4543676
+CRS:            EPSG:32614
+  STATEFP COUNTYFP COUNTYNS       AFFGEOID GEOID    NAME LSAD      ALAND
+1      31      135 00835889 0500000US31135 31135 Perkins   06 2287828025
+2      31      029 00835836 0500000US31029 31029   Chase   06 2316533447
+3      31      057 00835850 0500000US31057 31057   Dundy   06 2381956151
+   AWATER                       geometry       area
+1 2840176 MULTIPOLYGON (((243340.2 45... 2302174854
+2 7978172 MULTIPOLYGON (((241201.4 44... 2316908196
+3 3046331 MULTIPOLYGON (((240811.3 44... 2389890531</code></pre>
+<p><code>st_area()</code> is useful when you want to find area-weighted average of characteristics after spatially joining two polygon layers using the <code>st_intersection()</code> function (See Chapter <a href="spatial-interactions-of-vector-data-subsetting-and-joining.html#polygon-polygon">3.3.3</a>).</p>
+</div>
+<div id="st_centroid" class="section level3">
+<h3><span class="header-section-number">2.8.3</span> st_centroid</h3>
+<p>The <code>st_centroid()</code> function finds the centroid of each polygon.</p>
+<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb175-1" data-line-number="1"><span class="co">#--- create centroids ---#</span></a>
+<a class="sourceLine" id="cb175-2" data-line-number="2">(</a>
+<a class="sourceLine" id="cb175-3" data-line-number="3">NE_centroids &lt;-<span class="st"> </span><span class="kw">st_centroid</span>(NE_counties)</a>
+<a class="sourceLine" id="cb175-4" data-line-number="4">)</a></code></pre></div>
+<pre><code>Simple feature collection with 3 features and 10 fields
+geometry type:  POINT
+dimension:      XY
+bbox:           xmin: 271156.7 ymin: 4450826 xmax: 276594.1 ymax: 4525635
+CRS:            EPSG:32614
+  STATEFP COUNTYFP COUNTYNS       AFFGEOID GEOID    NAME LSAD      ALAND
+1      31      135 00835889 0500000US31135 31135 Perkins   06 2287828025
+2      31      029 00835836 0500000US31029 31029   Chase   06 2316533447
+3      31      057 00835850 0500000US31057 31057   Dundy   06 2381956151
+   AWATER                 geometry       area
+1 2840176 POINT (276594.1 4525635) 2302174854
+2 7978172 POINT (271469.9 4489429) 2316908196
+3 3046331 POINT (271156.7 4450826) 2389890531</code></pre>
+<p>Here’s what the map of the output (Figure <a href="vector-basics.html#fig:map-centroids">2.6</a>).</p>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb177-1" data-line-number="1"><span class="kw">tm_shape</span>(NE_counties) <span class="op">+</span></a>
+<a class="sourceLine" id="cb177-2" data-line-number="2"><span class="st">  </span><span class="kw">tm_polygons</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb177-3" data-line-number="3"><span class="kw">tm_shape</span>(NE_centroids)<span class="op">+</span></a>
+<a class="sourceLine" id="cb177-4" data-line-number="4"><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">size=</span><span class="fl">0.5</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb177-5" data-line-number="5"><span class="kw">tm_layout</span>(</a>
+<a class="sourceLine" id="cb177-6" data-line-number="6">    <span class="dt">legend.outside=</span><span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb177-7" data-line-number="7">    <span class="dt">frame=</span><span class="ot">FALSE</span></a>
+<a class="sourceLine" id="cb177-8" data-line-number="8">  )</a></code></pre></div>
+<div class="figure"><span id="fig:map-centroids"></span>
+<img src="VectorDataBasics_files/figure-html/map-centroids-1.png" alt="The centroids of the polygons" width="672" />
+<p class="caption">
+Figure 2.6: The centroids of the polygons
+</p>
+</div>
+<p>It can be useful when creating a map with labels because the centroid of polygons tend to be a good place to place labels at like this (Figure <a href="vector-basics.html#fig:cent-label">2.7</a>).<a href="#fn62" class="footnote-ref" id="fnref62"><sup>62</sup></a></p>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb178-1" data-line-number="1"><span class="kw">tm_shape</span>(NE_counties) <span class="op">+</span></a>
+<a class="sourceLine" id="cb178-2" data-line-number="2"><span class="st">  </span><span class="kw">tm_polygons</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb178-3" data-line-number="3"><span class="kw">tm_shape</span>(NE_centroids)<span class="op">+</span></a>
+<a class="sourceLine" id="cb178-4" data-line-number="4"><span class="st">  </span><span class="kw">tm_text</span>(<span class="st">&quot;NAME&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb178-5" data-line-number="5"><span class="kw">tm_layout</span>(</a>
+<a class="sourceLine" id="cb178-6" data-line-number="6">    <span class="dt">legend.outside=</span><span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb178-7" data-line-number="7">    <span class="dt">frame=</span><span class="ot">FALSE</span></a>
+<a class="sourceLine" id="cb178-8" data-line-number="8">  )</a></code></pre></div>
+<div class="figure"><span id="fig:cent-label"></span>
+<img src="VectorDataBasics_files/figure-html/cent-label-1.png" alt="County names placed at the centroids of the counties" width="672" />
+<p class="caption">
+Figure 2.7: County names placed at the centroids of the counties
+</p>
+</div>
+<p>It may be also useful when you somehow need to calculate the “distance” between polygons.</p>
+</div>
+<div id="st_length" class="section level3">
+<h3><span class="header-section-number">2.8.4</span> st_length</h3>
+<p>We can use <code>st_length()</code> to calculate great circle distances<a href="#fn63" class="footnote-ref" id="fnref63"><sup>63</sup></a> of <code>LINESTRING</code> and <code>MULTILINESTRING</code> when they are represented in geodetic coordinates. On the other hand, if they are projected and use a Cartesian coordinate system, it will calculate Euclidean distance. We use U.S. railroad data for a demonstration.</p>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb179-1" data-line-number="1"><span class="co">#--- import US railroad data and take only the first 10 of it ---#</span></a>
+<a class="sourceLine" id="cb179-2" data-line-number="2">(</a>
+<a class="sourceLine" id="cb179-3" data-line-number="3">a_railroad &lt;-<span class="st"> </span>rail_roads &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="dt">dsn =</span> <span class="st">&quot;./Data/&quot;</span>, <span class="dt">layer =</span> <span class="st">&quot;tl_2015_us_rails&quot;</span>)[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, ]</a>
+<a class="sourceLine" id="cb179-4" data-line-number="4">)</a></code></pre></div>
+<pre><code>Reading layer `tl_2015_us_rails&#39; from data source `/Users/tmieno2/Box/Teaching/AAEA R/GIS/Data&#39; using driver `ESRI Shapefile&#39;
+Simple feature collection with 180958 features and 3 fields
+geometry type:  MULTILINESTRING
+dimension:      XY
+bbox:           xmin: -165.4011 ymin: 17.95174 xmax: -65.74931 ymax: 65.00006
+CRS:            4269</code></pre>
+<pre><code>Simple feature collection with 10 features and 3 fields
+geometry type:  MULTILINESTRING
+dimension:      XY
+bbox:           xmin: -79.74031 ymin: 35.0571 xmax: -79.2377 ymax: 35.51776
+CRS:            4269
+      LINEARID                    FULLNAME MTFCC                       geometry
+1  11020239500       Norfolk Southern Rlwy R1011 MULTILINESTRING ((-79.47058...
+2  11020239501       Norfolk Southern Rlwy R1011 MULTILINESTRING ((-79.46687...
+3  11020239502       Norfolk Southern Rlwy R1011 MULTILINESTRING ((-79.66819...
+4  11020239503       Norfolk Southern Rlwy R1011 MULTILINESTRING ((-79.46687...
+5  11020239504       Norfolk Southern Rlwy R1011 MULTILINESTRING ((-79.74031...
+6  11020239575      Seaboard Coast Line RR R1011 MULTILINESTRING ((-79.43695...
+7  11020239576      Seaboard Coast Line RR R1011 MULTILINESTRING ((-79.47852...
+8  11020239577      Seaboard Coast Line RR R1011 MULTILINESTRING ((-79.43695...
+9  11020239589    Aberdeen and Rockfish RR R1011 MULTILINESTRING ((-79.38736...
+10 11020239591 Aberdeen and Briar Patch RR R1011 MULTILINESTRING ((-79.53848...</code></pre>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb182-1" data-line-number="1"><span class="co">#--- check CRS ---#</span></a>
+<a class="sourceLine" id="cb182-2" data-line-number="2"><span class="kw">st_crs</span>(a_railroad)</a></code></pre></div>
+<pre><code>Coordinate Reference System:
+  User input: 4269 
+  wkt:
+GEOGCS[&quot;NAD83&quot;,
+    DATUM[&quot;North_American_Datum_1983&quot;,
+        SPHEROID[&quot;GRS 1980&quot;,6378137,298.257222101,
+            AUTHORITY[&quot;EPSG&quot;,&quot;7019&quot;]],
+        TOWGS84[0,0,0,0,0,0,0],
+        AUTHORITY[&quot;EPSG&quot;,&quot;6269&quot;]],
+    PRIMEM[&quot;Greenwich&quot;,0,
+        AUTHORITY[&quot;EPSG&quot;,&quot;8901&quot;]],
+    UNIT[&quot;degree&quot;,0.0174532925199433,
+        AUTHORITY[&quot;EPSG&quot;,&quot;9122&quot;]],
+    AUTHORITY[&quot;EPSG&quot;,&quot;4269&quot;]]</code></pre>
+<p>It uses geodetic coordinate system. Let’s calculate the great circle distance of the lines (Chapter <a href="demo.html#demo4">1.4</a> for a practical use case of this function).</p>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb184-1" data-line-number="1">(</a>
+<a class="sourceLine" id="cb184-2" data-line-number="2">a_railroad &lt;-<span class="st"> </span><span class="kw">mutate</span>(a_railroad, <span class="dt">length =</span> <span class="kw">st_length</span>(a_railroad))</a>
+<a class="sourceLine" id="cb184-3" data-line-number="3">)</a></code></pre></div>
+<pre><code>Simple feature collection with 10 features and 4 fields
+geometry type:  MULTILINESTRING
+dimension:      XY
+bbox:           xmin: -79.74031 ymin: 35.0571 xmax: -79.2377 ymax: 35.51776
+CRS:            4269
+      LINEARID                    FULLNAME MTFCC                       geometry
+1  11020239500       Norfolk Southern Rlwy R1011 MULTILINESTRING ((-79.47058...
+2  11020239501       Norfolk Southern Rlwy R1011 MULTILINESTRING ((-79.46687...
+3  11020239502       Norfolk Southern Rlwy R1011 MULTILINESTRING ((-79.66819...
+4  11020239503       Norfolk Southern Rlwy R1011 MULTILINESTRING ((-79.46687...
+5  11020239504       Norfolk Southern Rlwy R1011 MULTILINESTRING ((-79.74031...
+6  11020239575      Seaboard Coast Line RR R1011 MULTILINESTRING ((-79.43695...
+7  11020239576      Seaboard Coast Line RR R1011 MULTILINESTRING ((-79.47852...
+8  11020239577      Seaboard Coast Line RR R1011 MULTILINESTRING ((-79.43695...
+9  11020239589    Aberdeen and Rockfish RR R1011 MULTILINESTRING ((-79.38736...
+10 11020239591 Aberdeen and Briar Patch RR R1011 MULTILINESTRING ((-79.53848...
+           length
+1    661.3381 [m]
+2    657.4261 [m]
+3  19982.5998 [m]
+4  13888.3385 [m]
+5   7194.7745 [m]
+6   1061.2335 [m]
+7   7824.0945 [m]
+8  31756.9803 [m]
+9   4547.1970 [m]
+10 17103.0691 [m]</code></pre>
+<!-- ## st_distance
+
+The `st_distance` function calculates distances between spatial objects. Its output is the matrix of distances whose $i,j$ element is the distance between the $i$th `sfg` of the first `sf` and $j$th `sfg` of the second `sf`. The following code find the distance between the first 10 wells in `urnrd_wells_sf`.
+
+
+```r
+st_distance(urnrd_wells_sf[1:10, ], urnrd_wells_sf[1:10, ])
+```
+
+```
+Units: [m]
+          [,1]       [,2]       [,3]      [,4]     [,5]      [,6]       [,7]
+ [1,]     0.00 24224.9674 24007.0480 19678.000 26974.04 25490.735 21710.2051
+ [2,] 24224.97     0.0000   386.7858  8137.875 44632.84  2180.034 14285.1996
+ [3,] 24007.05   386.7858     0.0000  7754.775 44610.53  2067.106 13901.5230
+ [4,] 19678.00  8137.8750  7754.7753     0.000 43774.40  7892.077  6753.1200
+ [5,] 26974.04 44632.8443 44610.5290 43774.401     0.00 46610.537 47713.4334
+ [6,] 25490.73  2180.0343  2067.1055  7892.077 46610.54     0.000 13362.2041
+ [7,] 21710.21 14285.1996 13901.5230  6753.120 47713.43 13362.204     0.0000
+ [8,] 22029.35 14345.1319 13962.6364  6909.932 48027.14 13377.109   319.3365
+ [9,] 17243.59 18297.5078 17916.8399 10172.159 44061.21 17978.355  6297.5682
+[10,] 25184.43  6052.8916  5747.7464  5709.523 48215.58  4340.971  9505.0583
+            [,8]      [,9]     [,10]
+ [1,] 22029.3535 17243.589 25184.434
+ [2,] 14345.1319 18297.508  6052.892
+ [3,] 13962.6364 17916.840  5747.746
+ [4,]  6909.9319 10172.159  5709.523
+ [5,] 48027.1382 44061.209 48215.582
+ [6,] 13377.1087 17978.355  4340.971
+ [7,]   319.3365  6297.568  9505.058
+ [8,]     0.0000  6543.339  9465.084
+ [9,]  6543.3389     0.000 14832.639
+[10,]  9465.0840 14832.639     0.000
+```
+ -->
+
+</div>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-pebesma2018simple">
+<p>Pebesma, Edzer. 2018. “Simple Features for R: Standardized Support for Spatial Vector Data.” <em>R Journal</em> 10 (1).</p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="36">
+<li id="fn36"><p>yes, it is the same as the package name<a href="vector-basics.html#fnref36" class="footnote-back">↩</a></p></li>
+<li id="fn37"><p>except we learn how to convert back and forth between <code>sf</code> object ans <code>sp</code> objects just in case you need <code>sp</code> objects.<a href="vector-basics.html#fnref37" class="footnote-back">↩</a></p></li>
+<li id="fn38"><p>There are cases where <code>sp</code> is faster completing the same task than <code>sf</code>. For example, see the answer to <a href="https://gis.stackexchange.com/questions/324952/spover-vs-sfst-intersection-in-r">this question</a>. But, the I doubt the difference between the two is practically negligible even with a bigger data than the test data.<a href="vector-basics.html#fnref38" class="footnote-back">↩</a></p></li>
+<li id="fn39"><p>just like a regular <code>list</code> object can contain mixed types of elements: numeric, character, etc<a href="vector-basics.html#fnref39" class="footnote-back">↩</a></p></li>
+<li id="fn40"><p>I must say that creating spatial objects from scratch yourself is an unnecessary skill for many of us as an economist. But, it is still good to know the underlying structure of the data. Also, occasionally the need arises. For example, I had to construct spatial objects from scratch when I designed on-farm randomized nitrogen trials. In such cases, it is of course necessary to understand how different types of <code>sfg</code> are constructed, create <code>sfc</code> from a collection of <code>sfg</code>s, and then create an <code>sf</code> from an <code>sfc</code>.<a href="vector-basics.html#fnref40" class="footnote-back">↩</a></p></li>
+<li id="fn41"><p>You will hardly see the other geometry types: MULTIPOINT and GEOMETRYCOLLECTION. You may see GEOMETRYCOLLECTION after intersecting two spatial objects. You can see <a href="https://r-spatial.github.io/sf/articles/sf1.html#sfg-simple-feature-geometry-1">here</a> if you are interested in learning what they are.<a href="vector-basics.html#fnref41" class="footnote-back">↩</a></p></li>
+<li id="fn42"><p>or three to represent a point in the three-dimensional space<a href="vector-basics.html#fnref42" class="footnote-back">↩</a></p></li>
+<li id="fn43"><p>we will learn how to make <code>sfg</code> objects from scratch because it helps to better understand how the spatial data is stored.<a href="vector-basics.html#fnref43" class="footnote-back">↩</a></p></li>
+<li id="fn44"><p>See <a href="">here</a> for other various formats spatial data are stored.<a href="vector-basics.html#fnref44" class="footnote-back">↩</a></p></li>
+<li id="fn45"><p>When storing a spatial dataset, ArcGIS divides the information into separate files. All of them have the same prefix, but have different extensions. We typically say we read a shapefile, but we really are importing all these files including the shapefile with the .shp extension. When you read those data, you just refer to the common prefix because you really are importing all the files, not just a .shp file.<a href="vector-basics.html#fnref45" class="footnote-back">↩</a></p></li>
+<li id="fn46"><p>Link here<a href="vector-basics.html#fnref46" class="footnote-back">↩</a></p></li>
+<li id="fn47"><p>see the last paragraph of <a href="https://csgillespie.github.io/efficientR/data-carpentry.html#data-processing-with-data.table">chapter 7.5 of this book</a>, <a href="https://carto.com/blog/fgdb-gpkg/">this blogpost</a>, or <a href="http://switchfromshapefile.org/">this</a><a href="vector-basics.html#fnref47" class="footnote-back">↩</a></p></li>
+<li id="fn48"><p><code>sf</code> versions prior to 0.9 provides CRS information in the form of <code>proj4string</code>. The newer version of <code>sf</code> presents CRS in the form of <code>wtk</code> (see <a href="https://nowosad.github.io/whyr_webinar004/#25">this slide</a>). You can find the reason behind this change in the same slide, starting from <a href="https://nowosad.github.io/whyr_webinar004/#18">here</a>.<a href="vector-basics.html#fnref48" class="footnote-back">↩</a></p></li>
+<li id="fn49"><p>See <a href="https://spatialreference.org/ref/epsg/nad27/">here</a> for numerous other formats that represent the same CRS.<a href="vector-basics.html#fnref49" class="footnote-back">↩</a></p></li>
+<li id="fn50"><p>You can find the CRS-EPSG number correspondence <a href="http://spatialreference.org/ref/epsg/">here</a>.<a href="vector-basics.html#fnref50" class="footnote-back">↩</a></p></li>
+<li id="fn51"><p>Potential pool of CRS is infinite. Only the commonly-used CRS have been assigned EPSG SRID.<a href="vector-basics.html#fnref51" class="footnote-back">↩</a></p></li>
+<li id="fn52"><p>(see <a href="http://spatialreference.org/ref/epsg/nad83-utm-zone-14n/">here</a>)<a href="vector-basics.html#fnref52" class="footnote-back">↩</a></p></li>
+<li id="fn53"><p>e.g., spatial subsetting, joining, etc<a href="vector-basics.html#fnref53" class="footnote-back">↩</a></p></li>
+<li id="fn54"><p>In this example, we are using the same data with two different CRS. But, you get the point.<a href="vector-basics.html#fnref54" class="footnote-back">↩</a></p></li>
+<li id="fn55"><p>This was not the case before. Turning an <code>sf</code> object to a <code>data.table</code> object used to replace sfg with NA.<a href="vector-basics.html#fnref55" class="footnote-back">↩</a></p></li>
+<li id="fn56"><p>Remember that conversions between <code>sp</code> and <code>sf</code> also take time.<a href="vector-basics.html#fnref56" class="footnote-back">↩</a></p></li>
+<li id="fn57"><p>Yes, YOU need to know the CRS of your data.<a href="vector-basics.html#fnref57" class="footnote-back">↩</a></p></li>
+<li id="fn58"><p>For example, those who run spatial econometric methods using <code>spdep</code>, creating neighbors from polygons is a bit faster using <code>sp</code> objects than using <code>sf</code> objects).<a href="vector-basics.html#fnref58" class="footnote-back">↩</a></p></li>
+<li id="fn59"><p>The function does not work for an <code>sf</code> object that consists of different geometry types (e.g., POINT and POLYGON). This is because <code>sp</code> objects do not allow to have different types of geometries in the single <code>sp</code> object. For example, <code>SpatialPointsDataFrame</code> consists only of points data.<a href="vector-basics.html#fnref59" class="footnote-back">↩</a></p></li>
+<li id="fn60"><p>For those interested in learning the <code>sp</code> package, <a href="https://rspatial.org/">this website</a> is a good resource.<a href="vector-basics.html#fnref60" class="footnote-back">↩</a></p></li>
+<li id="fn61"><p>For the complete list of available geometrical operations under the <code>sf</code> package, see <a href="https://cran.r-project.org/web/packages/sf/vignettes/sf1.html">here</a>.<a href="vector-basics.html#fnref61" class="footnote-back">↩</a></p></li>
+<li id="fn62"><p>When creating maps with the ggplot2 package, you can use <code>geom_sf_text()</code> or <code>geom_sf_label()</code>, which automatically finds where to put texts. See some examples <a href="https://yutani.rbind.io/post/geom-sf-text-and-geom-sf-label-are-coming/">here</a>.<a href="vector-basics.html#fnref62" class="footnote-back">↩</a></p></li>
+<li id="fn63"><p>Great circle distance is the shortest distance between two points on the surface of a sphere (earth)<a href="vector-basics.html#fnref63" class="footnote-back">↩</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="demo.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="spatial-interactions-of-vector-data-subsetting-and-joining.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

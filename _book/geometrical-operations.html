@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2.8 Geometrical operations | R as GIS for Economists</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="2.8 Geometrical operations | R as GIS for Economists" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2.8 Geometrical operations | R as GIS for Economists" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Taro Mieno" />
+
+
+<meta name="date" content="2020-05-14" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="conversion-to-and-from-sp.html"/>
+<link rel="next" href="spatial-interactions-of-vector-data-subsetting-and-joining.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">R as GIS for Economists</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="why-r-as-gis-for-economists.html"><a href="why-r-as-gis-for-economists.html"><i class="fa fa-check"></i>Why R as GIS for Economists?</a><ul>
+<li class="chapter" data-level="" data-path="why-r-as-gis-for-economists.html"><a href="why-r-as-gis-for-economists.html#r-vs-python"><i class="fa fa-check"></i>R vs Python</a></li>
+<li class="chapter" data-level="" data-path="why-r-as-gis-for-economists.html"><a href="why-r-as-gis-for-economists.html#r-vs-arcgis-or-qgis"><i class="fa fa-check"></i>R vs ArcGIS or QGIS</a></li>
+<li class="chapter" data-level="" data-path="why-r-as-gis-for-economists.html"><a href="why-r-as-gis-for-economists.html#summary"><i class="fa fa-check"></i>Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="how-is-this-book-different-from-other-online-books-and-resources.html"><a href="how-is-this-book-different-from-other-online-books-and-resources.html"><i class="fa fa-check"></i>How is this book different from other online books and resources?</a></li>
+<li class="chapter" data-level="" data-path="what-is-going-to-be-covered-in-this-book.html"><a href="what-is-going-to-be-covered-in-this-book.html"><i class="fa fa-check"></i>What is going to be covered in this book?</a></li>
+<li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html"><i class="fa fa-check"></i>Conventions of the book and some notes</a><ul>
+<li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html#texts-in-gray-boxes"><i class="fa fa-check"></i>Texts in gray boxes</a></li>
+<li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html#colored-boxes"><i class="fa fa-check"></i>Colored Boxes</a></li>
+<li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html#parentheses-around-codes"><i class="fa fa-check"></i>Parentheses around codes</a></li>
+<li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html#footnotes"><i class="fa fa-check"></i>Footnotes</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="session-information.html"><a href="session-information.html"><i class="fa fa-check"></i>Session Information</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="demo.html"><a href="demo.html"><i class="fa fa-check"></i><b>1</b> R as GIS: Demonstrations</a><ul>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="1.1" data-path="Demo1.html"><a href="Demo1.html"><i class="fa fa-check"></i><b>1.1</b> Demonstration 1: The impact of groundwater pumping on depth to water table</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="Demo1.html"><a href="Demo1.html#project-overview"><i class="fa fa-check"></i><b>1.1.1</b> Project Overview</a></li>
+<li class="chapter" data-level="1.1.2" data-path="Demo1.html"><a href="Demo1.html#project-demonstration"><i class="fa fa-check"></i><b>1.1.2</b> Project Demonstration</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="demonstration-2-precision-agriculture.html"><a href="demonstration-2-precision-agriculture.html"><i class="fa fa-check"></i><b>1.2</b> Demonstration 2: Precision Agriculture</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="demonstration-2-precision-agriculture.html"><a href="demonstration-2-precision-agriculture.html#project-overview-1"><i class="fa fa-check"></i><b>1.2.1</b> Project Overview</a></li>
+<li class="chapter" data-level="1.2.2" data-path="demonstration-2-precision-agriculture.html"><a href="demonstration-2-precision-agriculture.html#project-demonstration-1"><i class="fa fa-check"></i><b>1.2.2</b> Project Demonstration</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="demonstration-3-land-use-and-weather.html"><a href="demonstration-3-land-use-and-weather.html"><i class="fa fa-check"></i><b>1.3</b> Demonstration 3: Land Use and Weather</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="demonstration-3-land-use-and-weather.html"><a href="demonstration-3-land-use-and-weather.html#project-overview-2"><i class="fa fa-check"></i><b>1.3.1</b> Project Overview</a></li>
+<li class="chapter" data-level="1.3.2" data-path="demonstration-3-land-use-and-weather.html"><a href="demonstration-3-land-use-and-weather.html#project-demonstration-2"><i class="fa fa-check"></i><b>1.3.2</b> Project Demonstration</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="demo4.html"><a href="demo4.html"><i class="fa fa-check"></i><b>1.4</b> Demonstration 4: The Impact of Railroad Presence on Corn Planted Acreage</a><ul>
+<li class="chapter" data-level="1.4.1" data-path="demo4.html"><a href="demo4.html#project-overview-3"><i class="fa fa-check"></i><b>1.4.1</b> Project Overview</a></li>
+<li class="chapter" data-level="1.4.2" data-path="demo4.html"><a href="demo4.html#project-demonstration-3"><i class="fa fa-check"></i><b>1.4.2</b> Project Demonstration</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="demonstration-5-groundwater-use-for-agricultural-irrigation.html"><a href="demonstration-5-groundwater-use-for-agricultural-irrigation.html"><i class="fa fa-check"></i><b>1.5</b> Demonstration 5: Groundwater use for agricultural irrigation</a><ul>
+<li class="chapter" data-level="1.5.1" data-path="demonstration-5-groundwater-use-for-agricultural-irrigation.html"><a href="demonstration-5-groundwater-use-for-agricultural-irrigation.html#project-overview-4"><i class="fa fa-check"></i><b>1.5.1</b> Project Overview</a></li>
+<li class="chapter" data-level="1.5.2" data-path="demonstration-5-groundwater-use-for-agricultural-irrigation.html"><a href="demonstration-5-groundwater-use-for-agricultural-irrigation.html#project-demonstration-4"><i class="fa fa-check"></i><b>1.5.2</b> Project Demonstration</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="vector-basics.html"><a href="vector-basics.html"><i class="fa fa-check"></i><b>2</b> Handle vector data using the sf package</a><ul>
+<li class="chapter" data-level="" data-path="introduction-1.html"><a href="introduction-1.html"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="2.1" data-path="spatial-data-structure.html"><a href="spatial-data-structure.html"><i class="fa fa-check"></i><b>2.1</b> Spatial Data Structure</a></li>
+<li class="chapter" data-level="2.2" data-path="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html"><i class="fa fa-check"></i><b>2.2</b> Simple feature geometry, simple feature geometry list-column, and simple feature</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#simple-feature-geometry-sfg"><i class="fa fa-check"></i><b>2.2.1</b> Simple feature geometry (<code>sfg</code>)</a></li>
+<li class="chapter" data-level="2.2.2" data-path="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#create-simple-feature-geometry-list-column-sfc-and-simple-feature-sf-from-scratch"><i class="fa fa-check"></i><b>2.2.2</b> Create simple feature geometry list-column (<code>sfc</code>) and simple feature (<code>sf</code>) from scratch</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="reading-and-writing-vector-data.html"><a href="reading-and-writing-vector-data.html"><i class="fa fa-check"></i><b>2.3</b> Reading and writing vector data</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="reading-and-writing-vector-data.html"><a href="reading-and-writing-vector-data.html#reading-a-shapefile"><i class="fa fa-check"></i><b>2.3.1</b> Reading a shapefile</a></li>
+<li class="chapter" data-level="2.3.2" data-path="reading-and-writing-vector-data.html"><a href="reading-and-writing-vector-data.html#writing-to-a-shapefile"><i class="fa fa-check"></i><b>2.3.2</b> Writing to a shapefile</a></li>
+<li class="chapter" data-level="2.3.3" data-path="reading-and-writing-vector-data.html"><a href="reading-and-writing-vector-data.html#better-alternatives"><i class="fa fa-check"></i><b>2.3.3</b> Better alternatives</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="projection-with-a-different-coordinate-reference-systems.html"><a href="projection-with-a-different-coordinate-reference-systems.html"><i class="fa fa-check"></i><b>2.4</b> Projection with a different Coordinate Reference Systems</a></li>
+<li class="chapter" data-level="2.5" data-path="non-spatial-transformation-of-sf.html"><a href="non-spatial-transformation-of-sf.html"><i class="fa fa-check"></i><b>2.5</b> Non-spatial transformation of sf</a></li>
+<li class="chapter" data-level="2.6" data-path="turning-a-data-frame-of-points-into-an-sf.html"><a href="turning-a-data-frame-of-points-into-an-sf.html"><i class="fa fa-check"></i><b>2.6</b> Turning a data.frame of points into an <code>sf</code></a></li>
+<li class="chapter" data-level="2.7" data-path="conversion-to-and-from-sp.html"><a href="conversion-to-and-from-sp.html"><i class="fa fa-check"></i><b>2.7</b> Conversion to and from sp</a></li>
+<li class="chapter" data-level="2.8" data-path="geometrical-operations.html"><a href="geometrical-operations.html"><i class="fa fa-check"></i><b>2.8</b> Geometrical operations</a><ul>
+<li class="chapter" data-level="2.8.1" data-path="geometrical-operations.html"><a href="geometrical-operations.html#st_buffer"><i class="fa fa-check"></i><b>2.8.1</b> st_buffer</a></li>
+<li class="chapter" data-level="2.8.2" data-path="geometrical-operations.html"><a href="geometrical-operations.html#st_area"><i class="fa fa-check"></i><b>2.8.2</b> st_area</a></li>
+<li class="chapter" data-level="2.8.3" data-path="geometrical-operations.html"><a href="geometrical-operations.html#st_centroid"><i class="fa fa-check"></i><b>2.8.3</b> st_centroid</a></li>
+<li class="chapter" data-level="2.8.4" data-path="geometrical-operations.html"><a href="geometrical-operations.html#st_length"><i class="fa fa-check"></i><b>2.8.4</b> st_length</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="spatial-interactions-of-vector-data-subsetting-and-joining.html"><a href="spatial-interactions-of-vector-data-subsetting-and-joining.html"><i class="fa fa-check"></i><b>3</b> Spatial Interactions of Vector Data: Subsetting and Joining</a><ul>
+<li class="chapter" data-level="3.1" data-path="topological-relations.html"><a href="topological-relations.html"><i class="fa fa-check"></i><b>3.1</b> Topological relations</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="topological-relations.html"><a href="topological-relations.html#st_intersects"><i class="fa fa-check"></i><b>3.1.1</b> st_intersects()</a></li>
+<li class="chapter" data-level="3.1.2" data-path="topological-relations.html"><a href="topological-relations.html#st_intersection"><i class="fa fa-check"></i><b>3.1.2</b> st_intersection()</a></li>
+<li class="chapter" data-level="3.1.3" data-path="topological-relations.html"><a href="topological-relations.html#st_is_within_distance"><i class="fa fa-check"></i><b>3.1.3</b> st_is_within_distance()</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html"><i class="fa fa-check"></i><b>3.2</b> Spatial Subsetting (or Flagging)</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#polygons-vs-polygons"><i class="fa fa-check"></i><b>3.2.1</b> polygons vs polygons</a></li>
+<li class="chapter" data-level="3.2.2" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#points-vs-polygons"><i class="fa fa-check"></i><b>3.2.2</b> points vs polygons</a></li>
+<li class="chapter" data-level="3.2.3" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#lines-vs-polygons"><i class="fa fa-check"></i><b>3.2.3</b> lines vs polygons</a></li>
+<li class="chapter" data-level="3.2.4" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#flagging-instead-of-subsetting"><i class="fa fa-check"></i><b>3.2.4</b> Flagging instead of subsetting</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="spatial-join.html"><a href="spatial-join.html"><i class="fa fa-check"></i><b>3.3</b> Spatial Join</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="spatial-join.html"><a href="spatial-join.html#case-1-points-target-vs-polygons-source"><i class="fa fa-check"></i><b>3.3.1</b> Case 1: points (target) vs polygons (source)</a></li>
+<li class="chapter" data-level="3.3.2" data-path="spatial-join.html"><a href="spatial-join.html#case-2-polygons-target-vs-points-source"><i class="fa fa-check"></i><b>3.3.2</b> Case 2: polygons (target) vs points (source)</a></li>
+<li class="chapter" data-level="3.3.3" data-path="spatial-join.html"><a href="spatial-join.html#polygon-polygon"><i class="fa fa-check"></i><b>3.3.3</b> Case 3: polygons (target) vs polygons (source)</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R as GIS for Economists</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<link href="style.css" rel="stylesheet" type="text/css">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-59758608-3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-59758608-3');
+</script>
+<div id="geometrical-operations" class="section level2">
+<h2><span class="header-section-number">2.8</span> Geometrical operations</h2>
+<p>There are various geometrical operations that are particularly useful for economists. Here, some of the most commonly used geometrical operations are introduced<a href="#fn61" class="footnote-ref" id="fnref61"><sup>61</sup></a>. You can see the practical use of some of these functions in Chapter <a href="demo.html#demo">1</a>.</p>
+<div id="st_buffer" class="section level3">
+<h3><span class="header-section-number">2.8.1</span> st_buffer</h3>
+<p><code>st_buffer()</code> creates a buffer around points, lines, or the border of polygons.</p>
+<p>Let’s create buffers around points. First, we read well locations data.</p>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb162-1" data-line-number="1"><span class="co">#--- read wells location data ---#</span></a>
+<a class="sourceLine" id="cb162-2" data-line-number="2">urnrd_wells_sf &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;./Data/urnrd_wells.rds&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb162-3" data-line-number="3"><span class="st">  </span><span class="co">#--- project to UTM 14N WGS 84 ---#</span></a>
+<a class="sourceLine" id="cb162-4" data-line-number="4"><span class="st">  </span><span class="kw">st_transform</span>(<span class="dv">32614</span>)  </a></code></pre></div>
+<p>Here is the spatial distribution of the wells (Figure <a href="geometrical-operations.html#fig:urnrd-wells">2.2</a>).</p>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb163-1" data-line-number="1"><span class="kw">tm_shape</span>(urnrd_wells_sf) <span class="op">+</span></a>
+<a class="sourceLine" id="cb163-2" data-line-number="2"><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">col =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">size =</span> <span class="fl">0.1</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb163-3" data-line-number="3"><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">frame =</span> <span class="ot">NA</span>)</a></code></pre></div>
+<div class="figure"><span id="fig:urnrd-wells"></span>
+<img src="VectorDataBasics_files/figure-html/urnrd-wells-1.png" alt="Map of the wells" width="672" />
+<p class="caption">
+Figure 2.2: Map of the wells
+</p>
+</div>
+<p>Let’s create buffers around the wells.</p>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb164-1" data-line-number="1"><span class="co">#--- create a one-mile buffer around the wells ---#</span></a>
+<a class="sourceLine" id="cb164-2" data-line-number="2">wells_buffer &lt;-<span class="st"> </span><span class="kw">st_buffer</span>(urnrd_wells_sf, <span class="dt">dist =</span> <span class="dv">1600</span>)</a></code></pre></div>
+<p>As you can see, you see bunch of circles around wells with the radius of <span class="math inline">\(1,600\)</span> meters (Figure <a href="geometrical-operations.html#fig:buffer-points-map">2.3</a>).</p>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb165-1" data-line-number="1"><span class="kw">tm_shape</span>(wells_buffer) <span class="op">+</span></a>
+<a class="sourceLine" id="cb165-2" data-line-number="2"><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">alpha =</span> <span class="dv">0</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb165-3" data-line-number="3"><span class="kw">tm_shape</span>(urnrd_wells_sf) <span class="op">+</span></a>
+<a class="sourceLine" id="cb165-4" data-line-number="4"><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">col =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">size =</span> <span class="fl">0.1</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb165-5" data-line-number="5"><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">frame =</span> <span class="ot">NA</span>)</a></code></pre></div>
+<div class="figure"><span id="fig:buffer-points-map"></span>
+<img src="VectorDataBasics_files/figure-html/buffer-points-map-1.png" alt="Buffers around wells" width="672" />
+<p class="caption">
+Figure 2.3: Buffers around wells
+</p>
+</div>
+<p>A practical application of buffer creation will be seen in Chapter <a href="Demo1.html#Demo1">1.1</a>.</p>
+<hr />
+<p>We now create buffers around polygons. First, read NE county boundary data and select three counties (Chase, Dundy, and Perkins).</p>
+<p>Here is what they look like (Figure <a href="geometrical-operations.html#fig:map-three-counties">2.4</a>):</p>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb166-1" data-line-number="1"><span class="kw">tm_shape</span>(NE_counties) <span class="op">+</span></a>
+<a class="sourceLine" id="cb166-2" data-line-number="2"><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="st">&#39;NAME&#39;</span>, <span class="dt">palette=</span><span class="st">&quot;RdYlGn&quot;</span>, <span class="dt">contrast=</span>.<span class="dv">3</span>, <span class="dt">title=</span><span class="st">&quot;County&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb166-3" data-line-number="3"><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">frame =</span> <span class="ot">NA</span>)</a></code></pre></div>
+<div class="figure"><span id="fig:map-three-counties"></span>
+<img src="VectorDataBasics_files/figure-html/map-three-counties-1.png" alt="Map of the three counties" width="672" />
+<p class="caption">
+Figure 2.4: Map of the three counties
+</p>
+</div>
+<p>The following code creates buffers around polygons (see the results in Figure <a href="geometrical-operations.html#fig:buffer-county">2.5</a>):</p>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb167-1" data-line-number="1">NE_buffer &lt;-<span class="st"> </span><span class="kw">st_buffer</span>(NE_counties, <span class="dt">dist =</span> <span class="dv">2000</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb168-1" data-line-number="1"><span class="kw">tm_shape</span>(NE_buffer) <span class="op">+</span></a>
+<a class="sourceLine" id="cb168-2" data-line-number="2"><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col=</span><span class="st">&#39;blue&#39;</span>,<span class="dt">alpha=</span><span class="fl">0.2</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb168-3" data-line-number="3"><span class="kw">tm_shape</span>(NE_counties) <span class="op">+</span></a>
+<a class="sourceLine" id="cb168-4" data-line-number="4"><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="st">&#39;NAME&#39;</span>, <span class="dt">palette=</span><span class="st">&quot;RdYlGn&quot;</span>, <span class="dt">contrast=</span>.<span class="dv">3</span>, <span class="dt">title=</span><span class="st">&quot;County&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb168-5" data-line-number="5"><span class="st">  </span><span class="kw">tm_layout</span>(</a>
+<a class="sourceLine" id="cb168-6" data-line-number="6">    <span class="dt">legend.outside=</span><span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb168-7" data-line-number="7">    <span class="dt">frame=</span><span class="ot">FALSE</span></a>
+<a class="sourceLine" id="cb168-8" data-line-number="8">  )</a></code></pre></div>
+<div class="figure"><span id="fig:buffer-county"></span>
+<img src="VectorDataBasics_files/figure-html/buffer-county-1.png" alt="Buffers around the three counties" width="672" />
+<p class="caption">
+Figure 2.5: Buffers around the three counties
+</p>
+</div>
+<p>For example, this can use useful to identify observations are close enough to the border of political boundaries when you want to take advantage of spatial discontinuity of policies across adjacent political boundaries.</p>
+</div>
+<div id="st_area" class="section level3">
+<h3><span class="header-section-number">2.8.2</span> st_area</h3>
+<p>The <code>st_area()</code> function calculates the area of polygons.</p>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb169-1" data-line-number="1"><span class="co">#--- generate area by polygon ---#</span></a>
+<a class="sourceLine" id="cb169-2" data-line-number="2">(</a>
+<a class="sourceLine" id="cb169-3" data-line-number="3">  NE_counties &lt;-<span class="st"> </span><span class="kw">mutate</span>(NE_counties, <span class="dt">area =</span> <span class="kw">st_area</span>(NE_counties))</a>
+<a class="sourceLine" id="cb169-4" data-line-number="4">)</a></code></pre></div>
+<pre><code>Simple feature collection with 3 features and 10 fields
+geometry type:  MULTIPOLYGON
+dimension:      XY
+bbox:           xmin: 239494.1 ymin: 4430632 xmax: 310778.1 ymax: 4543676
+CRS:            EPSG:32614
+  STATEFP COUNTYFP COUNTYNS       AFFGEOID GEOID    NAME LSAD      ALAND
+1      31      135 00835889 0500000US31135 31135 Perkins   06 2287828025
+2      31      029 00835836 0500000US31029 31029   Chase   06 2316533447
+3      31      057 00835850 0500000US31057 31057   Dundy   06 2381956151
+   AWATER                       geometry             area
+1 2840176 MULTIPOLYGON (((243340.2 45... 2302174854 [m^2]
+2 7978172 MULTIPOLYGON (((241201.4 44... 2316908196 [m^2]
+3 3046331 MULTIPOLYGON (((240811.3 44... 2389890531 [m^2]</code></pre>
+<p>Now, as you can see below, the default class of the results of <code>st_area()</code> is <code>units</code>, which does not accept numerical operations.</p>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb171-1" data-line-number="1"><span class="kw">class</span>(NE_counties<span class="op">$</span>area)</a></code></pre></div>
+<pre><code>[1] &quot;units&quot;</code></pre>
+<p>So, let’s turn it into double.</p>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb173-1" data-line-number="1">(</a>
+<a class="sourceLine" id="cb173-2" data-line-number="2">NE_counties &lt;-<span class="st"> </span><span class="kw">mutate</span>(NE_counties, <span class="dt">area =</span> <span class="kw">as.numeric</span>(area))</a>
+<a class="sourceLine" id="cb173-3" data-line-number="3">)</a></code></pre></div>
+<pre><code>Simple feature collection with 3 features and 10 fields
+geometry type:  MULTIPOLYGON
+dimension:      XY
+bbox:           xmin: 239494.1 ymin: 4430632 xmax: 310778.1 ymax: 4543676
+CRS:            EPSG:32614
+  STATEFP COUNTYFP COUNTYNS       AFFGEOID GEOID    NAME LSAD      ALAND
+1      31      135 00835889 0500000US31135 31135 Perkins   06 2287828025
+2      31      029 00835836 0500000US31029 31029   Chase   06 2316533447
+3      31      057 00835850 0500000US31057 31057   Dundy   06 2381956151
+   AWATER                       geometry       area
+1 2840176 MULTIPOLYGON (((243340.2 45... 2302174854
+2 7978172 MULTIPOLYGON (((241201.4 44... 2316908196
+3 3046331 MULTIPOLYGON (((240811.3 44... 2389890531</code></pre>
+<p><code>st_area()</code> is useful when you want to find area-weighted average of characteristics after spatially joining two polygon layers using the <code>st_intersection()</code> function (See Chapter <a href="spatial-join.html#polygon-polygon">3.3.3</a>).</p>
+</div>
+<div id="st_centroid" class="section level3">
+<h3><span class="header-section-number">2.8.3</span> st_centroid</h3>
+<p>The <code>st_centroid()</code> function finds the centroid of each polygon.</p>
+<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb175-1" data-line-number="1"><span class="co">#--- create centroids ---#</span></a>
+<a class="sourceLine" id="cb175-2" data-line-number="2">(</a>
+<a class="sourceLine" id="cb175-3" data-line-number="3">NE_centroids &lt;-<span class="st"> </span><span class="kw">st_centroid</span>(NE_counties)</a>
+<a class="sourceLine" id="cb175-4" data-line-number="4">)</a></code></pre></div>
+<pre><code>Simple feature collection with 3 features and 10 fields
+geometry type:  POINT
+dimension:      XY
+bbox:           xmin: 271156.7 ymin: 4450826 xmax: 276594.1 ymax: 4525635
+CRS:            EPSG:32614
+  STATEFP COUNTYFP COUNTYNS       AFFGEOID GEOID    NAME LSAD      ALAND
+1      31      135 00835889 0500000US31135 31135 Perkins   06 2287828025
+2      31      029 00835836 0500000US31029 31029   Chase   06 2316533447
+3      31      057 00835850 0500000US31057 31057   Dundy   06 2381956151
+   AWATER                 geometry       area
+1 2840176 POINT (276594.1 4525635) 2302174854
+2 7978172 POINT (271469.9 4489429) 2316908196
+3 3046331 POINT (271156.7 4450826) 2389890531</code></pre>
+<p>Here’s what the map of the output (Figure <a href="geometrical-operations.html#fig:map-centroids">2.6</a>).</p>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb177-1" data-line-number="1"><span class="kw">tm_shape</span>(NE_counties) <span class="op">+</span></a>
+<a class="sourceLine" id="cb177-2" data-line-number="2"><span class="st">  </span><span class="kw">tm_polygons</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb177-3" data-line-number="3"><span class="kw">tm_shape</span>(NE_centroids)<span class="op">+</span></a>
+<a class="sourceLine" id="cb177-4" data-line-number="4"><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">size=</span><span class="fl">0.5</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb177-5" data-line-number="5"><span class="kw">tm_layout</span>(</a>
+<a class="sourceLine" id="cb177-6" data-line-number="6">    <span class="dt">legend.outside=</span><span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb177-7" data-line-number="7">    <span class="dt">frame=</span><span class="ot">FALSE</span></a>
+<a class="sourceLine" id="cb177-8" data-line-number="8">  )</a></code></pre></div>
+<div class="figure"><span id="fig:map-centroids"></span>
+<img src="VectorDataBasics_files/figure-html/map-centroids-1.png" alt="The centroids of the polygons" width="672" />
+<p class="caption">
+Figure 2.6: The centroids of the polygons
+</p>
+</div>
+<p>It can be useful when creating a map with labels because the centroid of polygons tend to be a good place to place labels at like this (Figure <a href="geometrical-operations.html#fig:cent-label">2.7</a>).<a href="#fn62" class="footnote-ref" id="fnref62"><sup>62</sup></a></p>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb178-1" data-line-number="1"><span class="kw">tm_shape</span>(NE_counties) <span class="op">+</span></a>
+<a class="sourceLine" id="cb178-2" data-line-number="2"><span class="st">  </span><span class="kw">tm_polygons</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb178-3" data-line-number="3"><span class="kw">tm_shape</span>(NE_centroids)<span class="op">+</span></a>
+<a class="sourceLine" id="cb178-4" data-line-number="4"><span class="st">  </span><span class="kw">tm_text</span>(<span class="st">&quot;NAME&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb178-5" data-line-number="5"><span class="kw">tm_layout</span>(</a>
+<a class="sourceLine" id="cb178-6" data-line-number="6">    <span class="dt">legend.outside=</span><span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb178-7" data-line-number="7">    <span class="dt">frame=</span><span class="ot">FALSE</span></a>
+<a class="sourceLine" id="cb178-8" data-line-number="8">  )</a></code></pre></div>
+<div class="figure"><span id="fig:cent-label"></span>
+<img src="VectorDataBasics_files/figure-html/cent-label-1.png" alt="County names placed at the centroids of the counties" width="672" />
+<p class="caption">
+Figure 2.7: County names placed at the centroids of the counties
+</p>
+</div>
+<p>It may be also useful when you somehow need to calculate the “distance” between polygons.</p>
+</div>
+<div id="st_length" class="section level3">
+<h3><span class="header-section-number">2.8.4</span> st_length</h3>
+<p>We can use <code>st_length()</code> to calculate great circle distances<a href="#fn63" class="footnote-ref" id="fnref63"><sup>63</sup></a> of <code>LINESTRING</code> and <code>MULTILINESTRING</code> when they are represented in geodetic coordinates. On the other hand, if they are projected and use a Cartesian coordinate system, it will calculate Euclidean distance. We use U.S. railroad data for a demonstration.</p>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb179-1" data-line-number="1"><span class="co">#--- import US railroad data and take only the first 10 of it ---#</span></a>
+<a class="sourceLine" id="cb179-2" data-line-number="2">(</a>
+<a class="sourceLine" id="cb179-3" data-line-number="3">a_railroad &lt;-<span class="st"> </span>rail_roads &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="dt">dsn =</span> <span class="st">&quot;./Data/&quot;</span>, <span class="dt">layer =</span> <span class="st">&quot;tl_2015_us_rails&quot;</span>)[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, ]</a>
+<a class="sourceLine" id="cb179-4" data-line-number="4">)</a></code></pre></div>
+<pre><code>Reading layer `tl_2015_us_rails&#39; from data source `/Users/tmieno2/Box/Teaching/AAEA R/GIS/Data&#39; using driver `ESRI Shapefile&#39;
+Simple feature collection with 180958 features and 3 fields
+geometry type:  MULTILINESTRING
+dimension:      XY
+bbox:           xmin: -165.4011 ymin: 17.95174 xmax: -65.74931 ymax: 65.00006
+CRS:            4269</code></pre>
+<pre><code>Simple feature collection with 10 features and 3 fields
+geometry type:  MULTILINESTRING
+dimension:      XY
+bbox:           xmin: -79.74031 ymin: 35.0571 xmax: -79.2377 ymax: 35.51776
+CRS:            4269
+      LINEARID                    FULLNAME MTFCC                       geometry
+1  11020239500       Norfolk Southern Rlwy R1011 MULTILINESTRING ((-79.47058...
+2  11020239501       Norfolk Southern Rlwy R1011 MULTILINESTRING ((-79.46687...
+3  11020239502       Norfolk Southern Rlwy R1011 MULTILINESTRING ((-79.66819...
+4  11020239503       Norfolk Southern Rlwy R1011 MULTILINESTRING ((-79.46687...
+5  11020239504       Norfolk Southern Rlwy R1011 MULTILINESTRING ((-79.74031...
+6  11020239575      Seaboard Coast Line RR R1011 MULTILINESTRING ((-79.43695...
+7  11020239576      Seaboard Coast Line RR R1011 MULTILINESTRING ((-79.47852...
+8  11020239577      Seaboard Coast Line RR R1011 MULTILINESTRING ((-79.43695...
+9  11020239589    Aberdeen and Rockfish RR R1011 MULTILINESTRING ((-79.38736...
+10 11020239591 Aberdeen and Briar Patch RR R1011 MULTILINESTRING ((-79.53848...</code></pre>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb182-1" data-line-number="1"><span class="co">#--- check CRS ---#</span></a>
+<a class="sourceLine" id="cb182-2" data-line-number="2"><span class="kw">st_crs</span>(a_railroad)</a></code></pre></div>
+<pre><code>Coordinate Reference System:
+  User input: 4269 
+  wkt:
+GEOGCS[&quot;NAD83&quot;,
+    DATUM[&quot;North_American_Datum_1983&quot;,
+        SPHEROID[&quot;GRS 1980&quot;,6378137,298.257222101,
+            AUTHORITY[&quot;EPSG&quot;,&quot;7019&quot;]],
+        TOWGS84[0,0,0,0,0,0,0],
+        AUTHORITY[&quot;EPSG&quot;,&quot;6269&quot;]],
+    PRIMEM[&quot;Greenwich&quot;,0,
+        AUTHORITY[&quot;EPSG&quot;,&quot;8901&quot;]],
+    UNIT[&quot;degree&quot;,0.0174532925199433,
+        AUTHORITY[&quot;EPSG&quot;,&quot;9122&quot;]],
+    AUTHORITY[&quot;EPSG&quot;,&quot;4269&quot;]]</code></pre>
+<p>It uses geodetic coordinate system. Let’s calculate the great circle distance of the lines (Chapter <a href="demo4.html#demo4">1.4</a> for a practical use case of this function).</p>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb184-1" data-line-number="1">(</a>
+<a class="sourceLine" id="cb184-2" data-line-number="2">a_railroad &lt;-<span class="st"> </span><span class="kw">mutate</span>(a_railroad, <span class="dt">length =</span> <span class="kw">st_length</span>(a_railroad))</a>
+<a class="sourceLine" id="cb184-3" data-line-number="3">)</a></code></pre></div>
+<pre><code>Simple feature collection with 10 features and 4 fields
+geometry type:  MULTILINESTRING
+dimension:      XY
+bbox:           xmin: -79.74031 ymin: 35.0571 xmax: -79.2377 ymax: 35.51776
+CRS:            4269
+      LINEARID                    FULLNAME MTFCC                       geometry
+1  11020239500       Norfolk Southern Rlwy R1011 MULTILINESTRING ((-79.47058...
+2  11020239501       Norfolk Southern Rlwy R1011 MULTILINESTRING ((-79.46687...
+3  11020239502       Norfolk Southern Rlwy R1011 MULTILINESTRING ((-79.66819...
+4  11020239503       Norfolk Southern Rlwy R1011 MULTILINESTRING ((-79.46687...
+5  11020239504       Norfolk Southern Rlwy R1011 MULTILINESTRING ((-79.74031...
+6  11020239575      Seaboard Coast Line RR R1011 MULTILINESTRING ((-79.43695...
+7  11020239576      Seaboard Coast Line RR R1011 MULTILINESTRING ((-79.47852...
+8  11020239577      Seaboard Coast Line RR R1011 MULTILINESTRING ((-79.43695...
+9  11020239589    Aberdeen and Rockfish RR R1011 MULTILINESTRING ((-79.38736...
+10 11020239591 Aberdeen and Briar Patch RR R1011 MULTILINESTRING ((-79.53848...
+           length
+1    661.3381 [m]
+2    657.4261 [m]
+3  19982.5998 [m]
+4  13888.3385 [m]
+5   7194.7745 [m]
+6   1061.2335 [m]
+7   7824.0945 [m]
+8  31756.9803 [m]
+9   4547.1970 [m]
+10 17103.0691 [m]</code></pre>
+<!-- ## st_distance
+
+The `st_distance` function calculates distances between spatial objects. Its output is the matrix of distances whose $i,j$ element is the distance between the $i$th `sfg` of the first `sf` and $j$th `sfg` of the second `sf`. The following code find the distance between the first 10 wells in `urnrd_wells_sf`.
+
+
+```r
+st_distance(urnrd_wells_sf[1:10, ], urnrd_wells_sf[1:10, ])
+```
+
+```
+Units: [m]
+          [,1]       [,2]       [,3]      [,4]     [,5]      [,6]       [,7]
+ [1,]     0.00 24224.9674 24007.0480 19678.000 26974.04 25490.735 21710.2051
+ [2,] 24224.97     0.0000   386.7858  8137.875 44632.84  2180.034 14285.1996
+ [3,] 24007.05   386.7858     0.0000  7754.775 44610.53  2067.106 13901.5230
+ [4,] 19678.00  8137.8750  7754.7753     0.000 43774.40  7892.077  6753.1200
+ [5,] 26974.04 44632.8443 44610.5290 43774.401     0.00 46610.537 47713.4334
+ [6,] 25490.73  2180.0343  2067.1055  7892.077 46610.54     0.000 13362.2041
+ [7,] 21710.21 14285.1996 13901.5230  6753.120 47713.43 13362.204     0.0000
+ [8,] 22029.35 14345.1319 13962.6364  6909.932 48027.14 13377.109   319.3365
+ [9,] 17243.59 18297.5078 17916.8399 10172.159 44061.21 17978.355  6297.5682
+[10,] 25184.43  6052.8916  5747.7464  5709.523 48215.58  4340.971  9505.0583
+            [,8]      [,9]     [,10]
+ [1,] 22029.3535 17243.589 25184.434
+ [2,] 14345.1319 18297.508  6052.892
+ [3,] 13962.6364 17916.840  5747.746
+ [4,]  6909.9319 10172.159  5709.523
+ [5,] 48027.1382 44061.209 48215.582
+ [6,] 13377.1087 17978.355  4340.971
+ [7,]   319.3365  6297.568  9505.058
+ [8,]     0.0000  6543.339  9465.084
+ [9,]  6543.3389     0.000 14832.639
+[10,]  9465.0840 14832.639     0.000
+```
+ -->
+
+</div>
+</div>
+<!-- </div> -->
+<div class="footnotes">
+<hr />
+<ol start="61">
+<li id="fn61"><p>For the complete list of available geometrical operations under the <code>sf</code> package, see <a href="https://cran.r-project.org/web/packages/sf/vignettes/sf1.html">here</a>.<a href="geometrical-operations.html#fnref61" class="footnote-back">↩</a></p></li>
+<li id="fn62"><p>When creating maps with the ggplot2 package, you can use <code>geom_sf_text()</code> or <code>geom_sf_label()</code>, which automatically finds where to put texts. See some examples <a href="https://yutani.rbind.io/post/geom-sf-text-and-geom-sf-label-are-coming/">here</a>.<a href="geometrical-operations.html#fnref62" class="footnote-back">↩</a></p></li>
+<li id="fn63"><p>Great circle distance is the shortest distance between two points on the surface of a sphere (earth)<a href="geometrical-operations.html#fnref63" class="footnote-back">↩</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="conversion-to-and-from-sp.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="spatial-interactions-of-vector-data-subsetting-and-joining.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

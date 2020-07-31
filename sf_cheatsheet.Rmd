@@ -1,0 +1,38 @@
+# `sf` cheatsheet
+
+```{r setup, echo = FALSE}
+library(tufte)
+library(knitr)
+knitr::opts_chunk$set(
+  echo = TRUE,
+  cache = TRUE,
+  comment = NA,
+  message = FALSE,
+  warning = FALSE,
+  tidy = FALSE,
+  cache.lazy = FALSE
+)
+
+opts_knit$set(
+  root.dir = "/Users/tmieno2/Dropbox/TeachingUNL/RGIS_Econ"
+)
+```
+
+```{r, echo=FALSE, warning=FALSE, cache = FALSE}
+#--- load packages ---#
+suppressMessages(library(data.table))
+suppressMessages(library(rgdal))
+suppressMessages(library(exactextractr))
+suppressMessages(library(stringr))
+suppressMessages(library(rgeos))
+suppressMessages(library(sf))
+suppressMessages(library(ggplot2))
+suppressMessages(library(raster))
+suppressMessages(library(tidyverse))
+suppressMessages(library(tictoc))
+suppressMessages(library(stargazer))
+suppressMessages(library(tmap))
+suppressMessages(library(future.apply))
+suppressMessages(library(lubridate))
+```
+
