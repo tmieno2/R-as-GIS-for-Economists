@@ -385,7 +385,7 @@ ggplot() +
 	facet_wrap(. ~ year)
 ```
 
-Note that the above code creates a single legend that applies to both panels, which allows you to compare values across panels (years here). Further, also note that the values of the faceting variable (`year`) are displayed in the gray strips above the maps. You can have panels stacked vertically by switching `year` and `.` in `facet_wrap(. ~ year)` as follows:
+Note that the above code creates a single legend that applies to both panels, which allows you to compare values across panels (years here). Further, also note that the values of the faceting variable (`year`) are displayed in the gray strips above the maps. You can have panels stacked vertically by using the `ncol` option (or `nrow` also works) in `facet_wrap(. ~ year)` as follows:
 
 ```{r facet-2}
 ggplot() +	
@@ -394,7 +394,7 @@ ggplot() +
 	#--- wells ---#
 	geom_sf(data = gw_KS_sf, aes(color = af_used)) +
 	#--- facet by year (side by side) ---#
-	facet_wrap(. ~ year)
+	facet_wrap(. ~ year, ncol = 1)
 ```
 
 Two-way faceting is possible by supplying a variable name (or expression) in place of `.` in `facet_wrap(. ~ year)`. The code below uses an expression `(af_used > 200)` in place of `.`. This divides the dataset by whether water use is greater than 200 or not and by year. 
@@ -458,7 +458,7 @@ ggplot() +
 	)
 ```
 
-The `nudge_x` and `nudge_y` options let you shit the labels.
+The `nudge_x` and `nudge_y` options let you shift the labels.
 
 ```{r nudge, warnings = F}
 ggplot() +	
