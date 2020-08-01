@@ -66,21 +66,21 @@
 <script src="libs/HomeButton-0.0.1/easy-button-src.min.js"></script>
 <script src="libs/clipboard-0.0.1/setClipboardText.js"></script>
 <link href="libs/PopupTable-0.0.1/popup.css" rel="stylesheet" />
-<script src="libs/IA_cdl_2015-1/data_stars_IA_cdl_2015492be3.txt"></script>
+<script src="libs/IA_cdl_2015-1/data_stars_IA_cdl_20157013d9.txt"></script>
 <script src="libs/joda-0.0.1/joda.js"></script>
 <script src="libs/joda-0.0.1/addImageQuery-bindings.js"></script>
-<script src="libs/IA_cdl_2016-1/data_stars_IA_cdl_2016d254a6.txt"></script>
-<script src="libs/prcp_tmax_PRISM_m8_y09["tmax", , , ] - 1-1/data_stars_prcp_tmax_PRISM_m8_y09tmax1d57104.txt"></script>
-<script src="libs/layer.1-1/data_stars_layer1ade7f0.txt"></script>
-<script src="libs/layer.2-1/data_stars_layer2a3e1c2.txt"></script>
-<script src="libs/layer.3-1/data_stars_layer39bf0c4.txt"></script>
-<script src="libs/layer.4-1/data_stars_layer4281e67.txt"></script>
-<script src="libs/layer.5-1/data_stars_layer5da8bef.txt"></script>
-<script src="libs/layer.6-1/data_stars_layer60a163b.txt"></script>
-<script src="libs/layer.7-1/data_stars_layer72c54d1.txt"></script>
-<script src="libs/layer.8-1/data_stars_layer8fc014d.txt"></script>
-<script src="libs/layer.9-1/data_stars_layer9f9bcad.txt"></script>
-<script src="libs/layer.10-1/data_stars_layer10ea3f98.txt"></script>
+<script src="libs/IA_cdl_2016-1/data_stars_IA_cdl_2016f0942b.txt"></script>
+<script src="libs/prcp_tmax_PRISM_m8_y09["tmax", , , ] - 1-1/data_stars_prcp_tmax_PRISM_m8_y09tmax15f4a23.txt"></script>
+<script src="libs/layer.1-1/data_stars_layer16e07dc.txt"></script>
+<script src="libs/layer.2-1/data_stars_layer29d3c0a.txt"></script>
+<script src="libs/layer.3-1/data_stars_layer30124e8.txt"></script>
+<script src="libs/layer.4-1/data_stars_layer4125698.txt"></script>
+<script src="libs/layer.5-1/data_stars_layer56ca504.txt"></script>
+<script src="libs/layer.6-1/data_stars_layer60b51ef.txt"></script>
+<script src="libs/layer.7-1/data_stars_layer7d85baf.txt"></script>
+<script src="libs/layer.8-1/data_stars_layer831db4a.txt"></script>
+<script src="libs/layer.9-1/data_stars_layer935e042.txt"></script>
+<script src="libs/layer.10-1/data_stars_layer102ad98c.txt"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
 <script src="libs/datatables-binding-0.13/datatables.js"></script>
 <link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
@@ -539,17 +539,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="read-write-stars" class="section level2" number="7.4">
 <h2><span class="header-section-number">7.4</span> Reading and writing raster data</h2>
 <p>There are so many formats in which raster data is stored. Some of the common ones include GeoTIFF, netCDF, GRIB. All the available GDAL drivers for reading and writing raster data can be found by the following code:<a href="#fn88" class="footnote-ref" id="fnref88"><sup>88</sup></a></p>
-<div class="sourceCode" id="cb495"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb495-1"><a href="read-write-stars.html#cb495-1"></a>sf<span class="op">::</span><span class="kw">st_drivers</span>(<span class="dt">what =</span> <span class="st">&quot;raster&quot;</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb496"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb496-1"><a href="read-write-stars.html#cb496-1"></a>sf<span class="op">::</span><span class="kw">st_drivers</span>(<span class="dt">what =</span> <span class="st">&quot;raster&quot;</span>) </span></code></pre></div>
 <p>The output of the above function is put into a table below.</p>
-<div id="htmlwidget-642c810670f0cb48e029" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-642c810670f0cb48e029">{"x":{"filter":"none","data":[["VRT","DERIVED","GTiff","NITF","RPFTOC","ECRGTOC","HFA","SAR_CEOS","CEOS","JAXAPALSAR","GFF","ELAS","AIG","AAIGrid","GRASSASCIIGrid","SDTS","DTED","PNG","JPEG","MEM","JDEM","GIF","BIGGIF","ESAT","BSB","XPM","BMP","DIMAP","AirSAR","RS2","SAFE","PCIDSK","PCRaster","ILWIS","SGI","SRTMHGT","Leveller","Terragen","ISIS3","ISIS2","PDS","PDS4","VICAR","TIL","ERS","L1B","FIT","GRIB","RMF","WCS","WMS","MSGN","RST","INGR","GSAG","GSBG","GS7BG","COSAR","TSX","COASP","R","MAP","KMLSUPEROVERLAY","PDF","Rasterlite","MBTiles","PLMOSAIC","CALS","WMTS","SENTINEL2","MRF","PNM","DOQ1","DOQ2","PAux","MFF","MFF2","FujiBAS","GSC","FAST","BT","LAN","CPG","IDA","NDF","EIR","DIPEx","LCP","GTX","LOSLAS","NTv1","NTv2","CTable2","ACE2","SNODAS","KRO","ROI_PAC","RRASTER","BYN","ARG","RIK","USGSDEM","GXF","NWT_GRD","NWT_GRC","ADRG","SRP","BLX","SAGA","IGNFHeightASCIIGrid","XYZ","HF2","OZI","CTG","E00GRID","ZMap","NGSGEOID","IRIS","PRF","RDA","EEDAI","SIGDEM","GPKG","CAD","PLSCENES","NGW","GenBin","ENVI","EHdr","ISCE","HTTP"],["VRT","DERIVED","GTiff","NITF","RPFTOC","ECRGTOC","HFA","SAR_CEOS","CEOS","JAXAPALSAR","GFF","ELAS","AIG","AAIGrid","GRASSASCIIGrid","SDTS","DTED","PNG","JPEG","MEM","JDEM","GIF","BIGGIF","ESAT","BSB","XPM","BMP","DIMAP","AirSAR","RS2","SAFE","PCIDSK","PCRaster","ILWIS","SGI","SRTMHGT","Leveller","Terragen","ISIS3","ISIS2","PDS","PDS4","VICAR","TIL","ERS","L1B","FIT","GRIB","RMF","WCS","WMS","MSGN","RST","INGR","GSAG","GSBG","GS7BG","COSAR","TSX","COASP","R","MAP","KMLSUPEROVERLAY","PDF","Rasterlite","MBTiles","PLMOSAIC","CALS","WMTS","SENTINEL2","MRF","PNM","DOQ1","DOQ2","PAux","MFF","MFF2","FujiBAS","GSC","FAST","BT","LAN","CPG","IDA","NDF","EIR","DIPEx","LCP","GTX","LOSLAS","NTv1","NTv2","CTable2","ACE2","SNODAS","KRO","ROI_PAC","RRASTER","BYN","ARG","RIK","USGSDEM","GXF","NWT_GRD","NWT_GRC","ADRG","SRP","BLX","SAGA","IGNFHeightASCIIGrid","XYZ","HF2","OZI","CTG","E00GRID","ZMap","NGSGEOID","IRIS","PRF","RDA","EEDAI","SIGDEM","GPKG","CAD","PLSCENES","NGW","GenBin","ENVI","EHdr","ISCE","HTTP"],["Virtual Raster","Derived datasets using VRT pixel functions","GeoTIFF","National Imagery Transmission Format","Raster Product Format TOC format","ECRG TOC format","Erdas Imagine Images (.img)","CEOS SAR Image","CEOS Image","JAXA PALSAR Product Reader (Level 1.1/1.5)","Ground-based SAR Applications Testbed File Format (.gff)","ELAS","Arc/Info Binary Grid","Arc/Info ASCII Grid","GRASS ASCII Grid","SDTS Raster","DTED Elevation Raster","Portable Network Graphics","JPEG JFIF","In Memory Raster","Japanese DEM (.mem)","Graphics Interchange Format (.gif)","Graphics Interchange Format (.gif)","Envisat Image Format","Maptech BSB Nautical Charts","X11 PixMap Format","MS Windows Device Independent Bitmap","SPOT DIMAP","AirSAR Polarimetric Image","RadarSat 2 XML Product","Sentinel-1 SAR SAFE Product","PCIDSK Database File","PCRaster Raster File","ILWIS Raster Map","SGI Image File Format 1.0","SRTMHGT File Format","Leveller heightfield","Terragen heightfield","USGS Astrogeology ISIS cube (Version 3)","USGS Astrogeology ISIS cube (Version 2)","NASA Planetary Data System","NASA Planetary Data System 4","MIPL VICAR file","EarthWatch .TIL","ERMapper .ers Labelled","NOAA Polar Orbiter Level 1b Data Set","FIT Image","GRIdded Binary (.grb, .grb2)","Raster Matrix Format","OGC Web Coverage Service","OGC Web Map Service","EUMETSAT Archive native (.nat)","Idrisi Raster A.1","Intergraph Raster","Golden Software ASCII Grid (.grd)","Golden Software Binary Grid (.grd)","Golden Software 7 Binary Grid (.grd)","COSAR Annotated Binary Matrix (TerraSAR-X)","TerraSAR-X Product","DRDC COASP SAR Processor Raster","R Object Data Store","OziExplorer .MAP","Kml Super Overlay","Geospatial PDF","Rasterlite","MBTiles","Planet Labs Mosaics API","CALS (Type 1)","OGC Web Map Tile Service","Sentinel 2","Meta Raster Format","Portable Pixmap Format (netpbm)","USGS DOQ (Old Style)","USGS DOQ (New Style)","PCI .aux Labelled","Vexcel MFF Raster","Vexcel MFF2 (HKV) Raster","Fuji BAS Scanner Image","GSC Geogrid","EOSAT FAST Format","VTP .bt (Binary Terrain) 1.3 Format","Erdas .LAN/.GIS","Convair PolGASP","Image Data and Analysis","NLAPS Data Format","Erdas Imagine Raw","DIPEx","FARSITE v.4 Landscape File (.lcp)","NOAA Vertical Datum .GTX","NADCON .los/.las Datum Grid Shift","NTv1 Datum Grid Shift","NTv2 Datum Grid Shift","CTable2 Datum Grid Shift","ACE2","Snow Data Assimilation System","KOLOR Raw","ROI_PAC raster","R Raster","Natural Resources Canada's Geoid","Azavea Raster Grid format","Swedish Grid RIK (.rik)","USGS Optional ASCII DEM (and CDED)","GeoSoft Grid Exchange Format","Northwood Numeric Grid Format .grd/.tab","Northwood Classified Grid Format .grc/.tab","ARC Digitized Raster Graphics","Standard Raster Product (ASRP/USRP)","Magellan topo (.blx)","SAGA GIS Binary Grid (.sdat, .sg-grd-z)","IGN France height correction ASCII Grid","ASCII Gridded XYZ","HF2/HFZ heightfield raster","OziExplorer Image File","USGS LULC Composite Theme Grid","Arc/Info Export E00 GRID","ZMap Plus Grid","NOAA NGS Geoid Height Grids","IRIS data (.PPI, .CAPPi etc)","Racurs PHOTOMOD PRF","DigitalGlobe Raster Data Access driver","Earth Engine Data API Image","Scaled Integer Gridded DEM .sigdem","GeoPackage","AutoCAD Driver","Planet Labs Scenes API","NextGIS Web","Generic Binary (.hdr Labelled)","ENVI .hdr Labelled","ESRI .hdr Labelled","ISCE raster","HTTP Fetching Wrapper"],[true,false,true,true,false,false,true,false,false,false,false,true,false,false,false,false,false,false,false,true,false,false,false,false,false,false,true,false,false,false,false,true,true,true,true,false,true,true,true,true,false,true,false,false,true,false,false,false,true,false,false,false,true,true,false,true,true,false,false,false,false,false,false,true,false,true,false,false,false,false,true,true,false,false,true,true,true,false,false,false,true,true,false,true,false,false,false,false,true,false,false,true,true,false,false,true,true,true,true,false,false,false,false,true,false,true,false,false,true,false,false,false,false,false,false,false,false,false,false,false,false,false,true,false,false,true,false,true,true,true,false],[true,false,true,true,false,false,true,false,false,false,false,false,false,true,false,false,true,true,true,false,false,true,false,false,false,true,false,false,false,false,false,false,true,true,false,true,false,false,true,false,false,true,false,false,false,false,true,true,false,false,true,false,true,true,true,true,true,false,false,false,true,false,true,true,true,true,false,true,true,false,true,false,false,false,false,true,true,false,false,false,false,false,false,false,false,false,false,true,false,false,false,false,false,false,false,false,false,true,false,true,false,true,false,true,false,false,false,true,true,false,true,true,false,false,false,true,false,false,false,false,false,true,true,false,false,false,false,false,true,false,false],[true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true],[false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,true,false,true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,true,true,true,true,false,false,false,false,true],[true,false,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,false,true,true,true,true,true,true,true,true,true,true,true,true,false,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,false,true,true,true,false,true,true,false,true,true,true,true,true,true,true,true,true,false,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,false,false,true,true,true,false,false,true,true,true,true,false]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>name<\/th>\n      <th>long_name<\/th>\n      <th>write<\/th>\n      <th>copy<\/th>\n      <th>is_raster<\/th>\n      <th>is_vector<\/th>\n      <th>vsi<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-07518c4922d6df5e73ff" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-07518c4922d6df5e73ff">{"x":{"filter":"none","data":[["VRT","DERIVED","GTiff","COG","NITF","RPFTOC","ECRGTOC","HFA","SAR_CEOS","CEOS","JAXAPALSAR","GFF","ELAS","AIG","AAIGrid","GRASSASCIIGrid","ISG","SDTS","DTED","PNG","JPEG","MEM","JDEM","GIF","BIGGIF","ESAT","BSB","XPM","BMP","DIMAP","AirSAR","RS2","SAFE","PCIDSK","PCRaster","ILWIS","SGI","SRTMHGT","Leveller","Terragen","GMT","netCDF","HDF4","HDF4Image","ISIS3","ISIS2","PDS","PDS4","VICAR","TIL","ERS","L1B","FIT","GRIB","RMF","WCS","WMS","MSGN","RST","INGR","GSAG","GSBG","GS7BG","COSAR","TSX","COASP","R","MAP","KMLSUPEROVERLAY","PDF","Rasterlite","MBTiles","PLMOSAIC","CALS","WMTS","SENTINEL2","MRF","PNM","DOQ1","DOQ2","PAux","MFF","MFF2","FujiBAS","GSC","FAST","BT","LAN","CPG","IDA","NDF","EIR","DIPEx","LCP","GTX","LOSLAS","NTv1","NTv2","CTable2","ACE2","SNODAS","KRO","ROI_PAC","RRASTER","BYN","ARG","RIK","USGSDEM","GXF","BAG","HDF5","HDF5Image","NWT_GRD","NWT_GRC","ADRG","SRP","BLX","PostGISRaster","SAGA","IGNFHeightASCIIGrid","XYZ","HF2","OZI","CTG","E00GRID","ZMap","NGSGEOID","IRIS","PRF","RDA","EEDAI","DAAS","SIGDEM","GPKG","CAD","PLSCENES","NGW","GenBin","ENVI","EHdr","ISCE","HTTP"],["VRT","DERIVED","GTiff","COG","NITF","RPFTOC","ECRGTOC","HFA","SAR_CEOS","CEOS","JAXAPALSAR","GFF","ELAS","AIG","AAIGrid","GRASSASCIIGrid","ISG","SDTS","DTED","PNG","JPEG","MEM","JDEM","GIF","BIGGIF","ESAT","BSB","XPM","BMP","DIMAP","AirSAR","RS2","SAFE","PCIDSK","PCRaster","ILWIS","SGI","SRTMHGT","Leveller","Terragen","GMT","netCDF","HDF4","HDF4Image","ISIS3","ISIS2","PDS","PDS4","VICAR","TIL","ERS","L1B","FIT","GRIB","RMF","WCS","WMS","MSGN","RST","INGR","GSAG","GSBG","GS7BG","COSAR","TSX","COASP","R","MAP","KMLSUPEROVERLAY","PDF","Rasterlite","MBTiles","PLMOSAIC","CALS","WMTS","SENTINEL2","MRF","PNM","DOQ1","DOQ2","PAux","MFF","MFF2","FujiBAS","GSC","FAST","BT","LAN","CPG","IDA","NDF","EIR","DIPEx","LCP","GTX","LOSLAS","NTv1","NTv2","CTable2","ACE2","SNODAS","KRO","ROI_PAC","RRASTER","BYN","ARG","RIK","USGSDEM","GXF","BAG","HDF5","HDF5Image","NWT_GRD","NWT_GRC","ADRG","SRP","BLX","PostGISRaster","SAGA","IGNFHeightASCIIGrid","XYZ","HF2","OZI","CTG","E00GRID","ZMap","NGSGEOID","IRIS","PRF","RDA","EEDAI","DAAS","SIGDEM","GPKG","CAD","PLSCENES","NGW","GenBin","ENVI","EHdr","ISCE","HTTP"],["Virtual Raster","Derived datasets using VRT pixel functions","GeoTIFF","Cloud optimized GeoTIFF generator","National Imagery Transmission Format","Raster Product Format TOC format","ECRG TOC format","Erdas Imagine Images (.img)","CEOS SAR Image","CEOS Image","JAXA PALSAR Product Reader (Level 1.1/1.5)","Ground-based SAR Applications Testbed File Format (.gff)","ELAS","Arc/Info Binary Grid","Arc/Info ASCII Grid","GRASS ASCII Grid","International Service for the Geoid","SDTS Raster","DTED Elevation Raster","Portable Network Graphics","JPEG JFIF","In Memory Raster","Japanese DEM (.mem)","Graphics Interchange Format (.gif)","Graphics Interchange Format (.gif)","Envisat Image Format","Maptech BSB Nautical Charts","X11 PixMap Format","MS Windows Device Independent Bitmap","SPOT DIMAP","AirSAR Polarimetric Image","RadarSat 2 XML Product","Sentinel-1 SAR SAFE Product","PCIDSK Database File","PCRaster Raster File","ILWIS Raster Map","SGI Image File Format 1.0","SRTMHGT File Format","Leveller heightfield","Terragen heightfield","GMT NetCDF Grid Format","Network Common Data Format","Hierarchical Data Format Release 4","HDF4 Dataset","USGS Astrogeology ISIS cube (Version 3)","USGS Astrogeology ISIS cube (Version 2)","NASA Planetary Data System","NASA Planetary Data System 4","MIPL VICAR file","EarthWatch .TIL","ERMapper .ers Labelled","NOAA Polar Orbiter Level 1b Data Set","FIT Image","GRIdded Binary (.grb, .grb2)","Raster Matrix Format","OGC Web Coverage Service","OGC Web Map Service","EUMETSAT Archive native (.nat)","Idrisi Raster A.1","Intergraph Raster","Golden Software ASCII Grid (.grd)","Golden Software Binary Grid (.grd)","Golden Software 7 Binary Grid (.grd)","COSAR Annotated Binary Matrix (TerraSAR-X)","TerraSAR-X Product","DRDC COASP SAR Processor Raster","R Object Data Store","OziExplorer .MAP","Kml Super Overlay","Geospatial PDF","Rasterlite","MBTiles","Planet Labs Mosaics API","CALS (Type 1)","OGC Web Map Tile Service","Sentinel 2","Meta Raster Format","Portable Pixmap Format (netpbm)","USGS DOQ (Old Style)","USGS DOQ (New Style)","PCI .aux Labelled","Vexcel MFF Raster","Vexcel MFF2 (HKV) Raster","Fuji BAS Scanner Image","GSC Geogrid","EOSAT FAST Format","VTP .bt (Binary Terrain) 1.3 Format","Erdas .LAN/.GIS","Convair PolGASP","Image Data and Analysis","NLAPS Data Format","Erdas Imagine Raw","DIPEx","FARSITE v.4 Landscape File (.lcp)","NOAA Vertical Datum .GTX","NADCON .los/.las Datum Grid Shift","NTv1 Datum Grid Shift","NTv2 Datum Grid Shift","CTable2 Datum Grid Shift","ACE2","Snow Data Assimilation System","KOLOR Raw","ROI_PAC raster","R Raster","Natural Resources Canada's Geoid","Azavea Raster Grid format","Swedish Grid RIK (.rik)","USGS Optional ASCII DEM (and CDED)","GeoSoft Grid Exchange Format","Bathymetry Attributed Grid","Hierarchical Data Format Release 5","HDF5 Dataset","Northwood Numeric Grid Format .grd/.tab","Northwood Classified Grid Format .grc/.tab","ARC Digitized Raster Graphics","Standard Raster Product (ASRP/USRP)","Magellan topo (.blx)","PostGIS Raster driver","SAGA GIS Binary Grid (.sdat, .sg-grd-z)","IGN France height correction ASCII Grid","ASCII Gridded XYZ","HF2/HFZ heightfield raster","OziExplorer Image File","USGS LULC Composite Theme Grid","Arc/Info Export E00 GRID","ZMap Plus Grid","NOAA NGS Geoid Height Grids","IRIS data (.PPI, .CAPPi etc)","Racurs PHOTOMOD PRF","DigitalGlobe Raster Data Access driver","Earth Engine Data API Image","Airbus DS Intelligence Data As A Service driver","Scaled Integer Gridded DEM .sigdem","GeoPackage","AutoCAD Driver","Planet Labs Scenes API","NextGIS Web","Generic Binary (.hdr Labelled)","ENVI .hdr Labelled","ESRI .hdr Labelled","ISCE raster","HTTP Fetching Wrapper"],[true,false,true,false,true,false,false,true,false,false,false,false,true,false,false,false,false,false,false,false,false,true,false,false,false,false,false,false,true,false,false,false,false,true,true,true,true,false,true,true,false,true,false,true,true,true,false,true,true,false,true,false,false,false,true,false,false,false,true,true,false,true,true,false,false,false,false,false,false,true,false,true,false,false,false,false,true,true,false,false,true,true,true,false,false,false,true,true,false,true,false,false,false,false,true,false,false,true,true,false,false,true,true,true,true,false,false,false,false,false,false,false,true,false,true,false,false,false,true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,true,false,false,true,false,true,true,true,false],[true,false,true,true,true,false,false,true,false,false,false,false,false,false,true,false,false,false,true,true,true,false,false,true,false,false,false,true,false,false,false,false,false,false,true,true,false,true,false,false,true,true,false,false,true,false,false,true,true,false,false,false,true,true,false,false,true,false,true,true,true,true,true,false,false,false,true,false,true,true,true,true,false,true,true,false,true,false,false,false,false,true,true,false,false,false,false,false,false,false,false,false,false,true,false,false,false,false,false,false,false,false,false,true,false,true,false,true,false,true,false,false,true,false,false,false,true,true,true,false,true,true,false,false,false,true,false,false,false,false,false,false,true,true,false,false,true,false,false,true,false,false],[true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true],[false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,true,false,false,false,false,false,false,false,true,false,false,false,false,false,true,true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,true,false,true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,true,true,true,true,false,false,false,false,true],[true,false,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,false,true,true,true,true,true,true,true,true,true,true,true,true,false,true,true,true,true,true,false,false,false,false,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,false,true,true,true,false,true,true,false,true,true,true,true,true,true,true,true,true,false,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,false,true,true,true,true,true,true,true,true,true,true,true,false,false,false,true,true,true,false,false,true,true,true,true,false]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>name<\/th>\n      <th>long_name<\/th>\n      <th>write<\/th>\n      <th>copy<\/th>\n      <th>is_raster<\/th>\n      <th>is_vector<\/th>\n      <th>vsi<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}</script>
 <div id="reading-raster-data" class="section level3" number="7.4.1">
 <h3><span class="header-section-number">7.4.1</span> Reading raster data</h3>
 <p>You can use <code>read_stars()</code> to read a raster data file. It is very unlikely that the raster file you are trying to read is not in one of the supported formats.</p>
 <p>For example, you can read a GeoTIFF file as follows:</p>
-<div class="sourceCode" id="cb496"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb496-1"><a href="read-write-stars.html#cb496-1"></a>(</span>
-<span id="cb496-2"><a href="read-write-stars.html#cb496-2"></a>ppt_m1_y09_stars &lt;-<span class="st"> </span><span class="kw">read_stars</span>(<span class="st">&quot;./Data/PRISM_ppt_y2009_m1.tif&quot;</span>) </span>
-<span id="cb496-3"><a href="read-write-stars.html#cb496-3"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb497"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb497-1"><a href="read-write-stars.html#cb497-1"></a>(</span>
+<span id="cb497-2"><a href="read-write-stars.html#cb497-2"></a>ppt_m1_y09_stars &lt;-<span class="st"> </span><span class="kw">read_stars</span>(<span class="st">&quot;./Data/PRISM_ppt_y2009_m1.tif&quot;</span>) </span>
+<span id="cb497-3"><a href="read-write-stars.html#cb497-3"></a>)</span></code></pre></div>
 <pre><code>stars object with 3 dimensions and 1 attribute
 attribute(s), summary of first 1e+05 cells:
  PRISM_ppt_y2009_m1.tif 
@@ -561,18 +561,14 @@ attribute(s), summary of first 1e+05 cells:
  Max.   :56.21          
  NA&#39;s   :60401          
 dimension(s):
-     from   to   offset      delta                       refsys point values
-x       1 1405 -125.021  0.0416667 GEOGCS[&quot;NAD83&quot;,DATUM[&quot;Nor... FALSE   NULL
-y       1  621  49.9375 -0.0416667 GEOGCS[&quot;NAD83&quot;,DATUM[&quot;Nor... FALSE   NULL
-band    1   31       NA         NA                           NA    NA   NULL
-        
-x    [x]
-y    [y]
-band    </code></pre>
+     from   to   offset      delta refsys point values    
+x       1 1405 -125.021  0.0416667  NAD83 FALSE   NULL [x]
+y       1  621  49.9375 -0.0416667  NAD83 FALSE   NULL [y]
+band    1   31       NA         NA     NA    NA   NULL    </code></pre>
 <p>This one imports a raw PRISM data stored as a BIL file.</p>
-<div class="sourceCode" id="cb498"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb498-1"><a href="read-write-stars.html#cb498-1"></a>(</span>
-<span id="cb498-2"><a href="read-write-stars.html#cb498-2"></a>prism_tmax_<span class="dv">20180701</span> &lt;-<span class="st"> </span><span class="kw">read_stars</span>(<span class="st">&quot;./Data/PRISM_tmax_stable_4kmD2_20180701_bil/PRISM_tmax_stable_4kmD2_20180701_bil.bil&quot;</span>)</span>
-<span id="cb498-3"><a href="read-write-stars.html#cb498-3"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb499"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb499-1"><a href="read-write-stars.html#cb499-1"></a>(</span>
+<span id="cb499-2"><a href="read-write-stars.html#cb499-2"></a>prism_tmax_<span class="dv">20180701</span> &lt;-<span class="st"> </span><span class="kw">read_stars</span>(<span class="st">&quot;./Data/PRISM_tmax_stable_4kmD2_20180701_bil/PRISM_tmax_stable_4kmD2_20180701_bil.bil&quot;</span>)</span>
+<span id="cb499-3"><a href="read-write-stars.html#cb499-3"></a>)</span></code></pre></div>
 <pre><code>stars object with 2 dimensions and 1 attribute
 attribute(s):
  PRISM_tmax_stable_4kmD2_20180701_bil.bil 
@@ -584,15 +580,15 @@ attribute(s):
  Max.   :48.0                             
  NA&#39;s   :390874                           
 dimension(s):
-  from   to   offset      delta                       refsys point values    
-x    1 1405 -125.021  0.0416667 GEOGCS[&quot;GCS_North_America...    NA   NULL [x]
-y    1  621  49.9375 -0.0416667 GEOGCS[&quot;GCS_North_America...    NA   NULL [y]</code></pre>
+  from   to   offset      delta refsys point values    
+x    1 1405 -125.021  0.0416667  NAD83    NA   NULL [x]
+y    1  621  49.9375 -0.0416667  NAD83    NA   NULL [y]</code></pre>
 <p>You can import multiple raster data files into one <code>stars</code> object by simply supplying a vector of file names:</p>
-<div class="sourceCode" id="cb500"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb500-1"><a href="read-write-stars.html#cb500-1"></a>files &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;./Data/PRISM_tmax_stable_4kmD2_20180701_bil/PRISM_tmax_stable_4kmD2_20180701_bil.bil&quot;</span>, <span class="st">&quot;./Data/PRISM_tmax_stable_4kmD2_20180702_bil/PRISM_tmax_stable_4kmD2_20180702_bil.bil&quot;</span>)</span>
-<span id="cb500-2"><a href="read-write-stars.html#cb500-2"></a></span>
-<span id="cb500-3"><a href="read-write-stars.html#cb500-3"></a>(</span>
-<span id="cb500-4"><a href="read-write-stars.html#cb500-4"></a>prism_tmax_<span class="dv">201807</span>_two &lt;-<span class="st"> </span><span class="kw">read_stars</span>(files)</span>
-<span id="cb500-5"><a href="read-write-stars.html#cb500-5"></a>) </span></code></pre></div>
+<div class="sourceCode" id="cb501"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb501-1"><a href="read-write-stars.html#cb501-1"></a>files &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;./Data/PRISM_tmax_stable_4kmD2_20180701_bil/PRISM_tmax_stable_4kmD2_20180701_bil.bil&quot;</span>, <span class="st">&quot;./Data/PRISM_tmax_stable_4kmD2_20180702_bil/PRISM_tmax_stable_4kmD2_20180702_bil.bil&quot;</span>)</span>
+<span id="cb501-2"><a href="read-write-stars.html#cb501-2"></a></span>
+<span id="cb501-3"><a href="read-write-stars.html#cb501-3"></a>(</span>
+<span id="cb501-4"><a href="read-write-stars.html#cb501-4"></a>prism_tmax_<span class="dv">201807</span>_two &lt;-<span class="st"> </span><span class="kw">read_stars</span>(files)</span>
+<span id="cb501-5"><a href="read-write-stars.html#cb501-5"></a>) </span></code></pre></div>
 <pre><code>stars object with 2 dimensions and 2 attributes
 attribute(s):
  PRISM_tmax_stable_4kmD2_20180701_bil.bil 
@@ -612,13 +608,13 @@ attribute(s):
  Max.   :48.0                             
  NA&#39;s   :390874                           
 dimension(s):
-  from   to   offset      delta                       refsys point values    
-x    1 1405 -125.021  0.0416667 GEOGCS[&quot;GCS_North_America...    NA   NULL [x]
-y    1  621  49.9375 -0.0416667 GEOGCS[&quot;GCS_North_America...    NA   NULL [y]</code></pre>
+  from   to   offset      delta refsys point values    
+x    1 1405 -125.021  0.0416667  NAD83    NA   NULL [x]
+y    1  621  49.9375 -0.0416667  NAD83    NA   NULL [y]</code></pre>
 <p>As you can see, each file becomes an attribute.<a href="#fn89" class="footnote-ref" id="fnref89"><sup>89</sup></a> It is more convenient to have them as layers stacked along the third dimension. To do that you can add <code>along = 3</code> option as follows:</p>
-<div class="sourceCode" id="cb502"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb502-1"><a href="read-write-stars.html#cb502-1"></a>(</span>
-<span id="cb502-2"><a href="read-write-stars.html#cb502-2"></a>prism_tmax_<span class="dv">201807</span>_two &lt;-<span class="st"> </span><span class="kw">read_stars</span>(files, <span class="dt">along =</span> <span class="dv">3</span>)</span>
-<span id="cb502-3"><a href="read-write-stars.html#cb502-3"></a>) </span></code></pre></div>
+<div class="sourceCode" id="cb503"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb503-1"><a href="read-write-stars.html#cb503-1"></a>(</span>
+<span id="cb503-2"><a href="read-write-stars.html#cb503-2"></a>prism_tmax_<span class="dv">201807</span>_two &lt;-<span class="st"> </span><span class="kw">read_stars</span>(files, <span class="dt">along =</span> <span class="dv">3</span>)</span>
+<span id="cb503-3"><a href="read-write-stars.html#cb503-3"></a>) </span></code></pre></div>
 <pre><code>stars object with 3 dimensions and 1 attribute
 attribute(s), summary of first 1e+05 cells:
  PRISM_tmax_stable_4kmD2_20180701_bil.bil 
@@ -630,20 +626,16 @@ attribute(s), summary of first 1e+05 cells:
  Max.   :33.40                            
  NA&#39;s   :60401                            
 dimension(s):
-        from   to   offset      delta                       refsys point values
-x          1 1405 -125.021  0.0416667 GEOGCS[&quot;GCS_North_America...    NA   NULL
-y          1  621  49.9375 -0.0416667 GEOGCS[&quot;GCS_North_America...    NA   NULL
-new_dim    1    2       NA         NA                           NA    NA   NULL
-           
-x       [x]
-y       [y]
-new_dim    </code></pre>
+        from   to   offset      delta refsys point values    
+x          1 1405 -125.021  0.0416667  NAD83    NA   NULL [x]
+y          1  621  49.9375 -0.0416667  NAD83    NA   NULL [y]
+new_dim    1    2       NA         NA     NA    NA   NULL    </code></pre>
 <hr />
 <p>Note that while the GeoTIFF format (and many other formats) can store multi-band (multi-layer) raster data allowing for an additional dimension beyond <code>x</code> and <code>y</code>, it does not store the values of the dimension like the <code>date</code> dimension we saw in <code>prcp_tmax_PRISM_m8_y09</code>. So, when you read a multi-layer raster data saved as a GeoTIFF, the third dimension of the resulting <code>stars</code> object will always be called <code>band</code> without any explicit time information.
 On the other hand, netCDF files are capable of storing the time dimension values. So, when you read a netCDF file with valid time dimension, you will have time dimension when it is read.</p>
-<div class="sourceCode" id="cb504"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb504-1"><a href="read-write-stars.html#cb504-1"></a>(</span>
-<span id="cb504-2"><a href="read-write-stars.html#cb504-2"></a><span class="kw">read_ncdf</span>(<span class="kw">system.file</span>(<span class="st">&quot;nc/bcsd_obs_1999.nc&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;stars&quot;</span>))  </span>
-<span id="cb504-3"><a href="read-write-stars.html#cb504-3"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb505"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb505-1"><a href="read-write-stars.html#cb505-1"></a>(</span>
+<span id="cb505-2"><a href="read-write-stars.html#cb505-2"></a><span class="kw">read_ncdf</span>(<span class="kw">system.file</span>(<span class="st">&quot;nc/bcsd_obs_1999.nc&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;stars&quot;</span>))  </span>
+<span id="cb505-3"><a href="read-write-stars.html#cb505-3"></a>)</span></code></pre></div>
 <pre><code>stars object with 3 dimensions and 2 attributes
 attribute(s):
    pr [mm/m]         tas [C]      
@@ -655,19 +647,19 @@ attribute(s):
  Max.   :848.55   Max.   :29.386  
  NA&#39;s   :7116     NA&#39;s   :7116    
 dimension(s):
-          from to offset delta    refsys point                    values    
-longitude    1 81    -85 0.125 EPSG:4326    NA                      NULL [x]
-latitude     1 33     33 0.125 EPSG:4326    NA                      NULL [y]
-time         1 12     NA    NA   POSIXct    NA 1999-01-31,...,1999-12-31    </code></pre>
+          from to offset delta  refsys point                    values    
+longitude    1 81    -85 0.125  WGS 84    NA                      NULL [x]
+latitude     1 33     33 0.125  WGS 84    NA                      NULL [y]
+time         1 12     NA    NA POSIXct    NA 1999-01-31,...,1999-12-31    </code></pre>
 <p>The <code>refsys</code> of the time dimension is <code>POSIXct</code>, which is one of the date classes.</p>
 </div>
 <div id="writing-a-stars-object-to-a-file" class="section level3" number="7.4.2">
 <h3><span class="header-section-number">7.4.2</span> Writing a <code>stars</code> object to a file</h3>
 <p>You can write a <code>stars</code> object to a file using <code>write_stars()</code> using one of the GDAL drivers.</p>
 <p>Let’s save <code>prcp_tmax_PRISM_m8_y09["tmax",,,]</code>, which has <code>date</code> dimension whose <code>refsys</code> is <code>Date</code>.</p>
-<div class="sourceCode" id="cb506"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb506-1"><a href="read-write-stars.html#cb506-1"></a><span class="kw">write_stars</span>(prcp_tmax_PRISM_m8_y09[<span class="st">&quot;tmax&quot;</span>,,,], <span class="st">&quot;./Data/tmax_m8_y09_from_stars.tif&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb507"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb507-1"><a href="read-write-stars.html#cb507-1"></a><span class="kw">write_stars</span>(prcp_tmax_PRISM_m8_y09[<span class="st">&quot;tmax&quot;</span>,,,], <span class="st">&quot;./Data/tmax_m8_y09_from_stars.tif&quot;</span>)</span></code></pre></div>
 <p>Let’s read the file we just saved.</p>
-<div class="sourceCode" id="cb507"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb507-1"><a href="read-write-stars.html#cb507-1"></a><span class="kw">read_stars</span>(<span class="st">&quot;./Data/tmax_m8_y09_from_stars.tif&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb508"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb508-1"><a href="read-write-stars.html#cb508-1"></a><span class="kw">read_stars</span>(<span class="st">&quot;./Data/tmax_m8_y09_from_stars.tif&quot;</span>)</span></code></pre></div>
 <pre><code>stars object with 3 dimensions and 1 attribute
 attribute(s):
  tmax_m8_y09_from_stars.tif 
@@ -678,15 +670,15 @@ attribute(s):
  3rd Qu.:26.543             
  Max.   :39.707             
 dimension(s):
-     from to   offset      delta                       refsys point values    
-x       1 20 -121.729  0.0416667 GEOGCS[&quot;NAD83&quot;,DATUM[&quot;Nor... FALSE   NULL [x]
-y       1 20  46.6458 -0.0416667 GEOGCS[&quot;NAD83&quot;,DATUM[&quot;Nor... FALSE   NULL [y]
-band    1 10       NA         NA                           NA    NA   NULL    </code></pre>
+     from to   offset      delta refsys point values    
+x       1 20 -121.729  0.0416667  NAD83 FALSE   NULL [x]
+y       1 20  46.6458 -0.0416667  NAD83 FALSE   NULL [y]
+band    1 10       NA         NA     NA    NA   NULL    </code></pre>
 <p>Notice that the third dimension is now called band and all the date information is lost. The loss of information happened when we saved <code>prcp_tmax_PRISM_m8_y09["tmax",,,]</code> as a GeoTIFF file. One easy way to avoid this problem is to just save a <code>stars</code> object as an R dataset.</p>
-<div class="sourceCode" id="cb509"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb509-1"><a href="read-write-stars.html#cb509-1"></a><span class="co">#--- save it as an rds file ---#</span></span>
-<span id="cb509-2"><a href="read-write-stars.html#cb509-2"></a><span class="kw">saveRDS</span>(prcp_tmax_PRISM_m8_y09[<span class="st">&quot;tmax&quot;</span>,,,], <span class="st">&quot;./Data/tmax_m8_y09_from_stars.rds&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb510"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb510-1"><a href="read-write-stars.html#cb510-1"></a><span class="co">#--- read it back ---#</span></span>
-<span id="cb510-2"><a href="read-write-stars.html#cb510-2"></a><span class="kw">readRDS</span>(<span class="st">&quot;./Data/tmax_m8_y09_from_stars.rds&quot;</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb510"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb510-1"><a href="read-write-stars.html#cb510-1"></a><span class="co">#--- save it as an rds file ---#</span></span>
+<span id="cb510-2"><a href="read-write-stars.html#cb510-2"></a><span class="kw">saveRDS</span>(prcp_tmax_PRISM_m8_y09[<span class="st">&quot;tmax&quot;</span>,,,], <span class="st">&quot;./Data/tmax_m8_y09_from_stars.rds&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb511"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb511-1"><a href="read-write-stars.html#cb511-1"></a><span class="co">#--- read it back ---#</span></span>
+<span id="cb511-2"><a href="read-write-stars.html#cb511-2"></a><span class="kw">readRDS</span>(<span class="st">&quot;./Data/tmax_m8_y09_from_stars.rds&quot;</span>) </span></code></pre></div>
 <pre><code>stars object with 3 dimensions and 1 attribute
 attribute(s):
      tmax        
@@ -697,14 +689,10 @@ attribute(s):
  3rd Qu.:26.543  
  Max.   :39.707  
 dimension(s):
-     from to     offset      delta                       refsys point values
-x       1 20   -121.729  0.0416667 GEOGCS[&quot;NAD83&quot;,DATUM[&quot;Nor... FALSE   NULL
-y       1 20    46.6458 -0.0416667 GEOGCS[&quot;NAD83&quot;,DATUM[&quot;Nor... FALSE   NULL
-date    1 10 2009-08-11     1 days                         Date    NA   NULL
-        
-x    [x]
-y    [y]
-date    </code></pre>
+     from to     offset      delta refsys point values    
+x       1 20   -121.729  0.0416667  NAD83 FALSE   NULL [x]
+y       1 20    46.6458 -0.0416667  NAD83 FALSE   NULL [y]
+date    1 10 2009-08-11     1 days   Date    NA   NULL    </code></pre>
 <p>As you can see, date information is retained. So, if you are the only one who uses this data or all of your team members use R, then this is a nice solution to the problem.<a href="#fn90" class="footnote-ref" id="fnref90"><sup>90</sup></a> At the moment, it is not possible to use <code>write_stars()</code> to write to a netCDF file that supports the third dimension as time. However, this may not be the case for a long time (See the discussion <a href="https://github.com/r-spatial/stars/issues/8">here</a>).</p>
 </div>
 </div>

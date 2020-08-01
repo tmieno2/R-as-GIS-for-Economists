@@ -66,21 +66,21 @@
 <script src="libs/HomeButton-0.0.1/easy-button-src.min.js"></script>
 <script src="libs/clipboard-0.0.1/setClipboardText.js"></script>
 <link href="libs/PopupTable-0.0.1/popup.css" rel="stylesheet" />
-<script src="libs/IA_cdl_2015-1/data_stars_IA_cdl_2015492be3.txt"></script>
+<script src="libs/IA_cdl_2015-1/data_stars_IA_cdl_20157013d9.txt"></script>
 <script src="libs/joda-0.0.1/joda.js"></script>
 <script src="libs/joda-0.0.1/addImageQuery-bindings.js"></script>
-<script src="libs/IA_cdl_2016-1/data_stars_IA_cdl_2016d254a6.txt"></script>
-<script src="libs/prcp_tmax_PRISM_m8_y09["tmax", , , ] - 1-1/data_stars_prcp_tmax_PRISM_m8_y09tmax1d57104.txt"></script>
-<script src="libs/layer.1-1/data_stars_layer1ade7f0.txt"></script>
-<script src="libs/layer.2-1/data_stars_layer2a3e1c2.txt"></script>
-<script src="libs/layer.3-1/data_stars_layer39bf0c4.txt"></script>
-<script src="libs/layer.4-1/data_stars_layer4281e67.txt"></script>
-<script src="libs/layer.5-1/data_stars_layer5da8bef.txt"></script>
-<script src="libs/layer.6-1/data_stars_layer60a163b.txt"></script>
-<script src="libs/layer.7-1/data_stars_layer72c54d1.txt"></script>
-<script src="libs/layer.8-1/data_stars_layer8fc014d.txt"></script>
-<script src="libs/layer.9-1/data_stars_layer9f9bcad.txt"></script>
-<script src="libs/layer.10-1/data_stars_layer10ea3f98.txt"></script>
+<script src="libs/IA_cdl_2016-1/data_stars_IA_cdl_2016f0942b.txt"></script>
+<script src="libs/prcp_tmax_PRISM_m8_y09["tmax", , , ] - 1-1/data_stars_prcp_tmax_PRISM_m8_y09tmax15f4a23.txt"></script>
+<script src="libs/layer.1-1/data_stars_layer16e07dc.txt"></script>
+<script src="libs/layer.2-1/data_stars_layer29d3c0a.txt"></script>
+<script src="libs/layer.3-1/data_stars_layer30124e8.txt"></script>
+<script src="libs/layer.4-1/data_stars_layer4125698.txt"></script>
+<script src="libs/layer.5-1/data_stars_layer56ca504.txt"></script>
+<script src="libs/layer.6-1/data_stars_layer60b51ef.txt"></script>
+<script src="libs/layer.7-1/data_stars_layer7d85baf.txt"></script>
+<script src="libs/layer.8-1/data_stars_layer831db4a.txt"></script>
+<script src="libs/layer.9-1/data_stars_layer935e042.txt"></script>
+<script src="libs/layer.10-1/data_stars_layer102ad98c.txt"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
 <script src="libs/datatables-binding-0.13/datatables.js"></script>
 <link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
@@ -544,30 +544,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The <code>filter()</code> function allows you to subset data by dimension values: x, y, and band (here date).</p>
 <hr />
 <p><strong>spatial filtering</strong></p>
-<div class="sourceCode" id="cb524"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb524-1"><a href="dplyr-op.html#cb524-1"></a><span class="kw">library</span>(tidyverse)</span>
-<span id="cb524-2"><a href="dplyr-op.html#cb524-2"></a></span>
-<span id="cb524-3"><a href="dplyr-op.html#cb524-3"></a><span class="co">#--- longitude greater than -100 ---#</span></span>
-<span id="cb524-4"><a href="dplyr-op.html#cb524-4"></a><span class="kw">filter</span>(ppt_m1_y09_stars, x <span class="op">&gt;</span><span class="st"> </span><span class="dv">-100</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">plot</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb525"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb525-1"><a href="dplyr-op.html#cb525-1"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb525-2"><a href="dplyr-op.html#cb525-2"></a></span>
+<span id="cb525-3"><a href="dplyr-op.html#cb525-3"></a><span class="co">#--- longitude greater than -100 ---#</span></span>
+<span id="cb525-4"><a href="dplyr-op.html#cb525-4"></a><span class="kw">filter</span>(ppt_m1_y09_stars, x <span class="op">&gt;</span><span class="st"> </span><span class="dv">-100</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">plot</span>()</span></code></pre></div>
 <p><img src="R_GIS_Book_files/figure-html/filter_ex-1.png" width="672" /></p>
-<div class="sourceCode" id="cb525"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb525-1"><a href="dplyr-op.html#cb525-1"></a><span class="co">#--- latitude less than 40 ---#</span></span>
-<span id="cb525-2"><a href="dplyr-op.html#cb525-2"></a><span class="kw">filter</span>(ppt_m1_y09_stars, y <span class="op">&lt;</span><span class="st"> </span><span class="dv">40</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">plot</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb526"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb526-1"><a href="dplyr-op.html#cb526-1"></a><span class="co">#--- latitude less than 40 ---#</span></span>
+<span id="cb526-2"><a href="dplyr-op.html#cb526-2"></a><span class="kw">filter</span>(ppt_m1_y09_stars, y <span class="op">&lt;</span><span class="st"> </span><span class="dv">40</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">plot</span>()</span></code></pre></div>
 <p><img src="R_GIS_Book_files/figure-html/filter_ex-2.png" width="672" /></p>
 <hr />
 <p><strong>temporal filtering</strong></p>
 <p>Finally, since the date dimension is in <code>Date</code>, you can use <code>Date</code> math to filter the data.<a href="#fn92" class="footnote-ref" id="fnref92"><sup>92</sup></a></p>
-<div class="sourceCode" id="cb526"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb526-1"><a href="dplyr-op.html#cb526-1"></a><span class="co">#--- dates after 2009-01-15  ---#</span></span>
-<span id="cb526-2"><a href="dplyr-op.html#cb526-2"></a><span class="kw">filter</span>(ppt_m1_y09_stars, date <span class="op">&gt;</span><span class="st"> </span><span class="kw">ymd</span>(<span class="st">&quot;2009-01-21&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">plot</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb527"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb527-1"><a href="dplyr-op.html#cb527-1"></a><span class="co">#--- dates after 2009-01-15  ---#</span></span>
+<span id="cb527-2"><a href="dplyr-op.html#cb527-2"></a><span class="kw">filter</span>(ppt_m1_y09_stars, date <span class="op">&gt;</span><span class="st"> </span><span class="kw">ymd</span>(<span class="st">&quot;2009-01-21&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">plot</span>()</span></code></pre></div>
 <p><img src="R_GIS_Book_files/figure-html/filter_ex_date-1.png" width="672" /></p>
 <hr />
 <p><strong>filter by attribute?</strong></p>
 <p>Just in case you are wondering. You cannot filter by attribute.</p>
-<div class="sourceCode" id="cb527"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb527-1"><a href="dplyr-op.html#cb527-1"></a><span class="kw">filter</span>(ppt_m1_y09_stars, ppt <span class="op">&gt;</span><span class="st"> </span><span class="dv">20</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb528"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb528-1"><a href="dplyr-op.html#cb528-1"></a><span class="kw">filter</span>(ppt_m1_y09_stars, ppt <span class="op">&gt;</span><span class="st"> </span><span class="dv">20</span>) </span></code></pre></div>
 <pre><code>Error: ``~``, `ppt &gt; 20` must refer to exactly one dimension, not ``</code></pre>
 </div>
 <div id="select" class="section level3" number="7.6.2">
 <h3><span class="header-section-number">7.6.2</span> <code>select()</code></h3>
 <p>The <code>select()</code> function lets you pick certain attributes.</p>
-<div class="sourceCode" id="cb529"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb529-1"><a href="dplyr-op.html#cb529-1"></a>dplyr<span class="op">::</span><span class="kw">select</span>(prcp_tmax_PRISM_m8_y09, ppt)</span></code></pre></div>
+<div class="sourceCode" id="cb530"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb530-1"><a href="dplyr-op.html#cb530-1"></a>dplyr<span class="op">::</span><span class="kw">select</span>(prcp_tmax_PRISM_m8_y09, ppt)</span></code></pre></div>
 <pre><code>stars object with 3 dimensions and 1 attribute
 attribute(s):
       ppt        
@@ -586,8 +586,8 @@ date    1 10 2009-08-11     1 days   Date    NA   NULL    </code></pre>
 <div id="mutate" class="section level3" number="7.6.3">
 <h3><span class="header-section-number">7.6.3</span> <code>mutate()</code></h3>
 <p>You can mutate attributes using the <code>mutate()</code> function. For example, this can be useful to calculate NDVI in a <code>stars</code> object that has Red and NIR (spectral reflectance measurements in the red and near-infrared regions) as attributes. Here, we just simply convert the unit of precipitation from mm to inches.</p>
-<div class="sourceCode" id="cb531"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb531-1"><a href="dplyr-op.html#cb531-1"></a><span class="co">#--- mm to inches ---#</span></span>
-<span id="cb531-2"><a href="dplyr-op.html#cb531-2"></a><span class="kw">mutate</span>(prcp_tmax_PRISM_m8_y09, <span class="dt">ppt =</span> ppt <span class="op">*</span><span class="st"> </span><span class="fl">0.0393701</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb532"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb532-1"><a href="dplyr-op.html#cb532-1"></a><span class="co">#--- mm to inches ---#</span></span>
+<span id="cb532-2"><a href="dplyr-op.html#cb532-2"></a><span class="kw">mutate</span>(prcp_tmax_PRISM_m8_y09, <span class="dt">ppt =</span> ppt <span class="op">*</span><span class="st"> </span><span class="fl">0.0393701</span>)</span></code></pre></div>
 <pre><code>stars object with 3 dimensions and 2 attributes
 attribute(s):
       ppt                tmax        
@@ -598,20 +598,16 @@ attribute(s):
  3rd Qu.:0.0004331   3rd Qu.:26.543  
  Max.   :1.2146069   Max.   :39.707  
 dimension(s):
-     from to     offset      delta                       refsys point values
-x       1 20   -121.729  0.0416667 GEOGCS[&quot;NAD83&quot;,DATUM[&quot;Nor... FALSE   NULL
-y       1 20    46.6458 -0.0416667 GEOGCS[&quot;NAD83&quot;,DATUM[&quot;Nor... FALSE   NULL
-date    1 10 2009-08-11     1 days                         Date    NA   NULL
-        
-x    [x]
-y    [y]
-date    </code></pre>
+     from to     offset      delta refsys point values    
+x       1 20   -121.729  0.0416667  NAD83 FALSE   NULL [x]
+y       1 20    46.6458 -0.0416667  NAD83 FALSE   NULL [y]
+date    1 10 2009-08-11     1 days   Date    NA   NULL    </code></pre>
 </div>
 <div id="pull" class="section level3" number="7.6.4">
 <h3><span class="header-section-number">7.6.4</span> <code>pull()</code></h3>
 <p>You can extract attribute values using <code>pull()</code>.</p>
-<div class="sourceCode" id="cb533"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb533-1"><a href="dplyr-op.html#cb533-1"></a><span class="co">#--- tmax values of the 1st date layer ---#</span></span>
-<span id="cb533-2"><a href="dplyr-op.html#cb533-2"></a><span class="kw">pull</span>(prcp_tmax_PRISM_m8_y09[<span class="st">&quot;tmax&quot;</span>,,,<span class="dv">1</span>], <span class="st">&quot;tmax&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb534"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb534-1"><a href="dplyr-op.html#cb534-1"></a><span class="co">#--- tmax values of the 1st date layer ---#</span></span>
+<span id="cb534-2"><a href="dplyr-op.html#cb534-2"></a><span class="kw">pull</span>(prcp_tmax_PRISM_m8_y09[<span class="st">&quot;tmax&quot;</span>,,,<span class="dv">1</span>], <span class="st">&quot;tmax&quot;</span>)</span></code></pre></div>
 <pre><code>, , 1
 
         [,1]   [,2]   [,3]   [,4]   [,5]   [,6]   [,7]   [,8]   [,9]  [,10]

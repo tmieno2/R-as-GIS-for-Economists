@@ -66,21 +66,21 @@
 <script src="libs/HomeButton-0.0.1/easy-button-src.min.js"></script>
 <script src="libs/clipboard-0.0.1/setClipboardText.js"></script>
 <link href="libs/PopupTable-0.0.1/popup.css" rel="stylesheet" />
-<script src="libs/IA_cdl_2015-1/data_stars_IA_cdl_2015492be3.txt"></script>
+<script src="libs/IA_cdl_2015-1/data_stars_IA_cdl_20157013d9.txt"></script>
 <script src="libs/joda-0.0.1/joda.js"></script>
 <script src="libs/joda-0.0.1/addImageQuery-bindings.js"></script>
-<script src="libs/IA_cdl_2016-1/data_stars_IA_cdl_2016d254a6.txt"></script>
-<script src="libs/prcp_tmax_PRISM_m8_y09["tmax", , , ] - 1-1/data_stars_prcp_tmax_PRISM_m8_y09tmax1d57104.txt"></script>
-<script src="libs/layer.1-1/data_stars_layer1ade7f0.txt"></script>
-<script src="libs/layer.2-1/data_stars_layer2a3e1c2.txt"></script>
-<script src="libs/layer.3-1/data_stars_layer39bf0c4.txt"></script>
-<script src="libs/layer.4-1/data_stars_layer4281e67.txt"></script>
-<script src="libs/layer.5-1/data_stars_layer5da8bef.txt"></script>
-<script src="libs/layer.6-1/data_stars_layer60a163b.txt"></script>
-<script src="libs/layer.7-1/data_stars_layer72c54d1.txt"></script>
-<script src="libs/layer.8-1/data_stars_layer8fc014d.txt"></script>
-<script src="libs/layer.9-1/data_stars_layer9f9bcad.txt"></script>
-<script src="libs/layer.10-1/data_stars_layer10ea3f98.txt"></script>
+<script src="libs/IA_cdl_2016-1/data_stars_IA_cdl_2016f0942b.txt"></script>
+<script src="libs/prcp_tmax_PRISM_m8_y09["tmax", , , ] - 1-1/data_stars_prcp_tmax_PRISM_m8_y09tmax15f4a23.txt"></script>
+<script src="libs/layer.1-1/data_stars_layer16e07dc.txt"></script>
+<script src="libs/layer.2-1/data_stars_layer29d3c0a.txt"></script>
+<script src="libs/layer.3-1/data_stars_layer30124e8.txt"></script>
+<script src="libs/layer.4-1/data_stars_layer4125698.txt"></script>
+<script src="libs/layer.5-1/data_stars_layer56ca504.txt"></script>
+<script src="libs/layer.6-1/data_stars_layer60b51ef.txt"></script>
+<script src="libs/layer.7-1/data_stars_layer7d85baf.txt"></script>
+<script src="libs/layer.8-1/data_stars_layer831db4a.txt"></script>
+<script src="libs/layer.9-1/data_stars_layer935e042.txt"></script>
+<script src="libs/layer.10-1/data_stars_layer102ad98c.txt"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
 <script src="libs/datatables-binding-0.13/datatables.js"></script>
 <link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
@@ -541,18 +541,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>You often need to reproject an <code>sf</code> using a different coordinate reference system (CRS) because you need it to have the same CRS as an <code>sf</code> object that you are interacting it with (spatial join) or mapping it with. In order to check the current CRS for an <code>sf</code> object, you can use the <code>st_crs()</code> function.</p>
 <div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="projection-with-a-different-coordinate-reference-systems.html#cb132-1"></a><span class="kw">st_crs</span>(nc)</span></code></pre></div>
 <pre><code>Coordinate Reference System:
-  User input: 4267 
+  User input: NAD27 
   wkt:
-GEOGCS[&quot;NAD27&quot;,
-    DATUM[&quot;North_American_Datum_1927&quot;,
-        SPHEROID[&quot;Clarke 1866&quot;,6378206.4,294.9786982138982,
-            AUTHORITY[&quot;EPSG&quot;,&quot;7008&quot;]],
-        AUTHORITY[&quot;EPSG&quot;,&quot;6267&quot;]],
+GEOGCRS[&quot;NAD27&quot;,
+    DATUM[&quot;North American Datum 1927&quot;,
+        ELLIPSOID[&quot;Clarke 1866&quot;,6378206.4,294.978698213898,
+            LENGTHUNIT[&quot;metre&quot;,1]]],
     PRIMEM[&quot;Greenwich&quot;,0,
-        AUTHORITY[&quot;EPSG&quot;,&quot;8901&quot;]],
-    UNIT[&quot;degree&quot;,0.0174532925199433,
-        AUTHORITY[&quot;EPSG&quot;,&quot;9122&quot;]],
-    AUTHORITY[&quot;EPSG&quot;,&quot;4267&quot;]]</code></pre>
+        ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
+    CS[ellipsoidal,2],
+        AXIS[&quot;latitude&quot;,north,
+            ORDER[1],
+            ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
+        AXIS[&quot;longitude&quot;,east,
+            ORDER[2],
+            ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
+    ID[&quot;EPSG&quot;,4267]]</code></pre>
 <p><code>wkt</code> stands for <strong>Well Known Text</strong><a href="#fn45" class="footnote-ref" id="fnref45"><sup>45</sup></a>, which is one of many many formats to store CRS information.<a href="#fn46" class="footnote-ref" id="fnref46"><sup>46</sup></a> 4267 is the SRID (Spatial Reference System Identifier) defined by the European Petroleum Survey Group (EPSG) for the CRS<a href="#fn47" class="footnote-ref" id="fnref47"><sup>47</sup></a>.</p>
 <p>When you transform your <code>sf</code> using a different CRS, you can use its EPSG number if the CRS has an EPSG number.<a href="#fn48" class="footnote-ref" id="fnref48"><sup>48</sup></a> Let’s transform the <code>sf</code> to <code>WGS 84</code> (another commonly used GCS), whose EPSG number is 4326. We can use the <code>st_transform()</code> function to achieve that, with the first argument being the <code>sf</code> object you are transforming and the second being the EPSG number of the new CRS.</p>
 <div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="projection-with-a-different-coordinate-reference-systems.html#cb134-1"></a><span class="co">#--- transform ---#</span></span>
@@ -563,16 +567,24 @@ GEOGCS[&quot;NAD27&quot;,
 <pre><code>Coordinate Reference System:
   User input: EPSG:4326 
   wkt:
-GEOGCS[&quot;WGS 84&quot;,
-    DATUM[&quot;WGS_1984&quot;,
-        SPHEROID[&quot;WGS 84&quot;,6378137,298.257223563,
-            AUTHORITY[&quot;EPSG&quot;,&quot;7030&quot;]],
-        AUTHORITY[&quot;EPSG&quot;,&quot;6326&quot;]],
+GEOGCRS[&quot;WGS 84&quot;,
+    DATUM[&quot;World Geodetic System 1984&quot;,
+        ELLIPSOID[&quot;WGS 84&quot;,6378137,298.257223563,
+            LENGTHUNIT[&quot;metre&quot;,1]]],
     PRIMEM[&quot;Greenwich&quot;,0,
-        AUTHORITY[&quot;EPSG&quot;,&quot;8901&quot;]],
-    UNIT[&quot;degree&quot;,0.0174532925199433,
-        AUTHORITY[&quot;EPSG&quot;,&quot;9122&quot;]],
-    AUTHORITY[&quot;EPSG&quot;,&quot;4326&quot;]]</code></pre>
+        ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
+    CS[ellipsoidal,2],
+        AXIS[&quot;geodetic latitude (Lat)&quot;,north,
+            ORDER[1],
+            ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
+        AXIS[&quot;geodetic longitude (Lon)&quot;,east,
+            ORDER[2],
+            ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
+    USAGE[
+        SCOPE[&quot;unknown&quot;],
+        AREA[&quot;World&quot;],
+        BBOX[-90,-180,90,180]],
+    ID[&quot;EPSG&quot;,4326]]</code></pre>
 <p>Notice that <code>wkt</code> was also altered accordingly to reflect the change in CRS: datum was changed to WGS 84. Now, let’s transform (reproject) the data using <code>NAD83 / UTM zone 17N</code> CRS. Its EPSG number is <span class="math inline">\(26917\)</span>.<a href="#fn49" class="footnote-ref" id="fnref49"><sup>49</sup></a> So, the following code does the job.</p>
 <div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="projection-with-a-different-coordinate-reference-systems.html#cb136-1"></a><span class="co">#--- transform ---#</span></span>
 <span id="cb136-2"><a href="projection-with-a-different-coordinate-reference-systems.html#cb136-2"></a>nc_utm17N &lt;-<span class="st"> </span><span class="kw">st_transform</span>(nc_wgs84, <span class="dv">26917</span>)</span>
@@ -582,29 +594,44 @@ GEOGCS[&quot;WGS 84&quot;,
 <pre><code>Coordinate Reference System:
   User input: EPSG:26917 
   wkt:
-PROJCS[&quot;NAD83 / UTM zone 17N&quot;,
-    GEOGCS[&quot;NAD83&quot;,
-        DATUM[&quot;North_American_Datum_1983&quot;,
-            SPHEROID[&quot;GRS 1980&quot;,6378137,298.257222101,
-                AUTHORITY[&quot;EPSG&quot;,&quot;7019&quot;]],
-            TOWGS84[0,0,0,0,0,0,0],
-            AUTHORITY[&quot;EPSG&quot;,&quot;6269&quot;]],
+PROJCRS[&quot;NAD83 / UTM zone 17N&quot;,
+    BASEGEOGCRS[&quot;NAD83&quot;,
+        DATUM[&quot;North American Datum 1983&quot;,
+            ELLIPSOID[&quot;GRS 1980&quot;,6378137,298.257222101,
+                LENGTHUNIT[&quot;metre&quot;,1]]],
         PRIMEM[&quot;Greenwich&quot;,0,
-            AUTHORITY[&quot;EPSG&quot;,&quot;8901&quot;]],
-        UNIT[&quot;degree&quot;,0.0174532925199433,
-            AUTHORITY[&quot;EPSG&quot;,&quot;9122&quot;]],
-        AUTHORITY[&quot;EPSG&quot;,&quot;4269&quot;]],
-    PROJECTION[&quot;Transverse_Mercator&quot;],
-    PARAMETER[&quot;latitude_of_origin&quot;,0],
-    PARAMETER[&quot;central_meridian&quot;,-81],
-    PARAMETER[&quot;scale_factor&quot;,0.9996],
-    PARAMETER[&quot;false_easting&quot;,500000],
-    PARAMETER[&quot;false_northing&quot;,0],
-    UNIT[&quot;metre&quot;,1,
-        AUTHORITY[&quot;EPSG&quot;,&quot;9001&quot;]],
-    AXIS[&quot;Easting&quot;,EAST],
-    AXIS[&quot;Northing&quot;,NORTH],
-    AUTHORITY[&quot;EPSG&quot;,&quot;26917&quot;]]</code></pre>
+            ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
+        ID[&quot;EPSG&quot;,4269]],
+    CONVERSION[&quot;UTM zone 17N&quot;,
+        METHOD[&quot;Transverse Mercator&quot;,
+            ID[&quot;EPSG&quot;,9807]],
+        PARAMETER[&quot;Latitude of natural origin&quot;,0,
+            ANGLEUNIT[&quot;degree&quot;,0.0174532925199433],
+            ID[&quot;EPSG&quot;,8801]],
+        PARAMETER[&quot;Longitude of natural origin&quot;,-81,
+            ANGLEUNIT[&quot;degree&quot;,0.0174532925199433],
+            ID[&quot;EPSG&quot;,8802]],
+        PARAMETER[&quot;Scale factor at natural origin&quot;,0.9996,
+            SCALEUNIT[&quot;unity&quot;,1],
+            ID[&quot;EPSG&quot;,8805]],
+        PARAMETER[&quot;False easting&quot;,500000,
+            LENGTHUNIT[&quot;metre&quot;,1],
+            ID[&quot;EPSG&quot;,8806]],
+        PARAMETER[&quot;False northing&quot;,0,
+            LENGTHUNIT[&quot;metre&quot;,1],
+            ID[&quot;EPSG&quot;,8807]]],
+    CS[Cartesian,2],
+        AXIS[&quot;(E)&quot;,east,
+            ORDER[1],
+            LENGTHUNIT[&quot;metre&quot;,1]],
+        AXIS[&quot;(N)&quot;,north,
+            ORDER[2],
+            LENGTHUNIT[&quot;metre&quot;,1]],
+    USAGE[
+        SCOPE[&quot;unknown&quot;],
+        AREA[&quot;North America - 84°W to 78°W and NAD83 by country&quot;],
+        BBOX[23.81,-84,84,-78]],
+    ID[&quot;EPSG&quot;,26917]]</code></pre>
 <p>As you can see in its CRS information, the projection system is now UTM zone 17N.</p>
 <p>You often need to change the CRS of an <code>sf</code> object when you interact (e.g., spatial subsetting, joining, etc) it with another <code>sf</code> object. In such a case, you can extract the CRS of the other <code>sf</code> object using <code>st_crs()</code> and use it for transformation.<a href="#fn50" class="footnote-ref" id="fnref50"><sup>50</sup></a> So, you do not need to find the EPSG of the CRS of the <code>sf</code> object you are interacting it with.</p>
 <div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="projection-with-a-different-coordinate-reference-systems.html#cb138-1"></a><span class="co">#--- transform ---#</span></span>
@@ -615,29 +642,44 @@ PROJCS[&quot;NAD83 / UTM zone 17N&quot;,
 <pre><code>Coordinate Reference System:
   User input: EPSG:26917 
   wkt:
-PROJCS[&quot;NAD83 / UTM zone 17N&quot;,
-    GEOGCS[&quot;NAD83&quot;,
-        DATUM[&quot;North_American_Datum_1983&quot;,
-            SPHEROID[&quot;GRS 1980&quot;,6378137,298.257222101,
-                AUTHORITY[&quot;EPSG&quot;,&quot;7019&quot;]],
-            TOWGS84[0,0,0,0,0,0,0],
-            AUTHORITY[&quot;EPSG&quot;,&quot;6269&quot;]],
+PROJCRS[&quot;NAD83 / UTM zone 17N&quot;,
+    BASEGEOGCRS[&quot;NAD83&quot;,
+        DATUM[&quot;North American Datum 1983&quot;,
+            ELLIPSOID[&quot;GRS 1980&quot;,6378137,298.257222101,
+                LENGTHUNIT[&quot;metre&quot;,1]]],
         PRIMEM[&quot;Greenwich&quot;,0,
-            AUTHORITY[&quot;EPSG&quot;,&quot;8901&quot;]],
-        UNIT[&quot;degree&quot;,0.0174532925199433,
-            AUTHORITY[&quot;EPSG&quot;,&quot;9122&quot;]],
-        AUTHORITY[&quot;EPSG&quot;,&quot;4269&quot;]],
-    PROJECTION[&quot;Transverse_Mercator&quot;],
-    PARAMETER[&quot;latitude_of_origin&quot;,0],
-    PARAMETER[&quot;central_meridian&quot;,-81],
-    PARAMETER[&quot;scale_factor&quot;,0.9996],
-    PARAMETER[&quot;false_easting&quot;,500000],
-    PARAMETER[&quot;false_northing&quot;,0],
-    UNIT[&quot;metre&quot;,1,
-        AUTHORITY[&quot;EPSG&quot;,&quot;9001&quot;]],
-    AXIS[&quot;Easting&quot;,EAST],
-    AXIS[&quot;Northing&quot;,NORTH],
-    AUTHORITY[&quot;EPSG&quot;,&quot;26917&quot;]]</code></pre>
+            ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
+        ID[&quot;EPSG&quot;,4269]],
+    CONVERSION[&quot;UTM zone 17N&quot;,
+        METHOD[&quot;Transverse Mercator&quot;,
+            ID[&quot;EPSG&quot;,9807]],
+        PARAMETER[&quot;Latitude of natural origin&quot;,0,
+            ANGLEUNIT[&quot;degree&quot;,0.0174532925199433],
+            ID[&quot;EPSG&quot;,8801]],
+        PARAMETER[&quot;Longitude of natural origin&quot;,-81,
+            ANGLEUNIT[&quot;degree&quot;,0.0174532925199433],
+            ID[&quot;EPSG&quot;,8802]],
+        PARAMETER[&quot;Scale factor at natural origin&quot;,0.9996,
+            SCALEUNIT[&quot;unity&quot;,1],
+            ID[&quot;EPSG&quot;,8805]],
+        PARAMETER[&quot;False easting&quot;,500000,
+            LENGTHUNIT[&quot;metre&quot;,1],
+            ID[&quot;EPSG&quot;,8806]],
+        PARAMETER[&quot;False northing&quot;,0,
+            LENGTHUNIT[&quot;metre&quot;,1],
+            ID[&quot;EPSG&quot;,8807]]],
+    CS[Cartesian,2],
+        AXIS[&quot;(E)&quot;,east,
+            ORDER[1],
+            LENGTHUNIT[&quot;metre&quot;,1]],
+        AXIS[&quot;(N)&quot;,north,
+            ORDER[2],
+            LENGTHUNIT[&quot;metre&quot;,1]],
+    USAGE[
+        SCOPE[&quot;unknown&quot;],
+        AREA[&quot;North America - 84°W to 78°W and NAD83 by country&quot;],
+        BBOX[23.81,-84,84,-78]],
+    ID[&quot;EPSG&quot;,26917]]</code></pre>
 <!-- However, notice that the `epsg` component of CRS is $NA$. ESRI shapefile format uses WTK (Well-known Text) format to refer to the CRS in use, which is saved in .prj file. So, if there is no corresponding SRID number for the CRS in use, the `epsg` component number would get lost when you save an `sf` object when you save it as an ESRI shapefile. This is exactly what happened to 
  -->
 <!-- 

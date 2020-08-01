@@ -66,21 +66,21 @@
 <script src="libs/HomeButton-0.0.1/easy-button-src.min.js"></script>
 <script src="libs/clipboard-0.0.1/setClipboardText.js"></script>
 <link href="libs/PopupTable-0.0.1/popup.css" rel="stylesheet" />
-<script src="libs/IA_cdl_2015-1/data_stars_IA_cdl_2015492be3.txt"></script>
+<script src="libs/IA_cdl_2015-1/data_stars_IA_cdl_20157013d9.txt"></script>
 <script src="libs/joda-0.0.1/joda.js"></script>
 <script src="libs/joda-0.0.1/addImageQuery-bindings.js"></script>
-<script src="libs/IA_cdl_2016-1/data_stars_IA_cdl_2016d254a6.txt"></script>
-<script src="libs/prcp_tmax_PRISM_m8_y09["tmax", , , ] - 1-1/data_stars_prcp_tmax_PRISM_m8_y09tmax1d57104.txt"></script>
-<script src="libs/layer.1-1/data_stars_layer1ade7f0.txt"></script>
-<script src="libs/layer.2-1/data_stars_layer2a3e1c2.txt"></script>
-<script src="libs/layer.3-1/data_stars_layer39bf0c4.txt"></script>
-<script src="libs/layer.4-1/data_stars_layer4281e67.txt"></script>
-<script src="libs/layer.5-1/data_stars_layer5da8bef.txt"></script>
-<script src="libs/layer.6-1/data_stars_layer60a163b.txt"></script>
-<script src="libs/layer.7-1/data_stars_layer72c54d1.txt"></script>
-<script src="libs/layer.8-1/data_stars_layer8fc014d.txt"></script>
-<script src="libs/layer.9-1/data_stars_layer9f9bcad.txt"></script>
-<script src="libs/layer.10-1/data_stars_layer10ea3f98.txt"></script>
+<script src="libs/IA_cdl_2016-1/data_stars_IA_cdl_2016f0942b.txt"></script>
+<script src="libs/prcp_tmax_PRISM_m8_y09["tmax", , , ] - 1-1/data_stars_prcp_tmax_PRISM_m8_y09tmax15f4a23.txt"></script>
+<script src="libs/layer.1-1/data_stars_layer16e07dc.txt"></script>
+<script src="libs/layer.2-1/data_stars_layer29d3c0a.txt"></script>
+<script src="libs/layer.3-1/data_stars_layer30124e8.txt"></script>
+<script src="libs/layer.4-1/data_stars_layer4125698.txt"></script>
+<script src="libs/layer.5-1/data_stars_layer56ca504.txt"></script>
+<script src="libs/layer.6-1/data_stars_layer60b51ef.txt"></script>
+<script src="libs/layer.7-1/data_stars_layer7d85baf.txt"></script>
+<script src="libs/layer.8-1/data_stars_layer831db4a.txt"></script>
+<script src="libs/layer.9-1/data_stars_layer935e042.txt"></script>
+<script src="libs/layer.10-1/data_stars_layer102ad98c.txt"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
 <script src="libs/datatables-binding-0.13/datatables.js"></script>
 <link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
@@ -625,19 +625,19 @@ Figure 3.24: The outcome of the intersections of polygon 2 and polygons 1 and 3
 geometry type:  GEOMETRY
 dimension:      XY
 bbox:           xmin: 203228.6 ymin: 4470941 xmax: 736832.9 ymax: 4822687
-CRS:            EPSG:26915
+projected CRS:  NAD83 / UTM zone 15N
 First 10 features:
    HUC_CODE county_code year  acres                       geometry   huc_county
-1  07080207         083 2018 183500 POLYGON ((482916.4 4711686,... 07080207-083
-2  07080205         083 2018 183500 POLYGON ((499779.4 4696836,... 07080205-083
-3  07080105         083 2018 183500 POLYGON ((461846.1 4683469,... 07080105-083
-4  10170204         141 2018 167000 POLYGON ((269432.3 4793329,... 10170204-141
-5  10230003         141 2018 167000 POLYGON ((271607.5 4754542,... 10230003-141
-6  10230002         141 2018 167000 POLYGON ((267630 4790936, 2... 10230002-141
-7  07100003         081 2018 184500 POLYGON ((436142.9 4789503,... 07100003-081
-8  07080203         081 2018 184500 MULTIPOLYGON (((459473.3 47... 07080203-081
-9  07080207         081 2018 184500 POLYGON ((429601.9 4779600,... 07080207-081
-10 07100005         081 2018 184500 POLYGON ((420999.1 4772191,... 07100005-081</code></pre>
+1  07080207         083 2018 183500 POLYGON ((482898.9 4711686,... 07080207-083
+2  07080205         083 2018 183500 POLYGON ((499779.5 4696819,... 07080205-083
+3  07080105         083 2018 183500 POLYGON ((461843.7 4683106,... 07080105-083
+4  10170204         141 2018 167000 POLYGON ((269413.3 4793330,... 10170204-141
+5  10230003         141 2018 167000 POLYGON ((271582.4 4754543,... 10230003-141
+6  10230002         141 2018 167000 POLYGON ((267630.3 4790946,... 10230002-141
+7  07100003         081 2018 184500 POLYGON ((436126.2 4789504,... 07100003-081
+8  07080203         081 2018 184500 MULTIPOLYGON (((459473.1 47... 07080203-081
+9  07080207         081 2018 184500 POLYGON ((429583.2 4779598,... 07080207-081
+10 07100005         081 2018 184500 POLYGON ((420999.4 4772213,... 07100005-081</code></pre>
 <p>The key difference from the <code>st_join()</code> example is that each observation of the returned data is a unique HUC-county intersection. Figure <a href="spatial-intersection-cropping-join.html#fig:inter-ex">3.25</a> below is a map of all the intersections of the HUC unit with <code>HUC_CODE ==10170203</code> and the four intersecting counties.</p>
 <div class="sourceCode" id="cb304"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb304-1"><a href="spatial-intersection-cropping-join.html#cb304-1"></a><span class="kw">tm_shape</span>(<span class="kw">filter</span>(HUC_intersections, HUC_CODE <span class="op">==</span><span class="st"> &quot;10170203&quot;</span>)) <span class="op">+</span><span class="st"> </span></span>
 <span id="cb304-2"><a href="spatial-intersection-cropping-join.html#cb304-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;huc_county&quot;</span>) <span class="op">+</span></span>
@@ -664,20 +664,20 @@ Figure 3.25: Intersections of a HUC unit and Iowa counties
 geometry type:  GEOMETRY
 dimension:      XY
 bbox:           xmin: 203228.6 ymin: 4470941 xmax: 736832.9 ymax: 4822687
-CRS:            EPSG:26915
+projected CRS:  NAD83 / UTM zone 15N
 # A tibble: 55 x 3
    HUC_CODE aw_acres                                                    geometry
    &lt;chr&gt;       &lt;dbl&gt;                                              &lt;GEOMETRY [m]&gt;
- 1 07020009  251140. POLYGON ((421317.4 4797758, 421179.2 4797632, 421079.3 479…
- 2 07040008  165000  POLYGON ((602943.6 4817205, 602935.1 4817167, 602875.1 481…
- 3 07060001  105224. MULTIPOLYGON (((631611.9 4817707, 631609.2 4817706, 631519…
- 4 07060002  140192. POLYGON ((593286.7 4817067, 593403.8 4817047, 593583.8 481…
- 5 07060003  149000  MULTIPOLYGON (((646504.9 4762382, 646518 4762383, 646554.8…
- 6 07060004  162121. POLYGON ((653200.4 4718423, 652967.7 4718504, 652457.7 471…
- 7 07060005  142428. POLYGON ((735347.8 4642385, 734779.1 4642296, 734459 46422…
- 8 07060006  159628. POLYGON ((692755.3 4694862, 692788.3 4694758, 692788.3 469…
- 9 07080101  115574. POLYGON ((667472 4558778, 667391.8 4558691, 667221.7 45585…
-10 07080102  160017. POLYGON ((635032.8 4675786, 635247.8 4675644, 635367.8 467…
+ 1 07020009  251185. POLYGON ((421317.6 4797774, 421160.2 4797630, 421060.3 479…
+ 2 07040008  165000  POLYGON ((602931.1 4817205, 602922.4 4817166, 602862.4 481…
+ 3 07060001  105234. MULTIPOLYGON (((649942.7 4761635, 649613.8 4761791, 649473…
+ 4 07060002  140201. MULTIPOLYGON (((593265.8 4817066, 593390.7 4817045, 593570…
+ 5 07060003  149000  MULTIPOLYGON (((692249.2 4712890, 692081.6 4712936, 692051…
+ 6 07060004  162123. POLYGON ((653200.5 4718418, 652956.5 4718503, 652446.5 471…
+ 7 07060005  142428. POLYGON ((735347.9 4642386, 734770.6 4642296, 734450.5 464…
+ 8 07060006  159635. POLYGON ((721064.4 4656959, 721056 4656900, 721026 4656760…
+ 9 07080101  115572. POLYGON ((667461.7 4558779, 667381 4558691, 667210.9 45585…
+10 07080102  160008. POLYGON ((635032.9 4675777, 635236 4675644, 635356.1 46756…
 # … with 45 more rows</code></pre>
 
 </div>

@@ -66,21 +66,21 @@
 <script src="libs/HomeButton-0.0.1/easy-button-src.min.js"></script>
 <script src="libs/clipboard-0.0.1/setClipboardText.js"></script>
 <link href="libs/PopupTable-0.0.1/popup.css" rel="stylesheet" />
-<script src="libs/IA_cdl_2015-1/data_stars_IA_cdl_2015492be3.txt"></script>
+<script src="libs/IA_cdl_2015-1/data_stars_IA_cdl_20157013d9.txt"></script>
 <script src="libs/joda-0.0.1/joda.js"></script>
 <script src="libs/joda-0.0.1/addImageQuery-bindings.js"></script>
-<script src="libs/IA_cdl_2016-1/data_stars_IA_cdl_2016d254a6.txt"></script>
-<script src="libs/prcp_tmax_PRISM_m8_y09["tmax", , , ] - 1-1/data_stars_prcp_tmax_PRISM_m8_y09tmax1d57104.txt"></script>
-<script src="libs/layer.1-1/data_stars_layer1ade7f0.txt"></script>
-<script src="libs/layer.2-1/data_stars_layer2a3e1c2.txt"></script>
-<script src="libs/layer.3-1/data_stars_layer39bf0c4.txt"></script>
-<script src="libs/layer.4-1/data_stars_layer4281e67.txt"></script>
-<script src="libs/layer.5-1/data_stars_layer5da8bef.txt"></script>
-<script src="libs/layer.6-1/data_stars_layer60a163b.txt"></script>
-<script src="libs/layer.7-1/data_stars_layer72c54d1.txt"></script>
-<script src="libs/layer.8-1/data_stars_layer8fc014d.txt"></script>
-<script src="libs/layer.9-1/data_stars_layer9f9bcad.txt"></script>
-<script src="libs/layer.10-1/data_stars_layer10ea3f98.txt"></script>
+<script src="libs/IA_cdl_2016-1/data_stars_IA_cdl_2016f0942b.txt"></script>
+<script src="libs/prcp_tmax_PRISM_m8_y09["tmax", , , ] - 1-1/data_stars_prcp_tmax_PRISM_m8_y09tmax15f4a23.txt"></script>
+<script src="libs/layer.1-1/data_stars_layer16e07dc.txt"></script>
+<script src="libs/layer.2-1/data_stars_layer29d3c0a.txt"></script>
+<script src="libs/layer.3-1/data_stars_layer30124e8.txt"></script>
+<script src="libs/layer.4-1/data_stars_layer4125698.txt"></script>
+<script src="libs/layer.5-1/data_stars_layer56ca504.txt"></script>
+<script src="libs/layer.6-1/data_stars_layer60b51ef.txt"></script>
+<script src="libs/layer.7-1/data_stars_layer7d85baf.txt"></script>
+<script src="libs/layer.8-1/data_stars_layer831db4a.txt"></script>
+<script src="libs/layer.9-1/data_stars_layer935e042.txt"></script>
+<script src="libs/layer.10-1/data_stars_layer102ad98c.txt"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
 <script src="libs/datatables-binding-0.13/datatables.js"></script>
 <link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
@@ -539,20 +539,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="spatial-cropping" class="section level2" number="7.9">
 <h2><span class="header-section-number">7.9</span> Spatial cropping</h2>
 <p>If the region of interest is smaller than the spatial extent of the <code>stars</code> raster data, then there is no need to carry around the irrelevant part of the <code>stars</code>. In such a case, you can crop the <code>stars</code> to the region of interest using <code>st_crop()</code>. The general syntax of <code>st_crop()</code> is</p>
-<div class="sourceCode" id="cb566"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb566-1"><a href="spatial-cropping.html#cb566-1"></a><span class="co">#--- NOT RUN ---#</span></span>
-<span id="cb566-2"><a href="spatial-cropping.html#cb566-2"></a><span class="kw">st_crop</span>(stars object, sf object)</span></code></pre></div>
+<div class="sourceCode" id="cb567"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb567-1"><a href="spatial-cropping.html#cb567-1"></a><span class="co">#--- NOT RUN ---#</span></span>
+<span id="cb567-2"><a href="spatial-cropping.html#cb567-2"></a><span class="kw">st_crop</span>(stars object, sf object)</span></code></pre></div>
 <p>You can use an <code>sfc</code> or <code>bbox</code> objects in place of an <code>sf</code> object.</p>
 <p>For demonstration, we use PRISM tmax data for the U.S. for January 2019 as a <code>stars</code> object.</p>
-<div class="sourceCode" id="cb567"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb567-1"><a href="spatial-cropping.html#cb567-1"></a>(</span>
-<span id="cb567-2"><a href="spatial-cropping.html#cb567-2"></a>tmax_m8_y09_stars &lt;-<span class="st"> </span><span class="kw">read_stars</span>(<span class="st">&quot;./Data/PRISM_tmax_y2009_m8.tif&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb567-3"><a href="spatial-cropping.html#cb567-3"></a><span class="st">  </span><span class="kw">setNames</span>(<span class="st">&quot;tmax&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb567-4"><a href="spatial-cropping.html#cb567-4"></a><span class="st">  </span><span class="kw">filter</span>(band <span class="op">&lt;=</span><span class="st"> </span><span class="dv">10</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb567-5"><a href="spatial-cropping.html#cb567-5"></a><span class="st">  </span><span class="kw">st_set_dimensions</span>(</span>
-<span id="cb567-6"><a href="spatial-cropping.html#cb567-6"></a>    <span class="st">&quot;band&quot;</span>, </span>
-<span id="cb567-7"><a href="spatial-cropping.html#cb567-7"></a>    <span class="dt">values =</span> <span class="kw">seq</span>(<span class="kw">ymd</span>(<span class="st">&quot;2009-01-01&quot;</span>), <span class="kw">ymd</span>(<span class="st">&quot;2009-01-10&quot;</span>), <span class="dt">by =</span> <span class="st">&quot;days&quot;</span>), </span>
-<span id="cb567-8"><a href="spatial-cropping.html#cb567-8"></a>    <span class="dt">name =</span> <span class="st">&quot;date&quot;</span></span>
-<span id="cb567-9"><a href="spatial-cropping.html#cb567-9"></a>  )   </span>
-<span id="cb567-10"><a href="spatial-cropping.html#cb567-10"></a>) </span></code></pre></div>
+<div class="sourceCode" id="cb568"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb568-1"><a href="spatial-cropping.html#cb568-1"></a>(</span>
+<span id="cb568-2"><a href="spatial-cropping.html#cb568-2"></a>tmax_m8_y09_stars &lt;-<span class="st"> </span><span class="kw">read_stars</span>(<span class="st">&quot;./Data/PRISM_tmax_y2009_m8.tif&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb568-3"><a href="spatial-cropping.html#cb568-3"></a><span class="st">  </span><span class="kw">setNames</span>(<span class="st">&quot;tmax&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb568-4"><a href="spatial-cropping.html#cb568-4"></a><span class="st">  </span><span class="kw">filter</span>(band <span class="op">&lt;=</span><span class="st"> </span><span class="dv">10</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb568-5"><a href="spatial-cropping.html#cb568-5"></a><span class="st">  </span><span class="kw">st_set_dimensions</span>(</span>
+<span id="cb568-6"><a href="spatial-cropping.html#cb568-6"></a>    <span class="st">&quot;band&quot;</span>, </span>
+<span id="cb568-7"><a href="spatial-cropping.html#cb568-7"></a>    <span class="dt">values =</span> <span class="kw">seq</span>(<span class="kw">ymd</span>(<span class="st">&quot;2009-01-01&quot;</span>), <span class="kw">ymd</span>(<span class="st">&quot;2009-01-10&quot;</span>), <span class="dt">by =</span> <span class="st">&quot;days&quot;</span>), </span>
+<span id="cb568-8"><a href="spatial-cropping.html#cb568-8"></a>    <span class="dt">name =</span> <span class="st">&quot;date&quot;</span></span>
+<span id="cb568-9"><a href="spatial-cropping.html#cb568-9"></a>  )   </span>
+<span id="cb568-10"><a href="spatial-cropping.html#cb568-10"></a>) </span></code></pre></div>
 <pre><code>stars object with 3 dimensions and 1 attribute
 attribute(s), summary of first 1e+05 cells:
      tmax       
@@ -569,13 +569,13 @@ x       1 1405   -125.021  0.0416667  NAD83 FALSE   NULL [x]
 y       1  621    49.9375 -0.0416667  NAD83 FALSE   NULL [y]
 date    1   10 2009-01-01     1 days   Date    NA   NULL    </code></pre>
 <p>The region of interest is Michigan.</p>
-<div class="sourceCode" id="cb569"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb569-1"><a href="spatial-cropping.html#cb569-1"></a>MI_county_sf &lt;-<span class="st"> </span><span class="kw">st_as_sf</span>(maps<span class="op">::</span><span class="kw">map</span>(<span class="st">&quot;county&quot;</span>, <span class="st">&quot;michigan&quot;</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>, <span class="dt">fill =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb569-2"><a href="spatial-cropping.html#cb569-2"></a><span class="st">  </span><span class="co">#--- transform using the CRS of the PRISM stars data  ---#</span></span>
-<span id="cb569-3"><a href="spatial-cropping.html#cb569-3"></a><span class="st">  </span><span class="kw">st_transform</span>(<span class="kw">st_crs</span>(tmax_m8_y09_stars)) </span></code></pre></div>
+<div class="sourceCode" id="cb570"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb570-1"><a href="spatial-cropping.html#cb570-1"></a>MI_county_sf &lt;-<span class="st"> </span><span class="kw">st_as_sf</span>(maps<span class="op">::</span><span class="kw">map</span>(<span class="st">&quot;county&quot;</span>, <span class="st">&quot;michigan&quot;</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>, <span class="dt">fill =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb570-2"><a href="spatial-cropping.html#cb570-2"></a><span class="st">  </span><span class="co">#--- transform using the CRS of the PRISM stars data  ---#</span></span>
+<span id="cb570-3"><a href="spatial-cropping.html#cb570-3"></a><span class="st">  </span><span class="kw">st_transform</span>(<span class="kw">st_crs</span>(tmax_m8_y09_stars)) </span></code></pre></div>
 <p>We can crop the tmax data to the Michigan state border using <code>st_crop()</code> as follows:</p>
-<div class="sourceCode" id="cb570"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb570-1"><a href="spatial-cropping.html#cb570-1"></a>(</span>
-<span id="cb570-2"><a href="spatial-cropping.html#cb570-2"></a>tmax_MI &lt;-<span class="st"> </span><span class="kw">st_crop</span>(tmax_m8_y09_stars, MI_county_sf)</span>
-<span id="cb570-3"><a href="spatial-cropping.html#cb570-3"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb571"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb571-1"><a href="spatial-cropping.html#cb571-1"></a>(</span>
+<span id="cb571-2"><a href="spatial-cropping.html#cb571-2"></a>tmax_MI &lt;-<span class="st"> </span><span class="kw">st_crop</span>(tmax_m8_y09_stars, MI_county_sf)</span>
+<span id="cb571-3"><a href="spatial-cropping.html#cb571-3"></a>)</span></code></pre></div>
 <pre><code>stars object with 3 dimensions and 1 attribute
 attribute(s):
      tmax        
@@ -587,16 +587,12 @@ attribute(s):
  Max.   :35.37   
  NA&#39;s   :172350  
 dimension(s):
-     from   to     offset      delta                       refsys point values
-x     831 1022   -125.021  0.0416667 GEOGCS[&quot;NAD83&quot;,DATUM[&quot;Nor... FALSE   NULL
-y      59  198    49.9375 -0.0416667 GEOGCS[&quot;NAD83&quot;,DATUM[&quot;Nor... FALSE   NULL
-date    1   10 2009-01-01     1 days                         Date    NA   NULL
-        
-x    [x]
-y    [y]
-date    </code></pre>
+     from   to     offset      delta refsys point values    
+x     831 1022   -125.021  0.0416667  NAD83 FALSE   NULL [x]
+y      59  198    49.9375 -0.0416667  NAD83 FALSE   NULL [y]
+date    1   10 2009-01-01     1 days   Date    NA   NULL    </code></pre>
 <p>Notice that <code>from</code> and <code>to</code> for <code>x</code> and <code>y</code> have changed to cover only the boundary box of the Michigan state border. Note that the values for the cells outside of the Michigan state border were set to NA. The following plot clearly shows the cropping was successful.</p>
-<div class="sourceCode" id="cb572"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb572-1"><a href="spatial-cropping.html#cb572-1"></a><span class="kw">plot</span>(tmax_MI[,,,<span class="dv">1</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb573"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb573-1"><a href="spatial-cropping.html#cb573-1"></a><span class="kw">plot</span>(tmax_MI[,,,<span class="dv">1</span>])</span></code></pre></div>
 <div class="figure"><span id="fig:tmax-tx"></span>
 <img src="R_GIS_Book_files/figure-html/tmax-tx-1.png" alt="PRISM tmax data cropped to the Michigan state border" width="672" />
 <p class="caption">
@@ -604,7 +600,7 @@ Figure 7.7: PRISM tmax data cropped to the Michigan state border
 </p>
 </div>
 <p>Alternatively, you could use <code>[]</code> like as follows to crop a <code>stars</code> object.</p>
-<div class="sourceCode" id="cb573"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb573-1"><a href="spatial-cropping.html#cb573-1"></a>tmax_m8_y09_stars[MI_county_sf]</span></code></pre></div>
+<div class="sourceCode" id="cb574"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb574-1"><a href="spatial-cropping.html#cb574-1"></a>tmax_m8_y09_stars[MI_county_sf]</span></code></pre></div>
 <pre><code>stars object with 3 dimensions and 1 attribute
 attribute(s):
      tmax        
@@ -616,14 +612,10 @@ attribute(s):
  Max.   :35.37   
  NA&#39;s   :172350  
 dimension(s):
-     from   to     offset      delta                       refsys point values
-x     831 1022   -125.021  0.0416667 GEOGCS[&quot;NAD83&quot;,DATUM[&quot;Nor... FALSE   NULL
-y      59  198    49.9375 -0.0416667 GEOGCS[&quot;NAD83&quot;,DATUM[&quot;Nor... FALSE   NULL
-date    1   10 2009-01-01     1 days                         Date    NA   NULL
-        
-x    [x]
-y    [y]
-date    </code></pre>
+     from   to     offset      delta refsys point values    
+x     831 1022   -125.021  0.0416667  NAD83 FALSE   NULL [x]
+y      59  198    49.9375 -0.0416667  NAD83 FALSE   NULL [y]
+date    1   10 2009-01-01     1 days   Date    NA   NULL    </code></pre>
 </div>
             </section>
 

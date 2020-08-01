@@ -66,21 +66,21 @@
 <script src="libs/HomeButton-0.0.1/easy-button-src.min.js"></script>
 <script src="libs/clipboard-0.0.1/setClipboardText.js"></script>
 <link href="libs/PopupTable-0.0.1/popup.css" rel="stylesheet" />
-<script src="libs/IA_cdl_2015-1/data_stars_IA_cdl_2015492be3.txt"></script>
+<script src="libs/IA_cdl_2015-1/data_stars_IA_cdl_20157013d9.txt"></script>
 <script src="libs/joda-0.0.1/joda.js"></script>
 <script src="libs/joda-0.0.1/addImageQuery-bindings.js"></script>
-<script src="libs/IA_cdl_2016-1/data_stars_IA_cdl_2016d254a6.txt"></script>
-<script src="libs/prcp_tmax_PRISM_m8_y09["tmax", , , ] - 1-1/data_stars_prcp_tmax_PRISM_m8_y09tmax1d57104.txt"></script>
-<script src="libs/layer.1-1/data_stars_layer1ade7f0.txt"></script>
-<script src="libs/layer.2-1/data_stars_layer2a3e1c2.txt"></script>
-<script src="libs/layer.3-1/data_stars_layer39bf0c4.txt"></script>
-<script src="libs/layer.4-1/data_stars_layer4281e67.txt"></script>
-<script src="libs/layer.5-1/data_stars_layer5da8bef.txt"></script>
-<script src="libs/layer.6-1/data_stars_layer60a163b.txt"></script>
-<script src="libs/layer.7-1/data_stars_layer72c54d1.txt"></script>
-<script src="libs/layer.8-1/data_stars_layer8fc014d.txt"></script>
-<script src="libs/layer.9-1/data_stars_layer9f9bcad.txt"></script>
-<script src="libs/layer.10-1/data_stars_layer10ea3f98.txt"></script>
+<script src="libs/IA_cdl_2016-1/data_stars_IA_cdl_2016f0942b.txt"></script>
+<script src="libs/prcp_tmax_PRISM_m8_y09["tmax", , , ] - 1-1/data_stars_prcp_tmax_PRISM_m8_y09tmax15f4a23.txt"></script>
+<script src="libs/layer.1-1/data_stars_layer16e07dc.txt"></script>
+<script src="libs/layer.2-1/data_stars_layer29d3c0a.txt"></script>
+<script src="libs/layer.3-1/data_stars_layer30124e8.txt"></script>
+<script src="libs/layer.4-1/data_stars_layer4125698.txt"></script>
+<script src="libs/layer.5-1/data_stars_layer56ca504.txt"></script>
+<script src="libs/layer.6-1/data_stars_layer60b51ef.txt"></script>
+<script src="libs/layer.7-1/data_stars_layer7d85baf.txt"></script>
+<script src="libs/layer.8-1/data_stars_layer831db4a.txt"></script>
+<script src="libs/layer.9-1/data_stars_layer935e042.txt"></script>
+<script src="libs/layer.10-1/data_stars_layer102ad98c.txt"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
 <script src="libs/datatables-binding-0.13/datatables.js"></script>
 <link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
@@ -541,97 +541,97 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="multiple-panels-of-figures-as-a-single-figure" class="section level3" number="8.4.1">
 <h3><span class="header-section-number">8.4.1</span> Multiple panels of figures as a single figure</h3>
 <p>Faceting using <code>facet_wrap()</code> or <code>facet_grid()</code> allows for dividing the data into groups and creating a map for each group. It is particularly suitable for visualizing one variable at different facets. A good example is a collection of maps of tmax observed at different dates (see figure below). Faceting provides a single consistent color scale shared across the facets.</p>
-<div class="sourceCode" id="cb676"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb676-1"><a href="arranging-maps.html#cb676-1"></a><span class="kw">ggplot</span>() <span class="op">+</span></span>
-<span id="cb676-2"><a href="arranging-maps.html#cb676-2"></a><span class="st">  </span><span class="kw">geom_raster</span>(<span class="dt">data =</span> tmax_long_df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">fill =</span> tmax)) <span class="op">+</span></span>
-<span id="cb676-3"><a href="arranging-maps.html#cb676-3"></a><span class="st">    </span><span class="kw">facet_wrap</span>(date <span class="op">~</span><span class="st"> </span>.) <span class="op">+</span></span>
-<span id="cb676-4"><a href="arranging-maps.html#cb676-4"></a><span class="st">    </span><span class="kw">coord_equal</span>() <span class="op">+</span></span>
-<span id="cb676-5"><a href="arranging-maps.html#cb676-5"></a><span class="st">  </span><span class="kw">scale_fill_viridis_c</span>() <span class="op">+</span></span>
-<span id="cb676-6"><a href="arranging-maps.html#cb676-6"></a><span class="st">  </span><span class="kw">theme_void</span>() <span class="op">+</span></span>
-<span id="cb676-7"><a href="arranging-maps.html#cb676-7"></a><span class="st">  </span><span class="kw">theme</span>(</span>
-<span id="cb676-8"><a href="arranging-maps.html#cb676-8"></a>    <span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span></span>
-<span id="cb676-9"><a href="arranging-maps.html#cb676-9"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb677"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb677-1"><a href="arranging-maps.html#cb677-1"></a><span class="kw">ggplot</span>() <span class="op">+</span></span>
+<span id="cb677-2"><a href="arranging-maps.html#cb677-2"></a><span class="st">  </span><span class="kw">geom_raster</span>(<span class="dt">data =</span> tmax_long_df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">fill =</span> tmax)) <span class="op">+</span></span>
+<span id="cb677-3"><a href="arranging-maps.html#cb677-3"></a><span class="st">    </span><span class="kw">facet_wrap</span>(date <span class="op">~</span><span class="st"> </span>.) <span class="op">+</span></span>
+<span id="cb677-4"><a href="arranging-maps.html#cb677-4"></a><span class="st">    </span><span class="kw">coord_equal</span>() <span class="op">+</span></span>
+<span id="cb677-5"><a href="arranging-maps.html#cb677-5"></a><span class="st">  </span><span class="kw">scale_fill_viridis_c</span>() <span class="op">+</span></span>
+<span id="cb677-6"><a href="arranging-maps.html#cb677-6"></a><span class="st">  </span><span class="kw">theme_void</span>() <span class="op">+</span></span>
+<span id="cb677-7"><a href="arranging-maps.html#cb677-7"></a><span class="st">  </span><span class="kw">theme</span>(</span>
+<span id="cb677-8"><a href="arranging-maps.html#cb677-8"></a>    <span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span></span>
+<span id="cb677-9"><a href="arranging-maps.html#cb677-9"></a>  )</span></code></pre></div>
 <p><img src="R_GIS_Book_files/figure-html/ex-facet-1.png" width="672" /></p>
 <p>However, faceting is not suitable for creating maps of different variables. To see this let’s plot tmax and precipitation on Jan 1, 2009 together.</p>
-<div class="sourceCode" id="cb677"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb677-1"><a href="arranging-maps.html#cb677-1"></a><span class="co">#--- import precip data ---#</span></span>
-<span id="cb677-2"><a href="arranging-maps.html#cb677-2"></a>ppt_long_df &lt;-<span class="st"> </span><span class="kw">read_stars</span>(<span class="st">&quot;./Data/PRISM/PRISM_ppt_y2009_m1.tif&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb677-3"><a href="arranging-maps.html#cb677-3"></a><span class="st">    </span><span class="co">#--- change the variable name ---#</span></span>
-<span id="cb677-4"><a href="arranging-maps.html#cb677-4"></a><span class="st">    </span><span class="kw">setNames</span>(<span class="st">&quot;ppt&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb677-5"><a href="arranging-maps.html#cb677-5"></a><span class="st">    </span><span class="co">#--- first five days of January ---#</span></span>
-<span id="cb677-6"><a href="arranging-maps.html#cb677-6"></a><span class="st">    </span><span class="kw">filter</span>(band <span class="op">&lt;=</span><span class="st"> </span><span class="dv">5</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb677-7"><a href="arranging-maps.html#cb677-7"></a><span class="st">    </span><span class="co">#--- set the date values ---#</span></span>
-<span id="cb677-8"><a href="arranging-maps.html#cb677-8"></a><span class="st">    </span><span class="kw">st_set_dimensions</span>(<span class="st">&quot;band&quot;</span>, </span>
-<span id="cb677-9"><a href="arranging-maps.html#cb677-9"></a>        <span class="dt">values =</span> <span class="kw">seq</span>(<span class="kw">ymd</span>(<span class="st">&quot;2009-01-01&quot;</span>), <span class="kw">ymd</span>(<span class="st">&quot;2009-01-05&quot;</span>), <span class="dt">by =</span> <span class="st">&quot;days&quot;</span>), </span>
-<span id="cb677-10"><a href="arranging-maps.html#cb677-10"></a>        <span class="dt">names =</span> <span class="st">&quot;date&quot;</span></span>
-<span id="cb677-11"><a href="arranging-maps.html#cb677-11"></a>    ) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb677-12"><a href="arranging-maps.html#cb677-12"></a><span class="st">    </span><span class="kw">as.data.frame</span>(<span class="dt">xy =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb677-13"><a href="arranging-maps.html#cb677-13"></a><span class="st">    </span><span class="kw">na.omit</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb678"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb678-1"><a href="arranging-maps.html#cb678-1"></a><span class="co">#--- import precip data ---#</span></span>
+<span id="cb678-2"><a href="arranging-maps.html#cb678-2"></a>ppt_long_df &lt;-<span class="st"> </span><span class="kw">read_stars</span>(<span class="st">&quot;./Data/PRISM/PRISM_ppt_y2009_m1.tif&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb678-3"><a href="arranging-maps.html#cb678-3"></a><span class="st">    </span><span class="co">#--- change the variable name ---#</span></span>
+<span id="cb678-4"><a href="arranging-maps.html#cb678-4"></a><span class="st">    </span><span class="kw">setNames</span>(<span class="st">&quot;ppt&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb678-5"><a href="arranging-maps.html#cb678-5"></a><span class="st">    </span><span class="co">#--- first five days of January ---#</span></span>
+<span id="cb678-6"><a href="arranging-maps.html#cb678-6"></a><span class="st">    </span><span class="kw">filter</span>(band <span class="op">&lt;=</span><span class="st"> </span><span class="dv">5</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb678-7"><a href="arranging-maps.html#cb678-7"></a><span class="st">    </span><span class="co">#--- set the date values ---#</span></span>
+<span id="cb678-8"><a href="arranging-maps.html#cb678-8"></a><span class="st">    </span><span class="kw">st_set_dimensions</span>(<span class="st">&quot;band&quot;</span>, </span>
+<span id="cb678-9"><a href="arranging-maps.html#cb678-9"></a>        <span class="dt">values =</span> <span class="kw">seq</span>(<span class="kw">ymd</span>(<span class="st">&quot;2009-01-01&quot;</span>), <span class="kw">ymd</span>(<span class="st">&quot;2009-01-05&quot;</span>), <span class="dt">by =</span> <span class="st">&quot;days&quot;</span>), </span>
+<span id="cb678-10"><a href="arranging-maps.html#cb678-10"></a>        <span class="dt">names =</span> <span class="st">&quot;date&quot;</span></span>
+<span id="cb678-11"><a href="arranging-maps.html#cb678-11"></a>    ) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb678-12"><a href="arranging-maps.html#cb678-12"></a><span class="st">    </span><span class="kw">as.data.frame</span>(<span class="dt">xy =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb678-13"><a href="arranging-maps.html#cb678-13"></a><span class="st">    </span><span class="kw">na.omit</span>()</span></code></pre></div>
 <p>Let’s extract tmax and precipitation on Jan 1, 2009 from their respective datasets, and combine them.</p>
-<div class="sourceCode" id="cb678"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb678-1"><a href="arranging-maps.html#cb678-1"></a><span class="co">#--- get tmax on Jan 1, 2009 ---#</span></span>
-<span id="cb678-2"><a href="arranging-maps.html#cb678-2"></a>tmax_df &lt;-<span class="st"> </span><span class="kw">filter</span>(tmax_long_df, date <span class="op">==</span><span class="st"> </span><span class="kw">ymd</span>(<span class="st">&quot;2009-01-01&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb678-3"><a href="arranging-maps.html#cb678-3"></a><span class="st">    </span><span class="kw">setnames</span>(<span class="st">&quot;tmax&quot;</span>, <span class="st">&quot;value&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb678-4"><a href="arranging-maps.html#cb678-4"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">type =</span> <span class="st">&quot;tmax&quot;</span>)</span>
-<span id="cb678-5"><a href="arranging-maps.html#cb678-5"></a></span>
-<span id="cb678-6"><a href="arranging-maps.html#cb678-6"></a><span class="co">#--- get precipitation on Jan 1, 2009 ---#</span></span>
-<span id="cb678-7"><a href="arranging-maps.html#cb678-7"></a>ppt_df &lt;-<span class="st"> </span><span class="kw">filter</span>(ppt_long_df, date <span class="op">==</span><span class="st"> </span><span class="kw">ymd</span>(<span class="st">&quot;2009-01-01&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb678-8"><a href="arranging-maps.html#cb678-8"></a><span class="st">    </span><span class="kw">setnames</span>(<span class="st">&quot;ppt&quot;</span>, <span class="st">&quot;value&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb678-9"><a href="arranging-maps.html#cb678-9"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">type =</span> <span class="st">&quot;ppt&quot;</span>)</span>
-<span id="cb678-10"><a href="arranging-maps.html#cb678-10"></a></span>
-<span id="cb678-11"><a href="arranging-maps.html#cb678-11"></a><span class="co">#--- combine them ---#</span></span>
-<span id="cb678-12"><a href="arranging-maps.html#cb678-12"></a>combined_df &lt;-<span class="st"> </span><span class="kw">rbind</span>(tmax_df, ppt_df)</span></code></pre></div>
+<div class="sourceCode" id="cb679"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb679-1"><a href="arranging-maps.html#cb679-1"></a><span class="co">#--- get tmax on Jan 1, 2009 ---#</span></span>
+<span id="cb679-2"><a href="arranging-maps.html#cb679-2"></a>tmax_df &lt;-<span class="st"> </span><span class="kw">filter</span>(tmax_long_df, date <span class="op">==</span><span class="st"> </span><span class="kw">ymd</span>(<span class="st">&quot;2009-01-01&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb679-3"><a href="arranging-maps.html#cb679-3"></a><span class="st">    </span><span class="kw">setnames</span>(<span class="st">&quot;tmax&quot;</span>, <span class="st">&quot;value&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb679-4"><a href="arranging-maps.html#cb679-4"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">type =</span> <span class="st">&quot;tmax&quot;</span>)</span>
+<span id="cb679-5"><a href="arranging-maps.html#cb679-5"></a></span>
+<span id="cb679-6"><a href="arranging-maps.html#cb679-6"></a><span class="co">#--- get precipitation on Jan 1, 2009 ---#</span></span>
+<span id="cb679-7"><a href="arranging-maps.html#cb679-7"></a>ppt_df &lt;-<span class="st"> </span><span class="kw">filter</span>(ppt_long_df, date <span class="op">==</span><span class="st"> </span><span class="kw">ymd</span>(<span class="st">&quot;2009-01-01&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb679-8"><a href="arranging-maps.html#cb679-8"></a><span class="st">    </span><span class="kw">setnames</span>(<span class="st">&quot;ppt&quot;</span>, <span class="st">&quot;value&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb679-9"><a href="arranging-maps.html#cb679-9"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">type =</span> <span class="st">&quot;ppt&quot;</span>)</span>
+<span id="cb679-10"><a href="arranging-maps.html#cb679-10"></a></span>
+<span id="cb679-11"><a href="arranging-maps.html#cb679-11"></a><span class="co">#--- combine them ---#</span></span>
+<span id="cb679-12"><a href="arranging-maps.html#cb679-12"></a>combined_df &lt;-<span class="st"> </span><span class="kw">rbind</span>(tmax_df, ppt_df)</span></code></pre></div>
 <p>Here is the map faceted for tmax and precipitation:</p>
-<div class="sourceCode" id="cb679"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb679-1"><a href="arranging-maps.html#cb679-1"></a><span class="kw">ggplot</span>() <span class="op">+</span></span>
-<span id="cb679-2"><a href="arranging-maps.html#cb679-2"></a><span class="st">    </span><span class="kw">geom_raster</span>(<span class="dt">data =</span> combined_df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">fill =</span> value)) <span class="op">+</span></span>
-<span id="cb679-3"><a href="arranging-maps.html#cb679-3"></a><span class="st">    </span><span class="kw">facet_grid</span>(type <span class="op">~</span><span class="st"> </span>.) <span class="op">+</span></span>
-<span id="cb679-4"><a href="arranging-maps.html#cb679-4"></a><span class="st">    </span><span class="kw">scale_fill_viridis</span>() <span class="op">+</span></span>
-<span id="cb679-5"><a href="arranging-maps.html#cb679-5"></a><span class="st">    </span><span class="kw">theme_void</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb680"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb680-1"><a href="arranging-maps.html#cb680-1"></a><span class="kw">ggplot</span>() <span class="op">+</span></span>
+<span id="cb680-2"><a href="arranging-maps.html#cb680-2"></a><span class="st">    </span><span class="kw">geom_raster</span>(<span class="dt">data =</span> combined_df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">fill =</span> value)) <span class="op">+</span></span>
+<span id="cb680-3"><a href="arranging-maps.html#cb680-3"></a><span class="st">    </span><span class="kw">facet_grid</span>(type <span class="op">~</span><span class="st"> </span>.) <span class="op">+</span></span>
+<span id="cb680-4"><a href="arranging-maps.html#cb680-4"></a><span class="st">    </span><span class="kw">scale_fill_viridis</span>() <span class="op">+</span></span>
+<span id="cb680-5"><a href="arranging-maps.html#cb680-5"></a><span class="st">    </span><span class="kw">theme_void</span>()</span></code></pre></div>
 <p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-46-1.png" width="672" /></p>
 <p>As you can see, a single color scale is created for precipitation recorded in mm and temperature observed in Celsius. On this particular day, precipitation of more than 150 mm was observed on a part of the west coast. Consequently, you see almost no color differentiation on the tmax map which ranges roughly from -20 to 30. It is simply not a good idea to facet for two variables observed at different scales.</p>
 <p>Instead, you should have an independent color scale for each of the variables and then just combine them. Now, you might ask if you really need to combine the two. Can’t you just have two figures and arrange them in the manner you would like on a pdf or WORD document? If you are still convinced that you need to have two panels of figures as one figure, then you can use the <code>patchwork</code> package.</p>
-<div class="sourceCode" id="cb680"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb680-1"><a href="arranging-maps.html#cb680-1"></a><span class="kw">library</span>(patchwork)</span></code></pre></div>
+<div class="sourceCode" id="cb681"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb681-1"><a href="arranging-maps.html#cb681-1"></a><span class="kw">library</span>(patchwork)</span></code></pre></div>
 <p><code>patchwork</code> combines <code>ggplot</code> objects (maps) using simple operators: <code>+</code>, <code>/</code>, and <code>|</code>. Let’s first create maps of tmax and precipitation separately.</p>
-<div class="sourceCode" id="cb681"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb681-1"><a href="arranging-maps.html#cb681-1"></a><span class="co">#--- tmax ---#</span></span>
-<span id="cb681-2"><a href="arranging-maps.html#cb681-2"></a>(</span>
-<span id="cb681-3"><a href="arranging-maps.html#cb681-3"></a>g_tmax &lt;-<span class="st"> </span><span class="kw">ggplot</span>() <span class="op">+</span></span>
-<span id="cb681-4"><a href="arranging-maps.html#cb681-4"></a><span class="st">    </span><span class="kw">geom_raster</span>(<span class="dt">data =</span> tmax_df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">fill =</span> value)) <span class="op">+</span></span>
-<span id="cb681-5"><a href="arranging-maps.html#cb681-5"></a><span class="st">    </span><span class="kw">scale_fill_viridis</span>() <span class="op">+</span></span>
-<span id="cb681-6"><a href="arranging-maps.html#cb681-6"></a><span class="st">    </span><span class="kw">theme_void</span>() <span class="op">+</span></span>
-<span id="cb681-7"><a href="arranging-maps.html#cb681-7"></a><span class="st">    </span><span class="kw">coord_equal</span>() <span class="op">+</span></span>
-<span id="cb681-8"><a href="arranging-maps.html#cb681-8"></a><span class="st">    </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</span>
-<span id="cb681-9"><a href="arranging-maps.html#cb681-9"></a>)</span></code></pre></div>
-<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-47-1.png" width="672" /></p>
-<div class="sourceCode" id="cb682"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb682-1"><a href="arranging-maps.html#cb682-1"></a><span class="co">#--- ppt ---#</span></span>
+<div class="sourceCode" id="cb682"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb682-1"><a href="arranging-maps.html#cb682-1"></a><span class="co">#--- tmax ---#</span></span>
 <span id="cb682-2"><a href="arranging-maps.html#cb682-2"></a>(</span>
-<span id="cb682-3"><a href="arranging-maps.html#cb682-3"></a>g_ppt &lt;-<span class="st"> </span><span class="kw">ggplot</span>() <span class="op">+</span></span>
-<span id="cb682-4"><a href="arranging-maps.html#cb682-4"></a><span class="st">    </span><span class="kw">geom_raster</span>(<span class="dt">data =</span> ppt_df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">fill =</span> value)) <span class="op">+</span></span>
+<span id="cb682-3"><a href="arranging-maps.html#cb682-3"></a>g_tmax &lt;-<span class="st"> </span><span class="kw">ggplot</span>() <span class="op">+</span></span>
+<span id="cb682-4"><a href="arranging-maps.html#cb682-4"></a><span class="st">    </span><span class="kw">geom_raster</span>(<span class="dt">data =</span> tmax_df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">fill =</span> value)) <span class="op">+</span></span>
 <span id="cb682-5"><a href="arranging-maps.html#cb682-5"></a><span class="st">    </span><span class="kw">scale_fill_viridis</span>() <span class="op">+</span></span>
 <span id="cb682-6"><a href="arranging-maps.html#cb682-6"></a><span class="st">    </span><span class="kw">theme_void</span>() <span class="op">+</span></span>
 <span id="cb682-7"><a href="arranging-maps.html#cb682-7"></a><span class="st">    </span><span class="kw">coord_equal</span>() <span class="op">+</span></span>
 <span id="cb682-8"><a href="arranging-maps.html#cb682-8"></a><span class="st">    </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</span>
 <span id="cb682-9"><a href="arranging-maps.html#cb682-9"></a>)</span></code></pre></div>
+<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-47-1.png" width="672" /></p>
+<div class="sourceCode" id="cb683"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb683-1"><a href="arranging-maps.html#cb683-1"></a><span class="co">#--- ppt ---#</span></span>
+<span id="cb683-2"><a href="arranging-maps.html#cb683-2"></a>(</span>
+<span id="cb683-3"><a href="arranging-maps.html#cb683-3"></a>g_ppt &lt;-<span class="st"> </span><span class="kw">ggplot</span>() <span class="op">+</span></span>
+<span id="cb683-4"><a href="arranging-maps.html#cb683-4"></a><span class="st">    </span><span class="kw">geom_raster</span>(<span class="dt">data =</span> ppt_df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">fill =</span> value)) <span class="op">+</span></span>
+<span id="cb683-5"><a href="arranging-maps.html#cb683-5"></a><span class="st">    </span><span class="kw">scale_fill_viridis</span>() <span class="op">+</span></span>
+<span id="cb683-6"><a href="arranging-maps.html#cb683-6"></a><span class="st">    </span><span class="kw">theme_void</span>() <span class="op">+</span></span>
+<span id="cb683-7"><a href="arranging-maps.html#cb683-7"></a><span class="st">    </span><span class="kw">coord_equal</span>() <span class="op">+</span></span>
+<span id="cb683-8"><a href="arranging-maps.html#cb683-8"></a><span class="st">    </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</span>
+<span id="cb683-9"><a href="arranging-maps.html#cb683-9"></a>)</span></code></pre></div>
 <p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-47-2.png" width="672" /></p>
 <p>It is best to just look at examples to get the sense of how <code>patchwork</code> works. A fuller treatment of <code>patchwork</code> is found at its <code>packagedown</code> website (<a href="https://patchwork.data-imaginist.com/index.html" class="uri">https://patchwork.data-imaginist.com/index.html</a>).</p>
 <p><strong>Example 1</strong></p>
-<div class="sourceCode" id="cb683"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb683-1"><a href="arranging-maps.html#cb683-1"></a>g_tmax <span class="op">+</span><span class="st"> </span>g_ppt</span></code></pre></div>
+<div class="sourceCode" id="cb684"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb684-1"><a href="arranging-maps.html#cb684-1"></a>g_tmax <span class="op">+</span><span class="st"> </span>g_ppt</span></code></pre></div>
 <p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-48-1.png" width="672" /></p>
 <p><strong>Example 2</strong></p>
-<div class="sourceCode" id="cb684"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb684-1"><a href="arranging-maps.html#cb684-1"></a>g_tmax <span class="op">/</span><span class="st"> </span>g_ppt <span class="op">/</span><span class="st"> </span>g_tmax</span></code></pre></div>
+<div class="sourceCode" id="cb685"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb685-1"><a href="arranging-maps.html#cb685-1"></a>g_tmax <span class="op">/</span><span class="st"> </span>g_ppt <span class="op">/</span><span class="st"> </span>g_tmax</span></code></pre></div>
 <p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-49-1.png" width="672" /></p>
 <p><strong>Example 3</strong></p>
-<div class="sourceCode" id="cb685"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb685-1"><a href="arranging-maps.html#cb685-1"></a>g_tmax <span class="op">+</span><span class="st"> </span>g_ppt <span class="op">+</span><span class="st"> </span><span class="kw">plot_layout</span>(<span class="dt">nrow =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb686"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb686-1"><a href="arranging-maps.html#cb686-1"></a>g_tmax <span class="op">+</span><span class="st"> </span>g_ppt <span class="op">+</span><span class="st"> </span><span class="kw">plot_layout</span>(<span class="dt">nrow =</span> <span class="dv">2</span>)</span></code></pre></div>
 <p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-50-1.png" width="672" /></p>
 <p><strong>Example 4</strong></p>
-<div class="sourceCode" id="cb686"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb686-1"><a href="arranging-maps.html#cb686-1"></a>g_tmax <span class="op">+</span><span class="st"> </span>g_ppt <span class="op">+</span><span class="st"> </span>g_tmax <span class="op">+</span><span class="st"> </span>g_ppt <span class="op">+</span><span class="st"> </span><span class="kw">plot_layout</span>(<span class="dt">nrow =</span> <span class="dv">3</span>, <span class="dt">byrow =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb687"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb687-1"><a href="arranging-maps.html#cb687-1"></a>g_tmax <span class="op">+</span><span class="st"> </span>g_ppt <span class="op">+</span><span class="st"> </span>g_tmax <span class="op">+</span><span class="st"> </span>g_ppt <span class="op">+</span><span class="st"> </span><span class="kw">plot_layout</span>(<span class="dt">nrow =</span> <span class="dv">3</span>, <span class="dt">byrow =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
 <p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-51-1.png" width="672" /></p>
 <p><strong>Example 5</strong></p>
-<div class="sourceCode" id="cb687"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb687-1"><a href="arranging-maps.html#cb687-1"></a>g_tmax <span class="op">|</span><span class="st"> </span>(g_ppt<span class="op">/</span>g_tmax) </span></code></pre></div>
+<div class="sourceCode" id="cb688"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb688-1"><a href="arranging-maps.html#cb688-1"></a>g_tmax <span class="op">|</span><span class="st"> </span>(g_ppt<span class="op">/</span>g_tmax) </span></code></pre></div>
 <p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-52-1.png" width="672" /></p>
 <hr />
 <p>Sometimes figures are placed too close to each other. In such a case, you can pad a figure at the time of generating individual figures by adding the <code>plot.margin</code> option to <code>theme()</code>. For example, the following code creates space at the bottom of <code>g_tmax</code> (5 cm), and vertically stack <code>g_tmax</code> and <code>g_ppt</code>.</p>
-<div class="sourceCode" id="cb688"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb688-1"><a href="arranging-maps.html#cb688-1"></a><span class="co">#--- space at the bottom ---#</span></span>
-<span id="cb688-2"><a href="arranging-maps.html#cb688-2"></a>g_tmax &lt;-<span class="st"> </span>g_tmax <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">plot.margin =</span> <span class="kw">unit</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">0</span>), <span class="st">&quot;cm&quot;</span>))</span>
-<span id="cb688-3"><a href="arranging-maps.html#cb688-3"></a></span>
-<span id="cb688-4"><a href="arranging-maps.html#cb688-4"></a><span class="co">#--- vertically stack ---#</span></span>
-<span id="cb688-5"><a href="arranging-maps.html#cb688-5"></a>g_tmax<span class="op">/</span>g_ppt</span></code></pre></div>
+<div class="sourceCode" id="cb689"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb689-1"><a href="arranging-maps.html#cb689-1"></a><span class="co">#--- space at the bottom ---#</span></span>
+<span id="cb689-2"><a href="arranging-maps.html#cb689-2"></a>g_tmax &lt;-<span class="st"> </span>g_tmax <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">plot.margin =</span> <span class="kw">unit</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">0</span>), <span class="st">&quot;cm&quot;</span>))</span>
+<span id="cb689-3"><a href="arranging-maps.html#cb689-3"></a></span>
+<span id="cb689-4"><a href="arranging-maps.html#cb689-4"></a><span class="co">#--- vertically stack ---#</span></span>
+<span id="cb689-5"><a href="arranging-maps.html#cb689-5"></a>g_tmax<span class="op">/</span>g_ppt</span></code></pre></div>
 <p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-53-1.png" width="672" /></p>
 <p>In <code>plot.margin = unit(c(a, b, c, d), "cm")</code>, here is which margin <code>a</code>, <code>b</code>, <code>c</code>, and <code>d</code> refers to.</p>
 <ul>
@@ -644,14 +644,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="a-map-in-a-map-inset" class="section level3" number="8.4.2">
 <h3><span class="header-section-number">8.4.2</span> A map in a map: inset</h3>
 <p>Sometimes, it is useful to present a map that covers a larger geographical range than the area of interest in the same map. This provides a better sense of geographic extent and the location of the area of interest relative to the larger geographic extent that the readers are more familiar with. For example, suppose your work is restricted to three counties in Kansas: Cheyenne, Sherman, and Wallace. Here is the map of three counties:</p>
-<div class="sourceCode" id="cb689"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb689-1"><a href="arranging-maps.html#cb689-1"></a>three_counties &lt;-<span class="st"> </span><span class="kw">filter</span>(KS_county, NAME <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Cheyenne&quot;</span>, <span class="st">&quot;Sherman&quot;</span>, <span class="st">&quot;Wallace&quot;</span>))  </span>
-<span id="cb689-2"><a href="arranging-maps.html#cb689-2"></a></span>
-<span id="cb689-3"><a href="arranging-maps.html#cb689-3"></a>(</span>
-<span id="cb689-4"><a href="arranging-maps.html#cb689-4"></a>g_three_counties &lt;-<span class="st"> </span><span class="kw">ggplot</span>() <span class="op">+</span></span>
-<span id="cb689-5"><a href="arranging-maps.html#cb689-5"></a><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> three_counties) <span class="op">+</span></span>
-<span id="cb689-6"><a href="arranging-maps.html#cb689-6"></a><span class="st">    </span><span class="kw">geom_sf_text</span>(<span class="dt">data =</span> three_counties, <span class="kw">aes</span>(<span class="dt">label =</span> NAME)) <span class="op">+</span></span>
-<span id="cb689-7"><a href="arranging-maps.html#cb689-7"></a><span class="st">    </span><span class="kw">theme_void</span>()</span>
-<span id="cb689-8"><a href="arranging-maps.html#cb689-8"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb690"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb690-1"><a href="arranging-maps.html#cb690-1"></a>three_counties &lt;-<span class="st"> </span><span class="kw">filter</span>(KS_county, NAME <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Cheyenne&quot;</span>, <span class="st">&quot;Sherman&quot;</span>, <span class="st">&quot;Wallace&quot;</span>))  </span>
+<span id="cb690-2"><a href="arranging-maps.html#cb690-2"></a></span>
+<span id="cb690-3"><a href="arranging-maps.html#cb690-3"></a>(</span>
+<span id="cb690-4"><a href="arranging-maps.html#cb690-4"></a>g_three_counties &lt;-<span class="st"> </span><span class="kw">ggplot</span>() <span class="op">+</span></span>
+<span id="cb690-5"><a href="arranging-maps.html#cb690-5"></a><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> three_counties) <span class="op">+</span></span>
+<span id="cb690-6"><a href="arranging-maps.html#cb690-6"></a><span class="st">    </span><span class="kw">geom_sf_text</span>(<span class="dt">data =</span> three_counties, <span class="kw">aes</span>(<span class="dt">label =</span> NAME)) <span class="op">+</span></span>
+<span id="cb690-7"><a href="arranging-maps.html#cb690-7"></a><span class="st">    </span><span class="kw">theme_void</span>()</span>
+<span id="cb690-8"><a href="arranging-maps.html#cb690-8"></a>)</span></code></pre></div>
 <p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-54-1.png" width="672" /></p>
 <p>Well, for those who are not familiar with Kansas, it might be useful to show where in Kansas they are located on the same map (or even where Kansas is in the U.S.). This can be achieved using <code>ggplotGrob()</code> and <code>annotation_custom()</code>. The steps are the following:</p>
 <ul>
@@ -659,45 +659,45 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>create a map of the region that includes the area of interest</li>
 <li>combine the two using <code>annotation_custom()</code></li>
 </ul>
-<div class="sourceCode" id="cb690"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb690-1"><a href="arranging-maps.html#cb690-1"></a><span class="co">#--- convert the ggplot into a grob ---#</span></span>
-<span id="cb690-2"><a href="arranging-maps.html#cb690-2"></a>grob_aoi &lt;-<span class="st"> </span><span class="kw">ggplotGrob</span>(g_three_counties)</span>
-<span id="cb690-3"><a href="arranging-maps.html#cb690-3"></a></span>
-<span id="cb690-4"><a href="arranging-maps.html#cb690-4"></a><span class="co">#--- check the class ---#</span></span>
-<span id="cb690-5"><a href="arranging-maps.html#cb690-5"></a><span class="kw">class</span>(grob_aoi)</span></code></pre></div>
+<div class="sourceCode" id="cb691"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb691-1"><a href="arranging-maps.html#cb691-1"></a><span class="co">#--- convert the ggplot into a grob ---#</span></span>
+<span id="cb691-2"><a href="arranging-maps.html#cb691-2"></a>grob_aoi &lt;-<span class="st"> </span><span class="kw">ggplotGrob</span>(g_three_counties)</span>
+<span id="cb691-3"><a href="arranging-maps.html#cb691-3"></a></span>
+<span id="cb691-4"><a href="arranging-maps.html#cb691-4"></a><span class="co">#--- check the class ---#</span></span>
+<span id="cb691-5"><a href="arranging-maps.html#cb691-5"></a><span class="kw">class</span>(grob_aoi)</span></code></pre></div>
 <pre><code>[1] &quot;gtable&quot; &quot;gTree&quot;  &quot;grob&quot;   &quot;gDesc&quot; </code></pre>
-<div class="sourceCode" id="cb692"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb692-1"><a href="arranging-maps.html#cb692-1"></a><span class="co">#--- create a map of Kansas ---#</span></span>
-<span id="cb692-2"><a href="arranging-maps.html#cb692-2"></a>g_region &lt;-<span class="st"> </span><span class="kw">ggplot</span>() <span class="op">+</span></span>
-<span id="cb692-3"><a href="arranging-maps.html#cb692-3"></a><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> KS_county) <span class="op">+</span></span>
-<span id="cb692-4"><a href="arranging-maps.html#cb692-4"></a><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> three_counties, <span class="dt">fill =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span></span>
-<span id="cb692-5"><a href="arranging-maps.html#cb692-5"></a><span class="st">    </span><span class="kw">theme_void</span>()</span>
-<span id="cb692-6"><a href="arranging-maps.html#cb692-6"></a></span>
-<span id="cb692-7"><a href="arranging-maps.html#cb692-7"></a><span class="co">#--- convert to a grob ---#</span></span>
-<span id="cb692-8"><a href="arranging-maps.html#cb692-8"></a>grob_region &lt;-<span class="st"> </span><span class="kw">ggplotGrob</span>(g_region)</span></code></pre></div>
+<div class="sourceCode" id="cb693"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb693-1"><a href="arranging-maps.html#cb693-1"></a><span class="co">#--- create a map of Kansas ---#</span></span>
+<span id="cb693-2"><a href="arranging-maps.html#cb693-2"></a>g_region &lt;-<span class="st"> </span><span class="kw">ggplot</span>() <span class="op">+</span></span>
+<span id="cb693-3"><a href="arranging-maps.html#cb693-3"></a><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> KS_county) <span class="op">+</span></span>
+<span id="cb693-4"><a href="arranging-maps.html#cb693-4"></a><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> three_counties, <span class="dt">fill =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span></span>
+<span id="cb693-5"><a href="arranging-maps.html#cb693-5"></a><span class="st">    </span><span class="kw">theme_void</span>()</span>
+<span id="cb693-6"><a href="arranging-maps.html#cb693-6"></a></span>
+<span id="cb693-7"><a href="arranging-maps.html#cb693-7"></a><span class="co">#--- convert to a grob ---#</span></span>
+<span id="cb693-8"><a href="arranging-maps.html#cb693-8"></a>grob_region &lt;-<span class="st"> </span><span class="kw">ggplotGrob</span>(g_region)</span></code></pre></div>
 <p>Now that we have two maps, we can now put them on the same map using <code>annotation_custom()</code>. The first task is to initiate a <code>ggplot</code> with <code>coord_equal()</code> as follows:</p>
-<div class="sourceCode" id="cb693"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb693-1"><a href="arranging-maps.html#cb693-1"></a>(</span>
-<span id="cb693-2"><a href="arranging-maps.html#cb693-2"></a>g_inset &lt;-<span class="st"> </span><span class="kw">ggplot</span>() <span class="op">+</span></span>
-<span id="cb693-3"><a href="arranging-maps.html#cb693-3"></a><span class="st">  </span><span class="kw">coord_equal</span>(<span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="dt">expand =</span> <span class="ot">FALSE</span>)</span>
-<span id="cb693-4"><a href="arranging-maps.html#cb693-4"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb694"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb694-1"><a href="arranging-maps.html#cb694-1"></a>(</span>
+<span id="cb694-2"><a href="arranging-maps.html#cb694-2"></a>g_inset &lt;-<span class="st"> </span><span class="kw">ggplot</span>() <span class="op">+</span></span>
+<span id="cb694-3"><a href="arranging-maps.html#cb694-3"></a><span class="st">  </span><span class="kw">coord_equal</span>(<span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="dt">expand =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb694-4"><a href="arranging-maps.html#cb694-4"></a>)</span></code></pre></div>
 <p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-57-1.png" width="672" /></p>
 <p>You now have a blank canvas to put the images on. Let’s add a layer with <code>annotation_custom()</code> in which you provide the <code>grob</code> object (a map) and specify the range of the canvas the map occupies. Since the extent of x and y are set to [0, 1] above with <code>coord_equal(xlim = c(0, 1), ylim = c(0, 1), expand = FALSE)</code>, the following code put the <code>grob_aoi</code> to cover the entire y range and up to 0.8 of x from 0.</p>
-<div class="sourceCode" id="cb694"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb694-1"><a href="arranging-maps.html#cb694-1"></a>g_inset <span class="op">+</span></span>
-<span id="cb694-2"><a href="arranging-maps.html#cb694-2"></a><span class="st">    </span><span class="kw">annotation_custom</span>(grob_aoi, <span class="dt">xmin =</span> <span class="dv">0</span>, <span class="dt">xmax =</span> <span class="fl">0.8</span>, <span class="dt">ymin =</span> <span class="dv">0</span>,</span>
-<span id="cb694-3"><a href="arranging-maps.html#cb694-3"></a>        <span class="dt">ymax =</span> <span class="dv">1</span>)</span></code></pre></div>
-<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-58-1.png" width="672" /></p>
-<p>Similarly, we can add <code>grob_region</code> using <code>annotation_custom()</code>. Let’s put it at the right lower corner of the map.</p>
 <div class="sourceCode" id="cb695"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb695-1"><a href="arranging-maps.html#cb695-1"></a>g_inset <span class="op">+</span></span>
 <span id="cb695-2"><a href="arranging-maps.html#cb695-2"></a><span class="st">    </span><span class="kw">annotation_custom</span>(grob_aoi, <span class="dt">xmin =</span> <span class="dv">0</span>, <span class="dt">xmax =</span> <span class="fl">0.8</span>, <span class="dt">ymin =</span> <span class="dv">0</span>,</span>
-<span id="cb695-3"><a href="arranging-maps.html#cb695-3"></a>        <span class="dt">ymax =</span> <span class="dv">1</span>) <span class="op">+</span></span>
-<span id="cb695-4"><a href="arranging-maps.html#cb695-4"></a><span class="st">    </span><span class="kw">annotation_custom</span>(grob_region, <span class="dt">xmin =</span> <span class="fl">0.6</span>, <span class="dt">xmax =</span> <span class="dv">1</span>, <span class="dt">ymin =</span> <span class="dv">0</span>,</span>
-<span id="cb695-5"><a href="arranging-maps.html#cb695-5"></a>        <span class="dt">ymax =</span> <span class="fl">0.3</span>) </span></code></pre></div>
-<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-59-1.png" width="672" /></p>
-<p>Note that the resulting map still has the default theme because it does not inherit the theme of maps added by <code>annotation_custom()</code>. So, you can add <code>theme_void()</code> to the map to make the border disappear.</p>
+<span id="cb695-3"><a href="arranging-maps.html#cb695-3"></a>        <span class="dt">ymax =</span> <span class="dv">1</span>)</span></code></pre></div>
+<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-58-1.png" width="672" /></p>
+<p>Similarly, we can add <code>grob_region</code> using <code>annotation_custom()</code>. Let’s put it at the right lower corner of the map.</p>
 <div class="sourceCode" id="cb696"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb696-1"><a href="arranging-maps.html#cb696-1"></a>g_inset <span class="op">+</span></span>
 <span id="cb696-2"><a href="arranging-maps.html#cb696-2"></a><span class="st">    </span><span class="kw">annotation_custom</span>(grob_aoi, <span class="dt">xmin =</span> <span class="dv">0</span>, <span class="dt">xmax =</span> <span class="fl">0.8</span>, <span class="dt">ymin =</span> <span class="dv">0</span>,</span>
 <span id="cb696-3"><a href="arranging-maps.html#cb696-3"></a>        <span class="dt">ymax =</span> <span class="dv">1</span>) <span class="op">+</span></span>
 <span id="cb696-4"><a href="arranging-maps.html#cb696-4"></a><span class="st">    </span><span class="kw">annotation_custom</span>(grob_region, <span class="dt">xmin =</span> <span class="fl">0.6</span>, <span class="dt">xmax =</span> <span class="dv">1</span>, <span class="dt">ymin =</span> <span class="dv">0</span>,</span>
-<span id="cb696-5"><a href="arranging-maps.html#cb696-5"></a>        <span class="dt">ymax =</span> <span class="fl">0.3</span>) <span class="op">+</span></span>
-<span id="cb696-6"><a href="arranging-maps.html#cb696-6"></a><span class="st">    </span><span class="kw">theme_void</span>()</span></code></pre></div>
+<span id="cb696-5"><a href="arranging-maps.html#cb696-5"></a>        <span class="dt">ymax =</span> <span class="fl">0.3</span>) </span></code></pre></div>
+<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-59-1.png" width="672" /></p>
+<p>Note that the resulting map still has the default theme because it does not inherit the theme of maps added by <code>annotation_custom()</code>. So, you can add <code>theme_void()</code> to the map to make the border disappear.</p>
+<div class="sourceCode" id="cb697"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb697-1"><a href="arranging-maps.html#cb697-1"></a>g_inset <span class="op">+</span></span>
+<span id="cb697-2"><a href="arranging-maps.html#cb697-2"></a><span class="st">    </span><span class="kw">annotation_custom</span>(grob_aoi, <span class="dt">xmin =</span> <span class="dv">0</span>, <span class="dt">xmax =</span> <span class="fl">0.8</span>, <span class="dt">ymin =</span> <span class="dv">0</span>,</span>
+<span id="cb697-3"><a href="arranging-maps.html#cb697-3"></a>        <span class="dt">ymax =</span> <span class="dv">1</span>) <span class="op">+</span></span>
+<span id="cb697-4"><a href="arranging-maps.html#cb697-4"></a><span class="st">    </span><span class="kw">annotation_custom</span>(grob_region, <span class="dt">xmin =</span> <span class="fl">0.6</span>, <span class="dt">xmax =</span> <span class="dv">1</span>, <span class="dt">ymin =</span> <span class="dv">0</span>,</span>
+<span id="cb697-5"><a href="arranging-maps.html#cb697-5"></a>        <span class="dt">ymax =</span> <span class="fl">0.3</span>) <span class="op">+</span></span>
+<span id="cb697-6"><a href="arranging-maps.html#cb697-6"></a><span class="st">    </span><span class="kw">theme_void</span>()</span></code></pre></div>
 <p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-60-1.png" width="672" /></p>
 <!-- ### A table in a map
 

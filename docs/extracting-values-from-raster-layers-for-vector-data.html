@@ -66,21 +66,21 @@
 <script src="libs/HomeButton-0.0.1/easy-button-src.min.js"></script>
 <script src="libs/clipboard-0.0.1/setClipboardText.js"></script>
 <link href="libs/PopupTable-0.0.1/popup.css" rel="stylesheet" />
-<script src="libs/IA_cdl_2015-1/data_stars_IA_cdl_2015492be3.txt"></script>
+<script src="libs/IA_cdl_2015-1/data_stars_IA_cdl_20157013d9.txt"></script>
 <script src="libs/joda-0.0.1/joda.js"></script>
 <script src="libs/joda-0.0.1/addImageQuery-bindings.js"></script>
-<script src="libs/IA_cdl_2016-1/data_stars_IA_cdl_2016d254a6.txt"></script>
-<script src="libs/prcp_tmax_PRISM_m8_y09["tmax", , , ] - 1-1/data_stars_prcp_tmax_PRISM_m8_y09tmax1d57104.txt"></script>
-<script src="libs/layer.1-1/data_stars_layer1ade7f0.txt"></script>
-<script src="libs/layer.2-1/data_stars_layer2a3e1c2.txt"></script>
-<script src="libs/layer.3-1/data_stars_layer39bf0c4.txt"></script>
-<script src="libs/layer.4-1/data_stars_layer4281e67.txt"></script>
-<script src="libs/layer.5-1/data_stars_layer5da8bef.txt"></script>
-<script src="libs/layer.6-1/data_stars_layer60a163b.txt"></script>
-<script src="libs/layer.7-1/data_stars_layer72c54d1.txt"></script>
-<script src="libs/layer.8-1/data_stars_layer8fc014d.txt"></script>
-<script src="libs/layer.9-1/data_stars_layer9f9bcad.txt"></script>
-<script src="libs/layer.10-1/data_stars_layer10ea3f98.txt"></script>
+<script src="libs/IA_cdl_2016-1/data_stars_IA_cdl_2016f0942b.txt"></script>
+<script src="libs/prcp_tmax_PRISM_m8_y09["tmax", , , ] - 1-1/data_stars_prcp_tmax_PRISM_m8_y09tmax15f4a23.txt"></script>
+<script src="libs/layer.1-1/data_stars_layer16e07dc.txt"></script>
+<script src="libs/layer.2-1/data_stars_layer29d3c0a.txt"></script>
+<script src="libs/layer.3-1/data_stars_layer30124e8.txt"></script>
+<script src="libs/layer.4-1/data_stars_layer4125698.txt"></script>
+<script src="libs/layer.5-1/data_stars_layer56ca504.txt"></script>
+<script src="libs/layer.6-1/data_stars_layer60b51ef.txt"></script>
+<script src="libs/layer.7-1/data_stars_layer7d85baf.txt"></script>
+<script src="libs/layer.8-1/data_stars_layer831db4a.txt"></script>
+<script src="libs/layer.9-1/data_stars_layer935e042.txt"></script>
+<script src="libs/layer.10-1/data_stars_layer102ad98c.txt"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
 <script src="libs/datatables-binding-0.13/datatables.js"></script>
 <link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
@@ -593,413 +593,371 @@ Figure 5.4: Map of Kansas county borders, irrigation wells, and PRISM tmax
 <p>You can extract values from raster layers to points using <code>terra::extract()</code>. <code>terra::extract()</code> finds which raster cell each of the points is located within and assigns the value of the cell to the point. One complication that we have to deal with at the moment is the fact that <code>terra</code> does not support <code>sf</code> yet. However, <code>terra::extract()</code> accepts a longitude and latitude matrix. Therefore, the following works:<a href="#fn79" class="footnote-ref" id="fnref79"><sup>79</sup></a></p>
 <div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb352-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb352-1"></a><span class="co">#--- syntax (NOT RUN) ---#</span></span>
 <span id="cb352-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb352-2"></a>terra<span class="op">::</span><span class="kw">extract</span>(raster object, <span class="kw">st_coordinates</span>(sf object)) </span></code></pre></div>
-<p>Let’s extract tmax values from the PRISM tmax layer to the irrigation wells:</p>
-<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb353-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb353-1"></a><span class="co">#--- extract tmax values ---#</span></span>
-<span id="cb353-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb353-2"></a>tmax_from_prism &lt;-<span class="st"> </span>terra<span class="op">::</span><span class="kw">extract</span>(prism_tmax_<span class="dv">0701</span>_KS_sr, <span class="kw">st_coordinates</span>(KS_wells))</span>
-<span id="cb353-3"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb353-3"></a></span>
-<span id="cb353-4"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb353-4"></a><span class="co">#--- take a look ---#</span></span>
-<span id="cb353-5"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb353-5"></a><span class="kw">head</span>(tmax_from_prism)</span></code></pre></div>
-<pre><code>     PRISM_tmax_stable_4kmD2_20180701_bil
-[1,]                               34.241
-[2,]                               29.288
-[3,]                               32.585
-[4,]                               30.104
-[5,]                               34.232
-[6,]                               35.168</code></pre>
+<p>Let’s extract tmax values from the PRISM tmax layer (<code>prism_tmax_0701_KS_rl</code>) to the irrigation wells:</p>
+<p>Since <code>prism_tmax_0701_KS_rl</code> is a <code>RasterLayer</code>, let’s first convert it into a <code>SpatRaster</code> object.</p>
+<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb353-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb353-1"></a>prism_tmax_<span class="dv">0701</span>_KS_sr &lt;-<span class="st"> </span><span class="kw">rast</span>(prism_tmax_<span class="dv">0701</span>_KS_rl)</span></code></pre></div>
+<div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb354-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb354-1"></a><span class="co">#--- extract tmax values ---#</span></span>
+<span id="cb354-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb354-2"></a>tmax_from_prism &lt;-<span class="st"> </span>terra<span class="op">::</span><span class="kw">extract</span>(prism_tmax_<span class="dv">0701</span>_KS_sr, <span class="kw">st_coordinates</span>(KS_wells))</span>
+<span id="cb354-3"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb354-3"></a></span>
+<span id="cb354-4"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb354-4"></a><span class="co">#--- take a look ---#</span></span>
+<span id="cb354-5"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb354-5"></a><span class="kw">head</span>(tmax_from_prism)</span></code></pre></div>
+<pre><code>[1] 34.241 29.288 32.585 30.104 34.232 35.168</code></pre>
 <p><code>terra::extract()</code> returns the extracted values as a vector when the raster object is single-layer raster data. Since the order of the values are consistent with the order of the observations in the points data, you can simply assign the vector as a new variable of the points data as follows:</p>
-<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb355-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb355-1"></a>KS_wells<span class="op">$</span>tmax_<span class="dv">07</span>_<span class="dv">01</span> &lt;-<span class="st"> </span>tmax_from_prism</span></code></pre></div>
-<p>Extracting values from a multi-layer <code>SpatRaster</code> works the same way. Here, we combine <code>prism_tmax_0701_KS_sr</code> and <code>prism_tmax_0703_KS_sr</code> to create a multi-layer <code>SpatRaster</code>.</p>
-<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb356-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb356-1"></a><span class="co">#--- create a multi-layer SpatRaster ---#</span></span>
-<span id="cb356-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb356-2"></a>prism_tmax_stack &lt;-<span class="st"> </span><span class="kw">c</span>(prism_tmax_<span class="dv">0701</span>_KS_sr, prism_tmax_<span class="dv">0702</span>_KS_sr)</span>
-<span id="cb356-3"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb356-3"></a></span>
-<span id="cb356-4"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb356-4"></a><span class="co">#--- extract tmax values ---#</span></span>
-<span id="cb356-5"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb356-5"></a>tmax_from_prism_stack &lt;-<span class="st"> </span>terra<span class="op">::</span><span class="kw">extract</span>(prism_tmax_stack, <span class="kw">st_coordinates</span>(KS_wells))</span>
-<span id="cb356-6"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb356-6"></a></span>
-<span id="cb356-7"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb356-7"></a><span class="co">#--- take a look ---#</span></span>
-<span id="cb356-8"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb356-8"></a><span class="kw">head</span>(tmax_from_prism_stack)</span></code></pre></div>
-<pre><code>     PRISM_tmax_stable_4kmD2_20180701_bil PRISM_tmax_stable_4kmD2_20180702_bil
-[1,]                               34.241                               30.544
-[2,]                               29.288                               29.569
-[3,]                               32.585                               29.866
-[4,]                               30.104                               29.819
-[5,]                               34.232                               30.481
-[6,]                               35.168                               30.640</code></pre>
+<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb356-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb356-1"></a>KS_wells<span class="op">$</span>tmax_<span class="dv">07</span>_<span class="dv">01</span> &lt;-<span class="st"> </span>tmax_from_prism</span></code></pre></div>
+<p>Extracting values from a multi-layer <code>SpatRaster</code> works the same way. Here, we combine <code>prism_tmax_0701_KS_sr</code> and <code>prism_tmax_0702_KS_sr</code> to create a multi-layer <code>SpatRaster</code>.</p>
+<div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb357-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb357-1"></a><span class="co">#--- create a multi-layer SpatRaster ---#</span></span>
+<span id="cb357-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb357-2"></a>prism_tmax_stack &lt;-<span class="st"> </span><span class="kw">c</span>(prism_tmax_<span class="dv">0701</span>_KS_sr, prism_tmax_<span class="dv">0702</span>_KS_sr)</span>
+<span id="cb357-3"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb357-3"></a></span>
+<span id="cb357-4"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb357-4"></a><span class="co">#--- extract tmax values ---#</span></span>
+<span id="cb357-5"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb357-5"></a>tmax_from_prism_stack &lt;-<span class="st"> </span>terra<span class="op">::</span><span class="kw">extract</span>(prism_tmax_stack, <span class="kw">st_coordinates</span>(KS_wells))</span>
+<span id="cb357-6"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb357-6"></a></span>
+<span id="cb357-7"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb357-7"></a><span class="co">#--- take a look ---#</span></span>
+<span id="cb357-8"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb357-8"></a><span class="kw">head</span>(tmax_from_prism_stack)</span></code></pre></div>
+<pre><code>     ID PRISM_tmax_stable_4kmD2_20180701_bil
+[1,]  1                               34.241
+[2,]  2                               29.288
+[3,]  3                               32.585
+[4,]  4                               30.104
+[5,]  5                               34.232
+[6,]  6                               35.168
+     PRISM_tmax_stable_4kmD2_20180702_bil
+[1,]                               30.544
+[2,]                               29.569
+[3,]                               29.866
+[4,]                               29.819
+[5,]                               30.481
+[6,]                               30.640</code></pre>
 <p>Instead of a vector, the returned object is a matrix with each of the raster layers forming a column.</p>
 </div>
 <div id="polygons-terra-way" class="section level3" number="5.2.2">
 <h3><span class="header-section-number">5.2.2</span> Polygons (<code>terra</code> way)</h3>
 <p><strong>Caution:</strong> Recently, <code>terra::extract()</code> crashed R sessions on RStudio several times when I tried to extract values from a large raster dataset (1.6 GB) for polygons. I did not see any problem when extracting for points data even if the raster data is very large, For now, I recommend <code>exact_extract()</code> to extract values for polygons, which is detailed in the next section. <code>exact_extract()</code> is faster for a large raster dataset anyway.</p>
 <p>Remember that the <code>terra</code> packages does not support an <code>sf</code> object yet. So, an <code>sf</code> object of polygons needs to be converted to a <code>SpatVector</code> object before we use any functions from the <code>terra</code> packages.<a href="#fn80" class="footnote-ref" id="fnref80"><sup>80</sup></a></p>
-<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb358-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb358-1"></a><span class="co">#--- Kansas boundary (SpatVector) ---#</span></span>
-<span id="cb358-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb358-2"></a>KS_county_sv &lt;-<span class="st"> </span>KS_county_sf <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb358-3"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb358-3"></a><span class="st">  </span><span class="co">#--- convert to a SpatVector object ---#</span></span>
-<span id="cb358-4"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb358-4"></a><span class="st">  </span><span class="kw">as</span>(., <span class="st">&quot;Spatial&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">vect</span>() </span></code></pre></div>
+<div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb359-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb359-1"></a><span class="co">#--- Kansas boundary (SpatVector) ---#</span></span>
+<span id="cb359-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb359-2"></a>KS_county_sv &lt;-<span class="st"> </span>KS_county_sf <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb359-3"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb359-3"></a><span class="st">  </span><span class="co">#--- convert to a SpatVector object ---#</span></span>
+<span id="cb359-4"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb359-4"></a><span class="st">  </span><span class="kw">as</span>(., <span class="st">&quot;Spatial&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">vect</span>() </span></code></pre></div>
 <p>You can use the same <code>terra::extract()</code> function to extract values from a raster layer for polygons. For each of the polygons, it will identify all the raster cells whose center lies inside the polygon and assign the vector of values of the cells to the polygon (You can change this to the cells that intersect with polygons using the <code>touch = TRUE</code> option).</p>
-<div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb359-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb359-1"></a><span class="co">#--- extract values from the raster for each county ---#</span></span>
-<span id="cb359-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb359-2"></a>tmax_by_county &lt;-<span class="st"> </span>terra<span class="op">::</span><span class="kw">extract</span>(prism_tmax_<span class="dv">0701</span>_KS_sr, KS_county_sv)  </span>
-<span id="cb359-3"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb359-3"></a></span>
-<span id="cb359-4"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb359-4"></a><span class="co">#--- take a look at the first 2 elements of the list ---#</span></span>
-<span id="cb359-5"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb359-5"></a>tmax_by_county[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>] </span></code></pre></div>
-<pre><code>[[1]]
-[[1]][[1]]
- [1] 34.393 34.456 34.450 34.460 34.483 34.566 34.588 34.616 34.623 34.556
-[11] 34.231 34.145 34.188 34.247 34.289 34.279 34.282 34.417 34.483 34.585
-[21] 34.151 34.114 34.174 34.138 34.136 34.235 34.351 34.494 34.591 34.563
-[31] 34.183 34.198 34.117 34.049 34.100 34.193 34.294 34.431 34.521 34.484
-[41] 34.088 34.121 34.170 34.142 34.156 34.203 34.176 34.249 34.356 34.454
-[51] 34.126 34.072 34.088 34.091 34.123 34.145 34.238 34.306 34.359 34.511
-[61] 34.043 34.079 34.048 33.977 34.113 34.203 34.273 34.308 34.387 34.543
-
-
-[[2]]
-[[2]][[1]]
- [1] 35.316 35.289 35.072 35.014 34.995 34.996 34.990 34.953 35.042 35.034
-[11] 35.112 35.186 35.087 34.977 34.890 34.838 34.838 34.844 34.926 34.858
-[21] 34.948 35.037 35.182 35.080 34.945 34.856 34.897 34.911 35.021 34.990
-[31] 34.919 34.963 35.055 34.935 34.899 34.910 34.903 34.936 34.961 34.983
-[41] 35.006 34.827 35.215 35.093 34.867 34.876 34.856 34.932 34.919 35.003
-[51] 34.943 34.835 35.491 35.215 34.927 34.818 34.854 34.834 34.758 34.763
-[61] 34.749 34.717 35.285 35.008 34.869 34.801 34.774 34.798 34.694 34.626
-[71] 34.644 34.637 34.821 34.819 35.000 34.877 34.821 34.780 34.714 34.658
-[81] 34.552 34.547 34.605 34.672 34.599 34.678 34.666 34.822 34.825 34.721
-[91] 34.666 34.616</code></pre>
+<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb360-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb360-1"></a><span class="co">#--- extract values from the raster for each county ---#</span></span>
+<span id="cb360-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb360-2"></a>tmax_by_county &lt;-<span class="st"> </span>terra<span class="op">::</span><span class="kw">extract</span>(prism_tmax_<span class="dv">0701</span>_KS_sr, KS_county_sv)  </span>
+<span id="cb360-3"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb360-3"></a></span>
+<span id="cb360-4"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb360-4"></a><span class="co">#--- take a look at the first 2 elements of the list ---#</span></span>
+<span id="cb360-5"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb360-5"></a>tmax_by_county[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>] </span></code></pre></div>
+<pre><code>[1] 1 1</code></pre>
 <p><code>terra::extract()</code> returns a list, where its <span class="math inline">\(i\)</span>th element corresponds to the <span class="math inline">\(i\)</span>th row of observation in the polygon data (<code>KS_county_sv</code>). Each of the list elements is also a list, and the list has a vector of extracted values for the corresponding polygon.</p>
-<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb361-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb361-1"></a><span class="co">#--- see the first element of the list ---#</span></span>
-<span id="cb361-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb361-2"></a>tmax_by_county[[<span class="dv">1</span>]]</span></code></pre></div>
-<pre><code>[[1]]
- [1] 34.393 34.456 34.450 34.460 34.483 34.566 34.588 34.616 34.623 34.556
-[11] 34.231 34.145 34.188 34.247 34.289 34.279 34.282 34.417 34.483 34.585
-[21] 34.151 34.114 34.174 34.138 34.136 34.235 34.351 34.494 34.591 34.563
-[31] 34.183 34.198 34.117 34.049 34.100 34.193 34.294 34.431 34.521 34.484
-[41] 34.088 34.121 34.170 34.142 34.156 34.203 34.176 34.249 34.356 34.454
-[51] 34.126 34.072 34.088 34.091 34.123 34.145 34.238 34.306 34.359 34.511
-[61] 34.043 34.079 34.048 33.977 34.113 34.203 34.273 34.308 34.387 34.543</code></pre>
-<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb363-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb363-1"></a><span class="co">#--- check the class ---#</span></span>
-<span id="cb363-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb363-2"></a>tmax_by_county[[<span class="dv">1</span>]] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">class</span>()</span></code></pre></div>
-<pre><code>[1] &quot;list&quot;</code></pre>
+<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb362-1"></a><span class="co">#--- see the first element of the list ---#</span></span>
+<span id="cb362-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb362-2"></a>tmax_by_county[[<span class="dv">1</span>]]</span></code></pre></div>
+<pre><code>[1] 1</code></pre>
+<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb364-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb364-1"></a><span class="co">#--- check the class ---#</span></span>
+<span id="cb364-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb364-2"></a>tmax_by_county[[<span class="dv">1</span>]] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">class</span>()</span></code></pre></div>
+<pre><code>[1] &quot;numeric&quot;</code></pre>
 <p>In order to make the results usable, you can process them to get a single <code>data.frame</code>, taking advantage of <code>dplyr::bind_rows()</code> to combine the list of the datasets into one dataset. In doing so, you can use <code>.id</code> option to create a new identifier column that links each row to its original data (<code>data.table</code> users can use <code>rbindlist()</code> with the <code>idcol</code> option).</p>
-<div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb365-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb365-1"></a>(</span>
-<span id="cb365-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb365-2"></a>tmax_by_county_df &lt;-<span class="st"> </span>tmax_by_county <span class="op">%&gt;%</span><span class="st">  </span></span>
-<span id="cb365-3"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb365-3"></a><span class="st">  </span><span class="co">#--- apply unlist to the lists to have vectors as the list elements ---#</span></span>
-<span id="cb365-4"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb365-4"></a><span class="st">  </span><span class="kw">lapply</span>(unlist) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb365-5"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb365-5"></a><span class="st">  </span><span class="co">#--- convert vectors to data.frames ---#</span></span>
-<span id="cb365-6"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb365-6"></a><span class="st">  </span><span class="kw">lapply</span>(as_tibble) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb365-7"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb365-7"></a><span class="st">  </span><span class="co">#--- combine the list of data.frames ---#</span></span>
-<span id="cb365-8"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb365-8"></a><span class="st">  </span><span class="kw">bind_rows</span>(., <span class="dt">.id =</span> <span class="st">&quot;rowid&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb365-9"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb365-9"></a><span class="st">  </span><span class="co">#--- rename the value variable ---# </span></span>
-<span id="cb365-10"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb365-10"></a><span class="st">  </span><span class="kw">rename</span>(<span class="dt">tmax =</span> value)</span>
-<span id="cb365-11"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb365-11"></a>)</span></code></pre></div>
-<pre><code># A tibble: 12,730 x 2
+<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb366-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb366-1"></a>(</span>
+<span id="cb366-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb366-2"></a>tmax_by_county_df &lt;-<span class="st"> </span>tmax_by_county <span class="op">%&gt;%</span><span class="st">  </span></span>
+<span id="cb366-3"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb366-3"></a><span class="st">  </span><span class="co">#--- apply unlist to the lists to have vectors as the list elements ---#</span></span>
+<span id="cb366-4"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb366-4"></a><span class="st">  </span><span class="kw">lapply</span>(unlist) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb366-5"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb366-5"></a><span class="st">  </span><span class="co">#--- convert vectors to data.frames ---#</span></span>
+<span id="cb366-6"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb366-6"></a><span class="st">  </span><span class="kw">lapply</span>(as_tibble) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb366-7"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb366-7"></a><span class="st">  </span><span class="co">#--- combine the list of data.frames ---#</span></span>
+<span id="cb366-8"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb366-8"></a><span class="st">  </span><span class="kw">bind_rows</span>(., <span class="dt">.id =</span> <span class="st">&quot;rowid&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb366-9"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb366-9"></a><span class="st">  </span><span class="co">#--- rename the value variable ---# </span></span>
+<span id="cb366-10"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb366-10"></a><span class="st">  </span><span class="kw">rename</span>(<span class="dt">tmax =</span> value)</span>
+<span id="cb366-11"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb366-11"></a>)</span></code></pre></div>
+<pre><code># A tibble: 25,690 x 2
    rowid  tmax
    &lt;chr&gt; &lt;dbl&gt;
- 1 1      34.4
- 2 1      34.5
- 3 1      34.5
- 4 1      34.5
- 5 1      34.5
- 6 1      34.6
- 7 1      34.6
- 8 1      34.6
- 9 1      34.6
-10 1      34.6
-# … with 12,720 more rows</code></pre>
+ 1 1         1
+ 2 2         1
+ 3 3         1
+ 4 4         1
+ 5 5         1
+ 6 6         1
+ 7 7         1
+ 8 8         1
+ 9 9         1
+10 10        1
+# … with 25,680 more rows</code></pre>
 <p>Note that <code>rowid</code> represents the row number of polygons in <code>KS_county_sv</code>. Now, we can easily summarize the data by polygon (county). For example, the code below finds a simple average of tmax by county.</p>
-<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb367-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb367-1"></a>tmax_by_county_df <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb367-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb367-2"></a><span class="st">  </span><span class="kw">group_by</span>(rowid) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb367-3"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb367-3"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">tmax =</span> <span class="kw">mean</span>(tmax))</span></code></pre></div>
-<pre><code># A tibble: 105 x 2
+<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb368-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb368-1"></a>tmax_by_county_df <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb368-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb368-2"></a><span class="st">  </span><span class="kw">group_by</span>(rowid) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb368-3"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb368-3"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">tmax =</span> <span class="kw">mean</span>(tmax))</span></code></pre></div>
+<pre><code># A tibble: 25,690 x 2
    rowid  tmax
    &lt;chr&gt; &lt;dbl&gt;
- 1 1      34.3
- 2 10     33.4
- 3 100    30.7
- 4 101    34.1
- 5 102    32.6
- 6 103    34.2
- 7 104    33.8
- 8 105    35.2
- 9 11     34.8
-10 12     29.3
-# … with 95 more rows</code></pre>
+ 1 1         1
+ 2 10        1
+ 3 100       1
+ 4 1000      8
+ 5 10000    82
+ 6 10001    82
+ 7 10002    82
+ 8 10003    83
+ 9 10004    83
+10 10005    83
+# … with 25,680 more rows</code></pre>
 <p>For <code>data.table</code> users, here is how you can do the same:</p>
-<div class="sourceCode" id="cb369"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb369-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb369-1"></a>tmax_by_county <span class="op">%&gt;%</span><span class="st">  </span></span>
-<span id="cb369-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb369-2"></a><span class="st">  </span><span class="co">#--- apply unlist to the lists to have vectors as the list elements ---#</span></span>
-<span id="cb369-3"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb369-3"></a><span class="st">  </span><span class="kw">lapply</span>(unlist) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb369-4"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb369-4"></a><span class="st">  </span><span class="co">#--- convert vectors to data.frames ---#</span></span>
-<span id="cb369-5"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb369-5"></a><span class="st">  </span><span class="kw">lapply</span>(data.table) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb369-6"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb369-6"></a><span class="st">  </span><span class="co">#--- combine the list ---#</span></span>
-<span id="cb369-7"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb369-7"></a><span class="st">  </span><span class="kw">rbindlist</span>(., <span class="dt">idcol =</span> <span class="st">&quot;rowid&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb369-8"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb369-8"></a><span class="st">  </span><span class="co">#--- rename the value variable ---# </span></span>
-<span id="cb369-9"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb369-9"></a><span class="st">  </span><span class="kw">setnames</span>(<span class="st">&quot;V1&quot;</span>, <span class="st">&quot;tmax&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb369-10"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb369-10"></a><span class="st">  </span><span class="co">#--- find the mean of tmax ---#</span></span>
-<span id="cb369-11"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb369-11"></a><span class="st">  </span>.[, .(<span class="dt">tmax =</span> <span class="kw">mean</span>(tmax)), by =<span class="st"> </span>rowid]</span></code></pre></div>
-<pre><code>     rowid     tmax
-  1:     1 34.28574
-  2:     2 34.89871
-  3:     3 35.30388
-  4:     4 34.04197
-  5:     5 32.92819
- ---               
-101:   101 34.12691
-102:   102 32.58354
-103:   103 34.20999
-104:   104 33.80209
-105:   105 35.19768</code></pre>
+<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb370-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb370-1"></a>tmax_by_county <span class="op">%&gt;%</span><span class="st">  </span></span>
+<span id="cb370-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb370-2"></a><span class="st">  </span><span class="co">#--- apply unlist to the lists to have vectors as the list elements ---#</span></span>
+<span id="cb370-3"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb370-3"></a><span class="st">  </span><span class="kw">lapply</span>(unlist) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb370-4"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb370-4"></a><span class="st">  </span><span class="co">#--- convert vectors to data.frames ---#</span></span>
+<span id="cb370-5"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb370-5"></a><span class="st">  </span><span class="kw">lapply</span>(data.table) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb370-6"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb370-6"></a><span class="st">  </span><span class="co">#--- combine the list ---#</span></span>
+<span id="cb370-7"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb370-7"></a><span class="st">  </span><span class="kw">rbindlist</span>(., <span class="dt">idcol =</span> <span class="st">&quot;rowid&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb370-8"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb370-8"></a><span class="st">  </span><span class="co">#--- rename the value variable ---# </span></span>
+<span id="cb370-9"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb370-9"></a><span class="st">  </span><span class="kw">setnames</span>(<span class="st">&quot;V1&quot;</span>, <span class="st">&quot;tmax&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb370-10"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb370-10"></a><span class="st">  </span><span class="co">#--- find the mean of tmax ---#</span></span>
+<span id="cb370-11"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb370-11"></a><span class="st">  </span>.[, .(<span class="dt">tmax =</span> <span class="kw">mean</span>(tmax)), by =<span class="st"> </span>rowid]</span></code></pre></div>
+<pre><code>       rowid   tmax
+    1:     1  1.000
+    2:     2  1.000
+    3:     3  1.000
+    4:     4  1.000
+    5:     5  1.000
+   ---             
+25686: 25686 32.898
+25687: 25687 32.998
+25688: 25688 32.912
+25689: 25689 32.792
+25690: 25690 32.483</code></pre>
 <hr />
 <p>Extracting values from a multi-layer raster data works exactly the same way except that data processing after the value extraction is slightly more complicated.</p>
-<div class="sourceCode" id="cb371"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb371-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb371-1"></a><span class="co">#--- extract from a multi-layer raster object ---#</span></span>
-<span id="cb371-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb371-2"></a>tmax_by_county_from_stack &lt;-<span class="st"> </span>terra<span class="op">::</span><span class="kw">extract</span>(prism_tmax_stack, KS_county_sv) </span>
-<span id="cb371-3"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb371-3"></a></span>
-<span id="cb371-4"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb371-4"></a><span class="co">#--- take a look at the first element ---#</span></span>
-<span id="cb371-5"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb371-5"></a>tmax_by_county_from_stack[[<span class="dv">1</span>]]</span></code></pre></div>
-<pre><code>[[1]]
- [1] 34.393 34.456 34.450 34.460 34.483 34.566 34.588 34.616 34.623 34.556
-[11] 34.231 34.145 34.188 34.247 34.289 34.279 34.282 34.417 34.483 34.585
-[21] 34.151 34.114 34.174 34.138 34.136 34.235 34.351 34.494 34.591 34.563
-[31] 34.183 34.198 34.117 34.049 34.100 34.193 34.294 34.431 34.521 34.484
-[41] 34.088 34.121 34.170 34.142 34.156 34.203 34.176 34.249 34.356 34.454
-[51] 34.126 34.072 34.088 34.091 34.123 34.145 34.238 34.306 34.359 34.511
-[61] 34.043 34.079 34.048 33.977 34.113 34.203 34.273 34.308 34.387 34.543
-
-[[2]]
- [1] 29.570 29.562 29.528 29.497 29.484 29.493 29.468 29.455 29.413 29.347
-[11] 29.508 29.472 29.491 29.502 29.485 29.472 29.443 29.450 29.440 29.373
-[21] 29.506 29.448 29.451 29.401 29.404 29.440 29.466 29.447 29.428 29.365
-[31] 29.470 29.449 29.384 29.328 29.381 29.430 29.454 29.442 29.441 29.341
-[41] 29.462 29.442 29.444 29.420 29.424 29.435 29.344 29.339 29.365 29.321
-[51] 29.504 29.464 29.454 29.445 29.428 29.353 29.376 29.387 29.377 29.399
-[61] 29.517 29.481 29.479 29.415 29.362 29.390 29.402 29.381 29.392 29.424</code></pre>
+<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb372-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb372-1"></a><span class="co">#--- extract from a multi-layer raster object ---#</span></span>
+<span id="cb372-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb372-2"></a>tmax_by_county_from_stack &lt;-<span class="st"> </span>terra<span class="op">::</span><span class="kw">extract</span>(prism_tmax_stack, KS_county_sv) </span>
+<span id="cb372-3"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb372-3"></a></span>
+<span id="cb372-4"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb372-4"></a><span class="co">#--- take a look at the first element ---#</span></span>
+<span id="cb372-5"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb372-5"></a>tmax_by_county_from_stack[[<span class="dv">1</span>]]</span></code></pre></div>
+<pre><code>[1] 1</code></pre>
 <p>Just like the single-layer case, <span class="math inline">\(i\)</span>th element of the list corresponds to <span class="math inline">\(i\)</span>th polygon. However, each element of the list has two lists of extracted values because we are extracting from a two-layer raster object. This makes it a bit complicated to process them to have nicely-formatted data. The following code transform the list to a single <code>data.frame</code>:</p>
-<div class="sourceCode" id="cb373"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb373-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb373-1"></a><span class="co">#--- extraction from a multi-layer raster object ---#</span></span>
-<span id="cb373-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb373-2"></a>tmax_long_from_stack &lt;-<span class="st"> </span>tmax_by_county_from_stack <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb373-3"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb373-3"></a><span class="st">  </span><span class="kw">lapply</span>(., <span class="cf">function</span>(x) <span class="kw">bind_rows</span>(<span class="kw">lapply</span>(x, as_tibble), <span class="dt">.id =</span> <span class="st">&quot;layer&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb373-4"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb373-4"></a><span class="st">  </span><span class="kw">bind_rows</span>(., <span class="dt">.id =</span> <span class="st">&quot;rowid&quot;</span>)</span>
-<span id="cb373-5"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb373-5"></a></span>
-<span id="cb373-6"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb373-6"></a><span class="co">#--- take a look ---#</span></span>
-<span id="cb373-7"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb373-7"></a><span class="kw">head</span>(tmax_long_from_stack)</span></code></pre></div>
+<div class="sourceCode" id="cb374"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb374-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb374-1"></a><span class="co">#--- extraction from a multi-layer raster object ---#</span></span>
+<span id="cb374-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb374-2"></a>tmax_long_from_stack &lt;-<span class="st"> </span>tmax_by_county_from_stack <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb374-3"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb374-3"></a><span class="st">  </span><span class="kw">lapply</span>(., <span class="cf">function</span>(x) <span class="kw">bind_rows</span>(<span class="kw">lapply</span>(x, as_tibble), <span class="dt">.id =</span> <span class="st">&quot;layer&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb374-4"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb374-4"></a><span class="st">  </span><span class="kw">bind_rows</span>(., <span class="dt">.id =</span> <span class="st">&quot;rowid&quot;</span>)</span>
+<span id="cb374-5"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb374-5"></a></span>
+<span id="cb374-6"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb374-6"></a><span class="co">#--- take a look ---#</span></span>
+<span id="cb374-7"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb374-7"></a><span class="kw">head</span>(tmax_long_from_stack)</span></code></pre></div>
 <pre><code># A tibble: 6 x 3
   rowid layer value
   &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;
-1 1     1      34.4
-2 1     1      34.5
-3 1     1      34.5
-4 1     1      34.5
-5 1     1      34.5
-6 1     1      34.6</code></pre>
+1 1     1         1
+2 2     1         1
+3 3     1         1
+4 4     1         1
+5 5     1         1
+6 6     1         1</code></pre>
 <p>Note that this code works for a raster object with any number of layers including the single-layer case we saw above.</p>
 <p>We can then summarize the extracted data by polygon and raster layer.</p>
-<div class="sourceCode" id="cb375"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb375-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb375-1"></a>tmax_long_from_stack <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb375-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb375-2"></a><span class="st">  </span><span class="kw">group_by</span>(rowid, layer) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb375-3"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb375-3"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">tmax =</span> <span class="kw">mean</span>(value))</span></code></pre></div>
-<pre><code># A tibble: 210 x 3
-# Groups:   rowid [105]
+<div class="sourceCode" id="cb376"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb376-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb376-1"></a>tmax_long_from_stack <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb376-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb376-2"></a><span class="st">  </span><span class="kw">group_by</span>(rowid, layer) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb376-3"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb376-3"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">tmax =</span> <span class="kw">mean</span>(value))</span></code></pre></div>
+<pre><code># A tibble: 38,535 x 3
+# Groups:   rowid [38,535]
    rowid layer  tmax
    &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;
- 1 1     1      34.3
- 2 1     2      29.4
- 3 10    1      33.4
- 4 10    2      29.7
- 5 100   1      30.7
- 6 100   2      29.9
- 7 101   1      34.1
- 8 101   2      28.6
- 9 102   1      32.6
-10 102   2      30.6
-# … with 200 more rows</code></pre>
+ 1 1     1         1
+ 2 10    1         1
+ 3 100   1         1
+ 4 1000  1         8
+ 5 10000 1        82
+ 6 10001 1        82
+ 7 10002 1        82
+ 8 10003 1        83
+ 9 10004 1        83
+10 10005 1        83
+# … with 38,525 more rows</code></pre>
 <p>Here is the <code>data.table</code> way:</p>
-<div class="sourceCode" id="cb377"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb377-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb377-1"></a>(</span>
-<span id="cb377-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb377-2"></a>tmax_by_county_layer &lt;-<span class="st"> </span>tmax_by_county_from_stack <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb377-3"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb377-3"></a><span class="st">  </span><span class="kw">lapply</span>(., <span class="cf">function</span>(x) <span class="kw">rbindlist</span>(<span class="kw">lapply</span>(x, data.table), <span class="dt">idcol =</span> <span class="st">&quot;layer&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb377-4"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb377-4"></a><span class="st">  </span><span class="kw">rbindlist</span>(., <span class="dt">idcol =</span> <span class="st">&quot;rowid&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb377-5"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb377-5"></a><span class="st">  </span>.[, .(<span class="dt">tmax =</span> <span class="kw">mean</span>(V1)), <span class="dt">by =</span> .(rowid, layer)]</span>
-<span id="cb377-6"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb377-6"></a>)</span></code></pre></div>
-<pre><code>     rowid layer     tmax
-  1:     1     1 34.28574
-  2:     1     2 29.43364
-  3:     2     1 34.89871
-  4:     2     2 29.42585
-  5:     3     1 35.30388
- ---                     
-206:   103     2 29.73917
-207:   104     1 33.80209
-208:   104     2 29.56691
-209:   105     1 35.19768
-210:   105     2 29.32252</code></pre>
+<div class="sourceCode" id="cb378"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb378-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb378-1"></a>(</span>
+<span id="cb378-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb378-2"></a>tmax_by_county_layer &lt;-<span class="st"> </span>tmax_by_county_from_stack <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb378-3"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb378-3"></a><span class="st">  </span><span class="kw">lapply</span>(., <span class="cf">function</span>(x) <span class="kw">rbindlist</span>(<span class="kw">lapply</span>(x, data.table), <span class="dt">idcol =</span> <span class="st">&quot;layer&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb378-4"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb378-4"></a><span class="st">  </span><span class="kw">rbindlist</span>(., <span class="dt">idcol =</span> <span class="st">&quot;rowid&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb378-5"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb378-5"></a><span class="st">  </span>.[, .(<span class="dt">tmax =</span> <span class="kw">mean</span>(V1)), <span class="dt">by =</span> .(rowid, layer)]</span>
+<span id="cb378-6"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb378-6"></a>)</span></code></pre></div>
+<pre><code>       rowid layer   tmax
+    1:     1     1  1.000
+    2:     2     1  1.000
+    3:     3     1  1.000
+    4:     4     1  1.000
+    5:     5     1  1.000
+   ---                   
+38531: 38531     1 30.020
+38532: 38532     1 30.030
+38533: 38533     1 29.875
+38534: 38534     1 29.747
+38535: 38535     1 29.427</code></pre>
 </div>
 <div id="polygons-exactextractr-way" class="section level3" number="5.2.3">
 <h3><span class="header-section-number">5.2.3</span> Polygons (<code>exactextractr</code> way)</h3>
 <p><code>exact_extract()</code> function from the <code>exactextractr</code> package is a faster alternative than <code>terra::extract()</code> for large raster data as we confirm later (<code>exact_extract()</code> does not work with points data at the moment).<a href="#fn81" class="footnote-ref" id="fnref81"><sup>81</sup></a> <code>exact_extract()</code> also provides a coverage fraction value for each of the cell-polygon intersections. However, as mentioned in Chapter <a href="raster-basics.html#raster-basics">4</a>, it only works with <code>Raster</code><span class="math inline">\(^*\)</span> objects. So, we first need to convert a <code>SpatRaster</code> object to a <code>Raster</code><span class="math inline">\(^*\)</span> object. The syntax of <code>exact_extract()</code> is very much similar to <code>terra::extract()</code>.</p>
-<div class="sourceCode" id="cb379"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb379-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb379-1"></a><span class="co">#--- syntax (NOT RUN) ---#</span></span>
-<span id="cb379-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb379-2"></a><span class="kw">exact_extract</span>(raster, sf) </span></code></pre></div>
+<div class="sourceCode" id="cb380"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb380-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb380-1"></a><span class="co">#--- syntax (NOT RUN) ---#</span></span>
+<span id="cb380-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb380-2"></a><span class="kw">exact_extract</span>(raster, sf) </span></code></pre></div>
 <p>So, to get tmax values from the PRISM raster layer for Kansas county polygons, the following does the job:</p>
-<div class="sourceCode" id="cb380"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb380-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb380-1"></a><span class="co">#--- convert to a RasterLayer ---#</span></span>
-<span id="cb380-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb380-2"></a>prism_tmax_<span class="dv">0701</span>_KS_rl &lt;-<span class="st"> </span><span class="kw">raster</span>(prism_tmax_<span class="dv">0701</span>_KS_sr)</span>
-<span id="cb380-3"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb380-3"></a></span>
-<span id="cb380-4"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb380-4"></a><span class="kw">library</span>(<span class="st">&quot;exactextractr&quot;</span>)</span>
-<span id="cb380-5"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb380-5"></a></span>
-<span id="cb380-6"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb380-6"></a><span class="co">#--- extract values from the raster for each county ---#</span></span>
-<span id="cb380-7"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb380-7"></a>tmax_by_county &lt;-<span class="st"> </span><span class="kw">exact_extract</span>(prism_tmax_<span class="dv">0701</span>_KS_rl, KS_county_sf)  </span>
-<span id="cb380-8"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb380-8"></a></span>
-<span id="cb380-9"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb380-9"></a><span class="co">#--- take a look at the first 6 rows of the first two list elements ---#</span></span>
-<span id="cb380-10"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb380-10"></a>tmax_by_county[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">lapply</span>(<span class="cf">function</span>(x) <span class="kw">head</span>(x))</span></code></pre></div>
+<div class="sourceCode" id="cb381"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb381-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb381-1"></a><span class="co">#--- convert to a RasterLayer ---#</span></span>
+<span id="cb381-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb381-2"></a>prism_tmax_<span class="dv">0701</span>_KS_rl &lt;-<span class="st"> </span><span class="kw">raster</span>(prism_tmax_<span class="dv">0701</span>_KS_sr)</span>
+<span id="cb381-3"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb381-3"></a></span>
+<span id="cb381-4"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb381-4"></a><span class="kw">library</span>(<span class="st">&quot;exactextractr&quot;</span>)</span>
+<span id="cb381-5"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb381-5"></a></span>
+<span id="cb381-6"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb381-6"></a><span class="co">#--- extract values from the raster for each county ---#</span></span>
+<span id="cb381-7"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb381-7"></a>tmax_by_county &lt;-<span class="st"> </span><span class="kw">exact_extract</span>(prism_tmax_<span class="dv">0701</span>_KS_rl, KS_county_sf)  </span>
+<span id="cb381-8"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb381-8"></a></span>
+<span id="cb381-9"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb381-9"></a><span class="co">#--- take a look at the first 6 rows of the first two list elements ---#</span></span>
+<span id="cb381-10"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb381-10"></a>tmax_by_county[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">lapply</span>(<span class="cf">function</span>(x) <span class="kw">head</span>(x))</span></code></pre></div>
 <pre><code>[[1]]
    value coverage_fraction
-1 34.431         0.1455645
-2 34.605         0.4065359
-3 34.672         0.3808859
-4 34.599         0.3552359
-5 34.678         0.3295859
-6 34.666         0.3039359
+1 33.669        0.05508952
+2 33.729        0.40033439
+3 33.805        0.40245542
+4 33.817        0.40013212
+5 33.819        0.39828768
+6 33.893        0.40295100
 
 [[2]]
    value coverage_fraction
-1 35.404        0.04257641
-2 35.316        0.95364380
-3 35.289        0.95364380
-4 35.072        0.95364380
-5 35.014        0.95364380
-6 34.995        0.95364380</code></pre>
+1 33.253        0.05477130
+2 33.292        0.08201632
+3 33.390        0.08075412
+4 33.443        0.08251677
+5 33.511        0.08167925
+6 33.512        0.08369426</code></pre>
 <p><code>exact_extract()</code> returns a list, where its <span class="math inline">\(i\)</span>th element corresponds to the <span class="math inline">\(i\)</span>th row of observation in the polygon data (<code>KS_county_sf</code>). For each element of the list, you see <code>value</code> and <code>coverage_fraction</code>. <code>value</code> is the tmax value of the intersecting raster cells, and <code>coverage_fraction</code> is the fraction of the intersecting area relative to the full raster grid, which can help find coverage-weighted summary of the extracted values.</p>
-<div class="sourceCode" id="cb382"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb382-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb382-1"></a><span class="co">#--- combine ---#</span></span>
-<span id="cb382-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb382-2"></a>tmax_combined &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(tmax_by_county, <span class="dt">.id =</span> <span class="st">&quot;id&quot;</span>)</span>
-<span id="cb382-3"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb382-3"></a></span>
-<span id="cb382-4"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb382-4"></a><span class="co">#--- take a look ---#</span></span>
-<span id="cb382-5"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb382-5"></a><span class="kw">head</span>(tmax_combined)</span></code></pre></div>
+<div class="sourceCode" id="cb383"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb383-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb383-1"></a><span class="co">#--- combine ---#</span></span>
+<span id="cb383-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb383-2"></a>tmax_combined &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(tmax_by_county, <span class="dt">.id =</span> <span class="st">&quot;id&quot;</span>)</span>
+<span id="cb383-3"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb383-3"></a></span>
+<span id="cb383-4"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb383-4"></a><span class="co">#--- take a look ---#</span></span>
+<span id="cb383-5"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb383-5"></a><span class="kw">head</span>(tmax_combined)</span></code></pre></div>
 <pre><code>  id  value coverage_fraction
-1  1 34.431         0.1455645
-2  1 34.605         0.4065359
-3  1 34.672         0.3808859
-4  1 34.599         0.3552359
-5  1 34.678         0.3295859
-6  1 34.666         0.3039359</code></pre>
+1  1 33.669        0.05508952
+2  1 33.729        0.40033439
+3  1 33.805        0.40245542
+4  1 33.817        0.40013212
+5  1 33.819        0.39828768
+6  1 33.893        0.40295100</code></pre>
 <p>We can now summarize the data by <code>id</code>. Here, we calculate coverage-weighted mean of tmax.</p>
-<div class="sourceCode" id="cb384"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb384-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb384-1"></a>tmax_by_id &lt;-<span class="st"> </span>tmax_combined <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb384-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb384-2"></a><span class="st">  </span><span class="co">#--- convert from character to numeric  ---#</span></span>
-<span id="cb384-3"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb384-3"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">id =</span> <span class="kw">as.numeric</span>(id)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb384-4"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb384-4"></a><span class="st">  </span><span class="co">#--- group summary ---#</span></span>
-<span id="cb384-5"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb384-5"></a><span class="st">  </span><span class="kw">group_by</span>(id) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb384-6"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb384-6"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">tmax =</span> <span class="kw">sum</span>(value <span class="op">*</span><span class="st"> </span>coverage_fraction) <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(coverage_fraction))</span>
-<span id="cb384-7"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb384-7"></a></span>
-<span id="cb384-8"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb384-8"></a><span class="co">#--- take a look ---#</span></span>
-<span id="cb384-9"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb384-9"></a><span class="kw">head</span>(tmax_by_id)</span></code></pre></div>
+<div class="sourceCode" id="cb385"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb385-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb385-1"></a>tmax_by_id &lt;-<span class="st"> </span>tmax_combined <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb385-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb385-2"></a><span class="st">  </span><span class="co">#--- convert from character to numeric  ---#</span></span>
+<span id="cb385-3"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb385-3"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">id =</span> <span class="kw">as.numeric</span>(id)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb385-4"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb385-4"></a><span class="st">  </span><span class="co">#--- group summary ---#</span></span>
+<span id="cb385-5"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb385-5"></a><span class="st">  </span><span class="kw">group_by</span>(id) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb385-6"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb385-6"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">tmax =</span> <span class="kw">sum</span>(value <span class="op">*</span><span class="st"> </span>coverage_fraction) <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(coverage_fraction))</span>
+<span id="cb385-7"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb385-7"></a></span>
+<span id="cb385-8"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb385-8"></a><span class="co">#--- take a look ---#</span></span>
+<span id="cb385-9"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb385-9"></a><span class="kw">head</span>(tmax_by_id)</span></code></pre></div>
 <pre><code># A tibble: 6 x 2
      id  tmax
   &lt;dbl&gt; &lt;dbl&gt;
-1     1  34.3
-2     2  34.9
-3     3  35.3
-4     4  34.1
-5     5  32.9
+1     1  33.9
+2     2  33.9
+3     3  32.9
+4     4  30.8
+5     5  34.0
 6     6  34.8</code></pre>
 <p>Remember that <code>id</code> values are row numbers in the polygon data (<code>KS_county_sf</code>). So, we can assign the tmax values to KS_county_sf as follows:</p>
-<div class="sourceCode" id="cb386"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb386-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb386-1"></a>KS_county_sf<span class="op">$</span>tmax_<span class="dv">07</span>_<span class="dv">01</span> &lt;-<span class="st"> </span>tmax_by_id<span class="op">$</span>tmax</span></code></pre></div>
+<div class="sourceCode" id="cb387"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb387-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb387-1"></a>KS_county_sf<span class="op">$</span>tmax_<span class="dv">07</span>_<span class="dv">01</span> &lt;-<span class="st"> </span>tmax_by_id<span class="op">$</span>tmax</span></code></pre></div>
 <hr />
 <p>Extracting values from <code>RasterStack</code> works in exactly the same manner as <code>RasterLayer</code>. Do not forget that you need to use <code>stack()</code> instead of <code>raster()</code> to convert a multi-layer <code>SpatRaster</code> to <code>RasterStack</code>.</p>
-<div class="sourceCode" id="cb387"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb387-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb387-1"></a>tmax_by_county_stack &lt;-<span class="st"> </span><span class="kw">stack</span>(prism_tmax_stack) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># convert to RasterStack</span></span>
-<span id="cb387-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb387-2"></a><span class="st">  </span><span class="co">#--- extract from a stack ---#</span></span>
-<span id="cb387-3"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb387-3"></a><span class="st">  </span><span class="kw">exact_extract</span>(., KS_county_sf, <span class="dt">progress =</span> F) </span>
-<span id="cb387-4"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb387-4"></a></span>
-<span id="cb387-5"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb387-5"></a><span class="co">#--- take a look at the first 6 lines of the first element---#</span></span>
-<span id="cb387-6"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb387-6"></a>tmax_by_county_stack[[<span class="dv">1</span>]] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb388"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb388-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb388-1"></a>tmax_by_county_stack &lt;-<span class="st"> </span><span class="kw">stack</span>(prism_tmax_stack) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># convert to RasterStack</span></span>
+<span id="cb388-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb388-2"></a><span class="st">  </span><span class="co">#--- extract from a stack ---#</span></span>
+<span id="cb388-3"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb388-3"></a><span class="st">  </span><span class="kw">exact_extract</span>(., KS_county_sf, <span class="dt">progress =</span> F) </span>
+<span id="cb388-4"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb388-4"></a></span>
+<span id="cb388-5"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb388-5"></a><span class="co">#--- take a look at the first 6 lines of the first element---#</span></span>
+<span id="cb388-6"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb388-6"></a>tmax_by_county_stack[[<span class="dv">1</span>]] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>()</span></code></pre></div>
 <pre><code>  PRISM_tmax_stable_4kmD2_20180701_bil PRISM_tmax_stable_4kmD2_20180702_bil
-1                               34.431                               29.558
-2                               34.605                               29.643
-3                               34.672                               29.653
-4                               34.599                               29.568
-5                               34.678                               29.580
-6                               34.666                               29.540
+1                               33.669                               30.281
+2                               33.729                               30.311
+3                               33.805                               30.333
+4                               33.817                               30.334
+5                               33.819                               30.340
+6                               33.893                               30.374
   coverage_fraction
-1         0.1455645
-2         0.4065359
-3         0.3808859
-4         0.3552359
-5         0.3295859
-6         0.3039359</code></pre>
+1        0.05508952
+2        0.40033439
+3        0.40245542
+4        0.40013212
+5        0.39828768
+6        0.40295100</code></pre>
 <p>As you can see above, <code>exact_extract()</code> appends additional columns for additional layers, unlike the results of <code>terra::extract()</code> that creates additional lists for additional layers. This makes the post-extraction processing much simpler.</p>
-<div class="sourceCode" id="cb389"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb389-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb389-1"></a><span class="co">#--- combine them ---#</span></span>
-<span id="cb389-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb389-2"></a>tmax_all_combined &lt;-<span class="st"> </span>tmax_by_county_stack <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb389-3"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb389-3"></a><span class="st">  </span><span class="kw">bind_rows</span>(<span class="dt">.id =</span> <span class="st">&quot;id&quot;</span>) </span>
-<span id="cb389-4"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb389-4"></a></span>
-<span id="cb389-5"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb389-5"></a><span class="co">#--- take a look ---#</span></span>
-<span id="cb389-6"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb389-6"></a><span class="kw">head</span>(tmax_all_combined)</span></code></pre></div>
+<div class="sourceCode" id="cb390"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb390-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb390-1"></a><span class="co">#--- combine them ---#</span></span>
+<span id="cb390-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb390-2"></a>tmax_all_combined &lt;-<span class="st"> </span>tmax_by_county_stack <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb390-3"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb390-3"></a><span class="st">  </span><span class="kw">bind_rows</span>(<span class="dt">.id =</span> <span class="st">&quot;id&quot;</span>) </span>
+<span id="cb390-4"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb390-4"></a></span>
+<span id="cb390-5"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb390-5"></a><span class="co">#--- take a look ---#</span></span>
+<span id="cb390-6"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb390-6"></a><span class="kw">head</span>(tmax_all_combined)</span></code></pre></div>
 <pre><code>  id PRISM_tmax_stable_4kmD2_20180701_bil PRISM_tmax_stable_4kmD2_20180702_bil
-1  1                               34.431                               29.558
-2  1                               34.605                               29.643
-3  1                               34.672                               29.653
-4  1                               34.599                               29.568
-5  1                               34.678                               29.580
-6  1                               34.666                               29.540
+1  1                               33.669                               30.281
+2  1                               33.729                               30.311
+3  1                               33.805                               30.333
+4  1                               33.817                               30.334
+5  1                               33.819                               30.340
+6  1                               33.893                               30.374
   coverage_fraction
-1         0.1455645
-2         0.4065359
-3         0.3808859
-4         0.3552359
-5         0.3295859
-6         0.3039359</code></pre>
+1        0.05508952
+2        0.40033439
+3        0.40245542
+4        0.40013212
+5        0.39828768
+6        0.40295100</code></pre>
 <p>In order to find the coverage-weighted tmax by date, you can first pivot it to a long format using <code>dplyr::pivot_longer()</code>.</p>
-<div class="sourceCode" id="cb391"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb391-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb391-1"></a><span class="co">#--- pivot to a longer format ---#</span></span>
-<span id="cb391-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb391-2"></a>(</span>
-<span id="cb391-3"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb391-3"></a>tmax_long &lt;-<span class="st"> </span><span class="kw">pivot_longer</span>(</span>
-<span id="cb391-4"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb391-4"></a>  tmax_all_combined, </span>
-<span id="cb391-5"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb391-5"></a>  <span class="op">-</span><span class="kw">c</span>(id, coverage_fraction), </span>
-<span id="cb391-6"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb391-6"></a>  <span class="dt">names_to =</span> <span class="st">&quot;date&quot;</span>,</span>
-<span id="cb391-7"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb391-7"></a>  <span class="dt">values_to =</span> <span class="st">&quot;tmax&quot;</span></span>
-<span id="cb391-8"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb391-8"></a>  )  </span>
-<span id="cb391-9"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb391-9"></a>)</span></code></pre></div>
-<pre><code># A tibble: 30,302 x 4
+<div class="sourceCode" id="cb392"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb392-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb392-1"></a><span class="co">#--- pivot to a longer format ---#</span></span>
+<span id="cb392-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb392-2"></a>(</span>
+<span id="cb392-3"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb392-3"></a>tmax_long &lt;-<span class="st"> </span><span class="kw">pivot_longer</span>(</span>
+<span id="cb392-4"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb392-4"></a>  tmax_all_combined, </span>
+<span id="cb392-5"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb392-5"></a>  <span class="op">-</span><span class="kw">c</span>(id, coverage_fraction), </span>
+<span id="cb392-6"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb392-6"></a>  <span class="dt">names_to =</span> <span class="st">&quot;date&quot;</span>,</span>
+<span id="cb392-7"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb392-7"></a>  <span class="dt">values_to =</span> <span class="st">&quot;tmax&quot;</span></span>
+<span id="cb392-8"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb392-8"></a>  )  </span>
+<span id="cb392-9"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb392-9"></a>)</span></code></pre></div>
+<pre><code># A tibble: 30,298 x 4
    id    coverage_fraction date                                  tmax
    &lt;chr&gt;             &lt;dbl&gt; &lt;chr&gt;                                &lt;dbl&gt;
- 1 1                 0.146 PRISM_tmax_stable_4kmD2_20180701_bil  34.4
- 2 1                 0.146 PRISM_tmax_stable_4kmD2_20180702_bil  29.6
- 3 1                 0.407 PRISM_tmax_stable_4kmD2_20180701_bil  34.6
- 4 1                 0.407 PRISM_tmax_stable_4kmD2_20180702_bil  29.6
- 5 1                 0.381 PRISM_tmax_stable_4kmD2_20180701_bil  34.7
- 6 1                 0.381 PRISM_tmax_stable_4kmD2_20180702_bil  29.7
- 7 1                 0.355 PRISM_tmax_stable_4kmD2_20180701_bil  34.6
- 8 1                 0.355 PRISM_tmax_stable_4kmD2_20180702_bil  29.6
- 9 1                 0.330 PRISM_tmax_stable_4kmD2_20180701_bil  34.7
-10 1                 0.330 PRISM_tmax_stable_4kmD2_20180702_bil  29.6
-# … with 30,292 more rows</code></pre>
+ 1 1                0.0551 PRISM_tmax_stable_4kmD2_20180701_bil  33.7
+ 2 1                0.0551 PRISM_tmax_stable_4kmD2_20180702_bil  30.3
+ 3 1                0.400  PRISM_tmax_stable_4kmD2_20180701_bil  33.7
+ 4 1                0.400  PRISM_tmax_stable_4kmD2_20180702_bil  30.3
+ 5 1                0.402  PRISM_tmax_stable_4kmD2_20180701_bil  33.8
+ 6 1                0.402  PRISM_tmax_stable_4kmD2_20180702_bil  30.3
+ 7 1                0.400  PRISM_tmax_stable_4kmD2_20180701_bil  33.8
+ 8 1                0.400  PRISM_tmax_stable_4kmD2_20180702_bil  30.3
+ 9 1                0.398  PRISM_tmax_stable_4kmD2_20180701_bil  33.8
+10 1                0.398  PRISM_tmax_stable_4kmD2_20180702_bil  30.3
+# … with 30,288 more rows</code></pre>
 <p>And then find coverage-weighted tmax by date:</p>
-<div class="sourceCode" id="cb393"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb393-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb393-1"></a>(</span>
-<span id="cb393-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb393-2"></a>tmax_long <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb393-3"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb393-3"></a><span class="st">  </span><span class="kw">group_by</span>(id, date) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb393-4"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb393-4"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">tmax =</span> <span class="kw">sum</span>(tmax <span class="op">*</span><span class="st"> </span>coverage_fraction) <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(coverage_fraction))</span>
-<span id="cb393-5"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb393-5"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb394"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb394-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb394-1"></a>(</span>
+<span id="cb394-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb394-2"></a>tmax_long <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb394-3"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb394-3"></a><span class="st">  </span><span class="kw">group_by</span>(id, date) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb394-4"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb394-4"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">tmax =</span> <span class="kw">sum</span>(tmax <span class="op">*</span><span class="st"> </span>coverage_fraction) <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(coverage_fraction))</span>
+<span id="cb394-5"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb394-5"></a>)</span></code></pre></div>
 <pre><code># A tibble: 210 x 3
 # Groups:   id [105]
    id    date                                  tmax
    &lt;chr&gt; &lt;chr&gt;                                &lt;dbl&gt;
- 1 1     PRISM_tmax_stable_4kmD2_20180701_bil  34.3
- 2 1     PRISM_tmax_stable_4kmD2_20180702_bil  29.4
- 3 10    PRISM_tmax_stable_4kmD2_20180701_bil  33.4
- 4 10    PRISM_tmax_stable_4kmD2_20180702_bil  29.6
- 5 100   PRISM_tmax_stable_4kmD2_20180701_bil  30.8
- 6 100   PRISM_tmax_stable_4kmD2_20180702_bil  29.9
- 7 101   PRISM_tmax_stable_4kmD2_20180701_bil  34.1
- 8 101   PRISM_tmax_stable_4kmD2_20180702_bil  28.6
- 9 102   PRISM_tmax_stable_4kmD2_20180701_bil  32.6
-10 102   PRISM_tmax_stable_4kmD2_20180702_bil  30.6
+ 1 1     PRISM_tmax_stable_4kmD2_20180701_bil  33.9
+ 2 1     PRISM_tmax_stable_4kmD2_20180702_bil  30.3
+ 3 10    PRISM_tmax_stable_4kmD2_20180701_bil  32.8
+ 4 10    PRISM_tmax_stable_4kmD2_20180702_bil  30.4
+ 5 100   PRISM_tmax_stable_4kmD2_20180701_bil  34.1
+ 6 100   PRISM_tmax_stable_4kmD2_20180702_bil  29.3
+ 7 101   PRISM_tmax_stable_4kmD2_20180701_bil  35.3
+ 8 101   PRISM_tmax_stable_4kmD2_20180702_bil  29.6
+ 9 102   PRISM_tmax_stable_4kmD2_20180701_bil  33.8
+10 102   PRISM_tmax_stable_4kmD2_20180702_bil  29.2
 # … with 200 more rows</code></pre>
 <p>For <code>data.table</code> users, this does the same:</p>
-<div class="sourceCode" id="cb395"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb395-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb395-1"></a>(</span>
-<span id="cb395-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb395-2"></a>tmax_all_combined <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb395-3"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb395-3"></a><span class="st">  </span><span class="kw">data.table</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb395-4"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb395-4"></a><span class="st">  </span><span class="kw">melt</span>(<span class="dt">id.var =</span> <span class="kw">c</span>(<span class="st">&quot;id&quot;</span>, <span class="st">&quot;coverage_fraction&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb395-5"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb395-5"></a><span class="st">  </span>.[, .(<span class="dt">tmax =</span> <span class="kw">sum</span>(value <span class="op">*</span><span class="st"> </span>coverage_fraction) <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(coverage_fraction)), <span class="dt">by =</span> .(id, variable)]</span>
-<span id="cb395-6"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb395-6"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb396"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb396-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb396-1"></a>(</span>
+<span id="cb396-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb396-2"></a>tmax_all_combined <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb396-3"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb396-3"></a><span class="st">  </span><span class="kw">data.table</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb396-4"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb396-4"></a><span class="st">  </span><span class="kw">melt</span>(<span class="dt">id.var =</span> <span class="kw">c</span>(<span class="st">&quot;id&quot;</span>, <span class="st">&quot;coverage_fraction&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb396-5"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb396-5"></a><span class="st">  </span>.[, .(<span class="dt">tmax =</span> <span class="kw">sum</span>(value <span class="op">*</span><span class="st"> </span>coverage_fraction) <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(coverage_fraction)), <span class="dt">by =</span> .(id, variable)]</span>
+<span id="cb396-6"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb396-6"></a>)</span></code></pre></div>
 <pre><code>      id                             variable     tmax
-  1:   1 PRISM_tmax_stable_4kmD2_20180701_bil 34.29958
-  2:   2 PRISM_tmax_stable_4kmD2_20180701_bil 34.89949
-  3:   3 PRISM_tmax_stable_4kmD2_20180701_bil 35.26522
-  4:   4 PRISM_tmax_stable_4kmD2_20180701_bil 34.10113
-  5:   5 PRISM_tmax_stable_4kmD2_20180701_bil 32.93172
+  1:   1 PRISM_tmax_stable_4kmD2_20180701_bil 33.86211
+  2:   2 PRISM_tmax_stable_4kmD2_20180701_bil 33.89363
+  3:   3 PRISM_tmax_stable_4kmD2_20180701_bil 32.86976
+  4:   4 PRISM_tmax_stable_4kmD2_20180701_bil 30.75306
+  5:   5 PRISM_tmax_stable_4kmD2_20180701_bil 34.02482
  ---                                                  
-206: 101 PRISM_tmax_stable_4kmD2_20180702_bil 28.60475
-207: 102 PRISM_tmax_stable_4kmD2_20180702_bil 30.61366
-208: 103 PRISM_tmax_stable_4kmD2_20180702_bil 29.74647
-209: 104 PRISM_tmax_stable_4kmD2_20180702_bil 29.57155
-210: 105 PRISM_tmax_stable_4kmD2_20180702_bil 29.33646</code></pre>
+206: 101 PRISM_tmax_stable_4kmD2_20180702_bil 29.59724
+207: 102 PRISM_tmax_stable_4kmD2_20180702_bil 29.17017
+208: 103 PRISM_tmax_stable_4kmD2_20180702_bil 29.59134
+209: 104 PRISM_tmax_stable_4kmD2_20180702_bil 30.22309
+210: 105 PRISM_tmax_stable_4kmD2_20180702_bil 29.85573</code></pre>
 </div>
 </div>
 <div class="footnotes">

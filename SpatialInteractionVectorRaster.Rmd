@@ -157,6 +157,7 @@ prism_tmax_0701 <- raster(prism_file)
 ```
 
 ```{r prism-tmax-map, echo = F, fig.cap = "Map of PRISM tmax data on July 1, 2018"}
+library(tmap)
 tm_shape(prism_tmax_0701) +
   tm_raster() +
   tm_layout(frame = NA)
@@ -205,13 +206,13 @@ As you can see, it consists of four points. Four pairs of these values (xmin, ym
 
 ```{r crop_prism_to_KS, cache = F}
 #--- crop the entire PRISM to its KS portion---#
-prism_tmax_0701_KS_sr <- crop(prism_tmax_0701, KS_extent)
+prism_tmax_0701_KS_rl <- crop(prism_tmax_0701, KS_extent)
 ```
 
 The figure below (Figure \@ref(fig:prism-ks-viz)) shows the PRISM tmax raster data cropped to the geographic extent of Kansas. Notice that the cropped raster layer extends beyond the outer boundary of Kansas state boundary (it is a bit hard to see, but look at the upper right corner).  
 
 ```{r prism-ks-viz, fig.cap = "PRISM tmax raster data cropped to the geographic extent of Kansas", echo = F}
-tm_shape(raster(prism_tmax_0701_KS_sr)) +
+tm_shape(prism_tmax_0701_KS_rl) +
   tm_raster() +
 tm_shape(KS_county_sf) +
   tm_polygons(alpha = 0)
@@ -306,7 +307,13 @@ You can extract values from raster layers to points using `terra::extract()`. `t
 terra::extract(raster object, st_coordinates(sf object)) 
 ```
 
-Let's extract tmax values from the PRISM tmax layer to the irrigation wells:
+Let's extract tmax values from the PRISM tmax layer (`prism_tmax_0701_KS_rl`) to the irrigation wells:
+
+Since `prism_tmax_0701_KS_rl` is a `RasterLayer`, let's first convert it into a `SpatRaster` object.
+
+```{r rl-to-sr}
+prism_tmax_0701_KS_sr <- rast(prism_tmax_0701_KS_rl)
+```
 
 ```{r extract_tmax}
 #--- extract tmax values ---#
@@ -322,7 +329,7 @@ head(tmax_from_prism)
 KS_wells$tmax_07_01 <- tmax_from_prism
 ```   
 
-Extracting values from a multi-layer `SpatRaster` works the same way. Here, we combine `prism_tmax_0701_KS_sr` and `prism_tmax_0703_KS_sr` to create a multi-layer `SpatRaster`.
+Extracting values from a multi-layer `SpatRaster` works the same way. Here, we combine `prism_tmax_0701_KS_sr` and `prism_tmax_0702_KS_sr` to create a multi-layer `SpatRaster`.
 
 ```{r extract_tmax_run_stack}
 #--- create a multi-layer SpatRaster ---#

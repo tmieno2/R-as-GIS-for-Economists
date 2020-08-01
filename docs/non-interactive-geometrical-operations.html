@@ -66,21 +66,21 @@
 <script src="libs/HomeButton-0.0.1/easy-button-src.min.js"></script>
 <script src="libs/clipboard-0.0.1/setClipboardText.js"></script>
 <link href="libs/PopupTable-0.0.1/popup.css" rel="stylesheet" />
-<script src="libs/IA_cdl_2015-1/data_stars_IA_cdl_2015492be3.txt"></script>
+<script src="libs/IA_cdl_2015-1/data_stars_IA_cdl_20157013d9.txt"></script>
 <script src="libs/joda-0.0.1/joda.js"></script>
 <script src="libs/joda-0.0.1/addImageQuery-bindings.js"></script>
-<script src="libs/IA_cdl_2016-1/data_stars_IA_cdl_2016d254a6.txt"></script>
-<script src="libs/prcp_tmax_PRISM_m8_y09["tmax", , , ] - 1-1/data_stars_prcp_tmax_PRISM_m8_y09tmax1d57104.txt"></script>
-<script src="libs/layer.1-1/data_stars_layer1ade7f0.txt"></script>
-<script src="libs/layer.2-1/data_stars_layer2a3e1c2.txt"></script>
-<script src="libs/layer.3-1/data_stars_layer39bf0c4.txt"></script>
-<script src="libs/layer.4-1/data_stars_layer4281e67.txt"></script>
-<script src="libs/layer.5-1/data_stars_layer5da8bef.txt"></script>
-<script src="libs/layer.6-1/data_stars_layer60a163b.txt"></script>
-<script src="libs/layer.7-1/data_stars_layer72c54d1.txt"></script>
-<script src="libs/layer.8-1/data_stars_layer8fc014d.txt"></script>
-<script src="libs/layer.9-1/data_stars_layer9f9bcad.txt"></script>
-<script src="libs/layer.10-1/data_stars_layer10ea3f98.txt"></script>
+<script src="libs/IA_cdl_2016-1/data_stars_IA_cdl_2016f0942b.txt"></script>
+<script src="libs/prcp_tmax_PRISM_m8_y09["tmax", , , ] - 1-1/data_stars_prcp_tmax_PRISM_m8_y09tmax15f4a23.txt"></script>
+<script src="libs/layer.1-1/data_stars_layer16e07dc.txt"></script>
+<script src="libs/layer.2-1/data_stars_layer29d3c0a.txt"></script>
+<script src="libs/layer.3-1/data_stars_layer30124e8.txt"></script>
+<script src="libs/layer.4-1/data_stars_layer4125698.txt"></script>
+<script src="libs/layer.5-1/data_stars_layer56ca504.txt"></script>
+<script src="libs/layer.6-1/data_stars_layer60b51ef.txt"></script>
+<script src="libs/layer.7-1/data_stars_layer7d85baf.txt"></script>
+<script src="libs/layer.8-1/data_stars_layer831db4a.txt"></script>
+<script src="libs/layer.9-1/data_stars_layer935e042.txt"></script>
+<script src="libs/layer.10-1/data_stars_layer102ad98c.txt"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
 <script src="libs/datatables-binding-0.13/datatables.js"></script>
 <link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
@@ -617,7 +617,7 @@ Figure 2.6: Buffers around the three counties
 geometry type:  MULTIPOLYGON
 dimension:      XY
 bbox:           xmin: 239494.1 ymin: 4430632 xmax: 310778.1 ymax: 4543676
-CRS:            EPSG:32614
+projected CRS:  WGS 84 / UTM zone 14N
   STATEFP COUNTYFP COUNTYNS       AFFGEOID GEOID    NAME LSAD      ALAND
 1      31      135 00835889 0500000US31135 31135 Perkins   06 2287828025
 2      31      029 00835836 0500000US31029 31029   Chase   06 2316533447
@@ -625,7 +625,7 @@ CRS:            EPSG:32614
    AWATER                       geometry             area
 1 2840176 MULTIPOLYGON (((243340.2 45... 2302174854 [m^2]
 2 7978172 MULTIPOLYGON (((241201.4 44... 2316908196 [m^2]
-3 3046331 MULTIPOLYGON (((240811.3 44... 2389890531 [m^2]</code></pre>
+3 3046331 MULTIPOLYGON (((240811.3 44... 2389890530 [m^2]</code></pre>
 <p>Now, as you can see below, the default class of the results of <code>st_area()</code> is <code>units</code>, which does not accept numerical operations.</p>
 <div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="non-interactive-geometrical-operations.html#cb195-1"></a><span class="kw">class</span>(NE_counties<span class="op">$</span>area)</span></code></pre></div>
 <pre><code>[1] &quot;units&quot;</code></pre>
@@ -637,7 +637,7 @@ CRS:            EPSG:32614
 geometry type:  MULTIPOLYGON
 dimension:      XY
 bbox:           xmin: 239494.1 ymin: 4430632 xmax: 310778.1 ymax: 4543676
-CRS:            EPSG:32614
+projected CRS:  WGS 84 / UTM zone 14N
   STATEFP COUNTYFP COUNTYNS       AFFGEOID GEOID    NAME LSAD      ALAND
 1      31      135 00835889 0500000US31135 31135 Perkins   06 2287828025
 2      31      029 00835836 0500000US31029 31029   Chase   06 2316533447
@@ -645,7 +645,7 @@ CRS:            EPSG:32614
    AWATER                       geometry       area
 1 2840176 MULTIPOLYGON (((243340.2 45... 2302174854
 2 7978172 MULTIPOLYGON (((241201.4 44... 2316908196
-3 3046331 MULTIPOLYGON (((240811.3 44... 2389890531</code></pre>
+3 3046331 MULTIPOLYGON (((240811.3 44... 2389890530</code></pre>
 <p><code>st_area()</code> is useful when you want to find area-weighted average of characteristics after spatially joining two polygon layers using the <code>st_intersection()</code> function (See Chapter <a href="sp-join.html#polygon-polygon">3.3.3</a>).</p>
 </div>
 <div id="st_centroid" class="section level3" number="2.9.3">
@@ -659,7 +659,7 @@ CRS:            EPSG:32614
 geometry type:  POINT
 dimension:      XY
 bbox:           xmin: 271156.7 ymin: 4450826 xmax: 276594.1 ymax: 4525635
-CRS:            EPSG:32614
+projected CRS:  WGS 84 / UTM zone 14N
   STATEFP COUNTYFP COUNTYNS       AFFGEOID GEOID    NAME LSAD      ALAND
 1      31      135 00835889 0500000US31135 31135 Perkins   06 2287828025
 2      31      029 00835836 0500000US31029 31029   Chase   06 2316533447
@@ -667,7 +667,7 @@ CRS:            EPSG:32614
    AWATER                 geometry       area
 1 2840176 POINT (276594.1 4525635) 2302174854
 2 7978172 POINT (271469.9 4489429) 2316908196
-3 3046331 POINT (271156.7 4450826) 2389890531</code></pre>
+3 3046331 POINT (271156.7 4450826) 2389890530</code></pre>
 <p>Here’s the map of the output (Figure <a href="non-interactive-geometrical-operations.html#fig:map-centroids">2.7</a>).</p>
 <div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="non-interactive-geometrical-operations.html#cb201-1"></a><span class="kw">tm_shape</span>(NE_counties) <span class="op">+</span></span>
 <span id="cb201-2"><a href="non-interactive-geometrical-operations.html#cb201-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>() <span class="op">+</span></span>
@@ -707,17 +707,17 @@ Figure 2.8: County names placed at the centroids of the counties
 <span id="cb203-2"><a href="non-interactive-geometrical-operations.html#cb203-2"></a>(</span>
 <span id="cb203-3"><a href="non-interactive-geometrical-operations.html#cb203-3"></a>a_railroad &lt;-<span class="st"> </span>rail_roads &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="dt">dsn =</span> <span class="st">&quot;./Data&quot;</span>, <span class="dt">layer =</span> <span class="st">&quot;tl_2015_us_rails&quot;</span>)[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, ]</span>
 <span id="cb203-4"><a href="non-interactive-geometrical-operations.html#cb203-4"></a>)</span></code></pre></div>
-<pre><code>Reading layer `tl_2015_us_rails&#39; from data source `/Users/tmieno2/Dropbox/TeachingUNL/RGIS_Econ/Data&#39; using driver `ESRI Shapefile&#39;
+<pre><code>Reading layer `tl_2015_us_rails&#39; from data source `/Users/tmieno2/Dropbox/TeachingUNL/R_as_GIS/Data&#39; using driver `ESRI Shapefile&#39;
 Simple feature collection with 180958 features and 3 fields
 geometry type:  MULTILINESTRING
 dimension:      XY
 bbox:           xmin: -165.4011 ymin: 17.95174 xmax: -65.74931 ymax: 65.00006
-CRS:            4269</code></pre>
+geographic CRS: NAD83</code></pre>
 <pre><code>Simple feature collection with 10 features and 3 fields
 geometry type:  MULTILINESTRING
 dimension:      XY
 bbox:           xmin: -79.74031 ymin: 35.0571 xmax: -79.2377 ymax: 35.51776
-CRS:            4269
+geographic CRS: NAD83
       LINEARID                    FULLNAME MTFCC                       geometry
 1  11020239500       Norfolk Southern Rlwy R1011 MULTILINESTRING ((-79.47058...
 2  11020239501       Norfolk Southern Rlwy R1011 MULTILINESTRING ((-79.46687...
@@ -732,19 +732,22 @@ CRS:            4269
 <div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="non-interactive-geometrical-operations.html#cb206-1"></a><span class="co">#--- check CRS ---#</span></span>
 <span id="cb206-2"><a href="non-interactive-geometrical-operations.html#cb206-2"></a><span class="kw">st_crs</span>(a_railroad)</span></code></pre></div>
 <pre><code>Coordinate Reference System:
-  User input: 4269 
+  User input: NAD83 
   wkt:
-GEOGCS[&quot;NAD83&quot;,
-    DATUM[&quot;North_American_Datum_1983&quot;,
-        SPHEROID[&quot;GRS 1980&quot;,6378137,298.257222101,
-            AUTHORITY[&quot;EPSG&quot;,&quot;7019&quot;]],
-        TOWGS84[0,0,0,0,0,0,0],
-        AUTHORITY[&quot;EPSG&quot;,&quot;6269&quot;]],
+GEOGCRS[&quot;NAD83&quot;,
+    DATUM[&quot;North American Datum 1983&quot;,
+        ELLIPSOID[&quot;GRS 1980&quot;,6378137,298.257222101,
+            LENGTHUNIT[&quot;metre&quot;,1]]],
     PRIMEM[&quot;Greenwich&quot;,0,
-        AUTHORITY[&quot;EPSG&quot;,&quot;8901&quot;]],
-    UNIT[&quot;degree&quot;,0.0174532925199433,
-        AUTHORITY[&quot;EPSG&quot;,&quot;9122&quot;]],
-    AUTHORITY[&quot;EPSG&quot;,&quot;4269&quot;]]</code></pre>
+        ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
+    CS[ellipsoidal,2],
+        AXIS[&quot;latitude&quot;,north,
+            ORDER[1],
+            ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
+        AXIS[&quot;longitude&quot;,east,
+            ORDER[2],
+            ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
+    ID[&quot;EPSG&quot;,4269]]</code></pre>
 <p>It uses geodetic coordinate system. Let’s calculate the great circle distance of the lines (Chapter <a href="demo4.html#demo4">1.4</a> for a practical use case of this function).</p>
 <div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="non-interactive-geometrical-operations.html#cb208-1"></a>(</span>
 <span id="cb208-2"><a href="non-interactive-geometrical-operations.html#cb208-2"></a>a_railroad &lt;-<span class="st"> </span><span class="kw">mutate</span>(a_railroad, <span class="dt">length =</span> <span class="kw">st_length</span>(a_railroad))</span>
@@ -753,7 +756,7 @@ GEOGCS[&quot;NAD83&quot;,
 geometry type:  MULTILINESTRING
 dimension:      XY
 bbox:           xmin: -79.74031 ymin: 35.0571 xmax: -79.2377 ymax: 35.51776
-CRS:            4269
+geographic CRS: NAD83
       LINEARID                    FULLNAME MTFCC                       geometry
 1  11020239500       Norfolk Southern Rlwy R1011 MULTILINESTRING ((-79.47058...
 2  11020239501       Norfolk Southern Rlwy R1011 MULTILINESTRING ((-79.46687...

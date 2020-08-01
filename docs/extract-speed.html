@@ -66,21 +66,21 @@
 <script src="libs/HomeButton-0.0.1/easy-button-src.min.js"></script>
 <script src="libs/clipboard-0.0.1/setClipboardText.js"></script>
 <link href="libs/PopupTable-0.0.1/popup.css" rel="stylesheet" />
-<script src="libs/IA_cdl_2015-1/data_stars_IA_cdl_2015492be3.txt"></script>
+<script src="libs/IA_cdl_2015-1/data_stars_IA_cdl_20157013d9.txt"></script>
 <script src="libs/joda-0.0.1/joda.js"></script>
 <script src="libs/joda-0.0.1/addImageQuery-bindings.js"></script>
-<script src="libs/IA_cdl_2016-1/data_stars_IA_cdl_2016d254a6.txt"></script>
-<script src="libs/prcp_tmax_PRISM_m8_y09["tmax", , , ] - 1-1/data_stars_prcp_tmax_PRISM_m8_y09tmax1d57104.txt"></script>
-<script src="libs/layer.1-1/data_stars_layer1ade7f0.txt"></script>
-<script src="libs/layer.2-1/data_stars_layer2a3e1c2.txt"></script>
-<script src="libs/layer.3-1/data_stars_layer39bf0c4.txt"></script>
-<script src="libs/layer.4-1/data_stars_layer4281e67.txt"></script>
-<script src="libs/layer.5-1/data_stars_layer5da8bef.txt"></script>
-<script src="libs/layer.6-1/data_stars_layer60a163b.txt"></script>
-<script src="libs/layer.7-1/data_stars_layer72c54d1.txt"></script>
-<script src="libs/layer.8-1/data_stars_layer8fc014d.txt"></script>
-<script src="libs/layer.9-1/data_stars_layer9f9bcad.txt"></script>
-<script src="libs/layer.10-1/data_stars_layer10ea3f98.txt"></script>
+<script src="libs/IA_cdl_2016-1/data_stars_IA_cdl_2016f0942b.txt"></script>
+<script src="libs/prcp_tmax_PRISM_m8_y09["tmax", , , ] - 1-1/data_stars_prcp_tmax_PRISM_m8_y09tmax15f4a23.txt"></script>
+<script src="libs/layer.1-1/data_stars_layer16e07dc.txt"></script>
+<script src="libs/layer.2-1/data_stars_layer29d3c0a.txt"></script>
+<script src="libs/layer.3-1/data_stars_layer30124e8.txt"></script>
+<script src="libs/layer.4-1/data_stars_layer4125698.txt"></script>
+<script src="libs/layer.5-1/data_stars_layer56ca504.txt"></script>
+<script src="libs/layer.6-1/data_stars_layer60b51ef.txt"></script>
+<script src="libs/layer.7-1/data_stars_layer7d85baf.txt"></script>
+<script src="libs/layer.8-1/data_stars_layer831db4a.txt"></script>
+<script src="libs/layer.9-1/data_stars_layer935e042.txt"></script>
+<script src="libs/layer.10-1/data_stars_layer102ad98c.txt"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
 <script src="libs/datatables-binding-0.13/datatables.js"></script>
 <link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
@@ -542,75 +542,75 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="points-terraextract-and-rasterextract" class="section level3" number="5.3.1">
 <h3><span class="header-section-number">5.3.1</span> Points: <code>terra::extract()</code> and <code>raster::extract()</code></h3>
 <p><code>exact_extract()</code> uses C++ as the backend. Therefore, it is considerably faster than <code>raster::extract()</code>.</p>
-<div class="sourceCode" id="cb397"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb397-1"><a href="extract-speed.html#cb397-1"></a><span class="co">#--- terra ---#</span></span>
-<span id="cb397-2"><a href="extract-speed.html#cb397-2"></a><span class="kw">tic</span>()</span>
-<span id="cb397-3"><a href="extract-speed.html#cb397-3"></a>temp &lt;-<span class="st"> </span>terra<span class="op">::</span><span class="kw">extract</span>(prism_tmax_<span class="dv">0701</span>_KS_sr, <span class="kw">st_coordinates</span>(KS_wells))</span>
-<span id="cb397-4"><a href="extract-speed.html#cb397-4"></a><span class="kw">toc</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb398"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb398-1"><a href="extract-speed.html#cb398-1"></a><span class="co">#--- terra ---#</span></span>
+<span id="cb398-2"><a href="extract-speed.html#cb398-2"></a><span class="kw">tic</span>()</span>
+<span id="cb398-3"><a href="extract-speed.html#cb398-3"></a>temp &lt;-<span class="st"> </span>terra<span class="op">::</span><span class="kw">extract</span>(prism_tmax_<span class="dv">0701</span>_KS_sr, <span class="kw">st_coordinates</span>(KS_wells))</span>
+<span id="cb398-4"><a href="extract-speed.html#cb398-4"></a><span class="kw">toc</span>()</span></code></pre></div>
 <pre><code>0.008 sec elapsed</code></pre>
-<div class="sourceCode" id="cb399"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb399-1"><a href="extract-speed.html#cb399-1"></a><span class="co">#--- raster ---#</span></span>
-<span id="cb399-2"><a href="extract-speed.html#cb399-2"></a><span class="kw">tic</span>()</span>
-<span id="cb399-3"><a href="extract-speed.html#cb399-3"></a>temp &lt;-<span class="st"> </span>raster<span class="op">::</span><span class="kw">extract</span>(<span class="kw">raster</span>(prism_tmax_<span class="dv">0701</span>_KS_sr), KS_wells)</span>
-<span id="cb399-4"><a href="extract-speed.html#cb399-4"></a><span class="kw">toc</span>()</span></code></pre></div>
-<pre><code>0.393 sec elapsed</code></pre>
+<div class="sourceCode" id="cb400"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb400-1"><a href="extract-speed.html#cb400-1"></a><span class="co">#--- raster ---#</span></span>
+<span id="cb400-2"><a href="extract-speed.html#cb400-2"></a><span class="kw">tic</span>()</span>
+<span id="cb400-3"><a href="extract-speed.html#cb400-3"></a>temp &lt;-<span class="st"> </span>raster<span class="op">::</span><span class="kw">extract</span>(<span class="kw">raster</span>(prism_tmax_<span class="dv">0701</span>_KS_sr), KS_wells)</span>
+<span id="cb400-4"><a href="extract-speed.html#cb400-4"></a><span class="kw">toc</span>()</span></code></pre></div>
+<pre><code>0.317 sec elapsed</code></pre>
 <p>As you can see, <code>terra::extract()</code> is much faster. The time differential between the two packages can be substantial as the raster data becomes larger.</p>
 </div>
 <div id="polygons-exact_extract-terraextract-and-rasterextract" class="section level3" number="5.3.2">
 <h3><span class="header-section-number">5.3.2</span> Polygons: <code>exact_extract()</code>, <code>terra::extract()</code>, and <code>raster::extract()</code></h3>
 <p><code>terra::extract()</code> is faster than <code>exact_extract()</code> for a relatively small raster data. Let’s time them and see the difference.</p>
-<div class="sourceCode" id="cb401"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb401-1"><a href="extract-speed.html#cb401-1"></a><span class="kw">library</span>(tictoc)</span>
-<span id="cb401-2"><a href="extract-speed.html#cb401-2"></a></span>
-<span id="cb401-3"><a href="extract-speed.html#cb401-3"></a><span class="co">#--- terra extract ---#</span></span>
-<span id="cb401-4"><a href="extract-speed.html#cb401-4"></a><span class="kw">tic</span>()</span>
-<span id="cb401-5"><a href="extract-speed.html#cb401-5"></a>terra_extract_temp &lt;-<span class="st"> </span>terra<span class="op">::</span><span class="kw">extract</span>(prism_tmax_<span class="dv">0701</span>_KS_sr, KS_county_sv, <span class="dt">progress =</span> <span class="ot">FALSE</span>)  </span>
-<span id="cb401-6"><a href="extract-speed.html#cb401-6"></a><span class="kw">toc</span>()</span></code></pre></div>
-<pre><code>0.049 sec elapsed</code></pre>
-<div class="sourceCode" id="cb403"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb403-1"><a href="extract-speed.html#cb403-1"></a><span class="co">#--- exact extract ---#</span></span>
-<span id="cb403-2"><a href="extract-speed.html#cb403-2"></a><span class="kw">tic</span>()</span>
-<span id="cb403-3"><a href="extract-speed.html#cb403-3"></a>exact_extract_temp &lt;-<span class="st"> </span><span class="kw">exact_extract</span>(prism_tmax_<span class="dv">0701</span>_KS_rl, KS_county_sf, <span class="dt">progress =</span> <span class="ot">FALSE</span>)  </span>
-<span id="cb403-4"><a href="extract-speed.html#cb403-4"></a><span class="kw">toc</span>()</span></code></pre></div>
-<pre><code>0.368 sec elapsed</code></pre>
-<div class="sourceCode" id="cb405"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb405-1"><a href="extract-speed.html#cb405-1"></a><span class="co">#--- raster::extract ---#</span></span>
-<span id="cb405-2"><a href="extract-speed.html#cb405-2"></a><span class="kw">tic</span>()</span>
-<span id="cb405-3"><a href="extract-speed.html#cb405-3"></a>raster_extract_temp &lt;-<span class="st"> </span>raster<span class="op">::</span><span class="kw">extract</span>(prism_tmax_<span class="dv">0701</span>_KS_rl, KS_county_sf)  </span>
-<span id="cb405-4"><a href="extract-speed.html#cb405-4"></a><span class="kw">toc</span>()</span></code></pre></div>
-<pre><code>3.176 sec elapsed</code></pre>
+<div class="sourceCode" id="cb402"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb402-1"><a href="extract-speed.html#cb402-1"></a><span class="kw">library</span>(tictoc)</span>
+<span id="cb402-2"><a href="extract-speed.html#cb402-2"></a></span>
+<span id="cb402-3"><a href="extract-speed.html#cb402-3"></a><span class="co">#--- terra extract ---#</span></span>
+<span id="cb402-4"><a href="extract-speed.html#cb402-4"></a><span class="kw">tic</span>()</span>
+<span id="cb402-5"><a href="extract-speed.html#cb402-5"></a>terra_extract_temp &lt;-<span class="st"> </span>terra<span class="op">::</span><span class="kw">extract</span>(prism_tmax_<span class="dv">0701</span>_KS_sr, KS_county_sv, <span class="dt">progress =</span> <span class="ot">FALSE</span>)  </span>
+<span id="cb402-6"><a href="extract-speed.html#cb402-6"></a><span class="kw">toc</span>()</span></code></pre></div>
+<pre><code>0.479 sec elapsed</code></pre>
+<div class="sourceCode" id="cb404"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb404-1"><a href="extract-speed.html#cb404-1"></a><span class="co">#--- exact extract ---#</span></span>
+<span id="cb404-2"><a href="extract-speed.html#cb404-2"></a><span class="kw">tic</span>()</span>
+<span id="cb404-3"><a href="extract-speed.html#cb404-3"></a>exact_extract_temp &lt;-<span class="st"> </span><span class="kw">exact_extract</span>(prism_tmax_<span class="dv">0701</span>_KS_rl, KS_county_sf, <span class="dt">progress =</span> <span class="ot">FALSE</span>)  </span>
+<span id="cb404-4"><a href="extract-speed.html#cb404-4"></a><span class="kw">toc</span>()</span></code></pre></div>
+<pre><code>0.06 sec elapsed</code></pre>
+<div class="sourceCode" id="cb406"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb406-1"><a href="extract-speed.html#cb406-1"></a><span class="co">#--- raster::extract ---#</span></span>
+<span id="cb406-2"><a href="extract-speed.html#cb406-2"></a><span class="kw">tic</span>()</span>
+<span id="cb406-3"><a href="extract-speed.html#cb406-3"></a>raster_extract_temp &lt;-<span class="st"> </span>raster<span class="op">::</span><span class="kw">extract</span>(prism_tmax_<span class="dv">0701</span>_KS_rl, KS_county_sf)  </span>
+<span id="cb406-4"><a href="extract-speed.html#cb406-4"></a><span class="kw">toc</span>()</span></code></pre></div>
+<pre><code>2.368 sec elapsed</code></pre>
 <p>As you can see, <code>raster::extract()</code> is by far the slowest. <code>terra::extract()</code> is faster than <code>exact_extract()</code>. However, once the raster data becomes larger (or spatially finer), then <code>exact_extact()</code> starts to shine.</p>
 <hr />
 <p>Let’s disaggregate the prism data by a factor of 10 to create a much larger raster data.<a href="#fn82" class="footnote-ref" id="fnref82"><sup>82</sup></a></p>
-<div class="sourceCode" id="cb407"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb407-1"><a href="extract-speed.html#cb407-1"></a><span class="co">#--- disaggregate ---#</span></span>
-<span id="cb407-2"><a href="extract-speed.html#cb407-2"></a>(</span>
-<span id="cb407-3"><a href="extract-speed.html#cb407-3"></a>prism_tmax_<span class="dv">0701</span>_KS_sr_<span class="dv">10</span> &lt;-<span class="st"> </span>terra<span class="op">::</span><span class="kw">disaggregate</span>(prism_tmax_<span class="dv">0701</span>_KS_sr, <span class="dt">fact =</span> <span class="dv">10</span>)</span>
-<span id="cb407-4"><a href="extract-speed.html#cb407-4"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb408-1"><a href="extract-speed.html#cb408-1"></a><span class="co">#--- disaggregate ---#</span></span>
+<span id="cb408-2"><a href="extract-speed.html#cb408-2"></a>(</span>
+<span id="cb408-3"><a href="extract-speed.html#cb408-3"></a>prism_tmax_<span class="dv">0701</span>_KS_sr_<span class="dv">10</span> &lt;-<span class="st"> </span>terra<span class="op">::</span><span class="kw">disaggregate</span>(prism_tmax_<span class="dv">0701</span>_KS_sr, <span class="dt">fact =</span> <span class="dv">10</span>)</span>
+<span id="cb408-4"><a href="extract-speed.html#cb408-4"></a>)</span></code></pre></div>
 <pre><code>class       : SpatRaster 
 dimensions  : 730, 1790, 1  (nrow, ncol, nlyr)
 resolution  : 0.004166667, 0.004166667  (x, y)
 extent      : -102.0625, -94.60417, 36.97917, 40.02083  (xmin, xmax, ymin, ymax)
-coord. ref. : +proj=longlat +datum=NAD83 +no_defs  
+coord. ref. : +proj=longlat +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +no_defs 
 data source : memory 
 names       : PRISM_tmax_stable_4kmD2_20180701_bil 
 min values  :                               27.711 
 max values  :                               37.656 </code></pre>
-<div class="sourceCode" id="cb409"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb409-1"><a href="extract-speed.html#cb409-1"></a><span class="co">#--- convert the disaggregated PRISM data to RasterLayer ---#</span></span>
-<span id="cb409-2"><a href="extract-speed.html#cb409-2"></a>prism_tmax_<span class="dv">0701</span>_KS_rl_<span class="dv">10</span> &lt;-<span class="st"> </span><span class="kw">raster</span>(prism_tmax_<span class="dv">0701</span>_KS_sr_<span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb410-1"><a href="extract-speed.html#cb410-1"></a><span class="co">#--- convert the disaggregated PRISM data to RasterLayer ---#</span></span>
+<span id="cb410-2"><a href="extract-speed.html#cb410-2"></a>prism_tmax_<span class="dv">0701</span>_KS_rl_<span class="dv">10</span> &lt;-<span class="st"> </span><span class="kw">raster</span>(prism_tmax_<span class="dv">0701</span>_KS_sr_<span class="dv">10</span>)</span></code></pre></div>
 <p>The disaggregated PRISM data now has 10 times more rows and columns (see below).</p>
-<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb410-1"><a href="extract-speed.html#cb410-1"></a><span class="co">#--- original ---#</span></span>
-<span id="cb410-2"><a href="extract-speed.html#cb410-2"></a><span class="kw">dim</span>(prism_tmax_<span class="dv">0701</span>_KS_sr)  </span></code></pre></div>
+<div class="sourceCode" id="cb411"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb411-1"><a href="extract-speed.html#cb411-1"></a><span class="co">#--- original ---#</span></span>
+<span id="cb411-2"><a href="extract-speed.html#cb411-2"></a><span class="kw">dim</span>(prism_tmax_<span class="dv">0701</span>_KS_sr)  </span></code></pre></div>
 <pre><code>[1]  73 179   1</code></pre>
-<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb412-1"><a href="extract-speed.html#cb412-1"></a><span class="co">#--- disaggregated ---#</span></span>
-<span id="cb412-2"><a href="extract-speed.html#cb412-2"></a><span class="kw">dim</span>(prism_tmax_<span class="dv">0701</span>_KS_sr_<span class="dv">10</span>)  </span></code></pre></div>
+<div class="sourceCode" id="cb413"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb413-1"><a href="extract-speed.html#cb413-1"></a><span class="co">#--- disaggregated ---#</span></span>
+<span id="cb413-2"><a href="extract-speed.html#cb413-2"></a><span class="kw">dim</span>(prism_tmax_<span class="dv">0701</span>_KS_sr_<span class="dv">10</span>)  </span></code></pre></div>
 <pre><code>[1]  730 1790    1</code></pre>
 <hr />
 <p>Now, let’s compare <code>terra::extrct()</code> and <code>exact_extrct()</code> using the disaggregated data.</p>
-<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb414-1"><a href="extract-speed.html#cb414-1"></a><span class="co">#--- terra extract ---#</span></span>
-<span id="cb414-2"><a href="extract-speed.html#cb414-2"></a><span class="kw">tic</span>()</span>
-<span id="cb414-3"><a href="extract-speed.html#cb414-3"></a>terra_extract_temp &lt;-<span class="st"> </span>terra<span class="op">::</span><span class="kw">extract</span>(prism_tmax_<span class="dv">0701</span>_KS_sr_<span class="dv">10</span>, KS_county_sv)  </span>
-<span id="cb414-4"><a href="extract-speed.html#cb414-4"></a><span class="kw">toc</span>()</span></code></pre></div>
-<pre><code>3.752 sec elapsed</code></pre>
-<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb416-1"><a href="extract-speed.html#cb416-1"></a><span class="co">#--- exact extract ---#</span></span>
-<span id="cb416-2"><a href="extract-speed.html#cb416-2"></a><span class="kw">tic</span>()</span>
-<span id="cb416-3"><a href="extract-speed.html#cb416-3"></a>exact_extract_temp &lt;-<span class="st"> </span><span class="kw">exact_extract</span>(prism_tmax_<span class="dv">0701</span>_KS_rl_<span class="dv">10</span>, KS_county_sf, <span class="dt">progress =</span> <span class="ot">FALSE</span>)  </span>
-<span id="cb416-4"><a href="extract-speed.html#cb416-4"></a><span class="kw">toc</span>()</span></code></pre></div>
-<pre><code>0.567 sec elapsed</code></pre>
+<div class="sourceCode" id="cb415"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb415-1"><a href="extract-speed.html#cb415-1"></a><span class="co">#--- terra extract ---#</span></span>
+<span id="cb415-2"><a href="extract-speed.html#cb415-2"></a><span class="kw">tic</span>()</span>
+<span id="cb415-3"><a href="extract-speed.html#cb415-3"></a>terra_extract_temp &lt;-<span class="st"> </span>terra<span class="op">::</span><span class="kw">extract</span>(prism_tmax_<span class="dv">0701</span>_KS_sr_<span class="dv">10</span>, KS_county_sv)  </span>
+<span id="cb415-4"><a href="extract-speed.html#cb415-4"></a><span class="kw">toc</span>()</span></code></pre></div>
+<pre><code>4.061 sec elapsed</code></pre>
+<div class="sourceCode" id="cb417"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb417-1"><a href="extract-speed.html#cb417-1"></a><span class="co">#--- exact extract ---#</span></span>
+<span id="cb417-2"><a href="extract-speed.html#cb417-2"></a><span class="kw">tic</span>()</span>
+<span id="cb417-3"><a href="extract-speed.html#cb417-3"></a>exact_extract_temp &lt;-<span class="st"> </span><span class="kw">exact_extract</span>(prism_tmax_<span class="dv">0701</span>_KS_rl_<span class="dv">10</span>, KS_county_sf, <span class="dt">progress =</span> <span class="ot">FALSE</span>)  </span>
+<span id="cb417-4"><a href="extract-speed.html#cb417-4"></a><span class="kw">toc</span>()</span></code></pre></div>
+<pre><code>0.301 sec elapsed</code></pre>
 <p>As you can see, <code>exact_extract()</code> is considerably faster. The difference in time becomes even more pronounced as the size of the raster data becomes larger and the number of polygons are greater. The time difference of several seconds seem nothing, but imagine processing PRISM files for the entire US over 20 years, then you would appreciate the speed of <code>exact_extract()</code>.</p>
 </div>
 <div id="single-layer-vs-multi-layer" class="section level3" number="5.3.3">
@@ -618,52 +618,52 @@ max values  :                               37.656 </code></pre>
 <p>Pretend that you have five dates of PRISM tmax data (here we repeat the same file five times) and would like to extract values from all of them. Extracting values from a multi-layer raster objects (<code>RasterStack</code> for <code>raster</code> package) takes less time than extracting values from the individual layers one at a time. This can be observed below.</p>
 <hr />
 <p><strong><code>terra::extract()</code></strong></p>
-<div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb418-1"><a href="extract-speed.html#cb418-1"></a><span class="co">#--- extract from 5 layers one at a time ---#</span></span>
-<span id="cb418-2"><a href="extract-speed.html#cb418-2"></a><span class="kw">tic</span>()</span>
-<span id="cb418-3"><a href="extract-speed.html#cb418-3"></a>temp &lt;-<span class="st"> </span>terra<span class="op">::</span><span class="kw">extract</span>(prism_tmax_<span class="dv">0701</span>_KS_sr_<span class="dv">10</span>, KS_county_sv)</span>
-<span id="cb418-4"><a href="extract-speed.html#cb418-4"></a>temp &lt;-<span class="st"> </span>terra<span class="op">::</span><span class="kw">extract</span>(prism_tmax_<span class="dv">0701</span>_KS_sr_<span class="dv">10</span>, KS_county_sv)</span>
-<span id="cb418-5"><a href="extract-speed.html#cb418-5"></a>temp &lt;-<span class="st"> </span>terra<span class="op">::</span><span class="kw">extract</span>(prism_tmax_<span class="dv">0701</span>_KS_sr_<span class="dv">10</span>, KS_county_sv)</span>
-<span id="cb418-6"><a href="extract-speed.html#cb418-6"></a>temp &lt;-<span class="st"> </span>terra<span class="op">::</span><span class="kw">extract</span>(prism_tmax_<span class="dv">0701</span>_KS_sr_<span class="dv">10</span>, KS_county_sv)</span>
-<span id="cb418-7"><a href="extract-speed.html#cb418-7"></a>temp &lt;-<span class="st"> </span>terra<span class="op">::</span><span class="kw">extract</span>(prism_tmax_<span class="dv">0701</span>_KS_sr_<span class="dv">10</span>, KS_county_sv)</span>
-<span id="cb418-8"><a href="extract-speed.html#cb418-8"></a><span class="kw">toc</span>()</span></code></pre></div>
-<pre><code>20.024 sec elapsed</code></pre>
-<div class="sourceCode" id="cb420"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb420-1"><a href="extract-speed.html#cb420-1"></a><span class="co">#--- extract from a 5-layer stack ---#</span></span>
-<span id="cb420-2"><a href="extract-speed.html#cb420-2"></a>prism_tmax_ml_<span class="dv">5</span> &lt;-<span class="st"> </span><span class="kw">c</span>(</span>
-<span id="cb420-3"><a href="extract-speed.html#cb420-3"></a>    prism_tmax_<span class="dv">0701</span>_KS_sr_<span class="dv">10</span>, </span>
-<span id="cb420-4"><a href="extract-speed.html#cb420-4"></a>    prism_tmax_<span class="dv">0701</span>_KS_sr_<span class="dv">10</span>, </span>
-<span id="cb420-5"><a href="extract-speed.html#cb420-5"></a>    prism_tmax_<span class="dv">0701</span>_KS_sr_<span class="dv">10</span>, </span>
-<span id="cb420-6"><a href="extract-speed.html#cb420-6"></a>    prism_tmax_<span class="dv">0701</span>_KS_sr_<span class="dv">10</span>, </span>
-<span id="cb420-7"><a href="extract-speed.html#cb420-7"></a>    prism_tmax_<span class="dv">0701</span>_KS_sr_<span class="dv">10</span></span>
-<span id="cb420-8"><a href="extract-speed.html#cb420-8"></a>  )</span>
-<span id="cb420-9"><a href="extract-speed.html#cb420-9"></a></span>
-<span id="cb420-10"><a href="extract-speed.html#cb420-10"></a><span class="kw">tic</span>()</span>
-<span id="cb420-11"><a href="extract-speed.html#cb420-11"></a>temp &lt;-<span class="st"> </span>terra<span class="op">::</span><span class="kw">extract</span>(prism_tmax_ml_<span class="dv">5</span>, KS_county_sv)</span>
-<span id="cb420-12"><a href="extract-speed.html#cb420-12"></a><span class="kw">toc</span>()</span></code></pre></div>
-<pre><code>4.839 sec elapsed</code></pre>
+<div class="sourceCode" id="cb419"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb419-1"><a href="extract-speed.html#cb419-1"></a><span class="co">#--- extract from 5 layers one at a time ---#</span></span>
+<span id="cb419-2"><a href="extract-speed.html#cb419-2"></a><span class="kw">tic</span>()</span>
+<span id="cb419-3"><a href="extract-speed.html#cb419-3"></a>temp &lt;-<span class="st"> </span>terra<span class="op">::</span><span class="kw">extract</span>(prism_tmax_<span class="dv">0701</span>_KS_sr_<span class="dv">10</span>, KS_county_sv)</span>
+<span id="cb419-4"><a href="extract-speed.html#cb419-4"></a>temp &lt;-<span class="st"> </span>terra<span class="op">::</span><span class="kw">extract</span>(prism_tmax_<span class="dv">0701</span>_KS_sr_<span class="dv">10</span>, KS_county_sv)</span>
+<span id="cb419-5"><a href="extract-speed.html#cb419-5"></a>temp &lt;-<span class="st"> </span>terra<span class="op">::</span><span class="kw">extract</span>(prism_tmax_<span class="dv">0701</span>_KS_sr_<span class="dv">10</span>, KS_county_sv)</span>
+<span id="cb419-6"><a href="extract-speed.html#cb419-6"></a>temp &lt;-<span class="st"> </span>terra<span class="op">::</span><span class="kw">extract</span>(prism_tmax_<span class="dv">0701</span>_KS_sr_<span class="dv">10</span>, KS_county_sv)</span>
+<span id="cb419-7"><a href="extract-speed.html#cb419-7"></a>temp &lt;-<span class="st"> </span>terra<span class="op">::</span><span class="kw">extract</span>(prism_tmax_<span class="dv">0701</span>_KS_sr_<span class="dv">10</span>, KS_county_sv)</span>
+<span id="cb419-8"><a href="extract-speed.html#cb419-8"></a><span class="kw">toc</span>()</span></code></pre></div>
+<pre><code>20.879 sec elapsed</code></pre>
+<div class="sourceCode" id="cb421"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb421-1"><a href="extract-speed.html#cb421-1"></a><span class="co">#--- extract from a 5-layer stack ---#</span></span>
+<span id="cb421-2"><a href="extract-speed.html#cb421-2"></a>prism_tmax_ml_<span class="dv">5</span> &lt;-<span class="st"> </span><span class="kw">c</span>(</span>
+<span id="cb421-3"><a href="extract-speed.html#cb421-3"></a>    prism_tmax_<span class="dv">0701</span>_KS_sr_<span class="dv">10</span>, </span>
+<span id="cb421-4"><a href="extract-speed.html#cb421-4"></a>    prism_tmax_<span class="dv">0701</span>_KS_sr_<span class="dv">10</span>, </span>
+<span id="cb421-5"><a href="extract-speed.html#cb421-5"></a>    prism_tmax_<span class="dv">0701</span>_KS_sr_<span class="dv">10</span>, </span>
+<span id="cb421-6"><a href="extract-speed.html#cb421-6"></a>    prism_tmax_<span class="dv">0701</span>_KS_sr_<span class="dv">10</span>, </span>
+<span id="cb421-7"><a href="extract-speed.html#cb421-7"></a>    prism_tmax_<span class="dv">0701</span>_KS_sr_<span class="dv">10</span></span>
+<span id="cb421-8"><a href="extract-speed.html#cb421-8"></a>  )</span>
+<span id="cb421-9"><a href="extract-speed.html#cb421-9"></a></span>
+<span id="cb421-10"><a href="extract-speed.html#cb421-10"></a><span class="kw">tic</span>()</span>
+<span id="cb421-11"><a href="extract-speed.html#cb421-11"></a>temp &lt;-<span class="st"> </span>terra<span class="op">::</span><span class="kw">extract</span>(prism_tmax_ml_<span class="dv">5</span>, KS_county_sv)</span>
+<span id="cb421-12"><a href="extract-speed.html#cb421-12"></a><span class="kw">toc</span>()</span></code></pre></div>
+<pre><code>4.932 sec elapsed</code></pre>
 <hr />
 <p><strong><code>exact_extract()</code></strong></p>
-<div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb422-1"><a href="extract-speed.html#cb422-1"></a><span class="co">#--- extract from 5 layers one at a time ---#</span></span>
-<span id="cb422-2"><a href="extract-speed.html#cb422-2"></a><span class="kw">tic</span>()</span>
-<span id="cb422-3"><a href="extract-speed.html#cb422-3"></a>temp &lt;-<span class="st"> </span><span class="kw">exact_extract</span>(prism_tmax_<span class="dv">0701</span>_KS_rl_<span class="dv">10</span>, KS_county_sf, <span class="dt">progress =</span> <span class="ot">FALSE</span>)</span>
-<span id="cb422-4"><a href="extract-speed.html#cb422-4"></a>temp &lt;-<span class="st"> </span><span class="kw">exact_extract</span>(prism_tmax_<span class="dv">0701</span>_KS_rl_<span class="dv">10</span>, KS_county_sf, <span class="dt">progress =</span> <span class="ot">FALSE</span>)</span>
-<span id="cb422-5"><a href="extract-speed.html#cb422-5"></a>temp &lt;-<span class="st"> </span><span class="kw">exact_extract</span>(prism_tmax_<span class="dv">0701</span>_KS_rl_<span class="dv">10</span>, KS_county_sf, <span class="dt">progress =</span> <span class="ot">FALSE</span>)</span>
-<span id="cb422-6"><a href="extract-speed.html#cb422-6"></a>temp &lt;-<span class="st"> </span><span class="kw">exact_extract</span>(prism_tmax_<span class="dv">0701</span>_KS_rl_<span class="dv">10</span>, KS_county_sf, <span class="dt">progress =</span> <span class="ot">FALSE</span>)</span>
-<span id="cb422-7"><a href="extract-speed.html#cb422-7"></a>temp &lt;-<span class="st"> </span><span class="kw">exact_extract</span>(prism_tmax_<span class="dv">0701</span>_KS_rl_<span class="dv">10</span>, KS_county_sf, <span class="dt">progress =</span> <span class="ot">FALSE</span>)</span>
-<span id="cb422-8"><a href="extract-speed.html#cb422-8"></a><span class="kw">toc</span>()</span></code></pre></div>
-<pre><code>3.104 sec elapsed</code></pre>
-<div class="sourceCode" id="cb424"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb424-1"><a href="extract-speed.html#cb424-1"></a><span class="co">#--- extract from from a 5-layer stack ---#</span></span>
-<span id="cb424-2"><a href="extract-speed.html#cb424-2"></a>prism_tmax_stack_<span class="dv">5</span> &lt;-<span class="st"> </span><span class="kw">stack</span>(</span>
-<span id="cb424-3"><a href="extract-speed.html#cb424-3"></a>    prism_tmax_<span class="dv">0701</span>_KS_rl_<span class="dv">10</span>, </span>
-<span id="cb424-4"><a href="extract-speed.html#cb424-4"></a>    prism_tmax_<span class="dv">0701</span>_KS_rl_<span class="dv">10</span>, </span>
-<span id="cb424-5"><a href="extract-speed.html#cb424-5"></a>    prism_tmax_<span class="dv">0701</span>_KS_rl_<span class="dv">10</span>, </span>
-<span id="cb424-6"><a href="extract-speed.html#cb424-6"></a>    prism_tmax_<span class="dv">0701</span>_KS_rl_<span class="dv">10</span>, </span>
-<span id="cb424-7"><a href="extract-speed.html#cb424-7"></a>    prism_tmax_<span class="dv">0701</span>_KS_rl_<span class="dv">10</span></span>
-<span id="cb424-8"><a href="extract-speed.html#cb424-8"></a>  )</span>
-<span id="cb424-9"><a href="extract-speed.html#cb424-9"></a></span>
-<span id="cb424-10"><a href="extract-speed.html#cb424-10"></a><span class="kw">tic</span>()</span>
-<span id="cb424-11"><a href="extract-speed.html#cb424-11"></a>temp &lt;-<span class="st"> </span><span class="kw">exact_extract</span>(prism_tmax_stack_<span class="dv">5</span>, KS_county_sf, <span class="dt">progress =</span> <span class="ot">FALSE</span>)</span>
-<span id="cb424-12"><a href="extract-speed.html#cb424-12"></a><span class="kw">toc</span>()</span></code></pre></div>
-<pre><code>1.031 sec elapsed</code></pre>
+<div class="sourceCode" id="cb423"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb423-1"><a href="extract-speed.html#cb423-1"></a><span class="co">#--- extract from 5 layers one at a time ---#</span></span>
+<span id="cb423-2"><a href="extract-speed.html#cb423-2"></a><span class="kw">tic</span>()</span>
+<span id="cb423-3"><a href="extract-speed.html#cb423-3"></a>temp &lt;-<span class="st"> </span><span class="kw">exact_extract</span>(prism_tmax_<span class="dv">0701</span>_KS_rl_<span class="dv">10</span>, KS_county_sf, <span class="dt">progress =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb423-4"><a href="extract-speed.html#cb423-4"></a>temp &lt;-<span class="st"> </span><span class="kw">exact_extract</span>(prism_tmax_<span class="dv">0701</span>_KS_rl_<span class="dv">10</span>, KS_county_sf, <span class="dt">progress =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb423-5"><a href="extract-speed.html#cb423-5"></a>temp &lt;-<span class="st"> </span><span class="kw">exact_extract</span>(prism_tmax_<span class="dv">0701</span>_KS_rl_<span class="dv">10</span>, KS_county_sf, <span class="dt">progress =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb423-6"><a href="extract-speed.html#cb423-6"></a>temp &lt;-<span class="st"> </span><span class="kw">exact_extract</span>(prism_tmax_<span class="dv">0701</span>_KS_rl_<span class="dv">10</span>, KS_county_sf, <span class="dt">progress =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb423-7"><a href="extract-speed.html#cb423-7"></a>temp &lt;-<span class="st"> </span><span class="kw">exact_extract</span>(prism_tmax_<span class="dv">0701</span>_KS_rl_<span class="dv">10</span>, KS_county_sf, <span class="dt">progress =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb423-8"><a href="extract-speed.html#cb423-8"></a><span class="kw">toc</span>()</span></code></pre></div>
+<pre><code>1.557 sec elapsed</code></pre>
+<div class="sourceCode" id="cb425"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb425-1"><a href="extract-speed.html#cb425-1"></a><span class="co">#--- extract from from a 5-layer stack ---#</span></span>
+<span id="cb425-2"><a href="extract-speed.html#cb425-2"></a>prism_tmax_stack_<span class="dv">5</span> &lt;-<span class="st"> </span><span class="kw">stack</span>(</span>
+<span id="cb425-3"><a href="extract-speed.html#cb425-3"></a>    prism_tmax_<span class="dv">0701</span>_KS_rl_<span class="dv">10</span>, </span>
+<span id="cb425-4"><a href="extract-speed.html#cb425-4"></a>    prism_tmax_<span class="dv">0701</span>_KS_rl_<span class="dv">10</span>, </span>
+<span id="cb425-5"><a href="extract-speed.html#cb425-5"></a>    prism_tmax_<span class="dv">0701</span>_KS_rl_<span class="dv">10</span>, </span>
+<span id="cb425-6"><a href="extract-speed.html#cb425-6"></a>    prism_tmax_<span class="dv">0701</span>_KS_rl_<span class="dv">10</span>, </span>
+<span id="cb425-7"><a href="extract-speed.html#cb425-7"></a>    prism_tmax_<span class="dv">0701</span>_KS_rl_<span class="dv">10</span></span>
+<span id="cb425-8"><a href="extract-speed.html#cb425-8"></a>  )</span>
+<span id="cb425-9"><a href="extract-speed.html#cb425-9"></a></span>
+<span id="cb425-10"><a href="extract-speed.html#cb425-10"></a><span class="kw">tic</span>()</span>
+<span id="cb425-11"><a href="extract-speed.html#cb425-11"></a>temp &lt;-<span class="st"> </span><span class="kw">exact_extract</span>(prism_tmax_stack_<span class="dv">5</span>, KS_county_sf, <span class="dt">progress =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb425-12"><a href="extract-speed.html#cb425-12"></a><span class="kw">toc</span>()</span></code></pre></div>
+<pre><code>0.581 sec elapsed</code></pre>
 <p>The reduction in computation time for both methods makes sense. Since both layers have exactly the same geographic extent and resolution, finding the polygons-cells correspondence is done once and then it can be used repeatedly across the layers for the multi-layer <code>SparRaster</code> and <code>RasterStack</code>. This clearly suggests that when you are processing many layers of the same spatial resolution and extent, you should first stack them and then extract values at the same time instead of processing them one by one as long as your memory allows you to do so.</p>
 <!-- There is much more to discuss about the computation speed of raster data extraction for polygons. For those who are interested in this topic, go to Chapter \@ref(EE). -->
 

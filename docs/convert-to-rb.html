@@ -66,21 +66,21 @@
 <script src="libs/HomeButton-0.0.1/easy-button-src.min.js"></script>
 <script src="libs/clipboard-0.0.1/setClipboardText.js"></script>
 <link href="libs/PopupTable-0.0.1/popup.css" rel="stylesheet" />
-<script src="libs/IA_cdl_2015-1/data_stars_IA_cdl_2015492be3.txt"></script>
+<script src="libs/IA_cdl_2015-1/data_stars_IA_cdl_20157013d9.txt"></script>
 <script src="libs/joda-0.0.1/joda.js"></script>
 <script src="libs/joda-0.0.1/addImageQuery-bindings.js"></script>
-<script src="libs/IA_cdl_2016-1/data_stars_IA_cdl_2016d254a6.txt"></script>
-<script src="libs/prcp_tmax_PRISM_m8_y09["tmax", , , ] - 1-1/data_stars_prcp_tmax_PRISM_m8_y09tmax1d57104.txt"></script>
-<script src="libs/layer.1-1/data_stars_layer1ade7f0.txt"></script>
-<script src="libs/layer.2-1/data_stars_layer2a3e1c2.txt"></script>
-<script src="libs/layer.3-1/data_stars_layer39bf0c4.txt"></script>
-<script src="libs/layer.4-1/data_stars_layer4281e67.txt"></script>
-<script src="libs/layer.5-1/data_stars_layer5da8bef.txt"></script>
-<script src="libs/layer.6-1/data_stars_layer60a163b.txt"></script>
-<script src="libs/layer.7-1/data_stars_layer72c54d1.txt"></script>
-<script src="libs/layer.8-1/data_stars_layer8fc014d.txt"></script>
-<script src="libs/layer.9-1/data_stars_layer9f9bcad.txt"></script>
-<script src="libs/layer.10-1/data_stars_layer10ea3f98.txt"></script>
+<script src="libs/IA_cdl_2016-1/data_stars_IA_cdl_2016f0942b.txt"></script>
+<script src="libs/prcp_tmax_PRISM_m8_y09["tmax", , , ] - 1-1/data_stars_prcp_tmax_PRISM_m8_y09tmax15f4a23.txt"></script>
+<script src="libs/layer.1-1/data_stars_layer16e07dc.txt"></script>
+<script src="libs/layer.2-1/data_stars_layer29d3c0a.txt"></script>
+<script src="libs/layer.3-1/data_stars_layer30124e8.txt"></script>
+<script src="libs/layer.4-1/data_stars_layer4125698.txt"></script>
+<script src="libs/layer.5-1/data_stars_layer56ca504.txt"></script>
+<script src="libs/layer.6-1/data_stars_layer60b51ef.txt"></script>
+<script src="libs/layer.7-1/data_stars_layer7d85baf.txt"></script>
+<script src="libs/layer.8-1/data_stars_layer831db4a.txt"></script>
+<script src="libs/layer.9-1/data_stars_layer935e042.txt"></script>
+<script src="libs/layer.10-1/data_stars_layer102ad98c.txt"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
 <script src="libs/datatables-binding-0.13/datatables.js"></script>
 <link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
@@ -539,9 +539,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="convert-to-rb" class="section level2" number="7.8">
 <h2><span class="header-section-number">7.8</span> Convert from and to <code>Raster</code><span class="math inline">\(^*\)</span> objects</h2>
 <p>When you need to convert a <code>stars</code> object to a <code>Raster</code><span class="math inline">\(^*\)</span> object, you can use the <code>as()</code> function as follows:</p>
-<div class="sourceCode" id="cb560"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb560-1"><a href="convert-to-rb.html#cb560-1"></a>(</span>
-<span id="cb560-2"><a href="convert-to-rb.html#cb560-2"></a>prcp_tmax_PRISM_m8_y09_rb &lt;-<span class="st"> </span><span class="kw">as</span>(prcp_tmax_PRISM_m8_y09, <span class="st">&quot;Raster&quot;</span>)</span>
-<span id="cb560-3"><a href="convert-to-rb.html#cb560-3"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb561"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb561-1"><a href="convert-to-rb.html#cb561-1"></a>(</span>
+<span id="cb561-2"><a href="convert-to-rb.html#cb561-2"></a>prcp_tmax_PRISM_m8_y09_rb &lt;-<span class="st"> </span><span class="kw">as</span>(prcp_tmax_PRISM_m8_y09, <span class="st">&quot;Raster&quot;</span>)</span>
+<span id="cb561-3"><a href="convert-to-rb.html#cb561-3"></a>)</span></code></pre></div>
 <pre><code>class      : RasterBrick 
 dimensions : 20, 20, 400, 10  (nrow, ncol, ncell, nlayers)
 resolution : 0.04166667, 0.04166667  (x, y)
@@ -552,9 +552,9 @@ names      : layer.1, layer.2, layer.3, layer.4, layer.5, layer.6, layer.7, laye
 min values :       0,       0,       0,       0,       0,       0,       0,       0,       0,        0 
 max values :   0.019,  18.888,  30.851,   4.287,   0.797,   0.003,   3.698,   1.801,   0.000,    0.000 </code></pre>
 <p>As you can see, date values in <code>prcp_tmax_PRISM_m8_y09</code> are lost, and the band names are not informative. Direct conversion to a <code>terra</code> object is not supported at the moment. Note also that the conversion was done for only the <code>ppt</code> attribute. This is simply because the <code>raster</code> package cannot accommodate multiple attributes of 3-dimensional array. So, if you want a <code>RasterBrick</code> of the tmax data, then you need to do the following:</p>
-<div class="sourceCode" id="cb562"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb562-1"><a href="convert-to-rb.html#cb562-1"></a>(</span>
-<span id="cb562-2"><a href="convert-to-rb.html#cb562-2"></a>tmax_PRISM_m8_y09_rb &lt;-<span class="st"> </span><span class="kw">as</span>(prcp_tmax_PRISM_m8_y09[<span class="st">&quot;tmax&quot;</span>,,,], <span class="st">&quot;Raster&quot;</span>)</span>
-<span id="cb562-3"><a href="convert-to-rb.html#cb562-3"></a>) </span></code></pre></div>
+<div class="sourceCode" id="cb563"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb563-1"><a href="convert-to-rb.html#cb563-1"></a>(</span>
+<span id="cb563-2"><a href="convert-to-rb.html#cb563-2"></a>tmax_PRISM_m8_y09_rb &lt;-<span class="st"> </span><span class="kw">as</span>(prcp_tmax_PRISM_m8_y09[<span class="st">&quot;tmax&quot;</span>,,,], <span class="st">&quot;Raster&quot;</span>)</span>
+<span id="cb563-3"><a href="convert-to-rb.html#cb563-3"></a>) </span></code></pre></div>
 <pre><code>class      : RasterBrick 
 dimensions : 20, 20, 400, 10  (nrow, ncol, ncell, nlayers)
 resolution : 0.04166667, 0.04166667  (x, y)
@@ -565,9 +565,9 @@ names      : layer.1, layer.2, layer.3, layer.4, layer.5, layer.6, layer.7, laye
 min values :  10.188,   8.811,   6.811,   3.640,   1.833,   6.780,  10.318,  14.270,  18.281,   19.818 
 max values :  29.842,  28.892,  27.123,  23.171,  21.858,  24.690,  27.740,  32.906,  35.568,   39.707 </code></pre>
 <p>You can convert a <code>Raster</code><span class="math inline">\(^*\)</span> object to a <code>stars</code> object using <code>st_as_stars()</code> (you will see a use case in Chapter <a href="daymet-with-daymetr-and-feddata.html#daymet-poly">9.4.2</a>).</p>
-<div class="sourceCode" id="cb564"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb564-1"><a href="convert-to-rb.html#cb564-1"></a>(</span>
-<span id="cb564-2"><a href="convert-to-rb.html#cb564-2"></a>tmax_PRISM_m8_y09_back_to_stars &lt;-<span class="st"> </span><span class="kw">st_as_stars</span>(tmax_PRISM_m8_y09_rb) </span>
-<span id="cb564-3"><a href="convert-to-rb.html#cb564-3"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb565"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb565-1"><a href="convert-to-rb.html#cb565-1"></a>(</span>
+<span id="cb565-2"><a href="convert-to-rb.html#cb565-2"></a>tmax_PRISM_m8_y09_back_to_stars &lt;-<span class="st"> </span><span class="kw">st_as_stars</span>(tmax_PRISM_m8_y09_rb) </span>
+<span id="cb565-3"><a href="convert-to-rb.html#cb565-3"></a>)</span></code></pre></div>
 <pre><code>stars object with 3 dimensions and 1 attribute
 attribute(s):
     layer.1      
@@ -578,14 +578,10 @@ attribute(s):
  3rd Qu.:26.543  
  Max.   :39.707  
 dimension(s):
-     from to   offset      delta                       refsys point
-x       1 20 -121.729  0.0416667 +proj=longlat +datum=NAD8...    NA
-y       1 20  46.6458 -0.0416667 +proj=longlat +datum=NAD8...    NA
-band    1 10       NA         NA                           NA    NA
-                   values    
-x                    NULL [x]
-y                    NULL [y]
-band layer.1,...,layer.10    </code></pre>
+     from to   offset      delta refsys point               values    
+x       1 20 -121.729  0.0416667  NAD83    NA                 NULL [x]
+y       1 20  46.6458 -0.0416667  NAD83    NA                 NULL [y]
+band    1 10       NA         NA     NA    NA layer.1,...,layer.10    </code></pre>
 <p>Of course, we have lost date values when we turned <code>prcp_tmax_PRISM_m8_y09["tmax",,,]</code> into <code>tmax_PRISM_m8_y09_rb</code>. So, obviously, we are not getting that back when we turned <code>tmax_PRISM_m8_y09_rb</code> back into a <code>stars</code> object.</p>
 <!-- ## `stars` in a workflow -->
 </div>

@@ -66,21 +66,21 @@
 <script src="libs/HomeButton-0.0.1/easy-button-src.min.js"></script>
 <script src="libs/clipboard-0.0.1/setClipboardText.js"></script>
 <link href="libs/PopupTable-0.0.1/popup.css" rel="stylesheet" />
-<script src="libs/IA_cdl_2015-1/data_stars_IA_cdl_2015492be3.txt"></script>
+<script src="libs/IA_cdl_2015-1/data_stars_IA_cdl_20157013d9.txt"></script>
 <script src="libs/joda-0.0.1/joda.js"></script>
 <script src="libs/joda-0.0.1/addImageQuery-bindings.js"></script>
-<script src="libs/IA_cdl_2016-1/data_stars_IA_cdl_2016d254a6.txt"></script>
-<script src="libs/prcp_tmax_PRISM_m8_y09["tmax", , , ] - 1-1/data_stars_prcp_tmax_PRISM_m8_y09tmax1d57104.txt"></script>
-<script src="libs/layer.1-1/data_stars_layer1ade7f0.txt"></script>
-<script src="libs/layer.2-1/data_stars_layer2a3e1c2.txt"></script>
-<script src="libs/layer.3-1/data_stars_layer39bf0c4.txt"></script>
-<script src="libs/layer.4-1/data_stars_layer4281e67.txt"></script>
-<script src="libs/layer.5-1/data_stars_layer5da8bef.txt"></script>
-<script src="libs/layer.6-1/data_stars_layer60a163b.txt"></script>
-<script src="libs/layer.7-1/data_stars_layer72c54d1.txt"></script>
-<script src="libs/layer.8-1/data_stars_layer8fc014d.txt"></script>
-<script src="libs/layer.9-1/data_stars_layer9f9bcad.txt"></script>
-<script src="libs/layer.10-1/data_stars_layer10ea3f98.txt"></script>
+<script src="libs/IA_cdl_2016-1/data_stars_IA_cdl_2016f0942b.txt"></script>
+<script src="libs/prcp_tmax_PRISM_m8_y09["tmax", , , ] - 1-1/data_stars_prcp_tmax_PRISM_m8_y09tmax15f4a23.txt"></script>
+<script src="libs/layer.1-1/data_stars_layer16e07dc.txt"></script>
+<script src="libs/layer.2-1/data_stars_layer29d3c0a.txt"></script>
+<script src="libs/layer.3-1/data_stars_layer30124e8.txt"></script>
+<script src="libs/layer.4-1/data_stars_layer4125698.txt"></script>
+<script src="libs/layer.5-1/data_stars_layer56ca504.txt"></script>
+<script src="libs/layer.6-1/data_stars_layer60b51ef.txt"></script>
+<script src="libs/layer.7-1/data_stars_layer7d85baf.txt"></script>
+<script src="libs/layer.8-1/data_stars_layer831db4a.txt"></script>
+<script src="libs/layer.9-1/data_stars_layer935e042.txt"></script>
+<script src="libs/layer.10-1/data_stars_layer102ad98c.txt"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
 <script src="libs/datatables-binding-0.13/datatables.js"></script>
 <link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
@@ -547,42 +547,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>Run the following code to install or load (if already installed) the <code>pacman</code> package, and then install or load (if already installed) the listed package inside the <code>pacman::p_load()</code> function.</li>
 </ul>
-<div class="sourceCode" id="cb746"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb746-1"><a href="before-you-start-8.html#cb746-1"></a><span class="cf">if</span> (<span class="op">!</span><span class="kw">require</span>(<span class="st">&quot;pacman&quot;</span>)) <span class="kw">install.packages</span>(<span class="st">&quot;pacman&quot;</span>)</span>
-<span id="cb746-2"><a href="before-you-start-8.html#cb746-2"></a>pacman<span class="op">::</span><span class="kw">p_load</span>(</span>
-<span id="cb746-3"><a href="before-you-start-8.html#cb746-3"></a>  stars, <span class="co"># spatiotemporal data handling</span></span>
-<span id="cb746-4"><a href="before-you-start-8.html#cb746-4"></a>  terra, <span class="co"># raster data handling</span></span>
-<span id="cb746-5"><a href="before-you-start-8.html#cb746-5"></a>  raster, <span class="co"># raster data handling</span></span>
-<span id="cb746-6"><a href="before-you-start-8.html#cb746-6"></a>  sf, <span class="co"># vector data handling</span></span>
-<span id="cb746-7"><a href="before-you-start-8.html#cb746-7"></a>  dplyr, <span class="co"># data wrangling</span></span>
-<span id="cb746-8"><a href="before-you-start-8.html#cb746-8"></a>  stringr, <span class="co"># string manipulation</span></span>
-<span id="cb746-9"><a href="before-you-start-8.html#cb746-9"></a>  lubridate, <span class="co"># dates handling</span></span>
-<span id="cb746-10"><a href="before-you-start-8.html#cb746-10"></a>  data.table, <span class="co"># data wrangling</span></span>
-<span id="cb746-11"><a href="before-you-start-8.html#cb746-11"></a>  tidyr, <span class="co"># reshape</span></span>
-<span id="cb746-12"><a href="before-you-start-8.html#cb746-12"></a>  tidyUSDA, <span class="co"># download USDA NASS data</span></span>
-<span id="cb746-13"><a href="before-you-start-8.html#cb746-13"></a>  keyring, <span class="co"># API key management</span></span>
-<span id="cb746-14"><a href="before-you-start-8.html#cb746-14"></a>  FedData, <span class="co"># download Daymet data</span></span>
-<span id="cb746-15"><a href="before-you-start-8.html#cb746-15"></a>  daymetr, <span class="co"># download Daymet data</span></span>
-<span id="cb746-16"><a href="before-you-start-8.html#cb746-16"></a>  ggplot2, <span class="co"># make maps</span></span>
-<span id="cb746-17"><a href="before-you-start-8.html#cb746-17"></a>  tmap, <span class="co"># make maps</span></span>
-<span id="cb746-18"><a href="before-you-start-8.html#cb746-18"></a>  future.apply, <span class="co"># parallel processing</span></span>
-<span id="cb746-19"><a href="before-you-start-8.html#cb746-19"></a>  CropScapeR, <span class="co"># download CDL data</span></span>
-<span id="cb746-20"><a href="before-you-start-8.html#cb746-20"></a>  prism <span class="co"># download PRISM data</span></span>
-<span id="cb746-21"><a href="before-you-start-8.html#cb746-21"></a>)  </span></code></pre></div>
+<div class="sourceCode" id="cb747"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb747-1"><a href="before-you-start-8.html#cb747-1"></a><span class="cf">if</span> (<span class="op">!</span><span class="kw">require</span>(<span class="st">&quot;pacman&quot;</span>)) <span class="kw">install.packages</span>(<span class="st">&quot;pacman&quot;</span>)</span>
+<span id="cb747-2"><a href="before-you-start-8.html#cb747-2"></a>pacman<span class="op">::</span><span class="kw">p_load</span>(</span>
+<span id="cb747-3"><a href="before-you-start-8.html#cb747-3"></a>  stars, <span class="co"># spatiotemporal data handling</span></span>
+<span id="cb747-4"><a href="before-you-start-8.html#cb747-4"></a>  terra, <span class="co"># raster data handling</span></span>
+<span id="cb747-5"><a href="before-you-start-8.html#cb747-5"></a>  raster, <span class="co"># raster data handling</span></span>
+<span id="cb747-6"><a href="before-you-start-8.html#cb747-6"></a>  sf, <span class="co"># vector data handling</span></span>
+<span id="cb747-7"><a href="before-you-start-8.html#cb747-7"></a>  dplyr, <span class="co"># data wrangling</span></span>
+<span id="cb747-8"><a href="before-you-start-8.html#cb747-8"></a>  stringr, <span class="co"># string manipulation</span></span>
+<span id="cb747-9"><a href="before-you-start-8.html#cb747-9"></a>  lubridate, <span class="co"># dates handling</span></span>
+<span id="cb747-10"><a href="before-you-start-8.html#cb747-10"></a>  data.table, <span class="co"># data wrangling</span></span>
+<span id="cb747-11"><a href="before-you-start-8.html#cb747-11"></a>  tidyr, <span class="co"># reshape</span></span>
+<span id="cb747-12"><a href="before-you-start-8.html#cb747-12"></a>  tidyUSDA, <span class="co"># download USDA NASS data</span></span>
+<span id="cb747-13"><a href="before-you-start-8.html#cb747-13"></a>  keyring, <span class="co"># API key management</span></span>
+<span id="cb747-14"><a href="before-you-start-8.html#cb747-14"></a>  FedData, <span class="co"># download Daymet data</span></span>
+<span id="cb747-15"><a href="before-you-start-8.html#cb747-15"></a>  daymetr, <span class="co"># download Daymet data</span></span>
+<span id="cb747-16"><a href="before-you-start-8.html#cb747-16"></a>  ggplot2, <span class="co"># make maps</span></span>
+<span id="cb747-17"><a href="before-you-start-8.html#cb747-17"></a>  tmap, <span class="co"># make maps</span></span>
+<span id="cb747-18"><a href="before-you-start-8.html#cb747-18"></a>  future.apply, <span class="co"># parallel processing</span></span>
+<span id="cb747-19"><a href="before-you-start-8.html#cb747-19"></a>  CropScapeR, <span class="co"># download CDL data</span></span>
+<span id="cb747-20"><a href="before-you-start-8.html#cb747-20"></a>  prism <span class="co"># download PRISM data</span></span>
+<span id="cb747-21"><a href="before-you-start-8.html#cb747-21"></a>)  </span></code></pre></div>
 <ul>
 <li>Run the following code to define the theme for map:</li>
 </ul>
-<div class="sourceCode" id="cb747"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb747-1"><a href="before-you-start-8.html#cb747-1"></a><span class="kw">theme_set</span>(<span class="kw">theme_bw</span>())</span>
-<span id="cb747-2"><a href="before-you-start-8.html#cb747-2"></a></span>
-<span id="cb747-3"><a href="before-you-start-8.html#cb747-3"></a>theme_for_map &lt;-<span class="st"> </span><span class="kw">theme</span>(</span>
-<span id="cb747-4"><a href="before-you-start-8.html#cb747-4"></a>  <span class="dt">axis.ticks =</span> <span class="kw">element_blank</span>(),</span>
-<span id="cb747-5"><a href="before-you-start-8.html#cb747-5"></a>  <span class="dt">axis.text=</span> <span class="kw">element_blank</span>(), </span>
-<span id="cb747-6"><a href="before-you-start-8.html#cb747-6"></a>  <span class="dt">axis.line =</span> <span class="kw">element_blank</span>(),</span>
-<span id="cb747-7"><a href="before-you-start-8.html#cb747-7"></a>  <span class="dt">panel.border =</span> <span class="kw">element_blank</span>(),</span>
-<span id="cb747-8"><a href="before-you-start-8.html#cb747-8"></a>  <span class="dt">panel.grid.major =</span> <span class="kw">element_line</span>(<span class="dt">color=</span><span class="st">&#39;transparent&#39;</span>),</span>
-<span id="cb747-9"><a href="before-you-start-8.html#cb747-9"></a>  <span class="dt">panel.grid.minor =</span> <span class="kw">element_line</span>(<span class="dt">color=</span><span class="st">&#39;transparent&#39;</span>),</span>
-<span id="cb747-10"><a href="before-you-start-8.html#cb747-10"></a>  <span class="dt">panel.background =</span> <span class="kw">element_blank</span>(),</span>
-<span id="cb747-11"><a href="before-you-start-8.html#cb747-11"></a>  <span class="dt">plot.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="st">&quot;transparent&quot;</span>,<span class="dt">color=</span><span class="st">&#39;transparent&#39;</span>)</span>
-<span id="cb747-12"><a href="before-you-start-8.html#cb747-12"></a>)  </span></code></pre></div>
+<div class="sourceCode" id="cb748"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb748-1"><a href="before-you-start-8.html#cb748-1"></a><span class="kw">theme_set</span>(<span class="kw">theme_bw</span>())</span>
+<span id="cb748-2"><a href="before-you-start-8.html#cb748-2"></a></span>
+<span id="cb748-3"><a href="before-you-start-8.html#cb748-3"></a>theme_for_map &lt;-<span class="st"> </span><span class="kw">theme</span>(</span>
+<span id="cb748-4"><a href="before-you-start-8.html#cb748-4"></a>  <span class="dt">axis.ticks =</span> <span class="kw">element_blank</span>(),</span>
+<span id="cb748-5"><a href="before-you-start-8.html#cb748-5"></a>  <span class="dt">axis.text=</span> <span class="kw">element_blank</span>(), </span>
+<span id="cb748-6"><a href="before-you-start-8.html#cb748-6"></a>  <span class="dt">axis.line =</span> <span class="kw">element_blank</span>(),</span>
+<span id="cb748-7"><a href="before-you-start-8.html#cb748-7"></a>  <span class="dt">panel.border =</span> <span class="kw">element_blank</span>(),</span>
+<span id="cb748-8"><a href="before-you-start-8.html#cb748-8"></a>  <span class="dt">panel.grid.major =</span> <span class="kw">element_line</span>(<span class="dt">color=</span><span class="st">&#39;transparent&#39;</span>),</span>
+<span id="cb748-9"><a href="before-you-start-8.html#cb748-9"></a>  <span class="dt">panel.grid.minor =</span> <span class="kw">element_line</span>(<span class="dt">color=</span><span class="st">&#39;transparent&#39;</span>),</span>
+<span id="cb748-10"><a href="before-you-start-8.html#cb748-10"></a>  <span class="dt">panel.background =</span> <span class="kw">element_blank</span>(),</span>
+<span id="cb748-11"><a href="before-you-start-8.html#cb748-11"></a>  <span class="dt">plot.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="st">&quot;transparent&quot;</span>,<span class="dt">color=</span><span class="st">&#39;transparent&#39;</span>)</span>
+<span id="cb748-12"><a href="before-you-start-8.html#cb748-12"></a>)  </span></code></pre></div>
 </div>
 </div>
             </section>

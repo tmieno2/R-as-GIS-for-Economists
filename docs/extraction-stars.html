@@ -66,21 +66,21 @@
 <script src="libs/HomeButton-0.0.1/easy-button-src.min.js"></script>
 <script src="libs/clipboard-0.0.1/setClipboardText.js"></script>
 <link href="libs/PopupTable-0.0.1/popup.css" rel="stylesheet" />
-<script src="libs/IA_cdl_2015-1/data_stars_IA_cdl_2015492be3.txt"></script>
+<script src="libs/IA_cdl_2015-1/data_stars_IA_cdl_20157013d9.txt"></script>
 <script src="libs/joda-0.0.1/joda.js"></script>
 <script src="libs/joda-0.0.1/addImageQuery-bindings.js"></script>
-<script src="libs/IA_cdl_2016-1/data_stars_IA_cdl_2016d254a6.txt"></script>
-<script src="libs/prcp_tmax_PRISM_m8_y09["tmax", , , ] - 1-1/data_stars_prcp_tmax_PRISM_m8_y09tmax1d57104.txt"></script>
-<script src="libs/layer.1-1/data_stars_layer1ade7f0.txt"></script>
-<script src="libs/layer.2-1/data_stars_layer2a3e1c2.txt"></script>
-<script src="libs/layer.3-1/data_stars_layer39bf0c4.txt"></script>
-<script src="libs/layer.4-1/data_stars_layer4281e67.txt"></script>
-<script src="libs/layer.5-1/data_stars_layer5da8bef.txt"></script>
-<script src="libs/layer.6-1/data_stars_layer60a163b.txt"></script>
-<script src="libs/layer.7-1/data_stars_layer72c54d1.txt"></script>
-<script src="libs/layer.8-1/data_stars_layer8fc014d.txt"></script>
-<script src="libs/layer.9-1/data_stars_layer9f9bcad.txt"></script>
-<script src="libs/layer.10-1/data_stars_layer10ea3f98.txt"></script>
+<script src="libs/IA_cdl_2016-1/data_stars_IA_cdl_2016f0942b.txt"></script>
+<script src="libs/prcp_tmax_PRISM_m8_y09["tmax", , , ] - 1-1/data_stars_prcp_tmax_PRISM_m8_y09tmax15f4a23.txt"></script>
+<script src="libs/layer.1-1/data_stars_layer16e07dc.txt"></script>
+<script src="libs/layer.2-1/data_stars_layer29d3c0a.txt"></script>
+<script src="libs/layer.3-1/data_stars_layer30124e8.txt"></script>
+<script src="libs/layer.4-1/data_stars_layer4125698.txt"></script>
+<script src="libs/layer.5-1/data_stars_layer56ca504.txt"></script>
+<script src="libs/layer.6-1/data_stars_layer60b51ef.txt"></script>
+<script src="libs/layer.7-1/data_stars_layer7d85baf.txt"></script>
+<script src="libs/layer.8-1/data_stars_layer831db4a.txt"></script>
+<script src="libs/layer.9-1/data_stars_layer935e042.txt"></script>
+<script src="libs/layer.10-1/data_stars_layer102ad98c.txt"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
 <script src="libs/datatables-binding-0.13/datatables.js"></script>
 <link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
@@ -541,17 +541,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="points-1" class="section level3" number="7.10.1">
 <h3><span class="header-section-number">7.10.1</span> Points</h3>
 <p>We can extract the value of raster cells in which points are located (exactly like Chapter <a href="int-RV.html#int-RV">5</a>) using <code>st_extract()</code>.</p>
-<div class="sourceCode" id="cb575"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb575-1"><a href="extraction-stars.html#cb575-1"></a><span class="co">#--- NOT RUN ---#</span></span>
-<span id="cb575-2"><a href="extraction-stars.html#cb575-2"></a><span class="kw">st_extract</span>(stars object, sf of points)</span></code></pre></div>
+<div class="sourceCode" id="cb576"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb576-1"><a href="extraction-stars.html#cb576-1"></a><span class="co">#--- NOT RUN ---#</span></span>
+<span id="cb576-2"><a href="extraction-stars.html#cb576-2"></a><span class="kw">st_extract</span>(stars object, sf of points)</span></code></pre></div>
 <p>Let’s first create points data that are randomly located inside Michigan.</p>
-<div class="sourceCode" id="cb576"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb576-1"><a href="extraction-stars.html#cb576-1"></a>MI_points &lt;-<span class="st"> </span><span class="kw">st_sample</span>(MI_county_sf, <span class="dt">size =</span> <span class="dv">1000</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb576-2"><a href="extraction-stars.html#cb576-2"></a><span class="st">  </span><span class="kw">st_as_sf</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb576-3"><a href="extraction-stars.html#cb576-3"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">id =</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(.))</span></code></pre></div>
+<div class="sourceCode" id="cb577"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb577-1"><a href="extraction-stars.html#cb577-1"></a>MI_points &lt;-<span class="st"> </span><span class="kw">st_sample</span>(MI_county_sf, <span class="dt">size =</span> <span class="dv">1000</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb577-2"><a href="extraction-stars.html#cb577-2"></a><span class="st">  </span><span class="kw">st_as_sf</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb577-3"><a href="extraction-stars.html#cb577-3"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">id =</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(.))</span></code></pre></div>
 <p>Here is what the generated points look like:</p>
-<div class="sourceCode" id="cb577"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb577-1"><a href="extraction-stars.html#cb577-1"></a><span class="kw">ggplot</span>() <span class="op">+</span></span>
-<span id="cb577-2"><a href="extraction-stars.html#cb577-2"></a><span class="st">  </span><span class="kw">geom_stars</span>(<span class="dt">data =</span> tmax_MI[,,,<span class="dv">1</span>]) <span class="op">+</span></span>
-<span id="cb577-3"><a href="extraction-stars.html#cb577-3"></a><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> MI_points) <span class="op">+</span></span>
-<span id="cb577-4"><a href="extraction-stars.html#cb577-4"></a><span class="st">  </span>theme_for_map</span></code></pre></div>
+<div class="sourceCode" id="cb578"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb578-1"><a href="extraction-stars.html#cb578-1"></a><span class="kw">ggplot</span>() <span class="op">+</span></span>
+<span id="cb578-2"><a href="extraction-stars.html#cb578-2"></a><span class="st">  </span><span class="kw">geom_stars</span>(<span class="dt">data =</span> tmax_MI[,,,<span class="dv">1</span>]) <span class="op">+</span></span>
+<span id="cb578-3"><a href="extraction-stars.html#cb578-3"></a><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> MI_points) <span class="op">+</span></span>
+<span id="cb578-4"><a href="extraction-stars.html#cb578-4"></a><span class="st">  </span>theme_for_map</span></code></pre></div>
 <div class="figure"><span id="fig:points-location"></span>
 <img src="R_GIS_Book_files/figure-html/points-location-1.png" alt="Map of randomly located points inside Michigan" width="672" />
 <p class="caption">
@@ -559,66 +559,66 @@ Figure 7.8: Map of randomly located points inside Michigan
 </p>
 </div>
 <p>We now extract the value of rasters in which points are located:</p>
-<div class="sourceCode" id="cb578"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb578-1"><a href="extraction-stars.html#cb578-1"></a>(</span>
-<span id="cb578-2"><a href="extraction-stars.html#cb578-2"></a>extracted_tmax &lt;-<span class="st"> </span><span class="kw">st_extract</span>(tmax_MI, MI_points) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb578-3"><a href="extraction-stars.html#cb578-3"></a><span class="st">  </span><span class="kw">st_as_sf</span>()</span>
-<span id="cb578-4"><a href="extraction-stars.html#cb578-4"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb579"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb579-1"><a href="extraction-stars.html#cb579-1"></a>(</span>
+<span id="cb579-2"><a href="extraction-stars.html#cb579-2"></a>extracted_tmax &lt;-<span class="st"> </span><span class="kw">st_extract</span>(tmax_MI, MI_points) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb579-3"><a href="extraction-stars.html#cb579-3"></a><span class="st">  </span><span class="kw">st_as_sf</span>()</span>
+<span id="cb579-4"><a href="extraction-stars.html#cb579-4"></a>)</span></code></pre></div>
 <pre><code>Simple feature collection with 1000 features and 10 fields
 geometry type:  POINT
 dimension:      XY
-bbox:           xmin: -90.2802 ymin: 41.7505 xmax: -82.53245 ymax: 47.45951
+bbox:           xmin: -90.26031 ymin: 41.71712 xmax: -82.47312 ymax: 47.43735
 geographic CRS: NAD83
 First 10 features:
    2009-01-01 2009-01-02 2009-01-03 2009-01-04 2009-01-05 2009-01-06 2009-01-07
-1      26.014     25.788     23.820     27.274     28.275     25.020     25.774
-2         NaN        NaN        NaN        NaN        NaN        NaN        NaN
-3      23.340     22.691     22.302     23.657     21.496     22.801     22.567
-4      24.918     21.120     22.429     25.840     22.183     22.865     23.427
-5      26.636     26.916     24.837     28.836     29.316     26.182     26.689
-6      26.921     26.680     25.380     27.529     29.638     26.992     26.925
-7      25.893     25.814     24.219     28.632     28.304     26.550     26.208
-8      25.948     25.405     23.899     28.034     28.680     25.074     25.867
-9      23.772     24.446     23.339     24.853     25.646     23.493     23.316
-10     25.377     22.671     22.499     24.767     24.941     23.451     24.309
+1      25.450     25.727     24.810     27.087     29.131     22.974     25.247
+2      21.029     18.575     20.100     21.445     18.854     19.699     20.109
+3      21.757     22.835     21.778     22.979     21.894     21.873     22.121
+4      23.637     26.514     24.561     25.808     29.675     22.183     23.904
+5      22.868     19.672     20.685     23.881     20.625     21.422     21.553
+6      24.280     22.298     21.853     23.678     22.827     22.326     23.254
+7      22.751     19.308     20.950     22.155     20.325     20.560     21.333
+8      24.793     25.775     24.474     26.520     28.726     23.518     24.486
+9      25.878     26.348     23.853     27.044     28.963     24.661     25.572
+10     24.918     21.120     22.429     25.840     22.183     22.865     23.427
    2009-01-08 2009-01-09 2009-01-10                        sfc
-1      25.647     26.584     32.459 POINT (-84.54893 42.61122)
-2         NaN        NaN        NaN POINT (-83.29454 44.75119)
-3      22.348     23.450     28.741 POINT (-85.26298 45.05491)
-4      21.740     24.730     27.868  POINT (-87.85043 46.4023)
-5      25.634     28.368     33.843 POINT (-85.20982 42.30299)
-6      26.013     28.374     33.816 POINT (-83.92468 41.89135)
-7      24.829     29.820     33.404 POINT (-85.78637 41.86523)
-8      25.617     27.351     31.914 POINT (-85.68973 42.80004)
-9      21.294     21.059     30.442 POINT (-83.45487 44.70259)
-10     22.741     22.676     29.128 POINT (-84.83164 44.12975)</code></pre>
+1      23.726     23.338     32.184 POINT (-83.34935 43.49406)
+2      20.965     22.658     22.536 POINT (-88.20274 46.66783)
+3      20.369     19.555     29.512 POINT (-83.50303 45.32732)
+4      21.052     22.764     32.978 POINT (-82.47312 43.03622)
+5      20.193     26.205     25.094 POINT (-89.91415 46.33971)
+6      21.973     22.260     28.648 POINT (-84.57265 44.56324)
+7      23.214     22.396     23.083 POINT (-88.43553 47.33342)
+8      23.078     23.250     32.018    POINT (-83.014 43.4846)
+9      25.717     25.521     32.768 POINT (-84.04252 42.82157)
+10     21.740     24.730     27.868 POINT (-87.85009 46.39967)</code></pre>
 <p>As you can see each date forms a column of extracted values for the points because the third dimension of <code>tmax_MI</code> is <code>Dates</code> object. So, you can easily turn the outcome to an <code>sf</code> object with date as <code>Date</code> object as follows.</p>
-<div class="sourceCode" id="cb580"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb580-1"><a href="extraction-stars.html#cb580-1"></a><span class="kw">pivot_longer</span>(extracted_tmax, <span class="op">-</span><span class="st"> </span>sfc, <span class="dt">names_to =</span> <span class="st">&quot;date&quot;</span>, <span class="dt">values_to =</span> <span class="st">&quot;tmax&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb580-2"><a href="extraction-stars.html#cb580-2"></a><span class="st">  </span><span class="kw">st_as_sf</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb580-3"><a href="extraction-stars.html#cb580-3"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">date =</span> <span class="kw">ymd</span>(date))</span></code></pre></div>
+<div class="sourceCode" id="cb581"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb581-1"><a href="extraction-stars.html#cb581-1"></a><span class="kw">pivot_longer</span>(extracted_tmax, <span class="op">-</span><span class="st"> </span>sfc, <span class="dt">names_to =</span> <span class="st">&quot;date&quot;</span>, <span class="dt">values_to =</span> <span class="st">&quot;tmax&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb581-2"><a href="extraction-stars.html#cb581-2"></a><span class="st">  </span><span class="kw">st_as_sf</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb581-3"><a href="extraction-stars.html#cb581-3"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">date =</span> <span class="kw">ymd</span>(date))</span></code></pre></div>
 <pre><code>Simple feature collection with 10000 features and 2 fields
 geometry type:  POINT
 dimension:      XY
-bbox:           xmin: -90.2802 ymin: 41.7505 xmax: -82.53245 ymax: 47.45951
+bbox:           xmin: -90.26031 ymin: 41.71712 xmax: -82.47312 ymax: 47.43735
 geographic CRS: NAD83
 # A tibble: 10,000 x 3
                     sfc date        tmax
  *          &lt;POINT [°]&gt; &lt;date&gt;     &lt;dbl&gt;
- 1 (-84.54893 42.61122) 2009-01-01  26.0
- 2 (-84.54893 42.61122) 2009-01-02  25.8
- 3 (-84.54893 42.61122) 2009-01-03  23.8
- 4 (-84.54893 42.61122) 2009-01-04  27.3
- 5 (-84.54893 42.61122) 2009-01-05  28.3
- 6 (-84.54893 42.61122) 2009-01-06  25.0
- 7 (-84.54893 42.61122) 2009-01-07  25.8
- 8 (-84.54893 42.61122) 2009-01-08  25.6
- 9 (-84.54893 42.61122) 2009-01-09  26.6
-10 (-84.54893 42.61122) 2009-01-10  32.5
+ 1 (-83.34935 43.49406) 2009-01-01  25.5
+ 2 (-83.34935 43.49406) 2009-01-02  25.7
+ 3 (-83.34935 43.49406) 2009-01-03  24.8
+ 4 (-83.34935 43.49406) 2009-01-04  27.1
+ 5 (-83.34935 43.49406) 2009-01-05  29.1
+ 6 (-83.34935 43.49406) 2009-01-06  23.0
+ 7 (-83.34935 43.49406) 2009-01-07  25.2
+ 8 (-83.34935 43.49406) 2009-01-08  23.7
+ 9 (-83.34935 43.49406) 2009-01-09  23.3
+10 (-83.34935 43.49406) 2009-01-10  32.2
 # … with 9,990 more rows</code></pre>
 <p>You cannot extract values from multiple attributes at the same time.</p>
-<div class="sourceCode" id="cb582"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb582-1"><a href="extraction-stars.html#cb582-1"></a>tmax_MI <span class="op">%&gt;%</span><span class="st">  </span></span>
-<span id="cb582-2"><a href="extraction-stars.html#cb582-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">second_atr =</span> <span class="dv">1</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb582-3"><a href="extraction-stars.html#cb582-3"></a><span class="st">  </span><span class="kw">st_extract</span>(MI_points) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb582-4"><a href="extraction-stars.html#cb582-4"></a><span class="st">  </span><span class="kw">st_as_sf</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb583"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb583-1"><a href="extraction-stars.html#cb583-1"></a>tmax_MI <span class="op">%&gt;%</span><span class="st">  </span></span>
+<span id="cb583-2"><a href="extraction-stars.html#cb583-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">second_atr =</span> <span class="dv">1</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb583-3"><a href="extraction-stars.html#cb583-3"></a><span class="st">  </span><span class="kw">st_extract</span>(MI_points) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb583-4"><a href="extraction-stars.html#cb583-4"></a><span class="st">  </span><span class="kw">st_as_sf</span>()</span></code></pre></div>
 <pre><code>Error in sf::gdal_write(obj, ..., file = dsn, driver = driver, options = options, : dimensions don&#39;t match</code></pre>
 <hr />
 <p><code>aggregate()</code> is much slower compared to <code>terra::extract()</code>, which is discussed in section <a href="int-RV.html#int-RV">5</a>. So, if you are finding the speed of extraction an issue, you can do the following:</p>
@@ -627,41 +627,41 @@ geographic CRS: NAD83
 <li>use terra::extract() to extract values for the vector data</li>
 <li>assign the date values to the <code>data.frame</code> of extracted values</li>
 </ol>
-<div class="sourceCode" id="cb584"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb584-1"><a href="extraction-stars.html#cb584-1"></a><span class="co">#--- Step 1: stars to RasterBrick to SpatRaster ---#</span></span>
-<span id="cb584-2"><a href="extraction-stars.html#cb584-2"></a>tmax_MI_sr &lt;-<span class="st"> </span>tmax_MI <span class="op">%&gt;%</span><span class="st">  </span></span>
-<span id="cb584-3"><a href="extraction-stars.html#cb584-3"></a><span class="st">  </span><span class="co">#--- to RasterBrick ---#</span></span>
-<span id="cb584-4"><a href="extraction-stars.html#cb584-4"></a><span class="st">  </span><span class="kw">as</span>(<span class="st">&quot;Raster&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb584-5"><a href="extraction-stars.html#cb584-5"></a><span class="st">  </span><span class="co">#--- to SpatRaster ---#</span></span>
-<span id="cb584-6"><a href="extraction-stars.html#cb584-6"></a><span class="st">  </span><span class="kw">rast</span>()</span>
-<span id="cb584-7"><a href="extraction-stars.html#cb584-7"></a></span>
-<span id="cb584-8"><a href="extraction-stars.html#cb584-8"></a><span class="co">#--- Step 2: extraction ---#</span></span>
-<span id="cb584-9"><a href="extraction-stars.html#cb584-9"></a>extracted_values &lt;-<span class="st"> </span>terra<span class="op">::</span><span class="kw">extract</span>(tmax_MI_sr, <span class="kw">st_coordinates</span>(MI_points)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb584-10"><a href="extraction-stars.html#cb584-10"></a><span class="st">  </span><span class="kw">data.frame</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb584-11"><a href="extraction-stars.html#cb584-11"></a><span class="st">  </span><span class="co">#--- assign id ---#</span></span>
-<span id="cb584-12"><a href="extraction-stars.html#cb584-12"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">id =</span> MI_points<span class="op">$</span>id)</span>
-<span id="cb584-13"><a href="extraction-stars.html#cb584-13"></a></span>
-<span id="cb584-14"><a href="extraction-stars.html#cb584-14"></a><span class="co">#--- Step 3: assign dates as the variable names ---#</span></span>
-<span id="cb584-15"><a href="extraction-stars.html#cb584-15"></a>date_values &lt;-<span class="st"> </span><span class="kw">as.character</span>(<span class="kw">st_get_dimension_values</span>(tmax_MI, <span class="st">&quot;date&quot;</span>))</span>
-<span id="cb584-16"><a href="extraction-stars.html#cb584-16"></a><span class="kw">names</span>(extracted_values) &lt;-<span class="st"> </span><span class="kw">c</span>(date_values, <span class="st">&quot;id&quot;</span>)</span>
-<span id="cb584-17"><a href="extraction-stars.html#cb584-17"></a></span>
-<span id="cb584-18"><a href="extraction-stars.html#cb584-18"></a><span class="co">#--- wide to long ---#</span></span>
-<span id="cb584-19"><a href="extraction-stars.html#cb584-19"></a><span class="kw">pivot_longer</span>(extracted_values, <span class="op">-</span>id, , <span class="dt">names_to =</span> <span class="st">&quot;date&quot;</span>, <span class="dt">values_to =</span> <span class="st">&quot;tmax&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb585"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb585-1"><a href="extraction-stars.html#cb585-1"></a><span class="co">#--- Step 1: stars to RasterBrick to SpatRaster ---#</span></span>
+<span id="cb585-2"><a href="extraction-stars.html#cb585-2"></a>tmax_MI_sr &lt;-<span class="st"> </span>tmax_MI <span class="op">%&gt;%</span><span class="st">  </span></span>
+<span id="cb585-3"><a href="extraction-stars.html#cb585-3"></a><span class="st">  </span><span class="co">#--- to RasterBrick ---#</span></span>
+<span id="cb585-4"><a href="extraction-stars.html#cb585-4"></a><span class="st">  </span><span class="kw">as</span>(<span class="st">&quot;Raster&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb585-5"><a href="extraction-stars.html#cb585-5"></a><span class="st">  </span><span class="co">#--- to SpatRaster ---#</span></span>
+<span id="cb585-6"><a href="extraction-stars.html#cb585-6"></a><span class="st">  </span><span class="kw">rast</span>()</span>
+<span id="cb585-7"><a href="extraction-stars.html#cb585-7"></a></span>
+<span id="cb585-8"><a href="extraction-stars.html#cb585-8"></a><span class="co">#--- Step 2: extraction ---#</span></span>
+<span id="cb585-9"><a href="extraction-stars.html#cb585-9"></a>extracted_values &lt;-<span class="st"> </span>terra<span class="op">::</span><span class="kw">extract</span>(tmax_MI_sr, <span class="kw">st_coordinates</span>(MI_points)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb585-10"><a href="extraction-stars.html#cb585-10"></a><span class="st">  </span><span class="kw">data.frame</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb585-11"><a href="extraction-stars.html#cb585-11"></a><span class="st">  </span><span class="co">#--- assign id ---#</span></span>
+<span id="cb585-12"><a href="extraction-stars.html#cb585-12"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">id =</span> MI_points<span class="op">$</span>id)</span>
+<span id="cb585-13"><a href="extraction-stars.html#cb585-13"></a></span>
+<span id="cb585-14"><a href="extraction-stars.html#cb585-14"></a><span class="co">#--- Step 3: assign dates as the variable names ---#</span></span>
+<span id="cb585-15"><a href="extraction-stars.html#cb585-15"></a>date_values &lt;-<span class="st"> </span><span class="kw">as.character</span>(<span class="kw">st_get_dimension_values</span>(tmax_MI, <span class="st">&quot;date&quot;</span>))</span>
+<span id="cb585-16"><a href="extraction-stars.html#cb585-16"></a><span class="kw">names</span>(extracted_values) &lt;-<span class="st"> </span><span class="kw">c</span>(date_values, <span class="st">&quot;id&quot;</span>)</span>
+<span id="cb585-17"><a href="extraction-stars.html#cb585-17"></a></span>
+<span id="cb585-18"><a href="extraction-stars.html#cb585-18"></a><span class="co">#--- wide to long ---#</span></span>
+<span id="cb585-19"><a href="extraction-stars.html#cb585-19"></a><span class="kw">pivot_longer</span>(extracted_values, <span class="op">-</span>id, , <span class="dt">names_to =</span> <span class="st">&quot;date&quot;</span>, <span class="dt">values_to =</span> <span class="st">&quot;tmax&quot;</span>)</span></code></pre></div>
 <p>I must say, this is quite a hassle in terms of coding. But, if you need to do extraction jobs fast many many times, this approach may be beneficial.</p>
 </div>
 <div id="polygons" class="section level3" number="7.10.2">
 <h3><span class="header-section-number">7.10.2</span> Polygons</h3>
 <p>In order to extract cell values from <code>stars</code> objects (just like Chapter <a href="int-RV.html#int-RV">5</a>) and summarize them for polygons, you can <code>aggregate()</code>.</p>
-<div class="sourceCode" id="cb585"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb585-1"><a href="extraction-stars.html#cb585-1"></a><span class="co">#--- NOT RUN ---#</span></span>
-<span id="cb585-2"><a href="extraction-stars.html#cb585-2"></a><span class="kw">aggregate</span>(stars object, sf object, <span class="dt">FUN =</span> <span class="cf">function</span> to apply)</span></code></pre></div>
+<div class="sourceCode" id="cb586"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb586-1"><a href="extraction-stars.html#cb586-1"></a><span class="co">#--- NOT RUN ---#</span></span>
+<span id="cb586-2"><a href="extraction-stars.html#cb586-2"></a><span class="kw">aggregate</span>(stars object, sf object, <span class="dt">FUN =</span> <span class="cf">function</span> to apply)</span></code></pre></div>
 <p>Let’s create polygons such that they cover Michigan:</p>
-<div class="sourceCode" id="cb586"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb586-1"><a href="extraction-stars.html#cb586-1"></a>MI_polygons &lt;-<span class="st"> </span><span class="kw">st_make_grid</span>(MI_county_sf, <span class="dt">n =</span> <span class="kw">c</span>(<span class="dv">50</span>, <span class="dv">50</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb586-2"><a href="extraction-stars.html#cb586-2"></a><span class="st">  </span><span class="kw">st_as_sf</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb586-3"><a href="extraction-stars.html#cb586-3"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">id =</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(.))</span></code></pre></div>
+<div class="sourceCode" id="cb587"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb587-1"><a href="extraction-stars.html#cb587-1"></a>MI_polygons &lt;-<span class="st"> </span><span class="kw">st_make_grid</span>(MI_county_sf, <span class="dt">n =</span> <span class="kw">c</span>(<span class="dv">50</span>, <span class="dv">50</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb587-2"><a href="extraction-stars.html#cb587-2"></a><span class="st">  </span><span class="kw">st_as_sf</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb587-3"><a href="extraction-stars.html#cb587-3"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">id =</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(.))</span></code></pre></div>
 <p>Here is what it looks like (Figure <a href="extraction-stars.html#fig:polygons-location">7.9</a>):</p>
-<div class="sourceCode" id="cb587"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb587-1"><a href="extraction-stars.html#cb587-1"></a><span class="kw">ggplot</span>() <span class="op">+</span></span>
-<span id="cb587-2"><a href="extraction-stars.html#cb587-2"></a><span class="st">  </span><span class="kw">geom_stars</span>(<span class="dt">data =</span> tmax_MI[,,,<span class="dv">1</span>]) <span class="op">+</span></span>
-<span id="cb587-3"><a href="extraction-stars.html#cb587-3"></a><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> MI_polygons, <span class="dt">fill =</span> <span class="ot">NA</span>) <span class="op">+</span></span>
-<span id="cb587-4"><a href="extraction-stars.html#cb587-4"></a><span class="st">  </span>theme_for_map</span></code></pre></div>
+<div class="sourceCode" id="cb588"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb588-1"><a href="extraction-stars.html#cb588-1"></a><span class="kw">ggplot</span>() <span class="op">+</span></span>
+<span id="cb588-2"><a href="extraction-stars.html#cb588-2"></a><span class="st">  </span><span class="kw">geom_stars</span>(<span class="dt">data =</span> tmax_MI[,,,<span class="dv">1</span>]) <span class="op">+</span></span>
+<span id="cb588-3"><a href="extraction-stars.html#cb588-3"></a><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> MI_polygons, <span class="dt">fill =</span> <span class="ot">NA</span>) <span class="op">+</span></span>
+<span id="cb588-4"><a href="extraction-stars.html#cb588-4"></a><span class="st">  </span>theme_for_map</span></code></pre></div>
 <div class="figure"><span id="fig:polygons-location"></span>
 <img src="R_GIS_Book_files/figure-html/polygons-location-1.png" alt="Map of regularly-sized polygons over Michigan" width="672" />
 <p class="caption">
@@ -669,15 +669,15 @@ Figure 7.9: Map of regularly-sized polygons over Michigan
 </p>
 </div>
 <p>For example this will find the mean of the tmax values for each polygon:</p>
-<div class="sourceCode" id="cb588"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb588-1"><a href="extraction-stars.html#cb588-1"></a>(</span>
-<span id="cb588-2"><a href="extraction-stars.html#cb588-2"></a>mean_tmax &lt;-<span class="st"> </span><span class="kw">aggregate</span>(tmax_MI, MI_polygons, <span class="dt">FUN =</span> mean) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb588-3"><a href="extraction-stars.html#cb588-3"></a><span class="st">  </span><span class="kw">st_as_sf</span>()</span>
-<span id="cb588-4"><a href="extraction-stars.html#cb588-4"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb589"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb589-1"><a href="extraction-stars.html#cb589-1"></a>(</span>
+<span id="cb589-2"><a href="extraction-stars.html#cb589-2"></a>mean_tmax &lt;-<span class="st"> </span><span class="kw">aggregate</span>(tmax_MI, MI_polygons, <span class="dt">FUN =</span> mean) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb589-3"><a href="extraction-stars.html#cb589-3"></a><span class="st">  </span><span class="kw">st_as_sf</span>()</span>
+<span id="cb589-4"><a href="extraction-stars.html#cb589-4"></a>)</span></code></pre></div>
 <pre><code>Simple feature collection with 1064 features and 10 fields
 geometry type:  POLYGON
 dimension:      XY
 bbox:           xmin: -90.41273 ymin: 41.71133 xmax: -82.44289 ymax: 47.48101
-CRS:            GEOGCS[&quot;NAD83&quot;,DATUM[&quot;North_American_Datum_1983&quot;,SPHEROID[&quot;GRS 1980&quot;,6378137,298.2572221010042,AUTHORITY[&quot;EPSG&quot;,&quot;7019&quot;]],AUTHORITY[&quot;EPSG&quot;,&quot;6269&quot;]],PRIMEM[&quot;Greenwich&quot;,0],UNIT[&quot;degree&quot;,0.0174532925199433],AUTHORITY[&quot;EPSG&quot;,&quot;4269&quot;]]
+geographic CRS: NAD83
 First 10 features:
    2009-01-01 2009-01-02 2009-01-03 2009-01-04 2009-01-05 2009-01-06 2009-01-07
 1          NA         NA         NA         NA         NA         NA         NA
@@ -702,15 +702,15 @@ First 10 features:
 9          NA         NA         NA POLYGON ((-85.63083 41.7113...
 10         NA         NA         NA POLYGON ((-85.47143 41.7113...</code></pre>
 <p>Oops, so many NAs! This is clearly because many polygons intersect with cells that have NA values. To avoid this, we can add <code>na.rm=TRUE</code> option like this:</p>
-<div class="sourceCode" id="cb590"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb590-1"><a href="extraction-stars.html#cb590-1"></a>(</span>
-<span id="cb590-2"><a href="extraction-stars.html#cb590-2"></a>mean_tmax &lt;-<span class="st"> </span><span class="kw">aggregate</span>(tmax_MI, MI_polygons, <span class="dt">FUN =</span> mean, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb590-3"><a href="extraction-stars.html#cb590-3"></a><span class="st">  </span><span class="kw">st_as_sf</span>()</span>
-<span id="cb590-4"><a href="extraction-stars.html#cb590-4"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb591"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb591-1"><a href="extraction-stars.html#cb591-1"></a>(</span>
+<span id="cb591-2"><a href="extraction-stars.html#cb591-2"></a>mean_tmax &lt;-<span class="st"> </span><span class="kw">aggregate</span>(tmax_MI, MI_polygons, <span class="dt">FUN =</span> mean, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb591-3"><a href="extraction-stars.html#cb591-3"></a><span class="st">  </span><span class="kw">st_as_sf</span>()</span>
+<span id="cb591-4"><a href="extraction-stars.html#cb591-4"></a>)</span></code></pre></div>
 <pre><code>Simple feature collection with 1064 features and 10 fields
 geometry type:  POLYGON
 dimension:      XY
 bbox:           xmin: -90.41273 ymin: 41.71133 xmax: -82.44289 ymax: 47.48101
-CRS:            GEOGCS[&quot;NAD83&quot;,DATUM[&quot;North_American_Datum_1983&quot;,SPHEROID[&quot;GRS 1980&quot;,6378137,298.2572221010042,AUTHORITY[&quot;EPSG&quot;,&quot;7019&quot;]],AUTHORITY[&quot;EPSG&quot;,&quot;6269&quot;]],PRIMEM[&quot;Greenwich&quot;,0],UNIT[&quot;degree&quot;,0.0174532925199433],AUTHORITY[&quot;EPSG&quot;,&quot;4269&quot;]]
+geographic CRS: NAD83
 First 10 features:
    2009-01-01 2009-01-02 2009-01-03 2009-01-04 2009-01-05 2009-01-06 2009-01-07
 1    26.65600   23.98400   23.89500   28.33900   26.07500   23.85000   24.39900
@@ -735,15 +735,15 @@ First 10 features:
 9    25.00725   30.10925   33.43200 POLYGON ((-85.63083 41.7113...
 10   25.59000   30.30200   33.72700 POLYGON ((-85.47143 41.7113...</code></pre>
 <p>Note that this would not work:</p>
-<div class="sourceCode" id="cb592"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb592-1"><a href="extraction-stars.html#cb592-1"></a>mean_tmax &lt;-<span class="st"> </span><span class="kw">aggregate</span>(tmax_MI, MI_polygons, <span class="dt">FUN =</span> <span class="kw">mean</span>(<span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb592-2"><a href="extraction-stars.html#cb592-2"></a><span class="st">  </span><span class="kw">st_as_sf</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb593"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb593-1"><a href="extraction-stars.html#cb593-1"></a>mean_tmax &lt;-<span class="st"> </span><span class="kw">aggregate</span>(tmax_MI, MI_polygons, <span class="dt">FUN =</span> <span class="kw">mean</span>(<span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb593-2"><a href="extraction-stars.html#cb593-2"></a><span class="st">  </span><span class="kw">st_as_sf</span>()</span></code></pre></div>
 <pre><code>Error in mean.default(na.rm = TRUE): argument &quot;x&quot; is missing, with no default</code></pre>
 <p>which is the first thing I tried before I googled the problem.</p>
 <hr />
 <p>Right now, the <code>aggregate()</code> function is slower for large raster data than <code>exact_extract()</code>, which we saw in Chapter <a href="int-RV.html#int-RV">5</a>. If the extraction speed of <code>aggregate()</code> is not satisfactory for your applications, you could just convert the <code>stars</code> object to <code>RasterBrick</code> using the <code>as()</code> method (section <a href="convert-to-rb.html#convert-to-rb">7.8</a>) and then use <code>exact_extract()</code> as follows:</p>
-<div class="sourceCode" id="cb594"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb594-1"><a href="extraction-stars.html#cb594-1"></a>extracted_tmax_ee &lt;-<span class="st"> </span>tmax_MI <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb594-2"><a href="extraction-stars.html#cb594-2"></a><span class="st">  </span><span class="kw">as</span>(<span class="st">&quot;Raster&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb594-3"><a href="extraction-stars.html#cb594-3"></a><span class="st">  </span><span class="kw">exact_extract</span>(., MI_polygons, <span class="dt">progress =</span> F)</span></code></pre></div>
+<div class="sourceCode" id="cb595"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb595-1"><a href="extraction-stars.html#cb595-1"></a>extracted_tmax_ee &lt;-<span class="st"> </span>tmax_MI <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb595-2"><a href="extraction-stars.html#cb595-2"></a><span class="st">  </span><span class="kw">as</span>(<span class="st">&quot;Raster&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb595-3"><a href="extraction-stars.html#cb595-3"></a><span class="st">  </span><span class="kw">exact_extract</span>(., MI_polygons, <span class="dt">progress =</span> F)</span></code></pre></div>
 <p>The good news is, <code>exact_extract()</code> is coming soon to the <code>aggregate()</code> methods for <code>stars</code> (see <a href="https://github.com/r-spatial/stars/issues/289">here</a>), which means that you do not have to do these tedious conversions. Actually, if you are willing to install the version in development, you can add <code>exact = TRUE</code> option to take advantage of the speed of <code>exact_extract()</code>.</p>
 
 </div>

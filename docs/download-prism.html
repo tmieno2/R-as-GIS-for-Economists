@@ -66,21 +66,21 @@
 <script src="libs/HomeButton-0.0.1/easy-button-src.min.js"></script>
 <script src="libs/clipboard-0.0.1/setClipboardText.js"></script>
 <link href="libs/PopupTable-0.0.1/popup.css" rel="stylesheet" />
-<script src="libs/IA_cdl_2015-1/data_stars_IA_cdl_2015492be3.txt"></script>
+<script src="libs/IA_cdl_2015-1/data_stars_IA_cdl_20157013d9.txt"></script>
 <script src="libs/joda-0.0.1/joda.js"></script>
 <script src="libs/joda-0.0.1/addImageQuery-bindings.js"></script>
-<script src="libs/IA_cdl_2016-1/data_stars_IA_cdl_2016d254a6.txt"></script>
-<script src="libs/prcp_tmax_PRISM_m8_y09["tmax", , , ] - 1-1/data_stars_prcp_tmax_PRISM_m8_y09tmax1d57104.txt"></script>
-<script src="libs/layer.1-1/data_stars_layer1ade7f0.txt"></script>
-<script src="libs/layer.2-1/data_stars_layer2a3e1c2.txt"></script>
-<script src="libs/layer.3-1/data_stars_layer39bf0c4.txt"></script>
-<script src="libs/layer.4-1/data_stars_layer4281e67.txt"></script>
-<script src="libs/layer.5-1/data_stars_layer5da8bef.txt"></script>
-<script src="libs/layer.6-1/data_stars_layer60a163b.txt"></script>
-<script src="libs/layer.7-1/data_stars_layer72c54d1.txt"></script>
-<script src="libs/layer.8-1/data_stars_layer8fc014d.txt"></script>
-<script src="libs/layer.9-1/data_stars_layer9f9bcad.txt"></script>
-<script src="libs/layer.10-1/data_stars_layer10ea3f98.txt"></script>
+<script src="libs/IA_cdl_2016-1/data_stars_IA_cdl_2016f0942b.txt"></script>
+<script src="libs/prcp_tmax_PRISM_m8_y09["tmax", , , ] - 1-1/data_stars_prcp_tmax_PRISM_m8_y09tmax15f4a23.txt"></script>
+<script src="libs/layer.1-1/data_stars_layer16e07dc.txt"></script>
+<script src="libs/layer.2-1/data_stars_layer29d3c0a.txt"></script>
+<script src="libs/layer.3-1/data_stars_layer30124e8.txt"></script>
+<script src="libs/layer.4-1/data_stars_layer4125698.txt"></script>
+<script src="libs/layer.5-1/data_stars_layer56ca504.txt"></script>
+<script src="libs/layer.6-1/data_stars_layer60b51ef.txt"></script>
+<script src="libs/layer.7-1/data_stars_layer7d85baf.txt"></script>
+<script src="libs/layer.8-1/data_stars_layer831db4a.txt"></script>
+<script src="libs/layer.9-1/data_stars_layer935e042.txt"></script>
+<script src="libs/layer.10-1/data_stars_layer102ad98c.txt"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
 <script src="libs/datatables-binding-0.13/datatables.js"></script>
 <link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
@@ -541,57 +541,57 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="basics" class="section level3" number="9.3.1">
 <h3><span class="header-section-number">9.3.1</span> Basics</h3>
 <p><a href="https://prism.oregonstate.edu/">PRISM dataset</a> provide model-based estimates of precipitation, tmax, and tmin for the U.S. at the 4km by 4km spatial resolution. Here, we use <code>get_prism_dailys()</code> from the <code>prism</code> package <span class="citation">(Hart and Bell <a href="#ref-prism" role="doc-biblioref">2015</a>)</span> to download daily data. Here is its general syntax:</p>
-<div class="sourceCode" id="cb802"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb802-1"><a href="download-prism.html#cb802-1"></a><span class="co">#--- NOT RUN ---#</span></span>
-<span id="cb802-2"><a href="download-prism.html#cb802-2"></a><span class="kw">get_prism_dailys</span>(</span>
-<span id="cb802-3"><a href="download-prism.html#cb802-3"></a>  <span class="dt">type =</span> variable type,</span>
-<span id="cb802-4"><a href="download-prism.html#cb802-4"></a>  <span class="dt">minDate =</span> starting date as character,</span>
-<span id="cb802-5"><a href="download-prism.html#cb802-5"></a>  <span class="dt">maxDate =</span> ending date as character,</span>
-<span id="cb802-6"><a href="download-prism.html#cb802-6"></a>  <span class="dt">keepZip =</span> <span class="ot">TRUE</span> or <span class="ot">FALSE</span></span>
-<span id="cb802-7"><a href="download-prism.html#cb802-7"></a>) </span></code></pre></div>
+<div class="sourceCode" id="cb803"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb803-1"><a href="download-prism.html#cb803-1"></a><span class="co">#--- NOT RUN ---#</span></span>
+<span id="cb803-2"><a href="download-prism.html#cb803-2"></a><span class="kw">get_prism_dailys</span>(</span>
+<span id="cb803-3"><a href="download-prism.html#cb803-3"></a>  <span class="dt">type =</span> variable type,</span>
+<span id="cb803-4"><a href="download-prism.html#cb803-4"></a>  <span class="dt">minDate =</span> starting date as character,</span>
+<span id="cb803-5"><a href="download-prism.html#cb803-5"></a>  <span class="dt">maxDate =</span> ending date as character,</span>
+<span id="cb803-6"><a href="download-prism.html#cb803-6"></a>  <span class="dt">keepZip =</span> <span class="ot">TRUE</span> or <span class="ot">FALSE</span></span>
+<span id="cb803-7"><a href="download-prism.html#cb803-7"></a>) </span></code></pre></div>
 <p>The variables types you can select from is “ppt” (precipitation), “tmean” (mean temperature), “tmin” (minimum temperature), and “tmax” (maximum temperature). For <code>minDate</code> and <code>maxDate</code>, the dates must be specified in a specific format of “YYYY-MM-DD”. <code>keepZip = FALSE</code> does not keep the zipped folders of the downloaded files as the name suggests.</p>
 <p>Before you download PRISM data using the function, it is recommended that you set the path to folder in which the downloaded PRISM will be stored using <code>options(prism.path = "path")</code>. For example, the following set the path to “Data/PRISM/” relative to the current working directory.</p>
-<div class="sourceCode" id="cb803"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb803-1"><a href="download-prism.html#cb803-1"></a><span class="kw">options</span>(<span class="dt">prism.path =</span> <span class="st">&quot;./Data/PRISM/&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb804"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb804-1"><a href="download-prism.html#cb804-1"></a><span class="kw">options</span>(<span class="dt">prism.path =</span> <span class="st">&quot;./Data/PRISM/&quot;</span>)</span></code></pre></div>
 <p>The following code downloads daily precipitation data from January 1, 2000 to Jan 10, 2000.</p>
-<div class="sourceCode" id="cb804"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb804-1"><a href="download-prism.html#cb804-1"></a><span class="co">#--- NOT RUN ---#</span></span>
-<span id="cb804-2"><a href="download-prism.html#cb804-2"></a><span class="kw">get_prism_dailys</span>(</span>
-<span id="cb804-3"><a href="download-prism.html#cb804-3"></a>  <span class="dt">type =</span> <span class="st">&quot;ppt&quot;</span>,</span>
-<span id="cb804-4"><a href="download-prism.html#cb804-4"></a>  <span class="dt">minDate =</span> <span class="st">&quot;2000-01-01&quot;</span>,</span>
-<span id="cb804-5"><a href="download-prism.html#cb804-5"></a>  <span class="dt">maxDate =</span> <span class="st">&quot;2000-01-10&quot;</span>,</span>
-<span id="cb804-6"><a href="download-prism.html#cb804-6"></a>  <span class="dt">keepZip =</span> <span class="ot">FALSE</span></span>
-<span id="cb804-7"><a href="download-prism.html#cb804-7"></a>) </span></code></pre></div>
+<div class="sourceCode" id="cb805"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb805-1"><a href="download-prism.html#cb805-1"></a><span class="co">#--- NOT RUN ---#</span></span>
+<span id="cb805-2"><a href="download-prism.html#cb805-2"></a><span class="kw">get_prism_dailys</span>(</span>
+<span id="cb805-3"><a href="download-prism.html#cb805-3"></a>  <span class="dt">type =</span> <span class="st">&quot;ppt&quot;</span>,</span>
+<span id="cb805-4"><a href="download-prism.html#cb805-4"></a>  <span class="dt">minDate =</span> <span class="st">&quot;2000-01-01&quot;</span>,</span>
+<span id="cb805-5"><a href="download-prism.html#cb805-5"></a>  <span class="dt">maxDate =</span> <span class="st">&quot;2000-01-10&quot;</span>,</span>
+<span id="cb805-6"><a href="download-prism.html#cb805-6"></a>  <span class="dt">keepZip =</span> <span class="ot">FALSE</span></span>
+<span id="cb805-7"><a href="download-prism.html#cb805-7"></a>) </span></code></pre></div>
 <p>When you download data using the above code, you will notice that it creates one folder for one day. For example, for precipitation data for “2000-01-01”, you can get the path to the downloaded file as follows:</p>
-<div class="sourceCode" id="cb805"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb805-1"><a href="download-prism.html#cb805-1"></a>var_type &lt;-<span class="st"> &quot;ppt&quot;</span> <span class="co"># variable type</span></span>
-<span id="cb805-2"><a href="download-prism.html#cb805-2"></a>dates_prism_txt &lt;-<span class="st"> </span><span class="kw">str_remove_all</span>(<span class="st">&quot;2000-01-01&quot;</span>, <span class="st">&quot;-&quot;</span>) <span class="co"># date without dashes</span></span>
-<span id="cb805-3"><a href="download-prism.html#cb805-3"></a></span>
-<span id="cb805-4"><a href="download-prism.html#cb805-4"></a><span class="co">#--- folder name ---#</span></span>
-<span id="cb805-5"><a href="download-prism.html#cb805-5"></a>folder_name &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;PRISM_&quot;</span>, var_type, <span class="st">&quot;_stable_4kmD2_&quot;</span>, dates_prism_txt, <span class="st">&quot;_bil&quot;</span>) </span>
-<span id="cb805-6"><a href="download-prism.html#cb805-6"></a></span>
-<span id="cb805-7"><a href="download-prism.html#cb805-7"></a><span class="co">#--- file name of the downloaded data inside the above folder ---#</span></span>
-<span id="cb805-8"><a href="download-prism.html#cb805-8"></a>file_name &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;PRISM_&quot;</span>, var_type, <span class="st">&quot;_stable_4kmD2_&quot;</span>, dates_prism_txt, <span class="st">&quot;_bil.bil&quot;</span>) </span>
-<span id="cb805-9"><a href="download-prism.html#cb805-9"></a></span>
-<span id="cb805-10"><a href="download-prism.html#cb805-10"></a><span class="co">#--- path to the file relative to the designated data folder (here, it&#39;s &quot;./Data/PRISM/&quot;) ---#</span></span>
-<span id="cb805-11"><a href="download-prism.html#cb805-11"></a>(</span>
-<span id="cb805-12"><a href="download-prism.html#cb805-12"></a>file_path &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;./Data/PRISM/&quot;</span>, folder_name, <span class="st">&quot;/&quot;</span>, file_name)</span>
-<span id="cb805-13"><a href="download-prism.html#cb805-13"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb806"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb806-1"><a href="download-prism.html#cb806-1"></a>var_type &lt;-<span class="st"> &quot;ppt&quot;</span> <span class="co"># variable type</span></span>
+<span id="cb806-2"><a href="download-prism.html#cb806-2"></a>dates_prism_txt &lt;-<span class="st"> </span><span class="kw">str_remove_all</span>(<span class="st">&quot;2000-01-01&quot;</span>, <span class="st">&quot;-&quot;</span>) <span class="co"># date without dashes</span></span>
+<span id="cb806-3"><a href="download-prism.html#cb806-3"></a></span>
+<span id="cb806-4"><a href="download-prism.html#cb806-4"></a><span class="co">#--- folder name ---#</span></span>
+<span id="cb806-5"><a href="download-prism.html#cb806-5"></a>folder_name &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;PRISM_&quot;</span>, var_type, <span class="st">&quot;_stable_4kmD2_&quot;</span>, dates_prism_txt, <span class="st">&quot;_bil&quot;</span>) </span>
+<span id="cb806-6"><a href="download-prism.html#cb806-6"></a></span>
+<span id="cb806-7"><a href="download-prism.html#cb806-7"></a><span class="co">#--- file name of the downloaded data inside the above folder ---#</span></span>
+<span id="cb806-8"><a href="download-prism.html#cb806-8"></a>file_name &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;PRISM_&quot;</span>, var_type, <span class="st">&quot;_stable_4kmD2_&quot;</span>, dates_prism_txt, <span class="st">&quot;_bil.bil&quot;</span>) </span>
+<span id="cb806-9"><a href="download-prism.html#cb806-9"></a></span>
+<span id="cb806-10"><a href="download-prism.html#cb806-10"></a><span class="co">#--- path to the file relative to the designated data folder (here, it&#39;s &quot;./Data/PRISM/&quot;) ---#</span></span>
+<span id="cb806-11"><a href="download-prism.html#cb806-11"></a>(</span>
+<span id="cb806-12"><a href="download-prism.html#cb806-12"></a>file_path &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;./Data/PRISM/&quot;</span>, folder_name, <span class="st">&quot;/&quot;</span>, file_name)</span>
+<span id="cb806-13"><a href="download-prism.html#cb806-13"></a>)</span></code></pre></div>
 <pre><code>[1] &quot;./Data/PRISM/PRISM_ppt_stable_4kmD2_20000101_bil/PRISM_ppt_stable_4kmD2_20000101_bil.bil&quot;</code></pre>
 <p>We can then easily read the data using <code>terra::rast()</code> or <code>stars::read_stars()</code> if you prefer the <code>stars</code> way.</p>
-<div class="sourceCode" id="cb807"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb807-1"><a href="download-prism.html#cb807-1"></a><span class="co">#--- as SpatRaster ---#</span></span>
-<span id="cb807-2"><a href="download-prism.html#cb807-2"></a>(</span>
-<span id="cb807-3"><a href="download-prism.html#cb807-3"></a>prism_<span class="dv">2000</span>_<span class="dv">01</span>_<span class="dv">01</span>_sr &lt;-<span class="st"> </span><span class="kw">rast</span>(file_path) </span>
-<span id="cb807-4"><a href="download-prism.html#cb807-4"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb808"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb808-1"><a href="download-prism.html#cb808-1"></a><span class="co">#--- as SpatRaster ---#</span></span>
+<span id="cb808-2"><a href="download-prism.html#cb808-2"></a>(</span>
+<span id="cb808-3"><a href="download-prism.html#cb808-3"></a>prism_<span class="dv">2000</span>_<span class="dv">01</span>_<span class="dv">01</span>_sr &lt;-<span class="st"> </span><span class="kw">rast</span>(file_path) </span>
+<span id="cb808-4"><a href="download-prism.html#cb808-4"></a>)</span></code></pre></div>
 <pre><code>class       : SpatRaster 
 dimensions  : 621, 1405, 1  (nrow, ncol, nlyr)
 resolution  : 0.04166667, 0.04166667  (x, y)
 extent      : -125.0208, -66.47917, 24.0625, 49.9375  (xmin, xmax, ymin, ymax)
-coord. ref. : +proj=longlat +datum=NAD83 +no_defs  
-data source : ./Data/PRISM/PRISM_ppt_stable_4kmD2_20000101_bil/PRISM_ppt_stable_4kmD2_20000101_bil.bil 
+coord. ref. : +proj=longlat +ellps=GRS80 +no_defs 
+data source : PRISM_ppt_stable_4kmD2_20000101_bil.bil 
 names       : PRISM_ppt_stable_4kmD2_20000101_bil 
 min values  :                                   0 
 max values  :                              49.848 </code></pre>
-<div class="sourceCode" id="cb809"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb809-1"><a href="download-prism.html#cb809-1"></a><span class="co">#--- as stars ---#</span></span>
-<span id="cb809-2"><a href="download-prism.html#cb809-2"></a>(</span>
-<span id="cb809-3"><a href="download-prism.html#cb809-3"></a>prism_<span class="dv">2000</span>_<span class="dv">01</span>_<span class="dv">01</span>_stars &lt;-<span class="st"> </span><span class="kw">read_stars</span>(file_path) </span>
-<span id="cb809-4"><a href="download-prism.html#cb809-4"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb810"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb810-1"><a href="download-prism.html#cb810-1"></a><span class="co">#--- as stars ---#</span></span>
+<span id="cb810-2"><a href="download-prism.html#cb810-2"></a>(</span>
+<span id="cb810-3"><a href="download-prism.html#cb810-3"></a>prism_<span class="dv">2000</span>_<span class="dv">01</span>_<span class="dv">01</span>_stars &lt;-<span class="st"> </span><span class="kw">read_stars</span>(file_path) </span>
+<span id="cb810-4"><a href="download-prism.html#cb810-4"></a>)</span></code></pre></div>
 <pre><code>stars object with 2 dimensions and 1 attribute
 attribute(s):
  PRISM_ppt_stable_4kmD2_20000101_bil.bil 
@@ -603,11 +603,11 @@ attribute(s):
  Max.   :49.8                            
  NA&#39;s   :390874                          
 dimension(s):
-  from   to   offset      delta                       refsys point values    
-x    1 1405 -125.021  0.0416667 GEOGCS[&quot;GCS_North_America...    NA   NULL [x]
-y    1  621  49.9375 -0.0416667 GEOGCS[&quot;GCS_North_America...    NA   NULL [y]</code></pre>
+  from   to   offset      delta refsys point values    
+x    1 1405 -125.021  0.0416667  NAD83    NA   NULL [x]
+y    1  621  49.9375 -0.0416667  NAD83    NA   NULL [y]</code></pre>
 <p>Here is a quick visualization of the data (Figure <a href="download-prism.html#fig:quick-viz">9.2</a>):</p>
-<div class="sourceCode" id="cb811"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb811-1"><a href="download-prism.html#cb811-1"></a><span class="kw">plot</span>(prism_<span class="dv">2000</span>_<span class="dv">01</span>_<span class="dv">01</span>_stars)</span></code></pre></div>
+<div class="sourceCode" id="cb812"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb812-1"><a href="download-prism.html#cb812-1"></a><span class="kw">plot</span>(prism_<span class="dv">2000</span>_<span class="dv">01</span>_<span class="dv">01</span>_stars)</span></code></pre></div>
 <div class="figure"><span id="fig:quick-viz"></span>
 <img src="R_GIS_Book_files/figure-html/quick-viz-1.png" alt="PRISM precipitation data for January 1, 2000" width="672" />
 <p class="caption">
@@ -620,48 +620,48 @@ Figure 9.2: PRISM precipitation data for January 1, 2000
 <h3><span class="header-section-number">9.3.2</span> Download daily PRISM data for many years and build your own datasets</h3>
 <p>Here, an example of how to create your own sets of PRISM datasets is presented. Creating such datasets and have them locally can be useful if you expect to use the data for many different projects in the future.</p>
 <p>Suppose we are interested in saving daily PRISM precipitation data by year-month from 1980 to 2018. We will write a loop that loops over all the year-month combinations. Before writing a loop, let’s work on the code for a particular year-month combination: 1990-December. However, we will write codes in a way that can be easily translated into a looped operations later. Specifically, we will define the following variables and use them as if they are variables to be looped over in a loop.</p>
-<div class="sourceCode" id="cb812"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb812-1"><a href="download-prism.html#cb812-1"></a><span class="co">#--- month to work on ---#  </span></span>
-<span id="cb812-2"><a href="download-prism.html#cb812-2"></a>temp_month &lt;-<span class="st"> </span><span class="dv">12</span></span>
-<span id="cb812-3"><a href="download-prism.html#cb812-3"></a></span>
-<span id="cb812-4"><a href="download-prism.html#cb812-4"></a><span class="co">#--- year to work on ---#  </span></span>
-<span id="cb812-5"><a href="download-prism.html#cb812-5"></a>temp_year &lt;-<span class="st"> </span><span class="dv">1990</span></span></code></pre></div>
+<div class="sourceCode" id="cb813"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb813-1"><a href="download-prism.html#cb813-1"></a><span class="co">#--- month to work on ---#  </span></span>
+<span id="cb813-2"><a href="download-prism.html#cb813-2"></a>temp_month &lt;-<span class="st"> </span><span class="dv">12</span></span>
+<span id="cb813-3"><a href="download-prism.html#cb813-3"></a></span>
+<span id="cb813-4"><a href="download-prism.html#cb813-4"></a><span class="co">#--- year to work on ---#  </span></span>
+<span id="cb813-5"><a href="download-prism.html#cb813-5"></a>temp_year &lt;-<span class="st"> </span><span class="dv">1990</span></span></code></pre></div>
 <p>We first need to set the path to the folder in which daily PRISM files will be downloaded.</p>
-<div class="sourceCode" id="cb813"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb813-1"><a href="download-prism.html#cb813-1"></a><span class="co">#--- set your own path ---#</span></span>
-<span id="cb813-2"><a href="download-prism.html#cb813-2"></a><span class="kw">options</span>(<span class="dt">prism.path =</span> <span class="st">&quot;./Data/PRISM/&quot;</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb814"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb814-1"><a href="download-prism.html#cb814-1"></a><span class="co">#--- set your own path ---#</span></span>
+<span id="cb814-2"><a href="download-prism.html#cb814-2"></a><span class="kw">options</span>(<span class="dt">prism.path =</span> <span class="st">&quot;./Data/PRISM/&quot;</span>) </span></code></pre></div>
 <p>We then set the start and end dates for <code>get_prism_dailys()</code>.</p>
-<div class="sourceCode" id="cb814"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb814-1"><a href="download-prism.html#cb814-1"></a><span class="co">#--- starting date of the working month-year ---#</span></span>
-<span id="cb814-2"><a href="download-prism.html#cb814-2"></a>(</span>
-<span id="cb814-3"><a href="download-prism.html#cb814-3"></a>start_date &lt;-<span class="st"> </span><span class="kw">dmy</span>(<span class="kw">paste0</span>(<span class="st">&quot;1/&quot;</span>, temp_month, <span class="st">&quot;/&quot;</span>, temp_year))</span>
-<span id="cb814-4"><a href="download-prism.html#cb814-4"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb815"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb815-1"><a href="download-prism.html#cb815-1"></a><span class="co">#--- starting date of the working month-year ---#</span></span>
+<span id="cb815-2"><a href="download-prism.html#cb815-2"></a>(</span>
+<span id="cb815-3"><a href="download-prism.html#cb815-3"></a>start_date &lt;-<span class="st"> </span><span class="kw">dmy</span>(<span class="kw">paste0</span>(<span class="st">&quot;1/&quot;</span>, temp_month, <span class="st">&quot;/&quot;</span>, temp_year))</span>
+<span id="cb815-4"><a href="download-prism.html#cb815-4"></a>)</span></code></pre></div>
 <pre><code>[1] &quot;1990-12-01&quot;</code></pre>
-<div class="sourceCode" id="cb816"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb816-1"><a href="download-prism.html#cb816-1"></a><span class="co">#--- ending date: add a month and then go back 1 day ---#</span></span>
-<span id="cb816-2"><a href="download-prism.html#cb816-2"></a>(</span>
-<span id="cb816-3"><a href="download-prism.html#cb816-3"></a>end_date &lt;-<span class="st"> </span>start_date <span class="op">%m+%</span><span class="st"> </span><span class="kw">months</span>(<span class="dv">1</span>) <span class="op">-</span><span class="st"> </span><span class="dv">1</span></span>
-<span id="cb816-4"><a href="download-prism.html#cb816-4"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb817"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb817-1"><a href="download-prism.html#cb817-1"></a><span class="co">#--- ending date: add a month and then go back 1 day ---#</span></span>
+<span id="cb817-2"><a href="download-prism.html#cb817-2"></a>(</span>
+<span id="cb817-3"><a href="download-prism.html#cb817-3"></a>end_date &lt;-<span class="st"> </span>start_date <span class="op">%m+%</span><span class="st"> </span><span class="kw">months</span>(<span class="dv">1</span>) <span class="op">-</span><span class="st"> </span><span class="dv">1</span></span>
+<span id="cb817-4"><a href="download-prism.html#cb817-4"></a>)</span></code></pre></div>
 <pre><code>[1] &quot;1990-12-31&quot;</code></pre>
 <p>We now download PRISM data for the year-month we are working on.</p>
-<div class="sourceCode" id="cb818"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb818-1"><a href="download-prism.html#cb818-1"></a><span class="co">#--- download daily PRISM data for the working month-year ---#</span></span>
-<span id="cb818-2"><a href="download-prism.html#cb818-2"></a><span class="kw">get_prism_dailys</span>(</span>
-<span id="cb818-3"><a href="download-prism.html#cb818-3"></a>  <span class="dt">type =</span> <span class="st">&quot;ppt&quot;</span>,</span>
-<span id="cb818-4"><a href="download-prism.html#cb818-4"></a>  <span class="dt">minDate =</span> <span class="kw">as.character</span>(start_date),</span>
-<span id="cb818-5"><a href="download-prism.html#cb818-5"></a>  <span class="dt">maxDate =</span> <span class="kw">as.character</span>(end_date),</span>
-<span id="cb818-6"><a href="download-prism.html#cb818-6"></a>  <span class="dt">keepZip =</span> <span class="ot">FALSE</span></span>
-<span id="cb818-7"><a href="download-prism.html#cb818-7"></a>) </span></code></pre></div>
+<div class="sourceCode" id="cb819"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb819-1"><a href="download-prism.html#cb819-1"></a><span class="co">#--- download daily PRISM data for the working month-year ---#</span></span>
+<span id="cb819-2"><a href="download-prism.html#cb819-2"></a><span class="kw">get_prism_dailys</span>(</span>
+<span id="cb819-3"><a href="download-prism.html#cb819-3"></a>  <span class="dt">type =</span> <span class="st">&quot;ppt&quot;</span>,</span>
+<span id="cb819-4"><a href="download-prism.html#cb819-4"></a>  <span class="dt">minDate =</span> <span class="kw">as.character</span>(start_date),</span>
+<span id="cb819-5"><a href="download-prism.html#cb819-5"></a>  <span class="dt">maxDate =</span> <span class="kw">as.character</span>(end_date),</span>
+<span id="cb819-6"><a href="download-prism.html#cb819-6"></a>  <span class="dt">keepZip =</span> <span class="ot">FALSE</span></span>
+<span id="cb819-7"><a href="download-prism.html#cb819-7"></a>) </span></code></pre></div>
 <p>Once all the data are downloaded, we will read and import them onto R. To do so, we will need the path to all the downloaded files.</p>
-<div class="sourceCode" id="cb819"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb819-1"><a href="download-prism.html#cb819-1"></a><span class="co">#--- list of dates of the working month-year ---#</span></span>
-<span id="cb819-2"><a href="download-prism.html#cb819-2"></a>dates_ls &lt;-<span class="st"> </span><span class="kw">seq</span>(start_date, end_date, <span class="st">&quot;days&quot;</span>) </span>
-<span id="cb819-3"><a href="download-prism.html#cb819-3"></a></span>
-<span id="cb819-4"><a href="download-prism.html#cb819-4"></a><span class="co">#--- remove dashes ---#</span></span>
-<span id="cb819-5"><a href="download-prism.html#cb819-5"></a>dates_prism_txt &lt;-<span class="st"> </span><span class="kw">str_remove_all</span>(dates_ls, <span class="st">&quot;-&quot;</span>)</span>
-<span id="cb819-6"><a href="download-prism.html#cb819-6"></a></span>
-<span id="cb819-7"><a href="download-prism.html#cb819-7"></a><span class="co">#--- folder names ---#</span></span>
-<span id="cb819-8"><a href="download-prism.html#cb819-8"></a>folder_name &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;PRISM_&quot;</span>, var_type, <span class="st">&quot;_stable_4kmD2_&quot;</span>, dates_prism_txt, <span class="st">&quot;_bil&quot;</span>) </span>
-<span id="cb819-9"><a href="download-prism.html#cb819-9"></a><span class="co">#--- the file name of the downloaded data ---#</span></span>
-<span id="cb819-10"><a href="download-prism.html#cb819-10"></a>file_name &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;PRISM_&quot;</span>, var_type, <span class="st">&quot;_stable_4kmD2_&quot;</span>, dates_prism_txt, <span class="st">&quot;_bil.bil&quot;</span>) </span>
-<span id="cb819-11"><a href="download-prism.html#cb819-11"></a><span class="co">#--- complete path to the downloaded files ---#</span></span>
-<span id="cb819-12"><a href="download-prism.html#cb819-12"></a>(</span>
-<span id="cb819-13"><a href="download-prism.html#cb819-13"></a>file_path &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;./Data/PRISM/&quot;</span>, folder_name, <span class="st">&quot;/&quot;</span>, file_name) </span>
-<span id="cb819-14"><a href="download-prism.html#cb819-14"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb820"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb820-1"><a href="download-prism.html#cb820-1"></a><span class="co">#--- list of dates of the working month-year ---#</span></span>
+<span id="cb820-2"><a href="download-prism.html#cb820-2"></a>dates_ls &lt;-<span class="st"> </span><span class="kw">seq</span>(start_date, end_date, <span class="st">&quot;days&quot;</span>) </span>
+<span id="cb820-3"><a href="download-prism.html#cb820-3"></a></span>
+<span id="cb820-4"><a href="download-prism.html#cb820-4"></a><span class="co">#--- remove dashes ---#</span></span>
+<span id="cb820-5"><a href="download-prism.html#cb820-5"></a>dates_prism_txt &lt;-<span class="st"> </span><span class="kw">str_remove_all</span>(dates_ls, <span class="st">&quot;-&quot;</span>)</span>
+<span id="cb820-6"><a href="download-prism.html#cb820-6"></a></span>
+<span id="cb820-7"><a href="download-prism.html#cb820-7"></a><span class="co">#--- folder names ---#</span></span>
+<span id="cb820-8"><a href="download-prism.html#cb820-8"></a>folder_name &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;PRISM_&quot;</span>, var_type, <span class="st">&quot;_stable_4kmD2_&quot;</span>, dates_prism_txt, <span class="st">&quot;_bil&quot;</span>) </span>
+<span id="cb820-9"><a href="download-prism.html#cb820-9"></a><span class="co">#--- the file name of the downloaded data ---#</span></span>
+<span id="cb820-10"><a href="download-prism.html#cb820-10"></a>file_name &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;PRISM_&quot;</span>, var_type, <span class="st">&quot;_stable_4kmD2_&quot;</span>, dates_prism_txt, <span class="st">&quot;_bil.bil&quot;</span>) </span>
+<span id="cb820-11"><a href="download-prism.html#cb820-11"></a><span class="co">#--- complete path to the downloaded files ---#</span></span>
+<span id="cb820-12"><a href="download-prism.html#cb820-12"></a>(</span>
+<span id="cb820-13"><a href="download-prism.html#cb820-13"></a>file_path &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;./Data/PRISM/&quot;</span>, folder_name, <span class="st">&quot;/&quot;</span>, file_name) </span>
+<span id="cb820-14"><a href="download-prism.html#cb820-14"></a>)</span></code></pre></div>
 <pre><code> [1] &quot;./Data/PRISM/PRISM_ppt_stable_4kmD2_19901201_bil/PRISM_ppt_stable_4kmD2_19901201_bil.bil&quot;
  [2] &quot;./Data/PRISM/PRISM_ppt_stable_4kmD2_19901202_bil/PRISM_ppt_stable_4kmD2_19901202_bil.bil&quot;
  [3] &quot;./Data/PRISM/PRISM_ppt_stable_4kmD2_19901203_bil/PRISM_ppt_stable_4kmD2_19901203_bil.bil&quot;
@@ -694,94 +694,94 @@ Figure 9.2: PRISM precipitation data for January 1, 2000
 [30] &quot;./Data/PRISM/PRISM_ppt_stable_4kmD2_19901230_bil/PRISM_ppt_stable_4kmD2_19901230_bil.bil&quot;
 [31] &quot;./Data/PRISM/PRISM_ppt_stable_4kmD2_19901231_bil/PRISM_ppt_stable_4kmD2_19901231_bil.bil&quot;</code></pre>
 <p>We now read them as a <code>stars</code> object, set the third dimension as date using <code>Dates</code> object class, and then save it as an R dataset (This will ensure that date dimensions is kept. See Chapter <a href="read-write-stars.html#read-write-stars">7.4</a>).</p>
-<div class="sourceCode" id="cb821"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb821-1"><a href="download-prism.html#cb821-1"></a>(</span>
-<span id="cb821-2"><a href="download-prism.html#cb821-2"></a><span class="co">#--- combine all the PRISM files as stars ---#</span></span>
-<span id="cb821-3"><a href="download-prism.html#cb821-3"></a>temp_stars &lt;-<span class="st"> </span><span class="kw">read_stars</span>(file_path, <span class="dt">along =</span> <span class="dv">3</span>)</span>
-<span id="cb821-4"><a href="download-prism.html#cb821-4"></a>  <span class="co">#--- set the third dimension as data ---# </span></span>
-<span id="cb821-5"><a href="download-prism.html#cb821-5"></a>  <span class="kw">st_set_dimensions</span>(<span class="st">&quot;band&quot;</span>, <span class="dt">values =</span> dates_ls, <span class="dt">name =</span> <span class="st">&quot;date&quot;</span>)</span>
-<span id="cb821-6"><a href="download-prism.html#cb821-6"></a>)</span>
-<span id="cb821-7"><a href="download-prism.html#cb821-7"></a></span>
-<span id="cb821-8"><a href="download-prism.html#cb821-8"></a><span class="co">#--- save the stars as an rds file ---#</span></span>
-<span id="cb821-9"><a href="download-prism.html#cb821-9"></a><span class="kw">saveRDS</span>(</span>
-<span id="cb821-10"><a href="download-prism.html#cb821-10"></a>  temp_stars, </span>
-<span id="cb821-11"><a href="download-prism.html#cb821-11"></a>  <span class="kw">paste0</span>(<span class="st">&quot;./Data/PRISM/PRISM_&quot;</span>, var_type, <span class="st">&quot;_y&quot;</span>, temp_year, <span class="st">&quot;_m&quot;</span>, temp_month, <span class="st">&quot;.rds&quot;</span>)</span>
-<span id="cb821-12"><a href="download-prism.html#cb821-12"></a>)  </span></code></pre></div>
-<p>You could alternatively read the files into a <code>SpatRaster</code> object and save it data as a GeoTIFF file.</p>
 <div class="sourceCode" id="cb822"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb822-1"><a href="download-prism.html#cb822-1"></a>(</span>
-<span id="cb822-2"><a href="download-prism.html#cb822-2"></a><span class="co">#--- combine all the PRISM files as a RasterStack ---#</span></span>
-<span id="cb822-3"><a href="download-prism.html#cb822-3"></a>temp_stars &lt;-<span class="st"> </span>terra<span class="op">::</span><span class="kw">rast</span>(file_path) </span>
-<span id="cb822-4"><a href="download-prism.html#cb822-4"></a>)</span>
-<span id="cb822-5"><a href="download-prism.html#cb822-5"></a></span>
-<span id="cb822-6"><a href="download-prism.html#cb822-6"></a><span class="co">#--- save as a multi-band GeoTIFF file ---#</span></span>
-<span id="cb822-7"><a href="download-prism.html#cb822-7"></a><span class="kw">writeRaster</span>(temp_stars, <span class="kw">paste0</span>(<span class="st">&quot;./Data/PRISM/PRISM_&quot;</span>, var_type, <span class="st">&quot;_y&quot;</span>, temp_year, <span class="st">&quot;_m&quot;</span>, temp_month, <span class="st">&quot;.tif&quot;</span>), <span class="dt">overwrite =</span> T) </span></code></pre></div>
+<span id="cb822-2"><a href="download-prism.html#cb822-2"></a><span class="co">#--- combine all the PRISM files as stars ---#</span></span>
+<span id="cb822-3"><a href="download-prism.html#cb822-3"></a>temp_stars &lt;-<span class="st"> </span><span class="kw">read_stars</span>(file_path, <span class="dt">along =</span> <span class="dv">3</span>)</span>
+<span id="cb822-4"><a href="download-prism.html#cb822-4"></a>  <span class="co">#--- set the third dimension as data ---# </span></span>
+<span id="cb822-5"><a href="download-prism.html#cb822-5"></a>  <span class="kw">st_set_dimensions</span>(<span class="st">&quot;band&quot;</span>, <span class="dt">values =</span> dates_ls, <span class="dt">name =</span> <span class="st">&quot;date&quot;</span>)</span>
+<span id="cb822-6"><a href="download-prism.html#cb822-6"></a>)</span>
+<span id="cb822-7"><a href="download-prism.html#cb822-7"></a></span>
+<span id="cb822-8"><a href="download-prism.html#cb822-8"></a><span class="co">#--- save the stars as an rds file ---#</span></span>
+<span id="cb822-9"><a href="download-prism.html#cb822-9"></a><span class="kw">saveRDS</span>(</span>
+<span id="cb822-10"><a href="download-prism.html#cb822-10"></a>  temp_stars, </span>
+<span id="cb822-11"><a href="download-prism.html#cb822-11"></a>  <span class="kw">paste0</span>(<span class="st">&quot;./Data/PRISM/PRISM_&quot;</span>, var_type, <span class="st">&quot;_y&quot;</span>, temp_year, <span class="st">&quot;_m&quot;</span>, temp_month, <span class="st">&quot;.rds&quot;</span>)</span>
+<span id="cb822-12"><a href="download-prism.html#cb822-12"></a>)  </span></code></pre></div>
+<p>You could alternatively read the files into a <code>SpatRaster</code> object and save it data as a GeoTIFF file.</p>
+<div class="sourceCode" id="cb823"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb823-1"><a href="download-prism.html#cb823-1"></a>(</span>
+<span id="cb823-2"><a href="download-prism.html#cb823-2"></a><span class="co">#--- combine all the PRISM files as a RasterStack ---#</span></span>
+<span id="cb823-3"><a href="download-prism.html#cb823-3"></a>temp_stars &lt;-<span class="st"> </span>terra<span class="op">::</span><span class="kw">rast</span>(file_path) </span>
+<span id="cb823-4"><a href="download-prism.html#cb823-4"></a>)</span>
+<span id="cb823-5"><a href="download-prism.html#cb823-5"></a></span>
+<span id="cb823-6"><a href="download-prism.html#cb823-6"></a><span class="co">#--- save as a multi-band GeoTIFF file ---#</span></span>
+<span id="cb823-7"><a href="download-prism.html#cb823-7"></a><span class="kw">writeRaster</span>(temp_stars, <span class="kw">paste0</span>(<span class="st">&quot;./Data/PRISM/PRISM_&quot;</span>, var_type, <span class="st">&quot;_y&quot;</span>, temp_year, <span class="st">&quot;_m&quot;</span>, temp_month, <span class="st">&quot;.tif&quot;</span>), <span class="dt">overwrite =</span> T) </span></code></pre></div>
 <p>Note that this option of course does not have date as the third dimension. Moreover, the RDS file above takes up only 14 Mb, while the tif file occupies 108 Mb.</p>
 <p>Finally, if you would like, you can delete all the individual PRISM files:</p>
-<div class="sourceCode" id="cb823"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb823-1"><a href="download-prism.html#cb823-1"></a><span class="co">#--- delete all the downloaded files ---#</span></span>
-<span id="cb823-2"><a href="download-prism.html#cb823-2"></a><span class="kw">unlink</span>(<span class="kw">paste0</span>(<span class="st">&quot;./Data/PRISM/&quot;</span>, folder_name), <span class="dt">recursive =</span> <span class="ot">TRUE</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb824"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb824-1"><a href="download-prism.html#cb824-1"></a><span class="co">#--- delete all the downloaded files ---#</span></span>
+<span id="cb824-2"><a href="download-prism.html#cb824-2"></a><span class="kw">unlink</span>(<span class="kw">paste0</span>(<span class="st">&quot;./Data/PRISM/&quot;</span>, folder_name), <span class="dt">recursive =</span> <span class="ot">TRUE</span>) </span></code></pre></div>
 <hr />
 <p>Okay, now that we know what to do with a particular year-month combination, we can easily write a loop to go over all the year-month combinations for the period of interest. Since all the processes we observed above for a single year-month combination is embarrassingly parallel, it is easy to parallelize using <code>future.apply::future_lapply()</code> or <code>parallel::mclapply()</code> (Linux/Mac users only). Here we use <code>future_lapply()</code>. Let’s first get the number of logical cores.</p>
-<div class="sourceCode" id="cb824"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb824-1"><a href="download-prism.html#cb824-1"></a><span class="kw">library</span>(parallel)</span>
-<span id="cb824-2"><a href="download-prism.html#cb824-2"></a>num_cores &lt;-<span class="st"> </span><span class="kw">detectCores</span>() </span>
-<span id="cb824-3"><a href="download-prism.html#cb824-3"></a></span>
-<span id="cb824-4"><a href="download-prism.html#cb824-4"></a><span class="kw">plan</span>(multiprocess, <span class="dt">workers =</span> num_cores)</span></code></pre></div>
-<p>The following function goes through all the steps we saw above for a single year-month combination.</p>
-<div class="sourceCode" id="cb825"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb825-1"><a href="download-prism.html#cb825-1"></a><span class="co">#--- define a function to download and save PRISM data stacked by month ---#</span></span>
-<span id="cb825-2"><a href="download-prism.html#cb825-2"></a>get_save_prism &lt;-<span class="st"> </span><span class="cf">function</span>(i, var_type) {</span>
+<div class="sourceCode" id="cb825"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb825-1"><a href="download-prism.html#cb825-1"></a><span class="kw">library</span>(parallel)</span>
+<span id="cb825-2"><a href="download-prism.html#cb825-2"></a>num_cores &lt;-<span class="st"> </span><span class="kw">detectCores</span>() </span>
 <span id="cb825-3"><a href="download-prism.html#cb825-3"></a></span>
-<span id="cb825-4"><a href="download-prism.html#cb825-4"></a>  <span class="kw">print</span>(<span class="kw">paste0</span>(<span class="st">&quot;working on &quot;</span>, i))</span>
-<span id="cb825-5"><a href="download-prism.html#cb825-5"></a></span>
-<span id="cb825-6"><a href="download-prism.html#cb825-6"></a>  temp_month &lt;-<span class="st"> </span>month_year_data[i, month] <span class="co"># working month</span></span>
-<span id="cb825-7"><a href="download-prism.html#cb825-7"></a>  temp_year &lt;-<span class="st"> </span>month_year_data[i, year] <span class="co"># working year</span></span>
-<span id="cb825-8"><a href="download-prism.html#cb825-8"></a>  </span>
-<span id="cb825-9"><a href="download-prism.html#cb825-9"></a>  <span class="co">#--- starting date of the working month-year ---#</span></span>
-<span id="cb825-10"><a href="download-prism.html#cb825-10"></a>  start_date &lt;-<span class="st"> </span><span class="kw">dmy</span>(<span class="kw">paste0</span>(<span class="st">&quot;1/&quot;</span>, temp_month, <span class="st">&quot;/&quot;</span>, temp_year))</span>
-<span id="cb825-11"><a href="download-prism.html#cb825-11"></a>  <span class="co">#--- end date ---#</span></span>
-<span id="cb825-12"><a href="download-prism.html#cb825-12"></a>  end_date &lt;-<span class="st"> </span>start_date <span class="op">%m+%</span><span class="st"> </span><span class="kw">months</span>(<span class="dv">1</span>) <span class="op">-</span><span class="st"> </span><span class="dv">1</span></span>
-<span id="cb825-13"><a href="download-prism.html#cb825-13"></a></span>
-<span id="cb825-14"><a href="download-prism.html#cb825-14"></a>  </span>
-<span id="cb825-15"><a href="download-prism.html#cb825-15"></a>  <span class="co">#--- download daily PRISM data for the working month-year ---#</span></span>
-<span id="cb825-16"><a href="download-prism.html#cb825-16"></a>  <span class="kw">get_prism_dailys</span>(</span>
-<span id="cb825-17"><a href="download-prism.html#cb825-17"></a>    <span class="dt">type =</span> var_type,</span>
-<span id="cb825-18"><a href="download-prism.html#cb825-18"></a>    <span class="dt">minDate =</span> <span class="kw">as.character</span>(start_date),</span>
-<span id="cb825-19"><a href="download-prism.html#cb825-19"></a>    <span class="dt">maxDate =</span> <span class="kw">as.character</span>(end_date),</span>
-<span id="cb825-20"><a href="download-prism.html#cb825-20"></a>    <span class="dt">keepZip =</span> <span class="ot">FALSE</span></span>
-<span id="cb825-21"><a href="download-prism.html#cb825-21"></a>  ) </span>
-<span id="cb825-22"><a href="download-prism.html#cb825-22"></a></span>
-<span id="cb825-23"><a href="download-prism.html#cb825-23"></a>  <span class="co">#--- list of dates of the working month-year ---#</span></span>
-<span id="cb825-24"><a href="download-prism.html#cb825-24"></a>  dates_ls &lt;-<span class="st"> </span><span class="kw">seq</span>(start_date, end_date, <span class="st">&quot;days&quot;</span>) </span>
-<span id="cb825-25"><a href="download-prism.html#cb825-25"></a></span>
-<span id="cb825-26"><a href="download-prism.html#cb825-26"></a>  <span class="co">#--- remove dashes ---#</span></span>
-<span id="cb825-27"><a href="download-prism.html#cb825-27"></a>  dates_prism_txt &lt;-<span class="st"> </span><span class="kw">str_remove_all</span>(dates_ls, <span class="st">&quot;-&quot;</span>)</span>
-<span id="cb825-28"><a href="download-prism.html#cb825-28"></a></span>
-<span id="cb825-29"><a href="download-prism.html#cb825-29"></a>  <span class="co">#--- folder names ---#</span></span>
-<span id="cb825-30"><a href="download-prism.html#cb825-30"></a>  folder_name &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;PRISM_&quot;</span>, var_type, <span class="st">&quot;_stable_4kmD2_&quot;</span>, dates_prism_txt, <span class="st">&quot;_bil&quot;</span>) </span>
-<span id="cb825-31"><a href="download-prism.html#cb825-31"></a>  <span class="co">#--- the file name of the downloaded data ---#</span></span>
-<span id="cb825-32"><a href="download-prism.html#cb825-32"></a>  file_name &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;PRISM_&quot;</span>, var_type, <span class="st">&quot;_stable_4kmD2_&quot;</span>, dates_prism_txt, <span class="st">&quot;_bil.bil&quot;</span>) </span>
-<span id="cb825-33"><a href="download-prism.html#cb825-33"></a>  <span class="co">#--- complete path to the downloaded files ---#</span></span>
-<span id="cb825-34"><a href="download-prism.html#cb825-34"></a>  file_path &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;./Data/PRISM/&quot;</span>, folder_name, <span class="st">&quot;/&quot;</span>, file_name)</span>
-<span id="cb825-35"><a href="download-prism.html#cb825-35"></a></span>
-<span id="cb825-36"><a href="download-prism.html#cb825-36"></a>  <span class="co">#--- combine all the PRISM files as a RasterStack ---#</span></span>
-<span id="cb825-37"><a href="download-prism.html#cb825-37"></a>  temp_stars &lt;-<span class="st"> </span><span class="kw">stack</span>(file_path) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb825-38"><a href="download-prism.html#cb825-38"></a><span class="st">    </span><span class="co">#--- convert to stars ---#</span></span>
-<span id="cb825-39"><a href="download-prism.html#cb825-39"></a><span class="st">    </span><span class="kw">st_as_stars</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb825-40"><a href="download-prism.html#cb825-40"></a><span class="st">    </span><span class="co">#--- set the third dimension as data ---# </span></span>
-<span id="cb825-41"><a href="download-prism.html#cb825-41"></a><span class="st">    </span><span class="kw">st_set_dimensions</span>(<span class="st">&quot;band&quot;</span>, <span class="dt">values =</span> dates_ls, <span class="dt">name =</span> <span class="st">&quot;date&quot;</span>)</span>
-<span id="cb825-42"><a href="download-prism.html#cb825-42"></a></span>
-<span id="cb825-43"><a href="download-prism.html#cb825-43"></a>  <span class="co">#--- save the stars as an rds file ---#</span></span>
-<span id="cb825-44"><a href="download-prism.html#cb825-44"></a>  <span class="kw">saveRDS</span>(</span>
-<span id="cb825-45"><a href="download-prism.html#cb825-45"></a>    temp_stars, </span>
-<span id="cb825-46"><a href="download-prism.html#cb825-46"></a>    <span class="kw">paste0</span>(<span class="st">&quot;./Data/PRISM/PRISM_&quot;</span>, var_type, <span class="st">&quot;_y&quot;</span>, temp_year, <span class="st">&quot;_m&quot;</span>, temp_month, <span class="st">&quot;.rds&quot;</span>)</span>
-<span id="cb825-47"><a href="download-prism.html#cb825-47"></a>  )</span>
-<span id="cb825-48"><a href="download-prism.html#cb825-48"></a></span>
-<span id="cb825-49"><a href="download-prism.html#cb825-49"></a>  <span class="co">#--- delete all the downloaded files ---#</span></span>
-<span id="cb825-50"><a href="download-prism.html#cb825-50"></a>  <span class="kw">unlink</span>(<span class="kw">paste0</span>(<span class="st">&quot;./Data/PRISM/&quot;</span>, folder_name), <span class="dt">recursive =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb825-51"><a href="download-prism.html#cb825-51"></a>} </span></code></pre></div>
+<span id="cb825-4"><a href="download-prism.html#cb825-4"></a><span class="kw">plan</span>(multiprocess, <span class="dt">workers =</span> num_cores)</span></code></pre></div>
+<p>The following function goes through all the steps we saw above for a single year-month combination.</p>
+<div class="sourceCode" id="cb826"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb826-1"><a href="download-prism.html#cb826-1"></a><span class="co">#--- define a function to download and save PRISM data stacked by month ---#</span></span>
+<span id="cb826-2"><a href="download-prism.html#cb826-2"></a>get_save_prism &lt;-<span class="st"> </span><span class="cf">function</span>(i, var_type) {</span>
+<span id="cb826-3"><a href="download-prism.html#cb826-3"></a></span>
+<span id="cb826-4"><a href="download-prism.html#cb826-4"></a>  <span class="kw">print</span>(<span class="kw">paste0</span>(<span class="st">&quot;working on &quot;</span>, i))</span>
+<span id="cb826-5"><a href="download-prism.html#cb826-5"></a></span>
+<span id="cb826-6"><a href="download-prism.html#cb826-6"></a>  temp_month &lt;-<span class="st"> </span>month_year_data[i, month] <span class="co"># working month</span></span>
+<span id="cb826-7"><a href="download-prism.html#cb826-7"></a>  temp_year &lt;-<span class="st"> </span>month_year_data[i, year] <span class="co"># working year</span></span>
+<span id="cb826-8"><a href="download-prism.html#cb826-8"></a>  </span>
+<span id="cb826-9"><a href="download-prism.html#cb826-9"></a>  <span class="co">#--- starting date of the working month-year ---#</span></span>
+<span id="cb826-10"><a href="download-prism.html#cb826-10"></a>  start_date &lt;-<span class="st"> </span><span class="kw">dmy</span>(<span class="kw">paste0</span>(<span class="st">&quot;1/&quot;</span>, temp_month, <span class="st">&quot;/&quot;</span>, temp_year))</span>
+<span id="cb826-11"><a href="download-prism.html#cb826-11"></a>  <span class="co">#--- end date ---#</span></span>
+<span id="cb826-12"><a href="download-prism.html#cb826-12"></a>  end_date &lt;-<span class="st"> </span>start_date <span class="op">%m+%</span><span class="st"> </span><span class="kw">months</span>(<span class="dv">1</span>) <span class="op">-</span><span class="st"> </span><span class="dv">1</span></span>
+<span id="cb826-13"><a href="download-prism.html#cb826-13"></a></span>
+<span id="cb826-14"><a href="download-prism.html#cb826-14"></a>  </span>
+<span id="cb826-15"><a href="download-prism.html#cb826-15"></a>  <span class="co">#--- download daily PRISM data for the working month-year ---#</span></span>
+<span id="cb826-16"><a href="download-prism.html#cb826-16"></a>  <span class="kw">get_prism_dailys</span>(</span>
+<span id="cb826-17"><a href="download-prism.html#cb826-17"></a>    <span class="dt">type =</span> var_type,</span>
+<span id="cb826-18"><a href="download-prism.html#cb826-18"></a>    <span class="dt">minDate =</span> <span class="kw">as.character</span>(start_date),</span>
+<span id="cb826-19"><a href="download-prism.html#cb826-19"></a>    <span class="dt">maxDate =</span> <span class="kw">as.character</span>(end_date),</span>
+<span id="cb826-20"><a href="download-prism.html#cb826-20"></a>    <span class="dt">keepZip =</span> <span class="ot">FALSE</span></span>
+<span id="cb826-21"><a href="download-prism.html#cb826-21"></a>  ) </span>
+<span id="cb826-22"><a href="download-prism.html#cb826-22"></a></span>
+<span id="cb826-23"><a href="download-prism.html#cb826-23"></a>  <span class="co">#--- list of dates of the working month-year ---#</span></span>
+<span id="cb826-24"><a href="download-prism.html#cb826-24"></a>  dates_ls &lt;-<span class="st"> </span><span class="kw">seq</span>(start_date, end_date, <span class="st">&quot;days&quot;</span>) </span>
+<span id="cb826-25"><a href="download-prism.html#cb826-25"></a></span>
+<span id="cb826-26"><a href="download-prism.html#cb826-26"></a>  <span class="co">#--- remove dashes ---#</span></span>
+<span id="cb826-27"><a href="download-prism.html#cb826-27"></a>  dates_prism_txt &lt;-<span class="st"> </span><span class="kw">str_remove_all</span>(dates_ls, <span class="st">&quot;-&quot;</span>)</span>
+<span id="cb826-28"><a href="download-prism.html#cb826-28"></a></span>
+<span id="cb826-29"><a href="download-prism.html#cb826-29"></a>  <span class="co">#--- folder names ---#</span></span>
+<span id="cb826-30"><a href="download-prism.html#cb826-30"></a>  folder_name &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;PRISM_&quot;</span>, var_type, <span class="st">&quot;_stable_4kmD2_&quot;</span>, dates_prism_txt, <span class="st">&quot;_bil&quot;</span>) </span>
+<span id="cb826-31"><a href="download-prism.html#cb826-31"></a>  <span class="co">#--- the file name of the downloaded data ---#</span></span>
+<span id="cb826-32"><a href="download-prism.html#cb826-32"></a>  file_name &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;PRISM_&quot;</span>, var_type, <span class="st">&quot;_stable_4kmD2_&quot;</span>, dates_prism_txt, <span class="st">&quot;_bil.bil&quot;</span>) </span>
+<span id="cb826-33"><a href="download-prism.html#cb826-33"></a>  <span class="co">#--- complete path to the downloaded files ---#</span></span>
+<span id="cb826-34"><a href="download-prism.html#cb826-34"></a>  file_path &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;./Data/PRISM/&quot;</span>, folder_name, <span class="st">&quot;/&quot;</span>, file_name)</span>
+<span id="cb826-35"><a href="download-prism.html#cb826-35"></a></span>
+<span id="cb826-36"><a href="download-prism.html#cb826-36"></a>  <span class="co">#--- combine all the PRISM files as a RasterStack ---#</span></span>
+<span id="cb826-37"><a href="download-prism.html#cb826-37"></a>  temp_stars &lt;-<span class="st"> </span><span class="kw">stack</span>(file_path) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb826-38"><a href="download-prism.html#cb826-38"></a><span class="st">    </span><span class="co">#--- convert to stars ---#</span></span>
+<span id="cb826-39"><a href="download-prism.html#cb826-39"></a><span class="st">    </span><span class="kw">st_as_stars</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb826-40"><a href="download-prism.html#cb826-40"></a><span class="st">    </span><span class="co">#--- set the third dimension as data ---# </span></span>
+<span id="cb826-41"><a href="download-prism.html#cb826-41"></a><span class="st">    </span><span class="kw">st_set_dimensions</span>(<span class="st">&quot;band&quot;</span>, <span class="dt">values =</span> dates_ls, <span class="dt">name =</span> <span class="st">&quot;date&quot;</span>)</span>
+<span id="cb826-42"><a href="download-prism.html#cb826-42"></a></span>
+<span id="cb826-43"><a href="download-prism.html#cb826-43"></a>  <span class="co">#--- save the stars as an rds file ---#</span></span>
+<span id="cb826-44"><a href="download-prism.html#cb826-44"></a>  <span class="kw">saveRDS</span>(</span>
+<span id="cb826-45"><a href="download-prism.html#cb826-45"></a>    temp_stars, </span>
+<span id="cb826-46"><a href="download-prism.html#cb826-46"></a>    <span class="kw">paste0</span>(<span class="st">&quot;./Data/PRISM/PRISM_&quot;</span>, var_type, <span class="st">&quot;_y&quot;</span>, temp_year, <span class="st">&quot;_m&quot;</span>, temp_month, <span class="st">&quot;.rds&quot;</span>)</span>
+<span id="cb826-47"><a href="download-prism.html#cb826-47"></a>  )</span>
+<span id="cb826-48"><a href="download-prism.html#cb826-48"></a></span>
+<span id="cb826-49"><a href="download-prism.html#cb826-49"></a>  <span class="co">#--- delete all the downloaded files ---#</span></span>
+<span id="cb826-50"><a href="download-prism.html#cb826-50"></a>  <span class="kw">unlink</span>(<span class="kw">paste0</span>(<span class="st">&quot;./Data/PRISM/&quot;</span>, folder_name), <span class="dt">recursive =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb826-51"><a href="download-prism.html#cb826-51"></a>} </span></code></pre></div>
 <p>We then create a <code>data.frame</code> of all the year-month combinations:</p>
-<div class="sourceCode" id="cb826"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb826-1"><a href="download-prism.html#cb826-1"></a>(</span>
-<span id="cb826-2"><a href="download-prism.html#cb826-2"></a><span class="co">#--- create a set of year-month combinations to loop over ---#</span></span>
-<span id="cb826-3"><a href="download-prism.html#cb826-3"></a>month_year_data &lt;-<span class="st"> </span><span class="kw">expand.grid</span>(<span class="dt">month  =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">12</span>, <span class="dt">year =</span> <span class="dv">1990</span><span class="op">:</span><span class="dv">2018</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb826-4"><a href="download-prism.html#cb826-4"></a><span class="st">  </span><span class="kw">data.table</span>()</span>
-<span id="cb826-5"><a href="download-prism.html#cb826-5"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb827"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb827-1"><a href="download-prism.html#cb827-1"></a>(</span>
+<span id="cb827-2"><a href="download-prism.html#cb827-2"></a><span class="co">#--- create a set of year-month combinations to loop over ---#</span></span>
+<span id="cb827-3"><a href="download-prism.html#cb827-3"></a>month_year_data &lt;-<span class="st"> </span><span class="kw">expand.grid</span>(<span class="dt">month  =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">12</span>, <span class="dt">year =</span> <span class="dv">1990</span><span class="op">:</span><span class="dv">2018</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb827-4"><a href="download-prism.html#cb827-4"></a><span class="st">  </span><span class="kw">data.table</span>()</span>
+<span id="cb827-5"><a href="download-prism.html#cb827-5"></a>)</span></code></pre></div>
 <pre><code>     month year
   1:     1 1990
   2:     2 1990
@@ -795,73 +795,73 @@ Figure 9.2: PRISM precipitation data for January 1, 2000
 347:    11 2018
 348:    12 2018</code></pre>
 <p>We now do parallelized loop over all the year-month combinations (by looping over the rows of the <code>month_year_data</code>):</p>
-<div class="sourceCode" id="cb828"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb828-1"><a href="download-prism.html#cb828-1"></a><span class="co">#--- run the above code in parallel ---#</span></span>
-<span id="cb828-2"><a href="download-prism.html#cb828-2"></a><span class="kw">future_lapply</span>(</span>
-<span id="cb828-3"><a href="download-prism.html#cb828-3"></a>  <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(month_year_data), </span>
-<span id="cb828-4"><a href="download-prism.html#cb828-4"></a>  <span class="cf">function</span> (x) <span class="kw">get_save_prism</span>(x, <span class="st">&quot;ppt&quot;</span>)</span>
-<span id="cb828-5"><a href="download-prism.html#cb828-5"></a>)</span></code></pre></div>
-<p>That’s it. Of course, you can do the same thing for tmax by this:</p>
 <div class="sourceCode" id="cb829"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb829-1"><a href="download-prism.html#cb829-1"></a><span class="co">#--- run the above code in parallel ---#</span></span>
 <span id="cb829-2"><a href="download-prism.html#cb829-2"></a><span class="kw">future_lapply</span>(</span>
 <span id="cb829-3"><a href="download-prism.html#cb829-3"></a>  <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(month_year_data), </span>
-<span id="cb829-4"><a href="download-prism.html#cb829-4"></a>  <span class="cf">function</span> (x) <span class="kw">get_save_prism</span>(x, <span class="st">&quot;tmax&quot;</span>)</span>
+<span id="cb829-4"><a href="download-prism.html#cb829-4"></a>  <span class="cf">function</span> (x) <span class="kw">get_save_prism</span>(x, <span class="st">&quot;ppt&quot;</span>)</span>
 <span id="cb829-5"><a href="download-prism.html#cb829-5"></a>)</span></code></pre></div>
+<p>That’s it. Of course, you can do the same thing for tmax by this:</p>
+<div class="sourceCode" id="cb830"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb830-1"><a href="download-prism.html#cb830-1"></a><span class="co">#--- run the above code in parallel ---#</span></span>
+<span id="cb830-2"><a href="download-prism.html#cb830-2"></a><span class="kw">future_lapply</span>(</span>
+<span id="cb830-3"><a href="download-prism.html#cb830-3"></a>  <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(month_year_data), </span>
+<span id="cb830-4"><a href="download-prism.html#cb830-4"></a>  <span class="cf">function</span> (x) <span class="kw">get_save_prism</span>(x, <span class="st">&quot;tmax&quot;</span>)</span>
+<span id="cb830-5"><a href="download-prism.html#cb830-5"></a>)</span></code></pre></div>
 <p>Now that you have PRISM datasets, you can extract values from the raster layers for vector data for your analysis, which is covered extensively in Chapters <a href="int-RV.html#int-RV">5</a> and <a href="stars-basics.html#stars-basics">7</a> (for <code>stars</code> objects).</p>
 <hr />
 <p>If you want to save the data by year (each file would be about 168 Mb). You could do this.</p>
-<div class="sourceCode" id="cb830"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb830-1"><a href="download-prism.html#cb830-1"></a><span class="co">#--- define a function to download and save PRISM data stacked by year ---#</span></span>
-<span id="cb830-2"><a href="download-prism.html#cb830-2"></a>get_save_prism_y &lt;-<span class="st"> </span><span class="cf">function</span>(temp_year, var_type) {</span>
-<span id="cb830-3"><a href="download-prism.html#cb830-3"></a></span>
-<span id="cb830-4"><a href="download-prism.html#cb830-4"></a>  <span class="kw">print</span>(<span class="kw">paste0</span>(<span class="st">&quot;working on &quot;</span>, temp_year))</span>
-<span id="cb830-5"><a href="download-prism.html#cb830-5"></a>  </span>
-<span id="cb830-6"><a href="download-prism.html#cb830-6"></a>  <span class="co">#--- starting date of the working month-year ---#</span></span>
-<span id="cb830-7"><a href="download-prism.html#cb830-7"></a>  start_date &lt;-<span class="st"> </span><span class="kw">dmy</span>(<span class="kw">paste0</span>(<span class="st">&quot;1/1/&quot;</span>, temp_year))</span>
-<span id="cb830-8"><a href="download-prism.html#cb830-8"></a>  <span class="co">#--- end date ---#</span></span>
-<span id="cb830-9"><a href="download-prism.html#cb830-9"></a>  end_date &lt;-<span class="st"> </span><span class="kw">dmy</span>(<span class="kw">paste0</span>(<span class="st">&quot;1/1/&quot;</span>, temp_year <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)) <span class="op">-</span><span class="st"> </span><span class="dv">1</span></span>
-<span id="cb830-10"><a href="download-prism.html#cb830-10"></a></span>
-<span id="cb830-11"><a href="download-prism.html#cb830-11"></a>  <span class="co">#--- download daily PRISM data for the working month-year ---#</span></span>
-<span id="cb830-12"><a href="download-prism.html#cb830-12"></a>  <span class="kw">get_prism_dailys</span>(</span>
-<span id="cb830-13"><a href="download-prism.html#cb830-13"></a>    <span class="dt">type =</span> var_type,</span>
-<span id="cb830-14"><a href="download-prism.html#cb830-14"></a>    <span class="dt">minDate =</span> <span class="kw">as.character</span>(start_date),</span>
-<span id="cb830-15"><a href="download-prism.html#cb830-15"></a>    <span class="dt">maxDate =</span> <span class="kw">as.character</span>(end_date),</span>
-<span id="cb830-16"><a href="download-prism.html#cb830-16"></a>    <span class="dt">keepZip =</span> <span class="ot">FALSE</span></span>
-<span id="cb830-17"><a href="download-prism.html#cb830-17"></a>  ) </span>
-<span id="cb830-18"><a href="download-prism.html#cb830-18"></a></span>
-<span id="cb830-19"><a href="download-prism.html#cb830-19"></a>  <span class="co">#--- list of dates of the working month-year ---#</span></span>
-<span id="cb830-20"><a href="download-prism.html#cb830-20"></a>  dates_ls &lt;-<span class="st"> </span><span class="kw">seq</span>(start_date, end_date, <span class="st">&quot;days&quot;</span>) </span>
-<span id="cb830-21"><a href="download-prism.html#cb830-21"></a></span>
-<span id="cb830-22"><a href="download-prism.html#cb830-22"></a>  <span class="co">#--- remove dashes ---#</span></span>
-<span id="cb830-23"><a href="download-prism.html#cb830-23"></a>  dates_prism_txt &lt;-<span class="st"> </span><span class="kw">str_remove_all</span>(dates_ls, <span class="st">&quot;-&quot;</span>)</span>
-<span id="cb830-24"><a href="download-prism.html#cb830-24"></a></span>
-<span id="cb830-25"><a href="download-prism.html#cb830-25"></a>  <span class="co">#--- folder names ---#</span></span>
-<span id="cb830-26"><a href="download-prism.html#cb830-26"></a>  folder_name &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;PRISM_&quot;</span>, var_type, <span class="st">&quot;_stable_4kmD2_&quot;</span>, dates_prism_txt, <span class="st">&quot;_bil&quot;</span>) </span>
-<span id="cb830-27"><a href="download-prism.html#cb830-27"></a>  <span class="co">#--- the file name of the downloaded data ---#</span></span>
-<span id="cb830-28"><a href="download-prism.html#cb830-28"></a>  file_name &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;PRISM_&quot;</span>, var_type, <span class="st">&quot;_stable_4kmD2_&quot;</span>, dates_prism_txt, <span class="st">&quot;_bil.bil&quot;</span>) </span>
-<span id="cb830-29"><a href="download-prism.html#cb830-29"></a>  <span class="co">#--- complete path to the downloaded files ---#</span></span>
-<span id="cb830-30"><a href="download-prism.html#cb830-30"></a>  file_path &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;./Data/PRISM/&quot;</span>, folder_name, <span class="st">&quot;/&quot;</span>, file_name)</span>
-<span id="cb830-31"><a href="download-prism.html#cb830-31"></a></span>
-<span id="cb830-32"><a href="download-prism.html#cb830-32"></a>  <span class="co">#--- combine all the PRISM files as a RasterStack ---#</span></span>
-<span id="cb830-33"><a href="download-prism.html#cb830-33"></a>  temp_stars &lt;-<span class="st"> </span><span class="kw">stack</span>(file_path) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb830-34"><a href="download-prism.html#cb830-34"></a><span class="st">    </span><span class="co">#--- convert to stars ---#</span></span>
-<span id="cb830-35"><a href="download-prism.html#cb830-35"></a><span class="st">    </span><span class="kw">st_as_stars</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb830-36"><a href="download-prism.html#cb830-36"></a><span class="st">    </span><span class="co">#--- set the third dimension as data ---# </span></span>
-<span id="cb830-37"><a href="download-prism.html#cb830-37"></a><span class="st">    </span><span class="kw">st_set_dimensions</span>(<span class="st">&quot;band&quot;</span>, <span class="dt">values =</span> dates_ls, <span class="dt">name =</span> <span class="st">&quot;date&quot;</span>)</span>
-<span id="cb830-38"><a href="download-prism.html#cb830-38"></a></span>
-<span id="cb830-39"><a href="download-prism.html#cb830-39"></a>  <span class="co">#--- save the stars as an rds file ---#</span></span>
-<span id="cb830-40"><a href="download-prism.html#cb830-40"></a>  <span class="kw">saveRDS</span>(</span>
-<span id="cb830-41"><a href="download-prism.html#cb830-41"></a>    temp_stars, </span>
-<span id="cb830-42"><a href="download-prism.html#cb830-42"></a>    <span class="kw">paste0</span>(<span class="st">&quot;./Data/PRISM/PRISM_&quot;</span>, var_type, <span class="st">&quot;_y&quot;</span>, temp_year, <span class="st">&quot;.rds&quot;</span>)</span>
-<span id="cb830-43"><a href="download-prism.html#cb830-43"></a>  )</span>
-<span id="cb830-44"><a href="download-prism.html#cb830-44"></a></span>
-<span id="cb830-45"><a href="download-prism.html#cb830-45"></a>  <span class="co">#--- delete all the downloaded files ---#</span></span>
-<span id="cb830-46"><a href="download-prism.html#cb830-46"></a>  <span class="kw">unlink</span>(<span class="kw">paste0</span>(<span class="st">&quot;./Data/PRISM/&quot;</span>, folder_name), <span class="dt">recursive =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb830-47"><a href="download-prism.html#cb830-47"></a>} </span>
-<span id="cb830-48"><a href="download-prism.html#cb830-48"></a></span>
-<span id="cb830-49"><a href="download-prism.html#cb830-49"></a><span class="co">#--- run the above code in parallel ---#</span></span>
-<span id="cb830-50"><a href="download-prism.html#cb830-50"></a><span class="kw">future_lapply</span>(</span>
-<span id="cb830-51"><a href="download-prism.html#cb830-51"></a>  <span class="dv">1990</span><span class="op">:</span><span class="dv">2018</span>, </span>
-<span id="cb830-52"><a href="download-prism.html#cb830-52"></a>  <span class="cf">function</span> (x) <span class="kw">get_save_prism_y</span>(x, <span class="st">&quot;tmax&quot;</span>)</span>
-<span id="cb830-53"><a href="download-prism.html#cb830-53"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb831"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb831-1"><a href="download-prism.html#cb831-1"></a><span class="co">#--- define a function to download and save PRISM data stacked by year ---#</span></span>
+<span id="cb831-2"><a href="download-prism.html#cb831-2"></a>get_save_prism_y &lt;-<span class="st"> </span><span class="cf">function</span>(temp_year, var_type) {</span>
+<span id="cb831-3"><a href="download-prism.html#cb831-3"></a></span>
+<span id="cb831-4"><a href="download-prism.html#cb831-4"></a>  <span class="kw">print</span>(<span class="kw">paste0</span>(<span class="st">&quot;working on &quot;</span>, temp_year))</span>
+<span id="cb831-5"><a href="download-prism.html#cb831-5"></a>  </span>
+<span id="cb831-6"><a href="download-prism.html#cb831-6"></a>  <span class="co">#--- starting date of the working month-year ---#</span></span>
+<span id="cb831-7"><a href="download-prism.html#cb831-7"></a>  start_date &lt;-<span class="st"> </span><span class="kw">dmy</span>(<span class="kw">paste0</span>(<span class="st">&quot;1/1/&quot;</span>, temp_year))</span>
+<span id="cb831-8"><a href="download-prism.html#cb831-8"></a>  <span class="co">#--- end date ---#</span></span>
+<span id="cb831-9"><a href="download-prism.html#cb831-9"></a>  end_date &lt;-<span class="st"> </span><span class="kw">dmy</span>(<span class="kw">paste0</span>(<span class="st">&quot;1/1/&quot;</span>, temp_year <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)) <span class="op">-</span><span class="st"> </span><span class="dv">1</span></span>
+<span id="cb831-10"><a href="download-prism.html#cb831-10"></a></span>
+<span id="cb831-11"><a href="download-prism.html#cb831-11"></a>  <span class="co">#--- download daily PRISM data for the working month-year ---#</span></span>
+<span id="cb831-12"><a href="download-prism.html#cb831-12"></a>  <span class="kw">get_prism_dailys</span>(</span>
+<span id="cb831-13"><a href="download-prism.html#cb831-13"></a>    <span class="dt">type =</span> var_type,</span>
+<span id="cb831-14"><a href="download-prism.html#cb831-14"></a>    <span class="dt">minDate =</span> <span class="kw">as.character</span>(start_date),</span>
+<span id="cb831-15"><a href="download-prism.html#cb831-15"></a>    <span class="dt">maxDate =</span> <span class="kw">as.character</span>(end_date),</span>
+<span id="cb831-16"><a href="download-prism.html#cb831-16"></a>    <span class="dt">keepZip =</span> <span class="ot">FALSE</span></span>
+<span id="cb831-17"><a href="download-prism.html#cb831-17"></a>  ) </span>
+<span id="cb831-18"><a href="download-prism.html#cb831-18"></a></span>
+<span id="cb831-19"><a href="download-prism.html#cb831-19"></a>  <span class="co">#--- list of dates of the working month-year ---#</span></span>
+<span id="cb831-20"><a href="download-prism.html#cb831-20"></a>  dates_ls &lt;-<span class="st"> </span><span class="kw">seq</span>(start_date, end_date, <span class="st">&quot;days&quot;</span>) </span>
+<span id="cb831-21"><a href="download-prism.html#cb831-21"></a></span>
+<span id="cb831-22"><a href="download-prism.html#cb831-22"></a>  <span class="co">#--- remove dashes ---#</span></span>
+<span id="cb831-23"><a href="download-prism.html#cb831-23"></a>  dates_prism_txt &lt;-<span class="st"> </span><span class="kw">str_remove_all</span>(dates_ls, <span class="st">&quot;-&quot;</span>)</span>
+<span id="cb831-24"><a href="download-prism.html#cb831-24"></a></span>
+<span id="cb831-25"><a href="download-prism.html#cb831-25"></a>  <span class="co">#--- folder names ---#</span></span>
+<span id="cb831-26"><a href="download-prism.html#cb831-26"></a>  folder_name &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;PRISM_&quot;</span>, var_type, <span class="st">&quot;_stable_4kmD2_&quot;</span>, dates_prism_txt, <span class="st">&quot;_bil&quot;</span>) </span>
+<span id="cb831-27"><a href="download-prism.html#cb831-27"></a>  <span class="co">#--- the file name of the downloaded data ---#</span></span>
+<span id="cb831-28"><a href="download-prism.html#cb831-28"></a>  file_name &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;PRISM_&quot;</span>, var_type, <span class="st">&quot;_stable_4kmD2_&quot;</span>, dates_prism_txt, <span class="st">&quot;_bil.bil&quot;</span>) </span>
+<span id="cb831-29"><a href="download-prism.html#cb831-29"></a>  <span class="co">#--- complete path to the downloaded files ---#</span></span>
+<span id="cb831-30"><a href="download-prism.html#cb831-30"></a>  file_path &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;./Data/PRISM/&quot;</span>, folder_name, <span class="st">&quot;/&quot;</span>, file_name)</span>
+<span id="cb831-31"><a href="download-prism.html#cb831-31"></a></span>
+<span id="cb831-32"><a href="download-prism.html#cb831-32"></a>  <span class="co">#--- combine all the PRISM files as a RasterStack ---#</span></span>
+<span id="cb831-33"><a href="download-prism.html#cb831-33"></a>  temp_stars &lt;-<span class="st"> </span><span class="kw">stack</span>(file_path) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb831-34"><a href="download-prism.html#cb831-34"></a><span class="st">    </span><span class="co">#--- convert to stars ---#</span></span>
+<span id="cb831-35"><a href="download-prism.html#cb831-35"></a><span class="st">    </span><span class="kw">st_as_stars</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb831-36"><a href="download-prism.html#cb831-36"></a><span class="st">    </span><span class="co">#--- set the third dimension as data ---# </span></span>
+<span id="cb831-37"><a href="download-prism.html#cb831-37"></a><span class="st">    </span><span class="kw">st_set_dimensions</span>(<span class="st">&quot;band&quot;</span>, <span class="dt">values =</span> dates_ls, <span class="dt">name =</span> <span class="st">&quot;date&quot;</span>)</span>
+<span id="cb831-38"><a href="download-prism.html#cb831-38"></a></span>
+<span id="cb831-39"><a href="download-prism.html#cb831-39"></a>  <span class="co">#--- save the stars as an rds file ---#</span></span>
+<span id="cb831-40"><a href="download-prism.html#cb831-40"></a>  <span class="kw">saveRDS</span>(</span>
+<span id="cb831-41"><a href="download-prism.html#cb831-41"></a>    temp_stars, </span>
+<span id="cb831-42"><a href="download-prism.html#cb831-42"></a>    <span class="kw">paste0</span>(<span class="st">&quot;./Data/PRISM/PRISM_&quot;</span>, var_type, <span class="st">&quot;_y&quot;</span>, temp_year, <span class="st">&quot;.rds&quot;</span>)</span>
+<span id="cb831-43"><a href="download-prism.html#cb831-43"></a>  )</span>
+<span id="cb831-44"><a href="download-prism.html#cb831-44"></a></span>
+<span id="cb831-45"><a href="download-prism.html#cb831-45"></a>  <span class="co">#--- delete all the downloaded files ---#</span></span>
+<span id="cb831-46"><a href="download-prism.html#cb831-46"></a>  <span class="kw">unlink</span>(<span class="kw">paste0</span>(<span class="st">&quot;./Data/PRISM/&quot;</span>, folder_name), <span class="dt">recursive =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb831-47"><a href="download-prism.html#cb831-47"></a>} </span>
+<span id="cb831-48"><a href="download-prism.html#cb831-48"></a></span>
+<span id="cb831-49"><a href="download-prism.html#cb831-49"></a><span class="co">#--- run the above code in parallel ---#</span></span>
+<span id="cb831-50"><a href="download-prism.html#cb831-50"></a><span class="kw">future_lapply</span>(</span>
+<span id="cb831-51"><a href="download-prism.html#cb831-51"></a>  <span class="dv">1990</span><span class="op">:</span><span class="dv">2018</span>, </span>
+<span id="cb831-52"><a href="download-prism.html#cb831-52"></a>  <span class="cf">function</span> (x) <span class="kw">get_save_prism_y</span>(x, <span class="st">&quot;tmax&quot;</span>)</span>
+<span id="cb831-53"><a href="download-prism.html#cb831-53"></a>)</span></code></pre></div>
 </div>
 </div>
 <h3>References</h3>

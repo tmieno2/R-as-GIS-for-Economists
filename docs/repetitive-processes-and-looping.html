@@ -66,21 +66,21 @@
 <script src="libs/HomeButton-0.0.1/easy-button-src.min.js"></script>
 <script src="libs/clipboard-0.0.1/setClipboardText.js"></script>
 <link href="libs/PopupTable-0.0.1/popup.css" rel="stylesheet" />
-<script src="libs/IA_cdl_2015-1/data_stars_IA_cdl_2015492be3.txt"></script>
+<script src="libs/IA_cdl_2015-1/data_stars_IA_cdl_20157013d9.txt"></script>
 <script src="libs/joda-0.0.1/joda.js"></script>
 <script src="libs/joda-0.0.1/addImageQuery-bindings.js"></script>
-<script src="libs/IA_cdl_2016-1/data_stars_IA_cdl_2016d254a6.txt"></script>
-<script src="libs/prcp_tmax_PRISM_m8_y09["tmax", , , ] - 1-1/data_stars_prcp_tmax_PRISM_m8_y09tmax1d57104.txt"></script>
-<script src="libs/layer.1-1/data_stars_layer1ade7f0.txt"></script>
-<script src="libs/layer.2-1/data_stars_layer2a3e1c2.txt"></script>
-<script src="libs/layer.3-1/data_stars_layer39bf0c4.txt"></script>
-<script src="libs/layer.4-1/data_stars_layer4281e67.txt"></script>
-<script src="libs/layer.5-1/data_stars_layer5da8bef.txt"></script>
-<script src="libs/layer.6-1/data_stars_layer60a163b.txt"></script>
-<script src="libs/layer.7-1/data_stars_layer72c54d1.txt"></script>
-<script src="libs/layer.8-1/data_stars_layer8fc014d.txt"></script>
-<script src="libs/layer.9-1/data_stars_layer9f9bcad.txt"></script>
-<script src="libs/layer.10-1/data_stars_layer10ea3f98.txt"></script>
+<script src="libs/IA_cdl_2016-1/data_stars_IA_cdl_2016f0942b.txt"></script>
+<script src="libs/prcp_tmax_PRISM_m8_y09["tmax", , , ] - 1-1/data_stars_prcp_tmax_PRISM_m8_y09tmax15f4a23.txt"></script>
+<script src="libs/layer.1-1/data_stars_layer16e07dc.txt"></script>
+<script src="libs/layer.2-1/data_stars_layer29d3c0a.txt"></script>
+<script src="libs/layer.3-1/data_stars_layer30124e8.txt"></script>
+<script src="libs/layer.4-1/data_stars_layer4125698.txt"></script>
+<script src="libs/layer.5-1/data_stars_layer56ca504.txt"></script>
+<script src="libs/layer.6-1/data_stars_layer60b51ef.txt"></script>
+<script src="libs/layer.7-1/data_stars_layer7d85baf.txt"></script>
+<script src="libs/layer.8-1/data_stars_layer831db4a.txt"></script>
+<script src="libs/layer.9-1/data_stars_layer935e042.txt"></script>
+<script src="libs/layer.10-1/data_stars_layer102ad98c.txt"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
 <script src="libs/datatables-binding-0.13/datatables.js"></script>
 <link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
@@ -541,15 +541,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="what-is-looping" class="section level3" number="10.1.1">
 <h3><span class="header-section-number">A.1.1</span> What is looping?</h3>
 <p>We sometimes need to run the same process over and over again often with slight changes in parameters. In such a case, it is very time-consuming and messy to write all of the steps one bye one. For example, suppose you are interested in knowing the square of 1 through 5 in with a step of 1 (<span class="math inline">\([1, 2, 3, 4, 5]\)</span>). The following code certainly works:</p>
-<div class="sourceCode" id="cb861"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb861-1"><a href="repetitive-processes-and-looping.html#cb861-1"></a><span class="dv">1</span><span class="op">^</span><span class="dv">2</span> </span></code></pre></div>
+<div class="sourceCode" id="cb862"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb862-1"><a href="repetitive-processes-and-looping.html#cb862-1"></a><span class="dv">1</span><span class="op">^</span><span class="dv">2</span> </span></code></pre></div>
 <pre><code>[1] 1</code></pre>
-<div class="sourceCode" id="cb863"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb863-1"><a href="repetitive-processes-and-looping.html#cb863-1"></a><span class="dv">2</span><span class="op">^</span><span class="dv">2</span> </span></code></pre></div>
+<div class="sourceCode" id="cb864"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb864-1"><a href="repetitive-processes-and-looping.html#cb864-1"></a><span class="dv">2</span><span class="op">^</span><span class="dv">2</span> </span></code></pre></div>
 <pre><code>[1] 4</code></pre>
-<div class="sourceCode" id="cb865"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb865-1"><a href="repetitive-processes-and-looping.html#cb865-1"></a><span class="dv">3</span><span class="op">^</span><span class="dv">2</span> </span></code></pre></div>
+<div class="sourceCode" id="cb866"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb866-1"><a href="repetitive-processes-and-looping.html#cb866-1"></a><span class="dv">3</span><span class="op">^</span><span class="dv">2</span> </span></code></pre></div>
 <pre><code>[1] 9</code></pre>
-<div class="sourceCode" id="cb867"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb867-1"><a href="repetitive-processes-and-looping.html#cb867-1"></a><span class="dv">4</span><span class="op">^</span><span class="dv">2</span> </span></code></pre></div>
+<div class="sourceCode" id="cb868"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb868-1"><a href="repetitive-processes-and-looping.html#cb868-1"></a><span class="dv">4</span><span class="op">^</span><span class="dv">2</span> </span></code></pre></div>
 <pre><code>[1] 16</code></pre>
-<div class="sourceCode" id="cb869"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb869-1"><a href="repetitive-processes-and-looping.html#cb869-1"></a><span class="dv">5</span><span class="op">^</span><span class="dv">2</span> </span></code></pre></div>
+<div class="sourceCode" id="cb870"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb870-1"><a href="repetitive-processes-and-looping.html#cb870-1"></a><span class="dv">5</span><span class="op">^</span><span class="dv">2</span> </span></code></pre></div>
 <pre><code>[1] 25</code></pre>
 <p>However, imagine you have to do this for 1000 integers. Yes, you don’t want to write each one of them one by one as that would occupy 1000 lines of your code, and it would be time-consuming. Things will be even worse if you need to repeat much more complicated processes like Monte Carlo simulations. So, let’s learn how to write a program to do repetitive jobs effectively using loop.</p>
 <p>Looping is repeatedly evaluating the same (except parameters) process over and over again. In the example above, the <strong>same</strong> process is the action of squaring. This does not change among the processes you run. What changes is what you square. Looping can help you write a concise code to implement these repetitive processes.</p>
@@ -557,28 +557,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="for-loop" class="section level3" number="10.1.2">
 <h3><span class="header-section-number">A.1.2</span> For loop</h3>
 <p>Here is how <strong>for loop</strong> works in general:</p>
-<div class="sourceCode" id="cb871"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb871-1"><a href="repetitive-processes-and-looping.html#cb871-1"></a><span class="co">#--- NOT RUN ---#</span></span>
-<span id="cb871-2"><a href="repetitive-processes-and-looping.html#cb871-2"></a><span class="cf">for</span> (x <span class="cf">in</span> a_list_of_values){</span>
-<span id="cb871-3"><a href="repetitive-processes-and-looping.html#cb871-3"></a>  you do what you want to do with x</span>
-<span id="cb871-4"><a href="repetitive-processes-and-looping.html#cb871-4"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb872"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb872-1"><a href="repetitive-processes-and-looping.html#cb872-1"></a><span class="co">#--- NOT RUN ---#</span></span>
+<span id="cb872-2"><a href="repetitive-processes-and-looping.html#cb872-2"></a><span class="cf">for</span> (x <span class="cf">in</span> a_list_of_values){</span>
+<span id="cb872-3"><a href="repetitive-processes-and-looping.html#cb872-3"></a>  you do what you want to do with x</span>
+<span id="cb872-4"><a href="repetitive-processes-and-looping.html#cb872-4"></a>}</span></code></pre></div>
 <p>As an example, let’s use this looping syntax to get the same results as the manual squaring of 1 through 5:</p>
-<div class="sourceCode" id="cb872"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb872-1"><a href="repetitive-processes-and-looping.html#cb872-1"></a><span class="cf">for</span> (x <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>){</span>
-<span id="cb872-2"><a href="repetitive-processes-and-looping.html#cb872-2"></a>  <span class="kw">print</span>(x<span class="op">^</span><span class="dv">2</span>)</span>
-<span id="cb872-3"><a href="repetitive-processes-and-looping.html#cb872-3"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb873"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb873-1"><a href="repetitive-processes-and-looping.html#cb873-1"></a><span class="cf">for</span> (x <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>){</span>
+<span id="cb873-2"><a href="repetitive-processes-and-looping.html#cb873-2"></a>  <span class="kw">print</span>(x<span class="op">^</span><span class="dv">2</span>)</span>
+<span id="cb873-3"><a href="repetitive-processes-and-looping.html#cb873-3"></a>}</span></code></pre></div>
 <pre><code>[1] 1
 [1] 4
 [1] 9
 [1] 16
 [1] 25</code></pre>
 <p>Here, a list of values is <span class="math inline">\(1, 2, 3, 4, 5]\)</span>. For each value in the list, you square it (<code>x^2</code>) and then print it (<code>print()</code>). If you want to get the square of <span class="math inline">\(1:1000\)</span>, the only thing you need to change is the list of values to loop over as in:</p>
-<div class="sourceCode" id="cb874"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb874-1"><a href="repetitive-processes-and-looping.html#cb874-1"></a><span class="co">#--- evaluation not reported as it&#39;s too long ---#</span></span>
-<span id="cb874-2"><a href="repetitive-processes-and-looping.html#cb874-2"></a><span class="cf">for</span> (x <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">1000</span>){</span>
-<span id="cb874-3"><a href="repetitive-processes-and-looping.html#cb874-3"></a>  <span class="kw">print</span>(x<span class="op">^</span><span class="dv">2</span>)</span>
-<span id="cb874-4"><a href="repetitive-processes-and-looping.html#cb874-4"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb875"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb875-1"><a href="repetitive-processes-and-looping.html#cb875-1"></a><span class="co">#--- evaluation not reported as it&#39;s too long ---#</span></span>
+<span id="cb875-2"><a href="repetitive-processes-and-looping.html#cb875-2"></a><span class="cf">for</span> (x <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">1000</span>){</span>
+<span id="cb875-3"><a href="repetitive-processes-and-looping.html#cb875-3"></a>  <span class="kw">print</span>(x<span class="op">^</span><span class="dv">2</span>)</span>
+<span id="cb875-4"><a href="repetitive-processes-and-looping.html#cb875-4"></a>}</span></code></pre></div>
 <p>So, the length of the code does not depend on how many repeats you do, which is an obvious improvement over manual typing of every single process one by one. Note that you do not have to use <span class="math inline">\(x\)</span> to refer to an object you are going to use. It could be any combination of letters as long as you use it when you code what you want to do inside the loop. So, this would work just fine,</p>
-<div class="sourceCode" id="cb875"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb875-1"><a href="repetitive-processes-and-looping.html#cb875-1"></a><span class="cf">for</span> (bluh_bluh_bluh <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>){</span>
-<span id="cb875-2"><a href="repetitive-processes-and-looping.html#cb875-2"></a>  <span class="kw">print</span>(bluh_bluh_bluh<span class="op">^</span><span class="dv">2</span>)</span>
-<span id="cb875-3"><a href="repetitive-processes-and-looping.html#cb875-3"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb876"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb876-1"><a href="repetitive-processes-and-looping.html#cb876-1"></a><span class="cf">for</span> (bluh_bluh_bluh <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>){</span>
+<span id="cb876-2"><a href="repetitive-processes-and-looping.html#cb876-2"></a>  <span class="kw">print</span>(bluh_bluh_bluh<span class="op">^</span><span class="dv">2</span>)</span>
+<span id="cb876-3"><a href="repetitive-processes-and-looping.html#cb876-3"></a>}</span></code></pre></div>
 <pre><code>[1] 1
 [1] 4
 [1] 9
@@ -588,10 +588,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="for-loop-using-the-lapply-function" class="section level3" number="10.1.3">
 <h3><span class="header-section-number">A.1.3</span> For loop using the <code>lapply()</code> function</h3>
 <p>You can do for loop using the <code>lapply()</code> function as well.<a href="#fn102" class="footnote-ref" id="fnref102"><sup>102</sup></a> Here is how it works:</p>
-<div class="sourceCode" id="cb877"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb877-1"><a href="repetitive-processes-and-looping.html#cb877-1"></a><span class="co">#--- NOT RUN ---#  </span></span>
-<span id="cb877-2"><a href="repetitive-processes-and-looping.html#cb877-2"></a><span class="kw">lapply</span>(A,B)</span></code></pre></div>
+<div class="sourceCode" id="cb878"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb878-1"><a href="repetitive-processes-and-looping.html#cb878-1"></a><span class="co">#--- NOT RUN ---#  </span></span>
+<span id="cb878-2"><a href="repetitive-processes-and-looping.html#cb878-2"></a><span class="kw">lapply</span>(A,B)</span></code></pre></div>
 <p>where <span class="math inline">\(A\)</span> is the list of values you go through one by one in the order the values are stored, and <span class="math inline">\(B\)</span> is the function you would like to apply to each of the values in <span class="math inline">\(A\)</span>. For example, the following code does exactly the same thing as the above for loop example.</p>
-<div class="sourceCode" id="cb878"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb878-1"><a href="repetitive-processes-and-looping.html#cb878-1"></a><span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="cf">function</span>(x){x<span class="op">^</span><span class="dv">2</span>})</span></code></pre></div>
+<div class="sourceCode" id="cb879"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb879-1"><a href="repetitive-processes-and-looping.html#cb879-1"></a><span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="cf">function</span>(x){x<span class="op">^</span><span class="dv">2</span>})</span></code></pre></div>
 <pre><code>[[1]]
 [1] 1
 
@@ -608,13 +608,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 [1] 25</code></pre>
 <p>Here, <span class="math inline">\(A\)</span> is <span class="math inline">\([1, 2, 3, 4, 5]\)</span>. In <span class="math inline">\(B\)</span> you have a function that takes <span class="math inline">\(x\)</span> and square it. So, the above code applies the function to each of <span class="math inline">\([1, 2, 3, 4, 5]\)</span> one by one. In many circumstances, you can write the same looping actions in a much more concise manner using the <code>lapply</code> function than explicitly writing out the loop process as in the above for loop examples. You might have noticed that the output is a list. Yes, <code>lapply()</code> returns the outcomes in a list. That is where <strong>l</strong> in <code>lapply()</code> comes from.</p>
 <p>When the operation you would like to repeat becomes complicated (almost always the case), it is advisable that you create a function of that process first.</p>
-<div class="sourceCode" id="cb880"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb880-1"><a href="repetitive-processes-and-looping.html#cb880-1"></a><span class="co">#--- define the function first ---#</span></span>
-<span id="cb880-2"><a href="repetitive-processes-and-looping.html#cb880-2"></a>square_it &lt;-<span class="st"> </span><span class="cf">function</span>(x){</span>
-<span id="cb880-3"><a href="repetitive-processes-and-looping.html#cb880-3"></a>  <span class="kw">return</span>(x<span class="op">^</span><span class="dv">2</span>)</span>
-<span id="cb880-4"><a href="repetitive-processes-and-looping.html#cb880-4"></a>}</span>
-<span id="cb880-5"><a href="repetitive-processes-and-looping.html#cb880-5"></a></span>
-<span id="cb880-6"><a href="repetitive-processes-and-looping.html#cb880-6"></a><span class="co">#--- lapply using the pre-defined function ---#</span></span>
-<span id="cb880-7"><a href="repetitive-processes-and-looping.html#cb880-7"></a><span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, square_it)</span></code></pre></div>
+<div class="sourceCode" id="cb881"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb881-1"><a href="repetitive-processes-and-looping.html#cb881-1"></a><span class="co">#--- define the function first ---#</span></span>
+<span id="cb881-2"><a href="repetitive-processes-and-looping.html#cb881-2"></a>square_it &lt;-<span class="st"> </span><span class="cf">function</span>(x){</span>
+<span id="cb881-3"><a href="repetitive-processes-and-looping.html#cb881-3"></a>  <span class="kw">return</span>(x<span class="op">^</span><span class="dv">2</span>)</span>
+<span id="cb881-4"><a href="repetitive-processes-and-looping.html#cb881-4"></a>}</span>
+<span id="cb881-5"><a href="repetitive-processes-and-looping.html#cb881-5"></a></span>
+<span id="cb881-6"><a href="repetitive-processes-and-looping.html#cb881-6"></a><span class="co">#--- lapply using the pre-defined function ---#</span></span>
+<span id="cb881-7"><a href="repetitive-processes-and-looping.html#cb881-7"></a><span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, square_it)</span></code></pre></div>
 <pre><code>[[1]]
 [1] 1
 
@@ -634,19 +634,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="looping-over-multiple-variables-using-lapply" class="section level3" number="10.1.4">
 <h3><span class="header-section-number">A.1.4</span> Looping over multiple variables using lapply()</h3>
 <p><code>lapply()</code> allows you to loop over only one variable. However, it is often the case that you want to loop over multiple variables<a href="#fn104" class="footnote-ref" id="fnref104"><sup>104</sup></a>. However, it is easy to achieve this. The trick is to create a <code>data.frame</code> of the variables where the complete list of the combinations of the variables are stored, and then loop over row of the <code>data.frame</code>. As an example, suppose we are interested in understanding the sensitivity of corn revenue to corn price and applied nitrogen amount. We consider the range of $3.0/bu to $5.0/bu for corn price and 0 lb/acre to 300/acre for applied nitrogen applied.</p>
-<div class="sourceCode" id="cb882"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb882-1"><a href="repetitive-processes-and-looping.html#cb882-1"></a><span class="co">#--- corn price vector ---#</span></span>
-<span id="cb882-2"><a href="repetitive-processes-and-looping.html#cb882-2"></a>corn_price_vec &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dt">by =</span> <span class="dv">1</span>)</span>
-<span id="cb882-3"><a href="repetitive-processes-and-looping.html#cb882-3"></a></span>
-<span id="cb882-4"><a href="repetitive-processes-and-looping.html#cb882-4"></a><span class="co">#--- nitrogen vector ---#</span></span>
-<span id="cb882-5"><a href="repetitive-processes-and-looping.html#cb882-5"></a>nitrogen_vec &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">300</span>, <span class="dt">by =</span> <span class="dv">100</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb883"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb883-1"><a href="repetitive-processes-and-looping.html#cb883-1"></a><span class="co">#--- corn price vector ---#</span></span>
+<span id="cb883-2"><a href="repetitive-processes-and-looping.html#cb883-2"></a>corn_price_vec &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dt">by =</span> <span class="dv">1</span>)</span>
+<span id="cb883-3"><a href="repetitive-processes-and-looping.html#cb883-3"></a></span>
+<span id="cb883-4"><a href="repetitive-processes-and-looping.html#cb883-4"></a><span class="co">#--- nitrogen vector ---#</span></span>
+<span id="cb883-5"><a href="repetitive-processes-and-looping.html#cb883-5"></a>nitrogen_vec &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">300</span>, <span class="dt">by =</span> <span class="dv">100</span>)</span></code></pre></div>
 <p>After creating vectors of the parameters, you combine them to create a complete combination of the parameters using the <code>expand.grid()</code> function, and then convert it to a <code>data.frame</code> object<a href="#fn105" class="footnote-ref" id="fnref105"><sup>105</sup></a>.</p>
-<div class="sourceCode" id="cb883"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb883-1"><a href="repetitive-processes-and-looping.html#cb883-1"></a><span class="co">#--- crate a data.frame that holds parameter sets to loop over ---#</span></span>
-<span id="cb883-2"><a href="repetitive-processes-and-looping.html#cb883-2"></a>parameters_data &lt;-<span class="st"> </span><span class="kw">expand.grid</span>(<span class="dt">corn_price =</span> corn_price_vec, <span class="dt">nitrogen =</span> nitrogen_vec) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb883-3"><a href="repetitive-processes-and-looping.html#cb883-3"></a><span class="st">  </span><span class="co">#--- convert the matrix to a data.frame ---#</span></span>
-<span id="cb883-4"><a href="repetitive-processes-and-looping.html#cb883-4"></a><span class="st">  </span><span class="kw">data.frame</span>()</span>
-<span id="cb883-5"><a href="repetitive-processes-and-looping.html#cb883-5"></a></span>
-<span id="cb883-6"><a href="repetitive-processes-and-looping.html#cb883-6"></a><span class="co">#--- take a look ---#</span></span>
-<span id="cb883-7"><a href="repetitive-processes-and-looping.html#cb883-7"></a>parameters_data</span></code></pre></div>
+<div class="sourceCode" id="cb884"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb884-1"><a href="repetitive-processes-and-looping.html#cb884-1"></a><span class="co">#--- crate a data.frame that holds parameter sets to loop over ---#</span></span>
+<span id="cb884-2"><a href="repetitive-processes-and-looping.html#cb884-2"></a>parameters_data &lt;-<span class="st"> </span><span class="kw">expand.grid</span>(<span class="dt">corn_price =</span> corn_price_vec, <span class="dt">nitrogen =</span> nitrogen_vec) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb884-3"><a href="repetitive-processes-and-looping.html#cb884-3"></a><span class="st">  </span><span class="co">#--- convert the matrix to a data.frame ---#</span></span>
+<span id="cb884-4"><a href="repetitive-processes-and-looping.html#cb884-4"></a><span class="st">  </span><span class="kw">data.frame</span>()</span>
+<span id="cb884-5"><a href="repetitive-processes-and-looping.html#cb884-5"></a></span>
+<span id="cb884-6"><a href="repetitive-processes-and-looping.html#cb884-6"></a><span class="co">#--- take a look ---#</span></span>
+<span id="cb884-7"><a href="repetitive-processes-and-looping.html#cb884-7"></a>parameters_data</span></code></pre></div>
 <pre><code>   corn_price nitrogen
 1           3        0
 2           4        0
@@ -661,35 +661,35 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 11          4      300
 12          5      300</code></pre>
 <p>We now define a function that takes a row number, refer to <code>parameters_data</code> to extract the parameters stored at the row number, and then calculate corn yield and revenue based on the extracted parameters.</p>
-<div class="sourceCode" id="cb885"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb885-1"><a href="repetitive-processes-and-looping.html#cb885-1"></a>gen_rev_corn &lt;-<span class="st"> </span><span class="cf">function</span>(i) {</span>
-<span id="cb885-2"><a href="repetitive-processes-and-looping.html#cb885-2"></a></span>
-<span id="cb885-3"><a href="repetitive-processes-and-looping.html#cb885-3"></a>  <span class="co">#--- define corn price ---#</span></span>
-<span id="cb885-4"><a href="repetitive-processes-and-looping.html#cb885-4"></a>  corn_price &lt;-<span class="st"> </span>parameters_data[i,<span class="st">&#39;corn_price&#39;</span>]</span>
-<span id="cb885-5"><a href="repetitive-processes-and-looping.html#cb885-5"></a></span>
-<span id="cb885-6"><a href="repetitive-processes-and-looping.html#cb885-6"></a>  <span class="co">#--- define nitrogen  ---#</span></span>
-<span id="cb885-7"><a href="repetitive-processes-and-looping.html#cb885-7"></a>  nitrogen &lt;-<span class="st"> </span>parameters_data[i,<span class="st">&#39;nitrogen&#39;</span>]</span>
-<span id="cb885-8"><a href="repetitive-processes-and-looping.html#cb885-8"></a></span>
-<span id="cb885-9"><a href="repetitive-processes-and-looping.html#cb885-9"></a>  <span class="co">#--- calculate yield ---#</span></span>
-<span id="cb885-10"><a href="repetitive-processes-and-looping.html#cb885-10"></a>  yield &lt;-<span class="st"> </span><span class="dv">240</span> <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">exp</span>(<span class="fl">0.4</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.02</span> <span class="op">*</span><span class="st"> </span>nitrogen))</span>
-<span id="cb885-11"><a href="repetitive-processes-and-looping.html#cb885-11"></a></span>
-<span id="cb885-12"><a href="repetitive-processes-and-looping.html#cb885-12"></a>  <span class="co">#--- calculate revenue ---#</span></span>
-<span id="cb885-13"><a href="repetitive-processes-and-looping.html#cb885-13"></a>  revenue &lt;-<span class="st"> </span>corn_price <span class="op">*</span><span class="st"> </span>yield </span>
-<span id="cb885-14"><a href="repetitive-processes-and-looping.html#cb885-14"></a></span>
-<span id="cb885-15"><a href="repetitive-processes-and-looping.html#cb885-15"></a>  <span class="co">#--- combine all the information you would like to have  ---#</span></span>
-<span id="cb885-16"><a href="repetitive-processes-and-looping.html#cb885-16"></a>  data_to_return &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</span>
-<span id="cb885-17"><a href="repetitive-processes-and-looping.html#cb885-17"></a>    <span class="dt">corn_price =</span> corn_price,</span>
-<span id="cb885-18"><a href="repetitive-processes-and-looping.html#cb885-18"></a>    <span class="dt">nitrogen =</span> nitrogen,</span>
-<span id="cb885-19"><a href="repetitive-processes-and-looping.html#cb885-19"></a>    <span class="dt">revenue =</span> revenue</span>
-<span id="cb885-20"><a href="repetitive-processes-and-looping.html#cb885-20"></a>  )</span>
-<span id="cb885-21"><a href="repetitive-processes-and-looping.html#cb885-21"></a></span>
-<span id="cb885-22"><a href="repetitive-processes-and-looping.html#cb885-22"></a>  <span class="kw">return</span>(data_to_return)</span>
-<span id="cb885-23"><a href="repetitive-processes-and-looping.html#cb885-23"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb886"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb886-1"><a href="repetitive-processes-and-looping.html#cb886-1"></a>gen_rev_corn &lt;-<span class="st"> </span><span class="cf">function</span>(i) {</span>
+<span id="cb886-2"><a href="repetitive-processes-and-looping.html#cb886-2"></a></span>
+<span id="cb886-3"><a href="repetitive-processes-and-looping.html#cb886-3"></a>  <span class="co">#--- define corn price ---#</span></span>
+<span id="cb886-4"><a href="repetitive-processes-and-looping.html#cb886-4"></a>  corn_price &lt;-<span class="st"> </span>parameters_data[i,<span class="st">&#39;corn_price&#39;</span>]</span>
+<span id="cb886-5"><a href="repetitive-processes-and-looping.html#cb886-5"></a></span>
+<span id="cb886-6"><a href="repetitive-processes-and-looping.html#cb886-6"></a>  <span class="co">#--- define nitrogen  ---#</span></span>
+<span id="cb886-7"><a href="repetitive-processes-and-looping.html#cb886-7"></a>  nitrogen &lt;-<span class="st"> </span>parameters_data[i,<span class="st">&#39;nitrogen&#39;</span>]</span>
+<span id="cb886-8"><a href="repetitive-processes-and-looping.html#cb886-8"></a></span>
+<span id="cb886-9"><a href="repetitive-processes-and-looping.html#cb886-9"></a>  <span class="co">#--- calculate yield ---#</span></span>
+<span id="cb886-10"><a href="repetitive-processes-and-looping.html#cb886-10"></a>  yield &lt;-<span class="st"> </span><span class="dv">240</span> <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">exp</span>(<span class="fl">0.4</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.02</span> <span class="op">*</span><span class="st"> </span>nitrogen))</span>
+<span id="cb886-11"><a href="repetitive-processes-and-looping.html#cb886-11"></a></span>
+<span id="cb886-12"><a href="repetitive-processes-and-looping.html#cb886-12"></a>  <span class="co">#--- calculate revenue ---#</span></span>
+<span id="cb886-13"><a href="repetitive-processes-and-looping.html#cb886-13"></a>  revenue &lt;-<span class="st"> </span>corn_price <span class="op">*</span><span class="st"> </span>yield </span>
+<span id="cb886-14"><a href="repetitive-processes-and-looping.html#cb886-14"></a></span>
+<span id="cb886-15"><a href="repetitive-processes-and-looping.html#cb886-15"></a>  <span class="co">#--- combine all the information you would like to have  ---#</span></span>
+<span id="cb886-16"><a href="repetitive-processes-and-looping.html#cb886-16"></a>  data_to_return &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</span>
+<span id="cb886-17"><a href="repetitive-processes-and-looping.html#cb886-17"></a>    <span class="dt">corn_price =</span> corn_price,</span>
+<span id="cb886-18"><a href="repetitive-processes-and-looping.html#cb886-18"></a>    <span class="dt">nitrogen =</span> nitrogen,</span>
+<span id="cb886-19"><a href="repetitive-processes-and-looping.html#cb886-19"></a>    <span class="dt">revenue =</span> revenue</span>
+<span id="cb886-20"><a href="repetitive-processes-and-looping.html#cb886-20"></a>  )</span>
+<span id="cb886-21"><a href="repetitive-processes-and-looping.html#cb886-21"></a></span>
+<span id="cb886-22"><a href="repetitive-processes-and-looping.html#cb886-22"></a>  <span class="kw">return</span>(data_to_return)</span>
+<span id="cb886-23"><a href="repetitive-processes-and-looping.html#cb886-23"></a>}</span></code></pre></div>
 <p>This function takes <span class="math inline">\(i\)</span> (act as a row number within the function), extract corn price and nitrogen from the <span class="math inline">\(i\)</span>th row of <code>parameters_mat</code>, which are then used to calculate yield and revenue<a href="#fn106" class="footnote-ref" id="fnref106"><sup>106</sup></a>. Finally, it returns a <code>data.frame</code> of all the information you used (the parameters and the outcomes).</p>
-<div class="sourceCode" id="cb886"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb886-1"><a href="repetitive-processes-and-looping.html#cb886-1"></a><span class="co">#--- loop over all the parameter combinations ---#</span></span>
-<span id="cb886-2"><a href="repetitive-processes-and-looping.html#cb886-2"></a>rev_data &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(parameters_data), gen_rev_corn)</span>
-<span id="cb886-3"><a href="repetitive-processes-and-looping.html#cb886-3"></a></span>
-<span id="cb886-4"><a href="repetitive-processes-and-looping.html#cb886-4"></a><span class="co">#--- take a look ---#</span></span>
-<span id="cb886-5"><a href="repetitive-processes-and-looping.html#cb886-5"></a>rev_data</span></code></pre></div>
+<div class="sourceCode" id="cb887"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb887-1"><a href="repetitive-processes-and-looping.html#cb887-1"></a><span class="co">#--- loop over all the parameter combinations ---#</span></span>
+<span id="cb887-2"><a href="repetitive-processes-and-looping.html#cb887-2"></a>rev_data &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(parameters_data), gen_rev_corn)</span>
+<span id="cb887-3"><a href="repetitive-processes-and-looping.html#cb887-3"></a></span>
+<span id="cb887-4"><a href="repetitive-processes-and-looping.html#cb887-4"></a><span class="co">#--- take a look ---#</span></span>
+<span id="cb887-5"><a href="repetitive-processes-and-looping.html#cb887-5"></a>rev_data</span></code></pre></div>
 <pre><code>[[1]]
   corn_price nitrogen   revenue
 1          3        0 -354.1138
@@ -738,8 +738,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   corn_price nitrogen  revenue
 1          5      300 1195.563</code></pre>
 <p>Successful! Now, for us to use the outcome for other purposes like further analysis and visualization, we would need to have all the results combined into a single <code>data.frame</code> instead of a list of <code>data.frame</code>s. To do this, use either <code>bind_rows()</code> from the <code>dplyr</code> package or <code>rbindlist()</code> from the <code>data.table</code> package.</p>
-<div class="sourceCode" id="cb888"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb888-1"><a href="repetitive-processes-and-looping.html#cb888-1"></a><span class="co">#--- bind_rows ---#</span></span>
-<span id="cb888-2"><a href="repetitive-processes-and-looping.html#cb888-2"></a><span class="kw">bind_rows</span>(rev_data)</span></code></pre></div>
+<div class="sourceCode" id="cb889"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb889-1"><a href="repetitive-processes-and-looping.html#cb889-1"></a><span class="co">#--- bind_rows ---#</span></span>
+<span id="cb889-2"><a href="repetitive-processes-and-looping.html#cb889-2"></a><span class="kw">bind_rows</span>(rev_data)</span></code></pre></div>
 <pre><code>   corn_price nitrogen   revenue
 1           3        0 -354.1138
 2           4        0 -472.1517
@@ -753,8 +753,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 10          3      300  717.3375
 11          4      300  956.4501
 12          5      300 1195.5626</code></pre>
-<div class="sourceCode" id="cb890"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb890-1"><a href="repetitive-processes-and-looping.html#cb890-1"></a><span class="co">#--- rbindlist ---#</span></span>
-<span id="cb890-2"><a href="repetitive-processes-and-looping.html#cb890-2"></a><span class="kw">rbindlist</span>(rev_data)</span></code></pre></div>
+<div class="sourceCode" id="cb891"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb891-1"><a href="repetitive-processes-and-looping.html#cb891-1"></a><span class="co">#--- rbindlist ---#</span></span>
+<span id="cb891-2"><a href="repetitive-processes-and-looping.html#cb891-2"></a><span class="kw">rbindlist</span>(rev_data)</span></code></pre></div>
 <pre><code>    corn_price nitrogen   revenue
  1:          3        0 -354.1138
  2:          4        0 -472.1517
@@ -773,69 +773,69 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">A.1.5</span> Do you really need to loop?</h3>
 <p>Actually, we should not have used for loop or <code>lapply()</code> in any of the examples above in practice<a href="#fn107" class="footnote-ref" id="fnref107"><sup>107</sup></a> This is because they can be easily vectorized. Vectorized operations are those that take vectors as inputs and work on each element of the vectors in parallel<a href="#fn108" class="footnote-ref" id="fnref108"><sup>108</sup></a>.</p>
 <p>A typical example of a vectorized operation would be this:</p>
-<div class="sourceCode" id="cb892"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb892-1"><a href="repetitive-processes-and-looping.html#cb892-1"></a><span class="co">#--- define numeric vectors ---#</span></span>
-<span id="cb892-2"><a href="repetitive-processes-and-looping.html#cb892-2"></a>x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">1000</span></span>
-<span id="cb892-3"><a href="repetitive-processes-and-looping.html#cb892-3"></a>y &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">1000</span></span>
-<span id="cb892-4"><a href="repetitive-processes-and-looping.html#cb892-4"></a></span>
-<span id="cb892-5"><a href="repetitive-processes-and-looping.html#cb892-5"></a><span class="co">#--- element wise addition ---#</span></span>
-<span id="cb892-6"><a href="repetitive-processes-and-looping.html#cb892-6"></a>z_vec &lt;-<span class="st"> </span>x <span class="op">+</span><span class="st"> </span>y </span></code></pre></div>
+<div class="sourceCode" id="cb893"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb893-1"><a href="repetitive-processes-and-looping.html#cb893-1"></a><span class="co">#--- define numeric vectors ---#</span></span>
+<span id="cb893-2"><a href="repetitive-processes-and-looping.html#cb893-2"></a>x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">1000</span></span>
+<span id="cb893-3"><a href="repetitive-processes-and-looping.html#cb893-3"></a>y &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">1000</span></span>
+<span id="cb893-4"><a href="repetitive-processes-and-looping.html#cb893-4"></a></span>
+<span id="cb893-5"><a href="repetitive-processes-and-looping.html#cb893-5"></a><span class="co">#--- element wise addition ---#</span></span>
+<span id="cb893-6"><a href="repetitive-processes-and-looping.html#cb893-6"></a>z_vec &lt;-<span class="st"> </span>x <span class="op">+</span><span class="st"> </span>y </span></code></pre></div>
 <p>A non-vectorized version of the same calculation is this:</p>
-<div class="sourceCode" id="cb893"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb893-1"><a href="repetitive-processes-and-looping.html#cb893-1"></a>z_la &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">1000</span>, <span class="cf">function</span>(i) x[i] <span class="op">+</span><span class="st"> </span>y[i]) <span class="op">%&gt;%</span><span class="st">  </span>unlist</span>
-<span id="cb893-2"><a href="repetitive-processes-and-looping.html#cb893-2"></a></span>
-<span id="cb893-3"><a href="repetitive-processes-and-looping.html#cb893-3"></a><span class="co">#--- check if identical with z_vec ---#</span></span>
-<span id="cb893-4"><a href="repetitive-processes-and-looping.html#cb893-4"></a><span class="kw">all.equal</span>(z_la, z_vec)</span></code></pre></div>
+<div class="sourceCode" id="cb894"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb894-1"><a href="repetitive-processes-and-looping.html#cb894-1"></a>z_la &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">1000</span>, <span class="cf">function</span>(i) x[i] <span class="op">+</span><span class="st"> </span>y[i]) <span class="op">%&gt;%</span><span class="st">  </span>unlist</span>
+<span id="cb894-2"><a href="repetitive-processes-and-looping.html#cb894-2"></a></span>
+<span id="cb894-3"><a href="repetitive-processes-and-looping.html#cb894-3"></a><span class="co">#--- check if identical with z_vec ---#</span></span>
+<span id="cb894-4"><a href="repetitive-processes-and-looping.html#cb894-4"></a><span class="kw">all.equal</span>(z_la, z_vec)</span></code></pre></div>
 <pre><code>[1] TRUE</code></pre>
 <p>Both produce the same results. However, R is written in a way that is much better at doing vectorized operations. Let’s time them using the <code>microbenchmark()</code> function from the <code>microbenchmark</code> package. Here, we do not <code>unlist()</code> after <code>lapply()</code> to just focus on the multiplication part.</p>
-<div class="sourceCode" id="cb895"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb895-1"><a href="repetitive-processes-and-looping.html#cb895-1"></a><span class="kw">library</span>(microbenchmark)</span>
-<span id="cb895-2"><a href="repetitive-processes-and-looping.html#cb895-2"></a></span>
-<span id="cb895-3"><a href="repetitive-processes-and-looping.html#cb895-3"></a><span class="kw">microbenchmark</span>(</span>
-<span id="cb895-4"><a href="repetitive-processes-and-looping.html#cb895-4"></a>  <span class="co">#--- vectorized ---#</span></span>
-<span id="cb895-5"><a href="repetitive-processes-and-looping.html#cb895-5"></a>  <span class="st">&quot;vectorized&quot;</span> =<span class="st"> </span>{ x <span class="op">+</span><span class="st"> </span>y }, </span>
-<span id="cb895-6"><a href="repetitive-processes-and-looping.html#cb895-6"></a>  <span class="co">#--- not vectorized ---#</span></span>
-<span id="cb895-7"><a href="repetitive-processes-and-looping.html#cb895-7"></a>  <span class="st">&quot;not vectorized&quot;</span> =<span class="st"> </span>{ <span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">1000</span>, <span class="cf">function</span>(i) x[i] <span class="op">+</span><span class="st"> </span>y[i])},</span>
-<span id="cb895-8"><a href="repetitive-processes-and-looping.html#cb895-8"></a>  <span class="dt">times =</span> <span class="dv">100</span>, </span>
-<span id="cb895-9"><a href="repetitive-processes-and-looping.html#cb895-9"></a>  <span class="dt">unit =</span> <span class="st">&quot;ms&quot;</span></span>
-<span id="cb895-10"><a href="repetitive-processes-and-looping.html#cb895-10"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb896"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb896-1"><a href="repetitive-processes-and-looping.html#cb896-1"></a><span class="kw">library</span>(microbenchmark)</span>
+<span id="cb896-2"><a href="repetitive-processes-and-looping.html#cb896-2"></a></span>
+<span id="cb896-3"><a href="repetitive-processes-and-looping.html#cb896-3"></a><span class="kw">microbenchmark</span>(</span>
+<span id="cb896-4"><a href="repetitive-processes-and-looping.html#cb896-4"></a>  <span class="co">#--- vectorized ---#</span></span>
+<span id="cb896-5"><a href="repetitive-processes-and-looping.html#cb896-5"></a>  <span class="st">&quot;vectorized&quot;</span> =<span class="st"> </span>{ x <span class="op">+</span><span class="st"> </span>y }, </span>
+<span id="cb896-6"><a href="repetitive-processes-and-looping.html#cb896-6"></a>  <span class="co">#--- not vectorized ---#</span></span>
+<span id="cb896-7"><a href="repetitive-processes-and-looping.html#cb896-7"></a>  <span class="st">&quot;not vectorized&quot;</span> =<span class="st"> </span>{ <span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">1000</span>, <span class="cf">function</span>(i) x[i] <span class="op">+</span><span class="st"> </span>y[i])},</span>
+<span id="cb896-8"><a href="repetitive-processes-and-looping.html#cb896-8"></a>  <span class="dt">times =</span> <span class="dv">100</span>, </span>
+<span id="cb896-9"><a href="repetitive-processes-and-looping.html#cb896-9"></a>  <span class="dt">unit =</span> <span class="st">&quot;ms&quot;</span></span>
+<span id="cb896-10"><a href="repetitive-processes-and-looping.html#cb896-10"></a>)</span></code></pre></div>
 <pre><code>Unit: milliseconds
            expr      min        lq       mean   median        uq      max neval
-     vectorized 0.002627 0.0028650 0.00331068 0.003144 0.0034325 0.007517   100
- not vectorized 0.518838 0.5292365 0.57262544 0.534246 0.5419145 2.847233   100</code></pre>
+     vectorized 0.002471 0.0027155 0.00310472 0.002889 0.0031485 0.006635   100
+ not vectorized 0.481206 0.5195435 0.59641516 0.530434 0.5490010 3.892256   100</code></pre>
 <p>As you can see, the vectorized version is faster. The time difference comes from R having to conduct many more internal checks and hidden operations for the non-vectorized one<a href="#fn109" class="footnote-ref" id="fnref109"><sup>109</sup></a>. Yes, we are talking about a fraction of milliseconds here. But, as the objects to operate on get larger, the difference between vectorized and non-vectorized operations can become substantial<a href="#fn110" class="footnote-ref" id="fnref110"><sup>110</sup></a>.</p>
 <p>The <code>lapply()</code> examples can be easily vectorized.</p>
 <p>Instead of this:</p>
-<div class="sourceCode" id="cb897"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb897-1"><a href="repetitive-processes-and-looping.html#cb897-1"></a><span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">1000</span> square_it)</span></code></pre></div>
+<div class="sourceCode" id="cb898"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb898-1"><a href="repetitive-processes-and-looping.html#cb898-1"></a><span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">1000</span> square_it)</span></code></pre></div>
 <p>You can just do this:</p>
-<div class="sourceCode" id="cb898"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb898-1"><a href="repetitive-processes-and-looping.html#cb898-1"></a><span class="kw">square_it</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">1000</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb899"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb899-1"><a href="repetitive-processes-and-looping.html#cb899-1"></a><span class="kw">square_it</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">1000</span>)</span></code></pre></div>
 <p>You can also easily vectorize the revenue calculation demonstrated above. First, define the function differently so that revenue calculation can take corn price and nitrogen vectors and return a revenue vector.</p>
-<div class="sourceCode" id="cb899"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb899-1"><a href="repetitive-processes-and-looping.html#cb899-1"></a>gen_rev_corn_short &lt;-<span class="st"> </span><span class="cf">function</span>(corn_price, nitrogen) {</span>
-<span id="cb899-2"><a href="repetitive-processes-and-looping.html#cb899-2"></a></span>
-<span id="cb899-3"><a href="repetitive-processes-and-looping.html#cb899-3"></a>  <span class="co">#--- calculate yield ---#</span></span>
-<span id="cb899-4"><a href="repetitive-processes-and-looping.html#cb899-4"></a>  yield &lt;-<span class="st"> </span><span class="dv">240</span> <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">exp</span>(<span class="fl">0.4</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.02</span> <span class="op">*</span><span class="st"> </span>nitrogen))</span>
-<span id="cb899-5"><a href="repetitive-processes-and-looping.html#cb899-5"></a></span>
-<span id="cb899-6"><a href="repetitive-processes-and-looping.html#cb899-6"></a>  <span class="co">#--- calculate revenue ---#</span></span>
-<span id="cb899-7"><a href="repetitive-processes-and-looping.html#cb899-7"></a>  revenue &lt;-<span class="st"> </span>corn_price <span class="op">*</span><span class="st"> </span>yield </span>
-<span id="cb899-8"><a href="repetitive-processes-and-looping.html#cb899-8"></a></span>
-<span id="cb899-9"><a href="repetitive-processes-and-looping.html#cb899-9"></a>  <span class="kw">return</span>(revenue)</span>
-<span id="cb899-10"><a href="repetitive-processes-and-looping.html#cb899-10"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb900"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb900-1"><a href="repetitive-processes-and-looping.html#cb900-1"></a>gen_rev_corn_short &lt;-<span class="st"> </span><span class="cf">function</span>(corn_price, nitrogen) {</span>
+<span id="cb900-2"><a href="repetitive-processes-and-looping.html#cb900-2"></a></span>
+<span id="cb900-3"><a href="repetitive-processes-and-looping.html#cb900-3"></a>  <span class="co">#--- calculate yield ---#</span></span>
+<span id="cb900-4"><a href="repetitive-processes-and-looping.html#cb900-4"></a>  yield &lt;-<span class="st"> </span><span class="dv">240</span> <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">exp</span>(<span class="fl">0.4</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.02</span> <span class="op">*</span><span class="st"> </span>nitrogen))</span>
+<span id="cb900-5"><a href="repetitive-processes-and-looping.html#cb900-5"></a></span>
+<span id="cb900-6"><a href="repetitive-processes-and-looping.html#cb900-6"></a>  <span class="co">#--- calculate revenue ---#</span></span>
+<span id="cb900-7"><a href="repetitive-processes-and-looping.html#cb900-7"></a>  revenue &lt;-<span class="st"> </span>corn_price <span class="op">*</span><span class="st"> </span>yield </span>
+<span id="cb900-8"><a href="repetitive-processes-and-looping.html#cb900-8"></a></span>
+<span id="cb900-9"><a href="repetitive-processes-and-looping.html#cb900-9"></a>  <span class="kw">return</span>(revenue)</span>
+<span id="cb900-10"><a href="repetitive-processes-and-looping.html#cb900-10"></a>}</span></code></pre></div>
 <p>Then use the function to calculate revenue and assign it to a new variable in the <code>parameters_data</code> data.</p>
-<div class="sourceCode" id="cb900"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb900-1"><a href="repetitive-processes-and-looping.html#cb900-1"></a>rev_data_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">mutate</span>(</span>
-<span id="cb900-2"><a href="repetitive-processes-and-looping.html#cb900-2"></a>  parameters_data,</span>
-<span id="cb900-3"><a href="repetitive-processes-and-looping.html#cb900-3"></a>  <span class="dt">revenue =</span> <span class="kw">gen_rev_corn_short</span>(corn_price, nitrogen)</span>
-<span id="cb900-4"><a href="repetitive-processes-and-looping.html#cb900-4"></a>) </span></code></pre></div>
+<div class="sourceCode" id="cb901"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb901-1"><a href="repetitive-processes-and-looping.html#cb901-1"></a>rev_data_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">mutate</span>(</span>
+<span id="cb901-2"><a href="repetitive-processes-and-looping.html#cb901-2"></a>  parameters_data,</span>
+<span id="cb901-3"><a href="repetitive-processes-and-looping.html#cb901-3"></a>  <span class="dt">revenue =</span> <span class="kw">gen_rev_corn_short</span>(corn_price, nitrogen)</span>
+<span id="cb901-4"><a href="repetitive-processes-and-looping.html#cb901-4"></a>) </span></code></pre></div>
 <p>Let’s compare the two:</p>
-<div class="sourceCode" id="cb901"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb901-1"><a href="repetitive-processes-and-looping.html#cb901-1"></a><span class="kw">microbenchmark</span>(</span>
-<span id="cb901-2"><a href="repetitive-processes-and-looping.html#cb901-2"></a></span>
-<span id="cb901-3"><a href="repetitive-processes-and-looping.html#cb901-3"></a>  <span class="co">#--- vectorized ---#</span></span>
-<span id="cb901-4"><a href="repetitive-processes-and-looping.html#cb901-4"></a>  <span class="st">&quot;vectorized&quot;</span> =<span class="st"> </span>{ rev_data &lt;-<span class="st"> </span><span class="kw">mutate</span>(parameters_data, <span class="dt">revenue =</span> <span class="kw">gen_rev_corn_short</span>(corn_price, nitrogen)) },</span>
-<span id="cb901-5"><a href="repetitive-processes-and-looping.html#cb901-5"></a>  <span class="co">#--- not vectorized ---#</span></span>
-<span id="cb901-6"><a href="repetitive-processes-and-looping.html#cb901-6"></a>  <span class="st">&quot;not vectorized&quot;</span> =<span class="st"> </span>{ parameters_data<span class="op">$</span>revenue &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(parameters_data), gen_rev_corn) },</span>
-<span id="cb901-7"><a href="repetitive-processes-and-looping.html#cb901-7"></a>  <span class="dt">times =</span> <span class="dv">100</span>, </span>
-<span id="cb901-8"><a href="repetitive-processes-and-looping.html#cb901-8"></a>  <span class="dt">unit =</span> <span class="st">&quot;ms&quot;</span></span>
-<span id="cb901-9"><a href="repetitive-processes-and-looping.html#cb901-9"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb902"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb902-1"><a href="repetitive-processes-and-looping.html#cb902-1"></a><span class="kw">microbenchmark</span>(</span>
+<span id="cb902-2"><a href="repetitive-processes-and-looping.html#cb902-2"></a></span>
+<span id="cb902-3"><a href="repetitive-processes-and-looping.html#cb902-3"></a>  <span class="co">#--- vectorized ---#</span></span>
+<span id="cb902-4"><a href="repetitive-processes-and-looping.html#cb902-4"></a>  <span class="st">&quot;vectorized&quot;</span> =<span class="st"> </span>{ rev_data &lt;-<span class="st"> </span><span class="kw">mutate</span>(parameters_data, <span class="dt">revenue =</span> <span class="kw">gen_rev_corn_short</span>(corn_price, nitrogen)) },</span>
+<span id="cb902-5"><a href="repetitive-processes-and-looping.html#cb902-5"></a>  <span class="co">#--- not vectorized ---#</span></span>
+<span id="cb902-6"><a href="repetitive-processes-and-looping.html#cb902-6"></a>  <span class="st">&quot;not vectorized&quot;</span> =<span class="st"> </span>{ parameters_data<span class="op">$</span>revenue &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(parameters_data), gen_rev_corn) },</span>
+<span id="cb902-7"><a href="repetitive-processes-and-looping.html#cb902-7"></a>  <span class="dt">times =</span> <span class="dv">100</span>, </span>
+<span id="cb902-8"><a href="repetitive-processes-and-looping.html#cb902-8"></a>  <span class="dt">unit =</span> <span class="st">&quot;ms&quot;</span></span>
+<span id="cb902-9"><a href="repetitive-processes-and-looping.html#cb902-9"></a>)</span></code></pre></div>
 <pre><code>Unit: milliseconds
-           expr      min       lq     mean   median       uq       max neval
-     vectorized 1.259021 1.389291 1.635851 1.616805 1.711461  7.282497   100
- not vectorized 2.133562 2.272608 2.745540 2.827319 3.040227 10.615200   100</code></pre>
+           expr      min       lq     mean   median       uq      max neval
+     vectorized 1.173124 1.207328 1.352296 1.270814 1.319428 8.100961   100
+ not vectorized 1.959508 2.078100 2.156908 2.146513 2.234927 2.499985   100</code></pre>
 <p>Yes, the vectorized version is faster. So, the lesson here is that if you can vectorize, then vectorize instead of using <code>lapply()</code>. But, of course, things cannot be vectorized in many cases.</p>
 </div>
 </div>

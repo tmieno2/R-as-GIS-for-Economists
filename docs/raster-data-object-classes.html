@@ -66,21 +66,21 @@
 <script src="libs/HomeButton-0.0.1/easy-button-src.min.js"></script>
 <script src="libs/clipboard-0.0.1/setClipboardText.js"></script>
 <link href="libs/PopupTable-0.0.1/popup.css" rel="stylesheet" />
-<script src="libs/IA_cdl_2015-1/data_stars_IA_cdl_2015492be3.txt"></script>
+<script src="libs/IA_cdl_2015-1/data_stars_IA_cdl_20157013d9.txt"></script>
 <script src="libs/joda-0.0.1/joda.js"></script>
 <script src="libs/joda-0.0.1/addImageQuery-bindings.js"></script>
-<script src="libs/IA_cdl_2016-1/data_stars_IA_cdl_2016d254a6.txt"></script>
-<script src="libs/prcp_tmax_PRISM_m8_y09["tmax", , , ] - 1-1/data_stars_prcp_tmax_PRISM_m8_y09tmax1d57104.txt"></script>
-<script src="libs/layer.1-1/data_stars_layer1ade7f0.txt"></script>
-<script src="libs/layer.2-1/data_stars_layer2a3e1c2.txt"></script>
-<script src="libs/layer.3-1/data_stars_layer39bf0c4.txt"></script>
-<script src="libs/layer.4-1/data_stars_layer4281e67.txt"></script>
-<script src="libs/layer.5-1/data_stars_layer5da8bef.txt"></script>
-<script src="libs/layer.6-1/data_stars_layer60a163b.txt"></script>
-<script src="libs/layer.7-1/data_stars_layer72c54d1.txt"></script>
-<script src="libs/layer.8-1/data_stars_layer8fc014d.txt"></script>
-<script src="libs/layer.9-1/data_stars_layer9f9bcad.txt"></script>
-<script src="libs/layer.10-1/data_stars_layer10ea3f98.txt"></script>
+<script src="libs/IA_cdl_2016-1/data_stars_IA_cdl_2016f0942b.txt"></script>
+<script src="libs/prcp_tmax_PRISM_m8_y09["tmax", , , ] - 1-1/data_stars_prcp_tmax_PRISM_m8_y09tmax15f4a23.txt"></script>
+<script src="libs/layer.1-1/data_stars_layer16e07dc.txt"></script>
+<script src="libs/layer.2-1/data_stars_layer29d3c0a.txt"></script>
+<script src="libs/layer.3-1/data_stars_layer30124e8.txt"></script>
+<script src="libs/layer.4-1/data_stars_layer4125698.txt"></script>
+<script src="libs/layer.5-1/data_stars_layer56ca504.txt"></script>
+<script src="libs/layer.6-1/data_stars_layer60b51ef.txt"></script>
+<script src="libs/layer.7-1/data_stars_layer7d85baf.txt"></script>
+<script src="libs/layer.8-1/data_stars_layer831db4a.txt"></script>
+<script src="libs/layer.9-1/data_stars_layer935e042.txt"></script>
+<script src="libs/layer.10-1/data_stars_layer102ad98c.txt"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
 <script src="libs/datatables-binding-0.13/datatables.js"></script>
 <link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
@@ -552,7 +552,7 @@ dimensions : 11671, 17795, 207685445  (nrow, ncol, ncell)
 resolution : 30, 30  (x, y)
 extent     : -52095, 481755, 1938165, 2288295  (xmin, xmax, ymin, ymax)
 crs        : +proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=23 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs 
-source     : /Users/tmieno2/Dropbox/TeachingUNL/RGIS_Econ/Data/IA_cdl_2015.tif 
+source     : /Users/tmieno2/Dropbox/TeachingUNL/R_as_GIS/Data/IA_cdl_2015.tif 
 names      : IA_cdl_2015 
 values     : 0, 229  (min, max)</code></pre>
 <p>Evaluating the imported raster object provides you with information about the raster data, such as dimensions (number of cells, number of columns, number of cells), spatial resolution (30 meter by 30 meter for this raster data), extent, CRS and the minimum and maximum values recorded in this raster layer. The class of the downloaded data is <code>RasterLayer</code>, which is a raster data class defined by the <code>raster</code> package.<a href="#fn73" class="footnote-ref" id="fnref73"><sup>73</sup></a> A <code>RasterLayer</code> consists of only one layer, meaning that only a single variable is associated with the cells (here it is land use category code in integer). Among these spatial characteristics, you often need to extract the CRS of a raster object before you interact it with vector data<a href="#fn74" class="footnote-ref" id="fnref74"><sup>74</sup></a>, which can be done using <code>projection()</code>:</p>
@@ -590,7 +590,7 @@ dimensions : 11671, 17795, 207685445, 2  (nrow, ncol, ncell, nlayers)
 resolution : 30, 30  (x, y)
 extent     : -52095, 481755, 1938165, 2288295  (xmin, xmax, ymin, ymax)
 crs        : +proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=23 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs 
-source     : /private/var/folders/t4/5gnqprbn38nftyxkyk5hdwmd8hnypy/T/RtmpL0uoHK/raster/r_tmp_2020-06-26_140240_41777_89224.grd 
+source     : /private/var/folders/t4/5gnqprbn38nftyxkyk5hdwmd8hnypy/T/Rtmp6644mS/raster/r_tmp_2020-07-31_205103_69893_89224.grd 
 names      : IA_cdl_2015, IA_cdl_2016 
 min values :           0,           0 
 max values :         229,         241 </code></pre>
@@ -608,8 +608,8 @@ max values :         229,         241 </code></pre>
 dimensions  : 11671, 17795, 1  (nrow, ncol, nlyr)
 resolution  : 30, 30  (x, y)
 extent      : -52095, 481755, 1938165, 2288295  (xmin, xmax, ymin, ymax)
-coord. ref. : +proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=23 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs  
-data source : /Users/tmieno2/Dropbox/TeachingUNL/RGIS_Econ/Data/IA_cdl_2015.tif 
+coord. ref. : +proj=aea +lat_0=23 +lon_0=-96 +lat_1=29.5 +lat_2=45.5 +x_0=0 +y_0=0 +ellps=GRS80 +units=m +no_defs 
+data source : IA_cdl_2015.tif 
 names       : Layer_1 
 min values  :       0 
 max values  :     229 </code></pre>
@@ -632,7 +632,7 @@ max values  :     229,     241 </code></pre>
 <p>Again, it is a <code>SpatRaster</code>, and you now see that the number of layers is 2. We just confirmed that <code>terra</code> has only one class for raster data whether it is single-layer or multiple-layer ones.</p>
 <p>Instead of <code>projection()</code>, you use <code>crs()</code> to extract the CRS.</p>
 <div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb320-1"><a href="raster-data-object-classes.html#cb320-1"></a><span class="kw">crs</span>(IA_cdl_<span class="dv">2015</span>_sr)</span></code></pre></div>
-<pre><code>[1] &quot;+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=23 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs &quot;</code></pre>
+<pre><code>[1] &quot;PROJCRS[\&quot;unnamed\&quot;,\n    BASEGEOGCRS[\&quot;GRS 1980(IUGG, 1980)\&quot;,\n        DATUM[\&quot;unknown\&quot;,\n            ELLIPSOID[\&quot;GRS80\&quot;,6378137,298.257222101,\n                LENGTHUNIT[\&quot;metre\&quot;,1,\n                    ID[\&quot;EPSG\&quot;,9001]]]],\n        PRIMEM[\&quot;Greenwich\&quot;,0,\n            ANGLEUNIT[\&quot;degree\&quot;,0.0174532925199433,\n                ID[\&quot;EPSG\&quot;,9122]]]],\n    CONVERSION[\&quot;Albers Equal Area\&quot;,\n        METHOD[\&quot;Albers Equal Area\&quot;,\n            ID[\&quot;EPSG\&quot;,9822]],\n        PARAMETER[\&quot;Latitude of false origin\&quot;,23,\n            ANGLEUNIT[\&quot;degree\&quot;,0.0174532925199433],\n            ID[\&quot;EPSG\&quot;,8821]],\n        PARAMETER[\&quot;Longitude of false origin\&quot;,-96,\n            ANGLEUNIT[\&quot;degree\&quot;,0.0174532925199433],\n            ID[\&quot;EPSG\&quot;,8822]],\n        PARAMETER[\&quot;Latitude of 1st standard parallel\&quot;,29.5,\n            ANGLEUNIT[\&quot;degree\&quot;,0.0174532925199433],\n            ID[\&quot;EPSG\&quot;,8823]],\n        PARAMETER[\&quot;Latitude of 2nd standard parallel\&quot;,45.5,\n            ANGLEUNIT[\&quot;degree\&quot;,0.0174532925199433],\n            ID[\&quot;EPSG\&quot;,8824]],\n        PARAMETER[\&quot;Easting at false origin\&quot;,0,\n            LENGTHUNIT[\&quot;metre\&quot;,1],\n            ID[\&quot;EPSG\&quot;,8826]],\n        PARAMETER[\&quot;Northing at false origin\&quot;,0,\n            LENGTHUNIT[\&quot;metre\&quot;,1],\n            ID[\&quot;EPSG\&quot;,8827]]],\n    CS[Cartesian,2],\n        AXIS[\&quot;easting\&quot;,east,\n            ORDER[1],\n            LENGTHUNIT[\&quot;metre\&quot;,1,\n                ID[\&quot;EPSG\&quot;,9001]]],\n        AXIS[\&quot;northing\&quot;,north,\n            ORDER[2],\n            LENGTHUNIT[\&quot;metre\&quot;,1,\n                ID[\&quot;EPSG\&quot;,9001]]]]&quot;</code></pre>
 </div>
 <div id="converting-a-spatraster-object-to-a-raster-object." class="section level3" number="4.1.3">
 <h3><span class="header-section-number">4.1.3</span> Converting a <code>SpatRaster</code> object to a <code>Raster</code><span class="math inline">\(^*\)</span> object.</h3>
@@ -644,7 +644,7 @@ dimensions : 11671, 17795, 207685445  (nrow, ncol, ncell)
 resolution : 30, 30  (x, y)
 extent     : -52095, 481755, 1938165, 2288295  (xmin, xmax, ymin, ymax)
 crs        : +proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=23 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs 
-source     : /Users/tmieno2/Dropbox/TeachingUNL/RGIS_Econ/Data/IA_cdl_2015.tif 
+source     : /Users/tmieno2/Dropbox/TeachingUNL/R_as_GIS/Data/IA_cdl_2015.tif 
 names      : Layer_1 
 values     : 0, 229  (min, max)</code></pre>
 <div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb324-1"><a href="raster-data-object-classes.html#cb324-1"></a><span class="co">#--- RasterLayer ---#</span></span>
@@ -659,12 +659,11 @@ min values :           0,           0
 max values :         229,         241 </code></pre>
 <div class="sourceCode" id="cb326"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb326-1"><a href="raster-data-object-classes.html#cb326-1"></a><span class="co">#--- RasterLayer (this takes some time) ---#</span></span>
 <span id="cb326-2"><a href="raster-data-object-classes.html#cb326-2"></a>IA_cdl_stack_sr <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">brick</span>()</span></code></pre></div>
-<pre><code>class      : RasterBrick 
+<pre><code>class      : RasterStack 
 dimensions : 11671, 17795, 207685445, 2  (nrow, ncol, ncell, nlayers)
 resolution : 30, 30  (x, y)
 extent     : -52095, 481755, 1938165, 2288295  (xmin, xmax, ymin, ymax)
 crs        : +proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=23 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs 
-source     : /private/var/folders/t4/5gnqprbn38nftyxkyk5hdwmd8hnypy/T/RtmpL0uoHK/raster/r_tmp_2020-06-26_140348_41777_80162.grd 
 names      : IA_cdl_2015, IA_cdl_2016 
 min values :           0,           0 
 max values :         229,         241 </code></pre>
@@ -682,7 +681,7 @@ max values :         229,         241 </code></pre>
 geometry type:  MULTIPOLYGON
 dimension:      XY
 bbox:           xmin: -91.50136 ymin: 37.00161 xmax: -87.49638 ymax: 42.50774
-CRS:            EPSG:4326
+geographic CRS: WGS 84
 First 10 features:
                    ID                           geom
 1      illinois,adams MULTIPOLYGON (((-91.49563 4...

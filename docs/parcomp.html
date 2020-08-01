@@ -66,21 +66,21 @@
 <script src="libs/HomeButton-0.0.1/easy-button-src.min.js"></script>
 <script src="libs/clipboard-0.0.1/setClipboardText.js"></script>
 <link href="libs/PopupTable-0.0.1/popup.css" rel="stylesheet" />
-<script src="libs/IA_cdl_2015-1/data_stars_IA_cdl_2015492be3.txt"></script>
+<script src="libs/IA_cdl_2015-1/data_stars_IA_cdl_20157013d9.txt"></script>
 <script src="libs/joda-0.0.1/joda.js"></script>
 <script src="libs/joda-0.0.1/addImageQuery-bindings.js"></script>
-<script src="libs/IA_cdl_2016-1/data_stars_IA_cdl_2016d254a6.txt"></script>
-<script src="libs/prcp_tmax_PRISM_m8_y09["tmax", , , ] - 1-1/data_stars_prcp_tmax_PRISM_m8_y09tmax1d57104.txt"></script>
-<script src="libs/layer.1-1/data_stars_layer1ade7f0.txt"></script>
-<script src="libs/layer.2-1/data_stars_layer2a3e1c2.txt"></script>
-<script src="libs/layer.3-1/data_stars_layer39bf0c4.txt"></script>
-<script src="libs/layer.4-1/data_stars_layer4281e67.txt"></script>
-<script src="libs/layer.5-1/data_stars_layer5da8bef.txt"></script>
-<script src="libs/layer.6-1/data_stars_layer60a163b.txt"></script>
-<script src="libs/layer.7-1/data_stars_layer72c54d1.txt"></script>
-<script src="libs/layer.8-1/data_stars_layer8fc014d.txt"></script>
-<script src="libs/layer.9-1/data_stars_layer9f9bcad.txt"></script>
-<script src="libs/layer.10-1/data_stars_layer10ea3f98.txt"></script>
+<script src="libs/IA_cdl_2016-1/data_stars_IA_cdl_2016f0942b.txt"></script>
+<script src="libs/prcp_tmax_PRISM_m8_y09["tmax", , , ] - 1-1/data_stars_prcp_tmax_PRISM_m8_y09tmax15f4a23.txt"></script>
+<script src="libs/layer.1-1/data_stars_layer16e07dc.txt"></script>
+<script src="libs/layer.2-1/data_stars_layer29d3c0a.txt"></script>
+<script src="libs/layer.3-1/data_stars_layer30124e8.txt"></script>
+<script src="libs/layer.4-1/data_stars_layer4125698.txt"></script>
+<script src="libs/layer.5-1/data_stars_layer56ca504.txt"></script>
+<script src="libs/layer.6-1/data_stars_layer60b51ef.txt"></script>
+<script src="libs/layer.7-1/data_stars_layer7d85baf.txt"></script>
+<script src="libs/layer.8-1/data_stars_layer831db4a.txt"></script>
+<script src="libs/layer.9-1/data_stars_layer935e042.txt"></script>
+<script src="libs/layer.10-1/data_stars_layer102ad98c.txt"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
 <script src="libs/datatables-binding-0.13/datatables.js"></script>
 <link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
@@ -540,93 +540,93 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">A.2</span> Parallelization of embarrassingly parallel processes</h2>
 <p>Parallelization of computation involves distributing the task at hand to multiple cores so that multiple processes are done in parallel. Here, we learn how to parallelize computation in R. Our focus is on the so called <strong>embarrassingly</strong> parallel processes. Embarrassingly parallel processes refer to a collection of processes where each process is completely independent of any another. That is, one process does not use the outputs of any of the other processes. The example of integer squaring is embarrassingly parallel. In order to calculate <span class="math inline">\(1^2\)</span>, you do not need to use the result of <span class="math inline">\(2^2\)</span> or any other squares. Embarrassingly parallel processes are very easy to parallelize because you do not have to worry about which process to complete first to make other processes happen. Fortunately, most of the processes you are interested in parallelizing fall under this category<a href="#fn111" class="footnote-ref" id="fnref111"><sup>111</sup></a>.</p>
 <p>We will use the <code>future.apply</code> package for parallelization<a href="#fn112" class="footnote-ref" id="fnref112"><sup>112</sup></a>. Using the package, parallelizing is really a piece of cake as it is basically the same syntactically as <code>lapply()</code>.</p>
-<div class="sourceCode" id="cb903"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb903-1"><a href="parcomp.html#cb903-1"></a><span class="co">#--- load packages ---#</span></span>
-<span id="cb903-2"><a href="parcomp.html#cb903-2"></a><span class="kw">library</span>(future.apply) </span></code></pre></div>
+<div class="sourceCode" id="cb904"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb904-1"><a href="parcomp.html#cb904-1"></a><span class="co">#--- load packages ---#</span></span>
+<span id="cb904-2"><a href="parcomp.html#cb904-2"></a><span class="kw">library</span>(future.apply) </span></code></pre></div>
 <p>You can find out how many cores you have available for parallel computation on your computer using the <code>get_num_procs()</code> function from the <code>RhpcBLASctl</code> package.</p>
-<div class="sourceCode" id="cb904"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb904-1"><a href="parcomp.html#cb904-1"></a><span class="kw">library</span>(RhpcBLASctl)</span>
-<span id="cb904-2"><a href="parcomp.html#cb904-2"></a></span>
-<span id="cb904-3"><a href="parcomp.html#cb904-3"></a><span class="co">#--- number of all cores ---#</span></span>
-<span id="cb904-4"><a href="parcomp.html#cb904-4"></a><span class="kw">get_num_procs</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb905"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb905-1"><a href="parcomp.html#cb905-1"></a><span class="kw">library</span>(RhpcBLASctl)</span>
+<span id="cb905-2"><a href="parcomp.html#cb905-2"></a></span>
+<span id="cb905-3"><a href="parcomp.html#cb905-3"></a><span class="co">#--- number of all cores ---#</span></span>
+<span id="cb905-4"><a href="parcomp.html#cb905-4"></a><span class="kw">get_num_procs</span>()</span></code></pre></div>
 <pre><code>[1] 16</code></pre>
 <p>Before we implement parallelized <code>lapply()</code>, we need to declare what backend process we will be using by <code>plan()</code>. Here, we use <code>plan(multiprocess)</code><a href="#fn113" class="footnote-ref" id="fnref113"><sup>113</sup></a>. In the <code>plan()</code> function, we can specify the number of workers. Here I will use the total number of cores less 1<a href="#fn114" class="footnote-ref" id="fnref114"><sup>114</sup></a>.</p>
-<div class="sourceCode" id="cb906"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb906-1"><a href="parcomp.html#cb906-1"></a><span class="kw">plan</span>(multiprocess, <span class="dt">workers =</span> <span class="kw">get_num_procs</span>() <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb907"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb907-1"><a href="parcomp.html#cb907-1"></a><span class="kw">plan</span>(multiprocess, <span class="dt">workers =</span> <span class="kw">get_num_procs</span>() <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)</span></code></pre></div>
 <p><code>future_lapply()</code> works exactly like <code>lapply()</code>.</p>
-<div class="sourceCode" id="cb907"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb907-1"><a href="parcomp.html#cb907-1"></a>sq_ls &lt;-<span class="st"> </span><span class="kw">future_lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">1000</span>, <span class="cf">function</span>(x) x<span class="op">^</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb908"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb908-1"><a href="parcomp.html#cb908-1"></a>sq_ls &lt;-<span class="st"> </span><span class="kw">future_lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">1000</span>, <span class="cf">function</span>(x) x<span class="op">^</span><span class="dv">2</span>)</span></code></pre></div>
 <p>This is it. The only difference you see from the serialized processing using <code>lapply()</code> is that you changed the function name to <code>future_lapply()</code>.</p>
 <p>Okay, now we know how we parallelize computation. Let’s check how much improvement in implementation time we got by parallelization.</p>
-<div class="sourceCode" id="cb908"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb908-1"><a href="parcomp.html#cb908-1"></a><span class="kw">microbenchmark</span>(</span>
-<span id="cb908-2"><a href="parcomp.html#cb908-2"></a>  <span class="co">#--- parallelized ---#</span></span>
-<span id="cb908-3"><a href="parcomp.html#cb908-3"></a>  <span class="st">&quot;parallelized&quot;</span> =<span class="st"> </span>{ sq_ls &lt;-<span class="st"> </span><span class="kw">future_lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">1000</span>, <span class="cf">function</span>(x) x<span class="op">^</span><span class="dv">2</span>) }, </span>
-<span id="cb908-4"><a href="parcomp.html#cb908-4"></a>  <span class="co">#--- non-parallelized ---#</span></span>
-<span id="cb908-5"><a href="parcomp.html#cb908-5"></a>  <span class="st">&quot;not parallelized&quot;</span> =<span class="st"> </span>{ sq_ls &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">1000</span>, <span class="cf">function</span>(x) x<span class="op">^</span><span class="dv">2</span>) },</span>
-<span id="cb908-6"><a href="parcomp.html#cb908-6"></a>  <span class="dt">times =</span> <span class="dv">100</span>, </span>
-<span id="cb908-7"><a href="parcomp.html#cb908-7"></a>  <span class="dt">unit =</span> <span class="st">&quot;ms&quot;</span></span>
-<span id="cb908-8"><a href="parcomp.html#cb908-8"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb909"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb909-1"><a href="parcomp.html#cb909-1"></a><span class="kw">microbenchmark</span>(</span>
+<span id="cb909-2"><a href="parcomp.html#cb909-2"></a>  <span class="co">#--- parallelized ---#</span></span>
+<span id="cb909-3"><a href="parcomp.html#cb909-3"></a>  <span class="st">&quot;parallelized&quot;</span> =<span class="st"> </span>{ sq_ls &lt;-<span class="st"> </span><span class="kw">future_lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">1000</span>, <span class="cf">function</span>(x) x<span class="op">^</span><span class="dv">2</span>) }, </span>
+<span id="cb909-4"><a href="parcomp.html#cb909-4"></a>  <span class="co">#--- non-parallelized ---#</span></span>
+<span id="cb909-5"><a href="parcomp.html#cb909-5"></a>  <span class="st">&quot;not parallelized&quot;</span> =<span class="st"> </span>{ sq_ls &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">1000</span>, <span class="cf">function</span>(x) x<span class="op">^</span><span class="dv">2</span>) },</span>
+<span id="cb909-6"><a href="parcomp.html#cb909-6"></a>  <span class="dt">times =</span> <span class="dv">100</span>, </span>
+<span id="cb909-7"><a href="parcomp.html#cb909-7"></a>  <span class="dt">unit =</span> <span class="st">&quot;ms&quot;</span></span>
+<span id="cb909-8"><a href="parcomp.html#cb909-8"></a>)</span></code></pre></div>
 <pre><code>Unit: milliseconds
-             expr       min         lq        mean    median         uq
-     parallelized 95.464319 98.5307320 104.9465916 100.79822 103.771970
- not parallelized  0.387257  0.4227505   0.4798148   0.44528   0.479376
+             expr       min        lq        mean     median         uq
+     parallelized 94.335315 99.343201 103.8006668 100.381071 101.746564
+ not parallelized  0.387611  0.421096   0.4572312   0.442316   0.459281
         max neval
- 148.319780   100
-   1.982986   100</code></pre>
+ 185.950381   100
+   2.051304   100</code></pre>
 <p>Hmmmm, okay, so parallelization made the code slower… How could this be? This is because communicating jobs to each core takes some time as well. So, if each of the iterative processes is super fast (like this example where you just square a number), the time spent on communicating with the cores outweighs the time saving due to parallel computation. Parallelization is more beneficial when each of the repetitive processes takes long.</p>
 <p>One of the very good use cases of parallelization is MC simulation. The following MC simulation tests whether the correlation between an independent variable and error term would cause bias (yes, we know the answer). The <code>MC_sim</code> function first generates a dataset (50,000 observations) according to the following data generating process:</p>
 <p><span class="math display">\[
  y = 1 + x + v
 \]</span></p>
 <p>where <span class="math inline">\(\mu \sim N(0,1)\)</span>, <span class="math inline">\(x \sim N(0,1) + \mu\)</span>, and <span class="math inline">\(v \sim N(0,1) + \mu\)</span>. The <span class="math inline">\(\mu\)</span> term cause correlation between <span class="math inline">\(x\)</span> (the covariate) and <span class="math inline">\(v\)</span> (the error term). It then estimates the coefficient on <span class="math inline">\(x\)</span> vis OLS, and return the estimate. We would like to repeat this process 1,000 times to understand the property of the OLS estimators under the data generating process. This Monte Carlo simulation is embarrassingly parallel because each process is independent of any other.</p>
-<div class="sourceCode" id="cb910"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb910-1"><a href="parcomp.html#cb910-1"></a><span class="co">#--- repeat steps 1-3 B times ---#</span></span>
-<span id="cb910-2"><a href="parcomp.html#cb910-2"></a>MC_sim &lt;-<span class="st"> </span><span class="cf">function</span>(i){</span>
-<span id="cb910-3"><a href="parcomp.html#cb910-3"></a></span>
-<span id="cb910-4"><a href="parcomp.html#cb910-4"></a>  N &lt;-<span class="st"> </span><span class="dv">50000</span> <span class="co"># sample size</span></span>
-<span id="cb910-5"><a href="parcomp.html#cb910-5"></a></span>
-<span id="cb910-6"><a href="parcomp.html#cb910-6"></a>  <span class="co">#--- steps 1 and 2:  ---#</span></span>
-<span id="cb910-7"><a href="parcomp.html#cb910-7"></a>  mu &lt;-<span class="st"> </span><span class="kw">rnorm</span>(N) <span class="co"># the common term shared by both x and u</span></span>
-<span id="cb910-8"><a href="parcomp.html#cb910-8"></a>  x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(N) <span class="op">+</span><span class="st"> </span>mu <span class="co"># independent variable</span></span>
-<span id="cb910-9"><a href="parcomp.html#cb910-9"></a>  v &lt;-<span class="st"> </span><span class="kw">rnorm</span>(N) <span class="op">+</span><span class="st"> </span>mu <span class="co"># error</span></span>
-<span id="cb910-10"><a href="parcomp.html#cb910-10"></a>  y &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>x <span class="op">+</span><span class="st"> </span>v <span class="co"># dependent variable</span></span>
-<span id="cb910-11"><a href="parcomp.html#cb910-11"></a>  data &lt;-<span class="st"> </span><span class="kw">data.table</span>(<span class="dt">y =</span> y, <span class="dt">x =</span> x)</span>
-<span id="cb910-12"><a href="parcomp.html#cb910-12"></a></span>
-<span id="cb910-13"><a href="parcomp.html#cb910-13"></a>  <span class="co">#--- OLS ---# </span></span>
-<span id="cb910-14"><a href="parcomp.html#cb910-14"></a>  reg &lt;-<span class="st"> </span><span class="kw">lm</span>(y<span class="op">~</span>x, <span class="dt">data =</span> data) <span class="co"># OLS</span></span>
-<span id="cb910-15"><a href="parcomp.html#cb910-15"></a></span>
-<span id="cb910-16"><a href="parcomp.html#cb910-16"></a>  <span class="co">#--- return the coef ---#</span></span>
-<span id="cb910-17"><a href="parcomp.html#cb910-17"></a>  <span class="kw">return</span>(reg<span class="op">$</span>coef[<span class="st">&#39;x&#39;</span>])</span>
-<span id="cb910-18"><a href="parcomp.html#cb910-18"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb911"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb911-1"><a href="parcomp.html#cb911-1"></a><span class="co">#--- repeat steps 1-3 B times ---#</span></span>
+<span id="cb911-2"><a href="parcomp.html#cb911-2"></a>MC_sim &lt;-<span class="st"> </span><span class="cf">function</span>(i){</span>
+<span id="cb911-3"><a href="parcomp.html#cb911-3"></a></span>
+<span id="cb911-4"><a href="parcomp.html#cb911-4"></a>  N &lt;-<span class="st"> </span><span class="dv">50000</span> <span class="co"># sample size</span></span>
+<span id="cb911-5"><a href="parcomp.html#cb911-5"></a></span>
+<span id="cb911-6"><a href="parcomp.html#cb911-6"></a>  <span class="co">#--- steps 1 and 2:  ---#</span></span>
+<span id="cb911-7"><a href="parcomp.html#cb911-7"></a>  mu &lt;-<span class="st"> </span><span class="kw">rnorm</span>(N) <span class="co"># the common term shared by both x and u</span></span>
+<span id="cb911-8"><a href="parcomp.html#cb911-8"></a>  x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(N) <span class="op">+</span><span class="st"> </span>mu <span class="co"># independent variable</span></span>
+<span id="cb911-9"><a href="parcomp.html#cb911-9"></a>  v &lt;-<span class="st"> </span><span class="kw">rnorm</span>(N) <span class="op">+</span><span class="st"> </span>mu <span class="co"># error</span></span>
+<span id="cb911-10"><a href="parcomp.html#cb911-10"></a>  y &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>x <span class="op">+</span><span class="st"> </span>v <span class="co"># dependent variable</span></span>
+<span id="cb911-11"><a href="parcomp.html#cb911-11"></a>  data &lt;-<span class="st"> </span><span class="kw">data.table</span>(<span class="dt">y =</span> y, <span class="dt">x =</span> x)</span>
+<span id="cb911-12"><a href="parcomp.html#cb911-12"></a></span>
+<span id="cb911-13"><a href="parcomp.html#cb911-13"></a>  <span class="co">#--- OLS ---# </span></span>
+<span id="cb911-14"><a href="parcomp.html#cb911-14"></a>  reg &lt;-<span class="st"> </span><span class="kw">lm</span>(y<span class="op">~</span>x, <span class="dt">data =</span> data) <span class="co"># OLS</span></span>
+<span id="cb911-15"><a href="parcomp.html#cb911-15"></a></span>
+<span id="cb911-16"><a href="parcomp.html#cb911-16"></a>  <span class="co">#--- return the coef ---#</span></span>
+<span id="cb911-17"><a href="parcomp.html#cb911-17"></a>  <span class="kw">return</span>(reg<span class="op">$</span>coef[<span class="st">&#39;x&#39;</span>])</span>
+<span id="cb911-18"><a href="parcomp.html#cb911-18"></a>}</span></code></pre></div>
 <p>Let’s run one iteration,</p>
-<div class="sourceCode" id="cb911"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb911-1"><a href="parcomp.html#cb911-1"></a><span class="kw">tic</span>()</span>
-<span id="cb911-2"><a href="parcomp.html#cb911-2"></a><span class="kw">MC_sim</span>(<span class="dv">1</span>)</span>
-<span id="cb911-3"><a href="parcomp.html#cb911-3"></a><span class="kw">toc</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb912"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb912-1"><a href="parcomp.html#cb912-1"></a><span class="kw">tic</span>()</span>
+<span id="cb912-2"><a href="parcomp.html#cb912-2"></a><span class="kw">MC_sim</span>(<span class="dv">1</span>)</span>
+<span id="cb912-3"><a href="parcomp.html#cb912-3"></a><span class="kw">toc</span>()</span></code></pre></div>
 <pre><code>       x 
 1.503353 </code></pre>
 <pre><code>elapsed 
-  0.024 </code></pre>
-<p>Okay, so it takes 0.024 second for one iteration. Now, let’s run this 1000 times with or without parallelization.</p>
+  0.023 </code></pre>
+<p>Okay, so it takes 0.023 second for one iteration. Now, let’s run this 1000 times with or without parallelization.</p>
 <p><strong>Not parallelized</strong></p>
-<div class="sourceCode" id="cb914"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb914-1"><a href="parcomp.html#cb914-1"></a><span class="co">#--- non-parallel ---#</span></span>
-<span id="cb914-2"><a href="parcomp.html#cb914-2"></a><span class="kw">tic</span>()</span>
-<span id="cb914-3"><a href="parcomp.html#cb914-3"></a>MC_results &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">1000</span>, MC_sim)</span>
-<span id="cb914-4"><a href="parcomp.html#cb914-4"></a><span class="kw">toc</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb915"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb915-1"><a href="parcomp.html#cb915-1"></a><span class="co">#--- non-parallel ---#</span></span>
+<span id="cb915-2"><a href="parcomp.html#cb915-2"></a><span class="kw">tic</span>()</span>
+<span id="cb915-3"><a href="parcomp.html#cb915-3"></a>MC_results &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">1000</span>, MC_sim)</span>
+<span id="cb915-4"><a href="parcomp.html#cb915-4"></a><span class="kw">toc</span>()</span></code></pre></div>
 <pre><code>elapsed 
- 20.816 </code></pre>
+ 22.874 </code></pre>
 <p><strong>Parallelized</strong></p>
-<div class="sourceCode" id="cb916"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb916-1"><a href="parcomp.html#cb916-1"></a><span class="co">#--- parallel ---#</span></span>
-<span id="cb916-2"><a href="parcomp.html#cb916-2"></a><span class="kw">tic</span>()</span>
-<span id="cb916-3"><a href="parcomp.html#cb916-3"></a>MC_results &lt;-<span class="st"> </span><span class="kw">future_lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">1000</span>, MC_sim)</span>
-<span id="cb916-4"><a href="parcomp.html#cb916-4"></a><span class="kw">toc</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb917"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb917-1"><a href="parcomp.html#cb917-1"></a><span class="co">#--- parallel ---#</span></span>
+<span id="cb917-2"><a href="parcomp.html#cb917-2"></a><span class="kw">tic</span>()</span>
+<span id="cb917-3"><a href="parcomp.html#cb917-3"></a>MC_results &lt;-<span class="st"> </span><span class="kw">future_lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">1000</span>, MC_sim)</span>
+<span id="cb917-4"><a href="parcomp.html#cb917-4"></a><span class="kw">toc</span>()</span></code></pre></div>
 <pre><code>elapsed 
-  2.553 </code></pre>
-<p>As you can see, parallelization makes it much quicker with a noticeable difference in elapsed time. We made the code 8.15 times faster. However, we did not make the process 15 times faster even though we used 15 cores for the parallelized process. This is because of the overhead associated with distributing tasks to the cores. The relative advantage of parallelization would be greater if each iteration took more time. For example, if you are running a process that takes about 2 minutes for 1000 times, it would take approximately 33 hours and 20 minutes. But, it may take only 4 hours if you parallelize it on 15 cores, or maybe even 2 hours if you run it on 30 cores.</p>
+  2.676 </code></pre>
+<p>As you can see, parallelization makes it much quicker with a noticeable difference in elapsed time. We made the code 8.55 times faster. However, we did not make the process 15 times faster even though we used 15 cores for the parallelized process. This is because of the overhead associated with distributing tasks to the cores. The relative advantage of parallelization would be greater if each iteration took more time. For example, if you are running a process that takes about 2 minutes for 1000 times, it would take approximately 33 hours and 20 minutes. But, it may take only 4 hours if you parallelize it on 15 cores, or maybe even 2 hours if you run it on 30 cores.</p>
 <div id="mac-or-linux-users" class="section level3" number="10.2.1">
 <h3><span class="header-section-number">A.2.1</span> Mac or Linux users</h3>
 <p>For Mac users, <code>parallel::mclapply()</code> is just as compelling (or <code>pbmclapply::pbmclapply()</code> if you want to have a nice progress report, which is very helpful particularly when the process is long). It is just as easy to use as <code>future_lapply()</code> because its syntax is the same as <code>lapply()</code>. You can control the number of cores to employ by adding <code>mc.cores</code> option. Here is an example code that does the same MC simulations we conducted above:</p>
-<div class="sourceCode" id="cb918"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb918-1"><a href="parcomp.html#cb918-1"></a><span class="co">#--- mclapply ---#</span></span>
-<span id="cb918-2"><a href="parcomp.html#cb918-2"></a><span class="kw">library</span>(parallel)</span>
-<span id="cb918-3"><a href="parcomp.html#cb918-3"></a>MC_results &lt;-<span class="st"> </span><span class="kw">mclapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">1000</span>, MC_sim, <span class="dt">mc.cores =</span> <span class="kw">get_num_procs</span>() <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)</span>
-<span id="cb918-4"><a href="parcomp.html#cb918-4"></a></span>
-<span id="cb918-5"><a href="parcomp.html#cb918-5"></a><span class="co">#--- or with progress bar ---#</span></span>
-<span id="cb918-6"><a href="parcomp.html#cb918-6"></a><span class="kw">library</span>(pbmclapply)</span>
-<span id="cb918-7"><a href="parcomp.html#cb918-7"></a>MC_results &lt;-<span class="st"> </span><span class="kw">pbmclapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">1000</span>, MC_sim, <span class="dt">mc.cores =</span> <span class="kw">get_num_procs</span>() <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb919"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb919-1"><a href="parcomp.html#cb919-1"></a><span class="co">#--- mclapply ---#</span></span>
+<span id="cb919-2"><a href="parcomp.html#cb919-2"></a><span class="kw">library</span>(parallel)</span>
+<span id="cb919-3"><a href="parcomp.html#cb919-3"></a>MC_results &lt;-<span class="st"> </span><span class="kw">mclapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">1000</span>, MC_sim, <span class="dt">mc.cores =</span> <span class="kw">get_num_procs</span>() <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)</span>
+<span id="cb919-4"><a href="parcomp.html#cb919-4"></a></span>
+<span id="cb919-5"><a href="parcomp.html#cb919-5"></a><span class="co">#--- or with progress bar ---#</span></span>
+<span id="cb919-6"><a href="parcomp.html#cb919-6"></a><span class="kw">library</span>(pbmclapply)</span>
+<span id="cb919-7"><a href="parcomp.html#cb919-7"></a>MC_results &lt;-<span class="st"> </span><span class="kw">pbmclapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">1000</span>, MC_sim, <span class="dt">mc.cores =</span> <span class="kw">get_num_procs</span>() <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)</span></code></pre></div>
 <!-- ### Some background on the parallelization packages 
 
 For Mac and Linux users the coding cost of parallelization was minimal since when `parallel::mclapply()` was available. Parallelization is really a piece of cake for those who know how to use `lapply()` because the syntax is identical. For Windows users, that had not been the case until the arrival of the `future.apply` package. Windows machines create new threads to run on multiple cores, which do not inherit any of the R objects you have created on the environment. This means that if you need to use a dataset (or any other objects that you are not creating within the loop internally) inside the loop, you have to tell R explicitly what objects you want it to carry to the new threads so they can use those objects themselves. This hassle was eliminated by the `future.apply` package.^[To be honest, I do not completely understand how it does what it does.] On Mac and Linux machines, it was not even an issue because parallelization is done by forking (which Windows machines cannot do), which inherits all the available R objects on the environment. Since the `future.apply` package works for all the platforms, I focused on this package.  -->
