@@ -563,12 +563,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb909-7"><a href="parcomp.html#cb909-7"></a>  <span class="dt">unit =</span> <span class="st">&quot;ms&quot;</span></span>
 <span id="cb909-8"><a href="parcomp.html#cb909-8"></a>)</span></code></pre></div>
 <pre><code>Unit: milliseconds
-             expr       min        lq        mean     median         uq
-     parallelized 94.335315 99.343201 103.8006668 100.381071 101.746564
- not parallelized  0.387611  0.421096   0.4572312   0.442316   0.459281
-        max neval
- 185.950381   100
-   2.051304   100</code></pre>
+             expr       min         lq        mean      median         uq
+     parallelized 94.067704 100.163816 111.7353122 102.1741575 129.437737
+ not parallelized  0.403711   0.430872   0.5416883   0.4650985   0.680966
+       max neval
+ 148.87072   100
+   2.10543   100</code></pre>
 <p>Hmmmm, okay, so parallelization made the code slower… How could this be? This is because communicating jobs to each core takes some time as well. So, if each of the iterative processes is super fast (like this example where you just square a number), the time spent on communicating with the cores outweighs the time saving due to parallel computation. Parallelization is more beneficial when each of the repetitive processes takes long.</p>
 <p>One of the very good use cases of parallelization is MC simulation. The following MC simulation tests whether the correlation between an independent variable and error term would cause bias (yes, we know the answer). The <code>MC_sim</code> function first generates a dataset (50,000 observations) according to the following data generating process:</p>
 <p><span class="math display">\[
@@ -608,15 +608,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb915-3"><a href="parcomp.html#cb915-3"></a>MC_results &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">1000</span>, MC_sim)</span>
 <span id="cb915-4"><a href="parcomp.html#cb915-4"></a><span class="kw">toc</span>()</span></code></pre></div>
 <pre><code>elapsed 
- 22.874 </code></pre>
+ 21.399 </code></pre>
 <p><strong>Parallelized</strong></p>
 <div class="sourceCode" id="cb917"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb917-1"><a href="parcomp.html#cb917-1"></a><span class="co">#--- parallel ---#</span></span>
 <span id="cb917-2"><a href="parcomp.html#cb917-2"></a><span class="kw">tic</span>()</span>
 <span id="cb917-3"><a href="parcomp.html#cb917-3"></a>MC_results &lt;-<span class="st"> </span><span class="kw">future_lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">1000</span>, MC_sim)</span>
 <span id="cb917-4"><a href="parcomp.html#cb917-4"></a><span class="kw">toc</span>()</span></code></pre></div>
 <pre><code>elapsed 
-  2.676 </code></pre>
-<p>As you can see, parallelization makes it much quicker with a noticeable difference in elapsed time. We made the code 8.55 times faster. However, we did not make the process 15 times faster even though we used 15 cores for the parallelized process. This is because of the overhead associated with distributing tasks to the cores. The relative advantage of parallelization would be greater if each iteration took more time. For example, if you are running a process that takes about 2 minutes for 1000 times, it would take approximately 33 hours and 20 minutes. But, it may take only 4 hours if you parallelize it on 15 cores, or maybe even 2 hours if you run it on 30 cores.</p>
+  2.637 </code></pre>
+<p>As you can see, parallelization makes it much quicker with a noticeable difference in elapsed time. We made the code 8.11 times faster. However, we did not make the process 15 times faster even though we used 15 cores for the parallelized process. This is because of the overhead associated with distributing tasks to the cores. The relative advantage of parallelization would be greater if each iteration took more time. For example, if you are running a process that takes about 2 minutes for 1000 times, it would take approximately 33 hours and 20 minutes. But, it may take only 4 hours if you parallelize it on 15 cores, or maybe even 2 hours if you run it on 30 cores.</p>
 <div id="mac-or-linux-users" class="section level3" number="10.2.1">
 <h3><span class="header-section-number">A.2.1</span> Mac or Linux users</h3>
 <p>For Mac users, <code>parallel::mclapply()</code> is just as compelling (or <code>pbmclapply::pbmclapply()</code> if you want to have a nice progress report, which is very helpful particularly when the process is long). It is just as easy to use as <code>future_lapply()</code> because its syntax is the same as <code>lapply()</code>. You can control the number of cores to employ by adding <code>mc.cores</code> option. Here is an example code that does the same MC simulations we conducted above:</p>

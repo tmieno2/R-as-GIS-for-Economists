@@ -798,8 +798,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb896-10"><a href="repetitive-processes-and-looping.html#cb896-10"></a>)</span></code></pre></div>
 <pre><code>Unit: milliseconds
            expr      min        lq       mean   median        uq      max neval
-     vectorized 0.002471 0.0027155 0.00310472 0.002889 0.0031485 0.006635   100
- not vectorized 0.481206 0.5195435 0.59641516 0.530434 0.5490010 3.892256   100</code></pre>
+     vectorized 0.002657 0.0032925 0.00498103 0.004842 0.0053465 0.016967   100
+ not vectorized 0.516832 0.5274390 0.57548362 0.534773 0.5419155 2.881145   100</code></pre>
 <p>As you can see, the vectorized version is faster. The time difference comes from R having to conduct many more internal checks and hidden operations for the non-vectorized one<a href="#fn109" class="footnote-ref" id="fnref109"><sup>109</sup></a>. Yes, we are talking about a fraction of milliseconds here. But, as the objects to operate on get larger, the difference between vectorized and non-vectorized operations can become substantial<a href="#fn110" class="footnote-ref" id="fnref110"><sup>110</sup></a>.</p>
 <p>The <code>lapply()</code> examples can be easily vectorized.</p>
 <p>Instead of this:</p>
@@ -834,8 +834,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb902-9"><a href="repetitive-processes-and-looping.html#cb902-9"></a>)</span></code></pre></div>
 <pre><code>Unit: milliseconds
            expr      min       lq     mean   median       uq      max neval
-     vectorized 1.173124 1.207328 1.352296 1.270814 1.319428 8.100961   100
- not vectorized 1.959508 2.078100 2.156908 2.146513 2.234927 2.499985   100</code></pre>
+     vectorized 1.237152 1.310964 1.564188 1.440602 1.677993 8.388844   100
+ not vectorized 2.110333 2.210324 2.496429 2.300123 2.956518 3.276768   100</code></pre>
 <p>Yes, the vectorized version is faster. So, the lesson here is that if you can vectorize, then vectorize instead of using <code>lapply()</code>. But, of course, things cannot be vectorized in many cases.</p>
 </div>
 </div>
