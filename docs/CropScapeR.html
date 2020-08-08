@@ -24,7 +24,7 @@
 <meta name="author" content="Taro Mieno" />
 
 
-<meta name="date" content="2020-08-04" />
+<meta name="date" content="2020-08-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -539,7 +539,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="CropScapeR" class="section level2" number="9.2">
 <h2><span class="header-section-number">9.2</span> CDL with <code>CropScapeR</code></h2>
 <p>The Cropland Data Layer (CDL) is a data product produced by the National Agricultural Statistics Service of U.S. Department of Agriculture. CDL provides geo-referenced, high accuracy, 30 (after 2007) or 56 (in 2006 and 2007) meter resolution, crop-specific cropland land cover information for up to 48 contiguous states in the U.S. from 1997 to the present. This data product has been extensively used in agricultural research. CropScape is an interactive Web CDL exploring system (<a href="https://nassgeodata.gmu.edu/CropScape/" class="uri">https://nassgeodata.gmu.edu/CropScape/</a>), and it was developed to query, visualize, disseminate, and analyze CDL data geospatially through standard geospatial web services in a publicly accessible on-line environment (Han et al., 2012).</p>
-<p>This section shows how to use the <code>CropScapeR</code> package <span class="citation">(Chen <a href="#ref-cropscaper" role="doc-biblioref">2020</a>)</span> to download and explore the CDL data. The package implements some of the most useful geospatial processing services provided by the CropScape, and it allows users to efficiently process the CDL data within the <code>R</code> environment. Specifically, the <code>CropScapeR</code> package provides four functions that implement different kinds of geospatial processing services provided by the CropScape. This section introduces these functions while providing some examples. <code>GetCDLData()</code> in particular is the most important function as it lets you download the raw CDL data. The other functions provides the users with the CDL data summarized or transformed in particular manners that may suit the need of some users.</p>
+<p>This section shows how to use the <code>CropScapeR</code> package <span class="citation">(Chen <a href="#ref-cropscaper" role="doc-biblioref">2020</a>)</span> to download and explore the CDL data. The package implements some of the most useful geospatial processing services provided by the CropScape, and it allows users to efficiently process the CDL data within the <code>R</code> environment. Specifically, the <code>CropScapeR</code> package provides four functions that implement different kinds of geospatial processing services provided by the CropScape. This section introduces these functions while providing some examples. <code>GetCDLData()</code> in particular is the most important function as it lets you download the raw CDL data. The other functions provide the users with the CDL data summarized or transformed in particular manners that may suit the need of some users.</p>
 <p><strong>Note</strong>: There is a known problem with Mac users requesting CDL data services using the CropScape API, which causes errors when using the functions provided by the package. Please see section <a href="CropScapeR.html#mac-problem">9.2.4</a> for a workaround.</p>
 <hr />
 <p>The <code>CropScapeR</code> package can be installed directly from ‘CRAN’:</p>
@@ -565,7 +565,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>The following AOI-type combinations are accepted:</p>
 <ul>
-<li>any spatial objects as an <code>sf</code> or <code>sfc</code> object - <code>type = "b"</code></li>
+<li>any spatial object as an <code>sf</code> or <code>sfc</code> object - <code>type = "b"</code></li>
 <li>county (defined by a 5-digit county FIPS code) - <code>type = "f"</code></li>
 <li>state (defined by a 2-digit state FIPS code) - <code>type = "f"</code></li>
 <li>bounding box (defined by four corner points) - <code>type = "b"</code></li>
@@ -576,7 +576,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="downloading-cdl-data-for-sf-county-and-state" class="section level4" number="9.2.1.1">
 <h4><span class="header-section-number">9.2.1.1</span> Downloading CDL data for <code>sf</code>, county, and state</h4>
 <p><strong>Downloading CDL data for <code>sf</code></strong></p>
-<p>Let’s download the 2018 CDL data for the area that covers the Champaign, Vermilion, Ford, and Iroquois county in Illinois (a map below).</p>
+<p>Let’s download the 2018 CDL data for the area that covers Champaign, Vermilion, Ford, and Iroquois Counties in Illinois (a map below).</p>
 <div class="sourceCode" id="cb768"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb768-1"><a href="CropScapeR.html#cb768-1"></a><span class="kw">library</span>(tigris)</span>
 <span id="cb768-2"><a href="CropScapeR.html#cb768-2"></a></span>
 <span id="cb768-3"><a href="CropScapeR.html#cb768-3"></a><span class="co">#--- get the sf for the four counties  ---# </span></span>
@@ -588,7 +588,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb769-3"><a href="CropScapeR.html#cb769-3"></a><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> IL_county_<span class="dv">4</span>, <span class="dt">fill =</span> <span class="st">&quot;lightblue&quot;</span>) <span class="op">+</span></span>
 <span id="cb769-4"><a href="CropScapeR.html#cb769-4"></a><span class="st">  </span><span class="kw">theme_void</span>()</span></code></pre></div>
 <p><img src="R_GIS_Book_files/figure-html/IL4-map-1.png" width="672" /></p>
-<p>When you use an <code>sf</code> object for <code>aoi</code>, CDL data will be downloaded for the bounding box (this is why <code>type = "b"</code>) that encompasses the entire geographic area of the <code>sf</code> object irrespective of the type of the objects in the <code>sf</code> object (whether they are points, polygons, lines). In this case, CDL data is downloaded for the red area in the map below.</p>
+<p>When you use an <code>sf</code> object for <code>aoi</code>, CDL data will be downloaded for the bounding box (this is why <code>type = "b"</code>) that encompasses the entire geographic area of the <code>sf</code> object irrespective of the type of objects in the <code>sf</code> object (whether they are points, polygons, lines). In this case, CDL data is downloaded for the red area in the map below.</p>
 <div class="sourceCode" id="cb770"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb770-1"><a href="CropScapeR.html#cb770-1"></a><span class="kw">ggplot</span>() <span class="op">+</span></span>
 <span id="cb770-2"><a href="CropScapeR.html#cb770-2"></a><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> IL_county) <span class="op">+</span></span>
 <span id="cb770-3"><a href="CropScapeR.html#cb770-3"></a><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> <span class="kw">st_as_sfc</span>(<span class="kw">st_bbox</span>(IL_county_<span class="dv">4</span>)), <span class="dt">fill =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.4</span>) <span class="op">+</span></span>
@@ -627,7 +627,7 @@ values     : 0, 255  (min, max)</code></pre>
 <p><img src="R_GIS_Book_files/figure-html/plot-IL4-mask-1.png" width="672" /><img src="R_GIS_Book_files/figure-html/plot-IL4-mask-2.png" width="672" /></p>
 <hr />
 <p><strong>Downloading CDL data for county</strong></p>
-<p>The following code makes a request to download the CDL data for the Champaign county in Illinois in 2018.</p>
+<p>The following code makes a request to download the CDL data for Champaign county in Illinois in 2018.</p>
 <div class="sourceCode" id="cb778"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb778-1"><a href="CropScapeR.html#cb778-1"></a>(</span>
 <span id="cb778-2"><a href="CropScapeR.html#cb778-2"></a>cdl_Champaign &lt;-<span class="st"> </span><span class="kw">GetCDLData</span>(<span class="dt">aoi =</span> <span class="dv">17019</span>, <span class="dt">year =</span> <span class="dv">2018</span>, <span class="dt">type =</span> <span class="st">&#39;f&#39;</span>)</span>
 <span id="cb778-3"><a href="CropScapeR.html#cb778-3"></a>)</span></code></pre></div>
@@ -639,7 +639,7 @@ crs        : +proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=23 +lon_0=-96 +x_0=0 +y_0=
 source     : /Users/tmieno2/Dropbox/TeachingUNL/R_as_GIS/ch.tif 
 names      : ch 
 values     : 0, 255  (min, max)</code></pre>
-<p>In the above code, the FIPS code for the Champaign county (17019) was supplied to the <code>aoi</code> option. Because a county is used here, the <code>type</code> argument is specified as ‘f’.</p>
+<p>In the above code, the FIPS code for Champaign County (17019) was supplied to the <code>aoi</code> option. Because a county is used here, the <code>type</code> argument is specified as ‘f’.</p>
 <div class="sourceCode" id="cb780"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb780-1"><a href="CropScapeR.html#cb780-1"></a><span class="kw">plot</span>(cdl_Champaign) </span></code></pre></div>
 <p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-114-1.png" width="288" style="display: block; margin: auto;" /><img src="R_GIS_Book_files/figure-html/unnamed-chunk-114-2.png" width="288" style="display: block; margin: auto;" /></p>
 <hr />
@@ -700,7 +700,7 @@ First 10 features:
 </div>
 <div id="data-processing-after-downloading-data" class="section level3" number="9.2.2">
 <h3><span class="header-section-number">9.2.2</span> Data processing after downloading data</h3>
-<p>The downloaded raster data itself is not readily usable immediately for your economic analysis. It is typically that the variable of interest is the frequency of land use types or their shares. You can use <code>raster::freq()</code> to get the frequency (the number of raster cells) of each land use type.</p>
+<p>The downloaded raster data itself is not readily usable immediately for your economic analysis. Typically the variable of interest is the frequency of land use types or their shares. You can use <code>raster::freq()</code> to get the frequency (the number of raster cells) of each land use type.</p>
 <div class="sourceCode" id="cb787"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb787-1"><a href="CropScapeR.html#cb787-1"></a>(</span>
 <span id="cb787-2"><a href="CropScapeR.html#cb787-2"></a>crop_freq &lt;-<span class="st"> </span><span class="kw">freq</span>(cdl_Champaign)</span>
 <span id="cb787-3"><a href="CropScapeR.html#cb787-3"></a>)</span></code></pre></div>
@@ -776,7 +776,7 @@ First 10 features:
 29   222       1 2.985467e-07
 30   229      16 4.776747e-06
 31   241      38 1.134477e-05</code></pre>
-<p>At this point, the data does not tell you which value corresponds to which crop. To find out crop names associated with the crop codes (<code>value</code>), you can get the reference table using <code>data(linkdata)</code> from the <code>CropScapeR</code> package.<a href="#fn100" class="footnote-ref" id="fnref100"><sup>100</sup></a></p>
+<p>At this point, the data does not tell you which value corresponds to which crop. To find the crop names associated with the crop codes (<code>value</code>), you can get the reference table using <code>data(linkdata)</code> from the <code>CropScapeR</code> package.<a href="#fn100" class="footnote-ref" id="fnref100"><sup>100</sup></a></p>
 <div class="sourceCode" id="cb791"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb791-1"><a href="CropScapeR.html#cb791-1"></a><span class="co">#--- load the crop code reference data ---#</span></span>
 <span id="cb791-2"><a href="CropScapeR.html#cb791-2"></a><span class="kw">data</span>(<span class="st">&quot;linkdata&quot;</span>)</span></code></pre></div>
 <div id="htmlwidget-e71f67642c810670f0cb" style="width:100%;height:auto;" class="datatables html-widget"></div>
@@ -817,7 +817,7 @@ First 10 features:
 29   222       1 2.985467e-07                   Squash
 30   229      16 4.776747e-06                 Pumpkins
 31   241      38 1.134477e-05   Dbl_Crop_Corn/Soybeans</code></pre>
-<p><code>NoData</code> in <code>Crop</code> corresponds to the black area in the above figure, which is the portion of the raster data that does not overlap with the boundary of the Champaign county. These points with <code>NoData</code> can be removed by using the <code>filter</code> function.</p>
+<p><code>NoData</code> in <code>Crop</code> corresponds to the black area in the above figure, which is the portion of the raster data that does not overlap with the boundary of Champaign County. These points with <code>NoData</code> can be removed by using the <code>filter</code> function.</p>
 </div>
 <div id="other-forms-of-cdl-data" class="section level3" number="9.2.3">
 <h3><span class="header-section-number">9.2.3</span> Other forms of CDL data</h3>
@@ -831,7 +831,7 @@ First 10 features:
 <hr />
 <p><strong><code>GetCDLComp()</code></strong>: request data on land use changes</p>
 <p>The <code>GetCDLComp</code> function allows users to request data on changes in land cover over time from the CDL. Specifically, this function returns acres changed from one crop category to another crop category between two years for a user-defined AOI.</p>
-<p>Let’s see an example. The following codes request data on acreage changes in land cover for the Champaign county (FIPS = 17019) from 2017 (<code>year1 = 2017</code>) to 2018 (<code>year2 = 2018</code>).</p>
+<p>Let’s see an example. The following codes request data on acreage changes in land cover for Champaign County (FIPS = 17019) from 2017 (<code>year1 = 2017</code>) to 2018 (<code>year2 = 2018</code>).</p>
 <div class="sourceCode" id="cb794"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb794-1"><a href="CropScapeR.html#cb794-1"></a>(</span>
 <span id="cb794-2"><a href="CropScapeR.html#cb794-2"></a>data_change &lt;-<span class="st"> </span><span class="kw">GetCDLComp</span>(<span class="dt">aoi =</span> <span class="st">&#39;17019&#39;</span>, <span class="dt">year1 =</span> <span class="dv">2017</span>, <span class="dt">year2 =</span> <span class="dv">2018</span>, <span class="dt">type =</span> <span class="st">&#39;f&#39;</span>)</span>
 <span id="cb794-3"><a href="CropScapeR.html#cb794-3"></a>)</span></code></pre></div>
@@ -855,7 +855,7 @@ Error message from CropScape is :&lt;faultstring&gt;Error: Mismatch size of file
 &lt;/faultstring&gt;</code></pre>
 <hr />
 <p><strong><code>GetCDLStat()</code></strong>: get acreage estimates from the CDL</p>
-<p>The <code>GetCDLStat</code> function allows users to get acreage by land cover category for a user defined AOI in a year. For example, the following codes request data on acreage by land cover categories for the Champaign county in Illinois in 2018. You can see that the pixel counts are already converted to acres and category names are attached.</p>
+<p>The <code>GetCDLStat</code> function allows users to get acreage by land cover category for a user defined AOI in a year. For example, the following codes request data on acreage by land cover categories for Champaign County in Illinois in 2018. You can see that the pixel counts are already converted to acres and category names are attached.</p>
 <div class="sourceCode" id="cb798"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb798-1"><a href="CropScapeR.html#cb798-1"></a>(</span>
 <span id="cb798-2"><a href="CropScapeR.html#cb798-2"></a>data_stat &lt;-<span class="st"> </span><span class="kw">GetCDLStat</span>(<span class="dt">aoi =</span> <span class="dv">17019</span>, <span class="dt">year =</span> <span class="dv">2018</span>, <span class="dt">type =</span> <span class="st">&#39;f&#39;</span>)</span>
 <span id="cb798-3"><a href="CropScapeR.html#cb798-3"></a>)</span></code></pre></div>
@@ -893,7 +893,7 @@ Error message from CropScape is :&lt;faultstring&gt;Error: Mismatch size of file
     Value                   Category  Acreage</code></pre>
 <hr />
 <p><strong><code>GetCDLImage()</code></strong>: Download the image files of the CDL data
-The <code>GetCDLImage</code> function allows users to download the image files of the CDL data. This function is very similar to the <code>GetCDLData</code> function, except that image files are returned. This function can be helpful if you only want to look at the picture of the CDL data. Be default, the picture is saved as the ‘png’ format. You can also save it in the ‘kml’ format.</p>
+The <code>GetCDLImage</code> function allows users to download the image files of the CDL data. This function is very similar to the <code>GetCDLData</code> function, except that image files are returned. This function can be helpful if you only want to look at the picture of the CDL data. By default, the picture is saved as the ‘png’ format. You can also save it in the ‘kml’ format.</p>
 <div class="sourceCode" id="cb800"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb800-1"><a href="CropScapeR.html#cb800-1"></a><span class="kw">GetCDLImage</span>(<span class="dt">aoi =</span> <span class="dv">17019</span>, <span class="dt">year =</span> <span class="dv">2018</span>, <span class="dt">type =</span> <span class="st">&#39;f&#39;</span>, <span class="dt">verbose =</span> F)</span></code></pre></div>
 </div>
 <div id="mac-problem" class="section level3" number="9.2.4">

@@ -207,7 +207,7 @@ many_states_corn <- getQuickstat(
 
 The Cropland Data Layer (CDL) is a data product produced by the National Agricultural Statistics Service of U.S. Department of Agriculture. CDL provides geo-referenced, high accuracy, 30 (after 2007) or 56 (in 2006 and 2007) meter resolution, crop-specific cropland land cover information for up to 48 contiguous states in the U.S. from 1997 to the present. This data product has been extensively used in agricultural research. CropScape is an interactive Web CDL exploring system (<https://nassgeodata.gmu.edu/CropScape/>), and it was developed to query, visualize, disseminate, and analyze CDL data geospatially through standard geospatial web services in a publicly accessible on-line environment (Han et al., 2012). 
 
-This section shows how to use the `CropScapeR` package [@cropscaper] to download and explore the CDL data. The package implements some of the most useful geospatial processing services provided by the CropScape, and it allows users to efficiently process the CDL data within the `R` environment. Specifically, the `CropScapeR` package provides four functions that implement different kinds of geospatial processing services provided by the CropScape. This section introduces these functions while providing some examples. `GetCDLData()` in particular is the most important function as it lets you download the raw CDL data. The other functions provides the users with the CDL data summarized or transformed in particular manners that may suit the need of some users.
+This section shows how to use the `CropScapeR` package [@cropscaper] to download and explore the CDL data. The package implements some of the most useful geospatial processing services provided by the CropScape, and it allows users to efficiently process the CDL data within the `R` environment. Specifically, the `CropScapeR` package provides four functions that implement different kinds of geospatial processing services provided by the CropScape. This section introduces these functions while providing some examples. `GetCDLData()` in particular is the most important function as it lets you download the raw CDL data. The other functions provide the users with the CDL data summarized or transformed in particular manners that may suit the need of some users.
 
 **Note**: There is a known problem with Mac users requesting CDL data services using the CropScape API, which causes errors when using the functions provided by the package. Please see section \@ref(mac-problem) for a workaround.
 
@@ -258,7 +258,7 @@ Acknowledgment: The development of the `CropScapeR` package was supported by USD
 
 The following AOI-type combinations are accepted:
 
-+ any spatial objects as an `sf` or `sfc` object - `type = "b"`
++ any spatial object as an `sf` or `sfc` object - `type = "b"`
 + county (defined by a 5-digit county FIPS code) - `type = "f"`
 + state (defined by a 2-digit state FIPS code) - `type = "f"`
 + bounding box (defined by four corner points) - `type = "b"`
@@ -271,7 +271,7 @@ This section discusses how to download data for an `sf` object, county, and stat
 
 **Downloading CDL data for `sf`**
 
-Let's download the 2018 CDL data for the area that covers the Champaign, Vermilion, Ford, and Iroquois county in Illinois (a map below).
+Let's download the 2018 CDL data for the area that covers Champaign, Vermilion, Ford, and Iroquois Counties in Illinois (a map below).
 
 ```{r IL_4_dips, eval = F}
 library(tigris)
@@ -300,7 +300,7 @@ ggplot() +
   theme_void()
 ```
 
-When you use an `sf` object for `aoi`, CDL data will be downloaded for the bounding box (this is why `type = "b"`) that encompasses the entire geographic area of the `sf` object irrespective of the type of the objects in the `sf` object (whether they are points, polygons, lines). In this case, CDL data is downloaded for the red area in the map below. 
+When you use an `sf` object for `aoi`, CDL data will be downloaded for the bounding box (this is why `type = "b"`) that encompasses the entire geographic area of the `sf` object irrespective of the type of objects in the `sf` object (whether they are points, polygons, lines). In this case, CDL data is downloaded for the red area in the map below. 
 
 ```{r IL4-aoi-map}
 ggplot() +
@@ -368,7 +368,7 @@ plot(cdl_IL_4_masked)
 
 **Downloading CDL data for county** 
 
-The following code makes a request to download the CDL data for the Champaign county in Illinois in 2018. 
+The following code makes a request to download the CDL data for Champaign county in Illinois in 2018. 
 
 ```{r eval = F}
 (
@@ -383,7 +383,7 @@ cdl_Champaign <- raster("ch.tif")
 
 ```
 
-In the above code, the FIPS code for the Champaign county (17019) was supplied to the `aoi` option. Because a county is used here, the `type` argument is specified as 'f'. 
+In the above code, the FIPS code for Champaign County (17019) was supplied to the `aoi` option. Because a county is used here, the `type` argument is specified as 'f'. 
 
 ```{r fig.width=3, fig.height=3, fig.align='center'}
 plot(cdl_Champaign) 
@@ -470,7 +470,7 @@ The `format = sf` option makes `GetCDLData()` do this conversion internally for 
 
 ### Data processing after downloading data
 
-The downloaded raster data itself is not readily usable immediately for your economic analysis. It is typically that the variable of interest is the frequency of land use types or their shares. You can use `raster::freq()` to get the frequency (the number of raster cells) of each land use type.
+The downloaded raster data itself is not readily usable immediately for your economic analysis. Typically the variable of interest is the frequency of land use types or their shares. You can use `raster::freq()` to get the frequency (the number of raster cells) of each land use type.
 
 ```{r get-freq}
 (
@@ -491,7 +491,7 @@ crop_data <-crop_freq %>%
 
 ```
 
-At this point, the data does not tell you which value corresponds to which crop. To find out crop names associated with the crop codes (`value`), you can get the reference table using `data(linkdata)` from the `CropScapeR` package.^[Alternatively, you can download the reference table (a EXCEL file) at <https://www.nass.usda.gov/Research_and_Science/Cropland/docs/cdl_codes_names.xlsx>.] 
+At this point, the data does not tell you which value corresponds to which crop. To find the crop names associated with the crop codes (`value`), you can get the reference table using `data(linkdata)` from the `CropScapeR` package.^[Alternatively, you can download the reference table (a EXCEL file) at <https://www.nass.usda.gov/Research_and_Science/Cropland/docs/cdl_codes_names.xlsx>.] 
 
 ```{r}
 #--- load the crop code reference data ---#
@@ -512,7 +512,7 @@ crop_data <- dplyr::left_join(crop_data, linkdata, by = c('value' = 'MasterCat')
 )
 ``` 
 
-`NoData` in `Crop` corresponds to the black area in the above figure, which is the portion of the raster data that does not overlap with the boundary of the Champaign county. These points with `NoData` can be removed by using the `filter` function. 
+`NoData` in `Crop` corresponds to the black area in the above figure, which is the portion of the raster data that does not overlap with the boundary of Champaign County. These points with `NoData` can be removed by using the `filter` function. 
 
 ### Other forms of CDL data
 
@@ -530,7 +530,7 @@ These may come handy if they satisfy your needs because you can skip post-downlo
 
 The `GetCDLComp` function allows users to request data on changes in land cover over time from the CDL. Specifically, this function returns acres changed from one crop category to another crop category between two years for a user-defined AOI. 
 
-Let's see an example. The following codes request data on acreage changes in land cover for the Champaign county (FIPS = 17019) from 2017 (`year1 = 2017`) to 2018 (`year2 = 2018`). 
+Let's see an example. The following codes request data on acreage changes in land cover for Champaign County (FIPS = 17019) from 2017 (`year1 = 2017`) to 2018 (`year2 = 2018`). 
 
 ```{r getcdl-comp, eval = F}
 (
@@ -554,7 +554,7 @@ data_change <- GetCDLComp(aoi = '17019', year1 = 2007, year2 = 2008, type = 'f',
 
 **`GetCDLStat()`**: get acreage estimates from the CDL      
 
-The `GetCDLStat` function allows users to get acreage by land cover category for a user defined AOI in a year. For example, the following codes request data on acreage by land cover categories for the Champaign county in Illinois in 2018. You can see that the pixel counts are already converted to acres and category names are attached.   
+The `GetCDLStat` function allows users to get acreage by land cover category for a user defined AOI in a year. For example, the following codes request data on acreage by land cover categories for Champaign County in Illinois in 2018. You can see that the pixel counts are already converted to acres and category names are attached.   
 
 ```{r getcdl-stat, eval = F}
 (
@@ -570,7 +570,7 @@ readRDS("cdl_stat.rds")
 ---
 
 **`GetCDLImage()`**: Download the image files of the CDL data
-The `GetCDLImage` function allows users to download the image files of the CDL data. This function is very similar to the `GetCDLData` function, except that image files are returned. This function can be helpful if you only want to look at the picture of the CDL data. Be default, the picture is saved as the 'png' format. You can also save it in the 'kml' format. 
+The `GetCDLImage` function allows users to download the image files of the CDL data. This function is very similar to the `GetCDLData` function, except that image files are returned. This function can be helpful if you only want to look at the picture of the CDL data. By default, the picture is saved as the 'png' format. You can also save it in the 'kml' format. 
 
 ```{r getcdl-image, eval = F}
 GetCDLImage(aoi = 17019, year = 2018, type = 'f', verbose = F)
