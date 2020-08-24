@@ -24,7 +24,7 @@
 <meta name="author" content="Taro Mieno" />
 
 
-<meta name="date" content="2020-08-07" />
+<meta name="date" content="2020-08-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -998,7 +998,7 @@ F Statistic
 <hr />
 <ol start="17">
 <li id="fn17"><p>We by no means are saying that this is the right geographical unit of analysis. This is just about demonstrating how R can be used for analysis done at the higher spatial resolution than county.<a href="demo3.html#fnref17" class="footnote-back">↩︎</a></p></li>
-<li id="fn18"><p>You do not have to run this code to download the data. It is included in the data folder for replication (<a href="https://www.dropbox.com/sh/cyx9clgmshwc8eo/AAApv03Qpx84IGKCyF5v2rJ6a?dl=0">here</a>).<a href="demo3.html#fnref18" class="footnote-back">↩︎</a></p></li>
+<li id="fn18"><p>You do not have to run this code to download the data. It is included in the data folder for replication (<a href="https://www.dropbox.com/sh/rtbs4ji21c9uiy9/AADYpHAWhUxMittAptuq-Apaa?dl=0">here</a>).<a href="demo3.html#fnref18" class="footnote-back">↩︎</a></p></li>
 <li id="fn19"><p><a href="https://github.com/ropensci/prism">prism github page</a><a href="demo3.html#fnref19" class="footnote-back">↩︎</a></p></li>
 <li id="fn20"><p>For this project, I could have just used monthly PRISM data, which can be downloaded using the <code>get_prism_monthlys()</code> function. But, in many applications, daily data is necessary, so I wanted to illustrate how to download and process them.<a href="demo3.html#fnref20" class="footnote-back">↩︎</a></p></li>
 <li id="fn21"><p>Do not use <code>st_buffer()</code> for spatial objects in geographic coordinates (latitude, longitude) if you intend to use the created buffers for any serious IA (it is difficult to get the right distance parameter anyway.). Significant distortion will be introduced to the buffer due to the fact that one degree in latitude and longitude means different distances at the latitude of IA. Here, I am just creating a buffer to extract PRISM cells to display on the map.<a href="demo3.html#fnref21" class="footnote-back">↩︎</a></p></li>
