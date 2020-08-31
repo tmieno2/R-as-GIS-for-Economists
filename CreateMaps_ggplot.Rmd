@@ -148,6 +148,7 @@ g_rail <- ggplot(data = KS_railroads) +
 
 As you can see, the different geometry types are handled by a single `geom` type, `geom_sf()`. Notice also that neither of the x-axis (longitude) and y-axis (latitude) is provided to `geom_sf()`. When you create a map, longitude and latitude are always used for x- and y-axis. `geom_sf()` is smart enough to know the geometry types and draw spatial objects accordingly.  
 
+
 ### Specifying the aesthetics
 
 There are various aesthetics options you can use. Available aesthetics vary by the type of geometry. This section shows the basics of how to specify the aesthetics of maps. Finer control of aesthetics will be discussed later.
@@ -899,7 +900,7 @@ display.brewer.all()
 
 The first set of color palettes are **sequential** palettes and are suitable for a variable that has ordinal meaning: temperature, precipitation, etc. The second set of palettes are **qualitative** palettes and suitable for qualitative or categorical data. Finally, the third set of palettes are **diverging** palettes and can be suitable for variables that take both negative and positive values like changes in groundwater level.  
 
-Two types of `scale` functions are offered by the packages:
+Two types of `scale` functions can be used to use these palettes:
 
 + `scale_*_distiller()` for a continuous variable
 + `scale_*_brewer()` for a discrete variable
