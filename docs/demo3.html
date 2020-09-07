@@ -24,7 +24,7 @@
 <meta name="author" content="Taro Mieno" />
 
 
-<meta name="date" content="2020-08-30" />
+<meta name="date" content="2020-09-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,6 +33,7 @@
   
 <link rel="prev" href="demonstration-2-precision-agriculture.html"/>
 <link rel="next" href="demo4.html"/>
+<script src="libs/header-attrs-2.3/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -50,6 +51,7 @@
 
 
 
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
 <script src="libs/leaflet-1.3.1/leaflet.js"></script>
@@ -90,25 +92,26 @@
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -117,9 +120,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -168,15 +171,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
-<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html"><i class="fa fa-check"></i>Preface</a><ul>
-<li class="chapter" data-level="" data-path="why-r-as-gis-for-economists.html"><a href="why-r-as-gis-for-economists.html"><i class="fa fa-check"></i>Why R as GIS for Economists?</a><ul>
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="why-r-as-gis-for-economists.html"><a href="why-r-as-gis-for-economists.html"><i class="fa fa-check"></i>Why R as GIS for Economists?</a>
+<ul>
 <li class="chapter" data-level="" data-path="why-r-as-gis-for-economists.html"><a href="why-r-as-gis-for-economists.html#r-vs-python"><i class="fa fa-check"></i>R vs Python</a></li>
 <li class="chapter" data-level="" data-path="why-r-as-gis-for-economists.html"><a href="why-r-as-gis-for-economists.html#r-vs-arcgis-or-qgis"><i class="fa fa-check"></i>R vs ArcGIS or QGIS</a></li>
 <li class="chapter" data-level="" data-path="why-r-as-gis-for-economists.html"><a href="why-r-as-gis-for-economists.html#summary"><i class="fa fa-check"></i>Summary</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="how-is-this-book-different-from-other-online-books-and-resources.html"><a href="how-is-this-book-different-from-other-online-books-and-resources.html"><i class="fa fa-check"></i>How is this book different from other online books and resources?</a></li>
 <li class="chapter" data-level="" data-path="what-is-going-to-be-covered-in-this-book.html"><a href="what-is-going-to-be-covered-in-this-book.html"><i class="fa fa-check"></i>What is going to be covered in this book?</a></li>
-<li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html"><i class="fa fa-check"></i>Conventions of the book and some notes</a><ul>
+<li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html"><i class="fa fa-check"></i>Conventions of the book and some notes</a>
+<ul>
 <li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html#texts-in-gray-boxes"><i class="fa fa-check"></i>Texts in gray boxes</a></li>
 <li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html#colored-boxes"><i class="fa fa-check"></i>Colored Boxes</a></li>
 <li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html#parentheses-around-codes"><i class="fa fa-check"></i>Parentheses around codes</a></li>
@@ -185,135 +191,167 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="session-information.html"><a href="session-information.html"><i class="fa fa-check"></i>Session Information</a></li>
 </ul></li>
 <li class="part"><span><b>I Demonstration</b></span></li>
-<li class="chapter" data-level="1" data-path="demo.html"><a href="demo.html"><i class="fa fa-check"></i><b>1</b> R as GIS: Demonstrations</a><ul>
-<li class="chapter" data-level="" data-path="before-you-start.html"><a href="before-you-start.html"><i class="fa fa-check"></i>Before you start</a><ul>
+<li class="chapter" data-level="1" data-path="demo.html"><a href="demo.html"><i class="fa fa-check"></i><b>1</b> R as GIS: Demonstrations</a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start.html"><a href="before-you-start.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
 <li class="chapter" data-level="" data-path="before-you-start.html"><a href="before-you-start.html#target-audience"><i class="fa fa-check"></i>Target Audience</a></li>
 <li class="chapter" data-level="" data-path="before-you-start.html"><a href="before-you-start.html#direction-for-replication"><i class="fa fa-check"></i>Direction for replication</a></li>
 </ul></li>
-<li class="chapter" data-level="1.1" data-path="Demo1.html"><a href="Demo1.html"><i class="fa fa-check"></i><b>1.1</b> Demonstration 1: The impact of groundwater pumping on depth to water table</a><ul>
+<li class="chapter" data-level="1.1" data-path="Demo1.html"><a href="Demo1.html"><i class="fa fa-check"></i><b>1.1</b> Demonstration 1: The impact of groundwater pumping on depth to water table</a>
+<ul>
 <li class="chapter" data-level="1.1.1" data-path="Demo1.html"><a href="Demo1.html#project-overview"><i class="fa fa-check"></i><b>1.1.1</b> Project Overview</a></li>
 <li class="chapter" data-level="1.1.2" data-path="Demo1.html"><a href="Demo1.html#project-demonstration"><i class="fa fa-check"></i><b>1.1.2</b> Project Demonstration</a></li>
 </ul></li>
-<li class="chapter" data-level="1.2" data-path="demonstration-2-precision-agriculture.html"><a href="demonstration-2-precision-agriculture.html"><i class="fa fa-check"></i><b>1.2</b> Demonstration 2: Precision Agriculture</a><ul>
+<li class="chapter" data-level="1.2" data-path="demonstration-2-precision-agriculture.html"><a href="demonstration-2-precision-agriculture.html"><i class="fa fa-check"></i><b>1.2</b> Demonstration 2: Precision Agriculture</a>
+<ul>
 <li class="chapter" data-level="1.2.1" data-path="demonstration-2-precision-agriculture.html"><a href="demonstration-2-precision-agriculture.html#project-overview-1"><i class="fa fa-check"></i><b>1.2.1</b> Project Overview</a></li>
 <li class="chapter" data-level="1.2.2" data-path="demonstration-2-precision-agriculture.html"><a href="demonstration-2-precision-agriculture.html#project-demonstration-1"><i class="fa fa-check"></i><b>1.2.2</b> Project Demonstration</a></li>
 </ul></li>
-<li class="chapter" data-level="1.3" data-path="demo3.html"><a href="demo3.html"><i class="fa fa-check"></i><b>1.3</b> Demonstration 3: Land Use and Weather</a><ul>
+<li class="chapter" data-level="1.3" data-path="demo3.html"><a href="demo3.html"><i class="fa fa-check"></i><b>1.3</b> Demonstration 3: Land Use and Weather</a>
+<ul>
 <li class="chapter" data-level="1.3.1" data-path="demo3.html"><a href="demo3.html#project-overview-2"><i class="fa fa-check"></i><b>1.3.1</b> Project Overview</a></li>
 <li class="chapter" data-level="1.3.2" data-path="demo3.html"><a href="demo3.html#project-demonstration-2"><i class="fa fa-check"></i><b>1.3.2</b> Project Demonstration</a></li>
 </ul></li>
-<li class="chapter" data-level="1.4" data-path="demo4.html"><a href="demo4.html"><i class="fa fa-check"></i><b>1.4</b> Demonstration 4: The Impact of Railroad Presence on Corn Planted Acreage</a><ul>
+<li class="chapter" data-level="1.4" data-path="demo4.html"><a href="demo4.html"><i class="fa fa-check"></i><b>1.4</b> Demonstration 4: The Impact of Railroad Presence on Corn Planted Acreage</a>
+<ul>
 <li class="chapter" data-level="1.4.1" data-path="demo4.html"><a href="demo4.html#project-overview-3"><i class="fa fa-check"></i><b>1.4.1</b> Project Overview</a></li>
 <li class="chapter" data-level="1.4.2" data-path="demo4.html"><a href="demo4.html#project-demonstration-3"><i class="fa fa-check"></i><b>1.4.2</b> Project Demonstration</a></li>
 </ul></li>
-<li class="chapter" data-level="1.5" data-path="demonstration-5-groundwater-use-for-agricultural-irrigation.html"><a href="demonstration-5-groundwater-use-for-agricultural-irrigation.html"><i class="fa fa-check"></i><b>1.5</b> Demonstration 5: Groundwater use for agricultural irrigation</a><ul>
+<li class="chapter" data-level="1.5" data-path="demonstration-5-groundwater-use-for-agricultural-irrigation.html"><a href="demonstration-5-groundwater-use-for-agricultural-irrigation.html"><i class="fa fa-check"></i><b>1.5</b> Demonstration 5: Groundwater use for agricultural irrigation</a>
+<ul>
 <li class="chapter" data-level="1.5.1" data-path="demonstration-5-groundwater-use-for-agricultural-irrigation.html"><a href="demonstration-5-groundwater-use-for-agricultural-irrigation.html#project-overview-4"><i class="fa fa-check"></i><b>1.5.1</b> Project Overview</a></li>
 <li class="chapter" data-level="1.5.2" data-path="demonstration-5-groundwater-use-for-agricultural-irrigation.html"><a href="demonstration-5-groundwater-use-for-agricultural-irrigation.html#project-demonstration-4"><i class="fa fa-check"></i><b>1.5.2</b> Project Demonstration</a></li>
 </ul></li>
 </ul></li>
 <li class="part"><span><b>II Foundations</b></span></li>
-<li class="chapter" data-level="2" data-path="vector-basics.html"><a href="vector-basics.html"><i class="fa fa-check"></i><b>2</b> Vector Data Handling with <code>sf</code></a><ul>
-<li class="chapter" data-level="" data-path="before-you-start-1.html"><a href="before-you-start-1.html"><i class="fa fa-check"></i>Before you start</a><ul>
+<li class="chapter" data-level="2" data-path="vector-basics.html"><a href="vector-basics.html"><i class="fa fa-check"></i><b>2</b> Vector Data Handling with <code>sf</code></a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-1.html"><a href="before-you-start-1.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
 <li><a href="before-you-start-1.html#sf-or-sp"><code>sf</code> or <code>sp</code>?</a></li>
 <li class="chapter" data-level="" data-path="before-you-start-1.html"><a href="before-you-start-1.html#direction-for-replication-1"><i class="fa fa-check"></i>Direction for replication</a></li>
 </ul></li>
 <li class="chapter" data-level="2.1" data-path="spatial-data-structure.html"><a href="spatial-data-structure.html"><i class="fa fa-check"></i><b>2.1</b> Spatial Data Structure</a></li>
-<li class="chapter" data-level="2.2" data-path="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html"><i class="fa fa-check"></i><b>2.2</b> Simple feature geometry, simple feature geometry list-column, and simple feature</a><ul>
+<li class="chapter" data-level="2.2" data-path="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html"><i class="fa fa-check"></i><b>2.2</b> Simple feature geometry, simple feature geometry list-column, and simple feature</a>
+<ul>
 <li class="chapter" data-level="2.2.1" data-path="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#simple-feature-geometry-sfg"><i class="fa fa-check"></i><b>2.2.1</b> Simple feature geometry (<code>sfg</code>)</a></li>
 <li class="chapter" data-level="2.2.2" data-path="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#create-simple-feature-geometry-list-column-sfc-and-simple-feature-sf-from-scratch"><i class="fa fa-check"></i><b>2.2.2</b> Create simple feature geometry list-column (<code>sfc</code>) and simple feature (<code>sf</code>) from scratch</a></li>
 </ul></li>
-<li class="chapter" data-level="2.3" data-path="reading-and-writing-vector-data.html"><a href="reading-and-writing-vector-data.html"><i class="fa fa-check"></i><b>2.3</b> Reading and writing vector data</a><ul>
+<li class="chapter" data-level="2.3" data-path="reading-and-writing-vector-data.html"><a href="reading-and-writing-vector-data.html"><i class="fa fa-check"></i><b>2.3</b> Reading and writing vector data</a>
+<ul>
 <li class="chapter" data-level="2.3.1" data-path="reading-and-writing-vector-data.html"><a href="reading-and-writing-vector-data.html#reading-a-shapefile"><i class="fa fa-check"></i><b>2.3.1</b> Reading a shapefile</a></li>
 <li class="chapter" data-level="2.3.2" data-path="reading-and-writing-vector-data.html"><a href="reading-and-writing-vector-data.html#writing-to-a-shapefile"><i class="fa fa-check"></i><b>2.3.2</b> Writing to a shapefile</a></li>
 <li class="chapter" data-level="2.3.3" data-path="reading-and-writing-vector-data.html"><a href="reading-and-writing-vector-data.html#better-alternatives"><i class="fa fa-check"></i><b>2.3.3</b> Better alternatives</a></li>
 </ul></li>
 <li class="chapter" data-level="2.4" data-path="projection-with-a-different-coordinate-reference-systems.html"><a href="projection-with-a-different-coordinate-reference-systems.html"><i class="fa fa-check"></i><b>2.4</b> Projection with a different Coordinate Reference Systems</a></li>
-<li class="chapter" data-level="2.5" data-path="quick-and-interactive-view-of-an-sf-object.html"><a href="quick-and-interactive-view-of-an-sf-object.html"><i class="fa fa-check"></i><b>2.5</b> Quick and interactive view of an <code>sf</code> object</a><ul>
+<li class="chapter" data-level="2.5" data-path="quick-and-interactive-view-of-an-sf-object.html"><a href="quick-and-interactive-view-of-an-sf-object.html"><i class="fa fa-check"></i><b>2.5</b> Quick and interactive view of an <code>sf</code> object</a>
+<ul>
 <li class="chapter" data-level="2.5.1" data-path="quick-and-interactive-view-of-an-sf-object.html"><a href="quick-and-interactive-view-of-an-sf-object.html#quick-view"><i class="fa fa-check"></i><b>2.5.1</b> Quick view</a></li>
 <li class="chapter" data-level="2.5.2" data-path="quick-and-interactive-view-of-an-sf-object.html"><a href="quick-and-interactive-view-of-an-sf-object.html#interactive-view"><i class="fa fa-check"></i><b>2.5.2</b> Interactive view</a></li>
 </ul></li>
 <li class="chapter" data-level="2.6" data-path="turning-a-data-frame-of-points-into-an-sf.html"><a href="turning-a-data-frame-of-points-into-an-sf.html"><i class="fa fa-check"></i><b>2.6</b> Turning a data.frame of points into an <code>sf</code></a></li>
 <li class="chapter" data-level="2.7" data-path="conv-sp.html"><a href="conv-sp.html"><i class="fa fa-check"></i><b>2.7</b> Conversion to and from sp</a></li>
-<li class="chapter" data-level="2.8" data-path="non-spatial-transformation-of-sf.html"><a href="non-spatial-transformation-of-sf.html"><i class="fa fa-check"></i><b>2.8</b> Non-spatial transformation of sf</a><ul>
+<li class="chapter" data-level="2.8" data-path="non-spatial-transformation-of-sf.html"><a href="non-spatial-transformation-of-sf.html"><i class="fa fa-check"></i><b>2.8</b> Non-spatial transformation of sf</a>
+<ul>
 <li class="chapter" data-level="2.8.1" data-path="non-spatial-transformation-of-sf.html"><a href="non-spatial-transformation-of-sf.html#using-dplyr"><i class="fa fa-check"></i><b>2.8.1</b> Using <code>dplyr</code></a></li>
 <li class="chapter" data-level="2.8.2" data-path="non-spatial-transformation-of-sf.html"><a href="non-spatial-transformation-of-sf.html#using-data.table"><i class="fa fa-check"></i><b>2.8.2</b> Using <code>data.table</code></a></li>
 </ul></li>
-<li class="chapter" data-level="2.9" data-path="non-interactive-geometrical-operations.html"><a href="non-interactive-geometrical-operations.html"><i class="fa fa-check"></i><b>2.9</b> Non-interactive geometrical operations</a><ul>
+<li class="chapter" data-level="2.9" data-path="non-interactive-geometrical-operations.html"><a href="non-interactive-geometrical-operations.html"><i class="fa fa-check"></i><b>2.9</b> Non-interactive geometrical operations</a>
+<ul>
 <li class="chapter" data-level="2.9.1" data-path="non-interactive-geometrical-operations.html"><a href="non-interactive-geometrical-operations.html#st_buffer"><i class="fa fa-check"></i><b>2.9.1</b> st_buffer</a></li>
 <li class="chapter" data-level="2.9.2" data-path="non-interactive-geometrical-operations.html"><a href="non-interactive-geometrical-operations.html#st_area"><i class="fa fa-check"></i><b>2.9.2</b> st_area</a></li>
 <li class="chapter" data-level="2.9.3" data-path="non-interactive-geometrical-operations.html"><a href="non-interactive-geometrical-operations.html#st_centroid"><i class="fa fa-check"></i><b>2.9.3</b> st_centroid</a></li>
 <li class="chapter" data-level="2.9.4" data-path="non-interactive-geometrical-operations.html"><a href="non-interactive-geometrical-operations.html#st_length"><i class="fa fa-check"></i><b>2.9.4</b> st_length</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="int-vv.html"><a href="int-vv.html"><i class="fa fa-check"></i><b>3</b> Spatial Interactions of Vector Data: Subsetting and Joining</a><ul>
-<li class="chapter" data-level="" data-path="before-you-start-2.html"><a href="before-you-start-2.html"><i class="fa fa-check"></i>Before you start</a><ul>
+<li class="chapter" data-level="3" data-path="int-vv.html"><a href="int-vv.html"><i class="fa fa-check"></i><b>3</b> Spatial Interactions of Vector Data: Subsetting and Joining</a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-2.html"><a href="before-you-start-2.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
 <li class="chapter" data-level="" data-path="before-you-start-2.html"><a href="before-you-start-2.html#direction-for-replication-2"><i class="fa fa-check"></i>Direction for replication</a></li>
 </ul></li>
-<li class="chapter" data-level="3.1" data-path="topo.html"><a href="topo.html"><i class="fa fa-check"></i><b>3.1</b> Topological relations</a><ul>
+<li class="chapter" data-level="3.1" data-path="topo.html"><a href="topo.html"><i class="fa fa-check"></i><b>3.1</b> Topological relations</a>
+<ul>
 <li class="chapter" data-level="3.1.1" data-path="topo.html"><a href="topo.html#st_intersects"><i class="fa fa-check"></i><b>3.1.1</b> st_intersects()</a></li>
 <li class="chapter" data-level="3.1.2" data-path="topo.html"><a href="topo.html#st_is_within_distance"><i class="fa fa-check"></i><b>3.1.2</b> st_is_within_distance()</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html"><i class="fa fa-check"></i><b>3.2</b> Spatial Subsetting (or Flagging)</a><ul>
+<li class="chapter" data-level="3.2" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html"><i class="fa fa-check"></i><b>3.2</b> Spatial Subsetting (or Flagging)</a>
+<ul>
 <li class="chapter" data-level="3.2.1" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#polygons-source-vs-polygons-target"><i class="fa fa-check"></i><b>3.2.1</b> polygons (source) vs polygons (target)</a></li>
 <li class="chapter" data-level="3.2.2" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#points-source-vs-polygons-target"><i class="fa fa-check"></i><b>3.2.2</b> points (source) vs polygons (target)</a></li>
 <li class="chapter" data-level="3.2.3" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#lines_polygons"><i class="fa fa-check"></i><b>3.2.3</b> lines (source) vs polygons (target)</a></li>
 <li class="chapter" data-level="3.2.4" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#polygons_points"><i class="fa fa-check"></i><b>3.2.4</b> polygons (source) vs points (target)</a></li>
 <li class="chapter" data-level="3.2.5" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#subsetting-to-a-geograpchic-extent-bounding-box"><i class="fa fa-check"></i><b>3.2.5</b> Subsetting to a geograpchic extent (bounding box)</a></li>
 </ul></li>
-<li class="chapter" data-level="3.3" data-path="sp-join.html"><a href="sp-join.html"><i class="fa fa-check"></i><b>3.3</b> Spatial Join</a><ul>
+<li class="chapter" data-level="3.3" data-path="sp-join.html"><a href="sp-join.html"><i class="fa fa-check"></i><b>3.3</b> Spatial Join</a>
+<ul>
 <li class="chapter" data-level="3.3.1" data-path="sp-join.html"><a href="sp-join.html#case-1-points-target-vs-polygons-source"><i class="fa fa-check"></i><b>3.3.1</b> Case 1: points (target) vs polygons (source)</a></li>
 <li class="chapter" data-level="3.3.2" data-path="sp-join.html"><a href="sp-join.html#case-2-polygons-target-vs-points-source"><i class="fa fa-check"></i><b>3.3.2</b> Case 2: polygons (target) vs points (source)</a></li>
 <li class="chapter" data-level="3.3.3" data-path="sp-join.html"><a href="sp-join.html#polygon-polygon"><i class="fa fa-check"></i><b>3.3.3</b> Case 3: polygons (target) vs polygons (source)</a></li>
 </ul></li>
-<li class="chapter" data-level="3.4" data-path="spatial-intersection-cropping-join.html"><a href="spatial-intersection-cropping-join.html"><i class="fa fa-check"></i><b>3.4</b> Spatial Intersection (cropping join)</a><ul>
+<li class="chapter" data-level="3.4" data-path="spatial-intersection-cropping-join.html"><a href="spatial-intersection-cropping-join.html"><i class="fa fa-check"></i><b>3.4</b> Spatial Intersection (cropping join)</a>
+<ul>
 <li class="chapter" data-level="3.4.1" data-path="spatial-intersection-cropping-join.html"><a href="spatial-intersection-cropping-join.html#st-intersection"><i class="fa fa-check"></i><b>3.4.1</b> <code>st_intersection()</code></a></li>
 <li class="chapter" data-level="3.4.2" data-path="spatial-intersection-cropping-join.html"><a href="spatial-intersection-cropping-join.html#area-weighted-average"><i class="fa fa-check"></i><b>3.4.2</b> Area-weighted average</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="raster-basics.html"><a href="raster-basics.html"><i class="fa fa-check"></i><b>4</b> Raster Data Handling</a><ul>
-<li class="chapter" data-level="" data-path="before-you-start-3.html"><a href="before-you-start-3.html"><i class="fa fa-check"></i>Before you start</a><ul>
+<li class="chapter" data-level="4" data-path="raster-basics.html"><a href="raster-basics.html"><i class="fa fa-check"></i><b>4</b> Raster Data Handling</a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-3.html"><a href="before-you-start-3.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
 <li class="chapter" data-level="" data-path="before-you-start-3.html"><a href="before-you-start-3.html#direction-for-replication-3"><i class="fa fa-check"></i>Direction for replication</a></li>
 </ul></li>
-<li class="chapter" data-level="4.1" data-path="raster-data-object-classes.html"><a href="raster-data-object-classes.html"><i class="fa fa-check"></i><b>4.1</b> Raster data object classes</a><ul>
+<li class="chapter" data-level="4.1" data-path="raster-data-object-classes.html"><a href="raster-data-object-classes.html"><i class="fa fa-check"></i><b>4.1</b> Raster data object classes</a>
+<ul>
 <li class="chapter" data-level="4.1.1" data-path="raster-data-object-classes.html"><a href="raster-data-object-classes.html#raster-package-rasterlayer-rasterstack-and-rasterbrick"><i class="fa fa-check"></i><b>4.1.1</b> <code>raster</code> package: <code>RasterLayer</code>, <code>RasterStack</code>, and <code>RasterBrick</code></a></li>
 <li class="chapter" data-level="4.1.2" data-path="raster-data-object-classes.html"><a href="raster-data-object-classes.html#terra-package-spatraster"><i class="fa fa-check"></i><b>4.1.2</b> <code>terra</code> package: <code>SpatRaster</code></a></li>
 <li class="chapter" data-level="4.1.3" data-path="raster-data-object-classes.html"><a href="raster-data-object-classes.html#converting-a-spatraster-object-to-a-raster-object."><i class="fa fa-check"></i><b>4.1.3</b> Converting a <code>SpatRaster</code> object to a <code>Raster</code><span class="math inline">\(^*\)</span> object.</a></li>
 <li class="chapter" data-level="4.1.4" data-path="raster-data-object-classes.html"><a href="raster-data-object-classes.html#vector-data-in-the-terra-package"><i class="fa fa-check"></i><b>4.1.4</b> Vector data in the <code>terra</code> package</a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="read-and-write-a-raster-data-file.html"><a href="read-and-write-a-raster-data-file.html"><i class="fa fa-check"></i><b>4.2</b> Read and write a raster data file</a><ul>
+<li class="chapter" data-level="4.2" data-path="read-and-write-a-raster-data-file.html"><a href="read-and-write-a-raster-data-file.html"><i class="fa fa-check"></i><b>4.2</b> Read and write a raster data file</a>
+<ul>
 <li class="chapter" data-level="4.2.1" data-path="read-and-write-a-raster-data-file.html"><a href="read-and-write-a-raster-data-file.html#read-raster-files"><i class="fa fa-check"></i><b>4.2.1</b> Read raster file(s)</a></li>
 <li class="chapter" data-level="4.2.2" data-path="read-and-write-a-raster-data-file.html"><a href="read-and-write-a-raster-data-file.html#write-raster-files"><i class="fa fa-check"></i><b>4.2.2</b> Write raster files</a></li>
 </ul></li>
 <li class="chapter" data-level="4.3" data-path="access-values.html"><a href="access-values.html"><i class="fa fa-check"></i><b>4.3</b> Access values</a></li>
 <li class="chapter" data-level="4.4" data-path="quick-plot-and-interactive-map.html"><a href="quick-plot-and-interactive-map.html"><i class="fa fa-check"></i><b>4.4</b> Quick plot and interactive map</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="int-RV.html"><a href="int-RV.html"><i class="fa fa-check"></i><b>5</b> Spatial Interactions of Vector and Raster Data</a><ul>
-<li class="chapter" data-level="" data-path="before-you-start-4.html"><a href="before-you-start-4.html"><i class="fa fa-check"></i>Before you start</a><ul>
+<li class="chapter" data-level="5" data-path="int-RV.html"><a href="int-RV.html"><i class="fa fa-check"></i><b>5</b> Spatial Interactions of Vector and Raster Data</a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-4.html"><a href="before-you-start-4.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
 <li class="chapter" data-level="" data-path="before-you-start-4.html"><a href="before-you-start-4.html#direction-for-replication-4"><i class="fa fa-check"></i>Direction for replication</a></li>
 </ul></li>
 <li class="chapter" data-level="5.1" data-path="raster-crop.html"><a href="raster-crop.html"><i class="fa fa-check"></i><b>5.1</b> Cropping (Spatial subsetting) to the Area of Interest</a></li>
-<li class="chapter" data-level="5.2" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html"><i class="fa fa-check"></i><b>5.2</b> Extracting Values from Raster Layers for Vector Data</a><ul>
+<li class="chapter" data-level="5.2" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html"><i class="fa fa-check"></i><b>5.2</b> Extracting Values from Raster Layers for Vector Data</a>
+<ul>
 <li class="chapter" data-level="5.2.1" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#points"><i class="fa fa-check"></i><b>5.2.1</b> Points</a></li>
 <li class="chapter" data-level="5.2.2" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#polygons-terra-way"><i class="fa fa-check"></i><b>5.2.2</b> Polygons (<code>terra</code> way)</a></li>
 <li class="chapter" data-level="5.2.3" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#polygons-exactextractr-way"><i class="fa fa-check"></i><b>5.2.3</b> Polygons (<code>exactextractr</code> way)</a></li>
 </ul></li>
-<li class="chapter" data-level="5.3" data-path="extract-speed.html"><a href="extract-speed.html"><i class="fa fa-check"></i><b>5.3</b> Extraction speed comparison</a><ul>
+<li class="chapter" data-level="5.3" data-path="extract-speed.html"><a href="extract-speed.html"><i class="fa fa-check"></i><b>5.3</b> Extraction speed comparison</a>
+<ul>
 <li class="chapter" data-level="5.3.1" data-path="extract-speed.html"><a href="extract-speed.html#points-terraextract-and-rasterextract"><i class="fa fa-check"></i><b>5.3.1</b> Points: <code>terra::extract()</code> and <code>raster::extract()</code></a></li>
 <li class="chapter" data-level="5.3.2" data-path="extract-speed.html"><a href="extract-speed.html#polygons-exact_extract-terraextract-and-rasterextract"><i class="fa fa-check"></i><b>5.3.2</b> Polygons: <code>exact_extract()</code>, <code>terra::extract()</code>, and <code>raster::extract()</code></a></li>
 <li class="chapter" data-level="5.3.3" data-path="extract-speed.html"><a href="extract-speed.html#single-layer-vs-multi-layer"><i class="fa fa-check"></i><b>5.3.3</b> Single-layer vs multi-layer</a></li>
 </ul></li>
 </ul></li>
 <li class="part"><span><b>III (slightly) Advanced Topics</b></span></li>
-<li class="chapter" data-level="6" data-path="EE.html"><a href="EE.html"><i class="fa fa-check"></i><b>6</b> Speed Things Up</a><ul>
-<li class="chapter" data-level="" data-path="before-you-start-5.html"><a href="before-you-start-5.html"><i class="fa fa-check"></i>Before you start</a><ul>
+<li class="chapter" data-level="6" data-path="EE.html"><a href="EE.html"><i class="fa fa-check"></i><b>6</b> Speed Things Up</a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-5.html"><a href="before-you-start-5.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
 <li class="chapter" data-level="" data-path="before-you-start-5.html"><a href="before-you-start-5.html#direction-for-replication-5"><i class="fa fa-check"></i>Direction for replication</a></li>
 </ul></li>
-<li class="chapter" data-level="6.1" data-path="single-raster-layer.html"><a href="single-raster-layer.html"><i class="fa fa-check"></i><b>6.1</b> Single raster layer</a><ul>
+<li class="chapter" data-level="6.1" data-path="single-raster-layer.html"><a href="single-raster-layer.html"><i class="fa fa-check"></i><b>6.1</b> Single raster layer</a>
+<ul>
 <li class="chapter" data-level="6.1.1" data-path="single-raster-layer.html"><a href="single-raster-layer.html#datasets"><i class="fa fa-check"></i><b>6.1.1</b> Datasets</a></li>
 <li class="chapter" data-level="6.1.2" data-path="single-raster-layer.html"><a href="single-raster-layer.html#parallelization"><i class="fa fa-check"></i><b>6.1.2</b> Parallelization</a></li>
 <li class="chapter" data-level="6.1.3" data-path="single-raster-layer.html"><a href="single-raster-layer.html#summary-1"><i class="fa fa-check"></i><b>6.1.3</b> Summary</a></li>
 </ul></li>
-<li class="chapter" data-level="6.2" data-path="many-multi-layer.html"><a href="many-multi-layer.html"><i class="fa fa-check"></i><b>6.2</b> Many multi-layer raster files</a><ul>
+<li class="chapter" data-level="6.2" data-path="many-multi-layer.html"><a href="many-multi-layer.html"><i class="fa fa-check"></i><b>6.2</b> Many multi-layer raster files</a>
+<ul>
 <li class="chapter" data-level="6.2.1" data-path="many-multi-layer.html"><a href="many-multi-layer.html#datasets-1"><i class="fa fa-check"></i><b>6.2.1</b> Datasets</a></li>
 <li class="chapter" data-level="6.2.2" data-path="many-multi-layer.html"><a href="many-multi-layer.html#non-par-ext-multi"><i class="fa fa-check"></i><b>6.2.2</b> Non-parallelized extraction</a></li>
 <li class="chapter" data-level="6.2.3" data-path="many-multi-layer.html"><a href="many-multi-layer.html#approach-1-parallelize-over-polygons-and-do-regular-loop-over-year-month"><i class="fa fa-check"></i><b>6.2.3</b> Approach 1: parallelize over polygons and do regular loop over year-month</a></li>
@@ -321,51 +359,62 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.2.5" data-path="many-multi-layer.html"><a href="many-multi-layer.html#memory-consideration"><i class="fa fa-check"></i><b>6.2.5</b> Memory consideration</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="stars-basics.html"><a href="stars-basics.html"><i class="fa fa-check"></i><b>7</b> Spatiotemporal Raster Data Handling with <code>stars</code></a><ul>
-<li class="chapter" data-level="" data-path="before-you-start-6.html"><a href="before-you-start-6.html"><i class="fa fa-check"></i>Before you start</a><ul>
+<li class="chapter" data-level="7" data-path="stars-basics.html"><a href="stars-basics.html"><i class="fa fa-check"></i><b>7</b> Spatiotemporal Raster Data Handling with <code>stars</code></a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-6.html"><a href="before-you-start-6.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
 <li class="chapter" data-level="" data-path="before-you-start-6.html"><a href="before-you-start-6.html#direction-for-replication-6"><i class="fa fa-check"></i>Direction for replication</a></li>
 </ul></li>
 <li class="chapter" data-level="7.1" data-path="stars-structure.html"><a href="stars-structure.html"><i class="fa fa-check"></i><b>7.1</b> Understanding the structure of a <code>stars</code> object</a></li>
-<li class="chapter" data-level="7.2" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html"><i class="fa fa-check"></i><b>7.2</b> Some basic operations on <code>stars</code> objects</a><ul>
+<li class="chapter" data-level="7.2" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html"><i class="fa fa-check"></i><b>7.2</b> Some basic operations on <code>stars</code> objects</a>
+<ul>
 <li class="chapter" data-level="7.2.1" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html#subset-a-stars-object-by-index"><i class="fa fa-check"></i><b>7.2.1</b> Subset a <code>stars</code> object by index</a></li>
 <li class="chapter" data-level="7.2.2" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html#set-attribute-names"><i class="fa fa-check"></i><b>7.2.2</b> Set attribute names</a></li>
 <li class="chapter" data-level="7.2.3" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html#get-the-coordinate-reference-system"><i class="fa fa-check"></i><b>7.2.3</b> Get the coordinate reference system</a></li>
 <li class="chapter" data-level="7.2.4" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html#get-the-dimension-characteristics-and-values"><i class="fa fa-check"></i><b>7.2.4</b> Get the dimension characteristics and values</a></li>
 <li class="chapter" data-level="7.2.5" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html#attributes-to-dimensions-and-vice-versa"><i class="fa fa-check"></i><b>7.2.5</b> Attributes to dimensions, and vice versa</a></li>
 </ul></li>
-<li class="chapter" data-level="7.3" data-path="quick-visualization-for-exploration.html"><a href="quick-visualization-for-exploration.html"><i class="fa fa-check"></i><b>7.3</b> Quick visualization for exploration</a><ul>
+<li class="chapter" data-level="7.3" data-path="quick-visualization-for-exploration.html"><a href="quick-visualization-for-exploration.html"><i class="fa fa-check"></i><b>7.3</b> Quick visualization for exploration</a>
+<ul>
 <li class="chapter" data-level="7.3.1" data-path="quick-visualization-for-exploration.html"><a href="quick-visualization-for-exploration.html#quick-static-map"><i class="fa fa-check"></i><b>7.3.1</b> quick static map</a></li>
 <li class="chapter" data-level="7.3.2" data-path="quick-visualization-for-exploration.html"><a href="quick-visualization-for-exploration.html#interactive-map"><i class="fa fa-check"></i><b>7.3.2</b> interactive map</a></li>
 </ul></li>
-<li class="chapter" data-level="7.4" data-path="read-write-stars.html"><a href="read-write-stars.html"><i class="fa fa-check"></i><b>7.4</b> Reading and writing raster data</a><ul>
+<li class="chapter" data-level="7.4" data-path="read-write-stars.html"><a href="read-write-stars.html"><i class="fa fa-check"></i><b>7.4</b> Reading and writing raster data</a>
+<ul>
 <li class="chapter" data-level="7.4.1" data-path="read-write-stars.html"><a href="read-write-stars.html#reading-raster-data"><i class="fa fa-check"></i><b>7.4.1</b> Reading raster data</a></li>
 <li class="chapter" data-level="7.4.2" data-path="read-write-stars.html"><a href="read-write-stars.html#writing-a-stars-object-to-a-file"><i class="fa fa-check"></i><b>7.4.2</b> Writing a <code>stars</code> object to a file</a></li>
 </ul></li>
 <li class="chapter" data-level="7.5" data-path="stars-set-time.html"><a href="stars-set-time.html"><i class="fa fa-check"></i><b>7.5</b> Setting the time dimension manually</a></li>
-<li class="chapter" data-level="7.6" data-path="dplyr-op.html"><a href="dplyr-op.html"><i class="fa fa-check"></i><b>7.6</b> <code>dplyr</code>-like operations</a><ul>
+<li class="chapter" data-level="7.6" data-path="dplyr-op.html"><a href="dplyr-op.html"><i class="fa fa-check"></i><b>7.6</b> <code>dplyr</code>-like operations</a>
+<ul>
 <li class="chapter" data-level="7.6.1" data-path="dplyr-op.html"><a href="dplyr-op.html#filter"><i class="fa fa-check"></i><b>7.6.1</b> <code>filter()</code></a></li>
 <li class="chapter" data-level="7.6.2" data-path="dplyr-op.html"><a href="dplyr-op.html#select"><i class="fa fa-check"></i><b>7.6.2</b> <code>select()</code></a></li>
 <li class="chapter" data-level="7.6.3" data-path="dplyr-op.html"><a href="dplyr-op.html#mutate"><i class="fa fa-check"></i><b>7.6.3</b> <code>mutate()</code></a></li>
 <li class="chapter" data-level="7.6.4" data-path="dplyr-op.html"><a href="dplyr-op.html#pull"><i class="fa fa-check"></i><b>7.6.4</b> <code>pull()</code></a></li>
 </ul></li>
-<li class="chapter" data-level="7.7" data-path="merging-stars-objects-using-c-and-st-mosaic.html"><a href="merging-stars-objects-using-c-and-st-mosaic.html"><i class="fa fa-check"></i><b>7.7</b> Merging <code>stars</code> objects using <code>c()</code> and <code>st_mosaic()</code></a><ul>
+<li class="chapter" data-level="7.7" data-path="merging-stars-objects-using-c-and-st-mosaic.html"><a href="merging-stars-objects-using-c-and-st-mosaic.html"><i class="fa fa-check"></i><b>7.7</b> Merging <code>stars</code> objects using <code>c()</code> and <code>st_mosaic()</code></a>
+<ul>
 <li class="chapter" data-level="7.7.1" data-path="merging-stars-objects-using-c-and-st-mosaic.html"><a href="merging-stars-objects-using-c-and-st-mosaic.html#merging-stars-objects-along-the-third-dimension-band"><i class="fa fa-check"></i><b>7.7.1</b> Merging <code>stars</code> objects along the third dimension (band)</a></li>
 <li class="chapter" data-level="7.7.2" data-path="merging-stars-objects-using-c-and-st-mosaic.html"><a href="merging-stars-objects-using-c-and-st-mosaic.html#merge-two"><i class="fa fa-check"></i><b>7.7.2</b> Merging <code>stars</code> objects of different attributes</a></li>
 <li class="chapter" data-level="7.7.3" data-path="merging-stars-objects-using-c-and-st-mosaic.html"><a href="merging-stars-objects-using-c-and-st-mosaic.html#merging-stars-objects-of-different-spatial-extents"><i class="fa fa-check"></i><b>7.7.3</b> Merging <code>stars</code> objects of different spatial extents</a></li>
 </ul></li>
 <li class="chapter" data-level="7.8" data-path="convert-to-rb.html"><a href="convert-to-rb.html"><i class="fa fa-check"></i><b>7.8</b> Convert from and to <code>Raster</code><span class="math inline">\(^*\)</span> objects</a></li>
 <li class="chapter" data-level="7.9" data-path="spatial-cropping.html"><a href="spatial-cropping.html"><i class="fa fa-check"></i><b>7.9</b> Spatial cropping</a></li>
-<li class="chapter" data-level="7.10" data-path="extraction-stars.html"><a href="extraction-stars.html"><i class="fa fa-check"></i><b>7.10</b> Extracting values from <code>stars</code> for vector data</a><ul>
+<li class="chapter" data-level="7.10" data-path="extraction-stars.html"><a href="extraction-stars.html"><i class="fa fa-check"></i><b>7.10</b> Extracting values from <code>stars</code> for vector data</a>
+<ul>
 <li class="chapter" data-level="7.10.1" data-path="extraction-stars.html"><a href="extraction-stars.html#points-1"><i class="fa fa-check"></i><b>7.10.1</b> Points</a></li>
 <li class="chapter" data-level="7.10.2" data-path="extraction-stars.html"><a href="extraction-stars.html#polygons"><i class="fa fa-check"></i><b>7.10.2</b> Polygons</a></li>
 </ul></li>
 </ul></li>
 <li class="part"><span><b>IV Extensions</b></span></li>
-<li class="chapter" data-level="8" data-path="create-maps.html"><a href="create-maps.html"><i class="fa fa-check"></i><b>8</b> Creating Maps using <code>ggplot2</code></a><ul>
-<li class="chapter" data-level="" data-path="before-you-start-7.html"><a href="before-you-start-7.html"><i class="fa fa-check"></i>Before you start</a><ul>
+<li class="chapter" data-level="8" data-path="create-maps.html"><a href="create-maps.html"><i class="fa fa-check"></i><b>8</b> Creating Maps using <code>ggplot2</code></a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-7.html"><a href="before-you-start-7.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
 <li class="chapter" data-level="" data-path="before-you-start-7.html"><a href="before-you-start-7.html#direction-for-replication-7"><i class="fa fa-check"></i>Direction for replication</a></li>
 </ul></li>
-<li class="chapter" data-level="8.1" data-path="geom-sf.html"><a href="geom-sf.html"><i class="fa fa-check"></i><b>8.1</b> Creating maps from <code>sf</code> objects</a><ul>
+<li class="chapter" data-level="8.1" data-path="geom-sf.html"><a href="geom-sf.html"><i class="fa fa-check"></i><b>8.1</b> Creating maps from <code>sf</code> objects</a>
+<ul>
 <li class="chapter" data-level="8.1.1" data-path="geom-sf.html"><a href="geom-sf.html#datasets-2"><i class="fa fa-check"></i><b>8.1.1</b> Datasets</a></li>
 <li class="chapter" data-level="8.1.2" data-path="geom-sf.html"><a href="geom-sf.html#basic-usage-of-geom_sf"><i class="fa fa-check"></i><b>8.1.2</b> Basic usage of <code>geom_sf()</code></a></li>
 <li class="chapter" data-level="8.1.3" data-path="geom-sf.html"><a href="geom-sf.html#specifying-the-aesthetics"><i class="fa fa-check"></i><b>8.1.3</b> Specifying the aesthetics</a></li>
@@ -374,22 +423,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.1.6" data-path="geom-sf.html"><a href="geom-sf.html#faceting"><i class="fa fa-check"></i><b>8.1.6</b> Faceting</a></li>
 <li class="chapter" data-level="8.1.7" data-path="geom-sf.html"><a href="geom-sf.html#adding-texts-labels-on-a-map"><i class="fa fa-check"></i><b>8.1.7</b> Adding texts (labels) on a map</a></li>
 </ul></li>
-<li class="chapter" data-level="8.2" data-path="geom-raster.html"><a href="geom-raster.html"><i class="fa fa-check"></i><b>8.2</b> Raster data visualization: <code>geom_raster()</code> and <code>geom_stars()</code></a><ul>
+<li class="chapter" data-level="8.2" data-path="geom-raster.html"><a href="geom-raster.html"><i class="fa fa-check"></i><b>8.2</b> Raster data visualization: <code>geom_raster()</code> and <code>geom_stars()</code></a>
+<ul>
 <li class="chapter" data-level="8.2.1" data-path="geom-raster.html"><a href="geom-raster.html#visualize-raster-with-geom_raster"><i class="fa fa-check"></i><b>8.2.1</b> Visualize <code>Raster</code><span class="math inline">\(^*\)</span> with <code>geom_raster()</code></a></li>
 <li class="chapter" data-level="8.2.2" data-path="geom-raster.html"><a href="geom-raster.html#visualize-stars-with-geom_raster"><i class="fa fa-check"></i><b>8.2.2</b> Visualize <code>stars</code> with <code>geom_raster()</code></a></li>
 <li class="chapter" data-level="8.2.3" data-path="geom-raster.html"><a href="geom-raster.html#visualize-stars-with-geom_stars"><i class="fa fa-check"></i><b>8.2.3</b> Visualize <code>stars</code> with <code>geom_stars()</code></a></li>
 <li class="chapter" data-level="8.2.4" data-path="geom-raster.html"><a href="geom-raster.html#adding-geom_sf-layers"><i class="fa fa-check"></i><b>8.2.4</b> adding <code>geom_sf()</code> layers</a></li>
 </ul></li>
-<li class="chapter" data-level="8.3" data-path="color-scale.html"><a href="color-scale.html"><i class="fa fa-check"></i><b>8.3</b> Color scale</a><ul>
+<li class="chapter" data-level="8.3" data-path="color-scale.html"><a href="color-scale.html"><i class="fa fa-check"></i><b>8.3</b> Color scale</a>
+<ul>
 <li class="chapter" data-level="8.3.1" data-path="color-scale.html"><a href="color-scale.html#viridis-color-maps"><i class="fa fa-check"></i><b>8.3.1</b> Viridis color maps</a></li>
 <li class="chapter" data-level="8.3.2" data-path="color-scale.html"><a href="color-scale.html#rcolorbrewer-scale__distiller-and-scale__brewer"><i class="fa fa-check"></i><b>8.3.2</b> <code>RColorBrewer</code>: <code>scale_*_distiller()</code> and <code>scale_*_brewer()</code></a></li>
 <li class="chapter" data-level="8.3.3" data-path="color-scale.html"><a href="color-scale.html#colorspace-package"><i class="fa fa-check"></i><b>8.3.3</b> <code>colorspace</code> package</a></li>
 </ul></li>
-<li class="chapter" data-level="8.4" data-path="arranging-maps.html"><a href="arranging-maps.html"><i class="fa fa-check"></i><b>8.4</b> Arranging maps</a><ul>
+<li class="chapter" data-level="8.4" data-path="arranging-maps.html"><a href="arranging-maps.html"><i class="fa fa-check"></i><b>8.4</b> Arranging maps</a>
+<ul>
 <li class="chapter" data-level="8.4.1" data-path="arranging-maps.html"><a href="arranging-maps.html#multiple-panels-of-figures-as-a-single-figure"><i class="fa fa-check"></i><b>8.4.1</b> Multiple panels of figures as a single figure</a></li>
 <li class="chapter" data-level="8.4.2" data-path="arranging-maps.html"><a href="arranging-maps.html#a-map-in-a-map-inset"><i class="fa fa-check"></i><b>8.4.2</b> A map in a map: inset</a></li>
 </ul></li>
-<li class="chapter" data-level="8.5" data-path="fine-tune.html"><a href="fine-tune.html"><i class="fa fa-check"></i><b>8.5</b> Fine-tuning maps for publication</a><ul>
+<li class="chapter" data-level="8.5" data-path="fine-tune.html"><a href="fine-tune.html"><i class="fa fa-check"></i><b>8.5</b> Fine-tuning maps for publication</a>
+<ul>
 <li class="chapter" data-level="8.5.1" data-path="fine-tune.html"><a href="fine-tune.html#theme"><i class="fa fa-check"></i><b>8.5.1</b> Setting the theme</a></li>
 <li class="chapter" data-level="8.5.2" data-path="fine-tune.html"><a href="fine-tune.html#legend"><i class="fa fa-check"></i><b>8.5.2</b> Legend</a></li>
 <li class="chapter" data-level="8.5.3" data-path="fine-tune.html"><a href="fine-tune.html#facet-strips"><i class="fa fa-check"></i><b>8.5.3</b> Facet strips</a></li>
@@ -397,25 +450,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="8.6" data-path="ggsave.html"><a href="ggsave.html"><i class="fa fa-check"></i><b>8.6</b> Saving a <code>ggplot</code> object as an image</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="download-data.html"><a href="download-data.html"><i class="fa fa-check"></i><b>9</b> Download and process spatial datasets from within R</a><ul>
-<li class="chapter" data-level="" data-path="before-you-start-8.html"><a href="before-you-start-8.html"><i class="fa fa-check"></i>Before you start</a><ul>
+<li class="chapter" data-level="9" data-path="download-data.html"><a href="download-data.html"><i class="fa fa-check"></i><b>9</b> Download and process spatial datasets from within R</a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-8.html"><a href="before-you-start-8.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
 <li class="chapter" data-level="" data-path="before-you-start-8.html"><a href="before-you-start-8.html#direction-for-replication-8"><i class="fa fa-check"></i>Direction for replication</a></li>
 </ul></li>
-<li class="chapter" data-level="9.1" data-path="nass-quick.html"><a href="nass-quick.html"><i class="fa fa-check"></i><b>9.1</b> USDA NASS QuickStat with <code>tidyUSDA</code></a><ul>
+<li class="chapter" data-level="9.1" data-path="nass-quick.html"><a href="nass-quick.html"><i class="fa fa-check"></i><b>9.1</b> USDA NASS QuickStat with <code>tidyUSDA</code></a>
+<ul>
 <li class="chapter" data-level="9.1.1" data-path="nass-quick.html"><a href="nass-quick.html#look-for-parameter-values"><i class="fa fa-check"></i><b>9.1.1</b> Look for parameter values</a></li>
 <li class="chapter" data-level="9.1.2" data-path="nass-quick.html"><a href="nass-quick.html#caveats"><i class="fa fa-check"></i><b>9.1.2</b> Caveats</a></li>
 </ul></li>
-<li class="chapter" data-level="9.2" data-path="CropScapeR.html"><a href="CropScapeR.html"><i class="fa fa-check"></i><b>9.2</b> CDL with <code>CropScapeR</code></a><ul>
+<li class="chapter" data-level="9.2" data-path="CropScapeR.html"><a href="CropScapeR.html"><i class="fa fa-check"></i><b>9.2</b> CDL with <code>CropScapeR</code></a>
+<ul>
 <li class="chapter" data-level="9.2.1" data-path="CropScapeR.html"><a href="CropScapeR.html#getcdldata-download-the-cdl-data-as-raster-data"><i class="fa fa-check"></i><b>9.2.1</b> <code>GetCDLData</code>: Download the CDL data as raster data</a></li>
 <li class="chapter" data-level="9.2.2" data-path="CropScapeR.html"><a href="CropScapeR.html#data-processing-after-downloading-data"><i class="fa fa-check"></i><b>9.2.2</b> Data processing after downloading data</a></li>
 <li class="chapter" data-level="9.2.3" data-path="CropScapeR.html"><a href="CropScapeR.html#other-forms-of-cdl-data"><i class="fa fa-check"></i><b>9.2.3</b> Other forms of CDL data</a></li>
 <li class="chapter" data-level="9.2.4" data-path="CropScapeR.html"><a href="CropScapeR.html#mac-problem"><i class="fa fa-check"></i><b>9.2.4</b> SSL certificate problem on Mac</a></li>
 </ul></li>
-<li class="chapter" data-level="9.3" data-path="download-prism.html"><a href="download-prism.html"><i class="fa fa-check"></i><b>9.3</b> PRISM with <code>prism</code></a><ul>
+<li class="chapter" data-level="9.3" data-path="download-prism.html"><a href="download-prism.html"><i class="fa fa-check"></i><b>9.3</b> PRISM with <code>prism</code></a>
+<ul>
 <li class="chapter" data-level="9.3.1" data-path="download-prism.html"><a href="download-prism.html#basics"><i class="fa fa-check"></i><b>9.3.1</b> Basics</a></li>
 <li class="chapter" data-level="9.3.2" data-path="download-prism.html"><a href="download-prism.html#download-daily-prism-data-for-many-years-and-build-your-own-datasets"><i class="fa fa-check"></i><b>9.3.2</b> Download daily PRISM data for many years and build your own datasets</a></li>
 </ul></li>
-<li class="chapter" data-level="9.4" data-path="daymet-with-daymetr-and-feddata.html"><a href="daymet-with-daymetr-and-feddata.html"><i class="fa fa-check"></i><b>9.4</b> Daymet with <code>daymetr</code> and <code>FedData</code></a><ul>
+<li class="chapter" data-level="9.4" data-path="daymet-with-daymetr-and-feddata.html"><a href="daymet-with-daymetr-and-feddata.html"><i class="fa fa-check"></i><b>9.4</b> Daymet with <code>daymetr</code> and <code>FedData</code></a>
+<ul>
 <li class="chapter" data-level="9.4.1" data-path="daymet-with-daymetr-and-feddata.html"><a href="daymet-with-daymetr-and-feddata.html#for-points-data"><i class="fa fa-check"></i><b>9.4.1</b> For points data</a></li>
 <li class="chapter" data-level="9.4.2" data-path="daymet-with-daymetr-and-feddata.html"><a href="daymet-with-daymetr-and-feddata.html#daymet-poly"><i class="fa fa-check"></i><b>9.4.2</b> For polygons data</a></li>
 </ul></li>
@@ -424,19 +483,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.7" data-path="census-with-tidycensus-under-construction.html"><a href="census-with-tidycensus-under-construction.html"><i class="fa fa-check"></i><b>9.7</b> Census with <code>tidycensus</code> (under construction)</a></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
-<li class="chapter" data-level="A" data-path="par-comp.html"><a href="par-comp.html"><i class="fa fa-check"></i><b>A</b> Loop and Parallel Computing</a><ul>
-<li class="chapter" data-level="" data-path="before-you-start-9.html"><a href="before-you-start-9.html"><i class="fa fa-check"></i>Before you start</a><ul>
+<li class="chapter" data-level="A" data-path="par-comp.html"><a href="par-comp.html"><i class="fa fa-check"></i><b>A</b> Loop and Parallel Computing</a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-9.html"><a href="before-you-start-9.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
 <li class="chapter" data-level="" data-path="before-you-start-9.html"><a href="before-you-start-9.html#direction-for-replication-9"><i class="fa fa-check"></i>Direction for replication</a></li>
 <li class="chapter" data-level="" data-path="before-you-start-9.html"><a href="before-you-start-9.html#packages-to-install-and-load"><i class="fa fa-check"></i>Packages to install and load</a></li>
 </ul></li>
-<li class="chapter" data-level="A.1" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html"><i class="fa fa-check"></i><b>A.1</b> Repetitive processes and looping</a><ul>
+<li class="chapter" data-level="A.1" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html"><i class="fa fa-check"></i><b>A.1</b> Repetitive processes and looping</a>
+<ul>
 <li class="chapter" data-level="A.1.1" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html#what-is-looping"><i class="fa fa-check"></i><b>A.1.1</b> What is looping?</a></li>
 <li class="chapter" data-level="A.1.2" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html#for-loop"><i class="fa fa-check"></i><b>A.1.2</b> For loop</a></li>
 <li class="chapter" data-level="A.1.3" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html#for-loop-using-the-lapply-function"><i class="fa fa-check"></i><b>A.1.3</b> For loop using the <code>lapply()</code> function</a></li>
 <li class="chapter" data-level="A.1.4" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html#looping-over-multiple-variables-using-lapply"><i class="fa fa-check"></i><b>A.1.4</b> Looping over multiple variables using lapply()</a></li>
 <li class="chapter" data-level="A.1.5" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html#do-you-really-need-to-loop"><i class="fa fa-check"></i><b>A.1.5</b> Do you really need to loop?</a></li>
 </ul></li>
-<li class="chapter" data-level="A.2" data-path="parcomp.html"><a href="parcomp.html"><i class="fa fa-check"></i><b>A.2</b> Parallelization of embarrassingly parallel processes</a><ul>
+<li class="chapter" data-level="A.2" data-path="parcomp.html"><a href="parcomp.html"><i class="fa fa-check"></i><b>A.2</b> Parallelization of embarrassingly parallel processes</a>
+<ul>
 <li class="chapter" data-level="A.2.1" data-path="parcomp.html"><a href="parcomp.html#mac-or-linux-users"><i class="fa fa-check"></i><b>A.2.1</b> Mac or Linux users</a></li>
 </ul></li>
 </ul></li>
@@ -473,7 +536,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
   gtag('config', 'UA-59758608-3');
 </script>
-<div id="demo3" class="section level2">
+
+<div id="demo3" class="section level2" number="1.3">
 <h2><span class="header-section-number">1.3</span> Demonstration 3: Land Use and Weather</h2>
 <style>
 .book .book-body .page-wrapper .page-inner section.normal table
@@ -489,7 +553,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   background-color:#fff;
 }
 </style>
-<div id="project-overview-2" class="section level3">
+<div id="project-overview-2" class="section level3" number="1.3.1">
 <h3><span class="header-section-number">1.3.1</span> Project Overview</h3>
 <hr />
 <p><strong>Objective</strong></p>
@@ -548,29 +612,29 @@ where <span class="math inline">\(CS_i\)</span> is the area share of corn divide
 <ul>
 <li>Run the following code to install or load (if already installed) the <code>pacman</code> package, and then install or load (if already installed) the listed package inside the <code>pacman::p_load()</code> function.</li>
 </ul>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1"><span class="cf">if</span> (<span class="op">!</span><span class="kw">require</span>(<span class="st">&quot;pacman&quot;</span>)) <span class="kw">install.packages</span>(<span class="st">&quot;pacman&quot;</span>)</a>
-<a class="sourceLine" id="cb43-2" data-line-number="2">pacman<span class="op">::</span><span class="kw">p_load</span>(</a>
-<a class="sourceLine" id="cb43-3" data-line-number="3">  sf, <span class="co"># vector data operations</span></a>
-<a class="sourceLine" id="cb43-4" data-line-number="4">  raster, <span class="co"># raster data operations</span></a>
-<a class="sourceLine" id="cb43-5" data-line-number="5">  exactextractr, <span class="co"># fast raster data extraction for polygons</span></a>
-<a class="sourceLine" id="cb43-6" data-line-number="6">  maps, <span class="co"># to get county boundary data</span></a>
-<a class="sourceLine" id="cb43-7" data-line-number="7">  data.table, <span class="co"># data wrangling</span></a>
-<a class="sourceLine" id="cb43-8" data-line-number="8">  dplyr, <span class="co"># data wrangling</span></a>
-<a class="sourceLine" id="cb43-9" data-line-number="9">  lubridate, <span class="co"># Date object handling</span></a>
-<a class="sourceLine" id="cb43-10" data-line-number="10">  tmap, <span class="co"># for map creation</span></a>
-<a class="sourceLine" id="cb43-11" data-line-number="11">  stargazer, <span class="co"># regression table generation</span></a>
-<a class="sourceLine" id="cb43-12" data-line-number="12">  future.apply, <span class="co"># parallel computation</span></a>
-<a class="sourceLine" id="cb43-13" data-line-number="13">  cdlTools, <span class="co"># download CDL data</span></a>
-<a class="sourceLine" id="cb43-14" data-line-number="14">  rgdal, <span class="co"># required for cdlTools</span></a>
-<a class="sourceLine" id="cb43-15" data-line-number="15">  prism, <span class="co"># download PRISM data</span></a>
-<a class="sourceLine" id="cb43-16" data-line-number="16">  stringr <span class="co"># string manipulation</span></a>
-<a class="sourceLine" id="cb43-17" data-line-number="17">)  </a></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="demo3.html#cb43-1"></a><span class="cf">if</span> (<span class="op">!</span><span class="kw">require</span>(<span class="st">&quot;pacman&quot;</span>)) <span class="kw">install.packages</span>(<span class="st">&quot;pacman&quot;</span>)</span>
+<span id="cb43-2"><a href="demo3.html#cb43-2"></a>pacman<span class="op">::</span><span class="kw">p_load</span>(</span>
+<span id="cb43-3"><a href="demo3.html#cb43-3"></a>  sf, <span class="co"># vector data operations</span></span>
+<span id="cb43-4"><a href="demo3.html#cb43-4"></a>  raster, <span class="co"># raster data operations</span></span>
+<span id="cb43-5"><a href="demo3.html#cb43-5"></a>  exactextractr, <span class="co"># fast raster data extraction for polygons</span></span>
+<span id="cb43-6"><a href="demo3.html#cb43-6"></a>  maps, <span class="co"># to get county boundary data</span></span>
+<span id="cb43-7"><a href="demo3.html#cb43-7"></a>  data.table, <span class="co"># data wrangling</span></span>
+<span id="cb43-8"><a href="demo3.html#cb43-8"></a>  dplyr, <span class="co"># data wrangling</span></span>
+<span id="cb43-9"><a href="demo3.html#cb43-9"></a>  lubridate, <span class="co"># Date object handling</span></span>
+<span id="cb43-10"><a href="demo3.html#cb43-10"></a>  tmap, <span class="co"># for map creation</span></span>
+<span id="cb43-11"><a href="demo3.html#cb43-11"></a>  stargazer, <span class="co"># regression table generation</span></span>
+<span id="cb43-12"><a href="demo3.html#cb43-12"></a>  future.apply, <span class="co"># parallel computation</span></span>
+<span id="cb43-13"><a href="demo3.html#cb43-13"></a>  cdlTools, <span class="co"># download CDL data</span></span>
+<span id="cb43-14"><a href="demo3.html#cb43-14"></a>  rgdal, <span class="co"># required for cdlTools</span></span>
+<span id="cb43-15"><a href="demo3.html#cb43-15"></a>  prism, <span class="co"># download PRISM data</span></span>
+<span id="cb43-16"><a href="demo3.html#cb43-16"></a>  stringr <span class="co"># string manipulation</span></span>
+<span id="cb43-17"><a href="demo3.html#cb43-17"></a>)  </span></code></pre></div>
 </div>
-<div id="project-demonstration-2" class="section level3">
+<div id="project-demonstration-2" class="section level3" number="1.3.2">
 <h3><span class="header-section-number">1.3.2</span> Project Demonstration</h3>
 <p>The geographic focus of this project is Iowas. Let’s get Iowa state border (see Figure <a href="demo3.html#fig:IA-map">1.8</a> for its map).</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1"><span class="co">#--- IA state boundary ---#</span></a>
-<a class="sourceLine" id="cb44-2" data-line-number="2">IA_boundary &lt;-<span class="st"> </span><span class="kw">st_as_sf</span>(maps<span class="op">::</span><span class="kw">map</span>(<span class="st">&quot;state&quot;</span>, <span class="st">&quot;iowa&quot;</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>, <span class="dt">fill =</span> <span class="ot">TRUE</span>)) </a></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="demo3.html#cb44-1"></a><span class="co">#--- IA state boundary ---#</span></span>
+<span id="cb44-2"><a href="demo3.html#cb44-2"></a>IA_boundary &lt;-<span class="st"> </span><span class="kw">st_as_sf</span>(maps<span class="op">::</span><span class="kw">map</span>(<span class="st">&quot;state&quot;</span>, <span class="st">&quot;iowa&quot;</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>, <span class="dt">fill =</span> <span class="ot">TRUE</span>)) </span></code></pre></div>
 <div class="figure"><span id="fig:IA-map"></span>
 <img src="R_GIS_Book_files/figure-html/IA-map-1.png" alt="Iowa state boundary" width="672" />
 <p class="caption">
@@ -578,30 +642,30 @@ Figure 1.8: Iowa state boundary
 </p>
 </div>
 <p>The unit of analysis is artificial grids that we create over Iowa. The grids are regularly-sized rectangles except around the edge of the Iowa state border<a href="#fn17" class="footnote-ref" id="fnref17"><sup>17</sup></a>. So, let’s create grids and remove those that do not overlap much with Iowa.</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1"><span class="co">#--- create regular grids (40 cells by 40 columns) over IA ---#</span></a>
-<a class="sourceLine" id="cb45-2" data-line-number="2">IA_grids &lt;-<span class="st"> </span>IA_boundary <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb45-3" data-line-number="3"><span class="st">  </span><span class="co">#--- create grids ---#</span></a>
-<a class="sourceLine" id="cb45-4" data-line-number="4"><span class="st">  </span><span class="kw">st_make_grid</span>(, <span class="dt">n =</span> <span class="kw">c</span>(<span class="dv">40</span>, <span class="dv">40</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb45-5" data-line-number="5"><span class="st">  </span><span class="co">#--- convert to sf ---#</span></a>
-<a class="sourceLine" id="cb45-6" data-line-number="6"><span class="st">  </span><span class="kw">st_as_sf</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb45-7" data-line-number="7"><span class="st">  </span><span class="co">#--- find the intersections of IA grids and IA polygon ---#</span></a>
-<a class="sourceLine" id="cb45-8" data-line-number="8"><span class="st">  </span><span class="kw">st_intersection</span>(., IA_boundary) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb45-9" data-line-number="9"><span class="st">  </span><span class="co">#--- calculate the area of each grid ---#</span></a>
-<a class="sourceLine" id="cb45-10" data-line-number="10"><span class="st">  </span><span class="kw">mutate</span>(</a>
-<a class="sourceLine" id="cb45-11" data-line-number="11">    <span class="dt">area =</span> <span class="kw">as.numeric</span>(<span class="kw">st_area</span>(.)),</a>
-<a class="sourceLine" id="cb45-12" data-line-number="12">    <span class="dt">area_ratio =</span> area<span class="op">/</span><span class="kw">max</span>(area)</a>
-<a class="sourceLine" id="cb45-13" data-line-number="13">  ) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb45-14" data-line-number="14"><span class="st">  </span><span class="co">#--- keep only if the intersected area is large enough ---#</span></a>
-<a class="sourceLine" id="cb45-15" data-line-number="15"><span class="st">  </span><span class="kw">filter</span>(area_ratio <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.8</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb45-16" data-line-number="16"><span class="st">  </span><span class="co">#--- assign grid id for future merge ---#</span></a>
-<a class="sourceLine" id="cb45-17" data-line-number="17"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">grid_id =</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(.))</a></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="demo3.html#cb45-1"></a><span class="co">#--- create regular grids (40 cells by 40 columns) over IA ---#</span></span>
+<span id="cb45-2"><a href="demo3.html#cb45-2"></a>IA_grids &lt;-<span class="st"> </span>IA_boundary <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb45-3"><a href="demo3.html#cb45-3"></a><span class="st">  </span><span class="co">#--- create grids ---#</span></span>
+<span id="cb45-4"><a href="demo3.html#cb45-4"></a><span class="st">  </span><span class="kw">st_make_grid</span>(, <span class="dt">n =</span> <span class="kw">c</span>(<span class="dv">40</span>, <span class="dv">40</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb45-5"><a href="demo3.html#cb45-5"></a><span class="st">  </span><span class="co">#--- convert to sf ---#</span></span>
+<span id="cb45-6"><a href="demo3.html#cb45-6"></a><span class="st">  </span><span class="kw">st_as_sf</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb45-7"><a href="demo3.html#cb45-7"></a><span class="st">  </span><span class="co">#--- find the intersections of IA grids and IA polygon ---#</span></span>
+<span id="cb45-8"><a href="demo3.html#cb45-8"></a><span class="st">  </span><span class="kw">st_intersection</span>(., IA_boundary) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb45-9"><a href="demo3.html#cb45-9"></a><span class="st">  </span><span class="co">#--- calculate the area of each grid ---#</span></span>
+<span id="cb45-10"><a href="demo3.html#cb45-10"></a><span class="st">  </span><span class="kw">mutate</span>(</span>
+<span id="cb45-11"><a href="demo3.html#cb45-11"></a>    <span class="dt">area =</span> <span class="kw">as.numeric</span>(<span class="kw">st_area</span>(.)),</span>
+<span id="cb45-12"><a href="demo3.html#cb45-12"></a>    <span class="dt">area_ratio =</span> area<span class="op">/</span><span class="kw">max</span>(area)</span>
+<span id="cb45-13"><a href="demo3.html#cb45-13"></a>  ) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb45-14"><a href="demo3.html#cb45-14"></a><span class="st">  </span><span class="co">#--- keep only if the intersected area is large enough ---#</span></span>
+<span id="cb45-15"><a href="demo3.html#cb45-15"></a><span class="st">  </span><span class="kw">filter</span>(area_ratio <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.8</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb45-16"><a href="demo3.html#cb45-16"></a><span class="st">  </span><span class="co">#--- assign grid id for future merge ---#</span></span>
+<span id="cb45-17"><a href="demo3.html#cb45-17"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">grid_id =</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(.))</span></code></pre></div>
 <p>Here is what the generated grids look like (Figure <a href="demo3.html#fig:Demo4-IA-grids-map">1.9</a>):</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" data-line-number="1"><span class="co">#--- plot the grids over the IA state border ---#</span></a>
-<a class="sourceLine" id="cb46-2" data-line-number="2"><span class="kw">tm_shape</span>(IA_boundary) <span class="op">+</span></a>
-<a class="sourceLine" id="cb46-3" data-line-number="3"><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;green&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb46-4" data-line-number="4"><span class="kw">tm_shape</span>(IA_grids) <span class="op">+</span></a>
-<a class="sourceLine" id="cb46-5" data-line-number="5"><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">alpha =</span> <span class="dv">0</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb46-6" data-line-number="6"><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">frame =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="demo3.html#cb46-1"></a><span class="co">#--- plot the grids over the IA state border ---#</span></span>
+<span id="cb46-2"><a href="demo3.html#cb46-2"></a><span class="kw">tm_shape</span>(IA_boundary) <span class="op">+</span></span>
+<span id="cb46-3"><a href="demo3.html#cb46-3"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;green&quot;</span>) <span class="op">+</span></span>
+<span id="cb46-4"><a href="demo3.html#cb46-4"></a><span class="kw">tm_shape</span>(IA_grids) <span class="op">+</span></span>
+<span id="cb46-5"><a href="demo3.html#cb46-5"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">alpha =</span> <span class="dv">0</span>) <span class="op">+</span></span>
+<span id="cb46-6"><a href="demo3.html#cb46-6"></a><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">frame =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
 <div class="figure"><span id="fig:Demo4-IA-grids-map"></span>
 <img src="R_GIS_Book_files/figure-html/Demo4-IA-grids-map-1.png" alt="Map of regular grids generated over IA" width="672" />
 <p class="caption">
@@ -610,10 +674,10 @@ Figure 1.9: Map of regular grids generated over IA
 </div>
 <hr />
 <p>Let’s work on crop share data. You can download CDL data using the <code>getCDL()</code> function from the <code>cdlTools</code> package.</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1"><span class="co">#--- download the CDL data for IA in 2015 ---#</span></a>
-<a class="sourceLine" id="cb47-2" data-line-number="2">(</a>
-<a class="sourceLine" id="cb47-3" data-line-number="3">IA_cdl_<span class="dv">2015</span> &lt;-<span class="st"> </span><span class="kw">getCDL</span>(<span class="st">&quot;Iowa&quot;</span>, <span class="dv">2015</span>)<span class="op">$</span>IA2015</a>
-<a class="sourceLine" id="cb47-4" data-line-number="4">)</a></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="demo3.html#cb47-1"></a><span class="co">#--- download the CDL data for IA in 2015 ---#</span></span>
+<span id="cb47-2"><a href="demo3.html#cb47-2"></a>(</span>
+<span id="cb47-3"><a href="demo3.html#cb47-3"></a>IA_cdl_<span class="dv">2015</span> &lt;-<span class="st"> </span><span class="kw">getCDL</span>(<span class="st">&quot;Iowa&quot;</span>, <span class="dv">2015</span>)<span class="op">$</span>IA2015</span>
+<span id="cb47-4"><a href="demo3.html#cb47-4"></a>)</span></code></pre></div>
 <p>The cells (30 meter by 30 meter) of the imported raster layer take a value ranging from 0 to 255. Corn and soybean are represented by 1 and 5, respectively (Figure <a href="demo3.html#fig:overlap-cdl-grid">1.10</a>).</p>
 <p>Figure <a href="demo3.html#fig:overlap-cdl-grid">1.10</a> shows the map of one of the IA grids and the CDL cells it overlaps with.</p>
 <div class="figure"><span id="fig:overlap-cdl-grid"></span>
@@ -624,28 +688,28 @@ Figure 1.10: Spatial overlap of a IA grid and CDL layer
 </div>
 <p>We would like to extract all the cell values within the blue border.</p>
 <p>We use <code>exactextractr::exact_extract()</code> to identify which cells of the CDL raster layer fall within each of the IA grids and extract land use type values. We then find the share of corn and soybean for each of the grids.</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" data-line-number="1"><span class="co">#--- reproject grids to the CRS of the CDL data ---#</span></a>
-<a class="sourceLine" id="cb48-2" data-line-number="2">IA_grids_rp_cdl &lt;-<span class="st"> </span><span class="kw">st_transform</span>(IA_grids, <span class="kw">projection</span>(IA_cdl_<span class="dv">2015</span>))</a>
-<a class="sourceLine" id="cb48-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb48-4" data-line-number="4"><span class="co">#--- extract crop type values and find frequencies ---#</span></a>
-<a class="sourceLine" id="cb48-5" data-line-number="5">cdl_extracted &lt;-<span class="st"> </span><span class="kw">exact_extract</span>(IA_cdl_<span class="dv">2015</span>, IA_grids_rp_cdl) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb48-6" data-line-number="6"><span class="st">  </span><span class="kw">lapply</span>(., <span class="cf">function</span> (x) <span class="kw">data.table</span>(x)[,.N, <span class="dt">by =</span> value]) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb48-7" data-line-number="7"><span class="st">  </span><span class="co">#--- combine the list of data.tables into one data.table ---#</span></a>
-<a class="sourceLine" id="cb48-8" data-line-number="8"><span class="st">  </span><span class="kw">rbindlist</span>(<span class="dt">idcol =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb48-9" data-line-number="9"><span class="st">  </span><span class="co">#--- find the share of each land use type ---#</span></a>
-<a class="sourceLine" id="cb48-10" data-line-number="10"><span class="st">  </span>.[, share <span class="op">:</span><span class="er">=</span><span class="st"> </span>N<span class="op">/</span><span class="kw">sum</span>(N), by =<span class="st"> </span>.id] <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb48-11" data-line-number="11"><span class="st">  </span>.[, N <span class="op">:</span><span class="er">=</span><span class="st"> </span><span class="ot">NULL</span>] <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb48-12" data-line-number="12"><span class="st">  </span><span class="co">#--- keep only the share of corn and soy ---#</span></a>
-<a class="sourceLine" id="cb48-13" data-line-number="13"><span class="st">  </span>.[value <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">5</span>), ]  </a></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="demo3.html#cb48-1"></a><span class="co">#--- reproject grids to the CRS of the CDL data ---#</span></span>
+<span id="cb48-2"><a href="demo3.html#cb48-2"></a>IA_grids_rp_cdl &lt;-<span class="st"> </span><span class="kw">st_transform</span>(IA_grids, <span class="kw">projection</span>(IA_cdl_<span class="dv">2015</span>))</span>
+<span id="cb48-3"><a href="demo3.html#cb48-3"></a></span>
+<span id="cb48-4"><a href="demo3.html#cb48-4"></a><span class="co">#--- extract crop type values and find frequencies ---#</span></span>
+<span id="cb48-5"><a href="demo3.html#cb48-5"></a>cdl_extracted &lt;-<span class="st"> </span><span class="kw">exact_extract</span>(IA_cdl_<span class="dv">2015</span>, IA_grids_rp_cdl) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb48-6"><a href="demo3.html#cb48-6"></a><span class="st">  </span><span class="kw">lapply</span>(., <span class="cf">function</span> (x) <span class="kw">data.table</span>(x)[,.N, <span class="dt">by =</span> value]) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb48-7"><a href="demo3.html#cb48-7"></a><span class="st">  </span><span class="co">#--- combine the list of data.tables into one data.table ---#</span></span>
+<span id="cb48-8"><a href="demo3.html#cb48-8"></a><span class="st">  </span><span class="kw">rbindlist</span>(<span class="dt">idcol =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb48-9"><a href="demo3.html#cb48-9"></a><span class="st">  </span><span class="co">#--- find the share of each land use type ---#</span></span>
+<span id="cb48-10"><a href="demo3.html#cb48-10"></a><span class="st">  </span>.[, share <span class="op">:</span><span class="er">=</span><span class="st"> </span>N<span class="op">/</span><span class="kw">sum</span>(N), by =<span class="st"> </span>.id] <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb48-11"><a href="demo3.html#cb48-11"></a><span class="st">  </span>.[, N <span class="op">:</span><span class="er">=</span><span class="st"> </span><span class="ot">NULL</span>] <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb48-12"><a href="demo3.html#cb48-12"></a><span class="st">  </span><span class="co">#--- keep only the share of corn and soy ---#</span></span>
+<span id="cb48-13"><a href="demo3.html#cb48-13"></a><span class="st">  </span>.[value <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">5</span>), ]  </span></code></pre></div>
 <p>We then find the corn to soy ratio for each of the IA grids.</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1"><span class="co">#--- find corn/soy ratio ---#</span></a>
-<a class="sourceLine" id="cb49-2" data-line-number="2">corn_soy &lt;-<span class="st"> </span>cdl_extracted <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb49-3" data-line-number="3"><span class="st">  </span><span class="co">#--- long to wide ---#</span></a>
-<a class="sourceLine" id="cb49-4" data-line-number="4"><span class="st">  </span><span class="kw">dcast</span>(.id <span class="op">~</span><span class="st"> </span>value, <span class="dt">value.var =</span> <span class="st">&quot;share&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb49-5" data-line-number="5"><span class="st">  </span><span class="co">#--- change variable names ---#</span></a>
-<a class="sourceLine" id="cb49-6" data-line-number="6"><span class="st">  </span><span class="kw">setnames</span>(<span class="kw">c</span>(<span class="st">&quot;.id&quot;</span>, <span class="st">&quot;1&quot;</span>, <span class="st">&quot;5&quot;</span>), <span class="kw">c</span>(<span class="st">&quot;grid_id&quot;</span>, <span class="st">&quot;corn_share&quot;</span>, <span class="st">&quot;soy_share&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb49-7" data-line-number="7"><span class="st">  </span><span class="co">#--- corn share divided by soy share ---#</span></a>
-<a class="sourceLine" id="cb49-8" data-line-number="8"><span class="st">  </span>.[, c_s_ratio <span class="op">:</span><span class="er">=</span><span class="st"> </span>corn_share <span class="op">/</span><span class="st"> </span>soy_share]</a></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="demo3.html#cb49-1"></a><span class="co">#--- find corn/soy ratio ---#</span></span>
+<span id="cb49-2"><a href="demo3.html#cb49-2"></a>corn_soy &lt;-<span class="st"> </span>cdl_extracted <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb49-3"><a href="demo3.html#cb49-3"></a><span class="st">  </span><span class="co">#--- long to wide ---#</span></span>
+<span id="cb49-4"><a href="demo3.html#cb49-4"></a><span class="st">  </span><span class="kw">dcast</span>(.id <span class="op">~</span><span class="st"> </span>value, <span class="dt">value.var =</span> <span class="st">&quot;share&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb49-5"><a href="demo3.html#cb49-5"></a><span class="st">  </span><span class="co">#--- change variable names ---#</span></span>
+<span id="cb49-6"><a href="demo3.html#cb49-6"></a><span class="st">  </span><span class="kw">setnames</span>(<span class="kw">c</span>(<span class="st">&quot;.id&quot;</span>, <span class="st">&quot;1&quot;</span>, <span class="st">&quot;5&quot;</span>), <span class="kw">c</span>(<span class="st">&quot;grid_id&quot;</span>, <span class="st">&quot;corn_share&quot;</span>, <span class="st">&quot;soy_share&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb49-7"><a href="demo3.html#cb49-7"></a><span class="st">  </span><span class="co">#--- corn share divided by soy share ---#</span></span>
+<span id="cb49-8"><a href="demo3.html#cb49-8"></a><span class="st">  </span>.[, c_s_ratio <span class="op">:</span><span class="er">=</span><span class="st"> </span>corn_share <span class="op">/</span><span class="st"> </span>soy_share]</span></code></pre></div>
 <hr />
 <p>We are still missing daily precipitation data at the moment. We have decided to use daily weather data from PRISM. Daily PRISM data is a raster data with the cell size of 4 km by 4 km. Figure <a href="demo3.html#fig:Demo4-show-prism-data">1.11</a> presents precipitation data downloaded for April 1, 2010. It covers the entire contiguous U.S.</p>
 <div class="figure"><span id="fig:Demo4-show-prism-data"></span>
@@ -656,33 +720,33 @@ Figure 1.11: Map of PRISM raster data layer
 </div>
 <p>Let’s now download PRISM data<a href="#fn18" class="footnote-ref" id="fnref18"><sup>18</sup></a>. This can be done using the <code>get_prism_dailys()</code> function from the <code>prism</code> package.<a href="#fn19" class="footnote-ref" id="fnref19"><sup>19</sup></a></p>
 <!-- not to be seen -->
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" data-line-number="1"><span class="kw">options</span>(<span class="dt">prism.path =</span> <span class="st">&quot;./Data/PRISM&quot;</span>)</a>
-<a class="sourceLine" id="cb50-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb50-3" data-line-number="3"><span class="kw">get_prism_dailys</span>(</a>
-<a class="sourceLine" id="cb50-4" data-line-number="4">  <span class="dt">type =</span> <span class="st">&quot;ppt&quot;</span>, </a>
-<a class="sourceLine" id="cb50-5" data-line-number="5">  <span class="dt">minDate =</span> <span class="st">&quot;2014-04-01&quot;</span>, </a>
-<a class="sourceLine" id="cb50-6" data-line-number="6">  <span class="dt">maxDate =</span> <span class="st">&quot;2014-09-30&quot;</span>, </a>
-<a class="sourceLine" id="cb50-7" data-line-number="7">  <span class="dt">keepZip =</span> <span class="ot">FALSE</span> </a>
-<a class="sourceLine" id="cb50-8" data-line-number="8">)</a></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="demo3.html#cb50-1"></a><span class="kw">options</span>(<span class="dt">prism.path =</span> <span class="st">&quot;./Data/PRISM&quot;</span>)</span>
+<span id="cb50-2"><a href="demo3.html#cb50-2"></a></span>
+<span id="cb50-3"><a href="demo3.html#cb50-3"></a><span class="kw">get_prism_dailys</span>(</span>
+<span id="cb50-4"><a href="demo3.html#cb50-4"></a>  <span class="dt">type =</span> <span class="st">&quot;ppt&quot;</span>, </span>
+<span id="cb50-5"><a href="demo3.html#cb50-5"></a>  <span class="dt">minDate =</span> <span class="st">&quot;2014-04-01&quot;</span>, </span>
+<span id="cb50-6"><a href="demo3.html#cb50-6"></a>  <span class="dt">maxDate =</span> <span class="st">&quot;2014-09-30&quot;</span>, </span>
+<span id="cb50-7"><a href="demo3.html#cb50-7"></a>  <span class="dt">keepZip =</span> <span class="ot">FALSE</span> </span>
+<span id="cb50-8"><a href="demo3.html#cb50-8"></a>)</span></code></pre></div>
 <p>When we use <code>get_prism_dailys()</code> to download data<a href="#fn20" class="footnote-ref" id="fnref20"><sup>20</sup></a>, it creates one folder for each day. So, I have about 180 folders inside the folder I designated as the download destination above with the <code>options()</code> function.</p>
 <!-- The name of the folder is expressive about what the data inside it is about. For example, the precipitation data for April 1st, 2010 is stored in the folder called "PRISM_ppt_stable_4kmD2_20100401_bil." Inside it, you will see bunch of files with exactly the same prefix, but with different extensions.   -->
 <hr />
 <p>We now try to extract precipitation value by day for each of the IA grids by geographically overlaying IA grids onto the PRISM data layer and identify which PRISM cells each of the IA grid encompass. Figure <a href="demo3.html#fig:Demo4-prism-crop">1.12</a> shows how the first IA grid overlaps with the PRISM cells<a href="#fn21" class="footnote-ref" id="fnref21"><sup>21</sup></a>.</p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1"><span class="co">#--- read a PRISM dataset ---#</span></a>
-<a class="sourceLine" id="cb51-2" data-line-number="2">prism_whole &lt;-<span class="st"> </span><span class="kw">raster</span>(<span class="st">&quot;./Data/PRISM/PRISM_ppt_stable_4kmD2_20140401_bil/PRISM_ppt_stable_4kmD2_20140401_bil.bil&quot;</span>) </a>
-<a class="sourceLine" id="cb51-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb51-4" data-line-number="4"><span class="co">#--- align the CRS ---#</span></a>
-<a class="sourceLine" id="cb51-5" data-line-number="5">IA_grids_rp_prism &lt;-<span class="st"> </span><span class="kw">st_transform</span>(IA_grids, <span class="kw">projection</span>(prism_whole))</a>
-<a class="sourceLine" id="cb51-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb51-7" data-line-number="7"><span class="co">#--- crop the PRISM data for the 1st IA grid ---#</span></a>
-<a class="sourceLine" id="cb51-8" data-line-number="8">PRISM_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">crop</span>(prism_whole, <span class="kw">st_buffer</span>(IA_grids_rp_prism[<span class="dv">1</span>, ], <span class="dt">dist =</span> <span class="fl">0.05</span>))</a>
-<a class="sourceLine" id="cb51-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb51-10" data-line-number="10"><span class="co">#--- map them ---#</span></a>
-<a class="sourceLine" id="cb51-11" data-line-number="11"><span class="kw">tm_shape</span>(PRISM_<span class="dv">1</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb51-12" data-line-number="12"><span class="st">  </span><span class="kw">tm_raster</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb51-13" data-line-number="13"><span class="kw">tm_shape</span>(IA_grids_rp_prism[<span class="dv">1</span>, ]) <span class="op">+</span></a>
-<a class="sourceLine" id="cb51-14" data-line-number="14"><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">alpha =</span> <span class="dv">0</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb51-15" data-line-number="15"><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">frame =</span> <span class="ot">NA</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="demo3.html#cb51-1"></a><span class="co">#--- read a PRISM dataset ---#</span></span>
+<span id="cb51-2"><a href="demo3.html#cb51-2"></a>prism_whole &lt;-<span class="st"> </span><span class="kw">raster</span>(<span class="st">&quot;./Data/PRISM/PRISM_ppt_stable_4kmD2_20140401_bil/PRISM_ppt_stable_4kmD2_20140401_bil.bil&quot;</span>) </span>
+<span id="cb51-3"><a href="demo3.html#cb51-3"></a></span>
+<span id="cb51-4"><a href="demo3.html#cb51-4"></a><span class="co">#--- align the CRS ---#</span></span>
+<span id="cb51-5"><a href="demo3.html#cb51-5"></a>IA_grids_rp_prism &lt;-<span class="st"> </span><span class="kw">st_transform</span>(IA_grids, <span class="kw">projection</span>(prism_whole))</span>
+<span id="cb51-6"><a href="demo3.html#cb51-6"></a></span>
+<span id="cb51-7"><a href="demo3.html#cb51-7"></a><span class="co">#--- crop the PRISM data for the 1st IA grid ---#</span></span>
+<span id="cb51-8"><a href="demo3.html#cb51-8"></a>PRISM_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">crop</span>(prism_whole, <span class="kw">st_buffer</span>(IA_grids_rp_prism[<span class="dv">1</span>, ], <span class="dt">dist =</span> <span class="fl">0.05</span>))</span>
+<span id="cb51-9"><a href="demo3.html#cb51-9"></a></span>
+<span id="cb51-10"><a href="demo3.html#cb51-10"></a><span class="co">#--- map them ---#</span></span>
+<span id="cb51-11"><a href="demo3.html#cb51-11"></a><span class="kw">tm_shape</span>(PRISM_<span class="dv">1</span>) <span class="op">+</span></span>
+<span id="cb51-12"><a href="demo3.html#cb51-12"></a><span class="st">  </span><span class="kw">tm_raster</span>() <span class="op">+</span></span>
+<span id="cb51-13"><a href="demo3.html#cb51-13"></a><span class="kw">tm_shape</span>(IA_grids_rp_prism[<span class="dv">1</span>, ]) <span class="op">+</span></span>
+<span id="cb51-14"><a href="demo3.html#cb51-14"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">alpha =</span> <span class="dv">0</span>) <span class="op">+</span></span>
+<span id="cb51-15"><a href="demo3.html#cb51-15"></a><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">frame =</span> <span class="ot">NA</span>)</span></code></pre></div>
 <div class="figure"><span id="fig:Demo4-prism-crop"></span>
 <img src="R_GIS_Book_files/figure-html/Demo4-prism-crop-1.png" alt="Spatial overlap of an IA grid over PRISM cells" width="672" />
 <p class="caption">
@@ -692,19 +756,19 @@ Figure 1.12: Spatial overlap of an IA grid over PRISM cells
 <p>As you can see, some PRISM grids are fully inside the analysis grid, while others are partially inside it. So, when assigning precipitation values to grids, we will use the coverage-weighted mean of precipitations<a href="#fn22" class="footnote-ref" id="fnref22"><sup>22</sup></a>.</p>
 <p>Unlike the CDL layer, we have 183 raster layers to process. Fortunately, we can process many raster files at the same time very quickly by first “stacking” many raster files first and then applying the <code>exact_extract()</code> function. Using <code>future_lapply()</code>, we let <span class="math inline">\(6\)</span> cores take care of this task with each processing 31 files, except one of them handling only 28 files.<a href="#fn23" class="footnote-ref" id="fnref23"><sup>23</sup></a>
 We first get all the paths to the PRISM files.</p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" data-line-number="1"><span class="co">#--- get all the dates ---#</span></a>
-<a class="sourceLine" id="cb52-2" data-line-number="2">dates_ls &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="kw">as.Date</span>(<span class="st">&quot;2014-04-01&quot;</span>), <span class="kw">as.Date</span>(<span class="st">&quot;2014-09-30&quot;</span>), <span class="st">&quot;days&quot;</span>) </a>
-<a class="sourceLine" id="cb52-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb52-4" data-line-number="4"><span class="co">#--- remove hyphen ---#</span></a>
-<a class="sourceLine" id="cb52-5" data-line-number="5">dates_ls_no_hyphen &lt;-<span class="st"> </span><span class="kw">str_remove_all</span>(dates_ls, <span class="st">&quot;-&quot;</span>)</a>
-<a class="sourceLine" id="cb52-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb52-7" data-line-number="7"><span class="co">#--- get all the prism file names ---#</span></a>
-<a class="sourceLine" id="cb52-8" data-line-number="8">folder_name &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;PRISM_ppt_stable_4kmD2_&quot;</span>, dates_ls_no_hyphen, <span class="st">&quot;_bil&quot;</span>) </a>
-<a class="sourceLine" id="cb52-9" data-line-number="9">file_name &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;PRISM_ppt_stable_4kmD2_&quot;</span>, dates_ls_no_hyphen, <span class="st">&quot;_bil.bil&quot;</span>) </a>
-<a class="sourceLine" id="cb52-10" data-line-number="10">file_paths &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;./Data/PRISM/&quot;</span>, folder_name, <span class="st">&quot;/&quot;</span>, file_name)</a>
-<a class="sourceLine" id="cb52-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb52-12" data-line-number="12"><span class="co">#--- take a look ---#</span></a>
-<a class="sourceLine" id="cb52-13" data-line-number="13"><span class="kw">head</span>(file_paths)</a></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="demo3.html#cb52-1"></a><span class="co">#--- get all the dates ---#</span></span>
+<span id="cb52-2"><a href="demo3.html#cb52-2"></a>dates_ls &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="kw">as.Date</span>(<span class="st">&quot;2014-04-01&quot;</span>), <span class="kw">as.Date</span>(<span class="st">&quot;2014-09-30&quot;</span>), <span class="st">&quot;days&quot;</span>) </span>
+<span id="cb52-3"><a href="demo3.html#cb52-3"></a></span>
+<span id="cb52-4"><a href="demo3.html#cb52-4"></a><span class="co">#--- remove hyphen ---#</span></span>
+<span id="cb52-5"><a href="demo3.html#cb52-5"></a>dates_ls_no_hyphen &lt;-<span class="st"> </span><span class="kw">str_remove_all</span>(dates_ls, <span class="st">&quot;-&quot;</span>)</span>
+<span id="cb52-6"><a href="demo3.html#cb52-6"></a></span>
+<span id="cb52-7"><a href="demo3.html#cb52-7"></a><span class="co">#--- get all the prism file names ---#</span></span>
+<span id="cb52-8"><a href="demo3.html#cb52-8"></a>folder_name &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;PRISM_ppt_stable_4kmD2_&quot;</span>, dates_ls_no_hyphen, <span class="st">&quot;_bil&quot;</span>) </span>
+<span id="cb52-9"><a href="demo3.html#cb52-9"></a>file_name &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;PRISM_ppt_stable_4kmD2_&quot;</span>, dates_ls_no_hyphen, <span class="st">&quot;_bil.bil&quot;</span>) </span>
+<span id="cb52-10"><a href="demo3.html#cb52-10"></a>file_paths &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;./Data/PRISM/&quot;</span>, folder_name, <span class="st">&quot;/&quot;</span>, file_name)</span>
+<span id="cb52-11"><a href="demo3.html#cb52-11"></a></span>
+<span id="cb52-12"><a href="demo3.html#cb52-12"></a><span class="co">#--- take a look ---#</span></span>
+<span id="cb52-13"><a href="demo3.html#cb52-13"></a><span class="kw">head</span>(file_paths)</span></code></pre></div>
 <pre><code>[1] &quot;./Data/PRISM/PRISM_ppt_stable_4kmD2_20140401_bil/PRISM_ppt_stable_4kmD2_20140401_bil.bil&quot;
 [2] &quot;./Data/PRISM/PRISM_ppt_stable_4kmD2_20140402_bil/PRISM_ppt_stable_4kmD2_20140402_bil.bil&quot;
 [3] &quot;./Data/PRISM/PRISM_ppt_stable_4kmD2_20140403_bil/PRISM_ppt_stable_4kmD2_20140403_bil.bil&quot;
@@ -712,72 +776,72 @@ We first get all the paths to the PRISM files.</p>
 [5] &quot;./Data/PRISM/PRISM_ppt_stable_4kmD2_20140405_bil/PRISM_ppt_stable_4kmD2_20140405_bil.bil&quot;
 [6] &quot;./Data/PRISM/PRISM_ppt_stable_4kmD2_20140406_bil/PRISM_ppt_stable_4kmD2_20140406_bil.bil&quot;</code></pre>
 <p>We now prepare for parallelized extractions and then implement them using <code>future_apply()</code> (you can have a look at Chapter <a href="par-comp.html#par-comp">A</a> to familiarize yourself with parallel computation using the <code>future.apply</code> package).</p>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" data-line-number="1"><span class="co">#--- define the number of cores to use ---#</span></a>
-<a class="sourceLine" id="cb54-2" data-line-number="2">num_core &lt;-<span class="st"> </span><span class="dv">6</span></a>
-<a class="sourceLine" id="cb54-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb54-4" data-line-number="4"><span class="co">#--- prepare some parameters for parallelization ---#</span></a>
-<a class="sourceLine" id="cb54-5" data-line-number="5">file_len &lt;-<span class="st"> </span><span class="kw">length</span>(file_paths)</a>
-<a class="sourceLine" id="cb54-6" data-line-number="6">files_per_core &lt;-<span class="st"> </span><span class="kw">ceiling</span>(file_len<span class="op">/</span>num_core)</a>
-<a class="sourceLine" id="cb54-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb54-8" data-line-number="8"><span class="co">#--- prepare for parallel processing ---#</span></a>
-<a class="sourceLine" id="cb54-9" data-line-number="9"><span class="kw">plan</span>(multiprocess, <span class="dt">workers =</span> num_core)</a>
-<a class="sourceLine" id="cb54-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb54-11" data-line-number="11"><span class="co">#--- reproject IA grids to the CRS of PRISM data ---#</span></a>
-<a class="sourceLine" id="cb54-12" data-line-number="12">IA_grids_reprojected &lt;-<span class="st"> </span><span class="kw">st_transform</span>(IA_grids, <span class="kw">projection</span>(prism_whole))</a></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="demo3.html#cb54-1"></a><span class="co">#--- define the number of cores to use ---#</span></span>
+<span id="cb54-2"><a href="demo3.html#cb54-2"></a>num_core &lt;-<span class="st"> </span><span class="dv">6</span></span>
+<span id="cb54-3"><a href="demo3.html#cb54-3"></a></span>
+<span id="cb54-4"><a href="demo3.html#cb54-4"></a><span class="co">#--- prepare some parameters for parallelization ---#</span></span>
+<span id="cb54-5"><a href="demo3.html#cb54-5"></a>file_len &lt;-<span class="st"> </span><span class="kw">length</span>(file_paths)</span>
+<span id="cb54-6"><a href="demo3.html#cb54-6"></a>files_per_core &lt;-<span class="st"> </span><span class="kw">ceiling</span>(file_len<span class="op">/</span>num_core)</span>
+<span id="cb54-7"><a href="demo3.html#cb54-7"></a></span>
+<span id="cb54-8"><a href="demo3.html#cb54-8"></a><span class="co">#--- prepare for parallel processing ---#</span></span>
+<span id="cb54-9"><a href="demo3.html#cb54-9"></a><span class="kw">plan</span>(multiprocess, <span class="dt">workers =</span> num_core)</span>
+<span id="cb54-10"><a href="demo3.html#cb54-10"></a></span>
+<span id="cb54-11"><a href="demo3.html#cb54-11"></a><span class="co">#--- reproject IA grids to the CRS of PRISM data ---#</span></span>
+<span id="cb54-12"><a href="demo3.html#cb54-12"></a>IA_grids_reprojected &lt;-<span class="st"> </span><span class="kw">st_transform</span>(IA_grids, <span class="kw">projection</span>(prism_whole))</span></code></pre></div>
 <p>Here is the function that we run in parallel over 6 cores.</p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1"><span class="co">#--- define the function to extract PRISM values by block of files ---#</span></a>
-<a class="sourceLine" id="cb55-2" data-line-number="2">extract_by_block &lt;-<span class="st"> </span><span class="cf">function</span>(i, files_per_core) {</a>
-<a class="sourceLine" id="cb55-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb55-4" data-line-number="4">  <span class="co">#--- files processed by core  ---#</span></a>
-<a class="sourceLine" id="cb55-5" data-line-number="5">  start_file_index &lt;-<span class="st"> </span>(i<span class="dv">-1</span>) <span class="op">*</span><span class="st"> </span>files_per_core <span class="op">+</span><span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb55-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb55-7" data-line-number="7">  <span class="co">#--- indexes for files to process ---#</span></a>
-<a class="sourceLine" id="cb55-8" data-line-number="8">  file_index &lt;-<span class="st"> </span><span class="kw">seq</span>(</a>
-<a class="sourceLine" id="cb55-9" data-line-number="9">    <span class="dt">from =</span> start_file_index,</a>
-<a class="sourceLine" id="cb55-10" data-line-number="10">    <span class="dt">to =</span> <span class="kw">min</span>((start_file_index <span class="op">+</span><span class="st"> </span>files_per_core), file_len),</a>
-<a class="sourceLine" id="cb55-11" data-line-number="11">    <span class="dt">by =</span> <span class="dv">1</span></a>
-<a class="sourceLine" id="cb55-12" data-line-number="12">  )</a>
-<a class="sourceLine" id="cb55-13" data-line-number="13"></a>
-<a class="sourceLine" id="cb55-14" data-line-number="14">  <span class="co">#--- extract values ---# </span></a>
-<a class="sourceLine" id="cb55-15" data-line-number="15">  data_temp &lt;-<span class="st"> </span>file_paths[file_index] <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># get file names</span></a>
-<a class="sourceLine" id="cb55-16" data-line-number="16"><span class="st">    </span><span class="co">#--- stack files ---#</span></a>
-<a class="sourceLine" id="cb55-17" data-line-number="17"><span class="st">    </span><span class="kw">stack</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb55-18" data-line-number="18"><span class="st">    </span><span class="co">#--- extract ---#</span></a>
-<a class="sourceLine" id="cb55-19" data-line-number="19"><span class="st">    </span><span class="kw">exact_extract</span>(., IA_grids_reprojected) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb55-20" data-line-number="20"><span class="st">    </span><span class="co">#--- combine into one data set ---#</span></a>
-<a class="sourceLine" id="cb55-21" data-line-number="21"><span class="st">    </span><span class="kw">rbindlist</span>(<span class="dt">idcol =</span> <span class="st">&quot;ID&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb55-22" data-line-number="22"><span class="st">    </span><span class="co">#--- wide to long ---#</span></a>
-<a class="sourceLine" id="cb55-23" data-line-number="23"><span class="st">    </span><span class="kw">melt</span>(<span class="dt">id.var =</span> <span class="kw">c</span>(<span class="st">&quot;ID&quot;</span>, <span class="st">&quot;coverage_fraction&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb55-24" data-line-number="24"><span class="st">    </span><span class="co">#--- calculate &quot;area&quot;-weighted mean ---#</span></a>
-<a class="sourceLine" id="cb55-25" data-line-number="25"><span class="st">    </span>.[, .(<span class="dt">value =</span> <span class="kw">sum</span>(value <span class="op">*</span><span class="st"> </span>coverage_fraction)<span class="op">/</span><span class="kw">sum</span>(coverage_fraction)), by =<span class="st"> </span>.(ID, variable)]</a>
-<a class="sourceLine" id="cb55-26" data-line-number="26"></a>
-<a class="sourceLine" id="cb55-27" data-line-number="27">  <span class="kw">return</span>(data_temp)</a>
-<a class="sourceLine" id="cb55-28" data-line-number="28">}</a></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="demo3.html#cb55-1"></a><span class="co">#--- define the function to extract PRISM values by block of files ---#</span></span>
+<span id="cb55-2"><a href="demo3.html#cb55-2"></a>extract_by_block &lt;-<span class="st"> </span><span class="cf">function</span>(i, files_per_core) {</span>
+<span id="cb55-3"><a href="demo3.html#cb55-3"></a></span>
+<span id="cb55-4"><a href="demo3.html#cb55-4"></a>  <span class="co">#--- files processed by core  ---#</span></span>
+<span id="cb55-5"><a href="demo3.html#cb55-5"></a>  start_file_index &lt;-<span class="st"> </span>(i<span class="dv">-1</span>) <span class="op">*</span><span class="st"> </span>files_per_core <span class="op">+</span><span class="st"> </span><span class="dv">1</span></span>
+<span id="cb55-6"><a href="demo3.html#cb55-6"></a></span>
+<span id="cb55-7"><a href="demo3.html#cb55-7"></a>  <span class="co">#--- indexes for files to process ---#</span></span>
+<span id="cb55-8"><a href="demo3.html#cb55-8"></a>  file_index &lt;-<span class="st"> </span><span class="kw">seq</span>(</span>
+<span id="cb55-9"><a href="demo3.html#cb55-9"></a>    <span class="dt">from =</span> start_file_index,</span>
+<span id="cb55-10"><a href="demo3.html#cb55-10"></a>    <span class="dt">to =</span> <span class="kw">min</span>((start_file_index <span class="op">+</span><span class="st"> </span>files_per_core), file_len),</span>
+<span id="cb55-11"><a href="demo3.html#cb55-11"></a>    <span class="dt">by =</span> <span class="dv">1</span></span>
+<span id="cb55-12"><a href="demo3.html#cb55-12"></a>  )</span>
+<span id="cb55-13"><a href="demo3.html#cb55-13"></a></span>
+<span id="cb55-14"><a href="demo3.html#cb55-14"></a>  <span class="co">#--- extract values ---# </span></span>
+<span id="cb55-15"><a href="demo3.html#cb55-15"></a>  data_temp &lt;-<span class="st"> </span>file_paths[file_index] <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># get file names</span></span>
+<span id="cb55-16"><a href="demo3.html#cb55-16"></a><span class="st">    </span><span class="co">#--- stack files ---#</span></span>
+<span id="cb55-17"><a href="demo3.html#cb55-17"></a><span class="st">    </span><span class="kw">stack</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb55-18"><a href="demo3.html#cb55-18"></a><span class="st">    </span><span class="co">#--- extract ---#</span></span>
+<span id="cb55-19"><a href="demo3.html#cb55-19"></a><span class="st">    </span><span class="kw">exact_extract</span>(., IA_grids_reprojected) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb55-20"><a href="demo3.html#cb55-20"></a><span class="st">    </span><span class="co">#--- combine into one data set ---#</span></span>
+<span id="cb55-21"><a href="demo3.html#cb55-21"></a><span class="st">    </span><span class="kw">rbindlist</span>(<span class="dt">idcol =</span> <span class="st">&quot;ID&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb55-22"><a href="demo3.html#cb55-22"></a><span class="st">    </span><span class="co">#--- wide to long ---#</span></span>
+<span id="cb55-23"><a href="demo3.html#cb55-23"></a><span class="st">    </span><span class="kw">melt</span>(<span class="dt">id.var =</span> <span class="kw">c</span>(<span class="st">&quot;ID&quot;</span>, <span class="st">&quot;coverage_fraction&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb55-24"><a href="demo3.html#cb55-24"></a><span class="st">    </span><span class="co">#--- calculate &quot;area&quot;-weighted mean ---#</span></span>
+<span id="cb55-25"><a href="demo3.html#cb55-25"></a><span class="st">    </span>.[, .(<span class="dt">value =</span> <span class="kw">sum</span>(value <span class="op">*</span><span class="st"> </span>coverage_fraction)<span class="op">/</span><span class="kw">sum</span>(coverage_fraction)), by =<span class="st"> </span>.(ID, variable)]</span>
+<span id="cb55-26"><a href="demo3.html#cb55-26"></a></span>
+<span id="cb55-27"><a href="demo3.html#cb55-27"></a>  <span class="kw">return</span>(data_temp)</span>
+<span id="cb55-28"><a href="demo3.html#cb55-28"></a>}</span></code></pre></div>
 <p>Now, let’s run the function in parallel and calculate precipitation by period.</p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" data-line-number="1"><span class="co">#--- run the function ---#</span></a>
-<a class="sourceLine" id="cb56-2" data-line-number="2">precip_by_period &lt;-<span class="st"> </span><span class="kw">future_lapply</span>(<span class="dv">1</span><span class="op">:</span>num_core, <span class="cf">function</span>(x) <span class="kw">extract_by_block</span>(x, files_per_core)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rbindlist</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb56-3" data-line-number="3"><span class="st">  </span><span class="co">#--- recover the date ---#</span></a>
-<a class="sourceLine" id="cb56-4" data-line-number="4"><span class="st">  </span>.[, variable <span class="op">:</span><span class="er">=</span><span class="st"> </span><span class="kw">as.Date</span>(<span class="kw">str_extract</span>(variable, <span class="st">&quot;[0-9]{8}&quot;</span>), <span class="st">&quot;%Y%m%d&quot;</span>)] <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb56-5" data-line-number="5"><span class="st">  </span><span class="co">#--- change the variable name to date ---#</span></a>
-<a class="sourceLine" id="cb56-6" data-line-number="6"><span class="st">  </span><span class="kw">setnames</span>(<span class="st">&quot;variable&quot;</span>, <span class="st">&quot;date&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb56-7" data-line-number="7"><span class="st">  </span><span class="co">#--- define critical period ---#</span></a>
-<a class="sourceLine" id="cb56-8" data-line-number="8"><span class="st">  </span>.[,critical <span class="op">:</span><span class="er">=</span><span class="st"> &quot;non_critical&quot;</span>] <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb56-9" data-line-number="9"><span class="st">  </span>.[<span class="kw">month</span>(date) <span class="op">%in%</span><span class="st"> </span><span class="dv">6</span><span class="op">:</span><span class="dv">8</span>, critical <span class="op">:</span><span class="er">=</span><span class="st"> &quot;critical&quot;</span>] <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb56-10" data-line-number="10"><span class="st">  </span><span class="co">#--- total precipitation by critical dummy  ---#</span></a>
-<a class="sourceLine" id="cb56-11" data-line-number="11"><span class="st">  </span>.[, .(<span class="dt">precip=</span><span class="kw">sum</span>(value)), by =<span class="st"> </span>.(ID, critical)] <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb56-12" data-line-number="12"><span class="st">  </span><span class="co">#--- wide to long ---#</span></a>
-<a class="sourceLine" id="cb56-13" data-line-number="13"><span class="st">  </span><span class="kw">dcast</span>(ID <span class="op">~</span><span class="st"> </span>critical, <span class="dt">value.var =</span> <span class="st">&quot;precip&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="demo3.html#cb56-1"></a><span class="co">#--- run the function ---#</span></span>
+<span id="cb56-2"><a href="demo3.html#cb56-2"></a>precip_by_period &lt;-<span class="st"> </span><span class="kw">future_lapply</span>(<span class="dv">1</span><span class="op">:</span>num_core, <span class="cf">function</span>(x) <span class="kw">extract_by_block</span>(x, files_per_core)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rbindlist</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb56-3"><a href="demo3.html#cb56-3"></a><span class="st">  </span><span class="co">#--- recover the date ---#</span></span>
+<span id="cb56-4"><a href="demo3.html#cb56-4"></a><span class="st">  </span>.[, variable <span class="op">:</span><span class="er">=</span><span class="st"> </span><span class="kw">as.Date</span>(<span class="kw">str_extract</span>(variable, <span class="st">&quot;[0-9]{8}&quot;</span>), <span class="st">&quot;%Y%m%d&quot;</span>)] <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb56-5"><a href="demo3.html#cb56-5"></a><span class="st">  </span><span class="co">#--- change the variable name to date ---#</span></span>
+<span id="cb56-6"><a href="demo3.html#cb56-6"></a><span class="st">  </span><span class="kw">setnames</span>(<span class="st">&quot;variable&quot;</span>, <span class="st">&quot;date&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb56-7"><a href="demo3.html#cb56-7"></a><span class="st">  </span><span class="co">#--- define critical period ---#</span></span>
+<span id="cb56-8"><a href="demo3.html#cb56-8"></a><span class="st">  </span>.[,critical <span class="op">:</span><span class="er">=</span><span class="st"> &quot;non_critical&quot;</span>] <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb56-9"><a href="demo3.html#cb56-9"></a><span class="st">  </span>.[<span class="kw">month</span>(date) <span class="op">%in%</span><span class="st"> </span><span class="dv">6</span><span class="op">:</span><span class="dv">8</span>, critical <span class="op">:</span><span class="er">=</span><span class="st"> &quot;critical&quot;</span>] <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb56-10"><a href="demo3.html#cb56-10"></a><span class="st">  </span><span class="co">#--- total precipitation by critical dummy  ---#</span></span>
+<span id="cb56-11"><a href="demo3.html#cb56-11"></a><span class="st">  </span>.[, .(<span class="dt">precip=</span><span class="kw">sum</span>(value)), by =<span class="st"> </span>.(ID, critical)] <span class="op">%&gt;%</span></span>
+<span id="cb56-12"><a href="demo3.html#cb56-12"></a><span class="st">  </span><span class="co">#--- wide to long ---#</span></span>
+<span id="cb56-13"><a href="demo3.html#cb56-13"></a><span class="st">  </span><span class="kw">dcast</span>(ID <span class="op">~</span><span class="st"> </span>critical, <span class="dt">value.var =</span> <span class="st">&quot;precip&quot;</span>)</span></code></pre></div>
 <p>We now have grid-level crop share and precipitation data.</p>
 <hr />
 <p>Let’s merge them and run regression.<a href="#fn24" class="footnote-ref" id="fnref24"><sup>24</sup></a></p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" data-line-number="1"><span class="co">#--- crop share ---#</span></a>
-<a class="sourceLine" id="cb57-2" data-line-number="2">reg_data &lt;-<span class="st"> </span>corn_soy[precip_by_period, on =<span class="st"> </span><span class="kw">c</span>(<span class="dt">grid_id =</span> <span class="st">&quot;ID&quot;</span>)]</a>
-<a class="sourceLine" id="cb57-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb57-4" data-line-number="4"><span class="co">#--- OLS ---#</span></a>
-<a class="sourceLine" id="cb57-5" data-line-number="5">reg_results &lt;-<span class="st"> </span><span class="kw">lm</span>(c_s_ratio <span class="op">~</span><span class="st"> </span>critical <span class="op">+</span><span class="st"> </span>non_critical, <span class="dt">data =</span> reg_data)</a></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="demo3.html#cb57-1"></a><span class="co">#--- crop share ---#</span></span>
+<span id="cb57-2"><a href="demo3.html#cb57-2"></a>reg_data &lt;-<span class="st"> </span>corn_soy[precip_by_period, on =<span class="st"> </span><span class="kw">c</span>(<span class="dt">grid_id =</span> <span class="st">&quot;ID&quot;</span>)]</span>
+<span id="cb57-3"><a href="demo3.html#cb57-3"></a></span>
+<span id="cb57-4"><a href="demo3.html#cb57-4"></a><span class="co">#--- OLS ---#</span></span>
+<span id="cb57-5"><a href="demo3.html#cb57-5"></a>reg_results &lt;-<span class="st"> </span><span class="kw">lm</span>(c_s_ratio <span class="op">~</span><span class="st"> </span>critical <span class="op">+</span><span class="st"> </span>non_critical, <span class="dt">data =</span> reg_data)</span></code></pre></div>
 <p>Here is the regression results table.</p>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb58-1" data-line-number="1"><span class="co">#--- regression table ---#</span></a>
-<a class="sourceLine" id="cb58-2" data-line-number="2"><span class="kw">stargazer</span>(reg_results, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="demo3.html#cb58-1"></a><span class="co">#--- regression table ---#</span></span>
+<span id="cb58-2"><a href="demo3.html#cb58-2"></a><span class="kw">stargazer</span>(reg_results, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</span></code></pre></div>
 <table style="text-align:center">
 <tr>
 <td colspan="2" style="border-bottom: 1px solid black">
@@ -934,14 +998,14 @@ F Statistic
 <div class="footnotes">
 <hr />
 <ol start="17">
-<li id="fn17"><p>We by no means are saying that this is the right geographical unit of analysis. This is just about demonstrating how R can be used for analysis done at the higher spatial resolution than county.<a href="demo3.html#fnref17" class="footnote-back">↩</a></p></li>
-<li id="fn18"><p>You do not have to run this code to download the data. It is included in the data folder for replication (<a href="https://www.dropbox.com/sh/rtbs4ji21c9uiy9/AADYpHAWhUxMittAptuq-Apaa?dl=0">here</a>).<a href="demo3.html#fnref18" class="footnote-back">↩</a></p></li>
-<li id="fn19"><p><a href="https://github.com/ropensci/prism">prism github page</a><a href="demo3.html#fnref19" class="footnote-back">↩</a></p></li>
-<li id="fn20"><p>For this project, I could have just used monthly PRISM data, which can be downloaded using the <code>get_prism_monthlys()</code> function. But, in many applications, daily data is necessary, so I wanted to illustrate how to download and process them.<a href="demo3.html#fnref20" class="footnote-back">↩</a></p></li>
-<li id="fn21"><p>Do not use <code>st_buffer()</code> for spatial objects in geographic coordinates (latitude, longitude) if you intend to use the created buffers for any serious IA (it is difficult to get the right distance parameter anyway.). Significant distortion will be introduced to the buffer due to the fact that one degree in latitude and longitude means different distances at the latitude of IA. Here, I am just creating a buffer to extract PRISM cells to display on the map.<a href="demo3.html#fnref21" class="footnote-back">↩</a></p></li>
-<li id="fn22"><p>In practice, this may not be advisable. The coverage fraction calculation by <code>exact_extract()</code> is done using latitude and longitude. Therefore, the relative magnitude of the fraction numbers incorrectly reflects the actual relative magnitude of the overlapped area. When the spatial resolution of the sources grids (grids from which you extract values) is much smaller relative to that of the target grids (grids to which you assign values to), then a simple average would be very similar to a coverage-weighted mean. For example, CDL consists of 30m by 30m grids, and more than <span class="math inline">\(1,000\)</span> grids are inside one analysis grid.<a href="demo3.html#fnref22" class="footnote-back">↩</a></p></li>
-<li id="fn23"><p>Parallelization of extracting values from many raster layers for polygons are discussed in much more detail in Chapter <a href="EE.html#EE">6</a>. When I tried stacking all 183 files into one stack and applying <code>exact_extract</code>, it did not finish the job after over five minutes. So, I terminated the process in the middle. The parallelized version gets the job done in about <span class="math inline">\(30\)</span> seconds on my desktop.<a href="demo3.html#fnref23" class="footnote-back">↩</a></p></li>
-<li id="fn24"><p>We can match on <code>grid_id</code> from <code>corn_soy</code> and <code>ID</code> from “precip_by_period” because <code>grid_id</code> is identical with the row number and ID variables were created so that the ID value of <span class="math inline">\(i\)</span> corresponds to <span class="math inline">\(i\)</span> th row of <code>IA_grids</code>.<a href="demo3.html#fnref24" class="footnote-back">↩</a></p></li>
+<li id="fn17"><p>We by no means are saying that this is the right geographical unit of analysis. This is just about demonstrating how R can be used for analysis done at the higher spatial resolution than county.<a href="demo3.html#fnref17" class="footnote-back">↩︎</a></p></li>
+<li id="fn18"><p>You do not have to run this code to download the data. It is included in the data folder for replication (<a href="https://www.dropbox.com/sh/rtbs4ji21c9uiy9/AADYpHAWhUxMittAptuq-Apaa?dl=0">here</a>).<a href="demo3.html#fnref18" class="footnote-back">↩︎</a></p></li>
+<li id="fn19"><p><a href="https://github.com/ropensci/prism">prism github page</a><a href="demo3.html#fnref19" class="footnote-back">↩︎</a></p></li>
+<li id="fn20"><p>For this project, I could have just used monthly PRISM data, which can be downloaded using the <code>get_prism_monthlys()</code> function. But, in many applications, daily data is necessary, so I wanted to illustrate how to download and process them.<a href="demo3.html#fnref20" class="footnote-back">↩︎</a></p></li>
+<li id="fn21"><p>Do not use <code>st_buffer()</code> for spatial objects in geographic coordinates (latitude, longitude) if you intend to use the created buffers for any serious IA (it is difficult to get the right distance parameter anyway.). Significant distortion will be introduced to the buffer due to the fact that one degree in latitude and longitude means different distances at the latitude of IA. Here, I am just creating a buffer to extract PRISM cells to display on the map.<a href="demo3.html#fnref21" class="footnote-back">↩︎</a></p></li>
+<li id="fn22"><p>In practice, this may not be advisable. The coverage fraction calculation by <code>exact_extract()</code> is done using latitude and longitude. Therefore, the relative magnitude of the fraction numbers incorrectly reflects the actual relative magnitude of the overlapped area. When the spatial resolution of the sources grids (grids from which you extract values) is much smaller relative to that of the target grids (grids to which you assign values to), then a simple average would be very similar to a coverage-weighted mean. For example, CDL consists of 30m by 30m grids, and more than <span class="math inline">\(1,000\)</span> grids are inside one analysis grid.<a href="demo3.html#fnref22" class="footnote-back">↩︎</a></p></li>
+<li id="fn23"><p>Parallelization of extracting values from many raster layers for polygons are discussed in much more detail in Chapter <a href="EE.html#EE">6</a>. When I tried stacking all 183 files into one stack and applying <code>exact_extract</code>, it did not finish the job after over five minutes. So, I terminated the process in the middle. The parallelized version gets the job done in about <span class="math inline">\(30\)</span> seconds on my desktop.<a href="demo3.html#fnref23" class="footnote-back">↩︎</a></p></li>
+<li id="fn24"><p>We can match on <code>grid_id</code> from <code>corn_soy</code> and <code>ID</code> from “precip_by_period” because <code>grid_id</code> is identical with the row number and ID variables were created so that the ID value of <span class="math inline">\(i\)</span> corresponds to <span class="math inline">\(i\)</span> th row of <code>IA_grids</code>.<a href="demo3.html#fnref24" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>

@@ -24,7 +24,7 @@
 <meta name="author" content="Taro Mieno" />
 
 
-<meta name="date" content="2020-08-30" />
+<meta name="date" content="2020-09-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,6 +33,7 @@
   
 <link rel="prev" href="Demo1.html"/>
 <link rel="next" href="demo3.html"/>
+<script src="libs/header-attrs-2.3/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -50,6 +51,7 @@
 
 
 
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
 <script src="libs/leaflet-1.3.1/leaflet.js"></script>
@@ -90,25 +92,26 @@
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -117,9 +120,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -168,15 +171,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
-<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html"><i class="fa fa-check"></i>Preface</a><ul>
-<li class="chapter" data-level="" data-path="why-r-as-gis-for-economists.html"><a href="why-r-as-gis-for-economists.html"><i class="fa fa-check"></i>Why R as GIS for Economists?</a><ul>
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="why-r-as-gis-for-economists.html"><a href="why-r-as-gis-for-economists.html"><i class="fa fa-check"></i>Why R as GIS for Economists?</a>
+<ul>
 <li class="chapter" data-level="" data-path="why-r-as-gis-for-economists.html"><a href="why-r-as-gis-for-economists.html#r-vs-python"><i class="fa fa-check"></i>R vs Python</a></li>
 <li class="chapter" data-level="" data-path="why-r-as-gis-for-economists.html"><a href="why-r-as-gis-for-economists.html#r-vs-arcgis-or-qgis"><i class="fa fa-check"></i>R vs ArcGIS or QGIS</a></li>
 <li class="chapter" data-level="" data-path="why-r-as-gis-for-economists.html"><a href="why-r-as-gis-for-economists.html#summary"><i class="fa fa-check"></i>Summary</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="how-is-this-book-different-from-other-online-books-and-resources.html"><a href="how-is-this-book-different-from-other-online-books-and-resources.html"><i class="fa fa-check"></i>How is this book different from other online books and resources?</a></li>
 <li class="chapter" data-level="" data-path="what-is-going-to-be-covered-in-this-book.html"><a href="what-is-going-to-be-covered-in-this-book.html"><i class="fa fa-check"></i>What is going to be covered in this book?</a></li>
-<li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html"><i class="fa fa-check"></i>Conventions of the book and some notes</a><ul>
+<li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html"><i class="fa fa-check"></i>Conventions of the book and some notes</a>
+<ul>
 <li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html#texts-in-gray-boxes"><i class="fa fa-check"></i>Texts in gray boxes</a></li>
 <li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html#colored-boxes"><i class="fa fa-check"></i>Colored Boxes</a></li>
 <li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html#parentheses-around-codes"><i class="fa fa-check"></i>Parentheses around codes</a></li>
@@ -185,135 +191,167 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="session-information.html"><a href="session-information.html"><i class="fa fa-check"></i>Session Information</a></li>
 </ul></li>
 <li class="part"><span><b>I Demonstration</b></span></li>
-<li class="chapter" data-level="1" data-path="demo.html"><a href="demo.html"><i class="fa fa-check"></i><b>1</b> R as GIS: Demonstrations</a><ul>
-<li class="chapter" data-level="" data-path="before-you-start.html"><a href="before-you-start.html"><i class="fa fa-check"></i>Before you start</a><ul>
+<li class="chapter" data-level="1" data-path="demo.html"><a href="demo.html"><i class="fa fa-check"></i><b>1</b> R as GIS: Demonstrations</a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start.html"><a href="before-you-start.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
 <li class="chapter" data-level="" data-path="before-you-start.html"><a href="before-you-start.html#target-audience"><i class="fa fa-check"></i>Target Audience</a></li>
 <li class="chapter" data-level="" data-path="before-you-start.html"><a href="before-you-start.html#direction-for-replication"><i class="fa fa-check"></i>Direction for replication</a></li>
 </ul></li>
-<li class="chapter" data-level="1.1" data-path="Demo1.html"><a href="Demo1.html"><i class="fa fa-check"></i><b>1.1</b> Demonstration 1: The impact of groundwater pumping on depth to water table</a><ul>
+<li class="chapter" data-level="1.1" data-path="Demo1.html"><a href="Demo1.html"><i class="fa fa-check"></i><b>1.1</b> Demonstration 1: The impact of groundwater pumping on depth to water table</a>
+<ul>
 <li class="chapter" data-level="1.1.1" data-path="Demo1.html"><a href="Demo1.html#project-overview"><i class="fa fa-check"></i><b>1.1.1</b> Project Overview</a></li>
 <li class="chapter" data-level="1.1.2" data-path="Demo1.html"><a href="Demo1.html#project-demonstration"><i class="fa fa-check"></i><b>1.1.2</b> Project Demonstration</a></li>
 </ul></li>
-<li class="chapter" data-level="1.2" data-path="demonstration-2-precision-agriculture.html"><a href="demonstration-2-precision-agriculture.html"><i class="fa fa-check"></i><b>1.2</b> Demonstration 2: Precision Agriculture</a><ul>
+<li class="chapter" data-level="1.2" data-path="demonstration-2-precision-agriculture.html"><a href="demonstration-2-precision-agriculture.html"><i class="fa fa-check"></i><b>1.2</b> Demonstration 2: Precision Agriculture</a>
+<ul>
 <li class="chapter" data-level="1.2.1" data-path="demonstration-2-precision-agriculture.html"><a href="demonstration-2-precision-agriculture.html#project-overview-1"><i class="fa fa-check"></i><b>1.2.1</b> Project Overview</a></li>
 <li class="chapter" data-level="1.2.2" data-path="demonstration-2-precision-agriculture.html"><a href="demonstration-2-precision-agriculture.html#project-demonstration-1"><i class="fa fa-check"></i><b>1.2.2</b> Project Demonstration</a></li>
 </ul></li>
-<li class="chapter" data-level="1.3" data-path="demo3.html"><a href="demo3.html"><i class="fa fa-check"></i><b>1.3</b> Demonstration 3: Land Use and Weather</a><ul>
+<li class="chapter" data-level="1.3" data-path="demo3.html"><a href="demo3.html"><i class="fa fa-check"></i><b>1.3</b> Demonstration 3: Land Use and Weather</a>
+<ul>
 <li class="chapter" data-level="1.3.1" data-path="demo3.html"><a href="demo3.html#project-overview-2"><i class="fa fa-check"></i><b>1.3.1</b> Project Overview</a></li>
 <li class="chapter" data-level="1.3.2" data-path="demo3.html"><a href="demo3.html#project-demonstration-2"><i class="fa fa-check"></i><b>1.3.2</b> Project Demonstration</a></li>
 </ul></li>
-<li class="chapter" data-level="1.4" data-path="demo4.html"><a href="demo4.html"><i class="fa fa-check"></i><b>1.4</b> Demonstration 4: The Impact of Railroad Presence on Corn Planted Acreage</a><ul>
+<li class="chapter" data-level="1.4" data-path="demo4.html"><a href="demo4.html"><i class="fa fa-check"></i><b>1.4</b> Demonstration 4: The Impact of Railroad Presence on Corn Planted Acreage</a>
+<ul>
 <li class="chapter" data-level="1.4.1" data-path="demo4.html"><a href="demo4.html#project-overview-3"><i class="fa fa-check"></i><b>1.4.1</b> Project Overview</a></li>
 <li class="chapter" data-level="1.4.2" data-path="demo4.html"><a href="demo4.html#project-demonstration-3"><i class="fa fa-check"></i><b>1.4.2</b> Project Demonstration</a></li>
 </ul></li>
-<li class="chapter" data-level="1.5" data-path="demonstration-5-groundwater-use-for-agricultural-irrigation.html"><a href="demonstration-5-groundwater-use-for-agricultural-irrigation.html"><i class="fa fa-check"></i><b>1.5</b> Demonstration 5: Groundwater use for agricultural irrigation</a><ul>
+<li class="chapter" data-level="1.5" data-path="demonstration-5-groundwater-use-for-agricultural-irrigation.html"><a href="demonstration-5-groundwater-use-for-agricultural-irrigation.html"><i class="fa fa-check"></i><b>1.5</b> Demonstration 5: Groundwater use for agricultural irrigation</a>
+<ul>
 <li class="chapter" data-level="1.5.1" data-path="demonstration-5-groundwater-use-for-agricultural-irrigation.html"><a href="demonstration-5-groundwater-use-for-agricultural-irrigation.html#project-overview-4"><i class="fa fa-check"></i><b>1.5.1</b> Project Overview</a></li>
 <li class="chapter" data-level="1.5.2" data-path="demonstration-5-groundwater-use-for-agricultural-irrigation.html"><a href="demonstration-5-groundwater-use-for-agricultural-irrigation.html#project-demonstration-4"><i class="fa fa-check"></i><b>1.5.2</b> Project Demonstration</a></li>
 </ul></li>
 </ul></li>
 <li class="part"><span><b>II Foundations</b></span></li>
-<li class="chapter" data-level="2" data-path="vector-basics.html"><a href="vector-basics.html"><i class="fa fa-check"></i><b>2</b> Vector Data Handling with <code>sf</code></a><ul>
-<li class="chapter" data-level="" data-path="before-you-start-1.html"><a href="before-you-start-1.html"><i class="fa fa-check"></i>Before you start</a><ul>
+<li class="chapter" data-level="2" data-path="vector-basics.html"><a href="vector-basics.html"><i class="fa fa-check"></i><b>2</b> Vector Data Handling with <code>sf</code></a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-1.html"><a href="before-you-start-1.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
 <li><a href="before-you-start-1.html#sf-or-sp"><code>sf</code> or <code>sp</code>?</a></li>
 <li class="chapter" data-level="" data-path="before-you-start-1.html"><a href="before-you-start-1.html#direction-for-replication-1"><i class="fa fa-check"></i>Direction for replication</a></li>
 </ul></li>
 <li class="chapter" data-level="2.1" data-path="spatial-data-structure.html"><a href="spatial-data-structure.html"><i class="fa fa-check"></i><b>2.1</b> Spatial Data Structure</a></li>
-<li class="chapter" data-level="2.2" data-path="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html"><i class="fa fa-check"></i><b>2.2</b> Simple feature geometry, simple feature geometry list-column, and simple feature</a><ul>
+<li class="chapter" data-level="2.2" data-path="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html"><i class="fa fa-check"></i><b>2.2</b> Simple feature geometry, simple feature geometry list-column, and simple feature</a>
+<ul>
 <li class="chapter" data-level="2.2.1" data-path="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#simple-feature-geometry-sfg"><i class="fa fa-check"></i><b>2.2.1</b> Simple feature geometry (<code>sfg</code>)</a></li>
 <li class="chapter" data-level="2.2.2" data-path="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#create-simple-feature-geometry-list-column-sfc-and-simple-feature-sf-from-scratch"><i class="fa fa-check"></i><b>2.2.2</b> Create simple feature geometry list-column (<code>sfc</code>) and simple feature (<code>sf</code>) from scratch</a></li>
 </ul></li>
-<li class="chapter" data-level="2.3" data-path="reading-and-writing-vector-data.html"><a href="reading-and-writing-vector-data.html"><i class="fa fa-check"></i><b>2.3</b> Reading and writing vector data</a><ul>
+<li class="chapter" data-level="2.3" data-path="reading-and-writing-vector-data.html"><a href="reading-and-writing-vector-data.html"><i class="fa fa-check"></i><b>2.3</b> Reading and writing vector data</a>
+<ul>
 <li class="chapter" data-level="2.3.1" data-path="reading-and-writing-vector-data.html"><a href="reading-and-writing-vector-data.html#reading-a-shapefile"><i class="fa fa-check"></i><b>2.3.1</b> Reading a shapefile</a></li>
 <li class="chapter" data-level="2.3.2" data-path="reading-and-writing-vector-data.html"><a href="reading-and-writing-vector-data.html#writing-to-a-shapefile"><i class="fa fa-check"></i><b>2.3.2</b> Writing to a shapefile</a></li>
 <li class="chapter" data-level="2.3.3" data-path="reading-and-writing-vector-data.html"><a href="reading-and-writing-vector-data.html#better-alternatives"><i class="fa fa-check"></i><b>2.3.3</b> Better alternatives</a></li>
 </ul></li>
 <li class="chapter" data-level="2.4" data-path="projection-with-a-different-coordinate-reference-systems.html"><a href="projection-with-a-different-coordinate-reference-systems.html"><i class="fa fa-check"></i><b>2.4</b> Projection with a different Coordinate Reference Systems</a></li>
-<li class="chapter" data-level="2.5" data-path="quick-and-interactive-view-of-an-sf-object.html"><a href="quick-and-interactive-view-of-an-sf-object.html"><i class="fa fa-check"></i><b>2.5</b> Quick and interactive view of an <code>sf</code> object</a><ul>
+<li class="chapter" data-level="2.5" data-path="quick-and-interactive-view-of-an-sf-object.html"><a href="quick-and-interactive-view-of-an-sf-object.html"><i class="fa fa-check"></i><b>2.5</b> Quick and interactive view of an <code>sf</code> object</a>
+<ul>
 <li class="chapter" data-level="2.5.1" data-path="quick-and-interactive-view-of-an-sf-object.html"><a href="quick-and-interactive-view-of-an-sf-object.html#quick-view"><i class="fa fa-check"></i><b>2.5.1</b> Quick view</a></li>
 <li class="chapter" data-level="2.5.2" data-path="quick-and-interactive-view-of-an-sf-object.html"><a href="quick-and-interactive-view-of-an-sf-object.html#interactive-view"><i class="fa fa-check"></i><b>2.5.2</b> Interactive view</a></li>
 </ul></li>
 <li class="chapter" data-level="2.6" data-path="turning-a-data-frame-of-points-into-an-sf.html"><a href="turning-a-data-frame-of-points-into-an-sf.html"><i class="fa fa-check"></i><b>2.6</b> Turning a data.frame of points into an <code>sf</code></a></li>
 <li class="chapter" data-level="2.7" data-path="conv-sp.html"><a href="conv-sp.html"><i class="fa fa-check"></i><b>2.7</b> Conversion to and from sp</a></li>
-<li class="chapter" data-level="2.8" data-path="non-spatial-transformation-of-sf.html"><a href="non-spatial-transformation-of-sf.html"><i class="fa fa-check"></i><b>2.8</b> Non-spatial transformation of sf</a><ul>
+<li class="chapter" data-level="2.8" data-path="non-spatial-transformation-of-sf.html"><a href="non-spatial-transformation-of-sf.html"><i class="fa fa-check"></i><b>2.8</b> Non-spatial transformation of sf</a>
+<ul>
 <li class="chapter" data-level="2.8.1" data-path="non-spatial-transformation-of-sf.html"><a href="non-spatial-transformation-of-sf.html#using-dplyr"><i class="fa fa-check"></i><b>2.8.1</b> Using <code>dplyr</code></a></li>
 <li class="chapter" data-level="2.8.2" data-path="non-spatial-transformation-of-sf.html"><a href="non-spatial-transformation-of-sf.html#using-data.table"><i class="fa fa-check"></i><b>2.8.2</b> Using <code>data.table</code></a></li>
 </ul></li>
-<li class="chapter" data-level="2.9" data-path="non-interactive-geometrical-operations.html"><a href="non-interactive-geometrical-operations.html"><i class="fa fa-check"></i><b>2.9</b> Non-interactive geometrical operations</a><ul>
+<li class="chapter" data-level="2.9" data-path="non-interactive-geometrical-operations.html"><a href="non-interactive-geometrical-operations.html"><i class="fa fa-check"></i><b>2.9</b> Non-interactive geometrical operations</a>
+<ul>
 <li class="chapter" data-level="2.9.1" data-path="non-interactive-geometrical-operations.html"><a href="non-interactive-geometrical-operations.html#st_buffer"><i class="fa fa-check"></i><b>2.9.1</b> st_buffer</a></li>
 <li class="chapter" data-level="2.9.2" data-path="non-interactive-geometrical-operations.html"><a href="non-interactive-geometrical-operations.html#st_area"><i class="fa fa-check"></i><b>2.9.2</b> st_area</a></li>
 <li class="chapter" data-level="2.9.3" data-path="non-interactive-geometrical-operations.html"><a href="non-interactive-geometrical-operations.html#st_centroid"><i class="fa fa-check"></i><b>2.9.3</b> st_centroid</a></li>
 <li class="chapter" data-level="2.9.4" data-path="non-interactive-geometrical-operations.html"><a href="non-interactive-geometrical-operations.html#st_length"><i class="fa fa-check"></i><b>2.9.4</b> st_length</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="int-vv.html"><a href="int-vv.html"><i class="fa fa-check"></i><b>3</b> Spatial Interactions of Vector Data: Subsetting and Joining</a><ul>
-<li class="chapter" data-level="" data-path="before-you-start-2.html"><a href="before-you-start-2.html"><i class="fa fa-check"></i>Before you start</a><ul>
+<li class="chapter" data-level="3" data-path="int-vv.html"><a href="int-vv.html"><i class="fa fa-check"></i><b>3</b> Spatial Interactions of Vector Data: Subsetting and Joining</a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-2.html"><a href="before-you-start-2.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
 <li class="chapter" data-level="" data-path="before-you-start-2.html"><a href="before-you-start-2.html#direction-for-replication-2"><i class="fa fa-check"></i>Direction for replication</a></li>
 </ul></li>
-<li class="chapter" data-level="3.1" data-path="topo.html"><a href="topo.html"><i class="fa fa-check"></i><b>3.1</b> Topological relations</a><ul>
+<li class="chapter" data-level="3.1" data-path="topo.html"><a href="topo.html"><i class="fa fa-check"></i><b>3.1</b> Topological relations</a>
+<ul>
 <li class="chapter" data-level="3.1.1" data-path="topo.html"><a href="topo.html#st_intersects"><i class="fa fa-check"></i><b>3.1.1</b> st_intersects()</a></li>
 <li class="chapter" data-level="3.1.2" data-path="topo.html"><a href="topo.html#st_is_within_distance"><i class="fa fa-check"></i><b>3.1.2</b> st_is_within_distance()</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html"><i class="fa fa-check"></i><b>3.2</b> Spatial Subsetting (or Flagging)</a><ul>
+<li class="chapter" data-level="3.2" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html"><i class="fa fa-check"></i><b>3.2</b> Spatial Subsetting (or Flagging)</a>
+<ul>
 <li class="chapter" data-level="3.2.1" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#polygons-source-vs-polygons-target"><i class="fa fa-check"></i><b>3.2.1</b> polygons (source) vs polygons (target)</a></li>
 <li class="chapter" data-level="3.2.2" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#points-source-vs-polygons-target"><i class="fa fa-check"></i><b>3.2.2</b> points (source) vs polygons (target)</a></li>
 <li class="chapter" data-level="3.2.3" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#lines_polygons"><i class="fa fa-check"></i><b>3.2.3</b> lines (source) vs polygons (target)</a></li>
 <li class="chapter" data-level="3.2.4" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#polygons_points"><i class="fa fa-check"></i><b>3.2.4</b> polygons (source) vs points (target)</a></li>
 <li class="chapter" data-level="3.2.5" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#subsetting-to-a-geograpchic-extent-bounding-box"><i class="fa fa-check"></i><b>3.2.5</b> Subsetting to a geograpchic extent (bounding box)</a></li>
 </ul></li>
-<li class="chapter" data-level="3.3" data-path="sp-join.html"><a href="sp-join.html"><i class="fa fa-check"></i><b>3.3</b> Spatial Join</a><ul>
+<li class="chapter" data-level="3.3" data-path="sp-join.html"><a href="sp-join.html"><i class="fa fa-check"></i><b>3.3</b> Spatial Join</a>
+<ul>
 <li class="chapter" data-level="3.3.1" data-path="sp-join.html"><a href="sp-join.html#case-1-points-target-vs-polygons-source"><i class="fa fa-check"></i><b>3.3.1</b> Case 1: points (target) vs polygons (source)</a></li>
 <li class="chapter" data-level="3.3.2" data-path="sp-join.html"><a href="sp-join.html#case-2-polygons-target-vs-points-source"><i class="fa fa-check"></i><b>3.3.2</b> Case 2: polygons (target) vs points (source)</a></li>
 <li class="chapter" data-level="3.3.3" data-path="sp-join.html"><a href="sp-join.html#polygon-polygon"><i class="fa fa-check"></i><b>3.3.3</b> Case 3: polygons (target) vs polygons (source)</a></li>
 </ul></li>
-<li class="chapter" data-level="3.4" data-path="spatial-intersection-cropping-join.html"><a href="spatial-intersection-cropping-join.html"><i class="fa fa-check"></i><b>3.4</b> Spatial Intersection (cropping join)</a><ul>
+<li class="chapter" data-level="3.4" data-path="spatial-intersection-cropping-join.html"><a href="spatial-intersection-cropping-join.html"><i class="fa fa-check"></i><b>3.4</b> Spatial Intersection (cropping join)</a>
+<ul>
 <li class="chapter" data-level="3.4.1" data-path="spatial-intersection-cropping-join.html"><a href="spatial-intersection-cropping-join.html#st-intersection"><i class="fa fa-check"></i><b>3.4.1</b> <code>st_intersection()</code></a></li>
 <li class="chapter" data-level="3.4.2" data-path="spatial-intersection-cropping-join.html"><a href="spatial-intersection-cropping-join.html#area-weighted-average"><i class="fa fa-check"></i><b>3.4.2</b> Area-weighted average</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="raster-basics.html"><a href="raster-basics.html"><i class="fa fa-check"></i><b>4</b> Raster Data Handling</a><ul>
-<li class="chapter" data-level="" data-path="before-you-start-3.html"><a href="before-you-start-3.html"><i class="fa fa-check"></i>Before you start</a><ul>
+<li class="chapter" data-level="4" data-path="raster-basics.html"><a href="raster-basics.html"><i class="fa fa-check"></i><b>4</b> Raster Data Handling</a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-3.html"><a href="before-you-start-3.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
 <li class="chapter" data-level="" data-path="before-you-start-3.html"><a href="before-you-start-3.html#direction-for-replication-3"><i class="fa fa-check"></i>Direction for replication</a></li>
 </ul></li>
-<li class="chapter" data-level="4.1" data-path="raster-data-object-classes.html"><a href="raster-data-object-classes.html"><i class="fa fa-check"></i><b>4.1</b> Raster data object classes</a><ul>
+<li class="chapter" data-level="4.1" data-path="raster-data-object-classes.html"><a href="raster-data-object-classes.html"><i class="fa fa-check"></i><b>4.1</b> Raster data object classes</a>
+<ul>
 <li class="chapter" data-level="4.1.1" data-path="raster-data-object-classes.html"><a href="raster-data-object-classes.html#raster-package-rasterlayer-rasterstack-and-rasterbrick"><i class="fa fa-check"></i><b>4.1.1</b> <code>raster</code> package: <code>RasterLayer</code>, <code>RasterStack</code>, and <code>RasterBrick</code></a></li>
 <li class="chapter" data-level="4.1.2" data-path="raster-data-object-classes.html"><a href="raster-data-object-classes.html#terra-package-spatraster"><i class="fa fa-check"></i><b>4.1.2</b> <code>terra</code> package: <code>SpatRaster</code></a></li>
 <li class="chapter" data-level="4.1.3" data-path="raster-data-object-classes.html"><a href="raster-data-object-classes.html#converting-a-spatraster-object-to-a-raster-object."><i class="fa fa-check"></i><b>4.1.3</b> Converting a <code>SpatRaster</code> object to a <code>Raster</code><span class="math inline">\(^*\)</span> object.</a></li>
 <li class="chapter" data-level="4.1.4" data-path="raster-data-object-classes.html"><a href="raster-data-object-classes.html#vector-data-in-the-terra-package"><i class="fa fa-check"></i><b>4.1.4</b> Vector data in the <code>terra</code> package</a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="read-and-write-a-raster-data-file.html"><a href="read-and-write-a-raster-data-file.html"><i class="fa fa-check"></i><b>4.2</b> Read and write a raster data file</a><ul>
+<li class="chapter" data-level="4.2" data-path="read-and-write-a-raster-data-file.html"><a href="read-and-write-a-raster-data-file.html"><i class="fa fa-check"></i><b>4.2</b> Read and write a raster data file</a>
+<ul>
 <li class="chapter" data-level="4.2.1" data-path="read-and-write-a-raster-data-file.html"><a href="read-and-write-a-raster-data-file.html#read-raster-files"><i class="fa fa-check"></i><b>4.2.1</b> Read raster file(s)</a></li>
 <li class="chapter" data-level="4.2.2" data-path="read-and-write-a-raster-data-file.html"><a href="read-and-write-a-raster-data-file.html#write-raster-files"><i class="fa fa-check"></i><b>4.2.2</b> Write raster files</a></li>
 </ul></li>
 <li class="chapter" data-level="4.3" data-path="access-values.html"><a href="access-values.html"><i class="fa fa-check"></i><b>4.3</b> Access values</a></li>
 <li class="chapter" data-level="4.4" data-path="quick-plot-and-interactive-map.html"><a href="quick-plot-and-interactive-map.html"><i class="fa fa-check"></i><b>4.4</b> Quick plot and interactive map</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="int-RV.html"><a href="int-RV.html"><i class="fa fa-check"></i><b>5</b> Spatial Interactions of Vector and Raster Data</a><ul>
-<li class="chapter" data-level="" data-path="before-you-start-4.html"><a href="before-you-start-4.html"><i class="fa fa-check"></i>Before you start</a><ul>
+<li class="chapter" data-level="5" data-path="int-RV.html"><a href="int-RV.html"><i class="fa fa-check"></i><b>5</b> Spatial Interactions of Vector and Raster Data</a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-4.html"><a href="before-you-start-4.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
 <li class="chapter" data-level="" data-path="before-you-start-4.html"><a href="before-you-start-4.html#direction-for-replication-4"><i class="fa fa-check"></i>Direction for replication</a></li>
 </ul></li>
 <li class="chapter" data-level="5.1" data-path="raster-crop.html"><a href="raster-crop.html"><i class="fa fa-check"></i><b>5.1</b> Cropping (Spatial subsetting) to the Area of Interest</a></li>
-<li class="chapter" data-level="5.2" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html"><i class="fa fa-check"></i><b>5.2</b> Extracting Values from Raster Layers for Vector Data</a><ul>
+<li class="chapter" data-level="5.2" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html"><i class="fa fa-check"></i><b>5.2</b> Extracting Values from Raster Layers for Vector Data</a>
+<ul>
 <li class="chapter" data-level="5.2.1" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#points"><i class="fa fa-check"></i><b>5.2.1</b> Points</a></li>
 <li class="chapter" data-level="5.2.2" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#polygons-terra-way"><i class="fa fa-check"></i><b>5.2.2</b> Polygons (<code>terra</code> way)</a></li>
 <li class="chapter" data-level="5.2.3" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#polygons-exactextractr-way"><i class="fa fa-check"></i><b>5.2.3</b> Polygons (<code>exactextractr</code> way)</a></li>
 </ul></li>
-<li class="chapter" data-level="5.3" data-path="extract-speed.html"><a href="extract-speed.html"><i class="fa fa-check"></i><b>5.3</b> Extraction speed comparison</a><ul>
+<li class="chapter" data-level="5.3" data-path="extract-speed.html"><a href="extract-speed.html"><i class="fa fa-check"></i><b>5.3</b> Extraction speed comparison</a>
+<ul>
 <li class="chapter" data-level="5.3.1" data-path="extract-speed.html"><a href="extract-speed.html#points-terraextract-and-rasterextract"><i class="fa fa-check"></i><b>5.3.1</b> Points: <code>terra::extract()</code> and <code>raster::extract()</code></a></li>
 <li class="chapter" data-level="5.3.2" data-path="extract-speed.html"><a href="extract-speed.html#polygons-exact_extract-terraextract-and-rasterextract"><i class="fa fa-check"></i><b>5.3.2</b> Polygons: <code>exact_extract()</code>, <code>terra::extract()</code>, and <code>raster::extract()</code></a></li>
 <li class="chapter" data-level="5.3.3" data-path="extract-speed.html"><a href="extract-speed.html#single-layer-vs-multi-layer"><i class="fa fa-check"></i><b>5.3.3</b> Single-layer vs multi-layer</a></li>
 </ul></li>
 </ul></li>
 <li class="part"><span><b>III (slightly) Advanced Topics</b></span></li>
-<li class="chapter" data-level="6" data-path="EE.html"><a href="EE.html"><i class="fa fa-check"></i><b>6</b> Speed Things Up</a><ul>
-<li class="chapter" data-level="" data-path="before-you-start-5.html"><a href="before-you-start-5.html"><i class="fa fa-check"></i>Before you start</a><ul>
+<li class="chapter" data-level="6" data-path="EE.html"><a href="EE.html"><i class="fa fa-check"></i><b>6</b> Speed Things Up</a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-5.html"><a href="before-you-start-5.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
 <li class="chapter" data-level="" data-path="before-you-start-5.html"><a href="before-you-start-5.html#direction-for-replication-5"><i class="fa fa-check"></i>Direction for replication</a></li>
 </ul></li>
-<li class="chapter" data-level="6.1" data-path="single-raster-layer.html"><a href="single-raster-layer.html"><i class="fa fa-check"></i><b>6.1</b> Single raster layer</a><ul>
+<li class="chapter" data-level="6.1" data-path="single-raster-layer.html"><a href="single-raster-layer.html"><i class="fa fa-check"></i><b>6.1</b> Single raster layer</a>
+<ul>
 <li class="chapter" data-level="6.1.1" data-path="single-raster-layer.html"><a href="single-raster-layer.html#datasets"><i class="fa fa-check"></i><b>6.1.1</b> Datasets</a></li>
 <li class="chapter" data-level="6.1.2" data-path="single-raster-layer.html"><a href="single-raster-layer.html#parallelization"><i class="fa fa-check"></i><b>6.1.2</b> Parallelization</a></li>
 <li class="chapter" data-level="6.1.3" data-path="single-raster-layer.html"><a href="single-raster-layer.html#summary-1"><i class="fa fa-check"></i><b>6.1.3</b> Summary</a></li>
 </ul></li>
-<li class="chapter" data-level="6.2" data-path="many-multi-layer.html"><a href="many-multi-layer.html"><i class="fa fa-check"></i><b>6.2</b> Many multi-layer raster files</a><ul>
+<li class="chapter" data-level="6.2" data-path="many-multi-layer.html"><a href="many-multi-layer.html"><i class="fa fa-check"></i><b>6.2</b> Many multi-layer raster files</a>
+<ul>
 <li class="chapter" data-level="6.2.1" data-path="many-multi-layer.html"><a href="many-multi-layer.html#datasets-1"><i class="fa fa-check"></i><b>6.2.1</b> Datasets</a></li>
 <li class="chapter" data-level="6.2.2" data-path="many-multi-layer.html"><a href="many-multi-layer.html#non-par-ext-multi"><i class="fa fa-check"></i><b>6.2.2</b> Non-parallelized extraction</a></li>
 <li class="chapter" data-level="6.2.3" data-path="many-multi-layer.html"><a href="many-multi-layer.html#approach-1-parallelize-over-polygons-and-do-regular-loop-over-year-month"><i class="fa fa-check"></i><b>6.2.3</b> Approach 1: parallelize over polygons and do regular loop over year-month</a></li>
@@ -321,51 +359,62 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.2.5" data-path="many-multi-layer.html"><a href="many-multi-layer.html#memory-consideration"><i class="fa fa-check"></i><b>6.2.5</b> Memory consideration</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="stars-basics.html"><a href="stars-basics.html"><i class="fa fa-check"></i><b>7</b> Spatiotemporal Raster Data Handling with <code>stars</code></a><ul>
-<li class="chapter" data-level="" data-path="before-you-start-6.html"><a href="before-you-start-6.html"><i class="fa fa-check"></i>Before you start</a><ul>
+<li class="chapter" data-level="7" data-path="stars-basics.html"><a href="stars-basics.html"><i class="fa fa-check"></i><b>7</b> Spatiotemporal Raster Data Handling with <code>stars</code></a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-6.html"><a href="before-you-start-6.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
 <li class="chapter" data-level="" data-path="before-you-start-6.html"><a href="before-you-start-6.html#direction-for-replication-6"><i class="fa fa-check"></i>Direction for replication</a></li>
 </ul></li>
 <li class="chapter" data-level="7.1" data-path="stars-structure.html"><a href="stars-structure.html"><i class="fa fa-check"></i><b>7.1</b> Understanding the structure of a <code>stars</code> object</a></li>
-<li class="chapter" data-level="7.2" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html"><i class="fa fa-check"></i><b>7.2</b> Some basic operations on <code>stars</code> objects</a><ul>
+<li class="chapter" data-level="7.2" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html"><i class="fa fa-check"></i><b>7.2</b> Some basic operations on <code>stars</code> objects</a>
+<ul>
 <li class="chapter" data-level="7.2.1" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html#subset-a-stars-object-by-index"><i class="fa fa-check"></i><b>7.2.1</b> Subset a <code>stars</code> object by index</a></li>
 <li class="chapter" data-level="7.2.2" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html#set-attribute-names"><i class="fa fa-check"></i><b>7.2.2</b> Set attribute names</a></li>
 <li class="chapter" data-level="7.2.3" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html#get-the-coordinate-reference-system"><i class="fa fa-check"></i><b>7.2.3</b> Get the coordinate reference system</a></li>
 <li class="chapter" data-level="7.2.4" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html#get-the-dimension-characteristics-and-values"><i class="fa fa-check"></i><b>7.2.4</b> Get the dimension characteristics and values</a></li>
 <li class="chapter" data-level="7.2.5" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html#attributes-to-dimensions-and-vice-versa"><i class="fa fa-check"></i><b>7.2.5</b> Attributes to dimensions, and vice versa</a></li>
 </ul></li>
-<li class="chapter" data-level="7.3" data-path="quick-visualization-for-exploration.html"><a href="quick-visualization-for-exploration.html"><i class="fa fa-check"></i><b>7.3</b> Quick visualization for exploration</a><ul>
+<li class="chapter" data-level="7.3" data-path="quick-visualization-for-exploration.html"><a href="quick-visualization-for-exploration.html"><i class="fa fa-check"></i><b>7.3</b> Quick visualization for exploration</a>
+<ul>
 <li class="chapter" data-level="7.3.1" data-path="quick-visualization-for-exploration.html"><a href="quick-visualization-for-exploration.html#quick-static-map"><i class="fa fa-check"></i><b>7.3.1</b> quick static map</a></li>
 <li class="chapter" data-level="7.3.2" data-path="quick-visualization-for-exploration.html"><a href="quick-visualization-for-exploration.html#interactive-map"><i class="fa fa-check"></i><b>7.3.2</b> interactive map</a></li>
 </ul></li>
-<li class="chapter" data-level="7.4" data-path="read-write-stars.html"><a href="read-write-stars.html"><i class="fa fa-check"></i><b>7.4</b> Reading and writing raster data</a><ul>
+<li class="chapter" data-level="7.4" data-path="read-write-stars.html"><a href="read-write-stars.html"><i class="fa fa-check"></i><b>7.4</b> Reading and writing raster data</a>
+<ul>
 <li class="chapter" data-level="7.4.1" data-path="read-write-stars.html"><a href="read-write-stars.html#reading-raster-data"><i class="fa fa-check"></i><b>7.4.1</b> Reading raster data</a></li>
 <li class="chapter" data-level="7.4.2" data-path="read-write-stars.html"><a href="read-write-stars.html#writing-a-stars-object-to-a-file"><i class="fa fa-check"></i><b>7.4.2</b> Writing a <code>stars</code> object to a file</a></li>
 </ul></li>
 <li class="chapter" data-level="7.5" data-path="stars-set-time.html"><a href="stars-set-time.html"><i class="fa fa-check"></i><b>7.5</b> Setting the time dimension manually</a></li>
-<li class="chapter" data-level="7.6" data-path="dplyr-op.html"><a href="dplyr-op.html"><i class="fa fa-check"></i><b>7.6</b> <code>dplyr</code>-like operations</a><ul>
+<li class="chapter" data-level="7.6" data-path="dplyr-op.html"><a href="dplyr-op.html"><i class="fa fa-check"></i><b>7.6</b> <code>dplyr</code>-like operations</a>
+<ul>
 <li class="chapter" data-level="7.6.1" data-path="dplyr-op.html"><a href="dplyr-op.html#filter"><i class="fa fa-check"></i><b>7.6.1</b> <code>filter()</code></a></li>
 <li class="chapter" data-level="7.6.2" data-path="dplyr-op.html"><a href="dplyr-op.html#select"><i class="fa fa-check"></i><b>7.6.2</b> <code>select()</code></a></li>
 <li class="chapter" data-level="7.6.3" data-path="dplyr-op.html"><a href="dplyr-op.html#mutate"><i class="fa fa-check"></i><b>7.6.3</b> <code>mutate()</code></a></li>
 <li class="chapter" data-level="7.6.4" data-path="dplyr-op.html"><a href="dplyr-op.html#pull"><i class="fa fa-check"></i><b>7.6.4</b> <code>pull()</code></a></li>
 </ul></li>
-<li class="chapter" data-level="7.7" data-path="merging-stars-objects-using-c-and-st-mosaic.html"><a href="merging-stars-objects-using-c-and-st-mosaic.html"><i class="fa fa-check"></i><b>7.7</b> Merging <code>stars</code> objects using <code>c()</code> and <code>st_mosaic()</code></a><ul>
+<li class="chapter" data-level="7.7" data-path="merging-stars-objects-using-c-and-st-mosaic.html"><a href="merging-stars-objects-using-c-and-st-mosaic.html"><i class="fa fa-check"></i><b>7.7</b> Merging <code>stars</code> objects using <code>c()</code> and <code>st_mosaic()</code></a>
+<ul>
 <li class="chapter" data-level="7.7.1" data-path="merging-stars-objects-using-c-and-st-mosaic.html"><a href="merging-stars-objects-using-c-and-st-mosaic.html#merging-stars-objects-along-the-third-dimension-band"><i class="fa fa-check"></i><b>7.7.1</b> Merging <code>stars</code> objects along the third dimension (band)</a></li>
 <li class="chapter" data-level="7.7.2" data-path="merging-stars-objects-using-c-and-st-mosaic.html"><a href="merging-stars-objects-using-c-and-st-mosaic.html#merge-two"><i class="fa fa-check"></i><b>7.7.2</b> Merging <code>stars</code> objects of different attributes</a></li>
 <li class="chapter" data-level="7.7.3" data-path="merging-stars-objects-using-c-and-st-mosaic.html"><a href="merging-stars-objects-using-c-and-st-mosaic.html#merging-stars-objects-of-different-spatial-extents"><i class="fa fa-check"></i><b>7.7.3</b> Merging <code>stars</code> objects of different spatial extents</a></li>
 </ul></li>
 <li class="chapter" data-level="7.8" data-path="convert-to-rb.html"><a href="convert-to-rb.html"><i class="fa fa-check"></i><b>7.8</b> Convert from and to <code>Raster</code><span class="math inline">\(^*\)</span> objects</a></li>
 <li class="chapter" data-level="7.9" data-path="spatial-cropping.html"><a href="spatial-cropping.html"><i class="fa fa-check"></i><b>7.9</b> Spatial cropping</a></li>
-<li class="chapter" data-level="7.10" data-path="extraction-stars.html"><a href="extraction-stars.html"><i class="fa fa-check"></i><b>7.10</b> Extracting values from <code>stars</code> for vector data</a><ul>
+<li class="chapter" data-level="7.10" data-path="extraction-stars.html"><a href="extraction-stars.html"><i class="fa fa-check"></i><b>7.10</b> Extracting values from <code>stars</code> for vector data</a>
+<ul>
 <li class="chapter" data-level="7.10.1" data-path="extraction-stars.html"><a href="extraction-stars.html#points-1"><i class="fa fa-check"></i><b>7.10.1</b> Points</a></li>
 <li class="chapter" data-level="7.10.2" data-path="extraction-stars.html"><a href="extraction-stars.html#polygons"><i class="fa fa-check"></i><b>7.10.2</b> Polygons</a></li>
 </ul></li>
 </ul></li>
 <li class="part"><span><b>IV Extensions</b></span></li>
-<li class="chapter" data-level="8" data-path="create-maps.html"><a href="create-maps.html"><i class="fa fa-check"></i><b>8</b> Creating Maps using <code>ggplot2</code></a><ul>
-<li class="chapter" data-level="" data-path="before-you-start-7.html"><a href="before-you-start-7.html"><i class="fa fa-check"></i>Before you start</a><ul>
+<li class="chapter" data-level="8" data-path="create-maps.html"><a href="create-maps.html"><i class="fa fa-check"></i><b>8</b> Creating Maps using <code>ggplot2</code></a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-7.html"><a href="before-you-start-7.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
 <li class="chapter" data-level="" data-path="before-you-start-7.html"><a href="before-you-start-7.html#direction-for-replication-7"><i class="fa fa-check"></i>Direction for replication</a></li>
 </ul></li>
-<li class="chapter" data-level="8.1" data-path="geom-sf.html"><a href="geom-sf.html"><i class="fa fa-check"></i><b>8.1</b> Creating maps from <code>sf</code> objects</a><ul>
+<li class="chapter" data-level="8.1" data-path="geom-sf.html"><a href="geom-sf.html"><i class="fa fa-check"></i><b>8.1</b> Creating maps from <code>sf</code> objects</a>
+<ul>
 <li class="chapter" data-level="8.1.1" data-path="geom-sf.html"><a href="geom-sf.html#datasets-2"><i class="fa fa-check"></i><b>8.1.1</b> Datasets</a></li>
 <li class="chapter" data-level="8.1.2" data-path="geom-sf.html"><a href="geom-sf.html#basic-usage-of-geom_sf"><i class="fa fa-check"></i><b>8.1.2</b> Basic usage of <code>geom_sf()</code></a></li>
 <li class="chapter" data-level="8.1.3" data-path="geom-sf.html"><a href="geom-sf.html#specifying-the-aesthetics"><i class="fa fa-check"></i><b>8.1.3</b> Specifying the aesthetics</a></li>
@@ -374,22 +423,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.1.6" data-path="geom-sf.html"><a href="geom-sf.html#faceting"><i class="fa fa-check"></i><b>8.1.6</b> Faceting</a></li>
 <li class="chapter" data-level="8.1.7" data-path="geom-sf.html"><a href="geom-sf.html#adding-texts-labels-on-a-map"><i class="fa fa-check"></i><b>8.1.7</b> Adding texts (labels) on a map</a></li>
 </ul></li>
-<li class="chapter" data-level="8.2" data-path="geom-raster.html"><a href="geom-raster.html"><i class="fa fa-check"></i><b>8.2</b> Raster data visualization: <code>geom_raster()</code> and <code>geom_stars()</code></a><ul>
+<li class="chapter" data-level="8.2" data-path="geom-raster.html"><a href="geom-raster.html"><i class="fa fa-check"></i><b>8.2</b> Raster data visualization: <code>geom_raster()</code> and <code>geom_stars()</code></a>
+<ul>
 <li class="chapter" data-level="8.2.1" data-path="geom-raster.html"><a href="geom-raster.html#visualize-raster-with-geom_raster"><i class="fa fa-check"></i><b>8.2.1</b> Visualize <code>Raster</code><span class="math inline">\(^*\)</span> with <code>geom_raster()</code></a></li>
 <li class="chapter" data-level="8.2.2" data-path="geom-raster.html"><a href="geom-raster.html#visualize-stars-with-geom_raster"><i class="fa fa-check"></i><b>8.2.2</b> Visualize <code>stars</code> with <code>geom_raster()</code></a></li>
 <li class="chapter" data-level="8.2.3" data-path="geom-raster.html"><a href="geom-raster.html#visualize-stars-with-geom_stars"><i class="fa fa-check"></i><b>8.2.3</b> Visualize <code>stars</code> with <code>geom_stars()</code></a></li>
 <li class="chapter" data-level="8.2.4" data-path="geom-raster.html"><a href="geom-raster.html#adding-geom_sf-layers"><i class="fa fa-check"></i><b>8.2.4</b> adding <code>geom_sf()</code> layers</a></li>
 </ul></li>
-<li class="chapter" data-level="8.3" data-path="color-scale.html"><a href="color-scale.html"><i class="fa fa-check"></i><b>8.3</b> Color scale</a><ul>
+<li class="chapter" data-level="8.3" data-path="color-scale.html"><a href="color-scale.html"><i class="fa fa-check"></i><b>8.3</b> Color scale</a>
+<ul>
 <li class="chapter" data-level="8.3.1" data-path="color-scale.html"><a href="color-scale.html#viridis-color-maps"><i class="fa fa-check"></i><b>8.3.1</b> Viridis color maps</a></li>
 <li class="chapter" data-level="8.3.2" data-path="color-scale.html"><a href="color-scale.html#rcolorbrewer-scale__distiller-and-scale__brewer"><i class="fa fa-check"></i><b>8.3.2</b> <code>RColorBrewer</code>: <code>scale_*_distiller()</code> and <code>scale_*_brewer()</code></a></li>
 <li class="chapter" data-level="8.3.3" data-path="color-scale.html"><a href="color-scale.html#colorspace-package"><i class="fa fa-check"></i><b>8.3.3</b> <code>colorspace</code> package</a></li>
 </ul></li>
-<li class="chapter" data-level="8.4" data-path="arranging-maps.html"><a href="arranging-maps.html"><i class="fa fa-check"></i><b>8.4</b> Arranging maps</a><ul>
+<li class="chapter" data-level="8.4" data-path="arranging-maps.html"><a href="arranging-maps.html"><i class="fa fa-check"></i><b>8.4</b> Arranging maps</a>
+<ul>
 <li class="chapter" data-level="8.4.1" data-path="arranging-maps.html"><a href="arranging-maps.html#multiple-panels-of-figures-as-a-single-figure"><i class="fa fa-check"></i><b>8.4.1</b> Multiple panels of figures as a single figure</a></li>
 <li class="chapter" data-level="8.4.2" data-path="arranging-maps.html"><a href="arranging-maps.html#a-map-in-a-map-inset"><i class="fa fa-check"></i><b>8.4.2</b> A map in a map: inset</a></li>
 </ul></li>
-<li class="chapter" data-level="8.5" data-path="fine-tune.html"><a href="fine-tune.html"><i class="fa fa-check"></i><b>8.5</b> Fine-tuning maps for publication</a><ul>
+<li class="chapter" data-level="8.5" data-path="fine-tune.html"><a href="fine-tune.html"><i class="fa fa-check"></i><b>8.5</b> Fine-tuning maps for publication</a>
+<ul>
 <li class="chapter" data-level="8.5.1" data-path="fine-tune.html"><a href="fine-tune.html#theme"><i class="fa fa-check"></i><b>8.5.1</b> Setting the theme</a></li>
 <li class="chapter" data-level="8.5.2" data-path="fine-tune.html"><a href="fine-tune.html#legend"><i class="fa fa-check"></i><b>8.5.2</b> Legend</a></li>
 <li class="chapter" data-level="8.5.3" data-path="fine-tune.html"><a href="fine-tune.html#facet-strips"><i class="fa fa-check"></i><b>8.5.3</b> Facet strips</a></li>
@@ -397,25 +450,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="8.6" data-path="ggsave.html"><a href="ggsave.html"><i class="fa fa-check"></i><b>8.6</b> Saving a <code>ggplot</code> object as an image</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="download-data.html"><a href="download-data.html"><i class="fa fa-check"></i><b>9</b> Download and process spatial datasets from within R</a><ul>
-<li class="chapter" data-level="" data-path="before-you-start-8.html"><a href="before-you-start-8.html"><i class="fa fa-check"></i>Before you start</a><ul>
+<li class="chapter" data-level="9" data-path="download-data.html"><a href="download-data.html"><i class="fa fa-check"></i><b>9</b> Download and process spatial datasets from within R</a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-8.html"><a href="before-you-start-8.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
 <li class="chapter" data-level="" data-path="before-you-start-8.html"><a href="before-you-start-8.html#direction-for-replication-8"><i class="fa fa-check"></i>Direction for replication</a></li>
 </ul></li>
-<li class="chapter" data-level="9.1" data-path="nass-quick.html"><a href="nass-quick.html"><i class="fa fa-check"></i><b>9.1</b> USDA NASS QuickStat with <code>tidyUSDA</code></a><ul>
+<li class="chapter" data-level="9.1" data-path="nass-quick.html"><a href="nass-quick.html"><i class="fa fa-check"></i><b>9.1</b> USDA NASS QuickStat with <code>tidyUSDA</code></a>
+<ul>
 <li class="chapter" data-level="9.1.1" data-path="nass-quick.html"><a href="nass-quick.html#look-for-parameter-values"><i class="fa fa-check"></i><b>9.1.1</b> Look for parameter values</a></li>
 <li class="chapter" data-level="9.1.2" data-path="nass-quick.html"><a href="nass-quick.html#caveats"><i class="fa fa-check"></i><b>9.1.2</b> Caveats</a></li>
 </ul></li>
-<li class="chapter" data-level="9.2" data-path="CropScapeR.html"><a href="CropScapeR.html"><i class="fa fa-check"></i><b>9.2</b> CDL with <code>CropScapeR</code></a><ul>
+<li class="chapter" data-level="9.2" data-path="CropScapeR.html"><a href="CropScapeR.html"><i class="fa fa-check"></i><b>9.2</b> CDL with <code>CropScapeR</code></a>
+<ul>
 <li class="chapter" data-level="9.2.1" data-path="CropScapeR.html"><a href="CropScapeR.html#getcdldata-download-the-cdl-data-as-raster-data"><i class="fa fa-check"></i><b>9.2.1</b> <code>GetCDLData</code>: Download the CDL data as raster data</a></li>
 <li class="chapter" data-level="9.2.2" data-path="CropScapeR.html"><a href="CropScapeR.html#data-processing-after-downloading-data"><i class="fa fa-check"></i><b>9.2.2</b> Data processing after downloading data</a></li>
 <li class="chapter" data-level="9.2.3" data-path="CropScapeR.html"><a href="CropScapeR.html#other-forms-of-cdl-data"><i class="fa fa-check"></i><b>9.2.3</b> Other forms of CDL data</a></li>
 <li class="chapter" data-level="9.2.4" data-path="CropScapeR.html"><a href="CropScapeR.html#mac-problem"><i class="fa fa-check"></i><b>9.2.4</b> SSL certificate problem on Mac</a></li>
 </ul></li>
-<li class="chapter" data-level="9.3" data-path="download-prism.html"><a href="download-prism.html"><i class="fa fa-check"></i><b>9.3</b> PRISM with <code>prism</code></a><ul>
+<li class="chapter" data-level="9.3" data-path="download-prism.html"><a href="download-prism.html"><i class="fa fa-check"></i><b>9.3</b> PRISM with <code>prism</code></a>
+<ul>
 <li class="chapter" data-level="9.3.1" data-path="download-prism.html"><a href="download-prism.html#basics"><i class="fa fa-check"></i><b>9.3.1</b> Basics</a></li>
 <li class="chapter" data-level="9.3.2" data-path="download-prism.html"><a href="download-prism.html#download-daily-prism-data-for-many-years-and-build-your-own-datasets"><i class="fa fa-check"></i><b>9.3.2</b> Download daily PRISM data for many years and build your own datasets</a></li>
 </ul></li>
-<li class="chapter" data-level="9.4" data-path="daymet-with-daymetr-and-feddata.html"><a href="daymet-with-daymetr-and-feddata.html"><i class="fa fa-check"></i><b>9.4</b> Daymet with <code>daymetr</code> and <code>FedData</code></a><ul>
+<li class="chapter" data-level="9.4" data-path="daymet-with-daymetr-and-feddata.html"><a href="daymet-with-daymetr-and-feddata.html"><i class="fa fa-check"></i><b>9.4</b> Daymet with <code>daymetr</code> and <code>FedData</code></a>
+<ul>
 <li class="chapter" data-level="9.4.1" data-path="daymet-with-daymetr-and-feddata.html"><a href="daymet-with-daymetr-and-feddata.html#for-points-data"><i class="fa fa-check"></i><b>9.4.1</b> For points data</a></li>
 <li class="chapter" data-level="9.4.2" data-path="daymet-with-daymetr-and-feddata.html"><a href="daymet-with-daymetr-and-feddata.html#daymet-poly"><i class="fa fa-check"></i><b>9.4.2</b> For polygons data</a></li>
 </ul></li>
@@ -424,19 +483,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.7" data-path="census-with-tidycensus-under-construction.html"><a href="census-with-tidycensus-under-construction.html"><i class="fa fa-check"></i><b>9.7</b> Census with <code>tidycensus</code> (under construction)</a></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
-<li class="chapter" data-level="A" data-path="par-comp.html"><a href="par-comp.html"><i class="fa fa-check"></i><b>A</b> Loop and Parallel Computing</a><ul>
-<li class="chapter" data-level="" data-path="before-you-start-9.html"><a href="before-you-start-9.html"><i class="fa fa-check"></i>Before you start</a><ul>
+<li class="chapter" data-level="A" data-path="par-comp.html"><a href="par-comp.html"><i class="fa fa-check"></i><b>A</b> Loop and Parallel Computing</a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-9.html"><a href="before-you-start-9.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
 <li class="chapter" data-level="" data-path="before-you-start-9.html"><a href="before-you-start-9.html#direction-for-replication-9"><i class="fa fa-check"></i>Direction for replication</a></li>
 <li class="chapter" data-level="" data-path="before-you-start-9.html"><a href="before-you-start-9.html#packages-to-install-and-load"><i class="fa fa-check"></i>Packages to install and load</a></li>
 </ul></li>
-<li class="chapter" data-level="A.1" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html"><i class="fa fa-check"></i><b>A.1</b> Repetitive processes and looping</a><ul>
+<li class="chapter" data-level="A.1" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html"><i class="fa fa-check"></i><b>A.1</b> Repetitive processes and looping</a>
+<ul>
 <li class="chapter" data-level="A.1.1" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html#what-is-looping"><i class="fa fa-check"></i><b>A.1.1</b> What is looping?</a></li>
 <li class="chapter" data-level="A.1.2" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html#for-loop"><i class="fa fa-check"></i><b>A.1.2</b> For loop</a></li>
 <li class="chapter" data-level="A.1.3" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html#for-loop-using-the-lapply-function"><i class="fa fa-check"></i><b>A.1.3</b> For loop using the <code>lapply()</code> function</a></li>
 <li class="chapter" data-level="A.1.4" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html#looping-over-multiple-variables-using-lapply"><i class="fa fa-check"></i><b>A.1.4</b> Looping over multiple variables using lapply()</a></li>
 <li class="chapter" data-level="A.1.5" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html#do-you-really-need-to-loop"><i class="fa fa-check"></i><b>A.1.5</b> Do you really need to loop?</a></li>
 </ul></li>
-<li class="chapter" data-level="A.2" data-path="parcomp.html"><a href="parcomp.html"><i class="fa fa-check"></i><b>A.2</b> Parallelization of embarrassingly parallel processes</a><ul>
+<li class="chapter" data-level="A.2" data-path="parcomp.html"><a href="parcomp.html"><i class="fa fa-check"></i><b>A.2</b> Parallelization of embarrassingly parallel processes</a>
+<ul>
 <li class="chapter" data-level="A.2.1" data-path="parcomp.html"><a href="parcomp.html#mac-or-linux-users"><i class="fa fa-check"></i><b>A.2.1</b> Mac or Linux users</a></li>
 </ul></li>
 </ul></li>
@@ -473,7 +536,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
   gtag('config', 'UA-59758608-3');
 </script>
-<div id="demonstration-2-precision-agriculture" class="section level2">
+
+<div id="demonstration-2-precision-agriculture" class="section level2" number="1.2">
 <h2><span class="header-section-number">1.2</span> Demonstration 2: Precision Agriculture</h2>
 <style>
 .book .book-body .page-wrapper .page-inner section.normal table
@@ -489,7 +553,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   background-color:#fff;
 }
 </style>
-<div id="project-overview-1" class="section level3">
+<div id="project-overview-1" class="section level3" number="1.2.1">
 <h3><span class="header-section-number">1.2.1</span> Project Overview</h3>
 <hr />
 <p><strong>Objectives:</strong></p>
@@ -540,38 +604,38 @@ yield_i = \beta_0 + \beta_1 N_i + \beta_2 N_i^2 + \beta_3 N_i \cdot EC_i + \beta
 <ul>
 <li>Run the following code to install or load (if already installed) the <code>pacman</code> package, and then install or load (if already installed) the listed package inside the <code>pacman::p_load()</code> function.</li>
 </ul>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1"><span class="cf">if</span> (<span class="op">!</span><span class="kw">require</span>(<span class="st">&quot;pacman&quot;</span>)) <span class="kw">install.packages</span>(<span class="st">&quot;pacman&quot;</span>)</a>
-<a class="sourceLine" id="cb30-2" data-line-number="2">pacman<span class="op">::</span><span class="kw">p_load</span>(</a>
-<a class="sourceLine" id="cb30-3" data-line-number="3">  sf, <span class="co"># vector data operations </span></a>
-<a class="sourceLine" id="cb30-4" data-line-number="4">  dplyr, <span class="co"># data wrangling </span></a>
-<a class="sourceLine" id="cb30-5" data-line-number="5">  ggplot2, <span class="co"># for map creation </span></a>
-<a class="sourceLine" id="cb30-6" data-line-number="6">  stargazer, <span class="co"># regression table generation </span></a>
-<a class="sourceLine" id="cb30-7" data-line-number="7">  patchwork <span class="co"># arrange multiple plots </span></a>
-<a class="sourceLine" id="cb30-8" data-line-number="8">)  </a></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="demonstration-2-precision-agriculture.html#cb30-1"></a><span class="cf">if</span> (<span class="op">!</span><span class="kw">require</span>(<span class="st">&quot;pacman&quot;</span>)) <span class="kw">install.packages</span>(<span class="st">&quot;pacman&quot;</span>)</span>
+<span id="cb30-2"><a href="demonstration-2-precision-agriculture.html#cb30-2"></a>pacman<span class="op">::</span><span class="kw">p_load</span>(</span>
+<span id="cb30-3"><a href="demonstration-2-precision-agriculture.html#cb30-3"></a>  sf, <span class="co"># vector data operations </span></span>
+<span id="cb30-4"><a href="demonstration-2-precision-agriculture.html#cb30-4"></a>  dplyr, <span class="co"># data wrangling </span></span>
+<span id="cb30-5"><a href="demonstration-2-precision-agriculture.html#cb30-5"></a>  ggplot2, <span class="co"># for map creation </span></span>
+<span id="cb30-6"><a href="demonstration-2-precision-agriculture.html#cb30-6"></a>  stargazer, <span class="co"># regression table generation </span></span>
+<span id="cb30-7"><a href="demonstration-2-precision-agriculture.html#cb30-7"></a>  patchwork <span class="co"># arrange multiple plots </span></span>
+<span id="cb30-8"><a href="demonstration-2-precision-agriculture.html#cb30-8"></a>)  </span></code></pre></div>
 <ul>
 <li>Run the following code to define the theme for map:</li>
 </ul>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1">theme_for_map &lt;-<span class="st"> </span><span class="kw">theme</span>(</a>
-<a class="sourceLine" id="cb31-2" data-line-number="2">  <span class="dt">axis.ticks =</span> <span class="kw">element_blank</span>(),</a>
-<a class="sourceLine" id="cb31-3" data-line-number="3">  <span class="dt">axis.text=</span> <span class="kw">element_blank</span>(), </a>
-<a class="sourceLine" id="cb31-4" data-line-number="4">  <span class="dt">axis.line =</span> <span class="kw">element_blank</span>(),</a>
-<a class="sourceLine" id="cb31-5" data-line-number="5">  <span class="dt">panel.border =</span> <span class="kw">element_blank</span>(),</a>
-<a class="sourceLine" id="cb31-6" data-line-number="6">  <span class="dt">panel.grid =</span> <span class="kw">element_line</span>(<span class="dt">color=</span><span class="st">&#39;transparent&#39;</span>),</a>
-<a class="sourceLine" id="cb31-7" data-line-number="7">  <span class="dt">panel.background =</span> <span class="kw">element_blank</span>(),</a>
-<a class="sourceLine" id="cb31-8" data-line-number="8">  <span class="dt">plot.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="st">&quot;transparent&quot;</span>,<span class="dt">color=</span><span class="st">&#39;transparent&#39;</span>)</a>
-<a class="sourceLine" id="cb31-9" data-line-number="9">)  </a></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="demonstration-2-precision-agriculture.html#cb31-1"></a>theme_for_map &lt;-<span class="st"> </span><span class="kw">theme</span>(</span>
+<span id="cb31-2"><a href="demonstration-2-precision-agriculture.html#cb31-2"></a>  <span class="dt">axis.ticks =</span> <span class="kw">element_blank</span>(),</span>
+<span id="cb31-3"><a href="demonstration-2-precision-agriculture.html#cb31-3"></a>  <span class="dt">axis.text=</span> <span class="kw">element_blank</span>(), </span>
+<span id="cb31-4"><a href="demonstration-2-precision-agriculture.html#cb31-4"></a>  <span class="dt">axis.line =</span> <span class="kw">element_blank</span>(),</span>
+<span id="cb31-5"><a href="demonstration-2-precision-agriculture.html#cb31-5"></a>  <span class="dt">panel.border =</span> <span class="kw">element_blank</span>(),</span>
+<span id="cb31-6"><a href="demonstration-2-precision-agriculture.html#cb31-6"></a>  <span class="dt">panel.grid =</span> <span class="kw">element_line</span>(<span class="dt">color=</span><span class="st">&#39;transparent&#39;</span>),</span>
+<span id="cb31-7"><a href="demonstration-2-precision-agriculture.html#cb31-7"></a>  <span class="dt">panel.background =</span> <span class="kw">element_blank</span>(),</span>
+<span id="cb31-8"><a href="demonstration-2-precision-agriculture.html#cb31-8"></a>  <span class="dt">plot.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="st">&quot;transparent&quot;</span>,<span class="dt">color=</span><span class="st">&#39;transparent&#39;</span>)</span>
+<span id="cb31-9"><a href="demonstration-2-precision-agriculture.html#cb31-9"></a>)  </span></code></pre></div>
 </div>
-<div id="project-demonstration-1" class="section level3">
+<div id="project-demonstration-1" class="section level3" number="1.2.2">
 <h3><span class="header-section-number">1.2.2</span> Project Demonstration</h3>
 <p>We have already run a whole-field randomized nitrogen experiment on a 80-acre field. Let’s import the trial design data</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1"><span class="co">#--- read the trial design data ---#</span></a>
-<a class="sourceLine" id="cb32-2" data-line-number="2">trial_design_<span class="dv">16</span> &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;./Data/trial_design.rds&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="demonstration-2-precision-agriculture.html#cb32-1"></a><span class="co">#--- read the trial design data ---#</span></span>
+<span id="cb32-2"><a href="demonstration-2-precision-agriculture.html#cb32-2"></a>trial_design_<span class="dv">16</span> &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;./Data/trial_design.rds&quot;</span>)</span></code></pre></div>
 <p>Figure <a href="demonstration-2-precision-agriculture.html#fig:trial-fig">1.4</a> is the map of the trial design generated using <code>ggplot2</code> package.</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1"><span class="co">#--- map of trial design ---#</span></a>
-<a class="sourceLine" id="cb33-2" data-line-number="2"><span class="kw">ggplot</span>(<span class="dt">data =</span> trial_design_<span class="dv">16</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb33-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_sf</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> <span class="kw">factor</span>(NRATE))) <span class="op">+</span></a>
-<a class="sourceLine" id="cb33-4" data-line-number="4"><span class="st">  </span><span class="kw">scale_fill_brewer</span>(<span class="dt">name =</span> <span class="st">&quot;N&quot;</span>, <span class="dt">palette =</span> <span class="st">&quot;OrRd&quot;</span>, <span class="dt">direction =</span> <span class="dv">1</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb33-5" data-line-number="5"><span class="st">  </span>theme_for_map</a></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="demonstration-2-precision-agriculture.html#cb33-1"></a><span class="co">#--- map of trial design ---#</span></span>
+<span id="cb33-2"><a href="demonstration-2-precision-agriculture.html#cb33-2"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> trial_design_<span class="dv">16</span>) <span class="op">+</span></span>
+<span id="cb33-3"><a href="demonstration-2-precision-agriculture.html#cb33-3"></a><span class="st">  </span><span class="kw">geom_sf</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> <span class="kw">factor</span>(NRATE))) <span class="op">+</span></span>
+<span id="cb33-4"><a href="demonstration-2-precision-agriculture.html#cb33-4"></a><span class="st">  </span><span class="kw">scale_fill_brewer</span>(<span class="dt">name =</span> <span class="st">&quot;N&quot;</span>, <span class="dt">palette =</span> <span class="st">&quot;OrRd&quot;</span>, <span class="dt">direction =</span> <span class="dv">1</span>) <span class="op">+</span></span>
+<span id="cb33-5"><a href="demonstration-2-precision-agriculture.html#cb33-5"></a><span class="st">  </span>theme_for_map</span></code></pre></div>
 <div class="figure"><span id="fig:trial-fig"></span>
 <img src="R_GIS_Book_files/figure-html/trial-fig-1.png" alt="The Experimental Design of the Randomize Nitrogen Trial" width="672" />
 <p class="caption">
@@ -580,38 +644,38 @@ Figure 1.4: The Experimental Design of the Randomize Nitrogen Trial
 </div>
 <hr />
 <p>We have collected yield, as-applied NH3, and EC data. Let’s read in these datasets:<a href="#fn15" class="footnote-ref" id="fnref15"><sup>15</sup></a></p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1"><span class="co">#--- read yield data (sf data saved as rds) ---#</span></a>
-<a class="sourceLine" id="cb34-2" data-line-number="2">yield &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;./Data/yield.rds&quot;</span>)</a>
-<a class="sourceLine" id="cb34-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb34-4" data-line-number="4"><span class="co">#--- read NH3 data (GeoPackage data) ---#</span></a>
-<a class="sourceLine" id="cb34-5" data-line-number="5">NH3_data &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&quot;Data/NH3.gpkg&quot;</span>)</a>
-<a class="sourceLine" id="cb34-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb34-7" data-line-number="7"><span class="co">#--- read ec data (shape file) ---#</span></a>
-<a class="sourceLine" id="cb34-8" data-line-number="8">ec &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="dt">dsn=</span><span class="st">&quot;Data&quot;</span>, <span class="st">&quot;ec&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="demonstration-2-precision-agriculture.html#cb34-1"></a><span class="co">#--- read yield data (sf data saved as rds) ---#</span></span>
+<span id="cb34-2"><a href="demonstration-2-precision-agriculture.html#cb34-2"></a>yield &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;./Data/yield.rds&quot;</span>)</span>
+<span id="cb34-3"><a href="demonstration-2-precision-agriculture.html#cb34-3"></a></span>
+<span id="cb34-4"><a href="demonstration-2-precision-agriculture.html#cb34-4"></a><span class="co">#--- read NH3 data (GeoPackage data) ---#</span></span>
+<span id="cb34-5"><a href="demonstration-2-precision-agriculture.html#cb34-5"></a>NH3_data &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&quot;Data/NH3.gpkg&quot;</span>)</span>
+<span id="cb34-6"><a href="demonstration-2-precision-agriculture.html#cb34-6"></a></span>
+<span id="cb34-7"><a href="demonstration-2-precision-agriculture.html#cb34-7"></a><span class="co">#--- read ec data (shape file) ---#</span></span>
+<span id="cb34-8"><a href="demonstration-2-precision-agriculture.html#cb34-8"></a>ec &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="dt">dsn=</span><span class="st">&quot;Data&quot;</span>, <span class="st">&quot;ec&quot;</span>)</span></code></pre></div>
 <p>Figure <a href="demonstration-2-precision-agriculture.html#fig:Demo2-show-the-map">1.5</a> shows the spatial distribution of the three variables. A map of each variable was made first, and then they are combined into one figure using the <code>patchwork</code> package<a href="#fn16" class="footnote-ref" id="fnref16"><sup>16</sup></a>.</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1"><span class="co">#--- yield map ---#</span></a>
-<a class="sourceLine" id="cb35-2" data-line-number="2">g_yield &lt;-<span class="st"> </span><span class="kw">ggplot</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb35-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> trial_design_<span class="dv">16</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb35-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> yield, <span class="kw">aes</span>(<span class="dt">color =</span> yield), <span class="dt">size =</span> <span class="fl">0.5</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb35-5" data-line-number="5"><span class="st">  </span><span class="kw">scale_color_distiller</span>(<span class="dt">name =</span> <span class="st">&quot;Yield&quot;</span>, <span class="dt">palette =</span> <span class="st">&quot;OrRd&quot;</span>, <span class="dt">direction =</span> <span class="dv">1</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb35-6" data-line-number="6"><span class="st">  </span>theme_for_map</a>
-<a class="sourceLine" id="cb35-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb35-8" data-line-number="8"><span class="co">#--- NH3 map ---#</span></a>
-<a class="sourceLine" id="cb35-9" data-line-number="9">g_NH3 &lt;-<span class="st"> </span><span class="kw">ggplot</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb35-10" data-line-number="10"><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> trial_design_<span class="dv">16</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb35-11" data-line-number="11"><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> NH3_data, <span class="kw">aes</span>(<span class="dt">color =</span> aa_NH3), <span class="dt">size =</span> <span class="fl">0.5</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb35-12" data-line-number="12"><span class="st">  </span><span class="kw">scale_color_distiller</span>(<span class="dt">name =</span> <span class="st">&quot;NH3&quot;</span>, <span class="dt">palette =</span> <span class="st">&quot;OrRd&quot;</span>, <span class="dt">direction =</span> <span class="dv">1</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb35-13" data-line-number="13"><span class="st">  </span>theme_for_map</a>
-<a class="sourceLine" id="cb35-14" data-line-number="14"></a>
-<a class="sourceLine" id="cb35-15" data-line-number="15"><span class="co">#--- NH3 map ---#</span></a>
-<a class="sourceLine" id="cb35-16" data-line-number="16">g_ec &lt;-<span class="st"> </span><span class="kw">ggplot</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb35-17" data-line-number="17"><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> trial_design_<span class="dv">16</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb35-18" data-line-number="18"><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> ec, <span class="kw">aes</span>(<span class="dt">color =</span> ec), <span class="dt">size =</span> <span class="fl">0.5</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb35-19" data-line-number="19"><span class="st">  </span><span class="kw">scale_color_distiller</span>(<span class="dt">name =</span> <span class="st">&quot;EC&quot;</span>, <span class="dt">palette =</span> <span class="st">&quot;OrRd&quot;</span>, <span class="dt">direction =</span> <span class="dv">1</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb35-20" data-line-number="20"><span class="st">  </span>theme_for_map</a>
-<a class="sourceLine" id="cb35-21" data-line-number="21"></a>
-<a class="sourceLine" id="cb35-22" data-line-number="22"><span class="co">#--- stack the figures vertically and display (enabled by the patchwork package) ---#</span></a>
-<a class="sourceLine" id="cb35-23" data-line-number="23">g_yield<span class="op">/</span>g_NH3<span class="op">/</span>g_ec</a></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="demonstration-2-precision-agriculture.html#cb35-1"></a><span class="co">#--- yield map ---#</span></span>
+<span id="cb35-2"><a href="demonstration-2-precision-agriculture.html#cb35-2"></a>g_yield &lt;-<span class="st"> </span><span class="kw">ggplot</span>() <span class="op">+</span></span>
+<span id="cb35-3"><a href="demonstration-2-precision-agriculture.html#cb35-3"></a><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> trial_design_<span class="dv">16</span>) <span class="op">+</span></span>
+<span id="cb35-4"><a href="demonstration-2-precision-agriculture.html#cb35-4"></a><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> yield, <span class="kw">aes</span>(<span class="dt">color =</span> yield), <span class="dt">size =</span> <span class="fl">0.5</span>) <span class="op">+</span></span>
+<span id="cb35-5"><a href="demonstration-2-precision-agriculture.html#cb35-5"></a><span class="st">  </span><span class="kw">scale_color_distiller</span>(<span class="dt">name =</span> <span class="st">&quot;Yield&quot;</span>, <span class="dt">palette =</span> <span class="st">&quot;OrRd&quot;</span>, <span class="dt">direction =</span> <span class="dv">1</span>) <span class="op">+</span></span>
+<span id="cb35-6"><a href="demonstration-2-precision-agriculture.html#cb35-6"></a><span class="st">  </span>theme_for_map</span>
+<span id="cb35-7"><a href="demonstration-2-precision-agriculture.html#cb35-7"></a></span>
+<span id="cb35-8"><a href="demonstration-2-precision-agriculture.html#cb35-8"></a><span class="co">#--- NH3 map ---#</span></span>
+<span id="cb35-9"><a href="demonstration-2-precision-agriculture.html#cb35-9"></a>g_NH3 &lt;-<span class="st"> </span><span class="kw">ggplot</span>() <span class="op">+</span></span>
+<span id="cb35-10"><a href="demonstration-2-precision-agriculture.html#cb35-10"></a><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> trial_design_<span class="dv">16</span>) <span class="op">+</span></span>
+<span id="cb35-11"><a href="demonstration-2-precision-agriculture.html#cb35-11"></a><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> NH3_data, <span class="kw">aes</span>(<span class="dt">color =</span> aa_NH3), <span class="dt">size =</span> <span class="fl">0.5</span>) <span class="op">+</span></span>
+<span id="cb35-12"><a href="demonstration-2-precision-agriculture.html#cb35-12"></a><span class="st">  </span><span class="kw">scale_color_distiller</span>(<span class="dt">name =</span> <span class="st">&quot;NH3&quot;</span>, <span class="dt">palette =</span> <span class="st">&quot;OrRd&quot;</span>, <span class="dt">direction =</span> <span class="dv">1</span>) <span class="op">+</span></span>
+<span id="cb35-13"><a href="demonstration-2-precision-agriculture.html#cb35-13"></a><span class="st">  </span>theme_for_map</span>
+<span id="cb35-14"><a href="demonstration-2-precision-agriculture.html#cb35-14"></a></span>
+<span id="cb35-15"><a href="demonstration-2-precision-agriculture.html#cb35-15"></a><span class="co">#--- NH3 map ---#</span></span>
+<span id="cb35-16"><a href="demonstration-2-precision-agriculture.html#cb35-16"></a>g_ec &lt;-<span class="st"> </span><span class="kw">ggplot</span>() <span class="op">+</span></span>
+<span id="cb35-17"><a href="demonstration-2-precision-agriculture.html#cb35-17"></a><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> trial_design_<span class="dv">16</span>) <span class="op">+</span></span>
+<span id="cb35-18"><a href="demonstration-2-precision-agriculture.html#cb35-18"></a><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> ec, <span class="kw">aes</span>(<span class="dt">color =</span> ec), <span class="dt">size =</span> <span class="fl">0.5</span>) <span class="op">+</span></span>
+<span id="cb35-19"><a href="demonstration-2-precision-agriculture.html#cb35-19"></a><span class="st">  </span><span class="kw">scale_color_distiller</span>(<span class="dt">name =</span> <span class="st">&quot;EC&quot;</span>, <span class="dt">palette =</span> <span class="st">&quot;OrRd&quot;</span>, <span class="dt">direction =</span> <span class="dv">1</span>) <span class="op">+</span></span>
+<span id="cb35-20"><a href="demonstration-2-precision-agriculture.html#cb35-20"></a><span class="st">  </span>theme_for_map</span>
+<span id="cb35-21"><a href="demonstration-2-precision-agriculture.html#cb35-21"></a></span>
+<span id="cb35-22"><a href="demonstration-2-precision-agriculture.html#cb35-22"></a><span class="co">#--- stack the figures vertically and display (enabled by the patchwork package) ---#</span></span>
+<span id="cb35-23"><a href="demonstration-2-precision-agriculture.html#cb35-23"></a>g_yield<span class="op">/</span>g_NH3<span class="op">/</span>g_ec</span></code></pre></div>
 <div class="figure"><span id="fig:Demo2-show-the-map"></span>
 <img src="R_GIS_Book_files/figure-html/Demo2-show-the-map-1.png" alt="Spatial distribution of yield, NH3, and EC" width="672" />
 <p class="caption">
@@ -621,62 +685,62 @@ Figure 1.5: Spatial distribution of yield, NH3, and EC
 <hr />
 <p>Instead of using plot as the observation unit, we would like to create subplots inside each of the plots and make them the unit of analysis because it would avoid masking the within-plot spatial heterogeneity of EC. Here, we divide each plot into six subplots.</p>
 <p>The following function generate subplots by supplying a trial design and the number of subplots you would like to create within each plot:</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1">gen_subplots &lt;-<span class="st"> </span><span class="cf">function</span>(plot, num_sub) {</a>
-<a class="sourceLine" id="cb36-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb36-3" data-line-number="3">  <span class="co">#--- extract geometry information ---#</span></a>
-<a class="sourceLine" id="cb36-4" data-line-number="4">  geom_mat &lt;-<span class="st"> </span><span class="kw">st_geometry</span>(plot)[[<span class="dv">1</span>]][[<span class="dv">1</span>]]</a>
-<a class="sourceLine" id="cb36-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb36-6" data-line-number="6">  <span class="co">#--- upper left ---#</span></a>
-<a class="sourceLine" id="cb36-7" data-line-number="7">  top_start&lt;-<span class="st"> </span>(geom_mat[<span class="dv">2</span>,])</a>
-<a class="sourceLine" id="cb36-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb36-9" data-line-number="9">  <span class="co">#--- upper right ---#</span></a>
-<a class="sourceLine" id="cb36-10" data-line-number="10">  top_end&lt;-<span class="st"> </span>(geom_mat[<span class="dv">3</span>,])</a>
-<a class="sourceLine" id="cb36-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb36-12" data-line-number="12">  <span class="co">#--- lower right ---#</span></a>
-<a class="sourceLine" id="cb36-13" data-line-number="13">  bot_start&lt;-<span class="st"> </span>(geom_mat[<span class="dv">1</span>,])</a>
-<a class="sourceLine" id="cb36-14" data-line-number="14"></a>
-<a class="sourceLine" id="cb36-15" data-line-number="15">  <span class="co">#--- lower left ---#</span></a>
-<a class="sourceLine" id="cb36-16" data-line-number="16">  bot_end&lt;-<span class="st"> </span>(geom_mat[<span class="dv">4</span>,])</a>
-<a class="sourceLine" id="cb36-17" data-line-number="17"></a>
-<a class="sourceLine" id="cb36-18" data-line-number="18">  top_step_vec &lt;-<span class="st"> </span>(top_end<span class="op">-</span>top_start)<span class="op">/</span>num_sub</a>
-<a class="sourceLine" id="cb36-19" data-line-number="19">  bot_step_vec &lt;-<span class="st"> </span>(bot_end<span class="op">-</span>bot_start)<span class="op">/</span>num_sub</a>
-<a class="sourceLine" id="cb36-20" data-line-number="20"></a>
-<a class="sourceLine" id="cb36-21" data-line-number="21">  <span class="co"># create a list for the sub-grid</span></a>
-<a class="sourceLine" id="cb36-22" data-line-number="22"></a>
-<a class="sourceLine" id="cb36-23" data-line-number="23">  subplots_ls &lt;-<span class="st"> </span><span class="kw">list</span>()</a>
-<a class="sourceLine" id="cb36-24" data-line-number="24"></a>
-<a class="sourceLine" id="cb36-25" data-line-number="25">  <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>num_sub){</a>
-<a class="sourceLine" id="cb36-26" data-line-number="26"></a>
-<a class="sourceLine" id="cb36-27" data-line-number="27">    rec_pt1 &lt;-<span class="st"> </span>top_start <span class="op">+</span><span class="st"> </span>(j<span class="dv">-1</span>)<span class="op">*</span>top_step_vec</a>
-<a class="sourceLine" id="cb36-28" data-line-number="28">    rec_pt2 &lt;-<span class="st"> </span>top_start <span class="op">+</span><span class="st"> </span>j<span class="op">*</span>top_step_vec</a>
-<a class="sourceLine" id="cb36-29" data-line-number="29">    rec_pt3 &lt;-<span class="st"> </span>bot_start <span class="op">+</span><span class="st"> </span>j<span class="op">*</span>bot_step_vec</a>
-<a class="sourceLine" id="cb36-30" data-line-number="30">    rec_pt4 &lt;-<span class="st"> </span>bot_start <span class="op">+</span><span class="st"> </span>(j<span class="dv">-1</span>)<span class="op">*</span>bot_step_vec</a>
-<a class="sourceLine" id="cb36-31" data-line-number="31"></a>
-<a class="sourceLine" id="cb36-32" data-line-number="32">    rec_j &lt;-<span class="st"> </span><span class="kw">rbind</span>(rec_pt1,rec_pt2,rec_pt3,rec_pt4,rec_pt1)</a>
-<a class="sourceLine" id="cb36-33" data-line-number="33"></a>
-<a class="sourceLine" id="cb36-34" data-line-number="34">    temp_quater_sf &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="kw">st_polygon</span>(<span class="kw">list</span>(rec_j))) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb36-35" data-line-number="35"><span class="st">      </span><span class="kw">st_sfc</span>(.) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb36-36" data-line-number="36"><span class="st">      </span><span class="kw">st_sf</span>(., <span class="dt">crs =</span> <span class="dv">26914</span>)</a>
-<a class="sourceLine" id="cb36-37" data-line-number="37"></a>
-<a class="sourceLine" id="cb36-38" data-line-number="38">    subplots_ls[[j]] &lt;-<span class="st"> </span>temp_quater_sf</a>
-<a class="sourceLine" id="cb36-39" data-line-number="39"></a>
-<a class="sourceLine" id="cb36-40" data-line-number="40">  }</a>
-<a class="sourceLine" id="cb36-41" data-line-number="41"></a>
-<a class="sourceLine" id="cb36-42" data-line-number="42">  <span class="kw">return</span>(<span class="kw">do.call</span>(<span class="st">&#39;rbind&#39;</span>,subplots_ls))</a>
-<a class="sourceLine" id="cb36-43" data-line-number="43"></a>
-<a class="sourceLine" id="cb36-44" data-line-number="44">}</a></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="demonstration-2-precision-agriculture.html#cb36-1"></a>gen_subplots &lt;-<span class="st"> </span><span class="cf">function</span>(plot, num_sub) {</span>
+<span id="cb36-2"><a href="demonstration-2-precision-agriculture.html#cb36-2"></a></span>
+<span id="cb36-3"><a href="demonstration-2-precision-agriculture.html#cb36-3"></a>  <span class="co">#--- extract geometry information ---#</span></span>
+<span id="cb36-4"><a href="demonstration-2-precision-agriculture.html#cb36-4"></a>  geom_mat &lt;-<span class="st"> </span><span class="kw">st_geometry</span>(plot)[[<span class="dv">1</span>]][[<span class="dv">1</span>]]</span>
+<span id="cb36-5"><a href="demonstration-2-precision-agriculture.html#cb36-5"></a></span>
+<span id="cb36-6"><a href="demonstration-2-precision-agriculture.html#cb36-6"></a>  <span class="co">#--- upper left ---#</span></span>
+<span id="cb36-7"><a href="demonstration-2-precision-agriculture.html#cb36-7"></a>  top_start&lt;-<span class="st"> </span>(geom_mat[<span class="dv">2</span>,])</span>
+<span id="cb36-8"><a href="demonstration-2-precision-agriculture.html#cb36-8"></a></span>
+<span id="cb36-9"><a href="demonstration-2-precision-agriculture.html#cb36-9"></a>  <span class="co">#--- upper right ---#</span></span>
+<span id="cb36-10"><a href="demonstration-2-precision-agriculture.html#cb36-10"></a>  top_end&lt;-<span class="st"> </span>(geom_mat[<span class="dv">3</span>,])</span>
+<span id="cb36-11"><a href="demonstration-2-precision-agriculture.html#cb36-11"></a></span>
+<span id="cb36-12"><a href="demonstration-2-precision-agriculture.html#cb36-12"></a>  <span class="co">#--- lower right ---#</span></span>
+<span id="cb36-13"><a href="demonstration-2-precision-agriculture.html#cb36-13"></a>  bot_start&lt;-<span class="st"> </span>(geom_mat[<span class="dv">1</span>,])</span>
+<span id="cb36-14"><a href="demonstration-2-precision-agriculture.html#cb36-14"></a></span>
+<span id="cb36-15"><a href="demonstration-2-precision-agriculture.html#cb36-15"></a>  <span class="co">#--- lower left ---#</span></span>
+<span id="cb36-16"><a href="demonstration-2-precision-agriculture.html#cb36-16"></a>  bot_end&lt;-<span class="st"> </span>(geom_mat[<span class="dv">4</span>,])</span>
+<span id="cb36-17"><a href="demonstration-2-precision-agriculture.html#cb36-17"></a></span>
+<span id="cb36-18"><a href="demonstration-2-precision-agriculture.html#cb36-18"></a>  top_step_vec &lt;-<span class="st"> </span>(top_end<span class="op">-</span>top_start)<span class="op">/</span>num_sub</span>
+<span id="cb36-19"><a href="demonstration-2-precision-agriculture.html#cb36-19"></a>  bot_step_vec &lt;-<span class="st"> </span>(bot_end<span class="op">-</span>bot_start)<span class="op">/</span>num_sub</span>
+<span id="cb36-20"><a href="demonstration-2-precision-agriculture.html#cb36-20"></a></span>
+<span id="cb36-21"><a href="demonstration-2-precision-agriculture.html#cb36-21"></a>  <span class="co"># create a list for the sub-grid</span></span>
+<span id="cb36-22"><a href="demonstration-2-precision-agriculture.html#cb36-22"></a></span>
+<span id="cb36-23"><a href="demonstration-2-precision-agriculture.html#cb36-23"></a>  subplots_ls &lt;-<span class="st"> </span><span class="kw">list</span>()</span>
+<span id="cb36-24"><a href="demonstration-2-precision-agriculture.html#cb36-24"></a></span>
+<span id="cb36-25"><a href="demonstration-2-precision-agriculture.html#cb36-25"></a>  <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>num_sub){</span>
+<span id="cb36-26"><a href="demonstration-2-precision-agriculture.html#cb36-26"></a></span>
+<span id="cb36-27"><a href="demonstration-2-precision-agriculture.html#cb36-27"></a>    rec_pt1 &lt;-<span class="st"> </span>top_start <span class="op">+</span><span class="st"> </span>(j<span class="dv">-1</span>)<span class="op">*</span>top_step_vec</span>
+<span id="cb36-28"><a href="demonstration-2-precision-agriculture.html#cb36-28"></a>    rec_pt2 &lt;-<span class="st"> </span>top_start <span class="op">+</span><span class="st"> </span>j<span class="op">*</span>top_step_vec</span>
+<span id="cb36-29"><a href="demonstration-2-precision-agriculture.html#cb36-29"></a>    rec_pt3 &lt;-<span class="st"> </span>bot_start <span class="op">+</span><span class="st"> </span>j<span class="op">*</span>bot_step_vec</span>
+<span id="cb36-30"><a href="demonstration-2-precision-agriculture.html#cb36-30"></a>    rec_pt4 &lt;-<span class="st"> </span>bot_start <span class="op">+</span><span class="st"> </span>(j<span class="dv">-1</span>)<span class="op">*</span>bot_step_vec</span>
+<span id="cb36-31"><a href="demonstration-2-precision-agriculture.html#cb36-31"></a></span>
+<span id="cb36-32"><a href="demonstration-2-precision-agriculture.html#cb36-32"></a>    rec_j &lt;-<span class="st"> </span><span class="kw">rbind</span>(rec_pt1,rec_pt2,rec_pt3,rec_pt4,rec_pt1)</span>
+<span id="cb36-33"><a href="demonstration-2-precision-agriculture.html#cb36-33"></a></span>
+<span id="cb36-34"><a href="demonstration-2-precision-agriculture.html#cb36-34"></a>    temp_quater_sf &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="kw">st_polygon</span>(<span class="kw">list</span>(rec_j))) <span class="op">%&gt;%</span></span>
+<span id="cb36-35"><a href="demonstration-2-precision-agriculture.html#cb36-35"></a><span class="st">      </span><span class="kw">st_sfc</span>(.) <span class="op">%&gt;%</span></span>
+<span id="cb36-36"><a href="demonstration-2-precision-agriculture.html#cb36-36"></a><span class="st">      </span><span class="kw">st_sf</span>(., <span class="dt">crs =</span> <span class="dv">26914</span>)</span>
+<span id="cb36-37"><a href="demonstration-2-precision-agriculture.html#cb36-37"></a></span>
+<span id="cb36-38"><a href="demonstration-2-precision-agriculture.html#cb36-38"></a>    subplots_ls[[j]] &lt;-<span class="st"> </span>temp_quater_sf</span>
+<span id="cb36-39"><a href="demonstration-2-precision-agriculture.html#cb36-39"></a></span>
+<span id="cb36-40"><a href="demonstration-2-precision-agriculture.html#cb36-40"></a>  }</span>
+<span id="cb36-41"><a href="demonstration-2-precision-agriculture.html#cb36-41"></a></span>
+<span id="cb36-42"><a href="demonstration-2-precision-agriculture.html#cb36-42"></a>  <span class="kw">return</span>(<span class="kw">do.call</span>(<span class="st">&#39;rbind&#39;</span>,subplots_ls))</span>
+<span id="cb36-43"><a href="demonstration-2-precision-agriculture.html#cb36-43"></a></span>
+<span id="cb36-44"><a href="demonstration-2-precision-agriculture.html#cb36-44"></a>}</span></code></pre></div>
 <p>Let’s run the function to create six subplots within each of the experimental plots.</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1"><span class="co">#--- generate subplots ---#</span></a>
-<a class="sourceLine" id="cb37-2" data-line-number="2">subplots &lt;-<span class="st"> </span><span class="kw">lapply</span>(</a>
-<a class="sourceLine" id="cb37-3" data-line-number="3">  <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(trial_design_<span class="dv">16</span>), </a>
-<a class="sourceLine" id="cb37-4" data-line-number="4">  <span class="cf">function</span>(x) <span class="kw">gen_subplots</span>(trial_design_<span class="dv">16</span>[x, ], <span class="dv">6</span>)</a>
-<a class="sourceLine" id="cb37-5" data-line-number="5">  ) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb37-6" data-line-number="6"><span class="st">  </span><span class="kw">do.call</span>(<span class="st">&#39;rbind&#39;</span>, .) </a></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="demonstration-2-precision-agriculture.html#cb37-1"></a><span class="co">#--- generate subplots ---#</span></span>
+<span id="cb37-2"><a href="demonstration-2-precision-agriculture.html#cb37-2"></a>subplots &lt;-<span class="st"> </span><span class="kw">lapply</span>(</span>
+<span id="cb37-3"><a href="demonstration-2-precision-agriculture.html#cb37-3"></a>  <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(trial_design_<span class="dv">16</span>), </span>
+<span id="cb37-4"><a href="demonstration-2-precision-agriculture.html#cb37-4"></a>  <span class="cf">function</span>(x) <span class="kw">gen_subplots</span>(trial_design_<span class="dv">16</span>[x, ], <span class="dv">6</span>)</span>
+<span id="cb37-5"><a href="demonstration-2-precision-agriculture.html#cb37-5"></a>  ) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb37-6"><a href="demonstration-2-precision-agriculture.html#cb37-6"></a><span class="st">  </span><span class="kw">do.call</span>(<span class="st">&#39;rbind&#39;</span>, .) </span></code></pre></div>
 <p>Figure <a href="demonstration-2-precision-agriculture.html#fig:map-subgrid">1.6</a> is a map of the subplots generated.</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1"><span class="co">#--- here is what subplots look like ---#</span></a>
-<a class="sourceLine" id="cb38-2" data-line-number="2"><span class="kw">ggplot</span>(subplots) <span class="op">+</span></a>
-<a class="sourceLine" id="cb38-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_sf</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb38-4" data-line-number="4"><span class="st">  </span>theme_for_map</a></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="demonstration-2-precision-agriculture.html#cb38-1"></a><span class="co">#--- here is what subplots look like ---#</span></span>
+<span id="cb38-2"><a href="demonstration-2-precision-agriculture.html#cb38-2"></a><span class="kw">ggplot</span>(subplots) <span class="op">+</span></span>
+<span id="cb38-3"><a href="demonstration-2-precision-agriculture.html#cb38-3"></a><span class="st">  </span><span class="kw">geom_sf</span>() <span class="op">+</span></span>
+<span id="cb38-4"><a href="demonstration-2-precision-agriculture.html#cb38-4"></a><span class="st">  </span>theme_for_map</span></code></pre></div>
 <div class="figure"><span id="fig:map-subgrid"></span>
 <img src="R_GIS_Book_files/figure-html/map-subgrid-1.png" alt="Map of the subplots" width="672" />
 <p class="caption">
@@ -685,15 +749,15 @@ Figure 1.6: Map of the subplots
 </div>
 <hr />
 <p>We now identify the mean value of corn yield, nitrogen rate, and EC for each of the subplots using <code>sf::aggregate()</code> and <code>sf::st_join()</code>.</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1">(</a>
-<a class="sourceLine" id="cb39-2" data-line-number="2">reg_data &lt;-<span class="st"> </span>subplots <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb39-3" data-line-number="3"><span class="st">  </span><span class="co">#--- yield ---#</span></a>
-<a class="sourceLine" id="cb39-4" data-line-number="4"><span class="st">  </span><span class="kw">st_join</span>(., <span class="kw">aggregate</span>(yield, ., mean), <span class="dt">join =</span> st_equals) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb39-5" data-line-number="5"><span class="st">  </span><span class="co">#--- nitrogen ---#</span></a>
-<a class="sourceLine" id="cb39-6" data-line-number="6"><span class="st">  </span><span class="kw">st_join</span>(., <span class="kw">aggregate</span>(NH3_data, ., mean), <span class="dt">join =</span> st_equals) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb39-7" data-line-number="7"><span class="st">  </span><span class="co">#--- EC ---#</span></a>
-<a class="sourceLine" id="cb39-8" data-line-number="8"><span class="st">  </span><span class="kw">st_join</span>(., <span class="kw">aggregate</span>(ec, ., mean), <span class="dt">join =</span> st_equals)</a>
-<a class="sourceLine" id="cb39-9" data-line-number="9">)</a></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="demonstration-2-precision-agriculture.html#cb39-1"></a>(</span>
+<span id="cb39-2"><a href="demonstration-2-precision-agriculture.html#cb39-2"></a>reg_data &lt;-<span class="st"> </span>subplots <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb39-3"><a href="demonstration-2-precision-agriculture.html#cb39-3"></a><span class="st">  </span><span class="co">#--- yield ---#</span></span>
+<span id="cb39-4"><a href="demonstration-2-precision-agriculture.html#cb39-4"></a><span class="st">  </span><span class="kw">st_join</span>(., <span class="kw">aggregate</span>(yield, ., mean), <span class="dt">join =</span> st_equals) <span class="op">%&gt;%</span></span>
+<span id="cb39-5"><a href="demonstration-2-precision-agriculture.html#cb39-5"></a><span class="st">  </span><span class="co">#--- nitrogen ---#</span></span>
+<span id="cb39-6"><a href="demonstration-2-precision-agriculture.html#cb39-6"></a><span class="st">  </span><span class="kw">st_join</span>(., <span class="kw">aggregate</span>(NH3_data, ., mean), <span class="dt">join =</span> st_equals) <span class="op">%&gt;%</span></span>
+<span id="cb39-7"><a href="demonstration-2-precision-agriculture.html#cb39-7"></a><span class="st">  </span><span class="co">#--- EC ---#</span></span>
+<span id="cb39-8"><a href="demonstration-2-precision-agriculture.html#cb39-8"></a><span class="st">  </span><span class="kw">st_join</span>(., <span class="kw">aggregate</span>(ec, ., mean), <span class="dt">join =</span> st_equals)</span>
+<span id="cb39-9"><a href="demonstration-2-precision-agriculture.html#cb39-9"></a>)</span></code></pre></div>
 <pre><code>Simple feature collection with 816 features and 3 fields
 geometry type:  POLYGON
 dimension:      XY
@@ -712,18 +776,18 @@ First 10 features:
 9  221.1820 178.9585 33.01000 POLYGON ((560227 4533430, 5...
 10 219.4659 179.0057 41.89750 POLYGON ((560240.2 4533430,...</code></pre>
 <p>Here are the visualization of the subplot-level data (Figure <a href="demonstration-2-precision-agriculture.html#fig:Demo2-subplot-fig">1.7</a>):</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1">(<span class="kw">ggplot</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb41-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> reg_data, <span class="kw">aes</span>(<span class="dt">fill =</span> yield), <span class="dt">color =</span> <span class="ot">NA</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb41-3" data-line-number="3"><span class="st">  </span><span class="kw">scale_fill_distiller</span>(<span class="dt">name =</span> <span class="st">&quot;Yield&quot;</span>, <span class="dt">palette =</span> <span class="st">&quot;OrRd&quot;</span>, <span class="dt">direction =</span> <span class="dv">1</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb41-4" data-line-number="4"><span class="st">  </span>theme_for_map)<span class="op">/</span></a>
-<a class="sourceLine" id="cb41-5" data-line-number="5">(<span class="kw">ggplot</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb41-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> reg_data, <span class="kw">aes</span>(<span class="dt">fill =</span> aa_NH3), <span class="dt">color =</span> <span class="ot">NA</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb41-7" data-line-number="7"><span class="st">  </span><span class="kw">scale_fill_distiller</span>(<span class="dt">name =</span> <span class="st">&quot;NH3&quot;</span>, <span class="dt">palette =</span> <span class="st">&quot;OrRd&quot;</span>, <span class="dt">direction =</span> <span class="dv">1</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb41-8" data-line-number="8"><span class="st">  </span>theme_for_map)<span class="op">/</span></a>
-<a class="sourceLine" id="cb41-9" data-line-number="9">(<span class="kw">ggplot</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb41-10" data-line-number="10"><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> reg_data, <span class="kw">aes</span>(<span class="dt">fill =</span> ec), <span class="dt">color =</span> <span class="ot">NA</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb41-11" data-line-number="11"><span class="st">  </span><span class="kw">scale_fill_distiller</span>(<span class="dt">name =</span> <span class="st">&quot;EC&quot;</span>, <span class="dt">palette =</span> <span class="st">&quot;OrRd&quot;</span>, <span class="dt">direction =</span> <span class="dv">1</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb41-12" data-line-number="12"><span class="st">  </span>theme_for_map)</a></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="demonstration-2-precision-agriculture.html#cb41-1"></a>(<span class="kw">ggplot</span>() <span class="op">+</span></span>
+<span id="cb41-2"><a href="demonstration-2-precision-agriculture.html#cb41-2"></a><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> reg_data, <span class="kw">aes</span>(<span class="dt">fill =</span> yield), <span class="dt">color =</span> <span class="ot">NA</span>) <span class="op">+</span></span>
+<span id="cb41-3"><a href="demonstration-2-precision-agriculture.html#cb41-3"></a><span class="st">  </span><span class="kw">scale_fill_distiller</span>(<span class="dt">name =</span> <span class="st">&quot;Yield&quot;</span>, <span class="dt">palette =</span> <span class="st">&quot;OrRd&quot;</span>, <span class="dt">direction =</span> <span class="dv">1</span>) <span class="op">+</span></span>
+<span id="cb41-4"><a href="demonstration-2-precision-agriculture.html#cb41-4"></a><span class="st">  </span>theme_for_map)<span class="op">/</span></span>
+<span id="cb41-5"><a href="demonstration-2-precision-agriculture.html#cb41-5"></a>(<span class="kw">ggplot</span>() <span class="op">+</span></span>
+<span id="cb41-6"><a href="demonstration-2-precision-agriculture.html#cb41-6"></a><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> reg_data, <span class="kw">aes</span>(<span class="dt">fill =</span> aa_NH3), <span class="dt">color =</span> <span class="ot">NA</span>) <span class="op">+</span></span>
+<span id="cb41-7"><a href="demonstration-2-precision-agriculture.html#cb41-7"></a><span class="st">  </span><span class="kw">scale_fill_distiller</span>(<span class="dt">name =</span> <span class="st">&quot;NH3&quot;</span>, <span class="dt">palette =</span> <span class="st">&quot;OrRd&quot;</span>, <span class="dt">direction =</span> <span class="dv">1</span>) <span class="op">+</span></span>
+<span id="cb41-8"><a href="demonstration-2-precision-agriculture.html#cb41-8"></a><span class="st">  </span>theme_for_map)<span class="op">/</span></span>
+<span id="cb41-9"><a href="demonstration-2-precision-agriculture.html#cb41-9"></a>(<span class="kw">ggplot</span>() <span class="op">+</span></span>
+<span id="cb41-10"><a href="demonstration-2-precision-agriculture.html#cb41-10"></a><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> reg_data, <span class="kw">aes</span>(<span class="dt">fill =</span> ec), <span class="dt">color =</span> <span class="ot">NA</span>) <span class="op">+</span></span>
+<span id="cb41-11"><a href="demonstration-2-precision-agriculture.html#cb41-11"></a><span class="st">  </span><span class="kw">scale_fill_distiller</span>(<span class="dt">name =</span> <span class="st">&quot;EC&quot;</span>, <span class="dt">palette =</span> <span class="st">&quot;OrRd&quot;</span>, <span class="dt">direction =</span> <span class="dv">1</span>) <span class="op">+</span></span>
+<span id="cb41-12"><a href="demonstration-2-precision-agriculture.html#cb41-12"></a><span class="st">  </span>theme_for_map)</span></code></pre></div>
 <div class="figure"><span id="fig:Demo2-subplot-fig"></span>
 <img src="R_GIS_Book_files/figure-html/Demo2-subplot-fig-1.png" alt="Spatial distribution of subplot-level yield, NH3, and EC" width="672" />
 <p class="caption">
@@ -732,8 +796,8 @@ Figure 1.7: Spatial distribution of subplot-level yield, NH3, and EC
 </div>
 <hr />
 <p>Let’s estimate the model and see the results:</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1"><span class="kw">lm</span>(yield <span class="op">~</span><span class="st"> </span>aa_NH3 <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(aa_NH3<span class="op">^</span><span class="dv">2</span>) <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(aa_NH3<span class="op">*</span>ec) <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(aa_NH3<span class="op">^</span><span class="dv">2</span><span class="op">*</span>ec), <span class="dt">data =</span> reg_data) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb42-2" data-line-number="2"><span class="st">  </span><span class="kw">stargazer</span>(<span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="demonstration-2-precision-agriculture.html#cb42-1"></a><span class="kw">lm</span>(yield <span class="op">~</span><span class="st"> </span>aa_NH3 <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(aa_NH3<span class="op">^</span><span class="dv">2</span>) <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(aa_NH3<span class="op">*</span>ec) <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(aa_NH3<span class="op">^</span><span class="dv">2</span><span class="op">*</span>ec), <span class="dt">data =</span> reg_data) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb42-2"><a href="demonstration-2-precision-agriculture.html#cb42-2"></a><span class="st">  </span><span class="kw">stargazer</span>(<span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</span></code></pre></div>
 <table style="text-align:center">
 <tr>
 <td colspan="2" style="border-bottom: 1px solid black">
@@ -931,8 +995,8 @@ F Statistic
 <div class="footnotes">
 <hr />
 <ol start="15">
-<li id="fn15"><p>Here we are demonstrating that R can read spatial data in different formats. R can read spatial data of many other formats. Here, we are reading a shapefile (.shp) and GeoPackage file (.gpkg).<a href="demonstration-2-precision-agriculture.html#fnref15" class="footnote-back">↩</a></p></li>
-<li id="fn16"><p>Here is its <a href="https://github.com/thomasp85/patchwork">github page</a>. See the bottom of the page to find vignettes.<a href="demonstration-2-precision-agriculture.html#fnref16" class="footnote-back">↩</a></p></li>
+<li id="fn15"><p>Here we are demonstrating that R can read spatial data in different formats. R can read spatial data of many other formats. Here, we are reading a shapefile (.shp) and GeoPackage file (.gpkg).<a href="demonstration-2-precision-agriculture.html#fnref15" class="footnote-back">↩︎</a></p></li>
+<li id="fn16"><p>Here is its <a href="https://github.com/thomasp85/patchwork">github page</a>. See the bottom of the page to find vignettes.<a href="demonstration-2-precision-agriculture.html#fnref16" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>

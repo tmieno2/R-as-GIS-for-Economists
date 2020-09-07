@@ -71,7 +71,7 @@ There are other packages that will be loaded during the demonstration.
 
 ### What is looping? 
 
-We sometimes need to run the same process over and over again often with slight changes in parameters. In such a case, it is very time-consuming and messy to write all of the steps one bye one. For example, suppose you are interested in knowing the square of 1 through 5 in with a step of 1 ($[1, 2, 3, 4, 5]$). The following code certainly works:
+We sometimes need to run the same process over and over again often with slight changes in parameters. In such a case, it is very time-consuming and messy to write all of the steps one bye one. For example, suppose you are interested in knowing the square of 1 through 5 ($[1, 2, 3, 4, 5]$). The following code certainly works:
 
 ```{r tedious}
 1^2 
@@ -154,7 +154,7 @@ Finally, it is a myth that you should always use `lapply()` instead of the expli
 
 ### Looping over multiple variables using lapply()  
 
-`lapply()` allows you to loop over only one variable. However, it is often the case that you want to loop over multiple variables^[the `map()` function from the `purrr` package allows you to loop over two variable.]. However, it is easy to achieve this. The trick is to create a `data.frame` of the variables where the complete list of the combinations of the variables are stored, and then loop over row of the `data.frame`. As an example, suppose we are interested in understanding the sensitivity of corn revenue to corn price and applied nitrogen amount. We consider the range of $3.0/bu to $5.0/bu for corn price and 0 lb/acre to 300/acre for applied nitrogen applied. 
+`lapply()` allows you to loop over only one variable. However, it is often the case that you want to loop over multiple variables^[the `map()` function from the `purrr` package allows you to loop over two variable.]. However, it is easy to achieve this. The trick is to create a `data.frame` of the variables where the complete list of the combinations of the variables are stored, and then loop over row of the `data.frame`. As an example, suppose we are interested in understanding the sensitivity of corn revenue to corn price and applied nitrogen amount. We consider the range of $3.0/bu to $5.0/bu for corn price and 0 lb/acre to 300/acre for nitrogen rate. 
 
 ```{r define_vectors}
 #--- corn price vector ---#
@@ -323,26 +323,26 @@ Yes, the vectorized version is faster. So, the lesson here is that if you can ve
 
 Parallelization of computation involves distributing the task at hand to multiple cores so that multiple processes are done in parallel. Here, we learn how to parallelize computation in R. Our focus is on the so called **embarrassingly** parallel processes. Embarrassingly parallel processes refer to a collection of processes where each process is completely independent of any another. That is, one process does not use the outputs of any of the other processes. The example of integer squaring is embarrassingly parallel. In order to calculate $1^2$, you do not need to use the result of $2^2$ or any other squares. Embarrassingly parallel processes are very easy to parallelize because you do not have to worry about which process to complete first to make other processes happen. Fortunately, most of the processes you are interested in parallelizing fall under this category^[A good example of non-embarrassingly parallel process is dynamic optimization via backward induction. You need to know the optimal solution at $t = T$, before you find the optimal solution at $t = T-1$.].  
 
-We will use the `future.apply` package for parallelization^[There are many other options including the `parallel`, `foreach` packages.]. Using the package, parallelizing is really a piece of cake as it is basically the same syntactically as `lapply()`. 
+We will use the `future_lapply()` function from the `future.apply` package for parallelization^[There are many other options including the `parallel`, `foreach` packages.]. Using the package, parallelization is a piece of cake as it is basically the same syntactically as `lapply()`. 
 
 ```{r load_fapply, message=FALSE, warning=FALSE}
 #--- load packages ---#
 library(future.apply) 
 ```
 
-You can find out how many cores you have available for parallel computation on your computer using the `get_num_procs()` function from the `RhpcBLASctl` package.
+You can find out how many cores you have available for parallel computation on your computer using the `detectCores()` function from the `parallel` package.
 
 ```{r detect_cores, cache = F}
-library(RhpcBLASctl)
+library(parallel)
 
 #--- number of all cores ---#
-get_num_procs()
+detectCores()
 ```
 
 Before we implement parallelized `lapply()`, we need to declare what backend process we will be using by `plan()`. Here, we use `plan(multiprocess)`^[If you are a Mac or Linux user, then the `multicore` process will be used, while the `multisession` process will be used if you are using a Windows machine. The `multicore` process is superior to the `multisession` process. See [this lecture note](https://raw.githack.com/uo-ec607/lectures/master/12-parallel/12-parallel.html) on parallel programming using R by Dr. Grant McDermott's at the University of Oregon for the distinctions between the two and many other useful concepts for parallelization. At the time of this writing, if you run R through RStudio, `multiprocess` option is always redirected to `multisession` option because of the instability in doing `multiprocess`. If you use Linux or Mac and want to take the full advantage of `future_apply`, you should not run your R programs  through RStudio at least for now.]. In the `plan()` function, we can specify the number of workers. Here I will use the total number of cores less 1^[This way, you can have one more core available to do other tasks comfortably. However, if you don't mind having your computer completely devoted to the processing task at hand, then there is no reason not to use all the cores.].  
 
 ```{r plan}
-plan(multiprocess, workers = get_num_procs() - 1)
+plan(multiprocess, workers = detectCores() - 1)
 ```
 
 `future_lapply()` works exactly like `lapply()`. 
@@ -447,7 +447,7 @@ toc()
 ```
 
 ```{r benchmack_par_do, echo = FALSE}
-plan(multiprocess, workers = get_num_procs() - 1)
+plan(multiprocess, workers = detectCores() - 1)
 set.seed(783523)
 
 #--- parallel ---#
@@ -460,7 +460,7 @@ time_elapsed_par <- log_txt[[1]]$toc - log_txt[[1]]$tic
 time_elapsed_par
 ```
 
-As you can see, parallelization makes it much quicker with a noticeable difference in elapsed time. We made the code `r round(time_elapsed_ser/time_elapsed_par, digit=2)` times faster. However, we did not make the process `r get_num_procs()-1` times faster even though we used `r get_num_procs()-1` cores for the parallelized process. This is because of the overhead associated with distributing tasks to the cores. The relative advantage of parallelization would be greater if each iteration took more time. For example, if you are running a process that takes about 2 minutes for 1000 times, it would take approximately 33 hours and 20 minutes. But, it may take only 4 hours if you parallelize it on `r get_num_procs()-1` cores, or maybe even 2 hours if you run it on 30 cores. 
+As you can see, parallelization makes it much quicker with a noticeable difference in elapsed time. We made the code `r round(time_elapsed_ser/time_elapsed_par, digit=2)` times faster. However, we did not make the process `r detectCores()-1` times faster even though we used `r detectCores()-1` cores for the parallelized process. This is because of the overhead associated with distributing tasks to the cores. The relative advantage of parallelization would be greater if each iteration took more time. For example, if you are running a process that takes about 2 minutes for 1000 times, it would take approximately 33 hours and 20 minutes. But, it may take only 4 hours if you parallelize it on `r detectCores()-1` cores, or maybe even 2 hours if you run it on 30 cores. 
 
 ### Mac or Linux users
 
@@ -469,11 +469,11 @@ For Mac users, `parallel::mclapply()` is just as compelling (or `pbmclapply::pbm
 ```{r mclapply, eval = F}
 #--- mclapply ---#
 library(parallel)
-MC_results <- mclapply(1:1000, MC_sim, mc.cores = get_num_procs() - 1)
+MC_results <- mclapply(1:1000, MC_sim, mc.cores = detectCores() - 1)
 
 #--- or with progress bar ---#
 library(pbmclapply)
-MC_results <- pbmclapply(1:1000, MC_sim, mc.cores = get_num_procs() - 1)
+MC_results <- pbmclapply(1:1000, MC_sim, mc.cores = detectCores() - 1)
 ``` 
 
 <!-- ### Some background on the parallelization packages 

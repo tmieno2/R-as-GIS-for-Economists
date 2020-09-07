@@ -24,7 +24,7 @@
 <meta name="author" content="Taro Mieno" />
 
 
-<meta name="date" content="2020-08-30" />
+<meta name="date" content="2020-09-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,6 +33,7 @@
   
 <link rel="prev" href="raster-crop.html"/>
 <link rel="next" href="extract-speed.html"/>
+<script src="libs/header-attrs-2.3/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -50,6 +51,7 @@
 
 
 
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
 <script src="libs/leaflet-1.3.1/leaflet.js"></script>
@@ -90,25 +92,26 @@
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -117,9 +120,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -168,15 +171,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
-<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html"><i class="fa fa-check"></i>Preface</a><ul>
-<li class="chapter" data-level="" data-path="why-r-as-gis-for-economists.html"><a href="why-r-as-gis-for-economists.html"><i class="fa fa-check"></i>Why R as GIS for Economists?</a><ul>
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="why-r-as-gis-for-economists.html"><a href="why-r-as-gis-for-economists.html"><i class="fa fa-check"></i>Why R as GIS for Economists?</a>
+<ul>
 <li class="chapter" data-level="" data-path="why-r-as-gis-for-economists.html"><a href="why-r-as-gis-for-economists.html#r-vs-python"><i class="fa fa-check"></i>R vs Python</a></li>
 <li class="chapter" data-level="" data-path="why-r-as-gis-for-economists.html"><a href="why-r-as-gis-for-economists.html#r-vs-arcgis-or-qgis"><i class="fa fa-check"></i>R vs ArcGIS or QGIS</a></li>
 <li class="chapter" data-level="" data-path="why-r-as-gis-for-economists.html"><a href="why-r-as-gis-for-economists.html#summary"><i class="fa fa-check"></i>Summary</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="how-is-this-book-different-from-other-online-books-and-resources.html"><a href="how-is-this-book-different-from-other-online-books-and-resources.html"><i class="fa fa-check"></i>How is this book different from other online books and resources?</a></li>
 <li class="chapter" data-level="" data-path="what-is-going-to-be-covered-in-this-book.html"><a href="what-is-going-to-be-covered-in-this-book.html"><i class="fa fa-check"></i>What is going to be covered in this book?</a></li>
-<li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html"><i class="fa fa-check"></i>Conventions of the book and some notes</a><ul>
+<li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html"><i class="fa fa-check"></i>Conventions of the book and some notes</a>
+<ul>
 <li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html#texts-in-gray-boxes"><i class="fa fa-check"></i>Texts in gray boxes</a></li>
 <li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html#colored-boxes"><i class="fa fa-check"></i>Colored Boxes</a></li>
 <li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html#parentheses-around-codes"><i class="fa fa-check"></i>Parentheses around codes</a></li>
@@ -185,135 +191,167 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="session-information.html"><a href="session-information.html"><i class="fa fa-check"></i>Session Information</a></li>
 </ul></li>
 <li class="part"><span><b>I Demonstration</b></span></li>
-<li class="chapter" data-level="1" data-path="demo.html"><a href="demo.html"><i class="fa fa-check"></i><b>1</b> R as GIS: Demonstrations</a><ul>
-<li class="chapter" data-level="" data-path="before-you-start.html"><a href="before-you-start.html"><i class="fa fa-check"></i>Before you start</a><ul>
+<li class="chapter" data-level="1" data-path="demo.html"><a href="demo.html"><i class="fa fa-check"></i><b>1</b> R as GIS: Demonstrations</a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start.html"><a href="before-you-start.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
 <li class="chapter" data-level="" data-path="before-you-start.html"><a href="before-you-start.html#target-audience"><i class="fa fa-check"></i>Target Audience</a></li>
 <li class="chapter" data-level="" data-path="before-you-start.html"><a href="before-you-start.html#direction-for-replication"><i class="fa fa-check"></i>Direction for replication</a></li>
 </ul></li>
-<li class="chapter" data-level="1.1" data-path="Demo1.html"><a href="Demo1.html"><i class="fa fa-check"></i><b>1.1</b> Demonstration 1: The impact of groundwater pumping on depth to water table</a><ul>
+<li class="chapter" data-level="1.1" data-path="Demo1.html"><a href="Demo1.html"><i class="fa fa-check"></i><b>1.1</b> Demonstration 1: The impact of groundwater pumping on depth to water table</a>
+<ul>
 <li class="chapter" data-level="1.1.1" data-path="Demo1.html"><a href="Demo1.html#project-overview"><i class="fa fa-check"></i><b>1.1.1</b> Project Overview</a></li>
 <li class="chapter" data-level="1.1.2" data-path="Demo1.html"><a href="Demo1.html#project-demonstration"><i class="fa fa-check"></i><b>1.1.2</b> Project Demonstration</a></li>
 </ul></li>
-<li class="chapter" data-level="1.2" data-path="demonstration-2-precision-agriculture.html"><a href="demonstration-2-precision-agriculture.html"><i class="fa fa-check"></i><b>1.2</b> Demonstration 2: Precision Agriculture</a><ul>
+<li class="chapter" data-level="1.2" data-path="demonstration-2-precision-agriculture.html"><a href="demonstration-2-precision-agriculture.html"><i class="fa fa-check"></i><b>1.2</b> Demonstration 2: Precision Agriculture</a>
+<ul>
 <li class="chapter" data-level="1.2.1" data-path="demonstration-2-precision-agriculture.html"><a href="demonstration-2-precision-agriculture.html#project-overview-1"><i class="fa fa-check"></i><b>1.2.1</b> Project Overview</a></li>
 <li class="chapter" data-level="1.2.2" data-path="demonstration-2-precision-agriculture.html"><a href="demonstration-2-precision-agriculture.html#project-demonstration-1"><i class="fa fa-check"></i><b>1.2.2</b> Project Demonstration</a></li>
 </ul></li>
-<li class="chapter" data-level="1.3" data-path="demo3.html"><a href="demo3.html"><i class="fa fa-check"></i><b>1.3</b> Demonstration 3: Land Use and Weather</a><ul>
+<li class="chapter" data-level="1.3" data-path="demo3.html"><a href="demo3.html"><i class="fa fa-check"></i><b>1.3</b> Demonstration 3: Land Use and Weather</a>
+<ul>
 <li class="chapter" data-level="1.3.1" data-path="demo3.html"><a href="demo3.html#project-overview-2"><i class="fa fa-check"></i><b>1.3.1</b> Project Overview</a></li>
 <li class="chapter" data-level="1.3.2" data-path="demo3.html"><a href="demo3.html#project-demonstration-2"><i class="fa fa-check"></i><b>1.3.2</b> Project Demonstration</a></li>
 </ul></li>
-<li class="chapter" data-level="1.4" data-path="demo4.html"><a href="demo4.html"><i class="fa fa-check"></i><b>1.4</b> Demonstration 4: The Impact of Railroad Presence on Corn Planted Acreage</a><ul>
+<li class="chapter" data-level="1.4" data-path="demo4.html"><a href="demo4.html"><i class="fa fa-check"></i><b>1.4</b> Demonstration 4: The Impact of Railroad Presence on Corn Planted Acreage</a>
+<ul>
 <li class="chapter" data-level="1.4.1" data-path="demo4.html"><a href="demo4.html#project-overview-3"><i class="fa fa-check"></i><b>1.4.1</b> Project Overview</a></li>
 <li class="chapter" data-level="1.4.2" data-path="demo4.html"><a href="demo4.html#project-demonstration-3"><i class="fa fa-check"></i><b>1.4.2</b> Project Demonstration</a></li>
 </ul></li>
-<li class="chapter" data-level="1.5" data-path="demonstration-5-groundwater-use-for-agricultural-irrigation.html"><a href="demonstration-5-groundwater-use-for-agricultural-irrigation.html"><i class="fa fa-check"></i><b>1.5</b> Demonstration 5: Groundwater use for agricultural irrigation</a><ul>
+<li class="chapter" data-level="1.5" data-path="demonstration-5-groundwater-use-for-agricultural-irrigation.html"><a href="demonstration-5-groundwater-use-for-agricultural-irrigation.html"><i class="fa fa-check"></i><b>1.5</b> Demonstration 5: Groundwater use for agricultural irrigation</a>
+<ul>
 <li class="chapter" data-level="1.5.1" data-path="demonstration-5-groundwater-use-for-agricultural-irrigation.html"><a href="demonstration-5-groundwater-use-for-agricultural-irrigation.html#project-overview-4"><i class="fa fa-check"></i><b>1.5.1</b> Project Overview</a></li>
 <li class="chapter" data-level="1.5.2" data-path="demonstration-5-groundwater-use-for-agricultural-irrigation.html"><a href="demonstration-5-groundwater-use-for-agricultural-irrigation.html#project-demonstration-4"><i class="fa fa-check"></i><b>1.5.2</b> Project Demonstration</a></li>
 </ul></li>
 </ul></li>
 <li class="part"><span><b>II Foundations</b></span></li>
-<li class="chapter" data-level="2" data-path="vector-basics.html"><a href="vector-basics.html"><i class="fa fa-check"></i><b>2</b> Vector Data Handling with <code>sf</code></a><ul>
-<li class="chapter" data-level="" data-path="before-you-start-1.html"><a href="before-you-start-1.html"><i class="fa fa-check"></i>Before you start</a><ul>
+<li class="chapter" data-level="2" data-path="vector-basics.html"><a href="vector-basics.html"><i class="fa fa-check"></i><b>2</b> Vector Data Handling with <code>sf</code></a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-1.html"><a href="before-you-start-1.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
 <li><a href="before-you-start-1.html#sf-or-sp"><code>sf</code> or <code>sp</code>?</a></li>
 <li class="chapter" data-level="" data-path="before-you-start-1.html"><a href="before-you-start-1.html#direction-for-replication-1"><i class="fa fa-check"></i>Direction for replication</a></li>
 </ul></li>
 <li class="chapter" data-level="2.1" data-path="spatial-data-structure.html"><a href="spatial-data-structure.html"><i class="fa fa-check"></i><b>2.1</b> Spatial Data Structure</a></li>
-<li class="chapter" data-level="2.2" data-path="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html"><i class="fa fa-check"></i><b>2.2</b> Simple feature geometry, simple feature geometry list-column, and simple feature</a><ul>
+<li class="chapter" data-level="2.2" data-path="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html"><i class="fa fa-check"></i><b>2.2</b> Simple feature geometry, simple feature geometry list-column, and simple feature</a>
+<ul>
 <li class="chapter" data-level="2.2.1" data-path="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#simple-feature-geometry-sfg"><i class="fa fa-check"></i><b>2.2.1</b> Simple feature geometry (<code>sfg</code>)</a></li>
 <li class="chapter" data-level="2.2.2" data-path="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#create-simple-feature-geometry-list-column-sfc-and-simple-feature-sf-from-scratch"><i class="fa fa-check"></i><b>2.2.2</b> Create simple feature geometry list-column (<code>sfc</code>) and simple feature (<code>sf</code>) from scratch</a></li>
 </ul></li>
-<li class="chapter" data-level="2.3" data-path="reading-and-writing-vector-data.html"><a href="reading-and-writing-vector-data.html"><i class="fa fa-check"></i><b>2.3</b> Reading and writing vector data</a><ul>
+<li class="chapter" data-level="2.3" data-path="reading-and-writing-vector-data.html"><a href="reading-and-writing-vector-data.html"><i class="fa fa-check"></i><b>2.3</b> Reading and writing vector data</a>
+<ul>
 <li class="chapter" data-level="2.3.1" data-path="reading-and-writing-vector-data.html"><a href="reading-and-writing-vector-data.html#reading-a-shapefile"><i class="fa fa-check"></i><b>2.3.1</b> Reading a shapefile</a></li>
 <li class="chapter" data-level="2.3.2" data-path="reading-and-writing-vector-data.html"><a href="reading-and-writing-vector-data.html#writing-to-a-shapefile"><i class="fa fa-check"></i><b>2.3.2</b> Writing to a shapefile</a></li>
 <li class="chapter" data-level="2.3.3" data-path="reading-and-writing-vector-data.html"><a href="reading-and-writing-vector-data.html#better-alternatives"><i class="fa fa-check"></i><b>2.3.3</b> Better alternatives</a></li>
 </ul></li>
 <li class="chapter" data-level="2.4" data-path="projection-with-a-different-coordinate-reference-systems.html"><a href="projection-with-a-different-coordinate-reference-systems.html"><i class="fa fa-check"></i><b>2.4</b> Projection with a different Coordinate Reference Systems</a></li>
-<li class="chapter" data-level="2.5" data-path="quick-and-interactive-view-of-an-sf-object.html"><a href="quick-and-interactive-view-of-an-sf-object.html"><i class="fa fa-check"></i><b>2.5</b> Quick and interactive view of an <code>sf</code> object</a><ul>
+<li class="chapter" data-level="2.5" data-path="quick-and-interactive-view-of-an-sf-object.html"><a href="quick-and-interactive-view-of-an-sf-object.html"><i class="fa fa-check"></i><b>2.5</b> Quick and interactive view of an <code>sf</code> object</a>
+<ul>
 <li class="chapter" data-level="2.5.1" data-path="quick-and-interactive-view-of-an-sf-object.html"><a href="quick-and-interactive-view-of-an-sf-object.html#quick-view"><i class="fa fa-check"></i><b>2.5.1</b> Quick view</a></li>
 <li class="chapter" data-level="2.5.2" data-path="quick-and-interactive-view-of-an-sf-object.html"><a href="quick-and-interactive-view-of-an-sf-object.html#interactive-view"><i class="fa fa-check"></i><b>2.5.2</b> Interactive view</a></li>
 </ul></li>
 <li class="chapter" data-level="2.6" data-path="turning-a-data-frame-of-points-into-an-sf.html"><a href="turning-a-data-frame-of-points-into-an-sf.html"><i class="fa fa-check"></i><b>2.6</b> Turning a data.frame of points into an <code>sf</code></a></li>
 <li class="chapter" data-level="2.7" data-path="conv-sp.html"><a href="conv-sp.html"><i class="fa fa-check"></i><b>2.7</b> Conversion to and from sp</a></li>
-<li class="chapter" data-level="2.8" data-path="non-spatial-transformation-of-sf.html"><a href="non-spatial-transformation-of-sf.html"><i class="fa fa-check"></i><b>2.8</b> Non-spatial transformation of sf</a><ul>
+<li class="chapter" data-level="2.8" data-path="non-spatial-transformation-of-sf.html"><a href="non-spatial-transformation-of-sf.html"><i class="fa fa-check"></i><b>2.8</b> Non-spatial transformation of sf</a>
+<ul>
 <li class="chapter" data-level="2.8.1" data-path="non-spatial-transformation-of-sf.html"><a href="non-spatial-transformation-of-sf.html#using-dplyr"><i class="fa fa-check"></i><b>2.8.1</b> Using <code>dplyr</code></a></li>
 <li class="chapter" data-level="2.8.2" data-path="non-spatial-transformation-of-sf.html"><a href="non-spatial-transformation-of-sf.html#using-data.table"><i class="fa fa-check"></i><b>2.8.2</b> Using <code>data.table</code></a></li>
 </ul></li>
-<li class="chapter" data-level="2.9" data-path="non-interactive-geometrical-operations.html"><a href="non-interactive-geometrical-operations.html"><i class="fa fa-check"></i><b>2.9</b> Non-interactive geometrical operations</a><ul>
+<li class="chapter" data-level="2.9" data-path="non-interactive-geometrical-operations.html"><a href="non-interactive-geometrical-operations.html"><i class="fa fa-check"></i><b>2.9</b> Non-interactive geometrical operations</a>
+<ul>
 <li class="chapter" data-level="2.9.1" data-path="non-interactive-geometrical-operations.html"><a href="non-interactive-geometrical-operations.html#st_buffer"><i class="fa fa-check"></i><b>2.9.1</b> st_buffer</a></li>
 <li class="chapter" data-level="2.9.2" data-path="non-interactive-geometrical-operations.html"><a href="non-interactive-geometrical-operations.html#st_area"><i class="fa fa-check"></i><b>2.9.2</b> st_area</a></li>
 <li class="chapter" data-level="2.9.3" data-path="non-interactive-geometrical-operations.html"><a href="non-interactive-geometrical-operations.html#st_centroid"><i class="fa fa-check"></i><b>2.9.3</b> st_centroid</a></li>
 <li class="chapter" data-level="2.9.4" data-path="non-interactive-geometrical-operations.html"><a href="non-interactive-geometrical-operations.html#st_length"><i class="fa fa-check"></i><b>2.9.4</b> st_length</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="int-vv.html"><a href="int-vv.html"><i class="fa fa-check"></i><b>3</b> Spatial Interactions of Vector Data: Subsetting and Joining</a><ul>
-<li class="chapter" data-level="" data-path="before-you-start-2.html"><a href="before-you-start-2.html"><i class="fa fa-check"></i>Before you start</a><ul>
+<li class="chapter" data-level="3" data-path="int-vv.html"><a href="int-vv.html"><i class="fa fa-check"></i><b>3</b> Spatial Interactions of Vector Data: Subsetting and Joining</a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-2.html"><a href="before-you-start-2.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
 <li class="chapter" data-level="" data-path="before-you-start-2.html"><a href="before-you-start-2.html#direction-for-replication-2"><i class="fa fa-check"></i>Direction for replication</a></li>
 </ul></li>
-<li class="chapter" data-level="3.1" data-path="topo.html"><a href="topo.html"><i class="fa fa-check"></i><b>3.1</b> Topological relations</a><ul>
+<li class="chapter" data-level="3.1" data-path="topo.html"><a href="topo.html"><i class="fa fa-check"></i><b>3.1</b> Topological relations</a>
+<ul>
 <li class="chapter" data-level="3.1.1" data-path="topo.html"><a href="topo.html#st_intersects"><i class="fa fa-check"></i><b>3.1.1</b> st_intersects()</a></li>
 <li class="chapter" data-level="3.1.2" data-path="topo.html"><a href="topo.html#st_is_within_distance"><i class="fa fa-check"></i><b>3.1.2</b> st_is_within_distance()</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html"><i class="fa fa-check"></i><b>3.2</b> Spatial Subsetting (or Flagging)</a><ul>
+<li class="chapter" data-level="3.2" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html"><i class="fa fa-check"></i><b>3.2</b> Spatial Subsetting (or Flagging)</a>
+<ul>
 <li class="chapter" data-level="3.2.1" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#polygons-source-vs-polygons-target"><i class="fa fa-check"></i><b>3.2.1</b> polygons (source) vs polygons (target)</a></li>
 <li class="chapter" data-level="3.2.2" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#points-source-vs-polygons-target"><i class="fa fa-check"></i><b>3.2.2</b> points (source) vs polygons (target)</a></li>
 <li class="chapter" data-level="3.2.3" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#lines_polygons"><i class="fa fa-check"></i><b>3.2.3</b> lines (source) vs polygons (target)</a></li>
 <li class="chapter" data-level="3.2.4" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#polygons_points"><i class="fa fa-check"></i><b>3.2.4</b> polygons (source) vs points (target)</a></li>
 <li class="chapter" data-level="3.2.5" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#subsetting-to-a-geograpchic-extent-bounding-box"><i class="fa fa-check"></i><b>3.2.5</b> Subsetting to a geograpchic extent (bounding box)</a></li>
 </ul></li>
-<li class="chapter" data-level="3.3" data-path="sp-join.html"><a href="sp-join.html"><i class="fa fa-check"></i><b>3.3</b> Spatial Join</a><ul>
+<li class="chapter" data-level="3.3" data-path="sp-join.html"><a href="sp-join.html"><i class="fa fa-check"></i><b>3.3</b> Spatial Join</a>
+<ul>
 <li class="chapter" data-level="3.3.1" data-path="sp-join.html"><a href="sp-join.html#case-1-points-target-vs-polygons-source"><i class="fa fa-check"></i><b>3.3.1</b> Case 1: points (target) vs polygons (source)</a></li>
 <li class="chapter" data-level="3.3.2" data-path="sp-join.html"><a href="sp-join.html#case-2-polygons-target-vs-points-source"><i class="fa fa-check"></i><b>3.3.2</b> Case 2: polygons (target) vs points (source)</a></li>
 <li class="chapter" data-level="3.3.3" data-path="sp-join.html"><a href="sp-join.html#polygon-polygon"><i class="fa fa-check"></i><b>3.3.3</b> Case 3: polygons (target) vs polygons (source)</a></li>
 </ul></li>
-<li class="chapter" data-level="3.4" data-path="spatial-intersection-cropping-join.html"><a href="spatial-intersection-cropping-join.html"><i class="fa fa-check"></i><b>3.4</b> Spatial Intersection (cropping join)</a><ul>
+<li class="chapter" data-level="3.4" data-path="spatial-intersection-cropping-join.html"><a href="spatial-intersection-cropping-join.html"><i class="fa fa-check"></i><b>3.4</b> Spatial Intersection (cropping join)</a>
+<ul>
 <li class="chapter" data-level="3.4.1" data-path="spatial-intersection-cropping-join.html"><a href="spatial-intersection-cropping-join.html#st-intersection"><i class="fa fa-check"></i><b>3.4.1</b> <code>st_intersection()</code></a></li>
 <li class="chapter" data-level="3.4.2" data-path="spatial-intersection-cropping-join.html"><a href="spatial-intersection-cropping-join.html#area-weighted-average"><i class="fa fa-check"></i><b>3.4.2</b> Area-weighted average</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="raster-basics.html"><a href="raster-basics.html"><i class="fa fa-check"></i><b>4</b> Raster Data Handling</a><ul>
-<li class="chapter" data-level="" data-path="before-you-start-3.html"><a href="before-you-start-3.html"><i class="fa fa-check"></i>Before you start</a><ul>
+<li class="chapter" data-level="4" data-path="raster-basics.html"><a href="raster-basics.html"><i class="fa fa-check"></i><b>4</b> Raster Data Handling</a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-3.html"><a href="before-you-start-3.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
 <li class="chapter" data-level="" data-path="before-you-start-3.html"><a href="before-you-start-3.html#direction-for-replication-3"><i class="fa fa-check"></i>Direction for replication</a></li>
 </ul></li>
-<li class="chapter" data-level="4.1" data-path="raster-data-object-classes.html"><a href="raster-data-object-classes.html"><i class="fa fa-check"></i><b>4.1</b> Raster data object classes</a><ul>
+<li class="chapter" data-level="4.1" data-path="raster-data-object-classes.html"><a href="raster-data-object-classes.html"><i class="fa fa-check"></i><b>4.1</b> Raster data object classes</a>
+<ul>
 <li class="chapter" data-level="4.1.1" data-path="raster-data-object-classes.html"><a href="raster-data-object-classes.html#raster-package-rasterlayer-rasterstack-and-rasterbrick"><i class="fa fa-check"></i><b>4.1.1</b> <code>raster</code> package: <code>RasterLayer</code>, <code>RasterStack</code>, and <code>RasterBrick</code></a></li>
 <li class="chapter" data-level="4.1.2" data-path="raster-data-object-classes.html"><a href="raster-data-object-classes.html#terra-package-spatraster"><i class="fa fa-check"></i><b>4.1.2</b> <code>terra</code> package: <code>SpatRaster</code></a></li>
 <li class="chapter" data-level="4.1.3" data-path="raster-data-object-classes.html"><a href="raster-data-object-classes.html#converting-a-spatraster-object-to-a-raster-object."><i class="fa fa-check"></i><b>4.1.3</b> Converting a <code>SpatRaster</code> object to a <code>Raster</code><span class="math inline">\(^*\)</span> object.</a></li>
 <li class="chapter" data-level="4.1.4" data-path="raster-data-object-classes.html"><a href="raster-data-object-classes.html#vector-data-in-the-terra-package"><i class="fa fa-check"></i><b>4.1.4</b> Vector data in the <code>terra</code> package</a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="read-and-write-a-raster-data-file.html"><a href="read-and-write-a-raster-data-file.html"><i class="fa fa-check"></i><b>4.2</b> Read and write a raster data file</a><ul>
+<li class="chapter" data-level="4.2" data-path="read-and-write-a-raster-data-file.html"><a href="read-and-write-a-raster-data-file.html"><i class="fa fa-check"></i><b>4.2</b> Read and write a raster data file</a>
+<ul>
 <li class="chapter" data-level="4.2.1" data-path="read-and-write-a-raster-data-file.html"><a href="read-and-write-a-raster-data-file.html#read-raster-files"><i class="fa fa-check"></i><b>4.2.1</b> Read raster file(s)</a></li>
 <li class="chapter" data-level="4.2.2" data-path="read-and-write-a-raster-data-file.html"><a href="read-and-write-a-raster-data-file.html#write-raster-files"><i class="fa fa-check"></i><b>4.2.2</b> Write raster files</a></li>
 </ul></li>
 <li class="chapter" data-level="4.3" data-path="access-values.html"><a href="access-values.html"><i class="fa fa-check"></i><b>4.3</b> Access values</a></li>
 <li class="chapter" data-level="4.4" data-path="quick-plot-and-interactive-map.html"><a href="quick-plot-and-interactive-map.html"><i class="fa fa-check"></i><b>4.4</b> Quick plot and interactive map</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="int-RV.html"><a href="int-RV.html"><i class="fa fa-check"></i><b>5</b> Spatial Interactions of Vector and Raster Data</a><ul>
-<li class="chapter" data-level="" data-path="before-you-start-4.html"><a href="before-you-start-4.html"><i class="fa fa-check"></i>Before you start</a><ul>
+<li class="chapter" data-level="5" data-path="int-RV.html"><a href="int-RV.html"><i class="fa fa-check"></i><b>5</b> Spatial Interactions of Vector and Raster Data</a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-4.html"><a href="before-you-start-4.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
 <li class="chapter" data-level="" data-path="before-you-start-4.html"><a href="before-you-start-4.html#direction-for-replication-4"><i class="fa fa-check"></i>Direction for replication</a></li>
 </ul></li>
 <li class="chapter" data-level="5.1" data-path="raster-crop.html"><a href="raster-crop.html"><i class="fa fa-check"></i><b>5.1</b> Cropping (Spatial subsetting) to the Area of Interest</a></li>
-<li class="chapter" data-level="5.2" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html"><i class="fa fa-check"></i><b>5.2</b> Extracting Values from Raster Layers for Vector Data</a><ul>
+<li class="chapter" data-level="5.2" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html"><i class="fa fa-check"></i><b>5.2</b> Extracting Values from Raster Layers for Vector Data</a>
+<ul>
 <li class="chapter" data-level="5.2.1" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#points"><i class="fa fa-check"></i><b>5.2.1</b> Points</a></li>
 <li class="chapter" data-level="5.2.2" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#polygons-terra-way"><i class="fa fa-check"></i><b>5.2.2</b> Polygons (<code>terra</code> way)</a></li>
 <li class="chapter" data-level="5.2.3" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#polygons-exactextractr-way"><i class="fa fa-check"></i><b>5.2.3</b> Polygons (<code>exactextractr</code> way)</a></li>
 </ul></li>
-<li class="chapter" data-level="5.3" data-path="extract-speed.html"><a href="extract-speed.html"><i class="fa fa-check"></i><b>5.3</b> Extraction speed comparison</a><ul>
+<li class="chapter" data-level="5.3" data-path="extract-speed.html"><a href="extract-speed.html"><i class="fa fa-check"></i><b>5.3</b> Extraction speed comparison</a>
+<ul>
 <li class="chapter" data-level="5.3.1" data-path="extract-speed.html"><a href="extract-speed.html#points-terraextract-and-rasterextract"><i class="fa fa-check"></i><b>5.3.1</b> Points: <code>terra::extract()</code> and <code>raster::extract()</code></a></li>
 <li class="chapter" data-level="5.3.2" data-path="extract-speed.html"><a href="extract-speed.html#polygons-exact_extract-terraextract-and-rasterextract"><i class="fa fa-check"></i><b>5.3.2</b> Polygons: <code>exact_extract()</code>, <code>terra::extract()</code>, and <code>raster::extract()</code></a></li>
 <li class="chapter" data-level="5.3.3" data-path="extract-speed.html"><a href="extract-speed.html#single-layer-vs-multi-layer"><i class="fa fa-check"></i><b>5.3.3</b> Single-layer vs multi-layer</a></li>
 </ul></li>
 </ul></li>
 <li class="part"><span><b>III (slightly) Advanced Topics</b></span></li>
-<li class="chapter" data-level="6" data-path="EE.html"><a href="EE.html"><i class="fa fa-check"></i><b>6</b> Speed Things Up</a><ul>
-<li class="chapter" data-level="" data-path="before-you-start-5.html"><a href="before-you-start-5.html"><i class="fa fa-check"></i>Before you start</a><ul>
+<li class="chapter" data-level="6" data-path="EE.html"><a href="EE.html"><i class="fa fa-check"></i><b>6</b> Speed Things Up</a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-5.html"><a href="before-you-start-5.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
 <li class="chapter" data-level="" data-path="before-you-start-5.html"><a href="before-you-start-5.html#direction-for-replication-5"><i class="fa fa-check"></i>Direction for replication</a></li>
 </ul></li>
-<li class="chapter" data-level="6.1" data-path="single-raster-layer.html"><a href="single-raster-layer.html"><i class="fa fa-check"></i><b>6.1</b> Single raster layer</a><ul>
+<li class="chapter" data-level="6.1" data-path="single-raster-layer.html"><a href="single-raster-layer.html"><i class="fa fa-check"></i><b>6.1</b> Single raster layer</a>
+<ul>
 <li class="chapter" data-level="6.1.1" data-path="single-raster-layer.html"><a href="single-raster-layer.html#datasets"><i class="fa fa-check"></i><b>6.1.1</b> Datasets</a></li>
 <li class="chapter" data-level="6.1.2" data-path="single-raster-layer.html"><a href="single-raster-layer.html#parallelization"><i class="fa fa-check"></i><b>6.1.2</b> Parallelization</a></li>
 <li class="chapter" data-level="6.1.3" data-path="single-raster-layer.html"><a href="single-raster-layer.html#summary-1"><i class="fa fa-check"></i><b>6.1.3</b> Summary</a></li>
 </ul></li>
-<li class="chapter" data-level="6.2" data-path="many-multi-layer.html"><a href="many-multi-layer.html"><i class="fa fa-check"></i><b>6.2</b> Many multi-layer raster files</a><ul>
+<li class="chapter" data-level="6.2" data-path="many-multi-layer.html"><a href="many-multi-layer.html"><i class="fa fa-check"></i><b>6.2</b> Many multi-layer raster files</a>
+<ul>
 <li class="chapter" data-level="6.2.1" data-path="many-multi-layer.html"><a href="many-multi-layer.html#datasets-1"><i class="fa fa-check"></i><b>6.2.1</b> Datasets</a></li>
 <li class="chapter" data-level="6.2.2" data-path="many-multi-layer.html"><a href="many-multi-layer.html#non-par-ext-multi"><i class="fa fa-check"></i><b>6.2.2</b> Non-parallelized extraction</a></li>
 <li class="chapter" data-level="6.2.3" data-path="many-multi-layer.html"><a href="many-multi-layer.html#approach-1-parallelize-over-polygons-and-do-regular-loop-over-year-month"><i class="fa fa-check"></i><b>6.2.3</b> Approach 1: parallelize over polygons and do regular loop over year-month</a></li>
@@ -321,51 +359,62 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.2.5" data-path="many-multi-layer.html"><a href="many-multi-layer.html#memory-consideration"><i class="fa fa-check"></i><b>6.2.5</b> Memory consideration</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="stars-basics.html"><a href="stars-basics.html"><i class="fa fa-check"></i><b>7</b> Spatiotemporal Raster Data Handling with <code>stars</code></a><ul>
-<li class="chapter" data-level="" data-path="before-you-start-6.html"><a href="before-you-start-6.html"><i class="fa fa-check"></i>Before you start</a><ul>
+<li class="chapter" data-level="7" data-path="stars-basics.html"><a href="stars-basics.html"><i class="fa fa-check"></i><b>7</b> Spatiotemporal Raster Data Handling with <code>stars</code></a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-6.html"><a href="before-you-start-6.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
 <li class="chapter" data-level="" data-path="before-you-start-6.html"><a href="before-you-start-6.html#direction-for-replication-6"><i class="fa fa-check"></i>Direction for replication</a></li>
 </ul></li>
 <li class="chapter" data-level="7.1" data-path="stars-structure.html"><a href="stars-structure.html"><i class="fa fa-check"></i><b>7.1</b> Understanding the structure of a <code>stars</code> object</a></li>
-<li class="chapter" data-level="7.2" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html"><i class="fa fa-check"></i><b>7.2</b> Some basic operations on <code>stars</code> objects</a><ul>
+<li class="chapter" data-level="7.2" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html"><i class="fa fa-check"></i><b>7.2</b> Some basic operations on <code>stars</code> objects</a>
+<ul>
 <li class="chapter" data-level="7.2.1" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html#subset-a-stars-object-by-index"><i class="fa fa-check"></i><b>7.2.1</b> Subset a <code>stars</code> object by index</a></li>
 <li class="chapter" data-level="7.2.2" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html#set-attribute-names"><i class="fa fa-check"></i><b>7.2.2</b> Set attribute names</a></li>
 <li class="chapter" data-level="7.2.3" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html#get-the-coordinate-reference-system"><i class="fa fa-check"></i><b>7.2.3</b> Get the coordinate reference system</a></li>
 <li class="chapter" data-level="7.2.4" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html#get-the-dimension-characteristics-and-values"><i class="fa fa-check"></i><b>7.2.4</b> Get the dimension characteristics and values</a></li>
 <li class="chapter" data-level="7.2.5" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html#attributes-to-dimensions-and-vice-versa"><i class="fa fa-check"></i><b>7.2.5</b> Attributes to dimensions, and vice versa</a></li>
 </ul></li>
-<li class="chapter" data-level="7.3" data-path="quick-visualization-for-exploration.html"><a href="quick-visualization-for-exploration.html"><i class="fa fa-check"></i><b>7.3</b> Quick visualization for exploration</a><ul>
+<li class="chapter" data-level="7.3" data-path="quick-visualization-for-exploration.html"><a href="quick-visualization-for-exploration.html"><i class="fa fa-check"></i><b>7.3</b> Quick visualization for exploration</a>
+<ul>
 <li class="chapter" data-level="7.3.1" data-path="quick-visualization-for-exploration.html"><a href="quick-visualization-for-exploration.html#quick-static-map"><i class="fa fa-check"></i><b>7.3.1</b> quick static map</a></li>
 <li class="chapter" data-level="7.3.2" data-path="quick-visualization-for-exploration.html"><a href="quick-visualization-for-exploration.html#interactive-map"><i class="fa fa-check"></i><b>7.3.2</b> interactive map</a></li>
 </ul></li>
-<li class="chapter" data-level="7.4" data-path="read-write-stars.html"><a href="read-write-stars.html"><i class="fa fa-check"></i><b>7.4</b> Reading and writing raster data</a><ul>
+<li class="chapter" data-level="7.4" data-path="read-write-stars.html"><a href="read-write-stars.html"><i class="fa fa-check"></i><b>7.4</b> Reading and writing raster data</a>
+<ul>
 <li class="chapter" data-level="7.4.1" data-path="read-write-stars.html"><a href="read-write-stars.html#reading-raster-data"><i class="fa fa-check"></i><b>7.4.1</b> Reading raster data</a></li>
 <li class="chapter" data-level="7.4.2" data-path="read-write-stars.html"><a href="read-write-stars.html#writing-a-stars-object-to-a-file"><i class="fa fa-check"></i><b>7.4.2</b> Writing a <code>stars</code> object to a file</a></li>
 </ul></li>
 <li class="chapter" data-level="7.5" data-path="stars-set-time.html"><a href="stars-set-time.html"><i class="fa fa-check"></i><b>7.5</b> Setting the time dimension manually</a></li>
-<li class="chapter" data-level="7.6" data-path="dplyr-op.html"><a href="dplyr-op.html"><i class="fa fa-check"></i><b>7.6</b> <code>dplyr</code>-like operations</a><ul>
+<li class="chapter" data-level="7.6" data-path="dplyr-op.html"><a href="dplyr-op.html"><i class="fa fa-check"></i><b>7.6</b> <code>dplyr</code>-like operations</a>
+<ul>
 <li class="chapter" data-level="7.6.1" data-path="dplyr-op.html"><a href="dplyr-op.html#filter"><i class="fa fa-check"></i><b>7.6.1</b> <code>filter()</code></a></li>
 <li class="chapter" data-level="7.6.2" data-path="dplyr-op.html"><a href="dplyr-op.html#select"><i class="fa fa-check"></i><b>7.6.2</b> <code>select()</code></a></li>
 <li class="chapter" data-level="7.6.3" data-path="dplyr-op.html"><a href="dplyr-op.html#mutate"><i class="fa fa-check"></i><b>7.6.3</b> <code>mutate()</code></a></li>
 <li class="chapter" data-level="7.6.4" data-path="dplyr-op.html"><a href="dplyr-op.html#pull"><i class="fa fa-check"></i><b>7.6.4</b> <code>pull()</code></a></li>
 </ul></li>
-<li class="chapter" data-level="7.7" data-path="merging-stars-objects-using-c-and-st-mosaic.html"><a href="merging-stars-objects-using-c-and-st-mosaic.html"><i class="fa fa-check"></i><b>7.7</b> Merging <code>stars</code> objects using <code>c()</code> and <code>st_mosaic()</code></a><ul>
+<li class="chapter" data-level="7.7" data-path="merging-stars-objects-using-c-and-st-mosaic.html"><a href="merging-stars-objects-using-c-and-st-mosaic.html"><i class="fa fa-check"></i><b>7.7</b> Merging <code>stars</code> objects using <code>c()</code> and <code>st_mosaic()</code></a>
+<ul>
 <li class="chapter" data-level="7.7.1" data-path="merging-stars-objects-using-c-and-st-mosaic.html"><a href="merging-stars-objects-using-c-and-st-mosaic.html#merging-stars-objects-along-the-third-dimension-band"><i class="fa fa-check"></i><b>7.7.1</b> Merging <code>stars</code> objects along the third dimension (band)</a></li>
 <li class="chapter" data-level="7.7.2" data-path="merging-stars-objects-using-c-and-st-mosaic.html"><a href="merging-stars-objects-using-c-and-st-mosaic.html#merge-two"><i class="fa fa-check"></i><b>7.7.2</b> Merging <code>stars</code> objects of different attributes</a></li>
 <li class="chapter" data-level="7.7.3" data-path="merging-stars-objects-using-c-and-st-mosaic.html"><a href="merging-stars-objects-using-c-and-st-mosaic.html#merging-stars-objects-of-different-spatial-extents"><i class="fa fa-check"></i><b>7.7.3</b> Merging <code>stars</code> objects of different spatial extents</a></li>
 </ul></li>
 <li class="chapter" data-level="7.8" data-path="convert-to-rb.html"><a href="convert-to-rb.html"><i class="fa fa-check"></i><b>7.8</b> Convert from and to <code>Raster</code><span class="math inline">\(^*\)</span> objects</a></li>
 <li class="chapter" data-level="7.9" data-path="spatial-cropping.html"><a href="spatial-cropping.html"><i class="fa fa-check"></i><b>7.9</b> Spatial cropping</a></li>
-<li class="chapter" data-level="7.10" data-path="extraction-stars.html"><a href="extraction-stars.html"><i class="fa fa-check"></i><b>7.10</b> Extracting values from <code>stars</code> for vector data</a><ul>
+<li class="chapter" data-level="7.10" data-path="extraction-stars.html"><a href="extraction-stars.html"><i class="fa fa-check"></i><b>7.10</b> Extracting values from <code>stars</code> for vector data</a>
+<ul>
 <li class="chapter" data-level="7.10.1" data-path="extraction-stars.html"><a href="extraction-stars.html#points-1"><i class="fa fa-check"></i><b>7.10.1</b> Points</a></li>
 <li class="chapter" data-level="7.10.2" data-path="extraction-stars.html"><a href="extraction-stars.html#polygons"><i class="fa fa-check"></i><b>7.10.2</b> Polygons</a></li>
 </ul></li>
 </ul></li>
 <li class="part"><span><b>IV Extensions</b></span></li>
-<li class="chapter" data-level="8" data-path="create-maps.html"><a href="create-maps.html"><i class="fa fa-check"></i><b>8</b> Creating Maps using <code>ggplot2</code></a><ul>
-<li class="chapter" data-level="" data-path="before-you-start-7.html"><a href="before-you-start-7.html"><i class="fa fa-check"></i>Before you start</a><ul>
+<li class="chapter" data-level="8" data-path="create-maps.html"><a href="create-maps.html"><i class="fa fa-check"></i><b>8</b> Creating Maps using <code>ggplot2</code></a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-7.html"><a href="before-you-start-7.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
 <li class="chapter" data-level="" data-path="before-you-start-7.html"><a href="before-you-start-7.html#direction-for-replication-7"><i class="fa fa-check"></i>Direction for replication</a></li>
 </ul></li>
-<li class="chapter" data-level="8.1" data-path="geom-sf.html"><a href="geom-sf.html"><i class="fa fa-check"></i><b>8.1</b> Creating maps from <code>sf</code> objects</a><ul>
+<li class="chapter" data-level="8.1" data-path="geom-sf.html"><a href="geom-sf.html"><i class="fa fa-check"></i><b>8.1</b> Creating maps from <code>sf</code> objects</a>
+<ul>
 <li class="chapter" data-level="8.1.1" data-path="geom-sf.html"><a href="geom-sf.html#datasets-2"><i class="fa fa-check"></i><b>8.1.1</b> Datasets</a></li>
 <li class="chapter" data-level="8.1.2" data-path="geom-sf.html"><a href="geom-sf.html#basic-usage-of-geom_sf"><i class="fa fa-check"></i><b>8.1.2</b> Basic usage of <code>geom_sf()</code></a></li>
 <li class="chapter" data-level="8.1.3" data-path="geom-sf.html"><a href="geom-sf.html#specifying-the-aesthetics"><i class="fa fa-check"></i><b>8.1.3</b> Specifying the aesthetics</a></li>
@@ -374,22 +423,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.1.6" data-path="geom-sf.html"><a href="geom-sf.html#faceting"><i class="fa fa-check"></i><b>8.1.6</b> Faceting</a></li>
 <li class="chapter" data-level="8.1.7" data-path="geom-sf.html"><a href="geom-sf.html#adding-texts-labels-on-a-map"><i class="fa fa-check"></i><b>8.1.7</b> Adding texts (labels) on a map</a></li>
 </ul></li>
-<li class="chapter" data-level="8.2" data-path="geom-raster.html"><a href="geom-raster.html"><i class="fa fa-check"></i><b>8.2</b> Raster data visualization: <code>geom_raster()</code> and <code>geom_stars()</code></a><ul>
+<li class="chapter" data-level="8.2" data-path="geom-raster.html"><a href="geom-raster.html"><i class="fa fa-check"></i><b>8.2</b> Raster data visualization: <code>geom_raster()</code> and <code>geom_stars()</code></a>
+<ul>
 <li class="chapter" data-level="8.2.1" data-path="geom-raster.html"><a href="geom-raster.html#visualize-raster-with-geom_raster"><i class="fa fa-check"></i><b>8.2.1</b> Visualize <code>Raster</code><span class="math inline">\(^*\)</span> with <code>geom_raster()</code></a></li>
 <li class="chapter" data-level="8.2.2" data-path="geom-raster.html"><a href="geom-raster.html#visualize-stars-with-geom_raster"><i class="fa fa-check"></i><b>8.2.2</b> Visualize <code>stars</code> with <code>geom_raster()</code></a></li>
 <li class="chapter" data-level="8.2.3" data-path="geom-raster.html"><a href="geom-raster.html#visualize-stars-with-geom_stars"><i class="fa fa-check"></i><b>8.2.3</b> Visualize <code>stars</code> with <code>geom_stars()</code></a></li>
 <li class="chapter" data-level="8.2.4" data-path="geom-raster.html"><a href="geom-raster.html#adding-geom_sf-layers"><i class="fa fa-check"></i><b>8.2.4</b> adding <code>geom_sf()</code> layers</a></li>
 </ul></li>
-<li class="chapter" data-level="8.3" data-path="color-scale.html"><a href="color-scale.html"><i class="fa fa-check"></i><b>8.3</b> Color scale</a><ul>
+<li class="chapter" data-level="8.3" data-path="color-scale.html"><a href="color-scale.html"><i class="fa fa-check"></i><b>8.3</b> Color scale</a>
+<ul>
 <li class="chapter" data-level="8.3.1" data-path="color-scale.html"><a href="color-scale.html#viridis-color-maps"><i class="fa fa-check"></i><b>8.3.1</b> Viridis color maps</a></li>
 <li class="chapter" data-level="8.3.2" data-path="color-scale.html"><a href="color-scale.html#rcolorbrewer-scale__distiller-and-scale__brewer"><i class="fa fa-check"></i><b>8.3.2</b> <code>RColorBrewer</code>: <code>scale_*_distiller()</code> and <code>scale_*_brewer()</code></a></li>
 <li class="chapter" data-level="8.3.3" data-path="color-scale.html"><a href="color-scale.html#colorspace-package"><i class="fa fa-check"></i><b>8.3.3</b> <code>colorspace</code> package</a></li>
 </ul></li>
-<li class="chapter" data-level="8.4" data-path="arranging-maps.html"><a href="arranging-maps.html"><i class="fa fa-check"></i><b>8.4</b> Arranging maps</a><ul>
+<li class="chapter" data-level="8.4" data-path="arranging-maps.html"><a href="arranging-maps.html"><i class="fa fa-check"></i><b>8.4</b> Arranging maps</a>
+<ul>
 <li class="chapter" data-level="8.4.1" data-path="arranging-maps.html"><a href="arranging-maps.html#multiple-panels-of-figures-as-a-single-figure"><i class="fa fa-check"></i><b>8.4.1</b> Multiple panels of figures as a single figure</a></li>
 <li class="chapter" data-level="8.4.2" data-path="arranging-maps.html"><a href="arranging-maps.html#a-map-in-a-map-inset"><i class="fa fa-check"></i><b>8.4.2</b> A map in a map: inset</a></li>
 </ul></li>
-<li class="chapter" data-level="8.5" data-path="fine-tune.html"><a href="fine-tune.html"><i class="fa fa-check"></i><b>8.5</b> Fine-tuning maps for publication</a><ul>
+<li class="chapter" data-level="8.5" data-path="fine-tune.html"><a href="fine-tune.html"><i class="fa fa-check"></i><b>8.5</b> Fine-tuning maps for publication</a>
+<ul>
 <li class="chapter" data-level="8.5.1" data-path="fine-tune.html"><a href="fine-tune.html#theme"><i class="fa fa-check"></i><b>8.5.1</b> Setting the theme</a></li>
 <li class="chapter" data-level="8.5.2" data-path="fine-tune.html"><a href="fine-tune.html#legend"><i class="fa fa-check"></i><b>8.5.2</b> Legend</a></li>
 <li class="chapter" data-level="8.5.3" data-path="fine-tune.html"><a href="fine-tune.html#facet-strips"><i class="fa fa-check"></i><b>8.5.3</b> Facet strips</a></li>
@@ -397,25 +450,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="8.6" data-path="ggsave.html"><a href="ggsave.html"><i class="fa fa-check"></i><b>8.6</b> Saving a <code>ggplot</code> object as an image</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="download-data.html"><a href="download-data.html"><i class="fa fa-check"></i><b>9</b> Download and process spatial datasets from within R</a><ul>
-<li class="chapter" data-level="" data-path="before-you-start-8.html"><a href="before-you-start-8.html"><i class="fa fa-check"></i>Before you start</a><ul>
+<li class="chapter" data-level="9" data-path="download-data.html"><a href="download-data.html"><i class="fa fa-check"></i><b>9</b> Download and process spatial datasets from within R</a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-8.html"><a href="before-you-start-8.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
 <li class="chapter" data-level="" data-path="before-you-start-8.html"><a href="before-you-start-8.html#direction-for-replication-8"><i class="fa fa-check"></i>Direction for replication</a></li>
 </ul></li>
-<li class="chapter" data-level="9.1" data-path="nass-quick.html"><a href="nass-quick.html"><i class="fa fa-check"></i><b>9.1</b> USDA NASS QuickStat with <code>tidyUSDA</code></a><ul>
+<li class="chapter" data-level="9.1" data-path="nass-quick.html"><a href="nass-quick.html"><i class="fa fa-check"></i><b>9.1</b> USDA NASS QuickStat with <code>tidyUSDA</code></a>
+<ul>
 <li class="chapter" data-level="9.1.1" data-path="nass-quick.html"><a href="nass-quick.html#look-for-parameter-values"><i class="fa fa-check"></i><b>9.1.1</b> Look for parameter values</a></li>
 <li class="chapter" data-level="9.1.2" data-path="nass-quick.html"><a href="nass-quick.html#caveats"><i class="fa fa-check"></i><b>9.1.2</b> Caveats</a></li>
 </ul></li>
-<li class="chapter" data-level="9.2" data-path="CropScapeR.html"><a href="CropScapeR.html"><i class="fa fa-check"></i><b>9.2</b> CDL with <code>CropScapeR</code></a><ul>
+<li class="chapter" data-level="9.2" data-path="CropScapeR.html"><a href="CropScapeR.html"><i class="fa fa-check"></i><b>9.2</b> CDL with <code>CropScapeR</code></a>
+<ul>
 <li class="chapter" data-level="9.2.1" data-path="CropScapeR.html"><a href="CropScapeR.html#getcdldata-download-the-cdl-data-as-raster-data"><i class="fa fa-check"></i><b>9.2.1</b> <code>GetCDLData</code>: Download the CDL data as raster data</a></li>
 <li class="chapter" data-level="9.2.2" data-path="CropScapeR.html"><a href="CropScapeR.html#data-processing-after-downloading-data"><i class="fa fa-check"></i><b>9.2.2</b> Data processing after downloading data</a></li>
 <li class="chapter" data-level="9.2.3" data-path="CropScapeR.html"><a href="CropScapeR.html#other-forms-of-cdl-data"><i class="fa fa-check"></i><b>9.2.3</b> Other forms of CDL data</a></li>
 <li class="chapter" data-level="9.2.4" data-path="CropScapeR.html"><a href="CropScapeR.html#mac-problem"><i class="fa fa-check"></i><b>9.2.4</b> SSL certificate problem on Mac</a></li>
 </ul></li>
-<li class="chapter" data-level="9.3" data-path="download-prism.html"><a href="download-prism.html"><i class="fa fa-check"></i><b>9.3</b> PRISM with <code>prism</code></a><ul>
+<li class="chapter" data-level="9.3" data-path="download-prism.html"><a href="download-prism.html"><i class="fa fa-check"></i><b>9.3</b> PRISM with <code>prism</code></a>
+<ul>
 <li class="chapter" data-level="9.3.1" data-path="download-prism.html"><a href="download-prism.html#basics"><i class="fa fa-check"></i><b>9.3.1</b> Basics</a></li>
 <li class="chapter" data-level="9.3.2" data-path="download-prism.html"><a href="download-prism.html#download-daily-prism-data-for-many-years-and-build-your-own-datasets"><i class="fa fa-check"></i><b>9.3.2</b> Download daily PRISM data for many years and build your own datasets</a></li>
 </ul></li>
-<li class="chapter" data-level="9.4" data-path="daymet-with-daymetr-and-feddata.html"><a href="daymet-with-daymetr-and-feddata.html"><i class="fa fa-check"></i><b>9.4</b> Daymet with <code>daymetr</code> and <code>FedData</code></a><ul>
+<li class="chapter" data-level="9.4" data-path="daymet-with-daymetr-and-feddata.html"><a href="daymet-with-daymetr-and-feddata.html"><i class="fa fa-check"></i><b>9.4</b> Daymet with <code>daymetr</code> and <code>FedData</code></a>
+<ul>
 <li class="chapter" data-level="9.4.1" data-path="daymet-with-daymetr-and-feddata.html"><a href="daymet-with-daymetr-and-feddata.html#for-points-data"><i class="fa fa-check"></i><b>9.4.1</b> For points data</a></li>
 <li class="chapter" data-level="9.4.2" data-path="daymet-with-daymetr-and-feddata.html"><a href="daymet-with-daymetr-and-feddata.html#daymet-poly"><i class="fa fa-check"></i><b>9.4.2</b> For polygons data</a></li>
 </ul></li>
@@ -424,19 +483,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.7" data-path="census-with-tidycensus-under-construction.html"><a href="census-with-tidycensus-under-construction.html"><i class="fa fa-check"></i><b>9.7</b> Census with <code>tidycensus</code> (under construction)</a></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
-<li class="chapter" data-level="A" data-path="par-comp.html"><a href="par-comp.html"><i class="fa fa-check"></i><b>A</b> Loop and Parallel Computing</a><ul>
-<li class="chapter" data-level="" data-path="before-you-start-9.html"><a href="before-you-start-9.html"><i class="fa fa-check"></i>Before you start</a><ul>
+<li class="chapter" data-level="A" data-path="par-comp.html"><a href="par-comp.html"><i class="fa fa-check"></i><b>A</b> Loop and Parallel Computing</a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-9.html"><a href="before-you-start-9.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
 <li class="chapter" data-level="" data-path="before-you-start-9.html"><a href="before-you-start-9.html#direction-for-replication-9"><i class="fa fa-check"></i>Direction for replication</a></li>
 <li class="chapter" data-level="" data-path="before-you-start-9.html"><a href="before-you-start-9.html#packages-to-install-and-load"><i class="fa fa-check"></i>Packages to install and load</a></li>
 </ul></li>
-<li class="chapter" data-level="A.1" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html"><i class="fa fa-check"></i><b>A.1</b> Repetitive processes and looping</a><ul>
+<li class="chapter" data-level="A.1" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html"><i class="fa fa-check"></i><b>A.1</b> Repetitive processes and looping</a>
+<ul>
 <li class="chapter" data-level="A.1.1" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html#what-is-looping"><i class="fa fa-check"></i><b>A.1.1</b> What is looping?</a></li>
 <li class="chapter" data-level="A.1.2" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html#for-loop"><i class="fa fa-check"></i><b>A.1.2</b> For loop</a></li>
 <li class="chapter" data-level="A.1.3" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html#for-loop-using-the-lapply-function"><i class="fa fa-check"></i><b>A.1.3</b> For loop using the <code>lapply()</code> function</a></li>
 <li class="chapter" data-level="A.1.4" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html#looping-over-multiple-variables-using-lapply"><i class="fa fa-check"></i><b>A.1.4</b> Looping over multiple variables using lapply()</a></li>
 <li class="chapter" data-level="A.1.5" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html#do-you-really-need-to-loop"><i class="fa fa-check"></i><b>A.1.5</b> Do you really need to loop?</a></li>
 </ul></li>
-<li class="chapter" data-level="A.2" data-path="parcomp.html"><a href="parcomp.html"><i class="fa fa-check"></i><b>A.2</b> Parallelization of embarrassingly parallel processes</a><ul>
+<li class="chapter" data-level="A.2" data-path="parcomp.html"><a href="parcomp.html"><i class="fa fa-check"></i><b>A.2</b> Parallelization of embarrassingly parallel processes</a>
+<ul>
 <li class="chapter" data-level="A.2.1" data-path="parcomp.html"><a href="parcomp.html#mac-or-linux-users"><i class="fa fa-check"></i><b>A.2.1</b> Mac or Linux users</a></li>
 </ul></li>
 </ul></li>
@@ -473,7 +536,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
   gtag('config', 'UA-59758608-3');
 </script>
-<div id="extracting-values-from-raster-layers-for-vector-data" class="section level2">
+
+<div id="extracting-values-from-raster-layers-for-vector-data" class="section level2" number="5.2">
 <h2><span class="header-section-number">5.2</span> Extracting Values from Raster Layers for Vector Data</h2>
 <p>In this section, we will learn how to extract information from raster layers for spatial units represented as vector data (points and polygons). For the illustrations in this section, we use the following datasets:</p>
 <ul>
@@ -482,24 +546,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Points: Irrigation wells in Kansas (imported below)</li>
 </ul>
 <p><strong>PRISM tmax data for 07/02/2018</strong></p>
-<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb349-1" data-line-number="1"><span class="co">#--- download PRISM precipitation data ---#</span></a>
-<a class="sourceLine" id="cb349-2" data-line-number="2"><span class="kw">get_prism_dailys</span>(</a>
-<a class="sourceLine" id="cb349-3" data-line-number="3">  <span class="dt">type =</span> <span class="st">&quot;tmax&quot;</span>, </a>
-<a class="sourceLine" id="cb349-4" data-line-number="4">  <span class="dt">date =</span> <span class="st">&quot;2018-07-02&quot;</span>, </a>
-<a class="sourceLine" id="cb349-5" data-line-number="5">  <span class="dt">keepZip =</span> <span class="ot">FALSE</span> </a>
-<a class="sourceLine" id="cb349-6" data-line-number="6">)</a>
-<a class="sourceLine" id="cb349-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb349-8" data-line-number="8"><span class="co">#--- the file name of the PRISM data just downloaded ---#</span></a>
-<a class="sourceLine" id="cb349-9" data-line-number="9">prism_file &lt;-<span class="st"> &quot;Data/PRISM_tmax_stable_4kmD2_20180702_bil/PRISM_tmax_stable_4kmD2_20180702_bil.bil&quot;</span></a>
-<a class="sourceLine" id="cb349-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb349-11" data-line-number="11"><span class="co">#--- read in the prism data and crop it to Kansas state border ---#</span></a>
-<a class="sourceLine" id="cb349-12" data-line-number="12">prism_tmax_<span class="dv">0702</span>_KS_sr &lt;-<span class="st"> </span><span class="kw">rast</span>(prism_file) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb349-13" data-line-number="13"><span class="st">  </span>terra<span class="op">::</span><span class="kw">crop</span>(KS_extent)</a></code></pre></div>
+<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb349-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb349-1"></a><span class="co">#--- download PRISM precipitation data ---#</span></span>
+<span id="cb349-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb349-2"></a><span class="kw">get_prism_dailys</span>(</span>
+<span id="cb349-3"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb349-3"></a>  <span class="dt">type =</span> <span class="st">&quot;tmax&quot;</span>, </span>
+<span id="cb349-4"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb349-4"></a>  <span class="dt">date =</span> <span class="st">&quot;2018-07-02&quot;</span>, </span>
+<span id="cb349-5"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb349-5"></a>  <span class="dt">keepZip =</span> <span class="ot">FALSE</span> </span>
+<span id="cb349-6"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb349-6"></a>)</span>
+<span id="cb349-7"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb349-7"></a></span>
+<span id="cb349-8"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb349-8"></a><span class="co">#--- the file name of the PRISM data just downloaded ---#</span></span>
+<span id="cb349-9"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb349-9"></a>prism_file &lt;-<span class="st"> &quot;Data/PRISM_tmax_stable_4kmD2_20180702_bil/PRISM_tmax_stable_4kmD2_20180702_bil.bil&quot;</span></span>
+<span id="cb349-10"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb349-10"></a></span>
+<span id="cb349-11"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb349-11"></a><span class="co">#--- read in the prism data and crop it to Kansas state border ---#</span></span>
+<span id="cb349-12"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb349-12"></a>prism_tmax_<span class="dv">0702</span>_KS_sr &lt;-<span class="st"> </span><span class="kw">rast</span>(prism_file) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb349-13"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb349-13"></a><span class="st">  </span>terra<span class="op">::</span><span class="kw">crop</span>(KS_extent)</span></code></pre></div>
 <p><strong>Irrigation wells in Kansas:</strong></p>
-<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb350-1" data-line-number="1"><span class="co">#--- read in the KS points data ---#</span></a>
-<a class="sourceLine" id="cb350-2" data-line-number="2">(</a>
-<a class="sourceLine" id="cb350-3" data-line-number="3">KS_wells &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;./Data/Chap_5_wells_KS.rds&quot;</span>) </a>
-<a class="sourceLine" id="cb350-4" data-line-number="4">)</a></code></pre></div>
+<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb350-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb350-1"></a><span class="co">#--- read in the KS points data ---#</span></span>
+<span id="cb350-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb350-2"></a>(</span>
+<span id="cb350-3"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb350-3"></a>KS_wells &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;./Data/Chap_5_wells_KS.rds&quot;</span>) </span>
+<span id="cb350-4"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb350-4"></a>)</span></code></pre></div>
 <pre><code>Simple feature collection with 37647 features and 1 field
 geometry type:  POINT
 dimension:      XY
@@ -525,31 +589,31 @@ First 10 features:
 Figure 5.4: Map of Kansas county borders, irrigation wells, and PRISM tmax
 </p>
 </div>
-<div id="points" class="section level3">
+<div id="points" class="section level3" number="5.2.1">
 <h3><span class="header-section-number">5.2.1</span> Points</h3>
 <p>You can extract values from raster layers to points using <code>terra::extract()</code>. <code>terra::extract()</code> finds which raster cell each of the points is located within and assigns the value of the cell to the point. One complication that we have to deal with at the moment is the fact that <code>terra</code> does not support <code>sf</code> yet. However, <code>terra::extract()</code> accepts a longitude and latitude matrix. Therefore, the following works:<a href="#fn79" class="footnote-ref" id="fnref79"><sup>79</sup></a></p>
-<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb352-1" data-line-number="1"><span class="co">#--- syntax (NOT RUN) ---#</span></a>
-<a class="sourceLine" id="cb352-2" data-line-number="2">terra<span class="op">::</span><span class="kw">extract</span>(raster object, <span class="kw">st_coordinates</span>(sf object)) </a></code></pre></div>
+<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb352-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb352-1"></a><span class="co">#--- syntax (NOT RUN) ---#</span></span>
+<span id="cb352-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb352-2"></a>terra<span class="op">::</span><span class="kw">extract</span>(raster object, <span class="kw">st_coordinates</span>(sf object)) </span></code></pre></div>
 <p>Let’s extract tmax values from the PRISM tmax layer (<code>prism_tmax_0701_KS_rl</code>) to the irrigation wells:</p>
 <p>Since <code>prism_tmax_0701_KS_rl</code> is a <code>RasterLayer</code>, let’s first convert it into a <code>SpatRaster</code> object.</p>
-<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb353-1" data-line-number="1">prism_tmax_<span class="dv">0701</span>_KS_sr &lt;-<span class="st"> </span><span class="kw">rast</span>(prism_tmax_<span class="dv">0701</span>_KS_rl)</a></code></pre></div>
-<div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb354-1" data-line-number="1"><span class="co">#--- extract tmax values ---#</span></a>
-<a class="sourceLine" id="cb354-2" data-line-number="2">tmax_from_prism &lt;-<span class="st"> </span>terra<span class="op">::</span><span class="kw">extract</span>(prism_tmax_<span class="dv">0701</span>_KS_sr, <span class="kw">st_coordinates</span>(KS_wells))</a>
-<a class="sourceLine" id="cb354-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb354-4" data-line-number="4"><span class="co">#--- take a look ---#</span></a>
-<a class="sourceLine" id="cb354-5" data-line-number="5"><span class="kw">head</span>(tmax_from_prism)</a></code></pre></div>
+<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb353-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb353-1"></a>prism_tmax_<span class="dv">0701</span>_KS_sr &lt;-<span class="st"> </span><span class="kw">rast</span>(prism_tmax_<span class="dv">0701</span>_KS_rl)</span></code></pre></div>
+<div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb354-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb354-1"></a><span class="co">#--- extract tmax values ---#</span></span>
+<span id="cb354-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb354-2"></a>tmax_from_prism &lt;-<span class="st"> </span>terra<span class="op">::</span><span class="kw">extract</span>(prism_tmax_<span class="dv">0701</span>_KS_sr, <span class="kw">st_coordinates</span>(KS_wells))</span>
+<span id="cb354-3"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb354-3"></a></span>
+<span id="cb354-4"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb354-4"></a><span class="co">#--- take a look ---#</span></span>
+<span id="cb354-5"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb354-5"></a><span class="kw">head</span>(tmax_from_prism)</span></code></pre></div>
 <pre><code>[1] 34.241 29.288 32.585 30.104 34.232 35.168</code></pre>
 <p><code>terra::extract()</code> returns the extracted values as a vector when the raster object is single-layer raster data. Since the order of the values are consistent with the order of the observations in the points data, you can simply assign the vector as a new variable of the points data as follows:</p>
-<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb356-1" data-line-number="1">KS_wells<span class="op">$</span>tmax_<span class="dv">07</span>_<span class="dv">01</span> &lt;-<span class="st"> </span>tmax_from_prism</a></code></pre></div>
+<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb356-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb356-1"></a>KS_wells<span class="op">$</span>tmax_<span class="dv">07</span>_<span class="dv">01</span> &lt;-<span class="st"> </span>tmax_from_prism</span></code></pre></div>
 <p>Extracting values from a multi-layer <code>SpatRaster</code> works the same way. Here, we combine <code>prism_tmax_0701_KS_sr</code> and <code>prism_tmax_0702_KS_sr</code> to create a multi-layer <code>SpatRaster</code>.</p>
-<div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb357-1" data-line-number="1"><span class="co">#--- create a multi-layer SpatRaster ---#</span></a>
-<a class="sourceLine" id="cb357-2" data-line-number="2">prism_tmax_stack &lt;-<span class="st"> </span><span class="kw">c</span>(prism_tmax_<span class="dv">0701</span>_KS_sr, prism_tmax_<span class="dv">0702</span>_KS_sr)</a>
-<a class="sourceLine" id="cb357-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb357-4" data-line-number="4"><span class="co">#--- extract tmax values ---#</span></a>
-<a class="sourceLine" id="cb357-5" data-line-number="5">tmax_from_prism_stack &lt;-<span class="st"> </span>terra<span class="op">::</span><span class="kw">extract</span>(prism_tmax_stack, <span class="kw">st_coordinates</span>(KS_wells))</a>
-<a class="sourceLine" id="cb357-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb357-7" data-line-number="7"><span class="co">#--- take a look ---#</span></a>
-<a class="sourceLine" id="cb357-8" data-line-number="8"><span class="kw">head</span>(tmax_from_prism_stack)</a></code></pre></div>
+<div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb357-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb357-1"></a><span class="co">#--- create a multi-layer SpatRaster ---#</span></span>
+<span id="cb357-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb357-2"></a>prism_tmax_stack &lt;-<span class="st"> </span><span class="kw">c</span>(prism_tmax_<span class="dv">0701</span>_KS_sr, prism_tmax_<span class="dv">0702</span>_KS_sr)</span>
+<span id="cb357-3"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb357-3"></a></span>
+<span id="cb357-4"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb357-4"></a><span class="co">#--- extract tmax values ---#</span></span>
+<span id="cb357-5"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb357-5"></a>tmax_from_prism_stack &lt;-<span class="st"> </span>terra<span class="op">::</span><span class="kw">extract</span>(prism_tmax_stack, <span class="kw">st_coordinates</span>(KS_wells))</span>
+<span id="cb357-6"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb357-6"></a></span>
+<span id="cb357-7"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb357-7"></a><span class="co">#--- take a look ---#</span></span>
+<span id="cb357-8"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb357-8"></a><span class="kw">head</span>(tmax_from_prism_stack)</span></code></pre></div>
 <pre><code>     ID PRISM_tmax_stable_4kmD2_20180701_bil
 [1,]  1                               34.241
 [2,]  2                               29.288
@@ -566,40 +630,40 @@ Figure 5.4: Map of Kansas county borders, irrigation wells, and PRISM tmax
 [6,]                               30.640</code></pre>
 <p>Instead of a vector, the returned object is a matrix with each of the raster layers forming a column.</p>
 </div>
-<div id="polygons-terra-way" class="section level3">
+<div id="polygons-terra-way" class="section level3" number="5.2.2">
 <h3><span class="header-section-number">5.2.2</span> Polygons (<code>terra</code> way)</h3>
 <p><strong>Caution:</strong> Recently, <code>terra::extract()</code> crashed R sessions on RStudio several times when I tried to extract values from a large raster dataset (1.6 GB) for polygons. I did not see any problem when extracting for points data even if the raster data is very large, For now, I recommend <code>exact_extract()</code> to extract values for polygons, which is detailed in the next section. <code>exact_extract()</code> is faster for a large raster dataset anyway.</p>
 <p>Remember that the <code>terra</code> packages does not support an <code>sf</code> object yet. So, an <code>sf</code> object of polygons needs to be converted to a <code>SpatVector</code> object before we use any functions from the <code>terra</code> packages.<a href="#fn80" class="footnote-ref" id="fnref80"><sup>80</sup></a></p>
-<div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb359-1" data-line-number="1"><span class="co">#--- Kansas boundary (SpatVector) ---#</span></a>
-<a class="sourceLine" id="cb359-2" data-line-number="2">KS_county_sv &lt;-<span class="st"> </span>KS_county_sf <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb359-3" data-line-number="3"><span class="st">  </span><span class="co">#--- convert to a SpatVector object ---#</span></a>
-<a class="sourceLine" id="cb359-4" data-line-number="4"><span class="st">  </span><span class="kw">as</span>(., <span class="st">&quot;Spatial&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">vect</span>() </a></code></pre></div>
+<div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb359-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb359-1"></a><span class="co">#--- Kansas boundary (SpatVector) ---#</span></span>
+<span id="cb359-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb359-2"></a>KS_county_sv &lt;-<span class="st"> </span>KS_county_sf <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb359-3"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb359-3"></a><span class="st">  </span><span class="co">#--- convert to a SpatVector object ---#</span></span>
+<span id="cb359-4"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb359-4"></a><span class="st">  </span><span class="kw">as</span>(., <span class="st">&quot;Spatial&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">vect</span>() </span></code></pre></div>
 <p>You can use the same <code>terra::extract()</code> function to extract values from a raster layer for polygons. For each of the polygons, it will identify all the raster cells whose center lies inside the polygon and assign the vector of values of the cells to the polygon (You can change this to the cells that intersect with polygons using the <code>touch = TRUE</code> option).</p>
-<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb360-1" data-line-number="1"><span class="co">#--- extract values from the raster for each county ---#</span></a>
-<a class="sourceLine" id="cb360-2" data-line-number="2">tmax_by_county &lt;-<span class="st"> </span>terra<span class="op">::</span><span class="kw">extract</span>(prism_tmax_<span class="dv">0701</span>_KS_sr, KS_county_sv)  </a>
-<a class="sourceLine" id="cb360-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb360-4" data-line-number="4"><span class="co">#--- take a look at the first 2 elements of the list ---#</span></a>
-<a class="sourceLine" id="cb360-5" data-line-number="5">tmax_by_county[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>] </a></code></pre></div>
+<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb360-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb360-1"></a><span class="co">#--- extract values from the raster for each county ---#</span></span>
+<span id="cb360-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb360-2"></a>tmax_by_county &lt;-<span class="st"> </span>terra<span class="op">::</span><span class="kw">extract</span>(prism_tmax_<span class="dv">0701</span>_KS_sr, KS_county_sv)  </span>
+<span id="cb360-3"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb360-3"></a></span>
+<span id="cb360-4"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb360-4"></a><span class="co">#--- take a look at the first 2 elements of the list ---#</span></span>
+<span id="cb360-5"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb360-5"></a>tmax_by_county[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>] </span></code></pre></div>
 <pre><code>[1] 1 1</code></pre>
 <p><code>terra::extract()</code> returns a list, where its <span class="math inline">\(i\)</span>th element corresponds to the <span class="math inline">\(i\)</span>th row of observation in the polygon data (<code>KS_county_sv</code>). Each of the list elements is also a list, and the list has a vector of extracted values for the corresponding polygon.</p>
-<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb362-1" data-line-number="1"><span class="co">#--- see the first element of the list ---#</span></a>
-<a class="sourceLine" id="cb362-2" data-line-number="2">tmax_by_county[[<span class="dv">1</span>]]</a></code></pre></div>
+<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb362-1"></a><span class="co">#--- see the first element of the list ---#</span></span>
+<span id="cb362-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb362-2"></a>tmax_by_county[[<span class="dv">1</span>]]</span></code></pre></div>
 <pre><code>[1] 1</code></pre>
-<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb364-1" data-line-number="1"><span class="co">#--- check the class ---#</span></a>
-<a class="sourceLine" id="cb364-2" data-line-number="2">tmax_by_county[[<span class="dv">1</span>]] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">class</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb364-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb364-1"></a><span class="co">#--- check the class ---#</span></span>
+<span id="cb364-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb364-2"></a>tmax_by_county[[<span class="dv">1</span>]] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">class</span>()</span></code></pre></div>
 <pre><code>[1] &quot;numeric&quot;</code></pre>
 <p>In order to make the results usable, you can process them to get a single <code>data.frame</code>, taking advantage of <code>dplyr::bind_rows()</code> to combine the list of the datasets into one dataset. In doing so, you can use <code>.id</code> option to create a new identifier column that links each row to its original data (<code>data.table</code> users can use <code>rbindlist()</code> with the <code>idcol</code> option).</p>
-<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb366-1" data-line-number="1">(</a>
-<a class="sourceLine" id="cb366-2" data-line-number="2">tmax_by_county_df &lt;-<span class="st"> </span>tmax_by_county <span class="op">%&gt;%</span><span class="st">  </span></a>
-<a class="sourceLine" id="cb366-3" data-line-number="3"><span class="st">  </span><span class="co">#--- apply unlist to the lists to have vectors as the list elements ---#</span></a>
-<a class="sourceLine" id="cb366-4" data-line-number="4"><span class="st">  </span><span class="kw">lapply</span>(unlist) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb366-5" data-line-number="5"><span class="st">  </span><span class="co">#--- convert vectors to data.frames ---#</span></a>
-<a class="sourceLine" id="cb366-6" data-line-number="6"><span class="st">  </span><span class="kw">lapply</span>(as_tibble) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb366-7" data-line-number="7"><span class="st">  </span><span class="co">#--- combine the list of data.frames ---#</span></a>
-<a class="sourceLine" id="cb366-8" data-line-number="8"><span class="st">  </span><span class="kw">bind_rows</span>(., <span class="dt">.id =</span> <span class="st">&quot;rowid&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb366-9" data-line-number="9"><span class="st">  </span><span class="co">#--- rename the value variable ---# </span></a>
-<a class="sourceLine" id="cb366-10" data-line-number="10"><span class="st">  </span><span class="kw">rename</span>(<span class="dt">tmax =</span> value)</a>
-<a class="sourceLine" id="cb366-11" data-line-number="11">)</a></code></pre></div>
+<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb366-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb366-1"></a>(</span>
+<span id="cb366-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb366-2"></a>tmax_by_county_df &lt;-<span class="st"> </span>tmax_by_county <span class="op">%&gt;%</span><span class="st">  </span></span>
+<span id="cb366-3"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb366-3"></a><span class="st">  </span><span class="co">#--- apply unlist to the lists to have vectors as the list elements ---#</span></span>
+<span id="cb366-4"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb366-4"></a><span class="st">  </span><span class="kw">lapply</span>(unlist) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb366-5"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb366-5"></a><span class="st">  </span><span class="co">#--- convert vectors to data.frames ---#</span></span>
+<span id="cb366-6"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb366-6"></a><span class="st">  </span><span class="kw">lapply</span>(as_tibble) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb366-7"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb366-7"></a><span class="st">  </span><span class="co">#--- combine the list of data.frames ---#</span></span>
+<span id="cb366-8"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb366-8"></a><span class="st">  </span><span class="kw">bind_rows</span>(., <span class="dt">.id =</span> <span class="st">&quot;rowid&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb366-9"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb366-9"></a><span class="st">  </span><span class="co">#--- rename the value variable ---# </span></span>
+<span id="cb366-10"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb366-10"></a><span class="st">  </span><span class="kw">rename</span>(<span class="dt">tmax =</span> value)</span>
+<span id="cb366-11"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb366-11"></a>)</span></code></pre></div>
 <pre><code># A tibble: 25,690 x 2
    rowid  tmax
    &lt;chr&gt; &lt;dbl&gt;
@@ -615,9 +679,9 @@ Figure 5.4: Map of Kansas county borders, irrigation wells, and PRISM tmax
 10 10        1
 # … with 25,680 more rows</code></pre>
 <p>Note that <code>rowid</code> represents the row number of polygons in <code>KS_county_sv</code>. Now, we can easily summarize the data by polygon (county). For example, the code below finds a simple average of tmax by county.</p>
-<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb368-1" data-line-number="1">tmax_by_county_df <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb368-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(rowid) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb368-3" data-line-number="3"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">tmax =</span> <span class="kw">mean</span>(tmax))</a></code></pre></div>
+<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb368-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb368-1"></a>tmax_by_county_df <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb368-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb368-2"></a><span class="st">  </span><span class="kw">group_by</span>(rowid) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb368-3"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb368-3"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">tmax =</span> <span class="kw">mean</span>(tmax))</span></code></pre></div>
 <pre><code># A tibble: 25,690 x 2
    rowid  tmax
    &lt;chr&gt; &lt;dbl&gt;
@@ -633,17 +697,17 @@ Figure 5.4: Map of Kansas county borders, irrigation wells, and PRISM tmax
 10 10005    83
 # … with 25,680 more rows</code></pre>
 <p>For <code>data.table</code> users, here is how you can do the same:</p>
-<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb370-1" data-line-number="1">tmax_by_county <span class="op">%&gt;%</span><span class="st">  </span></a>
-<a class="sourceLine" id="cb370-2" data-line-number="2"><span class="st">  </span><span class="co">#--- apply unlist to the lists to have vectors as the list elements ---#</span></a>
-<a class="sourceLine" id="cb370-3" data-line-number="3"><span class="st">  </span><span class="kw">lapply</span>(unlist) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb370-4" data-line-number="4"><span class="st">  </span><span class="co">#--- convert vectors to data.frames ---#</span></a>
-<a class="sourceLine" id="cb370-5" data-line-number="5"><span class="st">  </span><span class="kw">lapply</span>(data.table) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb370-6" data-line-number="6"><span class="st">  </span><span class="co">#--- combine the list ---#</span></a>
-<a class="sourceLine" id="cb370-7" data-line-number="7"><span class="st">  </span><span class="kw">rbindlist</span>(., <span class="dt">idcol =</span> <span class="st">&quot;rowid&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb370-8" data-line-number="8"><span class="st">  </span><span class="co">#--- rename the value variable ---# </span></a>
-<a class="sourceLine" id="cb370-9" data-line-number="9"><span class="st">  </span><span class="kw">setnames</span>(<span class="st">&quot;V1&quot;</span>, <span class="st">&quot;tmax&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb370-10" data-line-number="10"><span class="st">  </span><span class="co">#--- find the mean of tmax ---#</span></a>
-<a class="sourceLine" id="cb370-11" data-line-number="11"><span class="st">  </span>.[, .(<span class="dt">tmax =</span> <span class="kw">mean</span>(tmax)), by =<span class="st"> </span>rowid]</a></code></pre></div>
+<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb370-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb370-1"></a>tmax_by_county <span class="op">%&gt;%</span><span class="st">  </span></span>
+<span id="cb370-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb370-2"></a><span class="st">  </span><span class="co">#--- apply unlist to the lists to have vectors as the list elements ---#</span></span>
+<span id="cb370-3"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb370-3"></a><span class="st">  </span><span class="kw">lapply</span>(unlist) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb370-4"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb370-4"></a><span class="st">  </span><span class="co">#--- convert vectors to data.frames ---#</span></span>
+<span id="cb370-5"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb370-5"></a><span class="st">  </span><span class="kw">lapply</span>(data.table) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb370-6"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb370-6"></a><span class="st">  </span><span class="co">#--- combine the list ---#</span></span>
+<span id="cb370-7"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb370-7"></a><span class="st">  </span><span class="kw">rbindlist</span>(., <span class="dt">idcol =</span> <span class="st">&quot;rowid&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb370-8"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb370-8"></a><span class="st">  </span><span class="co">#--- rename the value variable ---# </span></span>
+<span id="cb370-9"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb370-9"></a><span class="st">  </span><span class="kw">setnames</span>(<span class="st">&quot;V1&quot;</span>, <span class="st">&quot;tmax&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb370-10"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb370-10"></a><span class="st">  </span><span class="co">#--- find the mean of tmax ---#</span></span>
+<span id="cb370-11"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb370-11"></a><span class="st">  </span>.[, .(<span class="dt">tmax =</span> <span class="kw">mean</span>(tmax)), by =<span class="st"> </span>rowid]</span></code></pre></div>
 <pre><code>       rowid   tmax
     1:     1  1.000
     2:     2  1.000
@@ -658,20 +722,20 @@ Figure 5.4: Map of Kansas county borders, irrigation wells, and PRISM tmax
 25690: 25690 32.483</code></pre>
 <hr />
 <p>Extracting values from a multi-layer raster data works exactly the same way except that data processing after the value extraction is slightly more complicated.</p>
-<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb372-1" data-line-number="1"><span class="co">#--- extract from a multi-layer raster object ---#</span></a>
-<a class="sourceLine" id="cb372-2" data-line-number="2">tmax_by_county_from_stack &lt;-<span class="st"> </span>terra<span class="op">::</span><span class="kw">extract</span>(prism_tmax_stack, KS_county_sv) </a>
-<a class="sourceLine" id="cb372-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb372-4" data-line-number="4"><span class="co">#--- take a look at the first element ---#</span></a>
-<a class="sourceLine" id="cb372-5" data-line-number="5">tmax_by_county_from_stack[[<span class="dv">1</span>]]</a></code></pre></div>
+<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb372-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb372-1"></a><span class="co">#--- extract from a multi-layer raster object ---#</span></span>
+<span id="cb372-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb372-2"></a>tmax_by_county_from_stack &lt;-<span class="st"> </span>terra<span class="op">::</span><span class="kw">extract</span>(prism_tmax_stack, KS_county_sv) </span>
+<span id="cb372-3"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb372-3"></a></span>
+<span id="cb372-4"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb372-4"></a><span class="co">#--- take a look at the first element ---#</span></span>
+<span id="cb372-5"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb372-5"></a>tmax_by_county_from_stack[[<span class="dv">1</span>]]</span></code></pre></div>
 <pre><code>[1] 1</code></pre>
 <p>Just like the single-layer case, <span class="math inline">\(i\)</span>th element of the list corresponds to <span class="math inline">\(i\)</span>th polygon. However, each element of the list has two lists of extracted values because we are extracting from a two-layer raster object. This makes it a bit complicated to process them to have nicely-formatted data. The following code transform the list to a single <code>data.frame</code>:</p>
-<div class="sourceCode" id="cb374"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb374-1" data-line-number="1"><span class="co">#--- extraction from a multi-layer raster object ---#</span></a>
-<a class="sourceLine" id="cb374-2" data-line-number="2">tmax_long_from_stack &lt;-<span class="st"> </span>tmax_by_county_from_stack <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb374-3" data-line-number="3"><span class="st">  </span><span class="kw">lapply</span>(., <span class="cf">function</span>(x) <span class="kw">bind_rows</span>(<span class="kw">lapply</span>(x, as_tibble), <span class="dt">.id =</span> <span class="st">&quot;layer&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb374-4" data-line-number="4"><span class="st">  </span><span class="kw">bind_rows</span>(., <span class="dt">.id =</span> <span class="st">&quot;rowid&quot;</span>)</a>
-<a class="sourceLine" id="cb374-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb374-6" data-line-number="6"><span class="co">#--- take a look ---#</span></a>
-<a class="sourceLine" id="cb374-7" data-line-number="7"><span class="kw">head</span>(tmax_long_from_stack)</a></code></pre></div>
+<div class="sourceCode" id="cb374"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb374-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb374-1"></a><span class="co">#--- extraction from a multi-layer raster object ---#</span></span>
+<span id="cb374-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb374-2"></a>tmax_long_from_stack &lt;-<span class="st"> </span>tmax_by_county_from_stack <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb374-3"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb374-3"></a><span class="st">  </span><span class="kw">lapply</span>(., <span class="cf">function</span>(x) <span class="kw">bind_rows</span>(<span class="kw">lapply</span>(x, as_tibble), <span class="dt">.id =</span> <span class="st">&quot;layer&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb374-4"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb374-4"></a><span class="st">  </span><span class="kw">bind_rows</span>(., <span class="dt">.id =</span> <span class="st">&quot;rowid&quot;</span>)</span>
+<span id="cb374-5"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb374-5"></a></span>
+<span id="cb374-6"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb374-6"></a><span class="co">#--- take a look ---#</span></span>
+<span id="cb374-7"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb374-7"></a><span class="kw">head</span>(tmax_long_from_stack)</span></code></pre></div>
 <pre><code># A tibble: 6 x 3
   rowid layer value
   &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;
@@ -683,9 +747,9 @@ Figure 5.4: Map of Kansas county borders, irrigation wells, and PRISM tmax
 6 6     1         1</code></pre>
 <p>Note that this code works for a raster object with any number of layers including the single-layer case we saw above.</p>
 <p>We can then summarize the extracted data by polygon and raster layer.</p>
-<div class="sourceCode" id="cb376"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb376-1" data-line-number="1">tmax_long_from_stack <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb376-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(rowid, layer) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb376-3" data-line-number="3"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">tmax =</span> <span class="kw">mean</span>(value))</a></code></pre></div>
+<div class="sourceCode" id="cb376"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb376-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb376-1"></a>tmax_long_from_stack <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb376-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb376-2"></a><span class="st">  </span><span class="kw">group_by</span>(rowid, layer) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb376-3"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb376-3"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">tmax =</span> <span class="kw">mean</span>(value))</span></code></pre></div>
 <pre><code># A tibble: 38,535 x 3
 # Groups:   rowid [38,535]
    rowid layer  tmax
@@ -702,12 +766,12 @@ Figure 5.4: Map of Kansas county borders, irrigation wells, and PRISM tmax
 10 10005 1        83
 # … with 38,525 more rows</code></pre>
 <p>Here is the <code>data.table</code> way:</p>
-<div class="sourceCode" id="cb378"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb378-1" data-line-number="1">(</a>
-<a class="sourceLine" id="cb378-2" data-line-number="2">tmax_by_county_layer &lt;-<span class="st"> </span>tmax_by_county_from_stack <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb378-3" data-line-number="3"><span class="st">  </span><span class="kw">lapply</span>(., <span class="cf">function</span>(x) <span class="kw">rbindlist</span>(<span class="kw">lapply</span>(x, data.table), <span class="dt">idcol =</span> <span class="st">&quot;layer&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb378-4" data-line-number="4"><span class="st">  </span><span class="kw">rbindlist</span>(., <span class="dt">idcol =</span> <span class="st">&quot;rowid&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb378-5" data-line-number="5"><span class="st">  </span>.[, .(<span class="dt">tmax =</span> <span class="kw">mean</span>(V1)), <span class="dt">by =</span> .(rowid, layer)]</a>
-<a class="sourceLine" id="cb378-6" data-line-number="6">)</a></code></pre></div>
+<div class="sourceCode" id="cb378"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb378-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb378-1"></a>(</span>
+<span id="cb378-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb378-2"></a>tmax_by_county_layer &lt;-<span class="st"> </span>tmax_by_county_from_stack <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb378-3"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb378-3"></a><span class="st">  </span><span class="kw">lapply</span>(., <span class="cf">function</span>(x) <span class="kw">rbindlist</span>(<span class="kw">lapply</span>(x, data.table), <span class="dt">idcol =</span> <span class="st">&quot;layer&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb378-4"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb378-4"></a><span class="st">  </span><span class="kw">rbindlist</span>(., <span class="dt">idcol =</span> <span class="st">&quot;rowid&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb378-5"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb378-5"></a><span class="st">  </span>.[, .(<span class="dt">tmax =</span> <span class="kw">mean</span>(V1)), <span class="dt">by =</span> .(rowid, layer)]</span>
+<span id="cb378-6"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb378-6"></a>)</span></code></pre></div>
 <pre><code>       rowid layer   tmax
     1:     1     1  1.000
     2:     2     1  1.000
@@ -721,22 +785,22 @@ Figure 5.4: Map of Kansas county borders, irrigation wells, and PRISM tmax
 38534: 38534     1 29.747
 38535: 38535     1 29.427</code></pre>
 </div>
-<div id="polygons-exactextractr-way" class="section level3">
+<div id="polygons-exactextractr-way" class="section level3" number="5.2.3">
 <h3><span class="header-section-number">5.2.3</span> Polygons (<code>exactextractr</code> way)</h3>
 <p><code>exact_extract()</code> function from the <code>exactextractr</code> package is a faster alternative than <code>terra::extract()</code> for large raster data as we confirm later (<code>exact_extract()</code> does not work with points data at the moment).<a href="#fn81" class="footnote-ref" id="fnref81"><sup>81</sup></a> <code>exact_extract()</code> also provides a coverage fraction value for each of the cell-polygon intersections. However, as mentioned in Chapter <a href="raster-basics.html#raster-basics">4</a>, it only works with <code>Raster</code><span class="math inline">\(^*\)</span> objects. So, we first need to convert a <code>SpatRaster</code> object to a <code>Raster</code><span class="math inline">\(^*\)</span> object. The syntax of <code>exact_extract()</code> is very much similar to <code>terra::extract()</code>.</p>
-<div class="sourceCode" id="cb380"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb380-1" data-line-number="1"><span class="co">#--- syntax (NOT RUN) ---#</span></a>
-<a class="sourceLine" id="cb380-2" data-line-number="2"><span class="kw">exact_extract</span>(raster, sf) </a></code></pre></div>
+<div class="sourceCode" id="cb380"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb380-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb380-1"></a><span class="co">#--- syntax (NOT RUN) ---#</span></span>
+<span id="cb380-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb380-2"></a><span class="kw">exact_extract</span>(raster, sf) </span></code></pre></div>
 <p>So, to get tmax values from the PRISM raster layer for Kansas county polygons, the following does the job:</p>
-<div class="sourceCode" id="cb381"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb381-1" data-line-number="1"><span class="co">#--- convert to a RasterLayer ---#</span></a>
-<a class="sourceLine" id="cb381-2" data-line-number="2">prism_tmax_<span class="dv">0701</span>_KS_rl &lt;-<span class="st"> </span><span class="kw">raster</span>(prism_tmax_<span class="dv">0701</span>_KS_sr)</a>
-<a class="sourceLine" id="cb381-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb381-4" data-line-number="4"><span class="kw">library</span>(<span class="st">&quot;exactextractr&quot;</span>)</a>
-<a class="sourceLine" id="cb381-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb381-6" data-line-number="6"><span class="co">#--- extract values from the raster for each county ---#</span></a>
-<a class="sourceLine" id="cb381-7" data-line-number="7">tmax_by_county &lt;-<span class="st"> </span><span class="kw">exact_extract</span>(prism_tmax_<span class="dv">0701</span>_KS_rl, KS_county_sf)  </a>
-<a class="sourceLine" id="cb381-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb381-9" data-line-number="9"><span class="co">#--- take a look at the first 6 rows of the first two list elements ---#</span></a>
-<a class="sourceLine" id="cb381-10" data-line-number="10">tmax_by_county[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">lapply</span>(<span class="cf">function</span>(x) <span class="kw">head</span>(x))</a></code></pre></div>
+<div class="sourceCode" id="cb381"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb381-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb381-1"></a><span class="co">#--- convert to a RasterLayer ---#</span></span>
+<span id="cb381-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb381-2"></a>prism_tmax_<span class="dv">0701</span>_KS_rl &lt;-<span class="st"> </span><span class="kw">raster</span>(prism_tmax_<span class="dv">0701</span>_KS_sr)</span>
+<span id="cb381-3"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb381-3"></a></span>
+<span id="cb381-4"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb381-4"></a><span class="kw">library</span>(<span class="st">&quot;exactextractr&quot;</span>)</span>
+<span id="cb381-5"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb381-5"></a></span>
+<span id="cb381-6"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb381-6"></a><span class="co">#--- extract values from the raster for each county ---#</span></span>
+<span id="cb381-7"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb381-7"></a>tmax_by_county &lt;-<span class="st"> </span><span class="kw">exact_extract</span>(prism_tmax_<span class="dv">0701</span>_KS_rl, KS_county_sf)  </span>
+<span id="cb381-8"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb381-8"></a></span>
+<span id="cb381-9"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb381-9"></a><span class="co">#--- take a look at the first 6 rows of the first two list elements ---#</span></span>
+<span id="cb381-10"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb381-10"></a>tmax_by_county[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">lapply</span>(<span class="cf">function</span>(x) <span class="kw">head</span>(x))</span></code></pre></div>
 <pre><code>[[1]]
    value coverage_fraction
 1 33.669        0.05508952
@@ -755,11 +819,11 @@ Figure 5.4: Map of Kansas county borders, irrigation wells, and PRISM tmax
 5 33.511        0.08167925
 6 33.512        0.08369426</code></pre>
 <p><code>exact_extract()</code> returns a list, where its <span class="math inline">\(i\)</span>th element corresponds to the <span class="math inline">\(i\)</span>th row of observation in the polygon data (<code>KS_county_sf</code>). For each element of the list, you see <code>value</code> and <code>coverage_fraction</code>. <code>value</code> is the tmax value of the intersecting raster cells, and <code>coverage_fraction</code> is the fraction of the intersecting area relative to the full raster grid, which can help find coverage-weighted summary of the extracted values.</p>
-<div class="sourceCode" id="cb383"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb383-1" data-line-number="1"><span class="co">#--- combine ---#</span></a>
-<a class="sourceLine" id="cb383-2" data-line-number="2">tmax_combined &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(tmax_by_county, <span class="dt">.id =</span> <span class="st">&quot;id&quot;</span>)</a>
-<a class="sourceLine" id="cb383-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb383-4" data-line-number="4"><span class="co">#--- take a look ---#</span></a>
-<a class="sourceLine" id="cb383-5" data-line-number="5"><span class="kw">head</span>(tmax_combined)</a></code></pre></div>
+<div class="sourceCode" id="cb383"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb383-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb383-1"></a><span class="co">#--- combine ---#</span></span>
+<span id="cb383-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb383-2"></a>tmax_combined &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(tmax_by_county, <span class="dt">.id =</span> <span class="st">&quot;id&quot;</span>)</span>
+<span id="cb383-3"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb383-3"></a></span>
+<span id="cb383-4"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb383-4"></a><span class="co">#--- take a look ---#</span></span>
+<span id="cb383-5"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb383-5"></a><span class="kw">head</span>(tmax_combined)</span></code></pre></div>
 <pre><code>  id  value coverage_fraction
 1  1 33.669        0.05508952
 2  1 33.729        0.40033439
@@ -768,15 +832,15 @@ Figure 5.4: Map of Kansas county borders, irrigation wells, and PRISM tmax
 5  1 33.819        0.39828768
 6  1 33.893        0.40295100</code></pre>
 <p>We can now summarize the data by <code>id</code>. Here, we calculate coverage-weighted mean of tmax.</p>
-<div class="sourceCode" id="cb385"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb385-1" data-line-number="1">tmax_by_id &lt;-<span class="st"> </span>tmax_combined <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb385-2" data-line-number="2"><span class="st">  </span><span class="co">#--- convert from character to numeric  ---#</span></a>
-<a class="sourceLine" id="cb385-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">id =</span> <span class="kw">as.numeric</span>(id)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb385-4" data-line-number="4"><span class="st">  </span><span class="co">#--- group summary ---#</span></a>
-<a class="sourceLine" id="cb385-5" data-line-number="5"><span class="st">  </span><span class="kw">group_by</span>(id) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb385-6" data-line-number="6"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">tmax =</span> <span class="kw">sum</span>(value <span class="op">*</span><span class="st"> </span>coverage_fraction) <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(coverage_fraction))</a>
-<a class="sourceLine" id="cb385-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb385-8" data-line-number="8"><span class="co">#--- take a look ---#</span></a>
-<a class="sourceLine" id="cb385-9" data-line-number="9"><span class="kw">head</span>(tmax_by_id)</a></code></pre></div>
+<div class="sourceCode" id="cb385"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb385-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb385-1"></a>tmax_by_id &lt;-<span class="st"> </span>tmax_combined <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb385-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb385-2"></a><span class="st">  </span><span class="co">#--- convert from character to numeric  ---#</span></span>
+<span id="cb385-3"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb385-3"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">id =</span> <span class="kw">as.numeric</span>(id)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb385-4"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb385-4"></a><span class="st">  </span><span class="co">#--- group summary ---#</span></span>
+<span id="cb385-5"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb385-5"></a><span class="st">  </span><span class="kw">group_by</span>(id) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb385-6"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb385-6"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">tmax =</span> <span class="kw">sum</span>(value <span class="op">*</span><span class="st"> </span>coverage_fraction) <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(coverage_fraction))</span>
+<span id="cb385-7"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb385-7"></a></span>
+<span id="cb385-8"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb385-8"></a><span class="co">#--- take a look ---#</span></span>
+<span id="cb385-9"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb385-9"></a><span class="kw">head</span>(tmax_by_id)</span></code></pre></div>
 <pre><code># A tibble: 6 x 2
      id  tmax
   &lt;dbl&gt; &lt;dbl&gt;
@@ -787,15 +851,15 @@ Figure 5.4: Map of Kansas county borders, irrigation wells, and PRISM tmax
 5     5  34.0
 6     6  34.8</code></pre>
 <p>Remember that <code>id</code> values are row numbers in the polygon data (<code>KS_county_sf</code>). So, we can assign the tmax values to KS_county_sf as follows:</p>
-<div class="sourceCode" id="cb387"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb387-1" data-line-number="1">KS_county_sf<span class="op">$</span>tmax_<span class="dv">07</span>_<span class="dv">01</span> &lt;-<span class="st"> </span>tmax_by_id<span class="op">$</span>tmax</a></code></pre></div>
+<div class="sourceCode" id="cb387"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb387-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb387-1"></a>KS_county_sf<span class="op">$</span>tmax_<span class="dv">07</span>_<span class="dv">01</span> &lt;-<span class="st"> </span>tmax_by_id<span class="op">$</span>tmax</span></code></pre></div>
 <hr />
 <p>Extracting values from <code>RasterStack</code> works in exactly the same manner as <code>RasterLayer</code>. Do not forget that you need to use <code>stack()</code> instead of <code>raster()</code> to convert a multi-layer <code>SpatRaster</code> to <code>RasterStack</code>.</p>
-<div class="sourceCode" id="cb388"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb388-1" data-line-number="1">tmax_by_county_stack &lt;-<span class="st"> </span><span class="kw">stack</span>(prism_tmax_stack) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># convert to RasterStack</span></a>
-<a class="sourceLine" id="cb388-2" data-line-number="2"><span class="st">  </span><span class="co">#--- extract from a stack ---#</span></a>
-<a class="sourceLine" id="cb388-3" data-line-number="3"><span class="st">  </span><span class="kw">exact_extract</span>(., KS_county_sf, <span class="dt">progress =</span> F) </a>
-<a class="sourceLine" id="cb388-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb388-5" data-line-number="5"><span class="co">#--- take a look at the first 6 lines of the first element---#</span></a>
-<a class="sourceLine" id="cb388-6" data-line-number="6">tmax_by_county_stack[[<span class="dv">1</span>]] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb388"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb388-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb388-1"></a>tmax_by_county_stack &lt;-<span class="st"> </span><span class="kw">stack</span>(prism_tmax_stack) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># convert to RasterStack</span></span>
+<span id="cb388-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb388-2"></a><span class="st">  </span><span class="co">#--- extract from a stack ---#</span></span>
+<span id="cb388-3"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb388-3"></a><span class="st">  </span><span class="kw">exact_extract</span>(., KS_county_sf, <span class="dt">progress =</span> F) </span>
+<span id="cb388-4"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb388-4"></a></span>
+<span id="cb388-5"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb388-5"></a><span class="co">#--- take a look at the first 6 lines of the first element---#</span></span>
+<span id="cb388-6"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb388-6"></a>tmax_by_county_stack[[<span class="dv">1</span>]] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>()</span></code></pre></div>
 <pre><code>  PRISM_tmax_stable_4kmD2_20180701_bil PRISM_tmax_stable_4kmD2_20180702_bil
 1                               33.669                               30.281
 2                               33.729                               30.311
@@ -811,12 +875,12 @@ Figure 5.4: Map of Kansas county borders, irrigation wells, and PRISM tmax
 5        0.39828768
 6        0.40295100</code></pre>
 <p>As you can see above, <code>exact_extract()</code> appends additional columns for additional layers, unlike the results of <code>terra::extract()</code> that creates additional lists for additional layers. This makes the post-extraction processing much simpler.</p>
-<div class="sourceCode" id="cb390"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb390-1" data-line-number="1"><span class="co">#--- combine them ---#</span></a>
-<a class="sourceLine" id="cb390-2" data-line-number="2">tmax_all_combined &lt;-<span class="st"> </span>tmax_by_county_stack <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb390-3" data-line-number="3"><span class="st">  </span><span class="kw">bind_rows</span>(<span class="dt">.id =</span> <span class="st">&quot;id&quot;</span>) </a>
-<a class="sourceLine" id="cb390-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb390-5" data-line-number="5"><span class="co">#--- take a look ---#</span></a>
-<a class="sourceLine" id="cb390-6" data-line-number="6"><span class="kw">head</span>(tmax_all_combined)</a></code></pre></div>
+<div class="sourceCode" id="cb390"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb390-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb390-1"></a><span class="co">#--- combine them ---#</span></span>
+<span id="cb390-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb390-2"></a>tmax_all_combined &lt;-<span class="st"> </span>tmax_by_county_stack <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb390-3"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb390-3"></a><span class="st">  </span><span class="kw">bind_rows</span>(<span class="dt">.id =</span> <span class="st">&quot;id&quot;</span>) </span>
+<span id="cb390-4"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb390-4"></a></span>
+<span id="cb390-5"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb390-5"></a><span class="co">#--- take a look ---#</span></span>
+<span id="cb390-6"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb390-6"></a><span class="kw">head</span>(tmax_all_combined)</span></code></pre></div>
 <pre><code>  id PRISM_tmax_stable_4kmD2_20180701_bil PRISM_tmax_stable_4kmD2_20180702_bil
 1  1                               33.669                               30.281
 2  1                               33.729                               30.311
@@ -832,15 +896,15 @@ Figure 5.4: Map of Kansas county borders, irrigation wells, and PRISM tmax
 5        0.39828768
 6        0.40295100</code></pre>
 <p>In order to find the coverage-weighted tmax by date, you can first pivot it to a long format using <code>dplyr::pivot_longer()</code>.</p>
-<div class="sourceCode" id="cb392"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb392-1" data-line-number="1"><span class="co">#--- pivot to a longer format ---#</span></a>
-<a class="sourceLine" id="cb392-2" data-line-number="2">(</a>
-<a class="sourceLine" id="cb392-3" data-line-number="3">tmax_long &lt;-<span class="st"> </span><span class="kw">pivot_longer</span>(</a>
-<a class="sourceLine" id="cb392-4" data-line-number="4">  tmax_all_combined, </a>
-<a class="sourceLine" id="cb392-5" data-line-number="5">  <span class="op">-</span><span class="kw">c</span>(id, coverage_fraction), </a>
-<a class="sourceLine" id="cb392-6" data-line-number="6">  <span class="dt">names_to =</span> <span class="st">&quot;date&quot;</span>,</a>
-<a class="sourceLine" id="cb392-7" data-line-number="7">  <span class="dt">values_to =</span> <span class="st">&quot;tmax&quot;</span></a>
-<a class="sourceLine" id="cb392-8" data-line-number="8">  )  </a>
-<a class="sourceLine" id="cb392-9" data-line-number="9">)</a></code></pre></div>
+<div class="sourceCode" id="cb392"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb392-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb392-1"></a><span class="co">#--- pivot to a longer format ---#</span></span>
+<span id="cb392-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb392-2"></a>(</span>
+<span id="cb392-3"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb392-3"></a>tmax_long &lt;-<span class="st"> </span><span class="kw">pivot_longer</span>(</span>
+<span id="cb392-4"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb392-4"></a>  tmax_all_combined, </span>
+<span id="cb392-5"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb392-5"></a>  <span class="op">-</span><span class="kw">c</span>(id, coverage_fraction), </span>
+<span id="cb392-6"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb392-6"></a>  <span class="dt">names_to =</span> <span class="st">&quot;date&quot;</span>,</span>
+<span id="cb392-7"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb392-7"></a>  <span class="dt">values_to =</span> <span class="st">&quot;tmax&quot;</span></span>
+<span id="cb392-8"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb392-8"></a>  )  </span>
+<span id="cb392-9"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb392-9"></a>)</span></code></pre></div>
 <pre><code># A tibble: 30,298 x 4
    id    coverage_fraction date                                  tmax
    &lt;chr&gt;             &lt;dbl&gt; &lt;chr&gt;                                &lt;dbl&gt;
@@ -856,11 +920,11 @@ Figure 5.4: Map of Kansas county borders, irrigation wells, and PRISM tmax
 10 1                0.398  PRISM_tmax_stable_4kmD2_20180702_bil  30.3
 # … with 30,288 more rows</code></pre>
 <p>And then find coverage-weighted tmax by date:</p>
-<div class="sourceCode" id="cb394"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb394-1" data-line-number="1">(</a>
-<a class="sourceLine" id="cb394-2" data-line-number="2">tmax_long <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb394-3" data-line-number="3"><span class="st">  </span><span class="kw">group_by</span>(id, date) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb394-4" data-line-number="4"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">tmax =</span> <span class="kw">sum</span>(tmax <span class="op">*</span><span class="st"> </span>coverage_fraction) <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(coverage_fraction))</a>
-<a class="sourceLine" id="cb394-5" data-line-number="5">)</a></code></pre></div>
+<div class="sourceCode" id="cb394"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb394-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb394-1"></a>(</span>
+<span id="cb394-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb394-2"></a>tmax_long <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb394-3"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb394-3"></a><span class="st">  </span><span class="kw">group_by</span>(id, date) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb394-4"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb394-4"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">tmax =</span> <span class="kw">sum</span>(tmax <span class="op">*</span><span class="st"> </span>coverage_fraction) <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(coverage_fraction))</span>
+<span id="cb394-5"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb394-5"></a>)</span></code></pre></div>
 <pre><code># A tibble: 210 x 3
 # Groups:   id [105]
    id    date                                  tmax
@@ -877,12 +941,12 @@ Figure 5.4: Map of Kansas county borders, irrigation wells, and PRISM tmax
 10 102   PRISM_tmax_stable_4kmD2_20180702_bil  29.2
 # … with 200 more rows</code></pre>
 <p>For <code>data.table</code> users, this does the same:</p>
-<div class="sourceCode" id="cb396"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb396-1" data-line-number="1">(</a>
-<a class="sourceLine" id="cb396-2" data-line-number="2">tmax_all_combined <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb396-3" data-line-number="3"><span class="st">  </span><span class="kw">data.table</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb396-4" data-line-number="4"><span class="st">  </span><span class="kw">melt</span>(<span class="dt">id.var =</span> <span class="kw">c</span>(<span class="st">&quot;id&quot;</span>, <span class="st">&quot;coverage_fraction&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb396-5" data-line-number="5"><span class="st">  </span>.[, .(<span class="dt">tmax =</span> <span class="kw">sum</span>(value <span class="op">*</span><span class="st"> </span>coverage_fraction) <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(coverage_fraction)), <span class="dt">by =</span> .(id, variable)]</a>
-<a class="sourceLine" id="cb396-6" data-line-number="6">)</a></code></pre></div>
+<div class="sourceCode" id="cb396"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb396-1"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb396-1"></a>(</span>
+<span id="cb396-2"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb396-2"></a>tmax_all_combined <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb396-3"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb396-3"></a><span class="st">  </span><span class="kw">data.table</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb396-4"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb396-4"></a><span class="st">  </span><span class="kw">melt</span>(<span class="dt">id.var =</span> <span class="kw">c</span>(<span class="st">&quot;id&quot;</span>, <span class="st">&quot;coverage_fraction&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb396-5"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb396-5"></a><span class="st">  </span>.[, .(<span class="dt">tmax =</span> <span class="kw">sum</span>(value <span class="op">*</span><span class="st"> </span>coverage_fraction) <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(coverage_fraction)), <span class="dt">by =</span> .(id, variable)]</span>
+<span id="cb396-6"><a href="extracting-values-from-raster-layers-for-vector-data.html#cb396-6"></a>)</span></code></pre></div>
 <pre><code>      id                             variable     tmax
   1:   1 PRISM_tmax_stable_4kmD2_20180701_bil 33.86211
   2:   2 PRISM_tmax_stable_4kmD2_20180701_bil 33.89363
@@ -900,9 +964,9 @@ Figure 5.4: Map of Kansas county borders, irrigation wells, and PRISM tmax
 <div class="footnotes">
 <hr />
 <ol start="79">
-<li id="fn79"><p>I believe this issue will be resolved soon and you can just supply an <code>sf</code> object instead of coordinates.<a href="extracting-values-from-raster-layers-for-vector-data.html#fnref79" class="footnote-back">↩</a></p></li>
-<li id="fn80"><p>See Chapter <a href="raster-basics.html#raster-basics">4</a> to learn what <code>SpatVector</code> is and how to convert <code>sf</code> to <code>SpatRaster</code>.<a href="extracting-values-from-raster-layers-for-vector-data.html#fnref80" class="footnote-back">↩</a></p></li>
-<li id="fn81"><p>See <a href="https://github.com/isciences/exactextract">here</a> for how it does extraction tasks differently from other major GIS software.<a href="extracting-values-from-raster-layers-for-vector-data.html#fnref81" class="footnote-back">↩</a></p></li>
+<li id="fn79"><p>I believe this issue will be resolved soon and you can just supply an <code>sf</code> object instead of coordinates.<a href="extracting-values-from-raster-layers-for-vector-data.html#fnref79" class="footnote-back">↩︎</a></p></li>
+<li id="fn80"><p>See Chapter <a href="raster-basics.html#raster-basics">4</a> to learn what <code>SpatVector</code> is and how to convert <code>sf</code> to <code>SpatRaster</code>.<a href="extracting-values-from-raster-layers-for-vector-data.html#fnref80" class="footnote-back">↩︎</a></p></li>
+<li id="fn81"><p>See <a href="https://github.com/isciences/exactextract">here</a> for how it does extraction tasks differently from other major GIS software.<a href="extracting-values-from-raster-layers-for-vector-data.html#fnref81" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>

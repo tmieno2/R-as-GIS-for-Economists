@@ -24,7 +24,7 @@
 <meta name="author" content="Taro Mieno" />
 
 
-<meta name="date" content="2020-08-30" />
+<meta name="date" content="2020-09-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,6 +33,7 @@
   
 <link rel="prev" href="before-you-start-7.html"/>
 <link rel="next" href="geom-raster.html"/>
+<script src="libs/header-attrs-2.3/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -50,6 +51,7 @@
 
 
 
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
 <script src="libs/leaflet-1.3.1/leaflet.js"></script>
@@ -90,25 +92,26 @@
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -117,9 +120,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -168,15 +171,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
-<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html"><i class="fa fa-check"></i>Preface</a><ul>
-<li class="chapter" data-level="" data-path="why-r-as-gis-for-economists.html"><a href="why-r-as-gis-for-economists.html"><i class="fa fa-check"></i>Why R as GIS for Economists?</a><ul>
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="why-r-as-gis-for-economists.html"><a href="why-r-as-gis-for-economists.html"><i class="fa fa-check"></i>Why R as GIS for Economists?</a>
+<ul>
 <li class="chapter" data-level="" data-path="why-r-as-gis-for-economists.html"><a href="why-r-as-gis-for-economists.html#r-vs-python"><i class="fa fa-check"></i>R vs Python</a></li>
 <li class="chapter" data-level="" data-path="why-r-as-gis-for-economists.html"><a href="why-r-as-gis-for-economists.html#r-vs-arcgis-or-qgis"><i class="fa fa-check"></i>R vs ArcGIS or QGIS</a></li>
 <li class="chapter" data-level="" data-path="why-r-as-gis-for-economists.html"><a href="why-r-as-gis-for-economists.html#summary"><i class="fa fa-check"></i>Summary</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="how-is-this-book-different-from-other-online-books-and-resources.html"><a href="how-is-this-book-different-from-other-online-books-and-resources.html"><i class="fa fa-check"></i>How is this book different from other online books and resources?</a></li>
 <li class="chapter" data-level="" data-path="what-is-going-to-be-covered-in-this-book.html"><a href="what-is-going-to-be-covered-in-this-book.html"><i class="fa fa-check"></i>What is going to be covered in this book?</a></li>
-<li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html"><i class="fa fa-check"></i>Conventions of the book and some notes</a><ul>
+<li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html"><i class="fa fa-check"></i>Conventions of the book and some notes</a>
+<ul>
 <li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html#texts-in-gray-boxes"><i class="fa fa-check"></i>Texts in gray boxes</a></li>
 <li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html#colored-boxes"><i class="fa fa-check"></i>Colored Boxes</a></li>
 <li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html#parentheses-around-codes"><i class="fa fa-check"></i>Parentheses around codes</a></li>
@@ -185,135 +191,167 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="session-information.html"><a href="session-information.html"><i class="fa fa-check"></i>Session Information</a></li>
 </ul></li>
 <li class="part"><span><b>I Demonstration</b></span></li>
-<li class="chapter" data-level="1" data-path="demo.html"><a href="demo.html"><i class="fa fa-check"></i><b>1</b> R as GIS: Demonstrations</a><ul>
-<li class="chapter" data-level="" data-path="before-you-start.html"><a href="before-you-start.html"><i class="fa fa-check"></i>Before you start</a><ul>
+<li class="chapter" data-level="1" data-path="demo.html"><a href="demo.html"><i class="fa fa-check"></i><b>1</b> R as GIS: Demonstrations</a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start.html"><a href="before-you-start.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
 <li class="chapter" data-level="" data-path="before-you-start.html"><a href="before-you-start.html#target-audience"><i class="fa fa-check"></i>Target Audience</a></li>
 <li class="chapter" data-level="" data-path="before-you-start.html"><a href="before-you-start.html#direction-for-replication"><i class="fa fa-check"></i>Direction for replication</a></li>
 </ul></li>
-<li class="chapter" data-level="1.1" data-path="Demo1.html"><a href="Demo1.html"><i class="fa fa-check"></i><b>1.1</b> Demonstration 1: The impact of groundwater pumping on depth to water table</a><ul>
+<li class="chapter" data-level="1.1" data-path="Demo1.html"><a href="Demo1.html"><i class="fa fa-check"></i><b>1.1</b> Demonstration 1: The impact of groundwater pumping on depth to water table</a>
+<ul>
 <li class="chapter" data-level="1.1.1" data-path="Demo1.html"><a href="Demo1.html#project-overview"><i class="fa fa-check"></i><b>1.1.1</b> Project Overview</a></li>
 <li class="chapter" data-level="1.1.2" data-path="Demo1.html"><a href="Demo1.html#project-demonstration"><i class="fa fa-check"></i><b>1.1.2</b> Project Demonstration</a></li>
 </ul></li>
-<li class="chapter" data-level="1.2" data-path="demonstration-2-precision-agriculture.html"><a href="demonstration-2-precision-agriculture.html"><i class="fa fa-check"></i><b>1.2</b> Demonstration 2: Precision Agriculture</a><ul>
+<li class="chapter" data-level="1.2" data-path="demonstration-2-precision-agriculture.html"><a href="demonstration-2-precision-agriculture.html"><i class="fa fa-check"></i><b>1.2</b> Demonstration 2: Precision Agriculture</a>
+<ul>
 <li class="chapter" data-level="1.2.1" data-path="demonstration-2-precision-agriculture.html"><a href="demonstration-2-precision-agriculture.html#project-overview-1"><i class="fa fa-check"></i><b>1.2.1</b> Project Overview</a></li>
 <li class="chapter" data-level="1.2.2" data-path="demonstration-2-precision-agriculture.html"><a href="demonstration-2-precision-agriculture.html#project-demonstration-1"><i class="fa fa-check"></i><b>1.2.2</b> Project Demonstration</a></li>
 </ul></li>
-<li class="chapter" data-level="1.3" data-path="demo3.html"><a href="demo3.html"><i class="fa fa-check"></i><b>1.3</b> Demonstration 3: Land Use and Weather</a><ul>
+<li class="chapter" data-level="1.3" data-path="demo3.html"><a href="demo3.html"><i class="fa fa-check"></i><b>1.3</b> Demonstration 3: Land Use and Weather</a>
+<ul>
 <li class="chapter" data-level="1.3.1" data-path="demo3.html"><a href="demo3.html#project-overview-2"><i class="fa fa-check"></i><b>1.3.1</b> Project Overview</a></li>
 <li class="chapter" data-level="1.3.2" data-path="demo3.html"><a href="demo3.html#project-demonstration-2"><i class="fa fa-check"></i><b>1.3.2</b> Project Demonstration</a></li>
 </ul></li>
-<li class="chapter" data-level="1.4" data-path="demo4.html"><a href="demo4.html"><i class="fa fa-check"></i><b>1.4</b> Demonstration 4: The Impact of Railroad Presence on Corn Planted Acreage</a><ul>
+<li class="chapter" data-level="1.4" data-path="demo4.html"><a href="demo4.html"><i class="fa fa-check"></i><b>1.4</b> Demonstration 4: The Impact of Railroad Presence on Corn Planted Acreage</a>
+<ul>
 <li class="chapter" data-level="1.4.1" data-path="demo4.html"><a href="demo4.html#project-overview-3"><i class="fa fa-check"></i><b>1.4.1</b> Project Overview</a></li>
 <li class="chapter" data-level="1.4.2" data-path="demo4.html"><a href="demo4.html#project-demonstration-3"><i class="fa fa-check"></i><b>1.4.2</b> Project Demonstration</a></li>
 </ul></li>
-<li class="chapter" data-level="1.5" data-path="demonstration-5-groundwater-use-for-agricultural-irrigation.html"><a href="demonstration-5-groundwater-use-for-agricultural-irrigation.html"><i class="fa fa-check"></i><b>1.5</b> Demonstration 5: Groundwater use for agricultural irrigation</a><ul>
+<li class="chapter" data-level="1.5" data-path="demonstration-5-groundwater-use-for-agricultural-irrigation.html"><a href="demonstration-5-groundwater-use-for-agricultural-irrigation.html"><i class="fa fa-check"></i><b>1.5</b> Demonstration 5: Groundwater use for agricultural irrigation</a>
+<ul>
 <li class="chapter" data-level="1.5.1" data-path="demonstration-5-groundwater-use-for-agricultural-irrigation.html"><a href="demonstration-5-groundwater-use-for-agricultural-irrigation.html#project-overview-4"><i class="fa fa-check"></i><b>1.5.1</b> Project Overview</a></li>
 <li class="chapter" data-level="1.5.2" data-path="demonstration-5-groundwater-use-for-agricultural-irrigation.html"><a href="demonstration-5-groundwater-use-for-agricultural-irrigation.html#project-demonstration-4"><i class="fa fa-check"></i><b>1.5.2</b> Project Demonstration</a></li>
 </ul></li>
 </ul></li>
 <li class="part"><span><b>II Foundations</b></span></li>
-<li class="chapter" data-level="2" data-path="vector-basics.html"><a href="vector-basics.html"><i class="fa fa-check"></i><b>2</b> Vector Data Handling with <code>sf</code></a><ul>
-<li class="chapter" data-level="" data-path="before-you-start-1.html"><a href="before-you-start-1.html"><i class="fa fa-check"></i>Before you start</a><ul>
+<li class="chapter" data-level="2" data-path="vector-basics.html"><a href="vector-basics.html"><i class="fa fa-check"></i><b>2</b> Vector Data Handling with <code>sf</code></a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-1.html"><a href="before-you-start-1.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
 <li><a href="before-you-start-1.html#sf-or-sp"><code>sf</code> or <code>sp</code>?</a></li>
 <li class="chapter" data-level="" data-path="before-you-start-1.html"><a href="before-you-start-1.html#direction-for-replication-1"><i class="fa fa-check"></i>Direction for replication</a></li>
 </ul></li>
 <li class="chapter" data-level="2.1" data-path="spatial-data-structure.html"><a href="spatial-data-structure.html"><i class="fa fa-check"></i><b>2.1</b> Spatial Data Structure</a></li>
-<li class="chapter" data-level="2.2" data-path="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html"><i class="fa fa-check"></i><b>2.2</b> Simple feature geometry, simple feature geometry list-column, and simple feature</a><ul>
+<li class="chapter" data-level="2.2" data-path="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html"><i class="fa fa-check"></i><b>2.2</b> Simple feature geometry, simple feature geometry list-column, and simple feature</a>
+<ul>
 <li class="chapter" data-level="2.2.1" data-path="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#simple-feature-geometry-sfg"><i class="fa fa-check"></i><b>2.2.1</b> Simple feature geometry (<code>sfg</code>)</a></li>
 <li class="chapter" data-level="2.2.2" data-path="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#create-simple-feature-geometry-list-column-sfc-and-simple-feature-sf-from-scratch"><i class="fa fa-check"></i><b>2.2.2</b> Create simple feature geometry list-column (<code>sfc</code>) and simple feature (<code>sf</code>) from scratch</a></li>
 </ul></li>
-<li class="chapter" data-level="2.3" data-path="reading-and-writing-vector-data.html"><a href="reading-and-writing-vector-data.html"><i class="fa fa-check"></i><b>2.3</b> Reading and writing vector data</a><ul>
+<li class="chapter" data-level="2.3" data-path="reading-and-writing-vector-data.html"><a href="reading-and-writing-vector-data.html"><i class="fa fa-check"></i><b>2.3</b> Reading and writing vector data</a>
+<ul>
 <li class="chapter" data-level="2.3.1" data-path="reading-and-writing-vector-data.html"><a href="reading-and-writing-vector-data.html#reading-a-shapefile"><i class="fa fa-check"></i><b>2.3.1</b> Reading a shapefile</a></li>
 <li class="chapter" data-level="2.3.2" data-path="reading-and-writing-vector-data.html"><a href="reading-and-writing-vector-data.html#writing-to-a-shapefile"><i class="fa fa-check"></i><b>2.3.2</b> Writing to a shapefile</a></li>
 <li class="chapter" data-level="2.3.3" data-path="reading-and-writing-vector-data.html"><a href="reading-and-writing-vector-data.html#better-alternatives"><i class="fa fa-check"></i><b>2.3.3</b> Better alternatives</a></li>
 </ul></li>
 <li class="chapter" data-level="2.4" data-path="projection-with-a-different-coordinate-reference-systems.html"><a href="projection-with-a-different-coordinate-reference-systems.html"><i class="fa fa-check"></i><b>2.4</b> Projection with a different Coordinate Reference Systems</a></li>
-<li class="chapter" data-level="2.5" data-path="quick-and-interactive-view-of-an-sf-object.html"><a href="quick-and-interactive-view-of-an-sf-object.html"><i class="fa fa-check"></i><b>2.5</b> Quick and interactive view of an <code>sf</code> object</a><ul>
+<li class="chapter" data-level="2.5" data-path="quick-and-interactive-view-of-an-sf-object.html"><a href="quick-and-interactive-view-of-an-sf-object.html"><i class="fa fa-check"></i><b>2.5</b> Quick and interactive view of an <code>sf</code> object</a>
+<ul>
 <li class="chapter" data-level="2.5.1" data-path="quick-and-interactive-view-of-an-sf-object.html"><a href="quick-and-interactive-view-of-an-sf-object.html#quick-view"><i class="fa fa-check"></i><b>2.5.1</b> Quick view</a></li>
 <li class="chapter" data-level="2.5.2" data-path="quick-and-interactive-view-of-an-sf-object.html"><a href="quick-and-interactive-view-of-an-sf-object.html#interactive-view"><i class="fa fa-check"></i><b>2.5.2</b> Interactive view</a></li>
 </ul></li>
 <li class="chapter" data-level="2.6" data-path="turning-a-data-frame-of-points-into-an-sf.html"><a href="turning-a-data-frame-of-points-into-an-sf.html"><i class="fa fa-check"></i><b>2.6</b> Turning a data.frame of points into an <code>sf</code></a></li>
 <li class="chapter" data-level="2.7" data-path="conv-sp.html"><a href="conv-sp.html"><i class="fa fa-check"></i><b>2.7</b> Conversion to and from sp</a></li>
-<li class="chapter" data-level="2.8" data-path="non-spatial-transformation-of-sf.html"><a href="non-spatial-transformation-of-sf.html"><i class="fa fa-check"></i><b>2.8</b> Non-spatial transformation of sf</a><ul>
+<li class="chapter" data-level="2.8" data-path="non-spatial-transformation-of-sf.html"><a href="non-spatial-transformation-of-sf.html"><i class="fa fa-check"></i><b>2.8</b> Non-spatial transformation of sf</a>
+<ul>
 <li class="chapter" data-level="2.8.1" data-path="non-spatial-transformation-of-sf.html"><a href="non-spatial-transformation-of-sf.html#using-dplyr"><i class="fa fa-check"></i><b>2.8.1</b> Using <code>dplyr</code></a></li>
 <li class="chapter" data-level="2.8.2" data-path="non-spatial-transformation-of-sf.html"><a href="non-spatial-transformation-of-sf.html#using-data.table"><i class="fa fa-check"></i><b>2.8.2</b> Using <code>data.table</code></a></li>
 </ul></li>
-<li class="chapter" data-level="2.9" data-path="non-interactive-geometrical-operations.html"><a href="non-interactive-geometrical-operations.html"><i class="fa fa-check"></i><b>2.9</b> Non-interactive geometrical operations</a><ul>
+<li class="chapter" data-level="2.9" data-path="non-interactive-geometrical-operations.html"><a href="non-interactive-geometrical-operations.html"><i class="fa fa-check"></i><b>2.9</b> Non-interactive geometrical operations</a>
+<ul>
 <li class="chapter" data-level="2.9.1" data-path="non-interactive-geometrical-operations.html"><a href="non-interactive-geometrical-operations.html#st_buffer"><i class="fa fa-check"></i><b>2.9.1</b> st_buffer</a></li>
 <li class="chapter" data-level="2.9.2" data-path="non-interactive-geometrical-operations.html"><a href="non-interactive-geometrical-operations.html#st_area"><i class="fa fa-check"></i><b>2.9.2</b> st_area</a></li>
 <li class="chapter" data-level="2.9.3" data-path="non-interactive-geometrical-operations.html"><a href="non-interactive-geometrical-operations.html#st_centroid"><i class="fa fa-check"></i><b>2.9.3</b> st_centroid</a></li>
 <li class="chapter" data-level="2.9.4" data-path="non-interactive-geometrical-operations.html"><a href="non-interactive-geometrical-operations.html#st_length"><i class="fa fa-check"></i><b>2.9.4</b> st_length</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="int-vv.html"><a href="int-vv.html"><i class="fa fa-check"></i><b>3</b> Spatial Interactions of Vector Data: Subsetting and Joining</a><ul>
-<li class="chapter" data-level="" data-path="before-you-start-2.html"><a href="before-you-start-2.html"><i class="fa fa-check"></i>Before you start</a><ul>
+<li class="chapter" data-level="3" data-path="int-vv.html"><a href="int-vv.html"><i class="fa fa-check"></i><b>3</b> Spatial Interactions of Vector Data: Subsetting and Joining</a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-2.html"><a href="before-you-start-2.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
 <li class="chapter" data-level="" data-path="before-you-start-2.html"><a href="before-you-start-2.html#direction-for-replication-2"><i class="fa fa-check"></i>Direction for replication</a></li>
 </ul></li>
-<li class="chapter" data-level="3.1" data-path="topo.html"><a href="topo.html"><i class="fa fa-check"></i><b>3.1</b> Topological relations</a><ul>
+<li class="chapter" data-level="3.1" data-path="topo.html"><a href="topo.html"><i class="fa fa-check"></i><b>3.1</b> Topological relations</a>
+<ul>
 <li class="chapter" data-level="3.1.1" data-path="topo.html"><a href="topo.html#st_intersects"><i class="fa fa-check"></i><b>3.1.1</b> st_intersects()</a></li>
 <li class="chapter" data-level="3.1.2" data-path="topo.html"><a href="topo.html#st_is_within_distance"><i class="fa fa-check"></i><b>3.1.2</b> st_is_within_distance()</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html"><i class="fa fa-check"></i><b>3.2</b> Spatial Subsetting (or Flagging)</a><ul>
+<li class="chapter" data-level="3.2" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html"><i class="fa fa-check"></i><b>3.2</b> Spatial Subsetting (or Flagging)</a>
+<ul>
 <li class="chapter" data-level="3.2.1" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#polygons-source-vs-polygons-target"><i class="fa fa-check"></i><b>3.2.1</b> polygons (source) vs polygons (target)</a></li>
 <li class="chapter" data-level="3.2.2" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#points-source-vs-polygons-target"><i class="fa fa-check"></i><b>3.2.2</b> points (source) vs polygons (target)</a></li>
 <li class="chapter" data-level="3.2.3" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#lines_polygons"><i class="fa fa-check"></i><b>3.2.3</b> lines (source) vs polygons (target)</a></li>
 <li class="chapter" data-level="3.2.4" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#polygons_points"><i class="fa fa-check"></i><b>3.2.4</b> polygons (source) vs points (target)</a></li>
 <li class="chapter" data-level="3.2.5" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#subsetting-to-a-geograpchic-extent-bounding-box"><i class="fa fa-check"></i><b>3.2.5</b> Subsetting to a geograpchic extent (bounding box)</a></li>
 </ul></li>
-<li class="chapter" data-level="3.3" data-path="sp-join.html"><a href="sp-join.html"><i class="fa fa-check"></i><b>3.3</b> Spatial Join</a><ul>
+<li class="chapter" data-level="3.3" data-path="sp-join.html"><a href="sp-join.html"><i class="fa fa-check"></i><b>3.3</b> Spatial Join</a>
+<ul>
 <li class="chapter" data-level="3.3.1" data-path="sp-join.html"><a href="sp-join.html#case-1-points-target-vs-polygons-source"><i class="fa fa-check"></i><b>3.3.1</b> Case 1: points (target) vs polygons (source)</a></li>
 <li class="chapter" data-level="3.3.2" data-path="sp-join.html"><a href="sp-join.html#case-2-polygons-target-vs-points-source"><i class="fa fa-check"></i><b>3.3.2</b> Case 2: polygons (target) vs points (source)</a></li>
 <li class="chapter" data-level="3.3.3" data-path="sp-join.html"><a href="sp-join.html#polygon-polygon"><i class="fa fa-check"></i><b>3.3.3</b> Case 3: polygons (target) vs polygons (source)</a></li>
 </ul></li>
-<li class="chapter" data-level="3.4" data-path="spatial-intersection-cropping-join.html"><a href="spatial-intersection-cropping-join.html"><i class="fa fa-check"></i><b>3.4</b> Spatial Intersection (cropping join)</a><ul>
+<li class="chapter" data-level="3.4" data-path="spatial-intersection-cropping-join.html"><a href="spatial-intersection-cropping-join.html"><i class="fa fa-check"></i><b>3.4</b> Spatial Intersection (cropping join)</a>
+<ul>
 <li class="chapter" data-level="3.4.1" data-path="spatial-intersection-cropping-join.html"><a href="spatial-intersection-cropping-join.html#st-intersection"><i class="fa fa-check"></i><b>3.4.1</b> <code>st_intersection()</code></a></li>
 <li class="chapter" data-level="3.4.2" data-path="spatial-intersection-cropping-join.html"><a href="spatial-intersection-cropping-join.html#area-weighted-average"><i class="fa fa-check"></i><b>3.4.2</b> Area-weighted average</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="raster-basics.html"><a href="raster-basics.html"><i class="fa fa-check"></i><b>4</b> Raster Data Handling</a><ul>
-<li class="chapter" data-level="" data-path="before-you-start-3.html"><a href="before-you-start-3.html"><i class="fa fa-check"></i>Before you start</a><ul>
+<li class="chapter" data-level="4" data-path="raster-basics.html"><a href="raster-basics.html"><i class="fa fa-check"></i><b>4</b> Raster Data Handling</a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-3.html"><a href="before-you-start-3.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
 <li class="chapter" data-level="" data-path="before-you-start-3.html"><a href="before-you-start-3.html#direction-for-replication-3"><i class="fa fa-check"></i>Direction for replication</a></li>
 </ul></li>
-<li class="chapter" data-level="4.1" data-path="raster-data-object-classes.html"><a href="raster-data-object-classes.html"><i class="fa fa-check"></i><b>4.1</b> Raster data object classes</a><ul>
+<li class="chapter" data-level="4.1" data-path="raster-data-object-classes.html"><a href="raster-data-object-classes.html"><i class="fa fa-check"></i><b>4.1</b> Raster data object classes</a>
+<ul>
 <li class="chapter" data-level="4.1.1" data-path="raster-data-object-classes.html"><a href="raster-data-object-classes.html#raster-package-rasterlayer-rasterstack-and-rasterbrick"><i class="fa fa-check"></i><b>4.1.1</b> <code>raster</code> package: <code>RasterLayer</code>, <code>RasterStack</code>, and <code>RasterBrick</code></a></li>
 <li class="chapter" data-level="4.1.2" data-path="raster-data-object-classes.html"><a href="raster-data-object-classes.html#terra-package-spatraster"><i class="fa fa-check"></i><b>4.1.2</b> <code>terra</code> package: <code>SpatRaster</code></a></li>
 <li class="chapter" data-level="4.1.3" data-path="raster-data-object-classes.html"><a href="raster-data-object-classes.html#converting-a-spatraster-object-to-a-raster-object."><i class="fa fa-check"></i><b>4.1.3</b> Converting a <code>SpatRaster</code> object to a <code>Raster</code><span class="math inline">\(^*\)</span> object.</a></li>
 <li class="chapter" data-level="4.1.4" data-path="raster-data-object-classes.html"><a href="raster-data-object-classes.html#vector-data-in-the-terra-package"><i class="fa fa-check"></i><b>4.1.4</b> Vector data in the <code>terra</code> package</a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="read-and-write-a-raster-data-file.html"><a href="read-and-write-a-raster-data-file.html"><i class="fa fa-check"></i><b>4.2</b> Read and write a raster data file</a><ul>
+<li class="chapter" data-level="4.2" data-path="read-and-write-a-raster-data-file.html"><a href="read-and-write-a-raster-data-file.html"><i class="fa fa-check"></i><b>4.2</b> Read and write a raster data file</a>
+<ul>
 <li class="chapter" data-level="4.2.1" data-path="read-and-write-a-raster-data-file.html"><a href="read-and-write-a-raster-data-file.html#read-raster-files"><i class="fa fa-check"></i><b>4.2.1</b> Read raster file(s)</a></li>
 <li class="chapter" data-level="4.2.2" data-path="read-and-write-a-raster-data-file.html"><a href="read-and-write-a-raster-data-file.html#write-raster-files"><i class="fa fa-check"></i><b>4.2.2</b> Write raster files</a></li>
 </ul></li>
 <li class="chapter" data-level="4.3" data-path="access-values.html"><a href="access-values.html"><i class="fa fa-check"></i><b>4.3</b> Access values</a></li>
 <li class="chapter" data-level="4.4" data-path="quick-plot-and-interactive-map.html"><a href="quick-plot-and-interactive-map.html"><i class="fa fa-check"></i><b>4.4</b> Quick plot and interactive map</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="int-RV.html"><a href="int-RV.html"><i class="fa fa-check"></i><b>5</b> Spatial Interactions of Vector and Raster Data</a><ul>
-<li class="chapter" data-level="" data-path="before-you-start-4.html"><a href="before-you-start-4.html"><i class="fa fa-check"></i>Before you start</a><ul>
+<li class="chapter" data-level="5" data-path="int-RV.html"><a href="int-RV.html"><i class="fa fa-check"></i><b>5</b> Spatial Interactions of Vector and Raster Data</a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-4.html"><a href="before-you-start-4.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
 <li class="chapter" data-level="" data-path="before-you-start-4.html"><a href="before-you-start-4.html#direction-for-replication-4"><i class="fa fa-check"></i>Direction for replication</a></li>
 </ul></li>
 <li class="chapter" data-level="5.1" data-path="raster-crop.html"><a href="raster-crop.html"><i class="fa fa-check"></i><b>5.1</b> Cropping (Spatial subsetting) to the Area of Interest</a></li>
-<li class="chapter" data-level="5.2" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html"><i class="fa fa-check"></i><b>5.2</b> Extracting Values from Raster Layers for Vector Data</a><ul>
+<li class="chapter" data-level="5.2" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html"><i class="fa fa-check"></i><b>5.2</b> Extracting Values from Raster Layers for Vector Data</a>
+<ul>
 <li class="chapter" data-level="5.2.1" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#points"><i class="fa fa-check"></i><b>5.2.1</b> Points</a></li>
 <li class="chapter" data-level="5.2.2" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#polygons-terra-way"><i class="fa fa-check"></i><b>5.2.2</b> Polygons (<code>terra</code> way)</a></li>
 <li class="chapter" data-level="5.2.3" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#polygons-exactextractr-way"><i class="fa fa-check"></i><b>5.2.3</b> Polygons (<code>exactextractr</code> way)</a></li>
 </ul></li>
-<li class="chapter" data-level="5.3" data-path="extract-speed.html"><a href="extract-speed.html"><i class="fa fa-check"></i><b>5.3</b> Extraction speed comparison</a><ul>
+<li class="chapter" data-level="5.3" data-path="extract-speed.html"><a href="extract-speed.html"><i class="fa fa-check"></i><b>5.3</b> Extraction speed comparison</a>
+<ul>
 <li class="chapter" data-level="5.3.1" data-path="extract-speed.html"><a href="extract-speed.html#points-terraextract-and-rasterextract"><i class="fa fa-check"></i><b>5.3.1</b> Points: <code>terra::extract()</code> and <code>raster::extract()</code></a></li>
 <li class="chapter" data-level="5.3.2" data-path="extract-speed.html"><a href="extract-speed.html#polygons-exact_extract-terraextract-and-rasterextract"><i class="fa fa-check"></i><b>5.3.2</b> Polygons: <code>exact_extract()</code>, <code>terra::extract()</code>, and <code>raster::extract()</code></a></li>
 <li class="chapter" data-level="5.3.3" data-path="extract-speed.html"><a href="extract-speed.html#single-layer-vs-multi-layer"><i class="fa fa-check"></i><b>5.3.3</b> Single-layer vs multi-layer</a></li>
 </ul></li>
 </ul></li>
 <li class="part"><span><b>III (slightly) Advanced Topics</b></span></li>
-<li class="chapter" data-level="6" data-path="EE.html"><a href="EE.html"><i class="fa fa-check"></i><b>6</b> Speed Things Up</a><ul>
-<li class="chapter" data-level="" data-path="before-you-start-5.html"><a href="before-you-start-5.html"><i class="fa fa-check"></i>Before you start</a><ul>
+<li class="chapter" data-level="6" data-path="EE.html"><a href="EE.html"><i class="fa fa-check"></i><b>6</b> Speed Things Up</a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-5.html"><a href="before-you-start-5.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
 <li class="chapter" data-level="" data-path="before-you-start-5.html"><a href="before-you-start-5.html#direction-for-replication-5"><i class="fa fa-check"></i>Direction for replication</a></li>
 </ul></li>
-<li class="chapter" data-level="6.1" data-path="single-raster-layer.html"><a href="single-raster-layer.html"><i class="fa fa-check"></i><b>6.1</b> Single raster layer</a><ul>
+<li class="chapter" data-level="6.1" data-path="single-raster-layer.html"><a href="single-raster-layer.html"><i class="fa fa-check"></i><b>6.1</b> Single raster layer</a>
+<ul>
 <li class="chapter" data-level="6.1.1" data-path="single-raster-layer.html"><a href="single-raster-layer.html#datasets"><i class="fa fa-check"></i><b>6.1.1</b> Datasets</a></li>
 <li class="chapter" data-level="6.1.2" data-path="single-raster-layer.html"><a href="single-raster-layer.html#parallelization"><i class="fa fa-check"></i><b>6.1.2</b> Parallelization</a></li>
 <li class="chapter" data-level="6.1.3" data-path="single-raster-layer.html"><a href="single-raster-layer.html#summary-1"><i class="fa fa-check"></i><b>6.1.3</b> Summary</a></li>
 </ul></li>
-<li class="chapter" data-level="6.2" data-path="many-multi-layer.html"><a href="many-multi-layer.html"><i class="fa fa-check"></i><b>6.2</b> Many multi-layer raster files</a><ul>
+<li class="chapter" data-level="6.2" data-path="many-multi-layer.html"><a href="many-multi-layer.html"><i class="fa fa-check"></i><b>6.2</b> Many multi-layer raster files</a>
+<ul>
 <li class="chapter" data-level="6.2.1" data-path="many-multi-layer.html"><a href="many-multi-layer.html#datasets-1"><i class="fa fa-check"></i><b>6.2.1</b> Datasets</a></li>
 <li class="chapter" data-level="6.2.2" data-path="many-multi-layer.html"><a href="many-multi-layer.html#non-par-ext-multi"><i class="fa fa-check"></i><b>6.2.2</b> Non-parallelized extraction</a></li>
 <li class="chapter" data-level="6.2.3" data-path="many-multi-layer.html"><a href="many-multi-layer.html#approach-1-parallelize-over-polygons-and-do-regular-loop-over-year-month"><i class="fa fa-check"></i><b>6.2.3</b> Approach 1: parallelize over polygons and do regular loop over year-month</a></li>
@@ -321,51 +359,62 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.2.5" data-path="many-multi-layer.html"><a href="many-multi-layer.html#memory-consideration"><i class="fa fa-check"></i><b>6.2.5</b> Memory consideration</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="stars-basics.html"><a href="stars-basics.html"><i class="fa fa-check"></i><b>7</b> Spatiotemporal Raster Data Handling with <code>stars</code></a><ul>
-<li class="chapter" data-level="" data-path="before-you-start-6.html"><a href="before-you-start-6.html"><i class="fa fa-check"></i>Before you start</a><ul>
+<li class="chapter" data-level="7" data-path="stars-basics.html"><a href="stars-basics.html"><i class="fa fa-check"></i><b>7</b> Spatiotemporal Raster Data Handling with <code>stars</code></a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-6.html"><a href="before-you-start-6.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
 <li class="chapter" data-level="" data-path="before-you-start-6.html"><a href="before-you-start-6.html#direction-for-replication-6"><i class="fa fa-check"></i>Direction for replication</a></li>
 </ul></li>
 <li class="chapter" data-level="7.1" data-path="stars-structure.html"><a href="stars-structure.html"><i class="fa fa-check"></i><b>7.1</b> Understanding the structure of a <code>stars</code> object</a></li>
-<li class="chapter" data-level="7.2" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html"><i class="fa fa-check"></i><b>7.2</b> Some basic operations on <code>stars</code> objects</a><ul>
+<li class="chapter" data-level="7.2" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html"><i class="fa fa-check"></i><b>7.2</b> Some basic operations on <code>stars</code> objects</a>
+<ul>
 <li class="chapter" data-level="7.2.1" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html#subset-a-stars-object-by-index"><i class="fa fa-check"></i><b>7.2.1</b> Subset a <code>stars</code> object by index</a></li>
 <li class="chapter" data-level="7.2.2" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html#set-attribute-names"><i class="fa fa-check"></i><b>7.2.2</b> Set attribute names</a></li>
 <li class="chapter" data-level="7.2.3" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html#get-the-coordinate-reference-system"><i class="fa fa-check"></i><b>7.2.3</b> Get the coordinate reference system</a></li>
 <li class="chapter" data-level="7.2.4" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html#get-the-dimension-characteristics-and-values"><i class="fa fa-check"></i><b>7.2.4</b> Get the dimension characteristics and values</a></li>
 <li class="chapter" data-level="7.2.5" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html#attributes-to-dimensions-and-vice-versa"><i class="fa fa-check"></i><b>7.2.5</b> Attributes to dimensions, and vice versa</a></li>
 </ul></li>
-<li class="chapter" data-level="7.3" data-path="quick-visualization-for-exploration.html"><a href="quick-visualization-for-exploration.html"><i class="fa fa-check"></i><b>7.3</b> Quick visualization for exploration</a><ul>
+<li class="chapter" data-level="7.3" data-path="quick-visualization-for-exploration.html"><a href="quick-visualization-for-exploration.html"><i class="fa fa-check"></i><b>7.3</b> Quick visualization for exploration</a>
+<ul>
 <li class="chapter" data-level="7.3.1" data-path="quick-visualization-for-exploration.html"><a href="quick-visualization-for-exploration.html#quick-static-map"><i class="fa fa-check"></i><b>7.3.1</b> quick static map</a></li>
 <li class="chapter" data-level="7.3.2" data-path="quick-visualization-for-exploration.html"><a href="quick-visualization-for-exploration.html#interactive-map"><i class="fa fa-check"></i><b>7.3.2</b> interactive map</a></li>
 </ul></li>
-<li class="chapter" data-level="7.4" data-path="read-write-stars.html"><a href="read-write-stars.html"><i class="fa fa-check"></i><b>7.4</b> Reading and writing raster data</a><ul>
+<li class="chapter" data-level="7.4" data-path="read-write-stars.html"><a href="read-write-stars.html"><i class="fa fa-check"></i><b>7.4</b> Reading and writing raster data</a>
+<ul>
 <li class="chapter" data-level="7.4.1" data-path="read-write-stars.html"><a href="read-write-stars.html#reading-raster-data"><i class="fa fa-check"></i><b>7.4.1</b> Reading raster data</a></li>
 <li class="chapter" data-level="7.4.2" data-path="read-write-stars.html"><a href="read-write-stars.html#writing-a-stars-object-to-a-file"><i class="fa fa-check"></i><b>7.4.2</b> Writing a <code>stars</code> object to a file</a></li>
 </ul></li>
 <li class="chapter" data-level="7.5" data-path="stars-set-time.html"><a href="stars-set-time.html"><i class="fa fa-check"></i><b>7.5</b> Setting the time dimension manually</a></li>
-<li class="chapter" data-level="7.6" data-path="dplyr-op.html"><a href="dplyr-op.html"><i class="fa fa-check"></i><b>7.6</b> <code>dplyr</code>-like operations</a><ul>
+<li class="chapter" data-level="7.6" data-path="dplyr-op.html"><a href="dplyr-op.html"><i class="fa fa-check"></i><b>7.6</b> <code>dplyr</code>-like operations</a>
+<ul>
 <li class="chapter" data-level="7.6.1" data-path="dplyr-op.html"><a href="dplyr-op.html#filter"><i class="fa fa-check"></i><b>7.6.1</b> <code>filter()</code></a></li>
 <li class="chapter" data-level="7.6.2" data-path="dplyr-op.html"><a href="dplyr-op.html#select"><i class="fa fa-check"></i><b>7.6.2</b> <code>select()</code></a></li>
 <li class="chapter" data-level="7.6.3" data-path="dplyr-op.html"><a href="dplyr-op.html#mutate"><i class="fa fa-check"></i><b>7.6.3</b> <code>mutate()</code></a></li>
 <li class="chapter" data-level="7.6.4" data-path="dplyr-op.html"><a href="dplyr-op.html#pull"><i class="fa fa-check"></i><b>7.6.4</b> <code>pull()</code></a></li>
 </ul></li>
-<li class="chapter" data-level="7.7" data-path="merging-stars-objects-using-c-and-st-mosaic.html"><a href="merging-stars-objects-using-c-and-st-mosaic.html"><i class="fa fa-check"></i><b>7.7</b> Merging <code>stars</code> objects using <code>c()</code> and <code>st_mosaic()</code></a><ul>
+<li class="chapter" data-level="7.7" data-path="merging-stars-objects-using-c-and-st-mosaic.html"><a href="merging-stars-objects-using-c-and-st-mosaic.html"><i class="fa fa-check"></i><b>7.7</b> Merging <code>stars</code> objects using <code>c()</code> and <code>st_mosaic()</code></a>
+<ul>
 <li class="chapter" data-level="7.7.1" data-path="merging-stars-objects-using-c-and-st-mosaic.html"><a href="merging-stars-objects-using-c-and-st-mosaic.html#merging-stars-objects-along-the-third-dimension-band"><i class="fa fa-check"></i><b>7.7.1</b> Merging <code>stars</code> objects along the third dimension (band)</a></li>
 <li class="chapter" data-level="7.7.2" data-path="merging-stars-objects-using-c-and-st-mosaic.html"><a href="merging-stars-objects-using-c-and-st-mosaic.html#merge-two"><i class="fa fa-check"></i><b>7.7.2</b> Merging <code>stars</code> objects of different attributes</a></li>
 <li class="chapter" data-level="7.7.3" data-path="merging-stars-objects-using-c-and-st-mosaic.html"><a href="merging-stars-objects-using-c-and-st-mosaic.html#merging-stars-objects-of-different-spatial-extents"><i class="fa fa-check"></i><b>7.7.3</b> Merging <code>stars</code> objects of different spatial extents</a></li>
 </ul></li>
 <li class="chapter" data-level="7.8" data-path="convert-to-rb.html"><a href="convert-to-rb.html"><i class="fa fa-check"></i><b>7.8</b> Convert from and to <code>Raster</code><span class="math inline">\(^*\)</span> objects</a></li>
 <li class="chapter" data-level="7.9" data-path="spatial-cropping.html"><a href="spatial-cropping.html"><i class="fa fa-check"></i><b>7.9</b> Spatial cropping</a></li>
-<li class="chapter" data-level="7.10" data-path="extraction-stars.html"><a href="extraction-stars.html"><i class="fa fa-check"></i><b>7.10</b> Extracting values from <code>stars</code> for vector data</a><ul>
+<li class="chapter" data-level="7.10" data-path="extraction-stars.html"><a href="extraction-stars.html"><i class="fa fa-check"></i><b>7.10</b> Extracting values from <code>stars</code> for vector data</a>
+<ul>
 <li class="chapter" data-level="7.10.1" data-path="extraction-stars.html"><a href="extraction-stars.html#points-1"><i class="fa fa-check"></i><b>7.10.1</b> Points</a></li>
 <li class="chapter" data-level="7.10.2" data-path="extraction-stars.html"><a href="extraction-stars.html#polygons"><i class="fa fa-check"></i><b>7.10.2</b> Polygons</a></li>
 </ul></li>
 </ul></li>
 <li class="part"><span><b>IV Extensions</b></span></li>
-<li class="chapter" data-level="8" data-path="create-maps.html"><a href="create-maps.html"><i class="fa fa-check"></i><b>8</b> Creating Maps using <code>ggplot2</code></a><ul>
-<li class="chapter" data-level="" data-path="before-you-start-7.html"><a href="before-you-start-7.html"><i class="fa fa-check"></i>Before you start</a><ul>
+<li class="chapter" data-level="8" data-path="create-maps.html"><a href="create-maps.html"><i class="fa fa-check"></i><b>8</b> Creating Maps using <code>ggplot2</code></a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-7.html"><a href="before-you-start-7.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
 <li class="chapter" data-level="" data-path="before-you-start-7.html"><a href="before-you-start-7.html#direction-for-replication-7"><i class="fa fa-check"></i>Direction for replication</a></li>
 </ul></li>
-<li class="chapter" data-level="8.1" data-path="geom-sf.html"><a href="geom-sf.html"><i class="fa fa-check"></i><b>8.1</b> Creating maps from <code>sf</code> objects</a><ul>
+<li class="chapter" data-level="8.1" data-path="geom-sf.html"><a href="geom-sf.html"><i class="fa fa-check"></i><b>8.1</b> Creating maps from <code>sf</code> objects</a>
+<ul>
 <li class="chapter" data-level="8.1.1" data-path="geom-sf.html"><a href="geom-sf.html#datasets-2"><i class="fa fa-check"></i><b>8.1.1</b> Datasets</a></li>
 <li class="chapter" data-level="8.1.2" data-path="geom-sf.html"><a href="geom-sf.html#basic-usage-of-geom_sf"><i class="fa fa-check"></i><b>8.1.2</b> Basic usage of <code>geom_sf()</code></a></li>
 <li class="chapter" data-level="8.1.3" data-path="geom-sf.html"><a href="geom-sf.html#specifying-the-aesthetics"><i class="fa fa-check"></i><b>8.1.3</b> Specifying the aesthetics</a></li>
@@ -374,22 +423,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.1.6" data-path="geom-sf.html"><a href="geom-sf.html#faceting"><i class="fa fa-check"></i><b>8.1.6</b> Faceting</a></li>
 <li class="chapter" data-level="8.1.7" data-path="geom-sf.html"><a href="geom-sf.html#adding-texts-labels-on-a-map"><i class="fa fa-check"></i><b>8.1.7</b> Adding texts (labels) on a map</a></li>
 </ul></li>
-<li class="chapter" data-level="8.2" data-path="geom-raster.html"><a href="geom-raster.html"><i class="fa fa-check"></i><b>8.2</b> Raster data visualization: <code>geom_raster()</code> and <code>geom_stars()</code></a><ul>
+<li class="chapter" data-level="8.2" data-path="geom-raster.html"><a href="geom-raster.html"><i class="fa fa-check"></i><b>8.2</b> Raster data visualization: <code>geom_raster()</code> and <code>geom_stars()</code></a>
+<ul>
 <li class="chapter" data-level="8.2.1" data-path="geom-raster.html"><a href="geom-raster.html#visualize-raster-with-geom_raster"><i class="fa fa-check"></i><b>8.2.1</b> Visualize <code>Raster</code><span class="math inline">\(^*\)</span> with <code>geom_raster()</code></a></li>
 <li class="chapter" data-level="8.2.2" data-path="geom-raster.html"><a href="geom-raster.html#visualize-stars-with-geom_raster"><i class="fa fa-check"></i><b>8.2.2</b> Visualize <code>stars</code> with <code>geom_raster()</code></a></li>
 <li class="chapter" data-level="8.2.3" data-path="geom-raster.html"><a href="geom-raster.html#visualize-stars-with-geom_stars"><i class="fa fa-check"></i><b>8.2.3</b> Visualize <code>stars</code> with <code>geom_stars()</code></a></li>
 <li class="chapter" data-level="8.2.4" data-path="geom-raster.html"><a href="geom-raster.html#adding-geom_sf-layers"><i class="fa fa-check"></i><b>8.2.4</b> adding <code>geom_sf()</code> layers</a></li>
 </ul></li>
-<li class="chapter" data-level="8.3" data-path="color-scale.html"><a href="color-scale.html"><i class="fa fa-check"></i><b>8.3</b> Color scale</a><ul>
+<li class="chapter" data-level="8.3" data-path="color-scale.html"><a href="color-scale.html"><i class="fa fa-check"></i><b>8.3</b> Color scale</a>
+<ul>
 <li class="chapter" data-level="8.3.1" data-path="color-scale.html"><a href="color-scale.html#viridis-color-maps"><i class="fa fa-check"></i><b>8.3.1</b> Viridis color maps</a></li>
 <li class="chapter" data-level="8.3.2" data-path="color-scale.html"><a href="color-scale.html#rcolorbrewer-scale__distiller-and-scale__brewer"><i class="fa fa-check"></i><b>8.3.2</b> <code>RColorBrewer</code>: <code>scale_*_distiller()</code> and <code>scale_*_brewer()</code></a></li>
 <li class="chapter" data-level="8.3.3" data-path="color-scale.html"><a href="color-scale.html#colorspace-package"><i class="fa fa-check"></i><b>8.3.3</b> <code>colorspace</code> package</a></li>
 </ul></li>
-<li class="chapter" data-level="8.4" data-path="arranging-maps.html"><a href="arranging-maps.html"><i class="fa fa-check"></i><b>8.4</b> Arranging maps</a><ul>
+<li class="chapter" data-level="8.4" data-path="arranging-maps.html"><a href="arranging-maps.html"><i class="fa fa-check"></i><b>8.4</b> Arranging maps</a>
+<ul>
 <li class="chapter" data-level="8.4.1" data-path="arranging-maps.html"><a href="arranging-maps.html#multiple-panels-of-figures-as-a-single-figure"><i class="fa fa-check"></i><b>8.4.1</b> Multiple panels of figures as a single figure</a></li>
 <li class="chapter" data-level="8.4.2" data-path="arranging-maps.html"><a href="arranging-maps.html#a-map-in-a-map-inset"><i class="fa fa-check"></i><b>8.4.2</b> A map in a map: inset</a></li>
 </ul></li>
-<li class="chapter" data-level="8.5" data-path="fine-tune.html"><a href="fine-tune.html"><i class="fa fa-check"></i><b>8.5</b> Fine-tuning maps for publication</a><ul>
+<li class="chapter" data-level="8.5" data-path="fine-tune.html"><a href="fine-tune.html"><i class="fa fa-check"></i><b>8.5</b> Fine-tuning maps for publication</a>
+<ul>
 <li class="chapter" data-level="8.5.1" data-path="fine-tune.html"><a href="fine-tune.html#theme"><i class="fa fa-check"></i><b>8.5.1</b> Setting the theme</a></li>
 <li class="chapter" data-level="8.5.2" data-path="fine-tune.html"><a href="fine-tune.html#legend"><i class="fa fa-check"></i><b>8.5.2</b> Legend</a></li>
 <li class="chapter" data-level="8.5.3" data-path="fine-tune.html"><a href="fine-tune.html#facet-strips"><i class="fa fa-check"></i><b>8.5.3</b> Facet strips</a></li>
@@ -397,25 +450,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="8.6" data-path="ggsave.html"><a href="ggsave.html"><i class="fa fa-check"></i><b>8.6</b> Saving a <code>ggplot</code> object as an image</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="download-data.html"><a href="download-data.html"><i class="fa fa-check"></i><b>9</b> Download and process spatial datasets from within R</a><ul>
-<li class="chapter" data-level="" data-path="before-you-start-8.html"><a href="before-you-start-8.html"><i class="fa fa-check"></i>Before you start</a><ul>
+<li class="chapter" data-level="9" data-path="download-data.html"><a href="download-data.html"><i class="fa fa-check"></i><b>9</b> Download and process spatial datasets from within R</a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-8.html"><a href="before-you-start-8.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
 <li class="chapter" data-level="" data-path="before-you-start-8.html"><a href="before-you-start-8.html#direction-for-replication-8"><i class="fa fa-check"></i>Direction for replication</a></li>
 </ul></li>
-<li class="chapter" data-level="9.1" data-path="nass-quick.html"><a href="nass-quick.html"><i class="fa fa-check"></i><b>9.1</b> USDA NASS QuickStat with <code>tidyUSDA</code></a><ul>
+<li class="chapter" data-level="9.1" data-path="nass-quick.html"><a href="nass-quick.html"><i class="fa fa-check"></i><b>9.1</b> USDA NASS QuickStat with <code>tidyUSDA</code></a>
+<ul>
 <li class="chapter" data-level="9.1.1" data-path="nass-quick.html"><a href="nass-quick.html#look-for-parameter-values"><i class="fa fa-check"></i><b>9.1.1</b> Look for parameter values</a></li>
 <li class="chapter" data-level="9.1.2" data-path="nass-quick.html"><a href="nass-quick.html#caveats"><i class="fa fa-check"></i><b>9.1.2</b> Caveats</a></li>
 </ul></li>
-<li class="chapter" data-level="9.2" data-path="CropScapeR.html"><a href="CropScapeR.html"><i class="fa fa-check"></i><b>9.2</b> CDL with <code>CropScapeR</code></a><ul>
+<li class="chapter" data-level="9.2" data-path="CropScapeR.html"><a href="CropScapeR.html"><i class="fa fa-check"></i><b>9.2</b> CDL with <code>CropScapeR</code></a>
+<ul>
 <li class="chapter" data-level="9.2.1" data-path="CropScapeR.html"><a href="CropScapeR.html#getcdldata-download-the-cdl-data-as-raster-data"><i class="fa fa-check"></i><b>9.2.1</b> <code>GetCDLData</code>: Download the CDL data as raster data</a></li>
 <li class="chapter" data-level="9.2.2" data-path="CropScapeR.html"><a href="CropScapeR.html#data-processing-after-downloading-data"><i class="fa fa-check"></i><b>9.2.2</b> Data processing after downloading data</a></li>
 <li class="chapter" data-level="9.2.3" data-path="CropScapeR.html"><a href="CropScapeR.html#other-forms-of-cdl-data"><i class="fa fa-check"></i><b>9.2.3</b> Other forms of CDL data</a></li>
 <li class="chapter" data-level="9.2.4" data-path="CropScapeR.html"><a href="CropScapeR.html#mac-problem"><i class="fa fa-check"></i><b>9.2.4</b> SSL certificate problem on Mac</a></li>
 </ul></li>
-<li class="chapter" data-level="9.3" data-path="download-prism.html"><a href="download-prism.html"><i class="fa fa-check"></i><b>9.3</b> PRISM with <code>prism</code></a><ul>
+<li class="chapter" data-level="9.3" data-path="download-prism.html"><a href="download-prism.html"><i class="fa fa-check"></i><b>9.3</b> PRISM with <code>prism</code></a>
+<ul>
 <li class="chapter" data-level="9.3.1" data-path="download-prism.html"><a href="download-prism.html#basics"><i class="fa fa-check"></i><b>9.3.1</b> Basics</a></li>
 <li class="chapter" data-level="9.3.2" data-path="download-prism.html"><a href="download-prism.html#download-daily-prism-data-for-many-years-and-build-your-own-datasets"><i class="fa fa-check"></i><b>9.3.2</b> Download daily PRISM data for many years and build your own datasets</a></li>
 </ul></li>
-<li class="chapter" data-level="9.4" data-path="daymet-with-daymetr-and-feddata.html"><a href="daymet-with-daymetr-and-feddata.html"><i class="fa fa-check"></i><b>9.4</b> Daymet with <code>daymetr</code> and <code>FedData</code></a><ul>
+<li class="chapter" data-level="9.4" data-path="daymet-with-daymetr-and-feddata.html"><a href="daymet-with-daymetr-and-feddata.html"><i class="fa fa-check"></i><b>9.4</b> Daymet with <code>daymetr</code> and <code>FedData</code></a>
+<ul>
 <li class="chapter" data-level="9.4.1" data-path="daymet-with-daymetr-and-feddata.html"><a href="daymet-with-daymetr-and-feddata.html#for-points-data"><i class="fa fa-check"></i><b>9.4.1</b> For points data</a></li>
 <li class="chapter" data-level="9.4.2" data-path="daymet-with-daymetr-and-feddata.html"><a href="daymet-with-daymetr-and-feddata.html#daymet-poly"><i class="fa fa-check"></i><b>9.4.2</b> For polygons data</a></li>
 </ul></li>
@@ -424,19 +483,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.7" data-path="census-with-tidycensus-under-construction.html"><a href="census-with-tidycensus-under-construction.html"><i class="fa fa-check"></i><b>9.7</b> Census with <code>tidycensus</code> (under construction)</a></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
-<li class="chapter" data-level="A" data-path="par-comp.html"><a href="par-comp.html"><i class="fa fa-check"></i><b>A</b> Loop and Parallel Computing</a><ul>
-<li class="chapter" data-level="" data-path="before-you-start-9.html"><a href="before-you-start-9.html"><i class="fa fa-check"></i>Before you start</a><ul>
+<li class="chapter" data-level="A" data-path="par-comp.html"><a href="par-comp.html"><i class="fa fa-check"></i><b>A</b> Loop and Parallel Computing</a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-9.html"><a href="before-you-start-9.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
 <li class="chapter" data-level="" data-path="before-you-start-9.html"><a href="before-you-start-9.html#direction-for-replication-9"><i class="fa fa-check"></i>Direction for replication</a></li>
 <li class="chapter" data-level="" data-path="before-you-start-9.html"><a href="before-you-start-9.html#packages-to-install-and-load"><i class="fa fa-check"></i>Packages to install and load</a></li>
 </ul></li>
-<li class="chapter" data-level="A.1" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html"><i class="fa fa-check"></i><b>A.1</b> Repetitive processes and looping</a><ul>
+<li class="chapter" data-level="A.1" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html"><i class="fa fa-check"></i><b>A.1</b> Repetitive processes and looping</a>
+<ul>
 <li class="chapter" data-level="A.1.1" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html#what-is-looping"><i class="fa fa-check"></i><b>A.1.1</b> What is looping?</a></li>
 <li class="chapter" data-level="A.1.2" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html#for-loop"><i class="fa fa-check"></i><b>A.1.2</b> For loop</a></li>
 <li class="chapter" data-level="A.1.3" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html#for-loop-using-the-lapply-function"><i class="fa fa-check"></i><b>A.1.3</b> For loop using the <code>lapply()</code> function</a></li>
 <li class="chapter" data-level="A.1.4" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html#looping-over-multiple-variables-using-lapply"><i class="fa fa-check"></i><b>A.1.4</b> Looping over multiple variables using lapply()</a></li>
 <li class="chapter" data-level="A.1.5" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html#do-you-really-need-to-loop"><i class="fa fa-check"></i><b>A.1.5</b> Do you really need to loop?</a></li>
 </ul></li>
-<li class="chapter" data-level="A.2" data-path="parcomp.html"><a href="parcomp.html"><i class="fa fa-check"></i><b>A.2</b> Parallelization of embarrassingly parallel processes</a><ul>
+<li class="chapter" data-level="A.2" data-path="parcomp.html"><a href="parcomp.html"><i class="fa fa-check"></i><b>A.2</b> Parallelization of embarrassingly parallel processes</a>
+<ul>
 <li class="chapter" data-level="A.2.1" data-path="parcomp.html"><a href="parcomp.html#mac-or-linux-users"><i class="fa fa-check"></i><b>A.2.1</b> Mac or Linux users</a></li>
 </ul></li>
 </ul></li>
@@ -473,20 +536,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
   gtag('config', 'UA-59758608-3');
 </script>
-<div id="geom-sf" class="section level2">
+
+<div id="geom-sf" class="section level2" number="8.1">
 <h2><span class="header-section-number">8.1</span> Creating maps from <code>sf</code> objects</h2>
 <p>This section explains how to create maps from vector data stored as an <code>sf</code> object via <code>geom_sf()</code>.</p>
-<div id="datasets-2" class="section level3">
+<div id="datasets-2" class="section level3" number="8.1.1">
 <h3><span class="header-section-number">8.1.1</span> Datasets</h3>
 <p>The following datasets will be used for illustrations.</p>
 <p><strong>Points</strong></p>
 <ul>
 <li><code>af_used</code>: total annual groundwater pumping at individual irrigatiton wells</li>
 </ul>
-<div class="sourceCode" id="cb597"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb597-1" data-line-number="1"><span class="co">#--- read in the KS wells data ---#</span></a>
-<a class="sourceLine" id="cb597-2" data-line-number="2">(</a>
-<a class="sourceLine" id="cb597-3" data-line-number="3">gw_KS_sf &lt;-<span class="st"> </span><span class="kw">readRDS</span>( <span class="st">&quot;./Data/gw_KS_sf.rds&quot;</span>) </a>
-<a class="sourceLine" id="cb597-4" data-line-number="4">)</a></code></pre></div>
+<div class="sourceCode" id="cb597"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb597-1"><a href="geom-sf.html#cb597-1"></a><span class="co">#--- read in the KS wells data ---#</span></span>
+<span id="cb597-2"><a href="geom-sf.html#cb597-2"></a>(</span>
+<span id="cb597-3"><a href="geom-sf.html#cb597-3"></a>gw_KS_sf &lt;-<span class="st"> </span><span class="kw">readRDS</span>( <span class="st">&quot;./Data/gw_KS_sf.rds&quot;</span>) </span>
+<span id="cb597-4"><a href="geom-sf.html#cb597-4"></a>)</span></code></pre></div>
 <pre><code>Simple feature collection with 56225 features and 3 fields
 geometry type:  POINT
 dimension:      XY
@@ -505,11 +569,11 @@ First 10 features:
 9       12 2010  28.17239 POINT (-95.97031 39.16121)
 10      12 2011  89.53479 POINT (-95.97031 39.16121)</code></pre>
 <p><strong>Polygons</strong></p>
-<div class="sourceCode" id="cb599"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb599-1" data-line-number="1">(</a>
-<a class="sourceLine" id="cb599-2" data-line-number="2">KS_county &lt;-<span class="st"> </span><span class="kw">counties</span>(<span class="dt">state =</span> <span class="st">&quot;Kansas&quot;</span>, <span class="dt">cb =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb599-3" data-line-number="3"><span class="st">  </span><span class="kw">st_as_sf</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb599-4" data-line-number="4"><span class="st">  </span><span class="kw">st_transform</span>(<span class="kw">st_crs</span>(gw_KS_sf))</a>
-<a class="sourceLine" id="cb599-5" data-line-number="5">)</a></code></pre></div>
+<div class="sourceCode" id="cb599"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb599-1"><a href="geom-sf.html#cb599-1"></a>(</span>
+<span id="cb599-2"><a href="geom-sf.html#cb599-2"></a>KS_county &lt;-<span class="st"> </span><span class="kw">counties</span>(<span class="dt">state =</span> <span class="st">&quot;Kansas&quot;</span>, <span class="dt">cb =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb599-3"><a href="geom-sf.html#cb599-3"></a><span class="st">  </span><span class="kw">st_as_sf</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb599-4"><a href="geom-sf.html#cb599-4"></a><span class="st">  </span><span class="kw">st_transform</span>(<span class="kw">st_crs</span>(gw_KS_sf))</span>
+<span id="cb599-5"><a href="geom-sf.html#cb599-5"></a>)</span></code></pre></div>
 <pre><code>Simple feature collection with 105 features and 9 fields
 geometry type:  POLYGON
 dimension:      XY
@@ -539,10 +603,10 @@ First 10 features:
 896 54032546 POLYGON ((-96.72833 39.4271...
 937   826344 POLYGON ((-100.2271 38.2622...</code></pre>
 <p><strong>Lines</strong></p>
-<div class="sourceCode" id="cb601"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb601-1" data-line-number="1">(</a>
-<a class="sourceLine" id="cb601-2" data-line-number="2">KS_railroads &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="dt">dsn =</span> <span class="st">&quot;./Data/&quot;</span>, <span class="dt">layer =</span> <span class="st">&quot;tl_2015_us_rails&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb601-3" data-line-number="3"><span class="st">  </span><span class="kw">st_crop</span>(KS_county)</a>
-<a class="sourceLine" id="cb601-4" data-line-number="4">)</a></code></pre></div>
+<div class="sourceCode" id="cb601"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb601-1"><a href="geom-sf.html#cb601-1"></a>(</span>
+<span id="cb601-2"><a href="geom-sf.html#cb601-2"></a>KS_railroads &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="dt">dsn =</span> <span class="st">&quot;./Data/&quot;</span>, <span class="dt">layer =</span> <span class="st">&quot;tl_2015_us_rails&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb601-3"><a href="geom-sf.html#cb601-3"></a><span class="st">  </span><span class="kw">st_crop</span>(KS_county)</span>
+<span id="cb601-4"><a href="geom-sf.html#cb601-4"></a>)</span></code></pre></div>
 <pre><code>Simple feature collection with 5804 features and 3 fields
 geometry type:  GEOMETRY
 dimension:      XY
@@ -572,30 +636,30 @@ First 10 features:
 2272 LINESTRING (-94.58883 39.11...
 2293 LINESTRING (-94.58871 39.11...</code></pre>
 </div>
-<div id="basic-usage-of-geom_sf" class="section level3">
+<div id="basic-usage-of-geom_sf" class="section level3" number="8.1.2">
 <h3><span class="header-section-number">8.1.2</span> Basic usage of <code>geom_sf()</code></h3>
 <p><code>geom_sf()</code> allows for visualizing <code>sf</code> objects. Conveniently, <code>geom_sf()</code> automatically detects the geometry type of spatial objects stored in <code>sf</code> and draw maps accordingly. For example, the following codes create maps of Kansas wells (points), Kansas counties (polygons), and railroads in Kansas (lines):</p>
-<div class="sourceCode" id="cb603"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb603-1" data-line-number="1">(</a>
-<a class="sourceLine" id="cb603-2" data-line-number="2">g_wells &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> gw_KS_sf) <span class="op">+</span><span class="st">    </span></a>
-<a class="sourceLine" id="cb603-3" data-line-number="3"><span class="st">    </span><span class="kw">geom_sf</span>()</a>
-<a class="sourceLine" id="cb603-4" data-line-number="4">)</a></code></pre></div>
+<div class="sourceCode" id="cb603"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb603-1"><a href="geom-sf.html#cb603-1"></a>(</span>
+<span id="cb603-2"><a href="geom-sf.html#cb603-2"></a>g_wells &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> gw_KS_sf) <span class="op">+</span><span class="st">    </span></span>
+<span id="cb603-3"><a href="geom-sf.html#cb603-3"></a><span class="st">    </span><span class="kw">geom_sf</span>()</span>
+<span id="cb603-4"><a href="geom-sf.html#cb603-4"></a>)</span></code></pre></div>
 <p><img src="R_GIS_Book_files/figure-html/wells-map-1.png" width="672" /></p>
-<div class="sourceCode" id="cb604"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb604-1" data-line-number="1">(</a>
-<a class="sourceLine" id="cb604-2" data-line-number="2">g_county &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> KS_county) <span class="op">+</span><span class="st">  </span></a>
-<a class="sourceLine" id="cb604-3" data-line-number="3"><span class="st">    </span><span class="kw">geom_sf</span>()</a>
-<a class="sourceLine" id="cb604-4" data-line-number="4">)</a></code></pre></div>
+<div class="sourceCode" id="cb604"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb604-1"><a href="geom-sf.html#cb604-1"></a>(</span>
+<span id="cb604-2"><a href="geom-sf.html#cb604-2"></a>g_county &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> KS_county) <span class="op">+</span><span class="st">  </span></span>
+<span id="cb604-3"><a href="geom-sf.html#cb604-3"></a><span class="st">    </span><span class="kw">geom_sf</span>()</span>
+<span id="cb604-4"><a href="geom-sf.html#cb604-4"></a>)</span></code></pre></div>
 <p><img src="R_GIS_Book_files/figure-html/county-map-1.png" width="672" /></p>
-<div class="sourceCode" id="cb605"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb605-1" data-line-number="1">(</a>
-<a class="sourceLine" id="cb605-2" data-line-number="2">g_rail &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> KS_railroads) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb605-3" data-line-number="3"><span class="st">    </span><span class="kw">geom_sf</span>() </a>
-<a class="sourceLine" id="cb605-4" data-line-number="4">)</a></code></pre></div>
+<div class="sourceCode" id="cb605"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb605-1"><a href="geom-sf.html#cb605-1"></a>(</span>
+<span id="cb605-2"><a href="geom-sf.html#cb605-2"></a>g_rail &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> KS_railroads) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb605-3"><a href="geom-sf.html#cb605-3"></a><span class="st">    </span><span class="kw">geom_sf</span>() </span>
+<span id="cb605-4"><a href="geom-sf.html#cb605-4"></a>)</span></code></pre></div>
 <p><img src="R_GIS_Book_files/figure-html/lines-map-1.png" width="672" /></p>
 <p>As you can see, the different geometry types are handled by a single <code>geom</code> type, <code>geom_sf()</code>. Notice also that neither of the x-axis (longitude) and y-axis (latitude) is provided to <code>geom_sf()</code>. When you create a map, longitude and latitude are always used for x- and y-axis. <code>geom_sf()</code> is smart enough to know the geometry types and draw spatial objects accordingly.</p>
 </div>
-<div id="specifying-the-aesthetics" class="section level3">
+<div id="specifying-the-aesthetics" class="section level3" number="8.1.3">
 <h3><span class="header-section-number">8.1.3</span> Specifying the aesthetics</h3>
 <p>There are various aesthetics options you can use. Available aesthetics vary by the type of geometry. This section shows the basics of how to specify the aesthetics of maps. Finer control of aesthetics will be discussed later.</p>
-<div id="points-2" class="section level4">
+<div id="points-2" class="section level4" number="8.1.3.1">
 <h4><span class="header-section-number">8.1.3.1</span> Points</h4>
 <ul>
 <li><strong>color</strong>: color of the points</li>
@@ -605,19 +669,19 @@ First 10 features:
 <li><strong>size</strong>: size of the points (rarely useful)</li>
 </ul>
 <p>For illustration here, let’s focus on the wells in one county so it is easy to detect the differences across various aesthetics configurations.</p>
-<div class="sourceCode" id="cb606"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb606-1" data-line-number="1"><span class="co">#--- wells in Stevens County ---#</span></a>
-<a class="sourceLine" id="cb606-2" data-line-number="2">gw_Stevens &lt;-<span class="st"> </span>KS_county <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb606-3" data-line-number="3"><span class="st">    </span><span class="kw">filter</span>(NAME <span class="op">==</span><span class="st"> &quot;Stevens&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb606-4" data-line-number="4"><span class="st">    </span><span class="kw">st_crop</span>(gw_KS_sf, .)    </a></code></pre></div>
+<div class="sourceCode" id="cb606"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb606-1"><a href="geom-sf.html#cb606-1"></a><span class="co">#--- wells in Stevens County ---#</span></span>
+<span id="cb606-2"><a href="geom-sf.html#cb606-2"></a>gw_Stevens &lt;-<span class="st"> </span>KS_county <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb606-3"><a href="geom-sf.html#cb606-3"></a><span class="st">    </span><span class="kw">filter</span>(NAME <span class="op">==</span><span class="st"> &quot;Stevens&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb606-4"><a href="geom-sf.html#cb606-4"></a><span class="st">    </span><span class="kw">st_crop</span>(gw_KS_sf, .)    </span></code></pre></div>
 <p><strong>example 1</strong></p>
 <ul>
 <li><strong>color</strong>: dependent on <code>af_used</code> (the amount of groundwater extraction)</li>
 <li><strong>size</strong>: constant across the points (bigger than default)</li>
 </ul>
-<div class="sourceCode" id="cb607"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb607-1" data-line-number="1">(</a>
-<a class="sourceLine" id="cb607-2" data-line-number="2"><span class="kw">ggplot</span>(<span class="dt">data =</span> gw_Stevens) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb607-3" data-line-number="3"><span class="st">    </span><span class="kw">geom_sf</span>(<span class="kw">aes</span>(<span class="dt">color =</span> af_used), <span class="dt">size =</span> <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb607-4" data-line-number="4">)</a></code></pre></div>
+<div class="sourceCode" id="cb607"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb607-1"><a href="geom-sf.html#cb607-1"></a>(</span>
+<span id="cb607-2"><a href="geom-sf.html#cb607-2"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> gw_Stevens) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb607-3"><a href="geom-sf.html#cb607-3"></a><span class="st">    </span><span class="kw">geom_sf</span>(<span class="kw">aes</span>(<span class="dt">color =</span> af_used), <span class="dt">size =</span> <span class="dv">2</span>)</span>
+<span id="cb607-4"><a href="geom-sf.html#cb607-4"></a>)</span></code></pre></div>
 <p><img src="R_GIS_Book_files/figure-html/wells-map-e1-1.png" width="672" /></p>
 <p><strong>example 2</strong></p>
 <ul>
@@ -625,26 +689,26 @@ First 10 features:
 <li><strong>size</strong>: dependent on <code>af_used</code></li>
 <li><strong>shape</strong>: constant across the points (square)</li>
 </ul>
-<div class="sourceCode" id="cb608"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb608-1" data-line-number="1">(</a>
-<a class="sourceLine" id="cb608-2" data-line-number="2"><span class="kw">ggplot</span>(<span class="dt">data =</span> gw_Stevens) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb608-3" data-line-number="3"><span class="st">    </span><span class="kw">geom_sf</span>(<span class="kw">aes</span>(<span class="dt">size =</span> af_used), <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">shape =</span> <span class="dv">15</span>)</a>
-<a class="sourceLine" id="cb608-4" data-line-number="4">)</a></code></pre></div>
+<div class="sourceCode" id="cb608"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb608-1"><a href="geom-sf.html#cb608-1"></a>(</span>
+<span id="cb608-2"><a href="geom-sf.html#cb608-2"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> gw_Stevens) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb608-3"><a href="geom-sf.html#cb608-3"></a><span class="st">    </span><span class="kw">geom_sf</span>(<span class="kw">aes</span>(<span class="dt">size =</span> af_used), <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">shape =</span> <span class="dv">15</span>)</span>
+<span id="cb608-4"><a href="geom-sf.html#cb608-4"></a>)</span></code></pre></div>
 <p><img src="R_GIS_Book_files/figure-html/wells-map-e2-1.png" width="672" /></p>
 <p><strong>example 3</strong></p>
 <ul>
 <li><strong>color</strong>: dependent on whether located east of west of -101.3 in longitude</li>
 <li><strong>shape</strong>: dependent on whether located east of west of -101.3 in longitude</li>
 </ul>
-<div class="sourceCode" id="cb609"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb609-1" data-line-number="1">(</a>
-<a class="sourceLine" id="cb609-2" data-line-number="2">gw_Stevens <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb609-3" data-line-number="3"><span class="st">    </span><span class="kw">cbind</span>(., <span class="kw">st_coordinates</span>(.)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb609-4" data-line-number="4"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">east_west =</span> <span class="kw">ifelse</span>(X <span class="op">&lt;</span><span class="st"> </span><span class="fl">-101.3</span>, <span class="st">&quot;west&quot;</span>, <span class="st">&quot;east&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb609-5" data-line-number="5"><span class="st">    </span><span class="kw">ggplot</span>(<span class="dt">data =</span> .) <span class="op">+</span></a>
-<a class="sourceLine" id="cb609-6" data-line-number="6"><span class="st">        </span><span class="kw">geom_sf</span>(<span class="kw">aes</span>(<span class="dt">shape =</span> east_west, <span class="dt">color =</span> east_west))</a>
-<a class="sourceLine" id="cb609-7" data-line-number="7">)</a></code></pre></div>
+<div class="sourceCode" id="cb609"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb609-1"><a href="geom-sf.html#cb609-1"></a>(</span>
+<span id="cb609-2"><a href="geom-sf.html#cb609-2"></a>gw_Stevens <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb609-3"><a href="geom-sf.html#cb609-3"></a><span class="st">    </span><span class="kw">cbind</span>(., <span class="kw">st_coordinates</span>(.)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb609-4"><a href="geom-sf.html#cb609-4"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">east_west =</span> <span class="kw">ifelse</span>(X <span class="op">&lt;</span><span class="st"> </span><span class="fl">-101.3</span>, <span class="st">&quot;west&quot;</span>, <span class="st">&quot;east&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb609-5"><a href="geom-sf.html#cb609-5"></a><span class="st">    </span><span class="kw">ggplot</span>(<span class="dt">data =</span> .) <span class="op">+</span></span>
+<span id="cb609-6"><a href="geom-sf.html#cb609-6"></a><span class="st">        </span><span class="kw">geom_sf</span>(<span class="kw">aes</span>(<span class="dt">shape =</span> east_west, <span class="dt">color =</span> east_west))</span>
+<span id="cb609-7"><a href="geom-sf.html#cb609-7"></a>)</span></code></pre></div>
 <p><img src="R_GIS_Book_files/figure-html/wells-map-e3-1.png" width="672" /></p>
 </div>
-<div id="polygons-1" class="section level4">
+<div id="polygons-1" class="section level4" number="8.1.3.2">
 <h4><span class="header-section-number">8.1.3.2</span> Polygons</h4>
 <ul>
 <li><strong>color</strong>: color of the <strong>borders</strong> of the polygons</li>
@@ -657,77 +721,77 @@ First 10 features:
 <li><strong>color</strong>: constant (red)</li>
 <li>fill: constant (dark green)</li>
 </ul>
-<div class="sourceCode" id="cb610"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb610-1" data-line-number="1">(</a>
-<a class="sourceLine" id="cb610-2" data-line-number="2"><span class="kw">ggplot</span>(<span class="dt">data =</span> KS_county) <span class="op">+</span><span class="st">  </span></a>
-<a class="sourceLine" id="cb610-3" data-line-number="3"><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">color =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;darkgreen&quot;</span>)</a>
-<a class="sourceLine" id="cb610-4" data-line-number="4">)</a></code></pre></div>
+<div class="sourceCode" id="cb610"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb610-1"><a href="geom-sf.html#cb610-1"></a>(</span>
+<span id="cb610-2"><a href="geom-sf.html#cb610-2"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> KS_county) <span class="op">+</span><span class="st">  </span></span>
+<span id="cb610-3"><a href="geom-sf.html#cb610-3"></a><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">color =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;darkgreen&quot;</span>)</span>
+<span id="cb610-4"><a href="geom-sf.html#cb610-4"></a>)</span></code></pre></div>
 <p><img src="R_GIS_Book_files/figure-html/county-map-e1-1.png" width="672" /></p>
 <p><strong>example 2</strong></p>
 <ul>
 <li><strong>color</strong>: default (black)</li>
 <li>fill: dependent on the total amount of pumping in 2010</li>
 </ul>
-<div class="sourceCode" id="cb611"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb611-1" data-line-number="1">KS_county_with_pumping &lt;-<span class="st"> </span>gw_KS_sf <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb611-2" data-line-number="2"><span class="st">    </span><span class="co">#--- only year == 2010 ---#</span></a>
-<a class="sourceLine" id="cb611-3" data-line-number="3"><span class="st">    </span><span class="kw">filter</span>(., year <span class="op">==</span><span class="st"> </span><span class="dv">2010</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb611-4" data-line-number="4"><span class="st">    </span><span class="co">#--- get total pumping by county ---#</span></a>
-<a class="sourceLine" id="cb611-5" data-line-number="5"><span class="st">    </span><span class="kw">aggregate</span>(., KS_county, sum, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb611-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb611-7" data-line-number="7">(</a>
-<a class="sourceLine" id="cb611-8" data-line-number="8"><span class="kw">ggplot</span>(<span class="dt">data =</span> KS_county_with_pumping) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb611-9" data-line-number="9"><span class="st">    </span><span class="kw">geom_sf</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> af_used))</a>
-<a class="sourceLine" id="cb611-10" data-line-number="10">)</a></code></pre></div>
+<div class="sourceCode" id="cb611"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb611-1"><a href="geom-sf.html#cb611-1"></a>KS_county_with_pumping &lt;-<span class="st"> </span>gw_KS_sf <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb611-2"><a href="geom-sf.html#cb611-2"></a><span class="st">    </span><span class="co">#--- only year == 2010 ---#</span></span>
+<span id="cb611-3"><a href="geom-sf.html#cb611-3"></a><span class="st">    </span><span class="kw">filter</span>(., year <span class="op">==</span><span class="st"> </span><span class="dv">2010</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb611-4"><a href="geom-sf.html#cb611-4"></a><span class="st">    </span><span class="co">#--- get total pumping by county ---#</span></span>
+<span id="cb611-5"><a href="geom-sf.html#cb611-5"></a><span class="st">    </span><span class="kw">aggregate</span>(., KS_county, sum, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb611-6"><a href="geom-sf.html#cb611-6"></a></span>
+<span id="cb611-7"><a href="geom-sf.html#cb611-7"></a>(</span>
+<span id="cb611-8"><a href="geom-sf.html#cb611-8"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> KS_county_with_pumping) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb611-9"><a href="geom-sf.html#cb611-9"></a><span class="st">    </span><span class="kw">geom_sf</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> af_used))</span>
+<span id="cb611-10"><a href="geom-sf.html#cb611-10"></a>)</span></code></pre></div>
 <p><img src="R_GIS_Book_files/figure-html/county-map-e2-1.png" width="672" /></p>
 </div>
 </div>
-<div id="plotting-multiple-spatial-objects-in-one-figure" class="section level3">
+<div id="plotting-multiple-spatial-objects-in-one-figure" class="section level3" number="8.1.4">
 <h3><span class="header-section-number">8.1.4</span> Plotting multiple spatial objects in one figure</h3>
 <p>You can combine all the layers created by <code>geom_sf()</code> additively so they appear in a single map:</p>
-<div class="sourceCode" id="cb612"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb612-1" data-line-number="1"><span class="kw">ggplot</span>() <span class="op">+</span><span class="st">  </span></a>
-<a class="sourceLine" id="cb612-2" data-line-number="2"><span class="st">    </span><span class="co">#--- this one uses KS_wells ---#</span></a>
-<a class="sourceLine" id="cb612-3" data-line-number="3"><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> gw_KS_sf, <span class="dt">size =</span> <span class="fl">0.4</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb612-4" data-line-number="4"><span class="st">    </span><span class="co">#--- this one uses KS_county ---#</span></a>
-<a class="sourceLine" id="cb612-5" data-line-number="5"><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> KS_county) <span class="op">+</span></a>
-<a class="sourceLine" id="cb612-6" data-line-number="6"><span class="st">    </span><span class="co">#--- this one uses KS_railroads ---#</span></a>
-<a class="sourceLine" id="cb612-7" data-line-number="7"><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> KS_railroads, <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb612"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb612-1"><a href="geom-sf.html#cb612-1"></a><span class="kw">ggplot</span>() <span class="op">+</span><span class="st">  </span></span>
+<span id="cb612-2"><a href="geom-sf.html#cb612-2"></a><span class="st">    </span><span class="co">#--- this one uses KS_wells ---#</span></span>
+<span id="cb612-3"><a href="geom-sf.html#cb612-3"></a><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> gw_KS_sf, <span class="dt">size =</span> <span class="fl">0.4</span>) <span class="op">+</span></span>
+<span id="cb612-4"><a href="geom-sf.html#cb612-4"></a><span class="st">    </span><span class="co">#--- this one uses KS_county ---#</span></span>
+<span id="cb612-5"><a href="geom-sf.html#cb612-5"></a><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> KS_county) <span class="op">+</span></span>
+<span id="cb612-6"><a href="geom-sf.html#cb612-6"></a><span class="st">    </span><span class="co">#--- this one uses KS_railroads ---#</span></span>
+<span id="cb612-7"><a href="geom-sf.html#cb612-7"></a><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> KS_railroads, <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
 <p><img src="R_GIS_Book_files/figure-html/g-multiple-1-1.png" width="672" /></p>
 <p>Oops, you cannot see wells (points) in the figure. The order of <code>geom_sf()</code> matters. The layer added later will come on top of the preceding layers. That’s why wells are hidden beneath Kansas counties. So, let’s do this:</p>
-<div class="sourceCode" id="cb613"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb613-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> KS_county) <span class="op">+</span><span class="st">  </span></a>
-<a class="sourceLine" id="cb613-2" data-line-number="2"><span class="st">    </span><span class="co">#--- this one uses KS_county ---#</span></a>
-<a class="sourceLine" id="cb613-3" data-line-number="3"><span class="st">    </span><span class="kw">geom_sf</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb613-4" data-line-number="4"><span class="st">    </span><span class="co">#--- this one uses KS_county ---#</span></a>
-<a class="sourceLine" id="cb613-5" data-line-number="5"><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> gw_KS_sf, <span class="dt">size =</span> <span class="fl">0.4</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb613-6" data-line-number="6"><span class="st">    </span><span class="co">#--- this one uses KS_railroads ---#</span></a>
-<a class="sourceLine" id="cb613-7" data-line-number="7"><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> KS_railroads, <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb613"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb613-1"><a href="geom-sf.html#cb613-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> KS_county) <span class="op">+</span><span class="st">  </span></span>
+<span id="cb613-2"><a href="geom-sf.html#cb613-2"></a><span class="st">    </span><span class="co">#--- this one uses KS_county ---#</span></span>
+<span id="cb613-3"><a href="geom-sf.html#cb613-3"></a><span class="st">    </span><span class="kw">geom_sf</span>() <span class="op">+</span></span>
+<span id="cb613-4"><a href="geom-sf.html#cb613-4"></a><span class="st">    </span><span class="co">#--- this one uses KS_county ---#</span></span>
+<span id="cb613-5"><a href="geom-sf.html#cb613-5"></a><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> gw_KS_sf, <span class="dt">size =</span> <span class="fl">0.4</span>) <span class="op">+</span></span>
+<span id="cb613-6"><a href="geom-sf.html#cb613-6"></a><span class="st">    </span><span class="co">#--- this one uses KS_railroads ---#</span></span>
+<span id="cb613-7"><a href="geom-sf.html#cb613-7"></a><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> KS_railroads, <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
 <p><img src="R_GIS_Book_files/figure-html/g-multiple-2-1.png" width="672" /></p>
 <p>Better.</p>
 <p>Note that since you are using different datasets for each layer, you need to specify the dataset to use in each layer except for the first <code>geom_sf()</code> which inherits <code>data = KS_wells</code> from <code>ggplot(data = KS_wells)</code>. Of course, this will create exactly the same map:</p>
-<div class="sourceCode" id="cb614"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb614-1" data-line-number="1">(</a>
-<a class="sourceLine" id="cb614-2" data-line-number="2">g_all &lt;-<span class="st"> </span><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb614-3" data-line-number="3"><span class="st">    </span><span class="co">#--- this one uses KS_county ---#</span></a>
-<a class="sourceLine" id="cb614-4" data-line-number="4"><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> KS_county) <span class="op">+</span></a>
-<a class="sourceLine" id="cb614-5" data-line-number="5"><span class="st">    </span><span class="co">#--- this one uses KS_wells ---#</span></a>
-<a class="sourceLine" id="cb614-6" data-line-number="6"><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> gw_KS_sf, <span class="dt">size =</span> <span class="fl">0.4</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb614-7" data-line-number="7"><span class="st">    </span><span class="co">#--- this one uses KS_railroads ---#</span></a>
-<a class="sourceLine" id="cb614-8" data-line-number="8"><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> KS_railroads, <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>)</a>
-<a class="sourceLine" id="cb614-9" data-line-number="9">)</a></code></pre></div>
+<div class="sourceCode" id="cb614"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb614-1"><a href="geom-sf.html#cb614-1"></a>(</span>
+<span id="cb614-2"><a href="geom-sf.html#cb614-2"></a>g_all &lt;-<span class="st"> </span><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb614-3"><a href="geom-sf.html#cb614-3"></a><span class="st">    </span><span class="co">#--- this one uses KS_county ---#</span></span>
+<span id="cb614-4"><a href="geom-sf.html#cb614-4"></a><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> KS_county) <span class="op">+</span></span>
+<span id="cb614-5"><a href="geom-sf.html#cb614-5"></a><span class="st">    </span><span class="co">#--- this one uses KS_wells ---#</span></span>
+<span id="cb614-6"><a href="geom-sf.html#cb614-6"></a><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> gw_KS_sf, <span class="dt">size =</span> <span class="fl">0.4</span>) <span class="op">+</span></span>
+<span id="cb614-7"><a href="geom-sf.html#cb614-7"></a><span class="st">    </span><span class="co">#--- this one uses KS_railroads ---#</span></span>
+<span id="cb614-8"><a href="geom-sf.html#cb614-8"></a><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> KS_railroads, <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>)</span>
+<span id="cb614-9"><a href="geom-sf.html#cb614-9"></a>)</span></code></pre></div>
 <p><img src="R_GIS_Book_files/figure-html/g-multiple-3-1.png" width="672" /></p>
 <p>There is no rule that you need to supply data to <code>ggplot()</code>.<a href="#fn94" class="footnote-ref" id="fnref94"><sup>94</sup></a></p>
 <p>Alternatively, you could add <code>fill = NA</code> to <code>geom_sf(data = KS_county)</code> instead of switching the order.</p>
-<div class="sourceCode" id="cb615"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb615-1" data-line-number="1"><span class="kw">ggplot</span>() <span class="op">+</span><span class="st">  </span></a>
-<a class="sourceLine" id="cb615-2" data-line-number="2"><span class="st">    </span><span class="co">#--- this one uses KS_wells ---#</span></a>
-<a class="sourceLine" id="cb615-3" data-line-number="3"><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> gw_KS_sf, <span class="dt">size =</span> <span class="fl">0.4</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb615-4" data-line-number="4"><span class="st">    </span><span class="co">#--- this one uses KS_county ---#</span></a>
-<a class="sourceLine" id="cb615-5" data-line-number="5"><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> KS_county, <span class="dt">fill =</span> <span class="ot">NA</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb615-6" data-line-number="6"><span class="st">    </span><span class="co">#--- this one uses KS_railroads ---#</span></a>
-<a class="sourceLine" id="cb615-7" data-line-number="7"><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> KS_railroads, <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb615"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb615-1"><a href="geom-sf.html#cb615-1"></a><span class="kw">ggplot</span>() <span class="op">+</span><span class="st">  </span></span>
+<span id="cb615-2"><a href="geom-sf.html#cb615-2"></a><span class="st">    </span><span class="co">#--- this one uses KS_wells ---#</span></span>
+<span id="cb615-3"><a href="geom-sf.html#cb615-3"></a><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> gw_KS_sf, <span class="dt">size =</span> <span class="fl">0.4</span>) <span class="op">+</span></span>
+<span id="cb615-4"><a href="geom-sf.html#cb615-4"></a><span class="st">    </span><span class="co">#--- this one uses KS_county ---#</span></span>
+<span id="cb615-5"><a href="geom-sf.html#cb615-5"></a><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> KS_county, <span class="dt">fill =</span> <span class="ot">NA</span>) <span class="op">+</span></span>
+<span id="cb615-6"><a href="geom-sf.html#cb615-6"></a><span class="st">    </span><span class="co">#--- this one uses KS_railroads ---#</span></span>
+<span id="cb615-7"><a href="geom-sf.html#cb615-7"></a><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> KS_railroads, <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
 <p><img src="R_GIS_Book_files/figure-html/g-multiple-4-1.png" width="672" /></p>
 <p>This is fine as long as you do not intend to color-code counties.</p>
 </div>
-<div id="crs" class="section level3">
+<div id="crs" class="section level3" number="8.1.5">
 <h3><span class="header-section-number">8.1.5</span> CRS</h3>
 <p><code>ggplot()</code> uses the CRS of the <code>sf</code> to draw a map. For example, right now the CRS of <code>KS_county</code> is this:</p>
-<div class="sourceCode" id="cb616"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb616-1" data-line-number="1"><span class="kw">st_crs</span>(KS_county)</a></code></pre></div>
+<div class="sourceCode" id="cb616"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb616-1"><a href="geom-sf.html#cb616-1"></a><span class="kw">st_crs</span>(KS_county)</span></code></pre></div>
 <pre><code>Coordinate Reference System:
   User input: EPSG:4269 
   wkt:
@@ -743,172 +807,172 @@ GEOGCS[&quot;NAD83&quot;,
         AUTHORITY[&quot;EPSG&quot;,&quot;9122&quot;]],
     AUTHORITY[&quot;EPSG&quot;,&quot;4269&quot;]]</code></pre>
 <p>Let’s convert the CRS to WGS 84/ UTM zone 14N (EPSF code: 32614), make a map, and compare the ones with different CRS side by side.</p>
-<div class="sourceCode" id="cb618"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb618-1" data-line-number="1">g_<span class="dv">32614</span> &lt;-<span class="st"> </span><span class="kw">st_transform</span>(KS_county, <span class="dv">32614</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb618-2" data-line-number="2"><span class="st">    </span><span class="kw">ggplot</span>(<span class="dt">data =</span> .) <span class="op">+</span><span class="st">  </span></a>
-<a class="sourceLine" id="cb618-3" data-line-number="3"><span class="st">        </span><span class="kw">geom_sf</span>() </a></code></pre></div>
-<div class="sourceCode" id="cb619"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb619-1" data-line-number="1">g_county<span class="op">/</span>g_<span class="dv">32614</span></a></code></pre></div>
+<div class="sourceCode" id="cb618"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb618-1"><a href="geom-sf.html#cb618-1"></a>g_<span class="dv">32614</span> &lt;-<span class="st"> </span><span class="kw">st_transform</span>(KS_county, <span class="dv">32614</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb618-2"><a href="geom-sf.html#cb618-2"></a><span class="st">    </span><span class="kw">ggplot</span>(<span class="dt">data =</span> .) <span class="op">+</span><span class="st">  </span></span>
+<span id="cb618-3"><a href="geom-sf.html#cb618-3"></a><span class="st">        </span><span class="kw">geom_sf</span>() </span></code></pre></div>
+<div class="sourceCode" id="cb619"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb619-1"><a href="geom-sf.html#cb619-1"></a>g_county<span class="op">/</span>g_<span class="dv">32614</span></span></code></pre></div>
 <p><img src="R_GIS_Book_files/figure-html/patchwork-1.png" width="672" /></p>
 <p>Alternatively, you could use <code>coord_sf()</code> to alter the CRS on the map, but not the CRS of the sf object itself.</p>
-<div class="sourceCode" id="cb620"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb620-1" data-line-number="1"><span class="kw">ggplot</span>() <span class="op">+</span><span class="st">  </span></a>
-<a class="sourceLine" id="cb620-2" data-line-number="2"><span class="st">    </span><span class="co">#--- epsg: 4269 ---#</span></a>
-<a class="sourceLine" id="cb620-3" data-line-number="3"><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> KS_county) <span class="op">+</span></a>
-<a class="sourceLine" id="cb620-4" data-line-number="4"><span class="st">    </span><span class="kw">coord_sf</span>(<span class="dt">crs =</span> <span class="dv">32614</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb620"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb620-1"><a href="geom-sf.html#cb620-1"></a><span class="kw">ggplot</span>() <span class="op">+</span><span class="st">  </span></span>
+<span id="cb620-2"><a href="geom-sf.html#cb620-2"></a><span class="st">    </span><span class="co">#--- epsg: 4269 ---#</span></span>
+<span id="cb620-3"><a href="geom-sf.html#cb620-3"></a><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> KS_county) <span class="op">+</span></span>
+<span id="cb620-4"><a href="geom-sf.html#cb620-4"></a><span class="st">    </span><span class="kw">coord_sf</span>(<span class="dt">crs =</span> <span class="dv">32614</span>)</span></code></pre></div>
 <p><img src="R_GIS_Book_files/figure-html/wells-map-crs-1.png" width="672" /></p>
 <p>When multiple layers are used for map creation, the CRS of the first layer is applied for all the layers.</p>
-<div class="sourceCode" id="cb621"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb621-1" data-line-number="1"><span class="kw">ggplot</span>() <span class="op">+</span><span class="st">  </span></a>
-<a class="sourceLine" id="cb621-2" data-line-number="2"><span class="st">    </span><span class="co">#--- epsg: 32614 ---#</span></a>
-<a class="sourceLine" id="cb621-3" data-line-number="3"><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> <span class="kw">st_transform</span>(KS_county, <span class="dv">32614</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb621-4" data-line-number="4"><span class="st">    </span><span class="co">#--- epsg: 4269 ---#</span></a>
-<a class="sourceLine" id="cb621-5" data-line-number="5"><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> KS_railroads)</a></code></pre></div>
+<div class="sourceCode" id="cb621"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb621-1"><a href="geom-sf.html#cb621-1"></a><span class="kw">ggplot</span>() <span class="op">+</span><span class="st">  </span></span>
+<span id="cb621-2"><a href="geom-sf.html#cb621-2"></a><span class="st">    </span><span class="co">#--- epsg: 32614 ---#</span></span>
+<span id="cb621-3"><a href="geom-sf.html#cb621-3"></a><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> <span class="kw">st_transform</span>(KS_county, <span class="dv">32614</span>)) <span class="op">+</span></span>
+<span id="cb621-4"><a href="geom-sf.html#cb621-4"></a><span class="st">    </span><span class="co">#--- epsg: 4269 ---#</span></span>
+<span id="cb621-5"><a href="geom-sf.html#cb621-5"></a><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> KS_railroads)</span></code></pre></div>
 <p><img src="R_GIS_Book_files/figure-html/wells-map-crs-order-1.png" width="672" /></p>
 <p><code>coord_sf()</code> applies to all the layers.</p>
-<div class="sourceCode" id="cb622"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb622-1" data-line-number="1"><span class="kw">ggplot</span>() <span class="op">+</span><span class="st">  </span></a>
-<a class="sourceLine" id="cb622-2" data-line-number="2"><span class="st">    </span><span class="co">#--- epsg: 32614 ---#</span></a>
-<a class="sourceLine" id="cb622-3" data-line-number="3"><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> <span class="kw">st_transform</span>(KS_county, <span class="dv">32614</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb622-4" data-line-number="4"><span class="st">    </span><span class="co">#--- epsg: 4269 ---#</span></a>
-<a class="sourceLine" id="cb622-5" data-line-number="5"><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> KS_railroads) <span class="op">+</span></a>
-<a class="sourceLine" id="cb622-6" data-line-number="6"><span class="st">    </span><span class="co">#--- using 4269 ---#</span></a>
-<a class="sourceLine" id="cb622-7" data-line-number="7"><span class="st">    </span><span class="kw">coord_sf</span>(<span class="dt">crs =</span> <span class="dv">4269</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb622"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb622-1"><a href="geom-sf.html#cb622-1"></a><span class="kw">ggplot</span>() <span class="op">+</span><span class="st">  </span></span>
+<span id="cb622-2"><a href="geom-sf.html#cb622-2"></a><span class="st">    </span><span class="co">#--- epsg: 32614 ---#</span></span>
+<span id="cb622-3"><a href="geom-sf.html#cb622-3"></a><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> <span class="kw">st_transform</span>(KS_county, <span class="dv">32614</span>)) <span class="op">+</span></span>
+<span id="cb622-4"><a href="geom-sf.html#cb622-4"></a><span class="st">    </span><span class="co">#--- epsg: 4269 ---#</span></span>
+<span id="cb622-5"><a href="geom-sf.html#cb622-5"></a><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> KS_railroads) <span class="op">+</span></span>
+<span id="cb622-6"><a href="geom-sf.html#cb622-6"></a><span class="st">    </span><span class="co">#--- using 4269 ---#</span></span>
+<span id="cb622-7"><a href="geom-sf.html#cb622-7"></a><span class="st">    </span><span class="kw">coord_sf</span>(<span class="dt">crs =</span> <span class="dv">4269</span>)</span></code></pre></div>
 <p><img src="R_GIS_Book_files/figure-html/wells-map-coodsf-1.png" width="672" /></p>
 <p>Finally, you could limit the geographic scope of the map to be created by adding <code>xlim()</code> and <code>ylim()</code>.</p>
-<div class="sourceCode" id="cb623"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb623-1" data-line-number="1"><span class="kw">ggplot</span>() <span class="op">+</span><span class="st">  </span></a>
-<a class="sourceLine" id="cb623-2" data-line-number="2"><span class="st">    </span><span class="co">#--- epsg: 32614 ---#</span></a>
-<a class="sourceLine" id="cb623-3" data-line-number="3"><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> <span class="kw">st_transform</span>(KS_county, <span class="dv">32614</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb623-4" data-line-number="4"><span class="st">    </span><span class="co">#--- epsg: 4269 ---#</span></a>
-<a class="sourceLine" id="cb623-5" data-line-number="5"><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> KS_railroads) <span class="op">+</span></a>
-<a class="sourceLine" id="cb623-6" data-line-number="6"><span class="st">    </span><span class="co">#--- using 4269 ---#</span></a>
-<a class="sourceLine" id="cb623-7" data-line-number="7"><span class="st">    </span><span class="kw">coord_sf</span>(<span class="dt">crs =</span> <span class="dv">4269</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb623-8" data-line-number="8"><span class="st">    </span><span class="co">#--- limit the geographic scope of the map ---#</span></a>
-<a class="sourceLine" id="cb623-9" data-line-number="9"><span class="st">    </span><span class="kw">xlim</span>(<span class="op">-</span><span class="dv">99</span>, <span class="dv">-97</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb623-10" data-line-number="10"><span class="st">    </span><span class="kw">ylim</span>(<span class="dv">37</span>, <span class="dv">39</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb623"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb623-1"><a href="geom-sf.html#cb623-1"></a><span class="kw">ggplot</span>() <span class="op">+</span><span class="st">  </span></span>
+<span id="cb623-2"><a href="geom-sf.html#cb623-2"></a><span class="st">    </span><span class="co">#--- epsg: 32614 ---#</span></span>
+<span id="cb623-3"><a href="geom-sf.html#cb623-3"></a><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> <span class="kw">st_transform</span>(KS_county, <span class="dv">32614</span>)) <span class="op">+</span></span>
+<span id="cb623-4"><a href="geom-sf.html#cb623-4"></a><span class="st">    </span><span class="co">#--- epsg: 4269 ---#</span></span>
+<span id="cb623-5"><a href="geom-sf.html#cb623-5"></a><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> KS_railroads) <span class="op">+</span></span>
+<span id="cb623-6"><a href="geom-sf.html#cb623-6"></a><span class="st">    </span><span class="co">#--- using 4269 ---#</span></span>
+<span id="cb623-7"><a href="geom-sf.html#cb623-7"></a><span class="st">    </span><span class="kw">coord_sf</span>(<span class="dt">crs =</span> <span class="dv">4269</span>) <span class="op">+</span></span>
+<span id="cb623-8"><a href="geom-sf.html#cb623-8"></a><span class="st">    </span><span class="co">#--- limit the geographic scope of the map ---#</span></span>
+<span id="cb623-9"><a href="geom-sf.html#cb623-9"></a><span class="st">    </span><span class="kw">xlim</span>(<span class="op">-</span><span class="dv">99</span>, <span class="dv">-97</span>) <span class="op">+</span></span>
+<span id="cb623-10"><a href="geom-sf.html#cb623-10"></a><span class="st">    </span><span class="kw">ylim</span>(<span class="dv">37</span>, <span class="dv">39</span>)</span></code></pre></div>
 <p><img src="R_GIS_Book_files/figure-html/wells-map-coodsf-lim-1.png" width="672" /></p>
 </div>
-<div id="faceting" class="section level3">
+<div id="faceting" class="section level3" number="8.1.6">
 <h3><span class="header-section-number">8.1.6</span> Faceting</h3>
 <p>Faceting splits the data into groups and generates a figure for each group, where the aesthetics of the figures are consistent across the groups. Faceting can be done using <code>facet_wrap()</code> or <code>facet_grid()</code>. Let’s try to create a map of groundwater use at wells by year where the points are color differentiated by the amount of groundwater use (<code>af_used</code>).</p>
-<div class="sourceCode" id="cb624"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb624-1" data-line-number="1"><span class="kw">ggplot</span>() <span class="op">+</span><span class="st">  </span></a>
-<a class="sourceLine" id="cb624-2" data-line-number="2"><span class="st">    </span><span class="co">#--- KS county boundary ---#</span></a>
-<a class="sourceLine" id="cb624-3" data-line-number="3"><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> <span class="kw">st_transform</span>(KS_county, <span class="dv">32614</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb624-4" data-line-number="4"><span class="st">    </span><span class="co">#--- wells ---#</span></a>
-<a class="sourceLine" id="cb624-5" data-line-number="5"><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> gw_KS_sf, <span class="kw">aes</span>(<span class="dt">color =</span> af_used)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb624-6" data-line-number="6"><span class="st">    </span><span class="co">#--- facet by year (side by side) ---#</span></a>
-<a class="sourceLine" id="cb624-7" data-line-number="7"><span class="st">    </span><span class="kw">facet_wrap</span>(. <span class="op">~</span><span class="st"> </span>year)</a></code></pre></div>
+<div class="sourceCode" id="cb624"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb624-1"><a href="geom-sf.html#cb624-1"></a><span class="kw">ggplot</span>() <span class="op">+</span><span class="st">  </span></span>
+<span id="cb624-2"><a href="geom-sf.html#cb624-2"></a><span class="st">    </span><span class="co">#--- KS county boundary ---#</span></span>
+<span id="cb624-3"><a href="geom-sf.html#cb624-3"></a><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> <span class="kw">st_transform</span>(KS_county, <span class="dv">32614</span>)) <span class="op">+</span></span>
+<span id="cb624-4"><a href="geom-sf.html#cb624-4"></a><span class="st">    </span><span class="co">#--- wells ---#</span></span>
+<span id="cb624-5"><a href="geom-sf.html#cb624-5"></a><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> gw_KS_sf, <span class="kw">aes</span>(<span class="dt">color =</span> af_used)) <span class="op">+</span></span>
+<span id="cb624-6"><a href="geom-sf.html#cb624-6"></a><span class="st">    </span><span class="co">#--- facet by year (side by side) ---#</span></span>
+<span id="cb624-7"><a href="geom-sf.html#cb624-7"></a><span class="st">    </span><span class="kw">facet_wrap</span>(. <span class="op">~</span><span class="st"> </span>year)</span></code></pre></div>
 <p><img src="R_GIS_Book_files/figure-html/facet-1-1.png" width="672" /></p>
 <p>Note that the above code creates a single legend that applies to both panels, which allows you to compare values across panels (years here). Further, also note that the values of the faceting variable (<code>year</code>) are displayed in the gray strips above the maps. You can have panels stacked vertically by using the <code>ncol</code> option (or <code>nrow</code> also works) in <code>facet_wrap(. ~ year)</code> as follows:</p>
-<div class="sourceCode" id="cb625"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb625-1" data-line-number="1"><span class="kw">ggplot</span>() <span class="op">+</span><span class="st">  </span></a>
-<a class="sourceLine" id="cb625-2" data-line-number="2"><span class="st">    </span><span class="co">#--- KS county boundary ---#</span></a>
-<a class="sourceLine" id="cb625-3" data-line-number="3"><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> <span class="kw">st_transform</span>(KS_county, <span class="dv">32614</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb625-4" data-line-number="4"><span class="st">    </span><span class="co">#--- wells ---#</span></a>
-<a class="sourceLine" id="cb625-5" data-line-number="5"><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> gw_KS_sf, <span class="kw">aes</span>(<span class="dt">color =</span> af_used)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb625-6" data-line-number="6"><span class="st">    </span><span class="co">#--- facet by year (side by side) ---#</span></a>
-<a class="sourceLine" id="cb625-7" data-line-number="7"><span class="st">    </span><span class="kw">facet_wrap</span>(. <span class="op">~</span><span class="st"> </span>year, <span class="dt">ncol =</span> <span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb625"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb625-1"><a href="geom-sf.html#cb625-1"></a><span class="kw">ggplot</span>() <span class="op">+</span><span class="st">  </span></span>
+<span id="cb625-2"><a href="geom-sf.html#cb625-2"></a><span class="st">    </span><span class="co">#--- KS county boundary ---#</span></span>
+<span id="cb625-3"><a href="geom-sf.html#cb625-3"></a><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> <span class="kw">st_transform</span>(KS_county, <span class="dv">32614</span>)) <span class="op">+</span></span>
+<span id="cb625-4"><a href="geom-sf.html#cb625-4"></a><span class="st">    </span><span class="co">#--- wells ---#</span></span>
+<span id="cb625-5"><a href="geom-sf.html#cb625-5"></a><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> gw_KS_sf, <span class="kw">aes</span>(<span class="dt">color =</span> af_used)) <span class="op">+</span></span>
+<span id="cb625-6"><a href="geom-sf.html#cb625-6"></a><span class="st">    </span><span class="co">#--- facet by year (side by side) ---#</span></span>
+<span id="cb625-7"><a href="geom-sf.html#cb625-7"></a><span class="st">    </span><span class="kw">facet_wrap</span>(. <span class="op">~</span><span class="st"> </span>year, <span class="dt">ncol =</span> <span class="dv">1</span>)</span></code></pre></div>
 <p><img src="R_GIS_Book_files/figure-html/facet-2-1.png" width="672" /></p>
 <p>Two-way faceting is possible by supplying a variable name (or expression) in place of <code>.</code> in <code>facet_wrap(. ~ year)</code>. The code below uses an expression <code>(af_used &gt; 200)</code> in place of <code>.</code>. This divides the dataset by whether water use is greater than 200 or not and by year.</p>
-<div class="sourceCode" id="cb626"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb626-1" data-line-number="1"><span class="kw">ggplot</span>() <span class="op">+</span><span class="st">  </span></a>
-<a class="sourceLine" id="cb626-2" data-line-number="2"><span class="st">    </span><span class="co">#--- KS county boundary ---#</span></a>
-<a class="sourceLine" id="cb626-3" data-line-number="3"><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> <span class="kw">st_transform</span>(KS_county, <span class="dv">32614</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb626-4" data-line-number="4"><span class="st">    </span><span class="co">#--- wells ---#</span></a>
-<a class="sourceLine" id="cb626-5" data-line-number="5"><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> gw_KS_sf, <span class="kw">aes</span>(<span class="dt">color =</span> af_used)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb626-6" data-line-number="6"><span class="st">    </span><span class="co">#--- facet by year (side by side) ---#</span></a>
-<a class="sourceLine" id="cb626-7" data-line-number="7"><span class="st">    </span><span class="kw">facet_wrap</span>((af_used <span class="op">&gt;</span><span class="st"> </span><span class="dv">200</span>) <span class="op">~</span><span class="st"> </span>year)</a></code></pre></div>
+<div class="sourceCode" id="cb626"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb626-1"><a href="geom-sf.html#cb626-1"></a><span class="kw">ggplot</span>() <span class="op">+</span><span class="st">  </span></span>
+<span id="cb626-2"><a href="geom-sf.html#cb626-2"></a><span class="st">    </span><span class="co">#--- KS county boundary ---#</span></span>
+<span id="cb626-3"><a href="geom-sf.html#cb626-3"></a><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> <span class="kw">st_transform</span>(KS_county, <span class="dv">32614</span>)) <span class="op">+</span></span>
+<span id="cb626-4"><a href="geom-sf.html#cb626-4"></a><span class="st">    </span><span class="co">#--- wells ---#</span></span>
+<span id="cb626-5"><a href="geom-sf.html#cb626-5"></a><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> gw_KS_sf, <span class="kw">aes</span>(<span class="dt">color =</span> af_used)) <span class="op">+</span></span>
+<span id="cb626-6"><a href="geom-sf.html#cb626-6"></a><span class="st">    </span><span class="co">#--- facet by year (side by side) ---#</span></span>
+<span id="cb626-7"><a href="geom-sf.html#cb626-7"></a><span class="st">    </span><span class="kw">facet_wrap</span>((af_used <span class="op">&gt;</span><span class="st"> </span><span class="dv">200</span>) <span class="op">~</span><span class="st"> </span>year)</span></code></pre></div>
 <p><img src="R_GIS_Book_files/figure-html/facet-3-1.png" width="672" /></p>
 <p>The values of the expression (<code>TRUE</code> or <code>FALSE</code>) appear in the gray strips, which is not informative. We will discuss in detail how to control texts in the strips section <a href="fine-tune.html#fine-tune">8.5</a>.</p>
 <p>If you feel like the panels are too close to each other, you could provide more space between them using <code>panel.spacing</code> (both vertically and horizontally), <code>panel.spacing.x</code> (horizontally), and <code>panel.spacing.y</code> (vertically) options in <code>theme()</code>. Suppose you would like to place more space between the upper and lower panels, then you use <code>panel.spacing.y</code> like this:</p>
-<div class="sourceCode" id="cb627"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb627-1" data-line-number="1"><span class="kw">ggplot</span>() <span class="op">+</span><span class="st">  </span></a>
-<a class="sourceLine" id="cb627-2" data-line-number="2"><span class="st">    </span><span class="co">#--- KS county boundary ---#</span></a>
-<a class="sourceLine" id="cb627-3" data-line-number="3"><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> <span class="kw">st_transform</span>(KS_county, <span class="dv">32614</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb627-4" data-line-number="4"><span class="st">    </span><span class="co">#--- wells ---#</span></a>
-<a class="sourceLine" id="cb627-5" data-line-number="5"><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> gw_KS_sf, <span class="kw">aes</span>(<span class="dt">color =</span> af_used)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb627-6" data-line-number="6"><span class="st">    </span><span class="co">#--- facet by year (side by side) ---#</span></a>
-<a class="sourceLine" id="cb627-7" data-line-number="7"><span class="st">    </span><span class="kw">facet_wrap</span>((af_used <span class="op">&gt;</span><span class="st"> </span><span class="dv">200</span>) <span class="op">~</span><span class="st"> </span>year) <span class="op">+</span></a>
-<a class="sourceLine" id="cb627-8" data-line-number="8"><span class="st">    </span><span class="co">#--- add more space between panels ---#</span></a>
-<a class="sourceLine" id="cb627-9" data-line-number="9"><span class="st">    </span><span class="kw">theme</span>(<span class="dt">panel.spacing.y =</span> <span class="kw">unit</span>(<span class="dv">2</span>, <span class="st">&quot;lines&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb627"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb627-1"><a href="geom-sf.html#cb627-1"></a><span class="kw">ggplot</span>() <span class="op">+</span><span class="st">  </span></span>
+<span id="cb627-2"><a href="geom-sf.html#cb627-2"></a><span class="st">    </span><span class="co">#--- KS county boundary ---#</span></span>
+<span id="cb627-3"><a href="geom-sf.html#cb627-3"></a><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> <span class="kw">st_transform</span>(KS_county, <span class="dv">32614</span>)) <span class="op">+</span></span>
+<span id="cb627-4"><a href="geom-sf.html#cb627-4"></a><span class="st">    </span><span class="co">#--- wells ---#</span></span>
+<span id="cb627-5"><a href="geom-sf.html#cb627-5"></a><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> gw_KS_sf, <span class="kw">aes</span>(<span class="dt">color =</span> af_used)) <span class="op">+</span></span>
+<span id="cb627-6"><a href="geom-sf.html#cb627-6"></a><span class="st">    </span><span class="co">#--- facet by year (side by side) ---#</span></span>
+<span id="cb627-7"><a href="geom-sf.html#cb627-7"></a><span class="st">    </span><span class="kw">facet_wrap</span>((af_used <span class="op">&gt;</span><span class="st"> </span><span class="dv">200</span>) <span class="op">~</span><span class="st"> </span>year) <span class="op">+</span></span>
+<span id="cb627-8"><a href="geom-sf.html#cb627-8"></a><span class="st">    </span><span class="co">#--- add more space between panels ---#</span></span>
+<span id="cb627-9"><a href="geom-sf.html#cb627-9"></a><span class="st">    </span><span class="kw">theme</span>(<span class="dt">panel.spacing.y =</span> <span class="kw">unit</span>(<span class="dv">2</span>, <span class="st">&quot;lines&quot;</span>))</span></code></pre></div>
 <p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
 </div>
-<div id="adding-texts-labels-on-a-map" class="section level3">
+<div id="adding-texts-labels-on-a-map" class="section level3" number="8.1.7">
 <h3><span class="header-section-number">8.1.7</span> Adding texts (labels) on a map</h3>
 <p>You can add labels to a map using <code>geom_sf_text()</code> or <code>geom_sf_label()</code> and providing <code>aes(label = x)</code> inside it where <strong>x</strong> is the variable that contains labels to print on a map.</p>
-<div class="sourceCode" id="cb628"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb628-1" data-line-number="1"><span class="kw">ggplot</span>() <span class="op">+</span><span class="st">  </span></a>
-<a class="sourceLine" id="cb628-2" data-line-number="2"><span class="st">    </span><span class="co">#--- KS county boundary ---#</span></a>
-<a class="sourceLine" id="cb628-3" data-line-number="3"><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> KS_county) <span class="op">+</span></a>
-<a class="sourceLine" id="cb628-4" data-line-number="4"><span class="st">    </span><span class="kw">geom_sf_text</span>(</a>
-<a class="sourceLine" id="cb628-5" data-line-number="5">        <span class="dt">data =</span> KS_county, </a>
-<a class="sourceLine" id="cb628-6" data-line-number="6">        <span class="kw">aes</span>(<span class="dt">label =</span> NAME), </a>
-<a class="sourceLine" id="cb628-7" data-line-number="7">        <span class="dt">size =</span> <span class="dv">3</span>,</a>
-<a class="sourceLine" id="cb628-8" data-line-number="8">        <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span></a>
-<a class="sourceLine" id="cb628-9" data-line-number="9">    )</a></code></pre></div>
+<div class="sourceCode" id="cb628"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb628-1"><a href="geom-sf.html#cb628-1"></a><span class="kw">ggplot</span>() <span class="op">+</span><span class="st">  </span></span>
+<span id="cb628-2"><a href="geom-sf.html#cb628-2"></a><span class="st">    </span><span class="co">#--- KS county boundary ---#</span></span>
+<span id="cb628-3"><a href="geom-sf.html#cb628-3"></a><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> KS_county) <span class="op">+</span></span>
+<span id="cb628-4"><a href="geom-sf.html#cb628-4"></a><span class="st">    </span><span class="kw">geom_sf_text</span>(</span>
+<span id="cb628-5"><a href="geom-sf.html#cb628-5"></a>        <span class="dt">data =</span> KS_county, </span>
+<span id="cb628-6"><a href="geom-sf.html#cb628-6"></a>        <span class="kw">aes</span>(<span class="dt">label =</span> NAME), </span>
+<span id="cb628-7"><a href="geom-sf.html#cb628-7"></a>        <span class="dt">size =</span> <span class="dv">3</span>,</span>
+<span id="cb628-8"><a href="geom-sf.html#cb628-8"></a>        <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span></span>
+<span id="cb628-9"><a href="geom-sf.html#cb628-9"></a>    )</span></code></pre></div>
 <p><img src="R_GIS_Book_files/figure-html/add-labels-1.png" width="672" /></p>
 <p>If you would like to have overlapping labels not printed, you can add <code>check_overlap = TRUE</code>.</p>
-<div class="sourceCode" id="cb629"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb629-1" data-line-number="1"><span class="kw">ggplot</span>() <span class="op">+</span><span class="st">  </span></a>
-<a class="sourceLine" id="cb629-2" data-line-number="2"><span class="st">    </span><span class="co">#--- KS county boundary ---#</span></a>
-<a class="sourceLine" id="cb629-3" data-line-number="3"><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> KS_county) <span class="op">+</span></a>
-<a class="sourceLine" id="cb629-4" data-line-number="4"><span class="st">    </span><span class="kw">geom_sf_text</span>(</a>
-<a class="sourceLine" id="cb629-5" data-line-number="5">        <span class="dt">data =</span> KS_county, </a>
-<a class="sourceLine" id="cb629-6" data-line-number="6">        <span class="kw">aes</span>(<span class="dt">label =</span> NAME), </a>
-<a class="sourceLine" id="cb629-7" data-line-number="7">        <span class="dt">check_overlap =</span> <span class="ot">TRUE</span>, </a>
-<a class="sourceLine" id="cb629-8" data-line-number="8">        <span class="dt">size =</span> <span class="dv">3</span>,</a>
-<a class="sourceLine" id="cb629-9" data-line-number="9">        <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span></a>
-<a class="sourceLine" id="cb629-10" data-line-number="10">    )</a></code></pre></div>
+<div class="sourceCode" id="cb629"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb629-1"><a href="geom-sf.html#cb629-1"></a><span class="kw">ggplot</span>() <span class="op">+</span><span class="st">  </span></span>
+<span id="cb629-2"><a href="geom-sf.html#cb629-2"></a><span class="st">    </span><span class="co">#--- KS county boundary ---#</span></span>
+<span id="cb629-3"><a href="geom-sf.html#cb629-3"></a><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> KS_county) <span class="op">+</span></span>
+<span id="cb629-4"><a href="geom-sf.html#cb629-4"></a><span class="st">    </span><span class="kw">geom_sf_text</span>(</span>
+<span id="cb629-5"><a href="geom-sf.html#cb629-5"></a>        <span class="dt">data =</span> KS_county, </span>
+<span id="cb629-6"><a href="geom-sf.html#cb629-6"></a>        <span class="kw">aes</span>(<span class="dt">label =</span> NAME), </span>
+<span id="cb629-7"><a href="geom-sf.html#cb629-7"></a>        <span class="dt">check_overlap =</span> <span class="ot">TRUE</span>, </span>
+<span id="cb629-8"><a href="geom-sf.html#cb629-8"></a>        <span class="dt">size =</span> <span class="dv">3</span>,</span>
+<span id="cb629-9"><a href="geom-sf.html#cb629-9"></a>        <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span></span>
+<span id="cb629-10"><a href="geom-sf.html#cb629-10"></a>    )</span></code></pre></div>
 <p><img src="R_GIS_Book_files/figure-html/add-labels-overlap-1.png" width="672" /></p>
 <p>The <code>nudge_x</code> and <code>nudge_y</code> options let you shift the labels.</p>
-<div class="sourceCode" id="cb630"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb630-1" data-line-number="1"><span class="kw">ggplot</span>() <span class="op">+</span><span class="st">  </span></a>
-<a class="sourceLine" id="cb630-2" data-line-number="2"><span class="st">    </span><span class="co">#--- KS county boundary ---#</span></a>
-<a class="sourceLine" id="cb630-3" data-line-number="3"><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> KS_county) <span class="op">+</span></a>
-<a class="sourceLine" id="cb630-4" data-line-number="4"><span class="st">    </span><span class="kw">geom_sf_text</span>(</a>
-<a class="sourceLine" id="cb630-5" data-line-number="5">        <span class="dt">data =</span> KS_county, </a>
-<a class="sourceLine" id="cb630-6" data-line-number="6">        <span class="kw">aes</span>(<span class="dt">label =</span> NAME), </a>
-<a class="sourceLine" id="cb630-7" data-line-number="7">        <span class="dt">check_overlap =</span> <span class="ot">TRUE</span>, </a>
-<a class="sourceLine" id="cb630-8" data-line-number="8">        <span class="dt">size =</span> <span class="dv">3</span>, </a>
-<a class="sourceLine" id="cb630-9" data-line-number="9">        <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>,</a>
-<a class="sourceLine" id="cb630-10" data-line-number="10">        <span class="dt">nudge_x =</span> <span class="fl">-0.1</span>, </a>
-<a class="sourceLine" id="cb630-11" data-line-number="11">        <span class="dt">nudge_y =</span> <span class="fl">0.1</span></a>
-<a class="sourceLine" id="cb630-12" data-line-number="12">    )</a></code></pre></div>
+<div class="sourceCode" id="cb630"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb630-1"><a href="geom-sf.html#cb630-1"></a><span class="kw">ggplot</span>() <span class="op">+</span><span class="st">  </span></span>
+<span id="cb630-2"><a href="geom-sf.html#cb630-2"></a><span class="st">    </span><span class="co">#--- KS county boundary ---#</span></span>
+<span id="cb630-3"><a href="geom-sf.html#cb630-3"></a><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> KS_county) <span class="op">+</span></span>
+<span id="cb630-4"><a href="geom-sf.html#cb630-4"></a><span class="st">    </span><span class="kw">geom_sf_text</span>(</span>
+<span id="cb630-5"><a href="geom-sf.html#cb630-5"></a>        <span class="dt">data =</span> KS_county, </span>
+<span id="cb630-6"><a href="geom-sf.html#cb630-6"></a>        <span class="kw">aes</span>(<span class="dt">label =</span> NAME), </span>
+<span id="cb630-7"><a href="geom-sf.html#cb630-7"></a>        <span class="dt">check_overlap =</span> <span class="ot">TRUE</span>, </span>
+<span id="cb630-8"><a href="geom-sf.html#cb630-8"></a>        <span class="dt">size =</span> <span class="dv">3</span>, </span>
+<span id="cb630-9"><a href="geom-sf.html#cb630-9"></a>        <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>,</span>
+<span id="cb630-10"><a href="geom-sf.html#cb630-10"></a>        <span class="dt">nudge_x =</span> <span class="fl">-0.1</span>, </span>
+<span id="cb630-11"><a href="geom-sf.html#cb630-11"></a>        <span class="dt">nudge_y =</span> <span class="fl">0.1</span></span>
+<span id="cb630-12"><a href="geom-sf.html#cb630-12"></a>    )</span></code></pre></div>
 <p><img src="R_GIS_Book_files/figure-html/nudge-1.png" width="672" /></p>
 <p>If you would like a fine control on a few objects, you can always work on them separately.</p>
-<div class="sourceCode" id="cb631"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb631-1" data-line-number="1">Cheyenne &lt;-<span class="st"> </span><span class="kw">filter</span>(KS_county, NAME <span class="op">==</span><span class="st"> &quot;Cheyenne&quot;</span>)</a>
-<a class="sourceLine" id="cb631-2" data-line-number="2">KS_less_Cheyenne &lt;-<span class="st"> </span><span class="kw">filter</span>(KS_county, NAME <span class="op">!=</span><span class="st"> &quot;Cheyenne&quot;</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb632"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb632-1" data-line-number="1"><span class="kw">ggplot</span>() <span class="op">+</span><span class="st">  </span></a>
-<a class="sourceLine" id="cb632-2" data-line-number="2"><span class="st">    </span><span class="co">#--- KS county boundary ---#</span></a>
-<a class="sourceLine" id="cb632-3" data-line-number="3"><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> KS_county) <span class="op">+</span></a>
-<a class="sourceLine" id="cb632-4" data-line-number="4"><span class="st">    </span><span class="kw">geom_sf_text</span>(</a>
-<a class="sourceLine" id="cb632-5" data-line-number="5">        <span class="dt">data =</span> KS_less_Cheyenne, </a>
-<a class="sourceLine" id="cb632-6" data-line-number="6">        <span class="kw">aes</span>(<span class="dt">label =</span> NAME), </a>
-<a class="sourceLine" id="cb632-7" data-line-number="7">        <span class="dt">check_overlap =</span> <span class="ot">TRUE</span>, </a>
-<a class="sourceLine" id="cb632-8" data-line-number="8">        <span class="dt">size =</span> <span class="dv">3</span>, </a>
-<a class="sourceLine" id="cb632-9" data-line-number="9">        <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>,</a>
-<a class="sourceLine" id="cb632-10" data-line-number="10">        <span class="dt">nudge_x =</span> <span class="fl">-0.1</span>, </a>
-<a class="sourceLine" id="cb632-11" data-line-number="11">        <span class="dt">nudge_y =</span> <span class="fl">0.1</span></a>
-<a class="sourceLine" id="cb632-12" data-line-number="12">    ) <span class="op">+</span></a>
-<a class="sourceLine" id="cb632-13" data-line-number="13"><span class="st">    </span><span class="kw">geom_sf_text</span>(</a>
-<a class="sourceLine" id="cb632-14" data-line-number="14">        <span class="dt">data =</span> Cheyenne, </a>
-<a class="sourceLine" id="cb632-15" data-line-number="15">        <span class="kw">aes</span>(<span class="dt">label =</span> NAME), </a>
-<a class="sourceLine" id="cb632-16" data-line-number="16">        <span class="dt">size =</span> <span class="fl">2.5</span>, </a>
-<a class="sourceLine" id="cb632-17" data-line-number="17">        <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>,</a>
-<a class="sourceLine" id="cb632-18" data-line-number="18">        <span class="dt">nudge_y =</span> <span class="fl">0.2</span></a>
-<a class="sourceLine" id="cb632-19" data-line-number="19">    )</a></code></pre></div>
+<div class="sourceCode" id="cb631"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb631-1"><a href="geom-sf.html#cb631-1"></a>Cheyenne &lt;-<span class="st"> </span><span class="kw">filter</span>(KS_county, NAME <span class="op">==</span><span class="st"> &quot;Cheyenne&quot;</span>)</span>
+<span id="cb631-2"><a href="geom-sf.html#cb631-2"></a>KS_less_Cheyenne &lt;-<span class="st"> </span><span class="kw">filter</span>(KS_county, NAME <span class="op">!=</span><span class="st"> &quot;Cheyenne&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb632"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb632-1"><a href="geom-sf.html#cb632-1"></a><span class="kw">ggplot</span>() <span class="op">+</span><span class="st">  </span></span>
+<span id="cb632-2"><a href="geom-sf.html#cb632-2"></a><span class="st">    </span><span class="co">#--- KS county boundary ---#</span></span>
+<span id="cb632-3"><a href="geom-sf.html#cb632-3"></a><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> KS_county) <span class="op">+</span></span>
+<span id="cb632-4"><a href="geom-sf.html#cb632-4"></a><span class="st">    </span><span class="kw">geom_sf_text</span>(</span>
+<span id="cb632-5"><a href="geom-sf.html#cb632-5"></a>        <span class="dt">data =</span> KS_less_Cheyenne, </span>
+<span id="cb632-6"><a href="geom-sf.html#cb632-6"></a>        <span class="kw">aes</span>(<span class="dt">label =</span> NAME), </span>
+<span id="cb632-7"><a href="geom-sf.html#cb632-7"></a>        <span class="dt">check_overlap =</span> <span class="ot">TRUE</span>, </span>
+<span id="cb632-8"><a href="geom-sf.html#cb632-8"></a>        <span class="dt">size =</span> <span class="dv">3</span>, </span>
+<span id="cb632-9"><a href="geom-sf.html#cb632-9"></a>        <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>,</span>
+<span id="cb632-10"><a href="geom-sf.html#cb632-10"></a>        <span class="dt">nudge_x =</span> <span class="fl">-0.1</span>, </span>
+<span id="cb632-11"><a href="geom-sf.html#cb632-11"></a>        <span class="dt">nudge_y =</span> <span class="fl">0.1</span></span>
+<span id="cb632-12"><a href="geom-sf.html#cb632-12"></a>    ) <span class="op">+</span></span>
+<span id="cb632-13"><a href="geom-sf.html#cb632-13"></a><span class="st">    </span><span class="kw">geom_sf_text</span>(</span>
+<span id="cb632-14"><a href="geom-sf.html#cb632-14"></a>        <span class="dt">data =</span> Cheyenne, </span>
+<span id="cb632-15"><a href="geom-sf.html#cb632-15"></a>        <span class="kw">aes</span>(<span class="dt">label =</span> NAME), </span>
+<span id="cb632-16"><a href="geom-sf.html#cb632-16"></a>        <span class="dt">size =</span> <span class="fl">2.5</span>, </span>
+<span id="cb632-17"><a href="geom-sf.html#cb632-17"></a>        <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>,</span>
+<span id="cb632-18"><a href="geom-sf.html#cb632-18"></a>        <span class="dt">nudge_y =</span> <span class="fl">0.2</span></span>
+<span id="cb632-19"><a href="geom-sf.html#cb632-19"></a>    )</span></code></pre></div>
 <p><img src="R_GIS_Book_files/figure-html/nudge-sep-1.png" width="672" /></p>
 <p>You could also use <code>annotate()</code> to place texts on a map, which can be useful if you would like to place arbitrary texts that are not part of <code>sf</code> object.</p>
-<div class="sourceCode" id="cb633"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb633-1" data-line-number="1"><span class="kw">ggplot</span>() <span class="op">+</span><span class="st">  </span></a>
-<a class="sourceLine" id="cb633-2" data-line-number="2"><span class="st">    </span><span class="co">#--- KS county boundary ---#</span></a>
-<a class="sourceLine" id="cb633-3" data-line-number="3"><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> KS_county) <span class="op">+</span></a>
-<a class="sourceLine" id="cb633-4" data-line-number="4"><span class="st">    </span><span class="kw">geom_sf_text</span>(</a>
-<a class="sourceLine" id="cb633-5" data-line-number="5">        <span class="dt">data =</span> KS_less_Cheyenne, </a>
-<a class="sourceLine" id="cb633-6" data-line-number="6">        <span class="kw">aes</span>(<span class="dt">label =</span> NAME), </a>
-<a class="sourceLine" id="cb633-7" data-line-number="7">        <span class="dt">check_overlap =</span> <span class="ot">TRUE</span>, </a>
-<a class="sourceLine" id="cb633-8" data-line-number="8">        <span class="dt">size =</span> <span class="dv">3</span>, </a>
-<a class="sourceLine" id="cb633-9" data-line-number="9">        <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>,</a>
-<a class="sourceLine" id="cb633-10" data-line-number="10">        <span class="dt">nudge_x =</span> <span class="fl">-0.1</span>, </a>
-<a class="sourceLine" id="cb633-11" data-line-number="11">        <span class="dt">nudge_y =</span> <span class="fl">0.1</span></a>
-<a class="sourceLine" id="cb633-12" data-line-number="12">    ) <span class="op">+</span></a>
-<a class="sourceLine" id="cb633-13" data-line-number="13"><span class="st">    </span><span class="co">#--- use annotate to add texts on the map ---#</span></a>
-<a class="sourceLine" id="cb633-14" data-line-number="14"><span class="st">    </span><span class="kw">annotate</span>(</a>
-<a class="sourceLine" id="cb633-15" data-line-number="15">        <span class="dt">geom =</span> <span class="st">&quot;text&quot;</span>,</a>
-<a class="sourceLine" id="cb633-16" data-line-number="16">        <span class="dt">x =</span> <span class="dv">-102</span>, </a>
-<a class="sourceLine" id="cb633-17" data-line-number="17">        <span class="dt">y =</span> <span class="fl">39.8</span>, </a>
-<a class="sourceLine" id="cb633-18" data-line-number="18">        <span class="dt">size =</span> <span class="dv">3</span>,</a>
-<a class="sourceLine" id="cb633-19" data-line-number="19">        <span class="dt">label =</span> <span class="st">&quot;Cheyennes&quot;</span>,</a>
-<a class="sourceLine" id="cb633-20" data-line-number="20">        <span class="dt">color =</span> <span class="st">&quot;red&quot;</span></a>
-<a class="sourceLine" id="cb633-21" data-line-number="21">    )</a></code></pre></div>
+<div class="sourceCode" id="cb633"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb633-1"><a href="geom-sf.html#cb633-1"></a><span class="kw">ggplot</span>() <span class="op">+</span><span class="st">  </span></span>
+<span id="cb633-2"><a href="geom-sf.html#cb633-2"></a><span class="st">    </span><span class="co">#--- KS county boundary ---#</span></span>
+<span id="cb633-3"><a href="geom-sf.html#cb633-3"></a><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> KS_county) <span class="op">+</span></span>
+<span id="cb633-4"><a href="geom-sf.html#cb633-4"></a><span class="st">    </span><span class="kw">geom_sf_text</span>(</span>
+<span id="cb633-5"><a href="geom-sf.html#cb633-5"></a>        <span class="dt">data =</span> KS_less_Cheyenne, </span>
+<span id="cb633-6"><a href="geom-sf.html#cb633-6"></a>        <span class="kw">aes</span>(<span class="dt">label =</span> NAME), </span>
+<span id="cb633-7"><a href="geom-sf.html#cb633-7"></a>        <span class="dt">check_overlap =</span> <span class="ot">TRUE</span>, </span>
+<span id="cb633-8"><a href="geom-sf.html#cb633-8"></a>        <span class="dt">size =</span> <span class="dv">3</span>, </span>
+<span id="cb633-9"><a href="geom-sf.html#cb633-9"></a>        <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>,</span>
+<span id="cb633-10"><a href="geom-sf.html#cb633-10"></a>        <span class="dt">nudge_x =</span> <span class="fl">-0.1</span>, </span>
+<span id="cb633-11"><a href="geom-sf.html#cb633-11"></a>        <span class="dt">nudge_y =</span> <span class="fl">0.1</span></span>
+<span id="cb633-12"><a href="geom-sf.html#cb633-12"></a>    ) <span class="op">+</span></span>
+<span id="cb633-13"><a href="geom-sf.html#cb633-13"></a><span class="st">    </span><span class="co">#--- use annotate to add texts on the map ---#</span></span>
+<span id="cb633-14"><a href="geom-sf.html#cb633-14"></a><span class="st">    </span><span class="kw">annotate</span>(</span>
+<span id="cb633-15"><a href="geom-sf.html#cb633-15"></a>        <span class="dt">geom =</span> <span class="st">&quot;text&quot;</span>,</span>
+<span id="cb633-16"><a href="geom-sf.html#cb633-16"></a>        <span class="dt">x =</span> <span class="dv">-102</span>, </span>
+<span id="cb633-17"><a href="geom-sf.html#cb633-17"></a>        <span class="dt">y =</span> <span class="fl">39.8</span>, </span>
+<span id="cb633-18"><a href="geom-sf.html#cb633-18"></a>        <span class="dt">size =</span> <span class="dv">3</span>,</span>
+<span id="cb633-19"><a href="geom-sf.html#cb633-19"></a>        <span class="dt">label =</span> <span class="st">&quot;Cheyennes&quot;</span>,</span>
+<span id="cb633-20"><a href="geom-sf.html#cb633-20"></a>        <span class="dt">color =</span> <span class="st">&quot;red&quot;</span></span>
+<span id="cb633-21"><a href="geom-sf.html#cb633-21"></a>    )</span></code></pre></div>
 <p><img src="R_GIS_Book_files/figure-html/nudge-sep-annotate-1.png" width="672" /></p>
 <p>As you can see, you need to tell where the texts should be placed with <code>x</code> and <code>y</code>, provide the texts you want on the map to <code>label</code>.</p>
 <!-- 
@@ -921,7 +985,7 @@ GEOGCS[&quot;NAD83&quot;,
 <div class="footnotes">
 <hr />
 <ol start="94">
-<li id="fn94"><p>Supplying data in <code>ggplot()</code> can be convenient if you are creating multiple <code>geom</code> from the data because you do not need to tell what data to use in each of the <code>geom</code>s.<a href="geom-sf.html#fnref94" class="footnote-back">↩</a></p></li>
+<li id="fn94"><p>Supplying data in <code>ggplot()</code> can be convenient if you are creating multiple <code>geom</code> from the data because you do not need to tell what data to use in each of the <code>geom</code>s.<a href="geom-sf.html#fnref94" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>

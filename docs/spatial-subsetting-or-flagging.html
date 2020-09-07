@@ -24,7 +24,7 @@
 <meta name="author" content="Taro Mieno" />
 
 
-<meta name="date" content="2020-08-30" />
+<meta name="date" content="2020-09-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,6 +33,7 @@
   
 <link rel="prev" href="topo.html"/>
 <link rel="next" href="sp-join.html"/>
+<script src="libs/header-attrs-2.3/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -50,6 +51,7 @@
 
 
 
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
 <script src="libs/leaflet-1.3.1/leaflet.js"></script>
@@ -90,25 +92,26 @@
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -117,9 +120,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -168,15 +171,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
-<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html"><i class="fa fa-check"></i>Preface</a><ul>
-<li class="chapter" data-level="" data-path="why-r-as-gis-for-economists.html"><a href="why-r-as-gis-for-economists.html"><i class="fa fa-check"></i>Why R as GIS for Economists?</a><ul>
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="why-r-as-gis-for-economists.html"><a href="why-r-as-gis-for-economists.html"><i class="fa fa-check"></i>Why R as GIS for Economists?</a>
+<ul>
 <li class="chapter" data-level="" data-path="why-r-as-gis-for-economists.html"><a href="why-r-as-gis-for-economists.html#r-vs-python"><i class="fa fa-check"></i>R vs Python</a></li>
 <li class="chapter" data-level="" data-path="why-r-as-gis-for-economists.html"><a href="why-r-as-gis-for-economists.html#r-vs-arcgis-or-qgis"><i class="fa fa-check"></i>R vs ArcGIS or QGIS</a></li>
 <li class="chapter" data-level="" data-path="why-r-as-gis-for-economists.html"><a href="why-r-as-gis-for-economists.html#summary"><i class="fa fa-check"></i>Summary</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="how-is-this-book-different-from-other-online-books-and-resources.html"><a href="how-is-this-book-different-from-other-online-books-and-resources.html"><i class="fa fa-check"></i>How is this book different from other online books and resources?</a></li>
 <li class="chapter" data-level="" data-path="what-is-going-to-be-covered-in-this-book.html"><a href="what-is-going-to-be-covered-in-this-book.html"><i class="fa fa-check"></i>What is going to be covered in this book?</a></li>
-<li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html"><i class="fa fa-check"></i>Conventions of the book and some notes</a><ul>
+<li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html"><i class="fa fa-check"></i>Conventions of the book and some notes</a>
+<ul>
 <li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html#texts-in-gray-boxes"><i class="fa fa-check"></i>Texts in gray boxes</a></li>
 <li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html#colored-boxes"><i class="fa fa-check"></i>Colored Boxes</a></li>
 <li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html#parentheses-around-codes"><i class="fa fa-check"></i>Parentheses around codes</a></li>
@@ -185,135 +191,167 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="session-information.html"><a href="session-information.html"><i class="fa fa-check"></i>Session Information</a></li>
 </ul></li>
 <li class="part"><span><b>I Demonstration</b></span></li>
-<li class="chapter" data-level="1" data-path="demo.html"><a href="demo.html"><i class="fa fa-check"></i><b>1</b> R as GIS: Demonstrations</a><ul>
-<li class="chapter" data-level="" data-path="before-you-start.html"><a href="before-you-start.html"><i class="fa fa-check"></i>Before you start</a><ul>
+<li class="chapter" data-level="1" data-path="demo.html"><a href="demo.html"><i class="fa fa-check"></i><b>1</b> R as GIS: Demonstrations</a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start.html"><a href="before-you-start.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
 <li class="chapter" data-level="" data-path="before-you-start.html"><a href="before-you-start.html#target-audience"><i class="fa fa-check"></i>Target Audience</a></li>
 <li class="chapter" data-level="" data-path="before-you-start.html"><a href="before-you-start.html#direction-for-replication"><i class="fa fa-check"></i>Direction for replication</a></li>
 </ul></li>
-<li class="chapter" data-level="1.1" data-path="Demo1.html"><a href="Demo1.html"><i class="fa fa-check"></i><b>1.1</b> Demonstration 1: The impact of groundwater pumping on depth to water table</a><ul>
+<li class="chapter" data-level="1.1" data-path="Demo1.html"><a href="Demo1.html"><i class="fa fa-check"></i><b>1.1</b> Demonstration 1: The impact of groundwater pumping on depth to water table</a>
+<ul>
 <li class="chapter" data-level="1.1.1" data-path="Demo1.html"><a href="Demo1.html#project-overview"><i class="fa fa-check"></i><b>1.1.1</b> Project Overview</a></li>
 <li class="chapter" data-level="1.1.2" data-path="Demo1.html"><a href="Demo1.html#project-demonstration"><i class="fa fa-check"></i><b>1.1.2</b> Project Demonstration</a></li>
 </ul></li>
-<li class="chapter" data-level="1.2" data-path="demonstration-2-precision-agriculture.html"><a href="demonstration-2-precision-agriculture.html"><i class="fa fa-check"></i><b>1.2</b> Demonstration 2: Precision Agriculture</a><ul>
+<li class="chapter" data-level="1.2" data-path="demonstration-2-precision-agriculture.html"><a href="demonstration-2-precision-agriculture.html"><i class="fa fa-check"></i><b>1.2</b> Demonstration 2: Precision Agriculture</a>
+<ul>
 <li class="chapter" data-level="1.2.1" data-path="demonstration-2-precision-agriculture.html"><a href="demonstration-2-precision-agriculture.html#project-overview-1"><i class="fa fa-check"></i><b>1.2.1</b> Project Overview</a></li>
 <li class="chapter" data-level="1.2.2" data-path="demonstration-2-precision-agriculture.html"><a href="demonstration-2-precision-agriculture.html#project-demonstration-1"><i class="fa fa-check"></i><b>1.2.2</b> Project Demonstration</a></li>
 </ul></li>
-<li class="chapter" data-level="1.3" data-path="demo3.html"><a href="demo3.html"><i class="fa fa-check"></i><b>1.3</b> Demonstration 3: Land Use and Weather</a><ul>
+<li class="chapter" data-level="1.3" data-path="demo3.html"><a href="demo3.html"><i class="fa fa-check"></i><b>1.3</b> Demonstration 3: Land Use and Weather</a>
+<ul>
 <li class="chapter" data-level="1.3.1" data-path="demo3.html"><a href="demo3.html#project-overview-2"><i class="fa fa-check"></i><b>1.3.1</b> Project Overview</a></li>
 <li class="chapter" data-level="1.3.2" data-path="demo3.html"><a href="demo3.html#project-demonstration-2"><i class="fa fa-check"></i><b>1.3.2</b> Project Demonstration</a></li>
 </ul></li>
-<li class="chapter" data-level="1.4" data-path="demo4.html"><a href="demo4.html"><i class="fa fa-check"></i><b>1.4</b> Demonstration 4: The Impact of Railroad Presence on Corn Planted Acreage</a><ul>
+<li class="chapter" data-level="1.4" data-path="demo4.html"><a href="demo4.html"><i class="fa fa-check"></i><b>1.4</b> Demonstration 4: The Impact of Railroad Presence on Corn Planted Acreage</a>
+<ul>
 <li class="chapter" data-level="1.4.1" data-path="demo4.html"><a href="demo4.html#project-overview-3"><i class="fa fa-check"></i><b>1.4.1</b> Project Overview</a></li>
 <li class="chapter" data-level="1.4.2" data-path="demo4.html"><a href="demo4.html#project-demonstration-3"><i class="fa fa-check"></i><b>1.4.2</b> Project Demonstration</a></li>
 </ul></li>
-<li class="chapter" data-level="1.5" data-path="demonstration-5-groundwater-use-for-agricultural-irrigation.html"><a href="demonstration-5-groundwater-use-for-agricultural-irrigation.html"><i class="fa fa-check"></i><b>1.5</b> Demonstration 5: Groundwater use for agricultural irrigation</a><ul>
+<li class="chapter" data-level="1.5" data-path="demonstration-5-groundwater-use-for-agricultural-irrigation.html"><a href="demonstration-5-groundwater-use-for-agricultural-irrigation.html"><i class="fa fa-check"></i><b>1.5</b> Demonstration 5: Groundwater use for agricultural irrigation</a>
+<ul>
 <li class="chapter" data-level="1.5.1" data-path="demonstration-5-groundwater-use-for-agricultural-irrigation.html"><a href="demonstration-5-groundwater-use-for-agricultural-irrigation.html#project-overview-4"><i class="fa fa-check"></i><b>1.5.1</b> Project Overview</a></li>
 <li class="chapter" data-level="1.5.2" data-path="demonstration-5-groundwater-use-for-agricultural-irrigation.html"><a href="demonstration-5-groundwater-use-for-agricultural-irrigation.html#project-demonstration-4"><i class="fa fa-check"></i><b>1.5.2</b> Project Demonstration</a></li>
 </ul></li>
 </ul></li>
 <li class="part"><span><b>II Foundations</b></span></li>
-<li class="chapter" data-level="2" data-path="vector-basics.html"><a href="vector-basics.html"><i class="fa fa-check"></i><b>2</b> Vector Data Handling with <code>sf</code></a><ul>
-<li class="chapter" data-level="" data-path="before-you-start-1.html"><a href="before-you-start-1.html"><i class="fa fa-check"></i>Before you start</a><ul>
+<li class="chapter" data-level="2" data-path="vector-basics.html"><a href="vector-basics.html"><i class="fa fa-check"></i><b>2</b> Vector Data Handling with <code>sf</code></a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-1.html"><a href="before-you-start-1.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
 <li><a href="before-you-start-1.html#sf-or-sp"><code>sf</code> or <code>sp</code>?</a></li>
 <li class="chapter" data-level="" data-path="before-you-start-1.html"><a href="before-you-start-1.html#direction-for-replication-1"><i class="fa fa-check"></i>Direction for replication</a></li>
 </ul></li>
 <li class="chapter" data-level="2.1" data-path="spatial-data-structure.html"><a href="spatial-data-structure.html"><i class="fa fa-check"></i><b>2.1</b> Spatial Data Structure</a></li>
-<li class="chapter" data-level="2.2" data-path="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html"><i class="fa fa-check"></i><b>2.2</b> Simple feature geometry, simple feature geometry list-column, and simple feature</a><ul>
+<li class="chapter" data-level="2.2" data-path="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html"><i class="fa fa-check"></i><b>2.2</b> Simple feature geometry, simple feature geometry list-column, and simple feature</a>
+<ul>
 <li class="chapter" data-level="2.2.1" data-path="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#simple-feature-geometry-sfg"><i class="fa fa-check"></i><b>2.2.1</b> Simple feature geometry (<code>sfg</code>)</a></li>
 <li class="chapter" data-level="2.2.2" data-path="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#create-simple-feature-geometry-list-column-sfc-and-simple-feature-sf-from-scratch"><i class="fa fa-check"></i><b>2.2.2</b> Create simple feature geometry list-column (<code>sfc</code>) and simple feature (<code>sf</code>) from scratch</a></li>
 </ul></li>
-<li class="chapter" data-level="2.3" data-path="reading-and-writing-vector-data.html"><a href="reading-and-writing-vector-data.html"><i class="fa fa-check"></i><b>2.3</b> Reading and writing vector data</a><ul>
+<li class="chapter" data-level="2.3" data-path="reading-and-writing-vector-data.html"><a href="reading-and-writing-vector-data.html"><i class="fa fa-check"></i><b>2.3</b> Reading and writing vector data</a>
+<ul>
 <li class="chapter" data-level="2.3.1" data-path="reading-and-writing-vector-data.html"><a href="reading-and-writing-vector-data.html#reading-a-shapefile"><i class="fa fa-check"></i><b>2.3.1</b> Reading a shapefile</a></li>
 <li class="chapter" data-level="2.3.2" data-path="reading-and-writing-vector-data.html"><a href="reading-and-writing-vector-data.html#writing-to-a-shapefile"><i class="fa fa-check"></i><b>2.3.2</b> Writing to a shapefile</a></li>
 <li class="chapter" data-level="2.3.3" data-path="reading-and-writing-vector-data.html"><a href="reading-and-writing-vector-data.html#better-alternatives"><i class="fa fa-check"></i><b>2.3.3</b> Better alternatives</a></li>
 </ul></li>
 <li class="chapter" data-level="2.4" data-path="projection-with-a-different-coordinate-reference-systems.html"><a href="projection-with-a-different-coordinate-reference-systems.html"><i class="fa fa-check"></i><b>2.4</b> Projection with a different Coordinate Reference Systems</a></li>
-<li class="chapter" data-level="2.5" data-path="quick-and-interactive-view-of-an-sf-object.html"><a href="quick-and-interactive-view-of-an-sf-object.html"><i class="fa fa-check"></i><b>2.5</b> Quick and interactive view of an <code>sf</code> object</a><ul>
+<li class="chapter" data-level="2.5" data-path="quick-and-interactive-view-of-an-sf-object.html"><a href="quick-and-interactive-view-of-an-sf-object.html"><i class="fa fa-check"></i><b>2.5</b> Quick and interactive view of an <code>sf</code> object</a>
+<ul>
 <li class="chapter" data-level="2.5.1" data-path="quick-and-interactive-view-of-an-sf-object.html"><a href="quick-and-interactive-view-of-an-sf-object.html#quick-view"><i class="fa fa-check"></i><b>2.5.1</b> Quick view</a></li>
 <li class="chapter" data-level="2.5.2" data-path="quick-and-interactive-view-of-an-sf-object.html"><a href="quick-and-interactive-view-of-an-sf-object.html#interactive-view"><i class="fa fa-check"></i><b>2.5.2</b> Interactive view</a></li>
 </ul></li>
 <li class="chapter" data-level="2.6" data-path="turning-a-data-frame-of-points-into-an-sf.html"><a href="turning-a-data-frame-of-points-into-an-sf.html"><i class="fa fa-check"></i><b>2.6</b> Turning a data.frame of points into an <code>sf</code></a></li>
 <li class="chapter" data-level="2.7" data-path="conv-sp.html"><a href="conv-sp.html"><i class="fa fa-check"></i><b>2.7</b> Conversion to and from sp</a></li>
-<li class="chapter" data-level="2.8" data-path="non-spatial-transformation-of-sf.html"><a href="non-spatial-transformation-of-sf.html"><i class="fa fa-check"></i><b>2.8</b> Non-spatial transformation of sf</a><ul>
+<li class="chapter" data-level="2.8" data-path="non-spatial-transformation-of-sf.html"><a href="non-spatial-transformation-of-sf.html"><i class="fa fa-check"></i><b>2.8</b> Non-spatial transformation of sf</a>
+<ul>
 <li class="chapter" data-level="2.8.1" data-path="non-spatial-transformation-of-sf.html"><a href="non-spatial-transformation-of-sf.html#using-dplyr"><i class="fa fa-check"></i><b>2.8.1</b> Using <code>dplyr</code></a></li>
 <li class="chapter" data-level="2.8.2" data-path="non-spatial-transformation-of-sf.html"><a href="non-spatial-transformation-of-sf.html#using-data.table"><i class="fa fa-check"></i><b>2.8.2</b> Using <code>data.table</code></a></li>
 </ul></li>
-<li class="chapter" data-level="2.9" data-path="non-interactive-geometrical-operations.html"><a href="non-interactive-geometrical-operations.html"><i class="fa fa-check"></i><b>2.9</b> Non-interactive geometrical operations</a><ul>
+<li class="chapter" data-level="2.9" data-path="non-interactive-geometrical-operations.html"><a href="non-interactive-geometrical-operations.html"><i class="fa fa-check"></i><b>2.9</b> Non-interactive geometrical operations</a>
+<ul>
 <li class="chapter" data-level="2.9.1" data-path="non-interactive-geometrical-operations.html"><a href="non-interactive-geometrical-operations.html#st_buffer"><i class="fa fa-check"></i><b>2.9.1</b> st_buffer</a></li>
 <li class="chapter" data-level="2.9.2" data-path="non-interactive-geometrical-operations.html"><a href="non-interactive-geometrical-operations.html#st_area"><i class="fa fa-check"></i><b>2.9.2</b> st_area</a></li>
 <li class="chapter" data-level="2.9.3" data-path="non-interactive-geometrical-operations.html"><a href="non-interactive-geometrical-operations.html#st_centroid"><i class="fa fa-check"></i><b>2.9.3</b> st_centroid</a></li>
 <li class="chapter" data-level="2.9.4" data-path="non-interactive-geometrical-operations.html"><a href="non-interactive-geometrical-operations.html#st_length"><i class="fa fa-check"></i><b>2.9.4</b> st_length</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="int-vv.html"><a href="int-vv.html"><i class="fa fa-check"></i><b>3</b> Spatial Interactions of Vector Data: Subsetting and Joining</a><ul>
-<li class="chapter" data-level="" data-path="before-you-start-2.html"><a href="before-you-start-2.html"><i class="fa fa-check"></i>Before you start</a><ul>
+<li class="chapter" data-level="3" data-path="int-vv.html"><a href="int-vv.html"><i class="fa fa-check"></i><b>3</b> Spatial Interactions of Vector Data: Subsetting and Joining</a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-2.html"><a href="before-you-start-2.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
 <li class="chapter" data-level="" data-path="before-you-start-2.html"><a href="before-you-start-2.html#direction-for-replication-2"><i class="fa fa-check"></i>Direction for replication</a></li>
 </ul></li>
-<li class="chapter" data-level="3.1" data-path="topo.html"><a href="topo.html"><i class="fa fa-check"></i><b>3.1</b> Topological relations</a><ul>
+<li class="chapter" data-level="3.1" data-path="topo.html"><a href="topo.html"><i class="fa fa-check"></i><b>3.1</b> Topological relations</a>
+<ul>
 <li class="chapter" data-level="3.1.1" data-path="topo.html"><a href="topo.html#st_intersects"><i class="fa fa-check"></i><b>3.1.1</b> st_intersects()</a></li>
 <li class="chapter" data-level="3.1.2" data-path="topo.html"><a href="topo.html#st_is_within_distance"><i class="fa fa-check"></i><b>3.1.2</b> st_is_within_distance()</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html"><i class="fa fa-check"></i><b>3.2</b> Spatial Subsetting (or Flagging)</a><ul>
+<li class="chapter" data-level="3.2" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html"><i class="fa fa-check"></i><b>3.2</b> Spatial Subsetting (or Flagging)</a>
+<ul>
 <li class="chapter" data-level="3.2.1" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#polygons-source-vs-polygons-target"><i class="fa fa-check"></i><b>3.2.1</b> polygons (source) vs polygons (target)</a></li>
 <li class="chapter" data-level="3.2.2" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#points-source-vs-polygons-target"><i class="fa fa-check"></i><b>3.2.2</b> points (source) vs polygons (target)</a></li>
 <li class="chapter" data-level="3.2.3" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#lines_polygons"><i class="fa fa-check"></i><b>3.2.3</b> lines (source) vs polygons (target)</a></li>
 <li class="chapter" data-level="3.2.4" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#polygons_points"><i class="fa fa-check"></i><b>3.2.4</b> polygons (source) vs points (target)</a></li>
 <li class="chapter" data-level="3.2.5" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#subsetting-to-a-geograpchic-extent-bounding-box"><i class="fa fa-check"></i><b>3.2.5</b> Subsetting to a geograpchic extent (bounding box)</a></li>
 </ul></li>
-<li class="chapter" data-level="3.3" data-path="sp-join.html"><a href="sp-join.html"><i class="fa fa-check"></i><b>3.3</b> Spatial Join</a><ul>
+<li class="chapter" data-level="3.3" data-path="sp-join.html"><a href="sp-join.html"><i class="fa fa-check"></i><b>3.3</b> Spatial Join</a>
+<ul>
 <li class="chapter" data-level="3.3.1" data-path="sp-join.html"><a href="sp-join.html#case-1-points-target-vs-polygons-source"><i class="fa fa-check"></i><b>3.3.1</b> Case 1: points (target) vs polygons (source)</a></li>
 <li class="chapter" data-level="3.3.2" data-path="sp-join.html"><a href="sp-join.html#case-2-polygons-target-vs-points-source"><i class="fa fa-check"></i><b>3.3.2</b> Case 2: polygons (target) vs points (source)</a></li>
 <li class="chapter" data-level="3.3.3" data-path="sp-join.html"><a href="sp-join.html#polygon-polygon"><i class="fa fa-check"></i><b>3.3.3</b> Case 3: polygons (target) vs polygons (source)</a></li>
 </ul></li>
-<li class="chapter" data-level="3.4" data-path="spatial-intersection-cropping-join.html"><a href="spatial-intersection-cropping-join.html"><i class="fa fa-check"></i><b>3.4</b> Spatial Intersection (cropping join)</a><ul>
+<li class="chapter" data-level="3.4" data-path="spatial-intersection-cropping-join.html"><a href="spatial-intersection-cropping-join.html"><i class="fa fa-check"></i><b>3.4</b> Spatial Intersection (cropping join)</a>
+<ul>
 <li class="chapter" data-level="3.4.1" data-path="spatial-intersection-cropping-join.html"><a href="spatial-intersection-cropping-join.html#st-intersection"><i class="fa fa-check"></i><b>3.4.1</b> <code>st_intersection()</code></a></li>
 <li class="chapter" data-level="3.4.2" data-path="spatial-intersection-cropping-join.html"><a href="spatial-intersection-cropping-join.html#area-weighted-average"><i class="fa fa-check"></i><b>3.4.2</b> Area-weighted average</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="raster-basics.html"><a href="raster-basics.html"><i class="fa fa-check"></i><b>4</b> Raster Data Handling</a><ul>
-<li class="chapter" data-level="" data-path="before-you-start-3.html"><a href="before-you-start-3.html"><i class="fa fa-check"></i>Before you start</a><ul>
+<li class="chapter" data-level="4" data-path="raster-basics.html"><a href="raster-basics.html"><i class="fa fa-check"></i><b>4</b> Raster Data Handling</a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-3.html"><a href="before-you-start-3.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
 <li class="chapter" data-level="" data-path="before-you-start-3.html"><a href="before-you-start-3.html#direction-for-replication-3"><i class="fa fa-check"></i>Direction for replication</a></li>
 </ul></li>
-<li class="chapter" data-level="4.1" data-path="raster-data-object-classes.html"><a href="raster-data-object-classes.html"><i class="fa fa-check"></i><b>4.1</b> Raster data object classes</a><ul>
+<li class="chapter" data-level="4.1" data-path="raster-data-object-classes.html"><a href="raster-data-object-classes.html"><i class="fa fa-check"></i><b>4.1</b> Raster data object classes</a>
+<ul>
 <li class="chapter" data-level="4.1.1" data-path="raster-data-object-classes.html"><a href="raster-data-object-classes.html#raster-package-rasterlayer-rasterstack-and-rasterbrick"><i class="fa fa-check"></i><b>4.1.1</b> <code>raster</code> package: <code>RasterLayer</code>, <code>RasterStack</code>, and <code>RasterBrick</code></a></li>
 <li class="chapter" data-level="4.1.2" data-path="raster-data-object-classes.html"><a href="raster-data-object-classes.html#terra-package-spatraster"><i class="fa fa-check"></i><b>4.1.2</b> <code>terra</code> package: <code>SpatRaster</code></a></li>
 <li class="chapter" data-level="4.1.3" data-path="raster-data-object-classes.html"><a href="raster-data-object-classes.html#converting-a-spatraster-object-to-a-raster-object."><i class="fa fa-check"></i><b>4.1.3</b> Converting a <code>SpatRaster</code> object to a <code>Raster</code><span class="math inline">\(^*\)</span> object.</a></li>
 <li class="chapter" data-level="4.1.4" data-path="raster-data-object-classes.html"><a href="raster-data-object-classes.html#vector-data-in-the-terra-package"><i class="fa fa-check"></i><b>4.1.4</b> Vector data in the <code>terra</code> package</a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="read-and-write-a-raster-data-file.html"><a href="read-and-write-a-raster-data-file.html"><i class="fa fa-check"></i><b>4.2</b> Read and write a raster data file</a><ul>
+<li class="chapter" data-level="4.2" data-path="read-and-write-a-raster-data-file.html"><a href="read-and-write-a-raster-data-file.html"><i class="fa fa-check"></i><b>4.2</b> Read and write a raster data file</a>
+<ul>
 <li class="chapter" data-level="4.2.1" data-path="read-and-write-a-raster-data-file.html"><a href="read-and-write-a-raster-data-file.html#read-raster-files"><i class="fa fa-check"></i><b>4.2.1</b> Read raster file(s)</a></li>
 <li class="chapter" data-level="4.2.2" data-path="read-and-write-a-raster-data-file.html"><a href="read-and-write-a-raster-data-file.html#write-raster-files"><i class="fa fa-check"></i><b>4.2.2</b> Write raster files</a></li>
 </ul></li>
 <li class="chapter" data-level="4.3" data-path="access-values.html"><a href="access-values.html"><i class="fa fa-check"></i><b>4.3</b> Access values</a></li>
 <li class="chapter" data-level="4.4" data-path="quick-plot-and-interactive-map.html"><a href="quick-plot-and-interactive-map.html"><i class="fa fa-check"></i><b>4.4</b> Quick plot and interactive map</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="int-RV.html"><a href="int-RV.html"><i class="fa fa-check"></i><b>5</b> Spatial Interactions of Vector and Raster Data</a><ul>
-<li class="chapter" data-level="" data-path="before-you-start-4.html"><a href="before-you-start-4.html"><i class="fa fa-check"></i>Before you start</a><ul>
+<li class="chapter" data-level="5" data-path="int-RV.html"><a href="int-RV.html"><i class="fa fa-check"></i><b>5</b> Spatial Interactions of Vector and Raster Data</a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-4.html"><a href="before-you-start-4.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
 <li class="chapter" data-level="" data-path="before-you-start-4.html"><a href="before-you-start-4.html#direction-for-replication-4"><i class="fa fa-check"></i>Direction for replication</a></li>
 </ul></li>
 <li class="chapter" data-level="5.1" data-path="raster-crop.html"><a href="raster-crop.html"><i class="fa fa-check"></i><b>5.1</b> Cropping (Spatial subsetting) to the Area of Interest</a></li>
-<li class="chapter" data-level="5.2" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html"><i class="fa fa-check"></i><b>5.2</b> Extracting Values from Raster Layers for Vector Data</a><ul>
+<li class="chapter" data-level="5.2" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html"><i class="fa fa-check"></i><b>5.2</b> Extracting Values from Raster Layers for Vector Data</a>
+<ul>
 <li class="chapter" data-level="5.2.1" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#points"><i class="fa fa-check"></i><b>5.2.1</b> Points</a></li>
 <li class="chapter" data-level="5.2.2" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#polygons-terra-way"><i class="fa fa-check"></i><b>5.2.2</b> Polygons (<code>terra</code> way)</a></li>
 <li class="chapter" data-level="5.2.3" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#polygons-exactextractr-way"><i class="fa fa-check"></i><b>5.2.3</b> Polygons (<code>exactextractr</code> way)</a></li>
 </ul></li>
-<li class="chapter" data-level="5.3" data-path="extract-speed.html"><a href="extract-speed.html"><i class="fa fa-check"></i><b>5.3</b> Extraction speed comparison</a><ul>
+<li class="chapter" data-level="5.3" data-path="extract-speed.html"><a href="extract-speed.html"><i class="fa fa-check"></i><b>5.3</b> Extraction speed comparison</a>
+<ul>
 <li class="chapter" data-level="5.3.1" data-path="extract-speed.html"><a href="extract-speed.html#points-terraextract-and-rasterextract"><i class="fa fa-check"></i><b>5.3.1</b> Points: <code>terra::extract()</code> and <code>raster::extract()</code></a></li>
 <li class="chapter" data-level="5.3.2" data-path="extract-speed.html"><a href="extract-speed.html#polygons-exact_extract-terraextract-and-rasterextract"><i class="fa fa-check"></i><b>5.3.2</b> Polygons: <code>exact_extract()</code>, <code>terra::extract()</code>, and <code>raster::extract()</code></a></li>
 <li class="chapter" data-level="5.3.3" data-path="extract-speed.html"><a href="extract-speed.html#single-layer-vs-multi-layer"><i class="fa fa-check"></i><b>5.3.3</b> Single-layer vs multi-layer</a></li>
 </ul></li>
 </ul></li>
 <li class="part"><span><b>III (slightly) Advanced Topics</b></span></li>
-<li class="chapter" data-level="6" data-path="EE.html"><a href="EE.html"><i class="fa fa-check"></i><b>6</b> Speed Things Up</a><ul>
-<li class="chapter" data-level="" data-path="before-you-start-5.html"><a href="before-you-start-5.html"><i class="fa fa-check"></i>Before you start</a><ul>
+<li class="chapter" data-level="6" data-path="EE.html"><a href="EE.html"><i class="fa fa-check"></i><b>6</b> Speed Things Up</a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-5.html"><a href="before-you-start-5.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
 <li class="chapter" data-level="" data-path="before-you-start-5.html"><a href="before-you-start-5.html#direction-for-replication-5"><i class="fa fa-check"></i>Direction for replication</a></li>
 </ul></li>
-<li class="chapter" data-level="6.1" data-path="single-raster-layer.html"><a href="single-raster-layer.html"><i class="fa fa-check"></i><b>6.1</b> Single raster layer</a><ul>
+<li class="chapter" data-level="6.1" data-path="single-raster-layer.html"><a href="single-raster-layer.html"><i class="fa fa-check"></i><b>6.1</b> Single raster layer</a>
+<ul>
 <li class="chapter" data-level="6.1.1" data-path="single-raster-layer.html"><a href="single-raster-layer.html#datasets"><i class="fa fa-check"></i><b>6.1.1</b> Datasets</a></li>
 <li class="chapter" data-level="6.1.2" data-path="single-raster-layer.html"><a href="single-raster-layer.html#parallelization"><i class="fa fa-check"></i><b>6.1.2</b> Parallelization</a></li>
 <li class="chapter" data-level="6.1.3" data-path="single-raster-layer.html"><a href="single-raster-layer.html#summary-1"><i class="fa fa-check"></i><b>6.1.3</b> Summary</a></li>
 </ul></li>
-<li class="chapter" data-level="6.2" data-path="many-multi-layer.html"><a href="many-multi-layer.html"><i class="fa fa-check"></i><b>6.2</b> Many multi-layer raster files</a><ul>
+<li class="chapter" data-level="6.2" data-path="many-multi-layer.html"><a href="many-multi-layer.html"><i class="fa fa-check"></i><b>6.2</b> Many multi-layer raster files</a>
+<ul>
 <li class="chapter" data-level="6.2.1" data-path="many-multi-layer.html"><a href="many-multi-layer.html#datasets-1"><i class="fa fa-check"></i><b>6.2.1</b> Datasets</a></li>
 <li class="chapter" data-level="6.2.2" data-path="many-multi-layer.html"><a href="many-multi-layer.html#non-par-ext-multi"><i class="fa fa-check"></i><b>6.2.2</b> Non-parallelized extraction</a></li>
 <li class="chapter" data-level="6.2.3" data-path="many-multi-layer.html"><a href="many-multi-layer.html#approach-1-parallelize-over-polygons-and-do-regular-loop-over-year-month"><i class="fa fa-check"></i><b>6.2.3</b> Approach 1: parallelize over polygons and do regular loop over year-month</a></li>
@@ -321,51 +359,62 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.2.5" data-path="many-multi-layer.html"><a href="many-multi-layer.html#memory-consideration"><i class="fa fa-check"></i><b>6.2.5</b> Memory consideration</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="stars-basics.html"><a href="stars-basics.html"><i class="fa fa-check"></i><b>7</b> Spatiotemporal Raster Data Handling with <code>stars</code></a><ul>
-<li class="chapter" data-level="" data-path="before-you-start-6.html"><a href="before-you-start-6.html"><i class="fa fa-check"></i>Before you start</a><ul>
+<li class="chapter" data-level="7" data-path="stars-basics.html"><a href="stars-basics.html"><i class="fa fa-check"></i><b>7</b> Spatiotemporal Raster Data Handling with <code>stars</code></a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-6.html"><a href="before-you-start-6.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
 <li class="chapter" data-level="" data-path="before-you-start-6.html"><a href="before-you-start-6.html#direction-for-replication-6"><i class="fa fa-check"></i>Direction for replication</a></li>
 </ul></li>
 <li class="chapter" data-level="7.1" data-path="stars-structure.html"><a href="stars-structure.html"><i class="fa fa-check"></i><b>7.1</b> Understanding the structure of a <code>stars</code> object</a></li>
-<li class="chapter" data-level="7.2" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html"><i class="fa fa-check"></i><b>7.2</b> Some basic operations on <code>stars</code> objects</a><ul>
+<li class="chapter" data-level="7.2" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html"><i class="fa fa-check"></i><b>7.2</b> Some basic operations on <code>stars</code> objects</a>
+<ul>
 <li class="chapter" data-level="7.2.1" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html#subset-a-stars-object-by-index"><i class="fa fa-check"></i><b>7.2.1</b> Subset a <code>stars</code> object by index</a></li>
 <li class="chapter" data-level="7.2.2" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html#set-attribute-names"><i class="fa fa-check"></i><b>7.2.2</b> Set attribute names</a></li>
 <li class="chapter" data-level="7.2.3" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html#get-the-coordinate-reference-system"><i class="fa fa-check"></i><b>7.2.3</b> Get the coordinate reference system</a></li>
 <li class="chapter" data-level="7.2.4" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html#get-the-dimension-characteristics-and-values"><i class="fa fa-check"></i><b>7.2.4</b> Get the dimension characteristics and values</a></li>
 <li class="chapter" data-level="7.2.5" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html#attributes-to-dimensions-and-vice-versa"><i class="fa fa-check"></i><b>7.2.5</b> Attributes to dimensions, and vice versa</a></li>
 </ul></li>
-<li class="chapter" data-level="7.3" data-path="quick-visualization-for-exploration.html"><a href="quick-visualization-for-exploration.html"><i class="fa fa-check"></i><b>7.3</b> Quick visualization for exploration</a><ul>
+<li class="chapter" data-level="7.3" data-path="quick-visualization-for-exploration.html"><a href="quick-visualization-for-exploration.html"><i class="fa fa-check"></i><b>7.3</b> Quick visualization for exploration</a>
+<ul>
 <li class="chapter" data-level="7.3.1" data-path="quick-visualization-for-exploration.html"><a href="quick-visualization-for-exploration.html#quick-static-map"><i class="fa fa-check"></i><b>7.3.1</b> quick static map</a></li>
 <li class="chapter" data-level="7.3.2" data-path="quick-visualization-for-exploration.html"><a href="quick-visualization-for-exploration.html#interactive-map"><i class="fa fa-check"></i><b>7.3.2</b> interactive map</a></li>
 </ul></li>
-<li class="chapter" data-level="7.4" data-path="read-write-stars.html"><a href="read-write-stars.html"><i class="fa fa-check"></i><b>7.4</b> Reading and writing raster data</a><ul>
+<li class="chapter" data-level="7.4" data-path="read-write-stars.html"><a href="read-write-stars.html"><i class="fa fa-check"></i><b>7.4</b> Reading and writing raster data</a>
+<ul>
 <li class="chapter" data-level="7.4.1" data-path="read-write-stars.html"><a href="read-write-stars.html#reading-raster-data"><i class="fa fa-check"></i><b>7.4.1</b> Reading raster data</a></li>
 <li class="chapter" data-level="7.4.2" data-path="read-write-stars.html"><a href="read-write-stars.html#writing-a-stars-object-to-a-file"><i class="fa fa-check"></i><b>7.4.2</b> Writing a <code>stars</code> object to a file</a></li>
 </ul></li>
 <li class="chapter" data-level="7.5" data-path="stars-set-time.html"><a href="stars-set-time.html"><i class="fa fa-check"></i><b>7.5</b> Setting the time dimension manually</a></li>
-<li class="chapter" data-level="7.6" data-path="dplyr-op.html"><a href="dplyr-op.html"><i class="fa fa-check"></i><b>7.6</b> <code>dplyr</code>-like operations</a><ul>
+<li class="chapter" data-level="7.6" data-path="dplyr-op.html"><a href="dplyr-op.html"><i class="fa fa-check"></i><b>7.6</b> <code>dplyr</code>-like operations</a>
+<ul>
 <li class="chapter" data-level="7.6.1" data-path="dplyr-op.html"><a href="dplyr-op.html#filter"><i class="fa fa-check"></i><b>7.6.1</b> <code>filter()</code></a></li>
 <li class="chapter" data-level="7.6.2" data-path="dplyr-op.html"><a href="dplyr-op.html#select"><i class="fa fa-check"></i><b>7.6.2</b> <code>select()</code></a></li>
 <li class="chapter" data-level="7.6.3" data-path="dplyr-op.html"><a href="dplyr-op.html#mutate"><i class="fa fa-check"></i><b>7.6.3</b> <code>mutate()</code></a></li>
 <li class="chapter" data-level="7.6.4" data-path="dplyr-op.html"><a href="dplyr-op.html#pull"><i class="fa fa-check"></i><b>7.6.4</b> <code>pull()</code></a></li>
 </ul></li>
-<li class="chapter" data-level="7.7" data-path="merging-stars-objects-using-c-and-st-mosaic.html"><a href="merging-stars-objects-using-c-and-st-mosaic.html"><i class="fa fa-check"></i><b>7.7</b> Merging <code>stars</code> objects using <code>c()</code> and <code>st_mosaic()</code></a><ul>
+<li class="chapter" data-level="7.7" data-path="merging-stars-objects-using-c-and-st-mosaic.html"><a href="merging-stars-objects-using-c-and-st-mosaic.html"><i class="fa fa-check"></i><b>7.7</b> Merging <code>stars</code> objects using <code>c()</code> and <code>st_mosaic()</code></a>
+<ul>
 <li class="chapter" data-level="7.7.1" data-path="merging-stars-objects-using-c-and-st-mosaic.html"><a href="merging-stars-objects-using-c-and-st-mosaic.html#merging-stars-objects-along-the-third-dimension-band"><i class="fa fa-check"></i><b>7.7.1</b> Merging <code>stars</code> objects along the third dimension (band)</a></li>
 <li class="chapter" data-level="7.7.2" data-path="merging-stars-objects-using-c-and-st-mosaic.html"><a href="merging-stars-objects-using-c-and-st-mosaic.html#merge-two"><i class="fa fa-check"></i><b>7.7.2</b> Merging <code>stars</code> objects of different attributes</a></li>
 <li class="chapter" data-level="7.7.3" data-path="merging-stars-objects-using-c-and-st-mosaic.html"><a href="merging-stars-objects-using-c-and-st-mosaic.html#merging-stars-objects-of-different-spatial-extents"><i class="fa fa-check"></i><b>7.7.3</b> Merging <code>stars</code> objects of different spatial extents</a></li>
 </ul></li>
 <li class="chapter" data-level="7.8" data-path="convert-to-rb.html"><a href="convert-to-rb.html"><i class="fa fa-check"></i><b>7.8</b> Convert from and to <code>Raster</code><span class="math inline">\(^*\)</span> objects</a></li>
 <li class="chapter" data-level="7.9" data-path="spatial-cropping.html"><a href="spatial-cropping.html"><i class="fa fa-check"></i><b>7.9</b> Spatial cropping</a></li>
-<li class="chapter" data-level="7.10" data-path="extraction-stars.html"><a href="extraction-stars.html"><i class="fa fa-check"></i><b>7.10</b> Extracting values from <code>stars</code> for vector data</a><ul>
+<li class="chapter" data-level="7.10" data-path="extraction-stars.html"><a href="extraction-stars.html"><i class="fa fa-check"></i><b>7.10</b> Extracting values from <code>stars</code> for vector data</a>
+<ul>
 <li class="chapter" data-level="7.10.1" data-path="extraction-stars.html"><a href="extraction-stars.html#points-1"><i class="fa fa-check"></i><b>7.10.1</b> Points</a></li>
 <li class="chapter" data-level="7.10.2" data-path="extraction-stars.html"><a href="extraction-stars.html#polygons"><i class="fa fa-check"></i><b>7.10.2</b> Polygons</a></li>
 </ul></li>
 </ul></li>
 <li class="part"><span><b>IV Extensions</b></span></li>
-<li class="chapter" data-level="8" data-path="create-maps.html"><a href="create-maps.html"><i class="fa fa-check"></i><b>8</b> Creating Maps using <code>ggplot2</code></a><ul>
-<li class="chapter" data-level="" data-path="before-you-start-7.html"><a href="before-you-start-7.html"><i class="fa fa-check"></i>Before you start</a><ul>
+<li class="chapter" data-level="8" data-path="create-maps.html"><a href="create-maps.html"><i class="fa fa-check"></i><b>8</b> Creating Maps using <code>ggplot2</code></a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-7.html"><a href="before-you-start-7.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
 <li class="chapter" data-level="" data-path="before-you-start-7.html"><a href="before-you-start-7.html#direction-for-replication-7"><i class="fa fa-check"></i>Direction for replication</a></li>
 </ul></li>
-<li class="chapter" data-level="8.1" data-path="geom-sf.html"><a href="geom-sf.html"><i class="fa fa-check"></i><b>8.1</b> Creating maps from <code>sf</code> objects</a><ul>
+<li class="chapter" data-level="8.1" data-path="geom-sf.html"><a href="geom-sf.html"><i class="fa fa-check"></i><b>8.1</b> Creating maps from <code>sf</code> objects</a>
+<ul>
 <li class="chapter" data-level="8.1.1" data-path="geom-sf.html"><a href="geom-sf.html#datasets-2"><i class="fa fa-check"></i><b>8.1.1</b> Datasets</a></li>
 <li class="chapter" data-level="8.1.2" data-path="geom-sf.html"><a href="geom-sf.html#basic-usage-of-geom_sf"><i class="fa fa-check"></i><b>8.1.2</b> Basic usage of <code>geom_sf()</code></a></li>
 <li class="chapter" data-level="8.1.3" data-path="geom-sf.html"><a href="geom-sf.html#specifying-the-aesthetics"><i class="fa fa-check"></i><b>8.1.3</b> Specifying the aesthetics</a></li>
@@ -374,22 +423,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.1.6" data-path="geom-sf.html"><a href="geom-sf.html#faceting"><i class="fa fa-check"></i><b>8.1.6</b> Faceting</a></li>
 <li class="chapter" data-level="8.1.7" data-path="geom-sf.html"><a href="geom-sf.html#adding-texts-labels-on-a-map"><i class="fa fa-check"></i><b>8.1.7</b> Adding texts (labels) on a map</a></li>
 </ul></li>
-<li class="chapter" data-level="8.2" data-path="geom-raster.html"><a href="geom-raster.html"><i class="fa fa-check"></i><b>8.2</b> Raster data visualization: <code>geom_raster()</code> and <code>geom_stars()</code></a><ul>
+<li class="chapter" data-level="8.2" data-path="geom-raster.html"><a href="geom-raster.html"><i class="fa fa-check"></i><b>8.2</b> Raster data visualization: <code>geom_raster()</code> and <code>geom_stars()</code></a>
+<ul>
 <li class="chapter" data-level="8.2.1" data-path="geom-raster.html"><a href="geom-raster.html#visualize-raster-with-geom_raster"><i class="fa fa-check"></i><b>8.2.1</b> Visualize <code>Raster</code><span class="math inline">\(^*\)</span> with <code>geom_raster()</code></a></li>
 <li class="chapter" data-level="8.2.2" data-path="geom-raster.html"><a href="geom-raster.html#visualize-stars-with-geom_raster"><i class="fa fa-check"></i><b>8.2.2</b> Visualize <code>stars</code> with <code>geom_raster()</code></a></li>
 <li class="chapter" data-level="8.2.3" data-path="geom-raster.html"><a href="geom-raster.html#visualize-stars-with-geom_stars"><i class="fa fa-check"></i><b>8.2.3</b> Visualize <code>stars</code> with <code>geom_stars()</code></a></li>
 <li class="chapter" data-level="8.2.4" data-path="geom-raster.html"><a href="geom-raster.html#adding-geom_sf-layers"><i class="fa fa-check"></i><b>8.2.4</b> adding <code>geom_sf()</code> layers</a></li>
 </ul></li>
-<li class="chapter" data-level="8.3" data-path="color-scale.html"><a href="color-scale.html"><i class="fa fa-check"></i><b>8.3</b> Color scale</a><ul>
+<li class="chapter" data-level="8.3" data-path="color-scale.html"><a href="color-scale.html"><i class="fa fa-check"></i><b>8.3</b> Color scale</a>
+<ul>
 <li class="chapter" data-level="8.3.1" data-path="color-scale.html"><a href="color-scale.html#viridis-color-maps"><i class="fa fa-check"></i><b>8.3.1</b> Viridis color maps</a></li>
 <li class="chapter" data-level="8.3.2" data-path="color-scale.html"><a href="color-scale.html#rcolorbrewer-scale__distiller-and-scale__brewer"><i class="fa fa-check"></i><b>8.3.2</b> <code>RColorBrewer</code>: <code>scale_*_distiller()</code> and <code>scale_*_brewer()</code></a></li>
 <li class="chapter" data-level="8.3.3" data-path="color-scale.html"><a href="color-scale.html#colorspace-package"><i class="fa fa-check"></i><b>8.3.3</b> <code>colorspace</code> package</a></li>
 </ul></li>
-<li class="chapter" data-level="8.4" data-path="arranging-maps.html"><a href="arranging-maps.html"><i class="fa fa-check"></i><b>8.4</b> Arranging maps</a><ul>
+<li class="chapter" data-level="8.4" data-path="arranging-maps.html"><a href="arranging-maps.html"><i class="fa fa-check"></i><b>8.4</b> Arranging maps</a>
+<ul>
 <li class="chapter" data-level="8.4.1" data-path="arranging-maps.html"><a href="arranging-maps.html#multiple-panels-of-figures-as-a-single-figure"><i class="fa fa-check"></i><b>8.4.1</b> Multiple panels of figures as a single figure</a></li>
 <li class="chapter" data-level="8.4.2" data-path="arranging-maps.html"><a href="arranging-maps.html#a-map-in-a-map-inset"><i class="fa fa-check"></i><b>8.4.2</b> A map in a map: inset</a></li>
 </ul></li>
-<li class="chapter" data-level="8.5" data-path="fine-tune.html"><a href="fine-tune.html"><i class="fa fa-check"></i><b>8.5</b> Fine-tuning maps for publication</a><ul>
+<li class="chapter" data-level="8.5" data-path="fine-tune.html"><a href="fine-tune.html"><i class="fa fa-check"></i><b>8.5</b> Fine-tuning maps for publication</a>
+<ul>
 <li class="chapter" data-level="8.5.1" data-path="fine-tune.html"><a href="fine-tune.html#theme"><i class="fa fa-check"></i><b>8.5.1</b> Setting the theme</a></li>
 <li class="chapter" data-level="8.5.2" data-path="fine-tune.html"><a href="fine-tune.html#legend"><i class="fa fa-check"></i><b>8.5.2</b> Legend</a></li>
 <li class="chapter" data-level="8.5.3" data-path="fine-tune.html"><a href="fine-tune.html#facet-strips"><i class="fa fa-check"></i><b>8.5.3</b> Facet strips</a></li>
@@ -397,25 +450,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="8.6" data-path="ggsave.html"><a href="ggsave.html"><i class="fa fa-check"></i><b>8.6</b> Saving a <code>ggplot</code> object as an image</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="download-data.html"><a href="download-data.html"><i class="fa fa-check"></i><b>9</b> Download and process spatial datasets from within R</a><ul>
-<li class="chapter" data-level="" data-path="before-you-start-8.html"><a href="before-you-start-8.html"><i class="fa fa-check"></i>Before you start</a><ul>
+<li class="chapter" data-level="9" data-path="download-data.html"><a href="download-data.html"><i class="fa fa-check"></i><b>9</b> Download and process spatial datasets from within R</a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-8.html"><a href="before-you-start-8.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
 <li class="chapter" data-level="" data-path="before-you-start-8.html"><a href="before-you-start-8.html#direction-for-replication-8"><i class="fa fa-check"></i>Direction for replication</a></li>
 </ul></li>
-<li class="chapter" data-level="9.1" data-path="nass-quick.html"><a href="nass-quick.html"><i class="fa fa-check"></i><b>9.1</b> USDA NASS QuickStat with <code>tidyUSDA</code></a><ul>
+<li class="chapter" data-level="9.1" data-path="nass-quick.html"><a href="nass-quick.html"><i class="fa fa-check"></i><b>9.1</b> USDA NASS QuickStat with <code>tidyUSDA</code></a>
+<ul>
 <li class="chapter" data-level="9.1.1" data-path="nass-quick.html"><a href="nass-quick.html#look-for-parameter-values"><i class="fa fa-check"></i><b>9.1.1</b> Look for parameter values</a></li>
 <li class="chapter" data-level="9.1.2" data-path="nass-quick.html"><a href="nass-quick.html#caveats"><i class="fa fa-check"></i><b>9.1.2</b> Caveats</a></li>
 </ul></li>
-<li class="chapter" data-level="9.2" data-path="CropScapeR.html"><a href="CropScapeR.html"><i class="fa fa-check"></i><b>9.2</b> CDL with <code>CropScapeR</code></a><ul>
+<li class="chapter" data-level="9.2" data-path="CropScapeR.html"><a href="CropScapeR.html"><i class="fa fa-check"></i><b>9.2</b> CDL with <code>CropScapeR</code></a>
+<ul>
 <li class="chapter" data-level="9.2.1" data-path="CropScapeR.html"><a href="CropScapeR.html#getcdldata-download-the-cdl-data-as-raster-data"><i class="fa fa-check"></i><b>9.2.1</b> <code>GetCDLData</code>: Download the CDL data as raster data</a></li>
 <li class="chapter" data-level="9.2.2" data-path="CropScapeR.html"><a href="CropScapeR.html#data-processing-after-downloading-data"><i class="fa fa-check"></i><b>9.2.2</b> Data processing after downloading data</a></li>
 <li class="chapter" data-level="9.2.3" data-path="CropScapeR.html"><a href="CropScapeR.html#other-forms-of-cdl-data"><i class="fa fa-check"></i><b>9.2.3</b> Other forms of CDL data</a></li>
 <li class="chapter" data-level="9.2.4" data-path="CropScapeR.html"><a href="CropScapeR.html#mac-problem"><i class="fa fa-check"></i><b>9.2.4</b> SSL certificate problem on Mac</a></li>
 </ul></li>
-<li class="chapter" data-level="9.3" data-path="download-prism.html"><a href="download-prism.html"><i class="fa fa-check"></i><b>9.3</b> PRISM with <code>prism</code></a><ul>
+<li class="chapter" data-level="9.3" data-path="download-prism.html"><a href="download-prism.html"><i class="fa fa-check"></i><b>9.3</b> PRISM with <code>prism</code></a>
+<ul>
 <li class="chapter" data-level="9.3.1" data-path="download-prism.html"><a href="download-prism.html#basics"><i class="fa fa-check"></i><b>9.3.1</b> Basics</a></li>
 <li class="chapter" data-level="9.3.2" data-path="download-prism.html"><a href="download-prism.html#download-daily-prism-data-for-many-years-and-build-your-own-datasets"><i class="fa fa-check"></i><b>9.3.2</b> Download daily PRISM data for many years and build your own datasets</a></li>
 </ul></li>
-<li class="chapter" data-level="9.4" data-path="daymet-with-daymetr-and-feddata.html"><a href="daymet-with-daymetr-and-feddata.html"><i class="fa fa-check"></i><b>9.4</b> Daymet with <code>daymetr</code> and <code>FedData</code></a><ul>
+<li class="chapter" data-level="9.4" data-path="daymet-with-daymetr-and-feddata.html"><a href="daymet-with-daymetr-and-feddata.html"><i class="fa fa-check"></i><b>9.4</b> Daymet with <code>daymetr</code> and <code>FedData</code></a>
+<ul>
 <li class="chapter" data-level="9.4.1" data-path="daymet-with-daymetr-and-feddata.html"><a href="daymet-with-daymetr-and-feddata.html#for-points-data"><i class="fa fa-check"></i><b>9.4.1</b> For points data</a></li>
 <li class="chapter" data-level="9.4.2" data-path="daymet-with-daymetr-and-feddata.html"><a href="daymet-with-daymetr-and-feddata.html#daymet-poly"><i class="fa fa-check"></i><b>9.4.2</b> For polygons data</a></li>
 </ul></li>
@@ -424,19 +483,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.7" data-path="census-with-tidycensus-under-construction.html"><a href="census-with-tidycensus-under-construction.html"><i class="fa fa-check"></i><b>9.7</b> Census with <code>tidycensus</code> (under construction)</a></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
-<li class="chapter" data-level="A" data-path="par-comp.html"><a href="par-comp.html"><i class="fa fa-check"></i><b>A</b> Loop and Parallel Computing</a><ul>
-<li class="chapter" data-level="" data-path="before-you-start-9.html"><a href="before-you-start-9.html"><i class="fa fa-check"></i>Before you start</a><ul>
+<li class="chapter" data-level="A" data-path="par-comp.html"><a href="par-comp.html"><i class="fa fa-check"></i><b>A</b> Loop and Parallel Computing</a>
+<ul>
+<li class="chapter" data-level="" data-path="before-you-start-9.html"><a href="before-you-start-9.html"><i class="fa fa-check"></i>Before you start</a>
+<ul>
 <li class="chapter" data-level="" data-path="before-you-start-9.html"><a href="before-you-start-9.html#direction-for-replication-9"><i class="fa fa-check"></i>Direction for replication</a></li>
 <li class="chapter" data-level="" data-path="before-you-start-9.html"><a href="before-you-start-9.html#packages-to-install-and-load"><i class="fa fa-check"></i>Packages to install and load</a></li>
 </ul></li>
-<li class="chapter" data-level="A.1" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html"><i class="fa fa-check"></i><b>A.1</b> Repetitive processes and looping</a><ul>
+<li class="chapter" data-level="A.1" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html"><i class="fa fa-check"></i><b>A.1</b> Repetitive processes and looping</a>
+<ul>
 <li class="chapter" data-level="A.1.1" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html#what-is-looping"><i class="fa fa-check"></i><b>A.1.1</b> What is looping?</a></li>
 <li class="chapter" data-level="A.1.2" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html#for-loop"><i class="fa fa-check"></i><b>A.1.2</b> For loop</a></li>
 <li class="chapter" data-level="A.1.3" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html#for-loop-using-the-lapply-function"><i class="fa fa-check"></i><b>A.1.3</b> For loop using the <code>lapply()</code> function</a></li>
 <li class="chapter" data-level="A.1.4" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html#looping-over-multiple-variables-using-lapply"><i class="fa fa-check"></i><b>A.1.4</b> Looping over multiple variables using lapply()</a></li>
 <li class="chapter" data-level="A.1.5" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html#do-you-really-need-to-loop"><i class="fa fa-check"></i><b>A.1.5</b> Do you really need to loop?</a></li>
 </ul></li>
-<li class="chapter" data-level="A.2" data-path="parcomp.html"><a href="parcomp.html"><i class="fa fa-check"></i><b>A.2</b> Parallelization of embarrassingly parallel processes</a><ul>
+<li class="chapter" data-level="A.2" data-path="parcomp.html"><a href="parcomp.html"><i class="fa fa-check"></i><b>A.2</b> Parallelization of embarrassingly parallel processes</a>
+<ul>
 <li class="chapter" data-level="A.2.1" data-path="parcomp.html"><a href="parcomp.html#mac-or-linux-users"><i class="fa fa-check"></i><b>A.2.1</b> Mac or Linux users</a></li>
 </ul></li>
 </ul></li>
@@ -473,34 +536,35 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
   gtag('config', 'UA-59758608-3');
 </script>
-<div id="spatial-subsetting-or-flagging" class="section level2">
+
+<div id="spatial-subsetting-or-flagging" class="section level2" number="3.2">
 <h2><span class="header-section-number">3.2</span> Spatial Subsetting (or Flagging)</h2>
 <p>Spatial subsetting refers to operations that narrow down the geographic scope of a spatial object (source data) based on another spatial object (target data). We illustrate spatial subsetting using Kansas county borders, the boundary of the High-Plains Aquifer (HPA), and agricultural irrigation wells in Kansas.</p>
 <p>First, let’s import all the files we will use in this section.</p>
-<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb231-1" data-line-number="1"><span class="co">#--- Kansas county borders ---#</span></a>
-<a class="sourceLine" id="cb231-2" data-line-number="2">KS_counties &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;./Data/KS_county_borders.rds&quot;</span>)</a>
-<a class="sourceLine" id="cb231-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb231-4" data-line-number="4"><span class="co">#--- HPA boundary ---#</span></a>
-<a class="sourceLine" id="cb231-5" data-line-number="5">hpa &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="dt">dsn =</span> <span class="st">&quot;./Data&quot;</span>, <span class="dt">layer =</span> <span class="st">&quot;hp_bound2010&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb231-6" data-line-number="6"><span class="st">  </span>.[<span class="dv">1</span>, ] <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb231-7" data-line-number="7"><span class="st">  </span><span class="kw">st_transform</span>(<span class="kw">st_crs</span>(KS_counties))  </a>
-<a class="sourceLine" id="cb231-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb231-9" data-line-number="9"><span class="co">#--- all the irrigation wells in KS ---#</span></a>
-<a class="sourceLine" id="cb231-10" data-line-number="10">KS_wells &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;./Data/Kansas_wells.rds&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb231-11" data-line-number="11"><span class="st">  </span><span class="kw">st_transform</span>(<span class="kw">st_crs</span>(KS_counties))</a>
-<a class="sourceLine" id="cb231-12" data-line-number="12"></a>
-<a class="sourceLine" id="cb231-13" data-line-number="13"><span class="co">#--- US railroad ---#</span></a>
-<a class="sourceLine" id="cb231-14" data-line-number="14">rail_roads &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="dt">dsn =</span> <span class="st">&quot;./Data&quot;</span>, <span class="dt">layer =</span> <span class="st">&quot;tl_2015_us_rails&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb231-15" data-line-number="15"><span class="st">  </span><span class="kw">st_transform</span>(<span class="kw">st_crs</span>(KS_counties)) </a></code></pre></div>
-<div id="polygons-source-vs-polygons-target" class="section level3">
+<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="spatial-subsetting-or-flagging.html#cb231-1"></a><span class="co">#--- Kansas county borders ---#</span></span>
+<span id="cb231-2"><a href="spatial-subsetting-or-flagging.html#cb231-2"></a>KS_counties &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;./Data/KS_county_borders.rds&quot;</span>)</span>
+<span id="cb231-3"><a href="spatial-subsetting-or-flagging.html#cb231-3"></a></span>
+<span id="cb231-4"><a href="spatial-subsetting-or-flagging.html#cb231-4"></a><span class="co">#--- HPA boundary ---#</span></span>
+<span id="cb231-5"><a href="spatial-subsetting-or-flagging.html#cb231-5"></a>hpa &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="dt">dsn =</span> <span class="st">&quot;./Data&quot;</span>, <span class="dt">layer =</span> <span class="st">&quot;hp_bound2010&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb231-6"><a href="spatial-subsetting-or-flagging.html#cb231-6"></a><span class="st">  </span>.[<span class="dv">1</span>, ] <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb231-7"><a href="spatial-subsetting-or-flagging.html#cb231-7"></a><span class="st">  </span><span class="kw">st_transform</span>(<span class="kw">st_crs</span>(KS_counties))  </span>
+<span id="cb231-8"><a href="spatial-subsetting-or-flagging.html#cb231-8"></a></span>
+<span id="cb231-9"><a href="spatial-subsetting-or-flagging.html#cb231-9"></a><span class="co">#--- all the irrigation wells in KS ---#</span></span>
+<span id="cb231-10"><a href="spatial-subsetting-or-flagging.html#cb231-10"></a>KS_wells &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;./Data/Kansas_wells.rds&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb231-11"><a href="spatial-subsetting-or-flagging.html#cb231-11"></a><span class="st">  </span><span class="kw">st_transform</span>(<span class="kw">st_crs</span>(KS_counties))</span>
+<span id="cb231-12"><a href="spatial-subsetting-or-flagging.html#cb231-12"></a></span>
+<span id="cb231-13"><a href="spatial-subsetting-or-flagging.html#cb231-13"></a><span class="co">#--- US railroad ---#</span></span>
+<span id="cb231-14"><a href="spatial-subsetting-or-flagging.html#cb231-14"></a>rail_roads &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="dt">dsn =</span> <span class="st">&quot;./Data&quot;</span>, <span class="dt">layer =</span> <span class="st">&quot;tl_2015_us_rails&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb231-15"><a href="spatial-subsetting-or-flagging.html#cb231-15"></a><span class="st">  </span><span class="kw">st_transform</span>(<span class="kw">st_crs</span>(KS_counties)) </span></code></pre></div>
+<div id="polygons-source-vs-polygons-target" class="section level3" number="3.2.1">
 <h3><span class="header-section-number">3.2.1</span> polygons (source) vs polygons (target)</h3>
 <p>The following map (Figure <a href="spatial-subsetting-or-flagging.html#fig:overlap-KS-county-HPA">3.4</a>) shows the Kansas portion of the HPA and Kansas counties.<a href="#fn62" class="footnote-ref" id="fnref62"><sup>62</sup></a></p>
-<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb232-1" data-line-number="1"><span class="co">#--- add US counties layer ---#</span></a>
-<a class="sourceLine" id="cb232-2" data-line-number="2"><span class="kw">tm_shape</span>(KS_counties) <span class="op">+</span></a>
-<a class="sourceLine" id="cb232-3" data-line-number="3"><span class="st">  </span><span class="kw">tm_polygons</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb232-4" data-line-number="4"><span class="co">#--- add High-Plains Aquifer layer ---#</span></a>
-<a class="sourceLine" id="cb232-5" data-line-number="5"><span class="kw">tm_shape</span>(hpa) <span class="op">+</span></a>
-<a class="sourceLine" id="cb232-6" data-line-number="6"><span class="st">  </span><span class="kw">tm_fill</span>(<span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="spatial-subsetting-or-flagging.html#cb232-1"></a><span class="co">#--- add US counties layer ---#</span></span>
+<span id="cb232-2"><a href="spatial-subsetting-or-flagging.html#cb232-2"></a><span class="kw">tm_shape</span>(KS_counties) <span class="op">+</span></span>
+<span id="cb232-3"><a href="spatial-subsetting-or-flagging.html#cb232-3"></a><span class="st">  </span><span class="kw">tm_polygons</span>() <span class="op">+</span></span>
+<span id="cb232-4"><a href="spatial-subsetting-or-flagging.html#cb232-4"></a><span class="co">#--- add High-Plains Aquifer layer ---#</span></span>
+<span id="cb232-5"><a href="spatial-subsetting-or-flagging.html#cb232-5"></a><span class="kw">tm_shape</span>(hpa) <span class="op">+</span></span>
+<span id="cb232-6"><a href="spatial-subsetting-or-flagging.html#cb232-6"></a><span class="st">  </span><span class="kw">tm_fill</span>(<span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.3</span>)</span></code></pre></div>
 <div class="figure"><span id="fig:overlap-KS-county-HPA"></span>
 <img src="R_GIS_Book_files/figure-html/overlap-KS-county-HPA-1.png" alt="Kansas portion of High-Plains Aquifer and Kansas counties" width="672" />
 <p class="caption">
@@ -508,20 +572,20 @@ Figure 3.4: Kansas portion of High-Plains Aquifer and Kansas counties
 </p>
 </div>
 <p>The goal here is to select only the counties that intersect with the HPA boundary. When subsetting a data.frame by specifying the row numbers you would like to select, you can do</p>
-<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb233-1" data-line-number="1"><span class="co">#--- NOT RUN ---#</span></a>
-<a class="sourceLine" id="cb233-2" data-line-number="2">data.frame[vector of row numbers, ]</a></code></pre></div>
+<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="spatial-subsetting-or-flagging.html#cb233-1"></a><span class="co">#--- NOT RUN ---#</span></span>
+<span id="cb233-2"><a href="spatial-subsetting-or-flagging.html#cb233-2"></a>data.frame[vector of row numbers, ]</span></code></pre></div>
 <p>Spatial subsetting of sf objects works in a similar syntax:</p>
-<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb234-1" data-line-number="1"><span class="co">#--- NOT RUN ---#</span></a>
-<a class="sourceLine" id="cb234-2" data-line-number="2">sf_<span class="dv">1</span>[sf_<span class="dv">2</span>, ]</a></code></pre></div>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="spatial-subsetting-or-flagging.html#cb234-1"></a><span class="co">#--- NOT RUN ---#</span></span>
+<span id="cb234-2"><a href="spatial-subsetting-or-flagging.html#cb234-2"></a>sf_<span class="dv">1</span>[sf_<span class="dv">2</span>, ]</span></code></pre></div>
 <p>where you are subsetting sf_1 based on sf_2. Instead of row numbers, you provide another sf object in place. The following code spatially subsets Kansas counties based on the HPA boundary.</p>
-<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb235-1" data-line-number="1">counties_in_hpa &lt;-<span class="st"> </span>KS_counties[hpa, ]</a></code></pre></div>
+<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="spatial-subsetting-or-flagging.html#cb235-1"></a>counties_in_hpa &lt;-<span class="st"> </span>KS_counties[hpa, ]</span></code></pre></div>
 <p>See the results below in Figure <a href="spatial-subsetting-or-flagging.html#fig:default-subset">3.5</a>.</p>
-<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb236-1" data-line-number="1"><span class="co">#--- add US counties layer ---#</span></a>
-<a class="sourceLine" id="cb236-2" data-line-number="2"><span class="kw">tm_shape</span>(counties_in_hpa) <span class="op">+</span></a>
-<a class="sourceLine" id="cb236-3" data-line-number="3"><span class="st">  </span><span class="kw">tm_polygons</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb236-4" data-line-number="4"><span class="co">#--- add High-Plains Aquifer layer ---#</span></a>
-<a class="sourceLine" id="cb236-5" data-line-number="5"><span class="kw">tm_shape</span>(hpa) <span class="op">+</span></a>
-<a class="sourceLine" id="cb236-6" data-line-number="6"><span class="st">  </span><span class="kw">tm_fill</span>(<span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="spatial-subsetting-or-flagging.html#cb236-1"></a><span class="co">#--- add US counties layer ---#</span></span>
+<span id="cb236-2"><a href="spatial-subsetting-or-flagging.html#cb236-2"></a><span class="kw">tm_shape</span>(counties_in_hpa) <span class="op">+</span></span>
+<span id="cb236-3"><a href="spatial-subsetting-or-flagging.html#cb236-3"></a><span class="st">  </span><span class="kw">tm_polygons</span>() <span class="op">+</span></span>
+<span id="cb236-4"><a href="spatial-subsetting-or-flagging.html#cb236-4"></a><span class="co">#--- add High-Plains Aquifer layer ---#</span></span>
+<span id="cb236-5"><a href="spatial-subsetting-or-flagging.html#cb236-5"></a><span class="kw">tm_shape</span>(hpa) <span class="op">+</span></span>
+<span id="cb236-6"><a href="spatial-subsetting-or-flagging.html#cb236-6"></a><span class="st">  </span><span class="kw">tm_fill</span>(<span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.3</span>)</span></code></pre></div>
 <div class="figure"><span id="fig:default-subset"></span>
 <img src="R_GIS_Book_files/figure-html/default-subset-1.png" alt="The results of spatially subsetting Kansas counties based on HPA boundary" width="672" />
 <p class="caption">
@@ -530,16 +594,16 @@ Figure 3.5: The results of spatially subsetting Kansas counties based on HPA bou
 </div>
 <p>You can see that only the counties that intersect with the HPA boundary remained. This is because when you use the above syntax of <code>sf_1[sf_2, ]</code>, the default underlying topological relations is <code>st_intersects()</code>. So, if an object in <code>sf_1</code> intersects with any of the objects in <code>sf_2</code> even slightly, then it will remain after subsetting.</p>
 <p>You can specify the spatial operation to be used as an option as in</p>
-<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb237-1" data-line-number="1"><span class="co">#--- NOT RUN ---#</span></a>
-<a class="sourceLine" id="cb237-2" data-line-number="2">sf_<span class="dv">1</span>[sf_<span class="dv">2</span>, op =<span class="st"> </span>topological_relation_type] </a></code></pre></div>
+<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="spatial-subsetting-or-flagging.html#cb237-1"></a><span class="co">#--- NOT RUN ---#</span></span>
+<span id="cb237-2"><a href="spatial-subsetting-or-flagging.html#cb237-2"></a>sf_<span class="dv">1</span>[sf_<span class="dv">2</span>, op =<span class="st"> </span>topological_relation_type] </span></code></pre></div>
 <p>For example, if you only want counties that are completely within the HPA boundary, you can do the following (the map of the results in Figure <a href="spatial-subsetting-or-flagging.html#fig:within-subset">3.6</a>):</p>
-<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb238-1" data-line-number="1">counties_within_hpa &lt;-<span class="st"> </span>KS_counties[hpa, , op =<span class="st"> </span>st_within]</a></code></pre></div>
-<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb239-1" data-line-number="1"><span class="co">#--- add US counties layer ---#</span></a>
-<a class="sourceLine" id="cb239-2" data-line-number="2"><span class="kw">tm_shape</span>(counties_within_hpa) <span class="op">+</span></a>
-<a class="sourceLine" id="cb239-3" data-line-number="3"><span class="st">  </span><span class="kw">tm_polygons</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb239-4" data-line-number="4"><span class="co">#--- add High-Plains Aquifer layer ---#</span></a>
-<a class="sourceLine" id="cb239-5" data-line-number="5"><span class="kw">tm_shape</span>(hpa) <span class="op">+</span></a>
-<a class="sourceLine" id="cb239-6" data-line-number="6"><span class="st">  </span><span class="kw">tm_fill</span>(<span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="spatial-subsetting-or-flagging.html#cb238-1"></a>counties_within_hpa &lt;-<span class="st"> </span>KS_counties[hpa, , op =<span class="st"> </span>st_within]</span></code></pre></div>
+<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="spatial-subsetting-or-flagging.html#cb239-1"></a><span class="co">#--- add US counties layer ---#</span></span>
+<span id="cb239-2"><a href="spatial-subsetting-or-flagging.html#cb239-2"></a><span class="kw">tm_shape</span>(counties_within_hpa) <span class="op">+</span></span>
+<span id="cb239-3"><a href="spatial-subsetting-or-flagging.html#cb239-3"></a><span class="st">  </span><span class="kw">tm_polygons</span>() <span class="op">+</span></span>
+<span id="cb239-4"><a href="spatial-subsetting-or-flagging.html#cb239-4"></a><span class="co">#--- add High-Plains Aquifer layer ---#</span></span>
+<span id="cb239-5"><a href="spatial-subsetting-or-flagging.html#cb239-5"></a><span class="kw">tm_shape</span>(hpa) <span class="op">+</span></span>
+<span id="cb239-6"><a href="spatial-subsetting-or-flagging.html#cb239-6"></a><span class="st">  </span><span class="kw">tm_fill</span>(<span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.3</span>)</span></code></pre></div>
 <div class="figure"><span id="fig:within-subset"></span>
 <img src="R_GIS_Book_files/figure-html/within-subset-1.png" alt="Kansas counties that are completely within HPA boundary" width="672" />
 <p class="caption">
@@ -548,11 +612,11 @@ Figure 3.6: Kansas counties that are completely within HPA boundary
 </div>
 <hr />
 <p>Sometimes, you just want to flag whether two spatial objects intersect or not, instead of dropping non-overlapping observations. In that case, you can use <code>st_intersects()</code>.</p>
-<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb240-1" data-line-number="1"><span class="co">#--- check the intersections of HPA and counties  ---#</span></a>
-<a class="sourceLine" id="cb240-2" data-line-number="2">intersects_hpa &lt;-<span class="st"> </span><span class="kw">st_intersects</span>(KS_counties, hpa, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb240-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb240-4" data-line-number="4"><span class="co">#--- take a look ---#</span></a>
-<a class="sourceLine" id="cb240-5" data-line-number="5"><span class="kw">head</span>(intersects_hpa)</a></code></pre></div>
+<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="spatial-subsetting-or-flagging.html#cb240-1"></a><span class="co">#--- check the intersections of HPA and counties  ---#</span></span>
+<span id="cb240-2"><a href="spatial-subsetting-or-flagging.html#cb240-2"></a>intersects_hpa &lt;-<span class="st"> </span><span class="kw">st_intersects</span>(KS_counties, hpa, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb240-3"><a href="spatial-subsetting-or-flagging.html#cb240-3"></a></span>
+<span id="cb240-4"><a href="spatial-subsetting-or-flagging.html#cb240-4"></a><span class="co">#--- take a look ---#</span></span>
+<span id="cb240-5"><a href="spatial-subsetting-or-flagging.html#cb240-5"></a><span class="kw">head</span>(intersects_hpa)</span></code></pre></div>
 <pre><code>      [,1]
 [1,] FALSE
 [2,]  TRUE
@@ -560,11 +624,11 @@ Figure 3.6: Kansas counties that are completely within HPA boundary
 [4,]  TRUE
 [5,]  TRUE
 [6,]  TRUE</code></pre>
-<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb242-1" data-line-number="1"><span class="co">#--- assign the index as a variable ---#</span></a>
-<a class="sourceLine" id="cb242-2" data-line-number="2">KS_counties &lt;-<span class="st"> </span><span class="kw">mutate</span>(KS_counties, <span class="dt">intersects_hpa  =</span> intersects_hpa)</a>
-<a class="sourceLine" id="cb242-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb242-4" data-line-number="4"><span class="co">#--- take a look ---#</span></a>
-<a class="sourceLine" id="cb242-5" data-line-number="5">dplyr<span class="op">::</span><span class="kw">select</span>(KS_counties, COUNTYFP, intersects_hpa)</a></code></pre></div>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="spatial-subsetting-or-flagging.html#cb242-1"></a><span class="co">#--- assign the index as a variable ---#</span></span>
+<span id="cb242-2"><a href="spatial-subsetting-or-flagging.html#cb242-2"></a>KS_counties &lt;-<span class="st"> </span><span class="kw">mutate</span>(KS_counties, <span class="dt">intersects_hpa  =</span> intersects_hpa)</span>
+<span id="cb242-3"><a href="spatial-subsetting-or-flagging.html#cb242-3"></a></span>
+<span id="cb242-4"><a href="spatial-subsetting-or-flagging.html#cb242-4"></a><span class="co">#--- take a look ---#</span></span>
+<span id="cb242-5"><a href="spatial-subsetting-or-flagging.html#cb242-5"></a>dplyr<span class="op">::</span><span class="kw">select</span>(KS_counties, COUNTYFP, intersects_hpa)</span></code></pre></div>
 <pre><code>Simple feature collection with 105 features and 2 fields
 geometry type:  MULTIPOLYGON
 dimension:      XY
@@ -588,13 +652,13 @@ First 10 features:
 #%%%%%%%%%%%%%%%%%%%%%
 -->
 </div>
-<div id="points-source-vs-polygons-target" class="section level3">
+<div id="points-source-vs-polygons-target" class="section level3" number="3.2.2">
 <h3><span class="header-section-number">3.2.2</span> points (source) vs polygons (target)</h3>
 <p>The following map (Figure <a href="spatial-subsetting-or-flagging.html#fig:map-wells-county">3.7</a>) shows the Kansas portion of the HPA and all the irrigation wells in Kansas.</p>
-<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb244-1" data-line-number="1"><span class="kw">tm_shape</span>(KS_wells) <span class="op">+</span></a>
-<a class="sourceLine" id="cb244-2" data-line-number="2"><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">size =</span> <span class="fl">0.1</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb244-3" data-line-number="3"><span class="kw">tm_shape</span>(hpa) <span class="op">+</span></a>
-<a class="sourceLine" id="cb244-4" data-line-number="4"><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.1</span>) </a></code></pre></div>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="spatial-subsetting-or-flagging.html#cb244-1"></a><span class="kw">tm_shape</span>(KS_wells) <span class="op">+</span></span>
+<span id="cb244-2"><a href="spatial-subsetting-or-flagging.html#cb244-2"></a><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">size =</span> <span class="fl">0.1</span>) <span class="op">+</span></span>
+<span id="cb244-3"><a href="spatial-subsetting-or-flagging.html#cb244-3"></a><span class="kw">tm_shape</span>(hpa) <span class="op">+</span></span>
+<span id="cb244-4"><a href="spatial-subsetting-or-flagging.html#cb244-4"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.1</span>) </span></code></pre></div>
 <div class="figure"><span id="fig:map-wells-county"></span>
 <img src="R_GIS_Book_files/figure-html/map-wells-county-1.png" alt="A map of Kansas irrigation wells and HPA" width="672" />
 <p class="caption">
@@ -602,12 +666,12 @@ Figure 3.7: A map of Kansas irrigation wells and HPA
 </p>
 </div>
 <p>We can select only wells that reside within the HPA boundary using the same syntax as the above example.</p>
-<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb245-1" data-line-number="1">KS_wells_in_hpa &lt;-<span class="st"> </span>KS_wells[hpa, ]</a></code></pre></div>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="spatial-subsetting-or-flagging.html#cb245-1"></a>KS_wells_in_hpa &lt;-<span class="st"> </span>KS_wells[hpa, ]</span></code></pre></div>
 <p>As you can see in Figure <a href="spatial-subsetting-or-flagging.html#fig:map-wells-in-hpa">3.8</a> below, only the wells that are inside (or intersect with) the HPA remained because the default topological relation is <code>st_intersects()</code>.</p>
-<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb246-1" data-line-number="1"><span class="kw">tm_shape</span>(KS_wells_in_hpa) <span class="op">+</span></a>
-<a class="sourceLine" id="cb246-2" data-line-number="2"><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">size =</span> <span class="fl">0.1</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb246-3" data-line-number="3"><span class="kw">tm_shape</span>(hpa) <span class="op">+</span></a>
-<a class="sourceLine" id="cb246-4" data-line-number="4"><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.1</span>) </a></code></pre></div>
+<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="spatial-subsetting-or-flagging.html#cb246-1"></a><span class="kw">tm_shape</span>(KS_wells_in_hpa) <span class="op">+</span></span>
+<span id="cb246-2"><a href="spatial-subsetting-or-flagging.html#cb246-2"></a><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">size =</span> <span class="fl">0.1</span>) <span class="op">+</span></span>
+<span id="cb246-3"><a href="spatial-subsetting-or-flagging.html#cb246-3"></a><span class="kw">tm_shape</span>(hpa) <span class="op">+</span></span>
+<span id="cb246-4"><a href="spatial-subsetting-or-flagging.html#cb246-4"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.1</span>) </span></code></pre></div>
 <div class="figure"><span id="fig:map-wells-in-hpa"></span>
 <img src="R_GIS_Book_files/figure-html/map-wells-in-hpa-1.png" alt="A map of Kansas irrigation wells and HPA" width="672" />
 <p class="caption">
@@ -616,11 +680,11 @@ Figure 3.8: A map of Kansas irrigation wells and HPA
 </div>
 <hr />
 <p>If you just want to flag wells that intersects with HPA instead of dropping the non-intersecting wells, use <code>st_intersects()</code>:</p>
-<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb247-1" data-line-number="1"><span class="co">#--- wells ---#</span></a>
-<a class="sourceLine" id="cb247-2" data-line-number="2">KS_wells &lt;-<span class="st"> </span><span class="kw">mutate</span>(KS_wells, <span class="dt">in_hpa  =</span> <span class="kw">st_intersects</span>(KS_wells, hpa, <span class="dt">sparse =</span> <span class="ot">FALSE</span>))</a>
-<a class="sourceLine" id="cb247-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb247-4" data-line-number="4"><span class="co">#--- take a look ---#</span></a>
-<a class="sourceLine" id="cb247-5" data-line-number="5">dplyr<span class="op">::</span><span class="kw">select</span>(KS_wells, site, in_hpa)</a></code></pre></div>
+<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="spatial-subsetting-or-flagging.html#cb247-1"></a><span class="co">#--- wells ---#</span></span>
+<span id="cb247-2"><a href="spatial-subsetting-or-flagging.html#cb247-2"></a>KS_wells &lt;-<span class="st"> </span><span class="kw">mutate</span>(KS_wells, <span class="dt">in_hpa  =</span> <span class="kw">st_intersects</span>(KS_wells, hpa, <span class="dt">sparse =</span> <span class="ot">FALSE</span>))</span>
+<span id="cb247-3"><a href="spatial-subsetting-or-flagging.html#cb247-3"></a></span>
+<span id="cb247-4"><a href="spatial-subsetting-or-flagging.html#cb247-4"></a><span class="co">#--- take a look ---#</span></span>
+<span id="cb247-5"><a href="spatial-subsetting-or-flagging.html#cb247-5"></a>dplyr<span class="op">::</span><span class="kw">select</span>(KS_wells, site, in_hpa)</span></code></pre></div>
 <pre><code>Simple feature collection with 37647 features and 2 fields
 geometry type:  POINT
 dimension:      XY
@@ -644,14 +708,14 @@ First 10 features:
 #%%%%%%%%%%%%%%%%%%%%%
 -->
 </div>
-<div id="lines_polygons" class="section level3">
+<div id="lines_polygons" class="section level3" number="3.2.3">
 <h3><span class="header-section-number">3.2.3</span> lines (source) vs polygons (target)</h3>
 <p>The following map (Figure <a href="spatial-subsetting-or-flagging.html#fig:map-lines-county">3.9</a>) shows the Kansas counties and U.S. railroads.</p>
-<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb249-1" data-line-number="1"><span class="kw">tm_shape</span>(rail_roads) <span class="op">+</span></a>
-<a class="sourceLine" id="cb249-2" data-line-number="2"><span class="st">  </span><span class="kw">tm_lines</span>(<span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb249-3" data-line-number="3"><span class="kw">tm_shape</span>(KS_counties) <span class="op">+</span></a>
-<a class="sourceLine" id="cb249-4" data-line-number="4"><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">alpha =</span> <span class="dv">0</span>)  <span class="op">+</span></a>
-<a class="sourceLine" id="cb249-5" data-line-number="5"><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">frame =</span> <span class="ot">FALSE</span>) </a></code></pre></div>
+<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="spatial-subsetting-or-flagging.html#cb249-1"></a><span class="kw">tm_shape</span>(rail_roads) <span class="op">+</span></span>
+<span id="cb249-2"><a href="spatial-subsetting-or-flagging.html#cb249-2"></a><span class="st">  </span><span class="kw">tm_lines</span>(<span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span></span>
+<span id="cb249-3"><a href="spatial-subsetting-or-flagging.html#cb249-3"></a><span class="kw">tm_shape</span>(KS_counties) <span class="op">+</span></span>
+<span id="cb249-4"><a href="spatial-subsetting-or-flagging.html#cb249-4"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">alpha =</span> <span class="dv">0</span>)  <span class="op">+</span></span>
+<span id="cb249-5"><a href="spatial-subsetting-or-flagging.html#cb249-5"></a><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">frame =</span> <span class="ot">FALSE</span>) </span></code></pre></div>
 <div class="figure"><span id="fig:map-lines-county"></span>
 <img src="R_GIS_Book_files/figure-html/map-lines-county-1.png" alt="U.S. railroads and Kansas county boundaries" width="672" />
 <p class="caption">
@@ -659,13 +723,13 @@ Figure 3.9: U.S. railroads and Kansas county boundaries
 </p>
 </div>
 <p>We can select only railroads that intersect with Kansas.</p>
-<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb250-1" data-line-number="1">railroads_KS &lt;-<span class="st"> </span>rail_roads[KS_counties, ]</a></code></pre></div>
+<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="spatial-subsetting-or-flagging.html#cb250-1"></a>railroads_KS &lt;-<span class="st"> </span>rail_roads[KS_counties, ]</span></code></pre></div>
 <p>As you can see in Figure <a href="spatial-subsetting-or-flagging.html#fig:map-rail-ks">3.10</a> below, only the railroads that intersect with Kansas were selected. Note the lines that go beyond the Kansas boundary are also selected. Remember, the default is <code>st_intersect()</code>. If you would like the lines beyond the state boundary to be cut out but the intersecting parts of those lines to remain, use <code>st_intersection()</code>, which is explained in Chapter <a href="spatial-intersection-cropping-join.html#st-intersection">3.4.1</a>.</p>
-<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb251-1" data-line-number="1"><span class="kw">tm_shape</span>(railroads_KS) <span class="op">+</span></a>
-<a class="sourceLine" id="cb251-2" data-line-number="2"><span class="st">  </span><span class="kw">tm_lines</span>(<span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb251-3" data-line-number="3"><span class="kw">tm_shape</span>(KS_counties) <span class="op">+</span></a>
-<a class="sourceLine" id="cb251-4" data-line-number="4"><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">alpha =</span> <span class="dv">0</span>)  <span class="op">+</span></a>
-<a class="sourceLine" id="cb251-5" data-line-number="5"><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">frame =</span> <span class="ot">FALSE</span>) </a></code></pre></div>
+<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="spatial-subsetting-or-flagging.html#cb251-1"></a><span class="kw">tm_shape</span>(railroads_KS) <span class="op">+</span></span>
+<span id="cb251-2"><a href="spatial-subsetting-or-flagging.html#cb251-2"></a><span class="st">  </span><span class="kw">tm_lines</span>(<span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span></span>
+<span id="cb251-3"><a href="spatial-subsetting-or-flagging.html#cb251-3"></a><span class="kw">tm_shape</span>(KS_counties) <span class="op">+</span></span>
+<span id="cb251-4"><a href="spatial-subsetting-or-flagging.html#cb251-4"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">alpha =</span> <span class="dv">0</span>)  <span class="op">+</span></span>
+<span id="cb251-5"><a href="spatial-subsetting-or-flagging.html#cb251-5"></a><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">frame =</span> <span class="ot">FALSE</span>) </span></code></pre></div>
 <div class="figure"><span id="fig:map-rail-ks"></span>
 <img src="R_GIS_Book_files/figure-html/map-rail-ks-1.png" alt="Railroads that intersect Kansas county boundaries" width="672" />
 <p class="caption">
@@ -674,16 +738,16 @@ Figure 3.10: Railroads that intersect Kansas county boundaries
 </div>
 <hr />
 <p>Unlike the previous two cases, multiple objects (lines) are checked against multiple objects (polygons) for intersection<a href="#fn63" class="footnote-ref" id="fnref63"><sup>63</sup></a>. Therefore, we cannot use the strategy we took above of returning a vector of true or false using <code>sparse = TRUE</code> option. Here, we need to count the number of intersecting counties and then assign <code>TRUE</code> if the number is greater than 0.</p>
-<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb252-1" data-line-number="1"><span class="co">#--- check the number of intersecting KS counties ---#</span></a>
-<a class="sourceLine" id="cb252-2" data-line-number="2">int_mat &lt;-<span class="st"> </span><span class="kw">st_intersects</span>(rail_roads, KS_counties) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb252-3" data-line-number="3"><span class="st">  </span><span class="kw">lapply</span>(length) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb252-4" data-line-number="4"><span class="st">  </span><span class="kw">unlist</span>() </a>
-<a class="sourceLine" id="cb252-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb252-6" data-line-number="6"><span class="co">#--- railroads ---#</span></a>
-<a class="sourceLine" id="cb252-7" data-line-number="7">rail_roads &lt;-<span class="st"> </span><span class="kw">mutate</span>(rail_roads, <span class="dt">intersect_ks  =</span> int_mat <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)</a>
-<a class="sourceLine" id="cb252-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb252-9" data-line-number="9"><span class="co">#--- take a look ---#</span></a>
-<a class="sourceLine" id="cb252-10" data-line-number="10">dplyr<span class="op">::</span><span class="kw">select</span>(rail_roads, LINEARID, intersect_ks)</a></code></pre></div>
+<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="spatial-subsetting-or-flagging.html#cb252-1"></a><span class="co">#--- check the number of intersecting KS counties ---#</span></span>
+<span id="cb252-2"><a href="spatial-subsetting-or-flagging.html#cb252-2"></a>int_mat &lt;-<span class="st"> </span><span class="kw">st_intersects</span>(rail_roads, KS_counties) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb252-3"><a href="spatial-subsetting-or-flagging.html#cb252-3"></a><span class="st">  </span><span class="kw">lapply</span>(length) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb252-4"><a href="spatial-subsetting-or-flagging.html#cb252-4"></a><span class="st">  </span><span class="kw">unlist</span>() </span>
+<span id="cb252-5"><a href="spatial-subsetting-or-flagging.html#cb252-5"></a></span>
+<span id="cb252-6"><a href="spatial-subsetting-or-flagging.html#cb252-6"></a><span class="co">#--- railroads ---#</span></span>
+<span id="cb252-7"><a href="spatial-subsetting-or-flagging.html#cb252-7"></a>rail_roads &lt;-<span class="st"> </span><span class="kw">mutate</span>(rail_roads, <span class="dt">intersect_ks  =</span> int_mat <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)</span>
+<span id="cb252-8"><a href="spatial-subsetting-or-flagging.html#cb252-8"></a></span>
+<span id="cb252-9"><a href="spatial-subsetting-or-flagging.html#cb252-9"></a><span class="co">#--- take a look ---#</span></span>
+<span id="cb252-10"><a href="spatial-subsetting-or-flagging.html#cb252-10"></a>dplyr<span class="op">::</span><span class="kw">select</span>(rail_roads, LINEARID, intersect_ks)</span></code></pre></div>
 <pre><code>Simple feature collection with 180958 features and 2 fields
 geometry type:  MULTILINESTRING
 dimension:      XY
@@ -702,14 +766,14 @@ First 10 features:
 9  11020239589        FALSE MULTILINESTRING ((-79.38736...
 10 11020239591        FALSE MULTILINESTRING ((-79.53848...</code></pre>
 </div>
-<div id="polygons_points" class="section level3">
+<div id="polygons_points" class="section level3" number="3.2.4">
 <h3><span class="header-section-number">3.2.4</span> polygons (source) vs points (target)</h3>
 <p>The following map (Figure <a href="spatial-subsetting-or-flagging.html#fig:map-county-point">3.11</a>) shows the Kansas counties and irrigation wells in Kansas that overlie HPA.</p>
-<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb254-1" data-line-number="1"><span class="kw">tm_shape</span>(KS_counties) <span class="op">+</span></a>
-<a class="sourceLine" id="cb254-2" data-line-number="2"><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">alpha =</span> <span class="dv">0</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb254-3" data-line-number="3"><span class="kw">tm_shape</span>(KS_wells_in_hpa) <span class="op">+</span></a>
-<a class="sourceLine" id="cb254-4" data-line-number="4"><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">size =</span> <span class="fl">0.1</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb254-5" data-line-number="5"><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">frame =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="spatial-subsetting-or-flagging.html#cb254-1"></a><span class="kw">tm_shape</span>(KS_counties) <span class="op">+</span></span>
+<span id="cb254-2"><a href="spatial-subsetting-or-flagging.html#cb254-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">alpha =</span> <span class="dv">0</span>) <span class="op">+</span></span>
+<span id="cb254-3"><a href="spatial-subsetting-or-flagging.html#cb254-3"></a><span class="kw">tm_shape</span>(KS_wells_in_hpa) <span class="op">+</span></span>
+<span id="cb254-4"><a href="spatial-subsetting-or-flagging.html#cb254-4"></a><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">size =</span> <span class="fl">0.1</span>) <span class="op">+</span></span>
+<span id="cb254-5"><a href="spatial-subsetting-or-flagging.html#cb254-5"></a><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">frame =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
 <div class="figure"><span id="fig:map-county-point"></span>
 <img src="R_GIS_Book_files/figure-html/map-county-point-1.png" alt="U.S. railroads and Kansas county boundaries" width="672" />
 <p class="caption">
@@ -717,13 +781,13 @@ Figure 3.11: U.S. railroads and Kansas county boundaries
 </p>
 </div>
 <p>We can select only counties that intersect with at least one well.</p>
-<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb255-1" data-line-number="1">KS_counties_intersected &lt;-<span class="st"> </span>KS_counties[KS_wells_in_hpa, ]  </a></code></pre></div>
+<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="spatial-subsetting-or-flagging.html#cb255-1"></a>KS_counties_intersected &lt;-<span class="st"> </span>KS_counties[KS_wells_in_hpa, ]  </span></code></pre></div>
 <p>As you can see in Figure <a href="spatial-subsetting-or-flagging.html#fig:subset-county-point">3.12</a> below, only the counties that intersect with at least one well remained.</p>
-<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb256-1" data-line-number="1"><span class="kw">tm_shape</span>(KS_counties) <span class="op">+</span></a>
-<a class="sourceLine" id="cb256-2" data-line-number="2"><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="ot">NA</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb256-3" data-line-number="3"><span class="kw">tm_shape</span>(KS_counties_intersected) <span class="op">+</span></a>
-<a class="sourceLine" id="cb256-4" data-line-number="4"><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span><span class="st">&quot;blue&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.6</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb256-5" data-line-number="5"><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">frame =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="spatial-subsetting-or-flagging.html#cb256-1"></a><span class="kw">tm_shape</span>(KS_counties) <span class="op">+</span></span>
+<span id="cb256-2"><a href="spatial-subsetting-or-flagging.html#cb256-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="ot">NA</span>) <span class="op">+</span></span>
+<span id="cb256-3"><a href="spatial-subsetting-or-flagging.html#cb256-3"></a><span class="kw">tm_shape</span>(KS_counties_intersected) <span class="op">+</span></span>
+<span id="cb256-4"><a href="spatial-subsetting-or-flagging.html#cb256-4"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span><span class="st">&quot;blue&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.6</span>) <span class="op">+</span></span>
+<span id="cb256-5"><a href="spatial-subsetting-or-flagging.html#cb256-5"></a><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">frame =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
 <div class="figure"><span id="fig:subset-county-point"></span>
 <img src="R_GIS_Book_files/figure-html/subset-county-point-1.png" alt="Counties that do not have any wells" width="672" />
 <p class="caption">
@@ -732,15 +796,15 @@ Figure 3.12: Counties that do not have any wells
 </div>
 <hr />
 <p>To flag counties that have at least one well, use <code>st_intersects()</code> as follows:</p>
-<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb257-1" data-line-number="1">int_mat &lt;-<span class="st"> </span><span class="kw">st_intersects</span>(KS_counties, KS_wells_in_hpa) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb257-2" data-line-number="2"><span class="st">  </span><span class="kw">lapply</span>(length) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb257-3" data-line-number="3"><span class="st">  </span><span class="kw">unlist</span>()</a>
-<a class="sourceLine" id="cb257-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb257-5" data-line-number="5"><span class="co">#--- railroads ---#</span></a>
-<a class="sourceLine" id="cb257-6" data-line-number="6">KS_counties &lt;-<span class="st"> </span><span class="kw">mutate</span>(KS_counties, <span class="dt">intersect_wells  =</span> int_mat <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)</a>
-<a class="sourceLine" id="cb257-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb257-8" data-line-number="8"><span class="co">#--- take a look ---#</span></a>
-<a class="sourceLine" id="cb257-9" data-line-number="9">dplyr<span class="op">::</span><span class="kw">select</span>(KS_counties, NAME, COUNTYFP, intersect_wells)</a></code></pre></div>
+<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="spatial-subsetting-or-flagging.html#cb257-1"></a>int_mat &lt;-<span class="st"> </span><span class="kw">st_intersects</span>(KS_counties, KS_wells_in_hpa) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb257-2"><a href="spatial-subsetting-or-flagging.html#cb257-2"></a><span class="st">  </span><span class="kw">lapply</span>(length) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb257-3"><a href="spatial-subsetting-or-flagging.html#cb257-3"></a><span class="st">  </span><span class="kw">unlist</span>()</span>
+<span id="cb257-4"><a href="spatial-subsetting-or-flagging.html#cb257-4"></a></span>
+<span id="cb257-5"><a href="spatial-subsetting-or-flagging.html#cb257-5"></a><span class="co">#--- railroads ---#</span></span>
+<span id="cb257-6"><a href="spatial-subsetting-or-flagging.html#cb257-6"></a>KS_counties &lt;-<span class="st"> </span><span class="kw">mutate</span>(KS_counties, <span class="dt">intersect_wells  =</span> int_mat <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)</span>
+<span id="cb257-7"><a href="spatial-subsetting-or-flagging.html#cb257-7"></a></span>
+<span id="cb257-8"><a href="spatial-subsetting-or-flagging.html#cb257-8"></a><span class="co">#--- take a look ---#</span></span>
+<span id="cb257-9"><a href="spatial-subsetting-or-flagging.html#cb257-9"></a>dplyr<span class="op">::</span><span class="kw">select</span>(KS_counties, NAME, COUNTYFP, intersect_wells)</span></code></pre></div>
 <pre><code>Simple feature collection with 105 features and 3 fields
 geometry type:  MULTIPOLYGON
 dimension:      XY
@@ -759,26 +823,26 @@ First 10 features:
 9     Jewell      089            TRUE MULTIPOLYGON (((-98.50445 4...
 10  Franklin      059           FALSE MULTIPOLYGON (((-95.50827 3...</code></pre>
 </div>
-<div id="subsetting-to-a-geograpchic-extent-bounding-box" class="section level3">
+<div id="subsetting-to-a-geograpchic-extent-bounding-box" class="section level3" number="3.2.5">
 <h3><span class="header-section-number">3.2.5</span> Subsetting to a geograpchic extent (bounding box)</h3>
 <p>We can use <code>st_crop()</code> to subset (crop) spatial objects to a spatial bounding box (extent) of a spatial object. The bounding box of an <code>sf</code> is a rectangle represented by the minimum and maximum of <code>x</code> and <code>y</code> that encompass/contain all the spatial objects in the <code>sf</code>. You can use <code>st_bbox()</code> to find the bounding box of an <code>sf</code> object. Let’s get the bounding box of <code>KS_wells_in_hpa</code> (irrigation wells in Kansas that overlie HPA).</p>
-<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb259-1" data-line-number="1"><span class="co">#--- get the bounding box of KS_wells ---#</span></a>
-<a class="sourceLine" id="cb259-2" data-line-number="2">(</a>
-<a class="sourceLine" id="cb259-3" data-line-number="3">bbox_KS_wells_in_hpa &lt;-<span class="st"> </span><span class="kw">st_bbox</span>(KS_wells_in_hpa)  </a>
-<a class="sourceLine" id="cb259-4" data-line-number="4">)</a></code></pre></div>
+<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="spatial-subsetting-or-flagging.html#cb259-1"></a><span class="co">#--- get the bounding box of KS_wells ---#</span></span>
+<span id="cb259-2"><a href="spatial-subsetting-or-flagging.html#cb259-2"></a>(</span>
+<span id="cb259-3"><a href="spatial-subsetting-or-flagging.html#cb259-3"></a>bbox_KS_wells_in_hpa &lt;-<span class="st"> </span><span class="kw">st_bbox</span>(KS_wells_in_hpa)  </span>
+<span id="cb259-4"><a href="spatial-subsetting-or-flagging.html#cb259-4"></a>)</span></code></pre></div>
 <pre><code>      xmin       ymin       xmax       ymax 
 -102.04953   36.99552  -97.33193   40.00199 </code></pre>
-<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb261-1" data-line-number="1"><span class="co">#--- check the class ---#</span></a>
-<a class="sourceLine" id="cb261-2" data-line-number="2"><span class="kw">class</span>(bbox_KS_wells_in_hpa)</a></code></pre></div>
+<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="spatial-subsetting-or-flagging.html#cb261-1"></a><span class="co">#--- check the class ---#</span></span>
+<span id="cb261-2"><a href="spatial-subsetting-or-flagging.html#cb261-2"></a><span class="kw">class</span>(bbox_KS_wells_in_hpa)</span></code></pre></div>
 <pre><code>[1] &quot;bbox&quot;</code></pre>
 <p>Visualizing the bounding box (Figure <a href="spatial-subsetting-or-flagging.html#fig:bbox-fig">3.13</a>):</p>
-<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb263-1" data-line-number="1"><span class="kw">tm_shape</span>(KS_counties) <span class="op">+</span></a>
-<a class="sourceLine" id="cb263-2" data-line-number="2"><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">alpha =</span> <span class="dv">0</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb263-3" data-line-number="3"><span class="kw">tm_shape</span>(KS_wells_in_hpa) <span class="op">+</span></a>
-<a class="sourceLine" id="cb263-4" data-line-number="4"><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">size =</span> <span class="fl">0.1</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb263-5" data-line-number="5"><span class="kw">tm_shape</span>(<span class="kw">st_as_sfc</span>(bbox_KS_wells_in_hpa)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb263-6" data-line-number="6"><span class="st">  </span><span class="kw">tm_borders</span>(<span class="dt">col =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb263-7" data-line-number="7"><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">frame =</span> <span class="ot">NA</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="spatial-subsetting-or-flagging.html#cb263-1"></a><span class="kw">tm_shape</span>(KS_counties) <span class="op">+</span></span>
+<span id="cb263-2"><a href="spatial-subsetting-or-flagging.html#cb263-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">alpha =</span> <span class="dv">0</span>) <span class="op">+</span></span>
+<span id="cb263-3"><a href="spatial-subsetting-or-flagging.html#cb263-3"></a><span class="kw">tm_shape</span>(KS_wells_in_hpa) <span class="op">+</span></span>
+<span id="cb263-4"><a href="spatial-subsetting-or-flagging.html#cb263-4"></a><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">size =</span> <span class="fl">0.1</span>) <span class="op">+</span></span>
+<span id="cb263-5"><a href="spatial-subsetting-or-flagging.html#cb263-5"></a><span class="kw">tm_shape</span>(<span class="kw">st_as_sfc</span>(bbox_KS_wells_in_hpa)) <span class="op">+</span></span>
+<span id="cb263-6"><a href="spatial-subsetting-or-flagging.html#cb263-6"></a><span class="st">  </span><span class="kw">tm_borders</span>(<span class="dt">col =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span></span>
+<span id="cb263-7"><a href="spatial-subsetting-or-flagging.html#cb263-7"></a><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">frame =</span> <span class="ot">NA</span>)</span></code></pre></div>
 <div class="figure"><span id="fig:bbox-fig"></span>
 <img src="R_GIS_Book_files/figure-html/bbox-fig-1.png" alt="The bounding box of the irrigation wells in Kansas that overlie HPA" width="672" />
 <p class="caption">
@@ -787,13 +851,13 @@ Figure 3.13: The bounding box of the irrigation wells in Kansas that overlie HPA
 </div>
 <p>When you use a bounding box to crop an <code>sf</code> objects, you can consider the bounding box as a single polygon.</p>
 <p>Let’s crop <code>KS_counties</code> using the <code>bbox</code> of the irrigation wells.</p>
-<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb264-1" data-line-number="1">KS_cropped &lt;-<span class="st"> </span><span class="kw">st_crop</span>(KS_counties, bbox_KS_wells_in_hpa)  </a></code></pre></div>
+<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="spatial-subsetting-or-flagging.html#cb264-1"></a>KS_cropped &lt;-<span class="st"> </span><span class="kw">st_crop</span>(KS_counties, bbox_KS_wells_in_hpa)  </span></code></pre></div>
 <p>Here is what the cropped data looks like (Figure <a href="spatial-subsetting-or-flagging.html#fig:cropped-fig">3.14</a>):</p>
-<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb265-1" data-line-number="1"><span class="kw">tm_shape</span>(KS_counties) <span class="op">+</span></a>
-<a class="sourceLine" id="cb265-2" data-line-number="2"><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="ot">NA</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb265-3" data-line-number="3"><span class="kw">tm_shape</span>(KS_cropped) <span class="op">+</span></a>
-<a class="sourceLine" id="cb265-4" data-line-number="4"><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span><span class="st">&quot;blue&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.6</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb265-5" data-line-number="5"><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">frame =</span> <span class="ot">NA</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="spatial-subsetting-or-flagging.html#cb265-1"></a><span class="kw">tm_shape</span>(KS_counties) <span class="op">+</span></span>
+<span id="cb265-2"><a href="spatial-subsetting-or-flagging.html#cb265-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="ot">NA</span>) <span class="op">+</span></span>
+<span id="cb265-3"><a href="spatial-subsetting-or-flagging.html#cb265-3"></a><span class="kw">tm_shape</span>(KS_cropped) <span class="op">+</span></span>
+<span id="cb265-4"><a href="spatial-subsetting-or-flagging.html#cb265-4"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span><span class="st">&quot;blue&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.6</span>) <span class="op">+</span></span>
+<span id="cb265-5"><a href="spatial-subsetting-or-flagging.html#cb265-5"></a><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">frame =</span> <span class="ot">NA</span>)</span></code></pre></div>
 <div class="figure"><span id="fig:cropped-fig"></span>
 <img src="R_GIS_Book_files/figure-html/cropped-fig-1.png" alt="The bounding box of the irrigation wells in Kansas that overlie HPA" width="672" />
 <p class="caption">
@@ -801,13 +865,13 @@ Figure 3.14: The bounding box of the irrigation wells in Kansas that overlie HPA
 </p>
 </div>
 <p>As you can see, the <code>st_crop()</code> operation cut some counties at the right edge of the bounding box. So, <code>st_crop()</code> is invasive. If you do not like this to happen and want the complete original counties that have at least one well, you can use the subset approach using <code>[, ]</code> after converting the bounding box to an <code>sfc</code> as follows:</p>
-<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb266-1" data-line-number="1">KS_complete_counties &lt;-<span class="st"> </span>KS_counties[<span class="kw">st_as_sfc</span>(bbox_KS_wells_in_hpa), ]  </a></code></pre></div>
+<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb266-1"><a href="spatial-subsetting-or-flagging.html#cb266-1"></a>KS_complete_counties &lt;-<span class="st"> </span>KS_counties[<span class="kw">st_as_sfc</span>(bbox_KS_wells_in_hpa), ]  </span></code></pre></div>
 <p>Here is what the subsetted Kansas county data looks like (Figure <a href="spatial-subsetting-or-flagging.html#fig:cropped-fig-complete">3.15</a>):</p>
-<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb267-1" data-line-number="1"><span class="kw">tm_shape</span>(KS_counties) <span class="op">+</span></a>
-<a class="sourceLine" id="cb267-2" data-line-number="2"><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="ot">NA</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb267-3" data-line-number="3"><span class="kw">tm_shape</span>(KS_complete_counties) <span class="op">+</span></a>
-<a class="sourceLine" id="cb267-4" data-line-number="4"><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span><span class="st">&quot;blue&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.6</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb267-5" data-line-number="5"><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">frame =</span> <span class="ot">NA</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb267-1"><a href="spatial-subsetting-or-flagging.html#cb267-1"></a><span class="kw">tm_shape</span>(KS_counties) <span class="op">+</span></span>
+<span id="cb267-2"><a href="spatial-subsetting-or-flagging.html#cb267-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="ot">NA</span>) <span class="op">+</span></span>
+<span id="cb267-3"><a href="spatial-subsetting-or-flagging.html#cb267-3"></a><span class="kw">tm_shape</span>(KS_complete_counties) <span class="op">+</span></span>
+<span id="cb267-4"><a href="spatial-subsetting-or-flagging.html#cb267-4"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span><span class="st">&quot;blue&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.6</span>) <span class="op">+</span></span>
+<span id="cb267-5"><a href="spatial-subsetting-or-flagging.html#cb267-5"></a><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">frame =</span> <span class="ot">NA</span>)</span></code></pre></div>
 <div class="figure"><span id="fig:cropped-fig-complete"></span>
 <img src="R_GIS_Book_files/figure-html/cropped-fig-complete-1.png" alt="The bounding box of the irrigation wells in Kansas that overlie HPA" width="672" />
 <p class="caption">
@@ -820,8 +884,8 @@ Figure 3.15: The bounding box of the irrigation wells in Kansas that overlie HPA
 <div class="footnotes">
 <hr />
 <ol start="62">
-<li id="fn62"><p>If you are a Windows user, you may find that only the <code>KS_counties</code> are shown on the created map. There seems to be a limitation to graphics in Windows. See <a href="https://github.com/tidyverse/ggplot2/issues/4029">here</a>.<a href="spatial-subsetting-or-flagging.html#fnref62" class="footnote-back">↩</a></p></li>
-<li id="fn63"><p>Of course, this situation arises for a polygons-polygons case as well. The above polygons-polygons example was an exception because <code>hpa</code> had only one polygon object.<a href="spatial-subsetting-or-flagging.html#fnref63" class="footnote-back">↩</a></p></li>
+<li id="fn62"><p>If you are a Windows user, you may find that only the <code>KS_counties</code> are shown on the created map. There seems to be a limitation to graphics in Windows. See <a href="https://github.com/tidyverse/ggplot2/issues/4029">here</a>.<a href="spatial-subsetting-or-flagging.html#fnref62" class="footnote-back">↩︎</a></p></li>
+<li id="fn63"><p>Of course, this situation arises for a polygons-polygons case as well. The above polygons-polygons example was an exception because <code>hpa</code> had only one polygon object.<a href="spatial-subsetting-or-flagging.html#fnref63" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>
