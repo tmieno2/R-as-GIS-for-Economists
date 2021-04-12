@@ -597,7 +597,7 @@ Here we compare the extraction speed of `raster::extract()`, `terra::extract()`,
 
 ### Points: `terra::extract()` and `raster::extract()`
 
-`exact_extract()` uses C++ as the backend. Therefore, it is considerably faster than `raster::extract()`.
+`terra::extract()` uses C++ as the backend. Therefore, it is considerably faster than `raster::extract()`.
 
 ```{r points_extraction_comp}
 #--- terra ---#
@@ -664,7 +664,7 @@ dim(prism_tmax_0701_KS_sr_10)
 
 ---
 
-Now, let's compare `terra::extrct()` and `exact_extrct()` using the disaggregated data.
+Now, let's compare `terra::extract()` and `exact_extract()` using the disaggregated data.
 
 ```{r extract_from_polygons_comp_2}
 #--- terra extract ---#
