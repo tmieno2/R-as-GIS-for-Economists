@@ -340,7 +340,7 @@ tmap_leaflet(
 
 By clicking on the white box beneath the $+$ and $-$ signs, you can pick the layers to display (here, CDL for Iowa in 2015 and 2016). Note that, in the map above, the raster values are modified because the number of cells of the raster layers are too large. `mapView()` reduced the resolution when creating the map, changing the values during the process. You can specify the maximum number of cells using the `mapview.maxpixels` option.
 
-## Working with netCDFs
+## Working with netCDFs {#work-with-netcdf}
 
 It is worth talking about how to read a [netCDFs](https://pjbartlein.github.io/REarthSysSci/raster_intro.html) format – a multidimensional file format that resembles a raster stack/brick. A netCDF file contains data with a specific structure: a two-dimensional spatial grid (e.g., longitude and latitude) and a third dimension which is usually date or time. This structure is convenient for weather data measured on a consistent grid over time. One such dataset is called [gridMET](http://www.climatologylab.org/gridmet.html) which maintains a gridded dataset of weather variables at 4km resolution. Let's download the daily precipitation data for 2018 using `downloader::download()`^[gridMET data is also available in the [Google Earth Engine Data Catalog](https://developers.google.com/earth-engine/datasets/), which can be accessed with the R library [`rgee`](https://github.com/r-spatial/rgee)]. We set the destination file name (what to call the file and where we want it to be), and the mode to `wb` for a binary download. 
 

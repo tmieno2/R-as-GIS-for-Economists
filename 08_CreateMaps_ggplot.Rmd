@@ -113,7 +113,7 @@ gw_KS_sf
 
 ```{r county-KS, results = "hide", cache = F}
 (
-KS_county <- counties(state = "Kansas", cb = TRUE) %>%
+KS_county <- tigris::counties(state = "Kansas", cb = TRUE) %>%
   st_as_sf() %>%
   st_transform(st_crs(gw_KS_sf))
 )

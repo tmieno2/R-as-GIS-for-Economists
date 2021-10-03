@@ -303,7 +303,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="4.4" data-path="turning-a-raster-object-into-a-data-frame.html"><a href="turning-a-raster-object-into-a-data-frame.html"><i class="fa fa-check"></i><b>4.4</b> Turning a raster object into a <code>data.frame</code></a></li>
 <li class="chapter" data-level="4.5" data-path="quick-plot-and-interactive-map.html"><a href="quick-plot-and-interactive-map.html"><i class="fa fa-check"></i><b>4.5</b> Quick plot and interactive map</a></li>
-<li class="chapter" data-level="4.6" data-path="working-with-netcdfs.html"><a href="working-with-netcdfs.html"><i class="fa fa-check"></i><b>4.6</b> Working with netCDFs</a></li>
+<li class="chapter" data-level="4.6" data-path="work-with-netcdf.html"><a href="work-with-netcdf.html"><i class="fa fa-check"></i><b>4.6</b> Working with netCDFs</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="int-RV.html"><a href="int-RV.html"><i class="fa fa-check"></i><b>5</b> Spatial Interactions of Vector and Raster Data</a>
 <ul>
@@ -554,7 +554,7 @@ First 10 features:
 10      12 2011  89.53479 POINT (-95.97031 39.16121)</code></pre>
 <p><strong>Polygons</strong></p>
 <div class="sourceCode" id="cb591"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb591-1"><a href="geom-sf.html#cb591-1" aria-hidden="true" tabindex="-1"></a>(</span>
-<span id="cb591-2"><a href="geom-sf.html#cb591-2" aria-hidden="true" tabindex="-1"></a>KS_county <span class="ot">&lt;-</span> <span class="fu">counties</span>(<span class="at">state =</span> <span class="st">&quot;Kansas&quot;</span>, <span class="at">cb =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb591-2"><a href="geom-sf.html#cb591-2" aria-hidden="true" tabindex="-1"></a>KS_county <span class="ot">&lt;-</span> tigris<span class="sc">::</span><span class="fu">counties</span>(<span class="at">state =</span> <span class="st">&quot;Kansas&quot;</span>, <span class="at">cb =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb591-3"><a href="geom-sf.html#cb591-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb591-4"><a href="geom-sf.html#cb591-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(<span class="fu">st_crs</span>(gw_KS_sf))</span>
 <span id="cb591-5"><a href="geom-sf.html#cb591-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>

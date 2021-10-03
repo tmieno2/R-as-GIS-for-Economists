@@ -303,7 +303,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="4.4" data-path="turning-a-raster-object-into-a-data-frame.html"><a href="turning-a-raster-object-into-a-data-frame.html"><i class="fa fa-check"></i><b>4.4</b> Turning a raster object into a <code>data.frame</code></a></li>
 <li class="chapter" data-level="4.5" data-path="quick-plot-and-interactive-map.html"><a href="quick-plot-and-interactive-map.html"><i class="fa fa-check"></i><b>4.5</b> Quick plot and interactive map</a></li>
-<li class="chapter" data-level="4.6" data-path="working-with-netcdfs.html"><a href="working-with-netcdfs.html"><i class="fa fa-check"></i><b>4.6</b> Working with netCDFs</a></li>
+<li class="chapter" data-level="4.6" data-path="work-with-netcdf.html"><a href="work-with-netcdf.html"><i class="fa fa-check"></i><b>4.6</b> Working with netCDFs</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="int-RV.html"><a href="int-RV.html"><i class="fa fa-check"></i><b>5</b> Spatial Interactions of Vector and Raster Data</a>
 <ul>
@@ -532,13 +532,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb423-3"><a href="extract-speed.html#cb423-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
 <span id="cb423-4"><a href="extract-speed.html#cb423-4" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">extract</span>(prism_tmax_0701_KS_sr, KS_wells_sv)</span>
 <span id="cb423-5"><a href="extract-speed.html#cb423-5" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code></pre></div>
-<pre><code>0.055 sec elapsed</code></pre>
+<pre><code>0.054 sec elapsed</code></pre>
 <div class="sourceCode" id="cb425"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb425-1"><a href="extract-speed.html#cb425-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- raster ---#</span></span>
 <span id="cb425-2"><a href="extract-speed.html#cb425-2" aria-hidden="true" tabindex="-1"></a>prism_tmax_0701_KS_lr <span class="ot">&lt;-</span> <span class="fu">as</span>(prism_tmax_0701_KS_sr, <span class="st">&quot;Raster&quot;</span>)</span>
 <span id="cb425-3"><a href="extract-speed.html#cb425-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
 <span id="cb425-4"><a href="extract-speed.html#cb425-4" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> raster<span class="sc">::</span><span class="fu">extract</span>(prism_tmax_0701_KS_lr, KS_wells)</span>
 <span id="cb425-5"><a href="extract-speed.html#cb425-5" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code></pre></div>
-<pre><code>0.372 sec elapsed</code></pre>
+<pre><code>0.369 sec elapsed</code></pre>
 <p>As you can see, <code>terra::extract()</code> is much faster. The time differential between the two packages can be substantial as the raster data becomes larger.</p>
 </div>
 <div id="polygons-exact_extract-terraextract-and-rasterextract" class="section level3" number="5.3.2">
@@ -552,7 +552,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb427-6"><a href="extract-speed.html#cb427-6" aria-hidden="true" tabindex="-1"></a>    KS_county_sv</span>
 <span id="cb427-7"><a href="extract-speed.html#cb427-7" aria-hidden="true" tabindex="-1"></a>  )  </span>
 <span id="cb427-8"><a href="extract-speed.html#cb427-8" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code></pre></div>
-<pre><code>0.062 sec elapsed</code></pre>
+<pre><code>0.058 sec elapsed</code></pre>
 <div class="sourceCode" id="cb429"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb429-1"><a href="extract-speed.html#cb429-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- exact_extract ---#</span></span>
 <span id="cb429-2"><a href="extract-speed.html#cb429-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
 <span id="cb429-3"><a href="extract-speed.html#cb429-3" aria-hidden="true" tabindex="-1"></a>exact_extract_temp <span class="ot">&lt;-</span> </span>
@@ -562,7 +562,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb429-7"><a href="extract-speed.html#cb429-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">progress =</span> <span class="cn">FALSE</span></span>
 <span id="cb429-8"><a href="extract-speed.html#cb429-8" aria-hidden="true" tabindex="-1"></a>  )  </span>
 <span id="cb429-9"><a href="extract-speed.html#cb429-9" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code></pre></div>
-<pre><code>0.275 sec elapsed</code></pre>
+<pre><code>0.26 sec elapsed</code></pre>
 <div class="sourceCode" id="cb431"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb431-1"><a href="extract-speed.html#cb431-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- raster::extract ---#</span></span>
 <span id="cb431-2"><a href="extract-speed.html#cb431-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
 <span id="cb431-3"><a href="extract-speed.html#cb431-3" aria-hidden="true" tabindex="-1"></a>raster_extract_temp <span class="ot">&lt;-</span> </span>
@@ -571,7 +571,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb431-6"><a href="extract-speed.html#cb431-6" aria-hidden="true" tabindex="-1"></a>    KS_county_sf</span>
 <span id="cb431-7"><a href="extract-speed.html#cb431-7" aria-hidden="true" tabindex="-1"></a>  )  </span>
 <span id="cb431-8"><a href="extract-speed.html#cb431-8" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code></pre></div>
-<pre><code>2.902 sec elapsed</code></pre>
+<pre><code>2.727 sec elapsed</code></pre>
 <p>As you can see, <code>raster::extract()</code> is by far the slowest. <code>terra::extract()</code> is faster than <code>exact_extract()</code>. However, once the raster data becomes larger (or spatially finer), then <code>exact_extact()</code> starts to shine.</p>
 <hr />
 <p>Let’s disaggregate the prism data by a factor of 10 to create a much larger raster data.<a href="#fn75" class="footnote-ref" id="fnref75"><sup>75</sup></a></p>
@@ -605,7 +605,7 @@ max value   :                               37.656 </code></pre>
 <span id="cb439-6"><a href="extract-speed.html#cb439-6" aria-hidden="true" tabindex="-1"></a>    KS_county_sv</span>
 <span id="cb439-7"><a href="extract-speed.html#cb439-7" aria-hidden="true" tabindex="-1"></a>  )  </span>
 <span id="cb439-8"><a href="extract-speed.html#cb439-8" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code></pre></div>
-<pre><code>3.709 sec elapsed</code></pre>
+<pre><code>3.57 sec elapsed</code></pre>
 <div class="sourceCode" id="cb441"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb441-1"><a href="extract-speed.html#cb441-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- exact extract ---#</span></span>
 <span id="cb441-2"><a href="extract-speed.html#cb441-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
 <span id="cb441-3"><a href="extract-speed.html#cb441-3" aria-hidden="true" tabindex="-1"></a>exact_extract_temp <span class="ot">&lt;-</span> </span>
@@ -615,7 +615,7 @@ max value   :                               37.656 </code></pre>
 <span id="cb441-7"><a href="extract-speed.html#cb441-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">progress =</span> <span class="cn">FALSE</span></span>
 <span id="cb441-8"><a href="extract-speed.html#cb441-8" aria-hidden="true" tabindex="-1"></a>  )  </span>
 <span id="cb441-9"><a href="extract-speed.html#cb441-9" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code></pre></div>
-<pre><code>0.283 sec elapsed</code></pre>
+<pre><code>0.28 sec elapsed</code></pre>
 <p>As you can see, <code>exact_extract()</code> is considerably faster. The difference in time becomes even more pronounced as the size of the raster data becomes larger and the number of polygons are greater. The time difference of several seconds seem nothing, but imagine processing PRISM files for the entire US over 20 years, then you would appreciate the speed of <code>exact_extract()</code>.</p>
 </div>
 <div id="single-layer-vs-multi-layer" class="section level3" number="5.3.3">
@@ -631,7 +631,7 @@ max value   :                               37.656 </code></pre>
 <span id="cb443-6"><a href="extract-speed.html#cb443-6" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">extract</span>(prism_tmax_0701_KS_sr_10, KS_county_sv)</span>
 <span id="cb443-7"><a href="extract-speed.html#cb443-7" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">extract</span>(prism_tmax_0701_KS_sr_10, KS_county_sv)</span>
 <span id="cb443-8"><a href="extract-speed.html#cb443-8" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code></pre></div>
-<pre><code>19.498 sec elapsed</code></pre>
+<pre><code>18.862 sec elapsed</code></pre>
 <div class="sourceCode" id="cb445"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb445-1"><a href="extract-speed.html#cb445-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- extract from a 5-layer SpatRaster ---#</span></span>
 <span id="cb445-2"><a href="extract-speed.html#cb445-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
 <span id="cb445-3"><a href="extract-speed.html#cb445-3" aria-hidden="true" tabindex="-1"></a>prism_tmax_ml_5 <span class="ot">&lt;-</span> </span>
@@ -644,7 +644,7 @@ max value   :                               37.656 </code></pre>
 <span id="cb445-10"><a href="extract-speed.html#cb445-10" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb445-11"><a href="extract-speed.html#cb445-11" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">extract</span>(prism_tmax_ml_5, KS_county_sv)</span>
 <span id="cb445-12"><a href="extract-speed.html#cb445-12" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code></pre></div>
-<pre><code>4.943 sec elapsed</code></pre>
+<pre><code>4.698 sec elapsed</code></pre>
 <hr />
 <p><strong><code>exact_extract()</code></strong></p>
 <div class="sourceCode" id="cb447"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb447-1"><a href="extract-speed.html#cb447-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- extract from 5 layers one at a time ---#</span></span>
@@ -655,7 +655,7 @@ max value   :                               37.656 </code></pre>
 <span id="cb447-6"><a href="extract-speed.html#cb447-6" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">exact_extract</span>(prism_tmax_0701_KS_sr_10, KS_county_sf, <span class="at">progress =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb447-7"><a href="extract-speed.html#cb447-7" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">exact_extract</span>(prism_tmax_0701_KS_sr_10, KS_county_sf, <span class="at">progress =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb447-8"><a href="extract-speed.html#cb447-8" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code></pre></div>
-<pre><code>1.562 sec elapsed</code></pre>
+<pre><code>1.494 sec elapsed</code></pre>
 <div class="sourceCode" id="cb449"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb449-1"><a href="extract-speed.html#cb449-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- extract from from a 5-layer SpatRaster ---#</span></span>
 <span id="cb449-2"><a href="extract-speed.html#cb449-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
 <span id="cb449-3"><a href="extract-speed.html#cb449-3" aria-hidden="true" tabindex="-1"></a>prism_tmax_stack_5 <span class="ot">&lt;-</span> </span>
@@ -673,7 +673,7 @@ max value   :                               37.656 </code></pre>
 <span id="cb449-15"><a href="extract-speed.html#cb449-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">progress =</span> <span class="cn">FALSE</span></span>
 <span id="cb449-16"><a href="extract-speed.html#cb449-16" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb449-17"><a href="extract-speed.html#cb449-17" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code></pre></div>
-<pre><code>0.458 sec elapsed</code></pre>
+<pre><code>0.42 sec elapsed</code></pre>
 <p>The reduction in computation time for both methods makes sense. Since both layers have exactly the same geographic extent and resolution, finding the polygons-cells correspondence is done once and then it can be used repeatedly across the layers for the multi-layer <code>SparRaster</code> and <code>RasterStack</code>. This clearly suggests that when you are processing many layers of the same spatial resolution and extent, you should first stack them and then extract values at the same time instead of processing them one by one as long as your memory allows you to do so.</p>
 <!-- There is much more to discuss about the computation speed of raster data extraction for polygons. For those who are interested in this topic, go to Chapter \@ref(EE). -->
 
