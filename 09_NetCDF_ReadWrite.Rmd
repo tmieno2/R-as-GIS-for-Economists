@@ -1,0 +1,384 @@
+---
+title: "Read and Write Data from a NetCDF"
+subtitle: "Using NetCDF and Raster Functions"
+author: "Gal Koss and Jude Bayham"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(lubridate)
+library(raster)
+library(sf)
+library(knitr)
+library(mapview)
+library(ggmap)
+library(ggthemes)
+library(kableExtra)
+library(data.table)
+library(ncdf4)
+library(stars)
+knitr::opts_chunk$set(echo = T,
+                      results = 'hide',
+                      message = F,
+                      warning = F,
+                      fig.align = "center")
+```
+
+<br>
+<br>
+
+## Before You Start
+<br>
+Gridded data is often stored in a [netCDFs](https://pjbartlein.github.io/REarthSysSci/raster_intro.html) format – a multidimensional file format that resembles a raster brick. A netCDF file contains data with a specific structure: a two-dimensional spatial grid (e.g., longitude and latitude) and a third dimension which is usually date or time. This structure is convenient for weather data measured on a consistent grid over time.  One such dataset is called [gridMET](http://www.climatologylab.org/gridmet.html) which maintains a gridded dataset of weather variables at 4km resolution.  
+<br>
+<br>
+This section describes two methods for extracting data from a netCDF, using gridMET data as an example. We first will use the [`raster`](https://cran.r-project.org/web/packages/raster/raster.pdf) library, treating the netCDF as a raster object. Then, we will use the [`ncdf4`](https://pjbartlein.github.io/REarthSysSci/netCDF.html) library to access the data with its netCDF-specific functions. 
+<br>
+<br>
+<br>
+
+## Reading NetCDF with Raster
+<br>
+A netCDF file is both spatially and temporally explicit, and can be handled similarly to a raster object. To start, we download from a gridmet API using the `downloader` package. gridMET data is also available in the [Google Earth Engine Data Catalog](https://developers.google.com/earth-engine/datasets/), which can be accessed with the R library [`rgee`](https://github.com/r-spatial/rgee)  We set the destination file name (what to call the file and where we want to it to be), and the mode to `wb` for a binary download. Then we use `raster::brick()` to ingest the raster file.
+
+```{r eval = T}
+#--- download gridMET precipitation 2018 ---#
+downloader::download(
+  url = str_c("http://www.northwestknowledge.net/metdata/data/pr_2018.nc"),
+  destfile = "pr_2018.nc",
+  mode = 'wb'
+)
+
+#--- ingest the file ---#
+brick <- raster::brick("pr_2018.nc") # can ignore warning
+
+brick
+```
+
+```{r echo = FALSE, results = "show"}
+brick
+```
+
+We see that this is a 3 dimensional object of class `RasterBrick`, with 365 “slices” (nlayers) in the brick. Each slice has 810,810 grid cells, of dimensions 585x1386. The resolution is given in the same units as the crs (WGS84), in this case decimal degrees. Each cell has width and height of approximately 1/24$^{th}$ of a degree, or 4 km. The number of layers corresponds to the days in 2018, which are given as the days since January 1$^{st}$, 1900. This is also the convention used in the naming of each slice. 
+<br>
+<br>
+<br>
+
+### Extracting Data
+
+<br>
+
+To access the values, we can either index the objects, or we can use `raster::values`. Here we use the empty index values to take the entirety of the brick. If we knew the cell's index values (for instance, the 100$^{th}$ row and cell), we could extract the data using that index: `brick[100, 100]`.
+
+```{r eval = T}
+#--- indexing the brick, all ---#
+vals_brick1 <- brick[,]
+
+#--- using the values function ---#
+vals_brick2 <- raster::values(brick)
+
+identical(vals_brick1, vals_brick2)
+```
+
+```{r echo=FALSE, results="show"}
+identical(vals_brick1, vals_brick2)
+```
+
+The result is a matrix with 810,810 rows and 365 columns: we have a row for each grid cell, and a column for each day. With this information, we can turn the matrix into a more usable data frame.
+
+```{r }
+#--- check the dimension ---#
+dim(vals_brick2) 
+
+#--- take a look ---#
+vals_brick2[1:10, 1:10]
+```
+
+As can be seen above, column names are the days since January 1$^{st}$, 1990 with prefix "X." 
+
+First, using `base::names` we can extract the dates. Then we remove the leading "X", convert from character to numeric and then make it a date using the origin from the raster.
+Then, using `raster::coordinates` we get the latitude and longitude of each cell as a matrix we can index.
+
+We can construct a data.frame by renaming the columns as dates, creating new columns with the latitude and longitude coordinates.
+
+```{r eval = F}
+#--- get the dates ---#
+dates <- 
+as.Date(
+  as.numeric(str_remove(names(brick), "X")), 
+  origin = "1900-01-01"
+)
+
+#--- get the coordinates ---#
+coords <- raster::coordinates(brick)
+
+#--- value dataframe ---#
+df <- 
+vals_brick2 %>% 
+as.data.frame() %>% 
+rename_all( ~ str_c(dates)) %>% 
+mutate(
+  lon = coords[,1],
+  lat = coords[,2]
+) 
+
+#--- value tidy ---#
+df_tidy <- 
+df %>% 
+pivot_longer(
+  -c(lon, lat),
+  names_to = "date",
+  values_to = "value"
+) %>% 
+mutate(date = ymd(date))
+
+```
+
+```{r }
+dt <- 
+df %>% 
+data.table() %>% 
+melt(id.var = c("lon", "lat")) %>% 
+setnames("variable", "date")
+```
+
+---
+
+Note, that we can also use `terra::rast` or `stars::read_stars` to ingest the netCDF as a raster, with similar results.
+
+```{r eval = F}
+slice <- terra::rast("pr_2018.nc") 
+
+tic()
+temp <- terra::values(slice) %>% data.table()
+toc()
+
+
+slice <- stars::read_stars("pr_2018.nc")
+```
+<br>
+<br>
+<br>
+
+### Subsetting Days
+
+<br>
+
+We can access an individual slice either by calling the named layer of the brick, or by indexing the brick. 
+
+```{r eval = T}
+#--- calling the named layer ---#
+slice1 <- brick$X43099
+
+#--- indexing the brick ---#
+slice2 <- brick[[1]]
+
+identical(slice1,slice2)
+```
+```{r echo=FALSE, results="show"}
+identical(slice1,slice2)
+```
+
+We can even use the indexing when reading in the raster brick, to limit what we read into memory.
+
+```{r eval = F}
+#--- indexing as we read in ---#
+slice3 <- raster::brick("pr_2018.nc")[[1]]
+```
+
+The resulting slice -- whichever way you slice it -- is a single RasterLayer.
+<br>
+<br>
+<br>
+
+### Subsetting Cells
+
+<br>
+
+In addition to accessing individual slices of the brick, we can also pull a column out of it, taking all days' observations for a group of cells. For instance, to get the data for all counties in Colorado, we can use `raster::crop()` on the brick and the `sf` object of counties.
+
+```{r eval = T}
+#--- preparing the county sf ---#
+colorado_counties <- tigris::counties(state = "CO")
+
+#--- cropping the brick to the counties ---#
+column <- raster::crop(brick,colorado_counties)
+
+column
+```
+```{r echo=FALSE, results="show"}
+column
+```
+
+We still have 365 layers, but now only 96x169 grids, covering Colorado. Unlike when we extract a slice and were left with a layer, in extracting a column we are left with a RasterBrick once again.
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Reading NetCDF with NCDF4
+
+<br>
+
+The `ncdf4` package is specially built to handle netCDF4 objects, and can in many cases be easier, if not faster, than using `raster` functions. Again, to start, we download from a gridmet API using the `downloader` package. Similary, we still set the destination file name (what to call the file and where we want to it to be), and the mode to `wb` for a binary download. 
+
+This time, instead of ingesting the file as a RasterBrick or RasterLayer, we open it as a `ncdf4` object, a list.  Note that open indicates an open connection to an object that is not yet in memory, similar to a database connection.
+
+```{r eval = T}
+#--- download gridMET precipitation 2018 ---#
+downloader::download(url=str_c("http://www.northwestknowledge.net/metdata/data/pr_2018.nc"),
+                     destfile = "pr_2018.nc",
+                     mode = 'wb')
+
+#--- ingest the file ---#
+nc <- nc_open("pr_2018.nc") 
+nc
+```
+```{r echo=FALSE, results="show"}
+nc
+```
+
+We can once again see that we have a spatially and temporally explicit object in 3 dimensions: longitude, latitude, and time. We can see that there are 365 units of time in this file, and that the unit is day. For each day, we have 585x1386=810,810 cells. We also see the projection, and global attributes for all files in `gridMET`.
+
+To access the values used for each dimension, we can use the function `ncvar_get()`, passing in the name of connection object, nc, and the name of the dimension. Doing so gives us a vector: in the case of the grid centroids, the data correspond to the grid formed by all combinations of latitude and longitude.  We use `expand.grid` to construct all combinations. For the dates, we can convert the date number to a date value, and we can also get the name of the variable in the file using `names(nc$var)`.
+
+```{r eval = T}
+#--- access the coordinates ---#
+nc_lat <- ncvar_get(nc = nc, varid = "lat")
+nc_lon <- ncvar_get(nc = nc, varid = "lon")
+nc_coords <- expand.grid(lon=nc_lon,lat=nc_lat)
+
+#--- access the days ---#
+nc_dates <- lubridate::as_date(ncvar_get(nc = nc, varid = "day"),origin="1900-01-01")
+
+#--- access the variable name ---#
+var_id <- names(nc$var)
+```
+<br>
+<br>
+<br>
+
+### Extracting Data
+
+<br>
+
+We can extract the data using the same function `ncvar_get`. When we use `ncvar_get` on the variable, we are pulling the 3-dimensional data out of the netCDF. While we lose the spatial and temporal data stored in the file, we are left with an array that contains only the data values in the same dimensions. We can then pair the data with the locations and time as needed as we operate on that multi-dimensional data using tidy techniques to run our analysis.
+
+You will notice the empty index values in the brackets with 3 index places; these correspond to the order of dimensions in the file, longitude, latitude, and day. See documentation of `nc_get()` to access subsets of the array across any dimension if the correct indices are known.
+
+```{r eval = T}
+#--- calling the named layer ---#
+nc_data <- ncvar_get(nc = nc, varid = var_id)[,,]
+dim(nc_data)
+```
+```{r echo=FALSE, results="show"}
+dim(nc_data)
+```
+
+We can put the data into something much more tidy-able by using these dimensions to create a rectangular dataframe. We rename the columns, bind the columns with the coordinates, and we have something we can put into tidy data.
+
+```{r eval = F}
+#--- value dataframe ---#
+dim <- c(prod(dim(nc_data)[1:2]),dim(nc_data)[3])
+
+df <- array(nc_data, dim = dim) %>%
+  as_tibble(.name_repair = "universal") %>%
+  rename_all(~str_c(nc_dates)) %>% 
+  bind_cols(nc_coords,.)
+
+#--- value tidy ---#
+df_tidy <- df %>% 
+  pivot_longer(-c(lon,lat),
+                 names_to = "date",
+                 values_to = "value") %>% 
+  mutate(date=ymd(date))
+```
+
+In the last step is when you can introduce polygons over which to aggregate. You can join `df` with a bridge that maps each grid centroid to a polygon of interest. Then you can aggregate (`group_by(polygon,day) %>% summarise`) over time and space to get data on a relevant scale.
+<br>
+<br>
+<br>
+
+### Subsetting Cells or Days
+
+<br>
+
+To subset the data by location or day, you can use arguments in the `ncvar_get` function, or you can take advantage of the indexing when you read the data into a multi-dimensional array. The `ncvar_get` function can take lists (of length equal to the number of file dimensions) for the `start` and `count` arguments. Below is one example of how to get the data from all grids in September from the netCDF, passing the index for the first day to the `start` argument and the number of days to the `count` argument. In both cases the time is the third item in the list (it is always last), and we use $1$s as placeholders in `start` and $-1$ as placeholders in `count`.
+
+```{r eval = T}
+#--- preparing the index ---#
+nc_dates_sep <- tibble(dates = as_date(ncvar_get(nc = nc, varid = "day"),origin="1900-01-01")) %>% 
+  rownames_to_column("index") %>% 
+  filter(month(dates) == 9)
+
+dates_count <- length(nc_dates_sep$index[1]:nc_dates_sep$index[nrow(nc_dates_sep)])
+
+#--- subsetting by days ---#
+nc_data <- ncvar_get(nc = nc, varid = var_id, 
+                     start = c(1,1,as.numeric(nc_dates_sep$index[1])), 
+                     count = c(-1,-1,dates_count))
+
+dates_index <- nc_dates_sep$index[1]:nc_dates_sep$index[nrow(nc_dates_sep)]
+
+#--- subsetting by days ---#
+nc_data1 <- ncvar_get(nc = nc, varid = var_id)[,,dates_index]
+```
+
+Alternatively, you can treat the output of `ncvar_get` as an object that can be subsetted. Using the same dates, we pass index values into the third index location. 
+
+```{r eval = T}
+dates_index <- nc_dates_sep$index[1]:nc_dates_sep$index[nrow(nc_dates_sep)]
+
+#--- subsetting by days ---#
+nc_data2 <- ncvar_get(nc = nc, varid = var_id)[,,dates_index]
+
+identical(nc_data1,nc_data2)
+```
+```{r echo=F, results="show"}
+identical(slice1,slice2)
+```
+
+This can be a bit easier to use for subsetting by location, since it does not require contiguous index values. To use this approach to subset by location of grid cells, you pass through the grids' index values for column (longitude) and row (latitude) into the data's first two index locations, respectively.
+<br>
+<br>
+<br>
+
+## r
+
+```{r }
+slice <- raster::brick("pr_2018.nc")[[1]] # can ignore warning
+
+#--- make tibble of coordinates ---#
+slicecoords <- 
+tibble(
+  lon = xyFromCell(slice, 1:ncell(slice))[,1],
+  lat = xyFromCell(slice, 1:ncell(slice))[,2]
+) %>%
+rownames_to_column(var = "cell") %>% 
+mutate(cell = as.numeric(cell)) 
+
+```
+
+```{r }
+r <- raster(nrow = 3, ncol = 3)
+
+values(r) <- 1:ncell(r)
+
+s <- raster(nrow = 10, ncol = 10)
+
+plot(s)
+
+s <- resample(r, s, method = "bilinear") 
+
+plot(s)
+plot(r)
+
+```
+
+
+

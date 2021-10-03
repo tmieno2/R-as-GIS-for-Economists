@@ -1,0 +1,921 @@
+# (PART) Foundations {-}
+
+# Vector Data Handling with `sf` {#vector-basics}
+
+```{r chap2_setup, echo = FALSE, cache = FALSE}
+library(knitr)
+knitr::opts_chunk$set(
+  echo = TRUE,
+  cache = TRUE,
+  comment = NA,
+  message = FALSE,
+  warning = FALSE,
+  tidy = FALSE,
+  cache.lazy = FALSE
+)
+
+suppressMessages(library(here))
+opts_knit$set(root.dir = here())
+```
+
+```{r ch02-setwd, eval = FALSE, echo = FALSE}
+setwd(here())
+```
+
+```{r, include = FALSE, cache = FALSE}
+#--- load packages ---#
+library(data.table)
+library(here)
+library(rgdal)
+library(stringr)
+library(rgeos)
+library(sf)
+library(ggplot2)
+library(leaflet)
+library(mapview)
+library(raster)
+library(stargazer)
+library(tmap)
+library(future.apply)
+library(htmlwidgets)
+library(htmltools)
+library(lubridate)
+library(tidyverse)
+```
+
+## Before you start {-}
+
+In this chapter we learn how to use the `sf` package to handle and operate on spatial datasets. The `sf` package uses the class of simple feature (`sf`)^[Yes, it is the same as the package name.] for spatial objects in R. We first learn how `sf` objects store and represent spatial datasets. We then move on to the following practical topics:
+
++ read and write a shapefile and spatial data in other formats (and why you might not want to use the shapefile system any more, but use other alternative formats)
++ project and reproject spatial objects
++ convert `sf` objects into `sp` objects, vice versa
++ confirm that `dplyr` works well with `sf` objects
++ implement non-interactive (does not involve two `sf` objects) geometric operations on `sf` objects
+  * create buffers 
+  * find the area of polygons
+  * find the centroid of polygons
+  * calculate the length of lines
+
+### `sf` or `sp`? {-}
+
+The `sf` package was designed to replace the `sp` package, which has been one of the most popular and powerful spatial packages in R for more than a decade. It has been about four years since the `sf` package was first registered on CRAN. A couple of years back, many other spatial packages did not have support for the package yet. In this [blog post](https://www.r-bloggers.com/should-i-learn-sf-or-sp-for-spatial-r-programming/) the author responded to the questions of whether one should learn `sp` or `sf` saying,
+
+"That's a tough question. If you have time, I would say, learn to use both. sf is pretty new, so a lot of packages that depend on spatial classes still rely on sp. So you will need to know sp if you want to do any integration with many other packages, including raster (as of March 2018).
+
+However, in the future we should see an increasing shift toward the sf package and greater use of sf classes in other packages. I also think that sf is easier to learn to use than sp."
+
+The future has come, and it's not a tough question anymore. I cannot think of any major spatial packages that do not support `sf` package, and `sf` has largely becomes the standard for handling vector data in $R$^[Even if there are packages that do not support `sf`, you can always go back and forth between `sp` and `sf` objects, which we will learn in Chapter \@ref(conv_sp)]. Thus, this lecture note does not cover how to use `sp` at all.
+
+`sf` has several advantages over the `sp` package [@pebesma2018simple].^[There are cases where `sp` is faster completing the same task than `sf`. For example, see the answer to [this question](https://gis.stackexchange.com/questions/324952/spover-vs-sfst-intersection-in-r). But, I doubt the difference between the two is practically important even with bigger data than the test data.] First, it cut off the tie that `sp` had with ESRI shapefile system, which has a somewhat loose way of representing spatial data. Instead, it uses _simple feature access_, which is an open standard supported by Open Geospatial Consortium (OGC). Another important benefit is its compatibility with the `tidyverse` package, which includes widely popular packages like `ggplot2` and `dplyr`. Consequently, map-making with `ggplot()` and data wrangling with a family of `dplyr` functions come very natural to many $R$ users. `sp` objects have different slots for spatial information and attributes data, and they are not amenable to `dplyr` way of data transformation.
+
+### Direction for replication {-}
+
+**Datasets**
+
+All the datasets that you need to import are available [here](https://www.dropbox.com/sh/7sshtbn8zweu460/AAA2yJNYE_Oy-dpM4lrkc1RXa?dl=0). In this chapter, the path to files is set relative to my own working directory (which is hidden). To run the codes without having to mess with paths to the files, follow these steps:
+
++ set a folder (any folder) as the working directory using `setwd()`  
++ create a folder called "Data" inside the folder designated as the working directory (if you have created a "Data" folder to replicate demonstrations in Chapter \@ref(demo), then skip this step)
++ download the pertinent datasets from [here](https://www.dropbox.com/sh/7sshtbn8zweu460/AAA2yJNYE_Oy-dpM4lrkc1RXa?dl=0) 
++ place all the files in the downloaded folder in the "Data" folder
+
+**Packages**
+
+Run the following code to install or load (if already installed) the `pacman` package, and then install or load (if already installed) the listed package inside the `pacman::p_load()` function.
+
+```{r chap2_packages}
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(
+  sf, # vector data operations
+  dplyr, # data wrangling
+  data.table, # data wrangling
+  tmap, # make maps
+  mapview # create an interactive map 
+)  
+```
+
+## Spatial Data Structure
+
+Here we learn how the `sf` package stores spatial data along with the definition of three key `sf` object classes: simple feature geometry (`sfg`), simple feature geometry list-column (`sfc`), and simple feature (`sf`). The `sf` package provides a simply way of storing geographic information and the attributes of the geographic units in a single dataset. This special type of dataset is called simple feature (`sf`). It is best to take a look at an example to see how this is achieved. We use North Carolina county boundaries with county attributes (Figure \@ref(fig:nc-county)).  
+
+```{r nc_import}
+#--- a dataset that comes with the sf package ---#
+nc <- st_read(system.file("shape/nc.shp", package="sf")) 
+```
+
+```{r nc-county, fig.cap = "North Carolina county boundary", echo = FALSE}
+library(tmap)
+tm_shape(nc) +
+  tm_polygons() +
+  tm_layout(frame = NA)
+```
+
+As you can see below, this dataset is of class `sf` (and `data.frame` at the same time).
+
+```{r class_sf}
+class(nc)
+```
+
+Now, let's take a look inside of `nc`.
+
+```{r }
+#--- take a look at the data ---#
+head(nc)
+```
+
+Just like a regular `data.frame`, you see a number of variables (attributes) except that you have a variable called `geometry` at the end. Each row represents a single geographic unit (here, county). Ashe County (1st row) has area of $0.114$, FIPS code of $37009$, and so on. And the entry in `geometry` column at the first row represents the geographic information of Ashe County. An entry in the `geometry` column is a simple feature geometry (`sfg`), which is an $R$ object that represents the geographic information of a single geometric feature (county in this example). There are different types of `sfg`s (`POINT`, `LINESTRING`, `POLYGON`, `MULTIPOLYGON`, etc). Here, `sfg`s representing counties in NC are of type `MULTIPOLYGON`. Let's take a look inside the `sfg` for Ashe County using `st_geometry()`.
+
+```{r geometry}
+st_geometry(nc[1, ])[[1]][[1]]
+```
+
+As you can see, the `sfg` consists of a number of points (pairs of two numbers). Connecting the points in the order they are stored delineates the Ashe County boundary.
+
+```{r }
+plot(st_geometry(nc[1, ])) 
+``` 
+
+We will take a closer look at different types of `sfg` in the next section. 
+
+Finally, the `geometry` variable is a list of individual `sfg`s, called simple feature geometry list-column (`sfc`).
+
+```{r }
+dplyr::select(nc, geometry)
+``` 
+
+Elements of a geometry list-column are allowed to be different in nature from other elements^[This is just like a regular `list` object that can contain mixed types of elements: numeric, character, etc]. In the `nc` data, all the elements (`sfg`s) in `geometry` column are `MULTIPOLYGON`. However, you could also have `LINESTRING` or `POINT` objects mixed with `MULTIPOLYGONS` objects in a single `sf` object if you would like. 
+
+## Simple feature geometry, simple feature geometry list-column, and simple feature
+
+Here, we learn how different types of `sfg` are constructed. We also learn how to create `sfc` and `sf` from `sfg` from scratch.^[Creating spatial objects from scratch yourself is an unnecessary skill for many of us as economists. But, it is still good to know the underlying structure of the data. Also, occasionally the need arises. For example, I had to construct spatial objects from scratch when I designed on-farm randomized nitrogen trials. In such cases, it is of course necessary to understand how different types of `sfg` are constructed, create `sfc` from a collection of `sfg`s, and then create an `sf` from an `sfc`.]    
+
+### Simple feature geometry (`sfg`)
+
+The `sf` package uses a class of `sfg` (simple feature geometry) objects to represent a geometry of a single geometric feature (say, a city as a point, a river as a line, county and school district as polygons). There are different types of `sfg`s. Here are some example feature types that we commonly encounter as an economist^[You will hardly see the other geometry types: MULTIPOINT and GEOMETRYCOLLECTION. You may see GEOMETRYCOLLECTION after intersecting two spatial objects. You can see [here](https://r-spatial.github.io/sf/articles/sf1.html#sfg-simple-feature-geometry-1) if you are interested in learning what they are.]:
+
++ `POINT`: area-less feature that represents a point (e.g., well, city, farmland) 
++ `LINESTRING`: (e.g., a tributary of a river) 
++ `MULTILINESTRING`: (e.g., river with more than one tributary) 
++ `POLYGON`: geometry with a positive area (e.g., county, state, country)
++ `MULTIPOLYGON`: collection of polygons to represent a single object (e.g., countries with islands: U.S., Japan)
+
+---
+
+`POINT` is the simplest geometry type and is represented by a vector of two^[or three to represent a point in the three-dimensional space] numeric values. An example below shows how a `POINT` feature can be made from scratch:
+
+```{r sf_point}
+#--- create a POINT ---#
+a_point <- st_point(c(2,1))
+```
+
+The `st_point()` function creates a `POINT` object when supplied with a vector of two numeric values. If you check the class of the newly created object,
+
+```{r class}
+#--- check the class of the object ---#
+class(a_point)
+```
+
+you can see that it's indeed a `POINT` object. But, it's also an `sfg` object. So, `a_point` is an `sfg` object of type `POINT`. 
+
+---
+
+A `LINESTRING` objects are represented by a sequence of points:  
+
+```{r linestrting}
+#--- collection of points in a matrix form ---#
+s1 <- rbind(c(2,3),c(3,4),c(3,5),c(1,5))
+
+#--- see what s1 looks like ---#
+s1
+
+#--- create a "LINESTRING" ---#
+a_linestring <- st_linestring(s1)
+
+#--- check the class ---#
+class(a_linestring)
+```
+
+`s1` is a matrix where each row represents a point. By applying `st_linestring()` function to `s1`, you create a `LINESTRING` object. Let's see what the line looks like.
+
+```{r plot_line}
+plot(a_linestring)
+```
+
+As you can see, each pair of consecutive points in the matrix are connected by a straight line to form a line. 
+
+---
+
+A `POLYGON` is very similar to `LINESTRING` in the manner it is represented. 
+
+```{r polygon_1}
+#--- collection of points in a matrix form ---#
+p1 <- rbind(c(0,0), c(3,0), c(3,2), c(2,5), c(1,3), c(0,0))
+
+#--- see what s1 looks like ---#
+p1
+ #--- create a "POLYGON" ---#
+a_polygon <- st_polygon(list(p1))
+
+#--- check the class ---#
+class(a_polygon)
+
+#--- see what it looks like ---#
+plot(a_polygon)
+```
+
+Just like the `LINESTRING` object we created earlier, a `POLYGON` is represented by a collection of points. The biggest difference between them is that we need to have some positive area enclosed by lines connecting the points. To do that, you have the the same point for the first and last points to close the loop: here, it's `c(0,0)`. A `POLYGON` can have holes in it. The first matrix of a list becomes the exterior ring, and all the subsequent matrices will be holes within the exterior ring.  
+
+```{r polygon_hole}
+#--- a hole within p1 ---#
+p2 <- rbind(c(1,1), c(1,2), c(2,2), c(1,1))
+
+#--- create a polygon with hole ---#
+a_plygon_with_a_hole <- st_polygon(list(p1,p2))
+
+#--- see what it looks like ---#
+plot(a_plygon_with_a_hole)
+```
+
+---
+
+You can create a `MULTIPOLYGON` object in a similar manner. The only difference is that you supply a list of lists of matrices, with each inner list representing a polygon. An example below: 
+
+```{r multi_polygon}
+#--- second polygon ---#
+p3 <- rbind(c(4,0), c(5,0), c(5,3), c(4,2), c(4,0)) 
+
+#--- create a multipolygon ---#
+a_multipolygon <- st_multipolygon(list(list(p1,p2), list(p3)))
+
+#--- see what it looks like ---#
+plot(a_multipolygon)
+```
+
+Each of `list(p1,p2)` and `list(p3)` represents a polygon. You supply a list of these lists to the `st_multipolygon()` function to make a `MULTIPOLYGON` object.
+
+
+### Create simple feature geometry list-column (`sfc`) and simple feature (`sf`) from scratch
+
+To make a simple feature geometry list-column (`sfc`), you can simply supply a list of `sfg` to the `st_sfc()` function as follows:
+
+```{r gen_sfc}
+#--- create an sfc ---#
+sfc_ex <- st_sfc(list(a_point,a_linestring,a_polygon,a_multipolygon))
+```
+
+To create an `sf` object, you first add an `sfc` as a column to a `data.frame`.  
+
+```{r add_sfc_to_df}
+#--- create a data.frame ---#
+df_ex <- data.frame(name=c('A','B','C','D'))
+
+#--- add the sfc as a column ---#
+df_ex$geometry <- sfc_ex 
+
+#--- take a look ---#
+df_ex
+```
+
+At this point, it is not yet recognized as an `sf` by R yet.
+
+```{r class_check}
+#--- see what it looks like (this is not an sf object yet) ---#
+class(df_ex)
+```
+
+You can register it as an `sf` object using `st_as_sf()`.
+
+```{r gen_sf_yourself}
+#--- let R recognize the data frame as sf ---#
+sf_ex <- st_as_sf(df_ex)
+
+#--- see what it looks like ---#
+sf_ex
+```
+
+As you can see `sf_ex` is now recognized also as an `sf` object.  
+
+```{r check_if_sf}
+#--- check the class ---#
+class(sf_ex)
+```
+
+## Reading and writing vector data
+
+The vast majority of people still use ArcGIS to handle spatial data, which has its own system of storing spatial data^[See [here]() for how spatial datasets can be stores in various other formats.] called shapefile. So, chances are that your collaborators use shapefiles. Moreover, there are many GIS data online that are available only as shapefiles. So, it is important to learn how to read and write shapefiles. 
+
+### Reading a shapefile
+
+We can use `st_read()` to read a shapefile. It reads in a shapefile and then turn the data into an sf object. Let's take a look at an example. 
+
+```{r import_nc_shp, results = "hide"}
+#--- read a NE county boundary shapefile ---#
+nc_loaded <- st_read(dsn = "Data", "nc") 
+```
+
+Typically, you have two arguments to specify for `st_read()`. The first one is `dsn`, which is basically the path to folder in which the shapefile you want to import is stored. The second one is the name of the shapefile. Notice that you do not add `.shp` extension to the file name: `nc`, not `nc.shp`.^[When storing a spatial dataset, ArcGIS divides the information into separate files. All of them have the same prefix, but have different extensions. We typically say we read a shapefile, but we really are importing all these files including the shapefile with the .shp extension. When you read those data, you just refer to the common prefix because you really are importing all the files, not just a .shp file.].
+
+### Writing to a shapefile
+
+Writing an `sf` object as a shapefile is just as easy. You use the `st_write()` function, with the first argument being the name of the `sf` object you are exporting, and the second being the name of the new shapefile. For example, the code below will export an `sf` object called `nc_loaded` as `nc2.shp` (along with other supporting files). 
+
+```{r write_nc, eval = FALSE}
+st_write(
+  nc_loaded, 
+  dsn = "Data", 
+  layer = "nc2", 
+  driver = "ESRI Shapefile", 
+  append = FALSE
+)
+```
+
+`append = FALSE` forces writing the data when a file already exists with the same name. Without the option, this happens.
+
+```{r write_nc_error, error = TRUE}
+st_write(
+  nc_loaded, 
+  dsn = "Data", 
+  layer = "nc2", 
+  driver = "ESRI Shapefile"
+)
+```
+
+### Better alternatives
+
+Now, if your collaborator is using ArcGIS and demanding that he/she needs a shapefile for his/her work, sure you can use the above command to write a shapefile. But, there is really no need to work with the shapefile system. One of the alternative data formats that is considered superior to the shapefile system is GeoPackage^[[here](https://www.geopackage.org/)], which overcomes various limitations associated with shapefile^[see the last paragraph of [chapter 7.5 of this book](https://csgillespie.github.io/efficientR/data-carpentry.html#data-processing-with-data.table), [this blogpost](https://carto.com/blog/fgdb-gpkg/), or [this](http://switchfromshapefile.org/)]. Unlike the shapefile system, it produces only a single file with .gpkg extension.^[Am I the only one who gets very frustrated when your collaborator attaches 15 files for three geographic objects to an email? It could have been just three files using the GeoPackage format.] Note that GeoPackage files can also be easily read into ArcGIS. So, it might be worthwhile to convince your collaborators to stop using shapefiles and start using GeoPackage.  
+
+```{r gpkg, eval = FALSE}
+#--- write as a gpkg file ---#
+st_write(nc, dsn = "Data/nc.gpkg", append = FALSE)
+
+#--- read a gpkg file ---#
+nc <- st_read("Data/nc.gpkg")
+```
+
+Or better yet, if your collaborator uses R (or if it is only you who is going to use the data), then just save it as an rds file using `saveRDS()`, which can be of course read using `readRDS()`.
+
+```{r save_read_nc_as_rds, eval = F}
+#--- save as an rds ---#
+saveRDS(nc, "Data/nc_county.rds")
+
+#--- read an rds ---#
+nc <- readRDS("Data/nc_county.rds")
+```
+
+The use of rds files can be particularly attractive when the dataset is large because rds files are typically more memory efficient than shapefiles, eating up less of your disk memory. 
+
+As you can see here, it is a myth that spatial datasets have to be stored as shapefiles.
+
+<!-- 
+#/*=================================================*/
+#' # Projection with a different Coordinate Reference Systems  
+#/*=================================================*/ 
+-->
+
+## Projection with a different Coordinate Reference Systems
+
+You often need to reproject an `sf` using a different coordinate reference system (CRS) because you need it to have the same CRS as an `sf` object that you are interacting it with (spatial join) or mapping it with. In order to check the current CRS for an `sf` object, you can use the `st_crs()` function. 
+
+```{r chech_CRS}
+st_crs(nc)
+```
+
+`wkt` stands for **Well Known Text**^[`sf` versions prior to 0.9 provides CRS information in the form of `proj4string`. The newer version of `sf` presents CRS in the form of `wtk` (see [this slide](https://nowosad.github.io/whyr_webinar004/#25)). You can find the reason behind this change in the same slide, starting from [here](https://nowosad.github.io/whyr_webinar004/#18).], which is one of many many formats to store CRS information.^[See [here](https://spatialreference.org/ref/epsg/nad27/) for numerous other formats that represent the same CRS.] 4267 is the SRID (Spatial Reference System Identifier) defined by the European Petroleum Survey Group (EPSG) for the CRS^[You can find the CRS-EPSG number correspondence [here](http://spatialreference.org/ref/epsg/).]. 
+
+When you transform your `sf` using a different CRS, you can use its EPSG number if the CRS has an EPSG number.^[Potential pool of CRS is infinite. Only the commonly-used CRS have been assigned EPSG SRID.] Let's transform the `sf` to `WGS 84` (another commonly used GCS), whose EPSG number is 4326. We can use the `st_transform()` function to achieve that, with the first argument being the `sf` object you are transforming and the second being the EPSG number of the new CRS.
+
+```{r to_4326}
+#--- transform ---#
+nc_wgs84 <- st_transform(nc, 4326)
+
+#--- check if the transformation was successful ---#
+st_crs(nc_wgs84)
+```
+
+Notice that `wkt` was also altered accordingly to reflect the change in CRS: datum was changed to WGS 84. Now, let's transform (reproject) the data using `NAD83 / UTM zone 17N` CRS. Its EPSG number is $26917$.^[See [here](http://spatialreference.org/ref/epsg/nad83-utm-zone-14n/).] So, the following code does the job.
+
+```{r to_26917}
+#--- transform ---#
+nc_utm17N <- st_transform(nc_wgs84, 26917)
+
+#--- check if the transformation was successful ---#
+st_crs(nc_utm17N)
+```
+
+As you can see in its CRS information, the projection system is now UTM zone 17N. 
+
+You often need to change the CRS of an `sf` object when you interact (e.g., spatial subsetting, joining, etc) it with another `sf` object. In such a case, you can extract the CRS of the other `sf` object using `st_crs()` and use it for transformation.^[In this example, we are using the same data with two different CRS. But, you get the point.] So, you do not need to find the EPSG of the CRS of the `sf` object you are interacting it with.
+
+```{r to_utm17}
+#--- transform ---#
+nc_utm17N_2 <- st_transform(nc_wgs84, st_crs(nc_utm17N))
+
+#--- check if the transformation was successful ---#
+st_crs(nc_utm17N_2)
+```
+
+
+<!-- However, notice that the `epsg` component of CRS is $NA$. ESRI shapefile format uses WTK (Well-known Text) format to refer to the CRS in use, which is saved in .prj file. So, if there is no corresponding SRID number for the CRS in use, the `epsg` component number would get lost when you save an `sf` object when you save it as an ESRI shapefile. This is exactly what happened to 
+ -->
+
+
+<!-- 
+#/*=================================================*/
+#' # Interactive view of an `sf` object
+#/*=================================================*/ 
+-->
+
+## Quick and interactive view of an `sf` object
+
+### Quick view
+
+The easiest way to visualize an `sf` object is to use `plot()`:
+
+```{r quick-plot, fig.cap = "Quick Visualization of an sf object"}
+plot(nc) 
+```
+
+As you can see, `plot()` create a map for each variable where the spatial units are color-differentiated based on the values of the variable. For creating more elaborate maps that are of publication-quality, see Chapter \@ref(create-maps).  
+
+### Interactive view
+
+Sometimes it is useful to be able to tell where certain spatial objects are and what values are associated with them on a map. The `tmap_leaflet()` function from the `tmap` package can create an interactive map where you can point to a spatial object and the associated information is revealed on the map. Let's use the North Carolina county map as an example here:
+
+```{r nc-import-again, echo = F, results = "hide"}
+#--- read the NC county map data ---#
+nc <- st_read(system.file("shape/nc.shp", package="sf")) 
+```
+
+```{r interactive-nc-run, echo = F, cache = F, fig.cap = "Interactive map of North Carolina counties"}
+tmap_leaflet(
+  tm_shape(nc) + # what sf to use for creating a map
+  tm_polygons() # what type of geometry to put on the map
+)
+```
+
+<br>
+
+As you can see, if you put your cursor on a polygon (county) and click on it, then its information pops up. 
+
+<!-- You can be selective in variables to be mapped and make the individual map layers for the selected variables using the `zcol` option. The following code picks `AREA` and `PERIMETER` variables.
+
+```{r int-select, fig.cap = "Interactive map of North Carolina counties with select variables", cache = F, eval = F}
+mapView(nc, zcol = c("AREA", "PERIMETER"), burst = TRUE) 
+```
+
+<br> -->
+
+<!-- For the `zcol` option to work, you need to install the development version of the  `mapview` package using the following code (as of 06/04/2020). 
+
+```{r mapview_install, eval = F}
+remotes::install_github("r-spatial/mapview@develop")  
+```
+
+By clicking on the white box^[You should see a stack of sheets on your RStudio instead of just a which box. For some unknown reasons, they do not show up in the documents generated by Rmarkdown.] beneath the $+$ and $-$ signs, you can pick the layers to display.
+
+The `mapview` package also supports spatial object classes defined by the `raster` package as we will see in Chapter \@ref(raster-basics).  There is much more you can do with this package. Interested readers are directed to [its package website](https://r-spatial.github.io/mapview/).^[However, for economists looking to publish in economics journals, the additional controls on interactive maps are not really useful as no economics journals support interactive maps for publication anyway.] The `tmap` package is also capable of creating an interactive map as we will see in Chapter \@ref(create-maps). The `mapview` package is introduced here because it is extremely easier to use and is sufficient for exploratory purposes.  
+ -->
+
+---
+
+Alternatively, you could use the `tmap` package to create interactive maps. You can first create a static map following a syntax like this:
+
+```{r syntax-tmap, eval = F}
+#--- NOT RUN (for polygons) ---#
+tm_shape(sf) +
+  tm_polygons() 
+
+#--- NOT RUN (for points) ---#
+tm_shape(sf) +
+  tm_symbols() 
+```
+
+This creates a static map of `nc` where county boundaries are drawn:
+
+```{r statics-map}
+(
+tm_nc_polygons <- tm_shape(nc) + tm_polygons()  
+)
+```
+
+Then, you can apply `tmap_leaflet()` to the static map to have an interactive view of the map:
+
+```{r tmap-nc}
+tmap_leaflet(tm_nc_polygons)
+```
+
+<br>
+
+You could also change the view mode of `tmap` objects to the `view` mode using `tmap_mode("view")` and then simply evaluate `tm_nc_polygons`.
+
+```{r eval = F}
+#--- change to the "view" mode ---#
+tmap_mode("view")
+
+#--- now you have an interactive biew ---#
+tm_nc_polygons
+```
+
+Note that once you change the view mode to "view", then the evaluation of all `tmap` objects become interactive. I prefer the first option, as I need to revert the view mode back to "plot" by `tmap_mode("plot")` if I don't want interactive views.
+
+<!-- 
+#/*=================================================*/
+#' # Turning a data.frame of points into an `sf` 
+#/*=================================================*/ 
+-->
+
+## Turning a data.frame of points into an `sf`
+
+Often times, you have a dataset with geographic coordinates as variables in a csv or other formats, which would not be recognized as a spatial dataset by R immediately when it is read into R. In this case, you need to identify which variables represent the geographic coordinates from the data set, and create an `sf` yourself. Fortunately, it is easy to do so using the `st_as_sf()` function. Let's first read a dataset (irrigation wells in Nebraska):
+
+```{r data_read_as_dataframe}
+#--- read irrigation well registration data ---#
+(
+wells <- readRDS('Data/well_registration.rds') 
+)
+
+#--- check the class ---#
+class(wells)
+```
+
+As you can see the data is not an `sf` object. In this dataset, `longdd` and `latdd` represent longitude and latitude, respectively. We now turn the dataset into an `sf` object:
+
+```{r dataframe_to_sf}
+#--- recognize it as an sf ---#
+wells_sf <- st_as_sf(wells, coords = c("longdd","latdd"))
+
+#--- take a look at the data ---#
+head(wells_sf[,1:5])
+```
+
+Note that the CRS of `wells_sf` is NA. Obviously, $R$ does not know the reference system without you telling it. We know^[Yes, YOU need to know the CRS of your data.] that the geographic coordinates in the wells data is NAD 83 ($epsg=4269$) for this dataset. So, we can assign the right CRS using either `st_set_crs()` or `st_crs()`.
+
+```{r set_crs}
+#--- set CRS ---#
+wells_sf <- st_set_crs(wells_sf, 4269) 
+
+#--- or this ---#
+st_crs(wells_sf) <- 4269
+
+#--- see the change ---#
+head(wells_sf[,1:5])
+```
+
+<!-- 
+#/*=================================================*/
+#' # Conversion to and from sp {#conv_sp}
+#/*=================================================*/ 
+-->
+
+## Conversion to and from sp objects {#conv_sp}
+
+You may find instances where `sp` objects are necessary or desirable.^[For example, those who run spatial econometric methods using `spdep`, creating neighbors from polygons is a bit faster using `sp` objects than using `sf` objects.] In that case, it is good to know how to convert an `sf` object to an `sp` object, vice versa. You can convert an `sf` object to its `sp` counterpart using `as(sf_object, "Spatial")`:
+
+```{r as_spatial}
+#--- conversion ---#
+wells_sp <- as(wells_sf, "Spatial")
+
+#--- check the class ---#
+class(wells_sp)
+```
+
+<!-- ```{r }
+list(a_point, a_polygon) %>% st_sfc() %>% st_as_sf() %>% 
+  as("Spatial")
+```
+
+ -->
+As you can see `wells_sp` is a class of `SpatialPointsDataFrame`, points with a `data.frame` supported by the `sp` package. The above syntax works for converting an `sf` of polygons into `SpatialPolygonsDataFrame` as well^[The function does not work for an `sf` object that consists of different geometry types (e.g., POINT and POLYGON). This is because `sp` objects do not allow different types of geometries in the single `sp` object. For example, `SpatialPointsDataFrame` consists only of points data.].     
+
+You can revert `wells_sp` back to an `sf` object using the `st_as_sf()` function, as follows:
+
+```{r back_to_sf}
+#--- revert back to sf ---#
+wells_sf <- st_as_sf(wells_sp)
+
+#--- check the class ---#
+class(wells_sf)
+```
+
+We do not cover how to use the `sp` package as the benefit of learning it has become marginal compared to when `sf` was just introduced a few years back^[For those interested in learning the `sp` package, [this website](https://rspatial.org/) is a good resource.]. 
+
+<!-- 
+#/*=================================================*/
+#' # Non-spatial transformation of sf 
+#/*=================================================*/ 
+-->
+
+## Non-spatial transformation of `sf`
+
+### Using `dplyr`
+
+An important feature of an `sf` object is that it is basically a `data.frame` with geometric information stored as a variable (column). This means that transforming an `sf` object works just like transforming a `data.frame`. Basically, everything you can do to a `data.frame`, you can do to an `sf` as well. The code below just provides an example of basic operations including `dplyr::select()`, `dplyr::filter()`, and `dplyr::mutate()` in action with an `sf` object to just confirm that `dplyr`  operations works with an `sf` object just like a `data.frame`.   
+
+```{r apply_dplyr}
+#--- here is what the data looks like ---#
+dplyr::select(wells_sf, wellid, nrdname, acres, regdate, nrdname)
+```
+
+Notice that `geometry` column will be retained after `dplyr::select()` even if you did not tell R to keep it above.
+
+Let's apply `dplyr::select()`, `dplyr::filter()`, and `dplyr::mutate()` to the dataset.
+
+```{r dplyr_transformation}
+#--- do some transformations ---#
+wells_sf %>% 
+  #--- select variables (geometry will always remain after select) ---#
+  dplyr::select(wellid, nrdname, acres, regdate, nrdname) %>% 
+  #--- removes observations with acre < 30  ---#
+  dplyr::filter(acres > 30) %>% 
+  #--- hectare instead of acre ---#
+  dplyr::mutate(hectare = acres * 0.404686) 
+```
+
+Now, let's try to get a summary of a variable by group using the  `group_by()` and `summarize()` functions. Here, we use only the first 100 observations because `dplyr::summarize()` takes just too long. 
+
+```{r summary}
+#--- summary by group ---#
+wells_by_nrd <- 
+  wells_sf[1:100, ] %>% 
+  #--- group by nrdname ---#
+  dplyr::group_by(nrdname) %>% 
+  #--- summarize ---#
+  dplyr::summarize(tot_acres = sum(acres, na.rm = TRUE))
+
+#--- take a look ---#
+wells_by_nrd
+```
+
+So, we can summarize an `sf` by group using `dplyr::group_by()` and `dplyr::summarize()`. One interesting change that happened is the geometry variable. Each NRD now has `multipoint` sfg, which is the combination of all the wells (points) located inside the NRD. Now, it is hard to imagine that you need `summarized` geometries after group summary. Moreover, it is a very slow operation. If you have lots of free time, try running the above code with `wells_sf` instead of `wells_sf[1:100, ]`. I never waited for it to finish as it was running for a long long time. It is advised that you simply drop the geometry and turn the `sf` object into a `data.frame` (or `tibble`, `data.table`) first and then do group summary.
+
+```{r drop_geometry}
+#--- remove geometry ---#
+wells_no_longer_sf <- st_drop_geometry(wells_sf)
+
+#--- take a look ---#
+head(wells_no_longer_sf)
+``` 
+
+We can now do a group summary very quickly:
+
+```{r }
+wells_no_longer_sf %>% 
+ #--- group by nrdname ---#
+  dplyr::group_by(nrdname) %>% 
+  #--- summarize ---#
+  dplyr::summarize(tot_acres = sum(acres, na.rm = TRUE)) 
+```
+
+### Using `data.table`
+
+The `data.table` package provides data wrangling options that are extremely fast (see [here](https://h2oai.github.io/db-benchmark/) for various benchmark results). It particularly shines when datasets are large and is much faster than `dplyr`. However, it cannot be as naturally integrated into the workflow involving `sf` objects as `dplyr` can. Let's convert an `sf` object of points into a `data.table` object using `data.table()`.
+
+```{r st_to_dt_points}
+#--- convert an sf to data.table ---#
+(
+wells_dt <- data.table(wells_sf)
+)
+
+#--- check the class ---#
+class(wells_dt)
+```
+
+You see that `wells_dt` is no longer an `sf` object, but the geometry column still remains in the data. 
+
+When you convert an `sf` of polygons into a `data.table`, then the geometry column appears to have lost the geometry information as all the entries are just `<XY[number]>`.   
+
+```{r st_to_dt_poly}
+(
+nc_dt <- data.table(nc)
+)
+```
+
+But, the geometry information is still there as you can see from this:
+
+```{r geometry_remains}
+#--- take a look at what's inside the geometry column ---#
+nc_dt$geometry 
+
+#--- check the class of the geometry column ---#
+class(nc_dt$geometry) 
+```
+
+If you try to run `sf` operations on it, it will of course give you an error. Like this
+
+```{r ch3_create_buffer, error = TRUE}
+st_buffer(wells_dt, dist = 2)
+```
+
+But, it is easy to revert a `data.table` object back to an `sf` object again by using the `st_as_sf()` function. 
+
+```{r table_to_sf}
+#--- wells ---#
+(
+wells_sf_again <- st_as_sf(wells_dt)
+)
+
+#--- nc polygons ---#
+(
+nc_sf_again <- st_as_sf(nc_dt)
+)
+``` 
+
+So, this means that if you need fast data transformation, you can first turn an `sf` to a `data.table`, transform the data using the `data.table` functionality, and then revert back to `sf`. However, for most economists, the geometry variable itself is not of interest in the sense that it never enters econometric models. For most of us, the geographic information contained in the geometry variable is just a glue to tie two datasets together by geographic referencing. Once we get values of spatial variables of interest, there is no point in keeping your data as an sf object. Personally, whenever I no longer need to carry around the geometry variable, I immediately turn an sf object into a `data.table` for fast data transformation especially when the data is large. 
+
+Those who know the [`dtplyr` package](https://github.com/tidyverse/dtplyr) (it takes advantage of the speed of `data.table` while you can keep using `dplyr` syntax and functions) may wonder if it works well with `sf` objects. Nope:
+
+```{r try_dtplyr, error = TRUE}
+library(dtplyr)
+
+#--- convert an "lazy" data.table ---#
+wells_ldt <- lazy_dt(wells_sf)  
+
+#--- try  ---#
+st_buffer(wells_ldt, dist = 2)
+```
+
+By the way, this package is awesome if you really love `dplyr`, but want the speed of `data.table`. `dtplyr` is of course slightly slower than `data.table` because  internal translations of `dplyr` language to `data.table` language have to happen first.^[I personally use `data.table` unless it is necessary to use `dplyr` like when dealing with `sf` objects. It is more concise than `dplyr`, which is somewhat verbose (yet expressive because of it). Ultimately, it is your personal preference which to use. You might be interested in reading [this discussion](https://stackoverflow.com/questions/21435339/data-table-vs-dplyr-can-one-do-something-well-the-other-cant-or-does-poorly) about the comparative advantages and disadvantages of the two packages.] 
+
+
+## Non-interactive geometrical operations
+
+There are various geometrical operations that are particularly useful for economists. Here, some of the most commonly used geometrical operations are introduced^[For the complete list of available geometrical operations under the `sf` package, see [here](https://cran.r-project.org/web/packages/sf/vignettes/sf1.html).]. You can see the practical use of some of these functions in Chapter \@ref(demo4).
+ 
+### st_buffer
+
+`st_buffer()` creates a buffer around points, lines, or the border of polygons. 
+
+Let's create buffers around points. First, we read well locations data. 
+
+```{r points_import}
+#--- read wells location data ---#
+urnrd_wells_sf <- 
+  readRDS("Data/urnrd_wells.rds") %>% 
+  #--- project to UTM 14N WGS 84 ---#
+  st_transform(32614)  
+```
+
+Here is the spatial distribution of the wells (Figure \@ref(fig:urnrd-wells)). 
+
+```{r urnrd-wells, fig.cap = "Map of the wells"}
+tm_shape(urnrd_wells_sf) +
+  tm_symbols(col = "red", size = 0.1) +
+  tm_layout(frame = FALSE)
+```
+
+Let's create buffers around the wells.
+
+```{r gen_buffer_points}
+#--- create a one-mile buffer around the wells ---#
+wells_buffer <- st_buffer(urnrd_wells_sf, dist = 1600)
+```
+
+As you can see, there are many circles around wells with the radius of $1,600$ meters (Figure \@ref(fig:buffer-points-map)).   
+
+```{r buffer-points-map, fig.cap = "Buffers around wells"}
+tm_shape(wells_buffer) +
+  tm_polygons(alpha = 0) +
+tm_shape(urnrd_wells_sf) +
+  tm_symbols(col = "red", size = 0.1) +
+  tm_layout(frame = NA)
+```
+
+A practical application of buffer creation can be seen in Chapter \@ref(Demo1).
+
+---
+
+We now create buffers around polygons. First, read NE county boundary data and select three counties (Chase, Dundy, and Perkins).
+
+```{r ne_counties}
+NE_counties <- 
+  readRDS("Data/NE_county_borders.rds") %>%
+  filter(NAME %in% c("Perkins", "Dundy", "Chase")) %>% 
+  st_transform(32614)
+```
+
+Here is what they look like (Figure \@ref(fig:map-three-counties)):
+
+```{r map-three-counties, fig.cap = "Map of the three counties"}
+tm_shape(NE_counties) +
+  tm_polygons('NAME', palette="RdYlGn", contrast=.3, title="County") +
+  tm_layout(frame = NA)
+```
+
+The following code creates buffers around polygons (see the results in Figure \@ref(fig:buffer-county)):
+
+```{r buffer_polygons}
+NE_buffer <- st_buffer(NE_counties, dist = 2000)
+```
+
+```{r buffer-county, fig.cap = "Buffers around the three counties"}
+tm_shape(NE_buffer) +
+  tm_polygons(col='blue',alpha=0.2) +
+tm_shape(NE_counties) +
+  tm_polygons('NAME', palette="RdYlGn", contrast=.3, title="County") + 
+  tm_layout(
+    legend.outside=TRUE,
+    frame=FALSE
+  )
+```
+
+For example, this can be useful to identify observations which are close to the border of political boundaries when you want to take advantage of spatial discontinuity of policies across adjacent political boundaries.    
+
+### st_area
+
+The `st_area()` function calculates the area of polygons. 
+
+```{r get_area}
+#--- generate area by polygon ---#
+(
+NE_counties <- mutate(NE_counties, area = st_area(NE_counties))
+)
+```
+
+Now, as you can see below, the default class of the results of `st_area()` is `units`, which does not accept numerical operations.
+
+```{r check_class_area}
+class(NE_counties$area)
+```
+
+So, let's turn it into double.
+
+```{r convert_to_numeric}
+(
+NE_counties <- mutate(NE_counties, area = as.numeric(area))
+)
+```
+
+`st_area()` is useful when you want to find area-weighted average of characteristics after spatially joining two polygon layers using the `st_intersection()` function (See Chapter \@ref(polygon-polygon)).
+
+### st_centroid
+
+The `st_centroid()` function finds the centroid of each polygon.
+
+```{r gen_centroids}
+#--- create centroids ---#
+(
+NE_centroids <- st_centroid(NE_counties)
+)
+```
+
+Here's the map of the output (Figure \@ref(fig:map-centroids)).
+
+```{r map-centroids, fig.cap = "The centroids of the polygons"}
+tm_shape(NE_counties) +
+  tm_polygons() +
+tm_shape(NE_centroids)+
+  tm_symbols(size=0.5) +
+tm_layout(
+    legend.outside=TRUE,
+    frame=FALSE
+  )
+```
+
+It can be useful when creating a map with labels because the centroid of polygons tend to be a good place to place labels (Figure \@ref(fig:cent-label)).^[When creating maps with the ggplot2 package, you can use `geom_sf_text()` or `geom_sf_label()`, which automatically finds where to put texts. See some examples [here](https://yutani.rbind.io/post/geom-sf-text-and-geom-sf-label-are-coming/).]
+
+```{r cent-label, fig.cap = "County names placed at the centroids of the counties"}
+tm_shape(NE_counties) +
+  tm_polygons() +
+tm_shape(NE_centroids)+
+  tm_text("NAME") +
+tm_layout(
+    legend.outside=TRUE,
+    frame=FALSE
+  )
+```
+
+It may be also useful when you need to calculate the "distance" between polygons.  
+
+### st_length
+
+We can use `st_length()` to calculate great circle distances^[Great circle distance is the shortest distance between two points on the surface of a sphere (earth)] of `LINESTRING` and `MULTILINESTRING` when they are represented in geodetic coordinates. On the other hand, if they are projected and use a Cartesian coordinate system, it will calculate Euclidean distance. We use U.S. railroad data for a demonstration. 
+
+```{r railroad_import}
+#--- import US railroad data and take only the first 10 of it ---#
+(
+a_railroad <- rail_roads <- st_read(dsn = "Data", layer = "tl_2015_us_rails")[1:10, ]
+)
+
+#--- check CRS ---#
+st_crs(a_railroad)
+```
+
+It uses geodetic coordinate system. Let's calculate the great circle distance of the lines (Chapter \@ref(demo4) for a practical use case of this function).
+
+```{r get_distance}
+(
+a_railroad <- mutate(a_railroad, length = st_length(a_railroad))
+)
+```
+
+
+
+<!-- ## st_distance
+
+The `st_distance` function calculates distances between spatial objects. Its output is the matrix of distances whose $i,j$ element is the distance between the $i$th `sfg` of the first `sf` and $j$th `sfg` of the second `sf`. The following code find the distance between the first 10 wells in `urnrd_wells_sf`.
+
+```{r st_distance}
+st_distance(urnrd_wells_sf[1:10, ], urnrd_wells_sf[1:10, ])
+```
+ -->
