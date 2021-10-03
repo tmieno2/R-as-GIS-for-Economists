@@ -24,7 +24,7 @@
 <meta name="author" content="Taro Mieno" />
 
 
-<meta name="date" content="2020-09-06" />
+<meta name="date" content="2021-10-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,7 @@
   
 <link rel="prev" href="spatial-data-structure.html"/>
 <link rel="next" href="reading-and-writing-vector-data.html"/>
-<script src="libs/header-attrs-2.3/header-attrs.js"></script>
+<script src="libs/header-attrs-2.9/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -51,8 +51,9 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
 <script src="libs/leaflet-1.3.1/leaflet.js"></script>
 <link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
@@ -62,26 +63,6 @@
 <script src="libs/leaflet-binding-2.0.3/leaflet.js"></script>
 <script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script>
 <script src="libs/leaflet-providers-plugin-2.0.3/leaflet-providers-plugin.js"></script>
-<link href="libs/HomeButton-0.0.1/home-button.css" rel="stylesheet" />
-<script src="libs/HomeButton-0.0.1/home-button.js"></script>
-<script src="libs/HomeButton-0.0.1/easy-button-src.min.js"></script>
-<script src="libs/clipboard-0.0.1/setClipboardText.js"></script>
-<link href="libs/PopupTable-0.0.1/popup.css" rel="stylesheet" />
-<script src="libs/IA_cdl_2015-1/data_stars_IA_cdl_20157013d9.txt"></script>
-<script src="libs/joda-0.0.1/joda.js"></script>
-<script src="libs/joda-0.0.1/addImageQuery-bindings.js"></script>
-<script src="libs/IA_cdl_2016-1/data_stars_IA_cdl_2016f0942b.txt"></script>
-<script src="libs/prcp_tmax_PRISM_m8_y09["tmax", , , ] - 1-1/data_stars_prcp_tmax_PRISM_m8_y09tmax15f4a23.txt"></script>
-<script src="libs/layer.1-1/data_stars_layer16e07dc.txt"></script>
-<script src="libs/layer.2-1/data_stars_layer29d3c0a.txt"></script>
-<script src="libs/layer.3-1/data_stars_layer30124e8.txt"></script>
-<script src="libs/layer.4-1/data_stars_layer4125698.txt"></script>
-<script src="libs/layer.5-1/data_stars_layer56ca504.txt"></script>
-<script src="libs/layer.6-1/data_stars_layer60b51ef.txt"></script>
-<script src="libs/layer.7-1/data_stars_layer7d85baf.txt"></script>
-<script src="libs/layer.8-1/data_stars_layer831db4a.txt"></script>
-<script src="libs/layer.9-1/data_stars_layer935e042.txt"></script>
-<script src="libs/layer.10-1/data_stars_layer102ad98c.txt"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
 <script src="libs/datatables-binding-0.13/datatables.js"></script>
 <link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
@@ -251,8 +232,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.5.2" data-path="quick-and-interactive-view-of-an-sf-object.html"><a href="quick-and-interactive-view-of-an-sf-object.html#interactive-view"><i class="fa fa-check"></i><b>2.5.2</b> Interactive view</a></li>
 </ul></li>
 <li class="chapter" data-level="2.6" data-path="turning-a-data-frame-of-points-into-an-sf.html"><a href="turning-a-data-frame-of-points-into-an-sf.html"><i class="fa fa-check"></i><b>2.6</b> Turning a data.frame of points into an <code>sf</code></a></li>
-<li class="chapter" data-level="2.7" data-path="conv-sp.html"><a href="conv-sp.html"><i class="fa fa-check"></i><b>2.7</b> Conversion to and from sp</a></li>
-<li class="chapter" data-level="2.8" data-path="non-spatial-transformation-of-sf.html"><a href="non-spatial-transformation-of-sf.html"><i class="fa fa-check"></i><b>2.8</b> Non-spatial transformation of sf</a>
+<li class="chapter" data-level="2.7" data-path="conv-sp.html"><a href="conv-sp.html"><i class="fa fa-check"></i><b>2.7</b> Conversion to and from sp objects</a></li>
+<li class="chapter" data-level="2.8" data-path="non-spatial-transformation-of-sf.html"><a href="non-spatial-transformation-of-sf.html"><i class="fa fa-check"></i><b>2.8</b> Non-spatial transformation of <code>sf</code></a>
 <ul>
 <li class="chapter" data-level="2.8.1" data-path="non-spatial-transformation-of-sf.html"><a href="non-spatial-transformation-of-sf.html#using-dplyr"><i class="fa fa-check"></i><b>2.8.1</b> Using <code>dplyr</code></a></li>
 <li class="chapter" data-level="2.8.2" data-path="non-spatial-transformation-of-sf.html"><a href="non-spatial-transformation-of-sf.html#using-data.table"><i class="fa fa-check"></i><b>2.8.2</b> Using <code>data.table</code></a></li>
@@ -282,7 +263,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.2.2" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#points-source-vs-polygons-target"><i class="fa fa-check"></i><b>3.2.2</b> points (source) vs polygons (target)</a></li>
 <li class="chapter" data-level="3.2.3" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#lines_polygons"><i class="fa fa-check"></i><b>3.2.3</b> lines (source) vs polygons (target)</a></li>
 <li class="chapter" data-level="3.2.4" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#polygons_points"><i class="fa fa-check"></i><b>3.2.4</b> polygons (source) vs points (target)</a></li>
-<li class="chapter" data-level="3.2.5" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#subsetting-to-a-geograpchic-extent-bounding-box"><i class="fa fa-check"></i><b>3.2.5</b> Subsetting to a geograpchic extent (bounding box)</a></li>
+<li class="chapter" data-level="3.2.5" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#subsetting-to-a-geographic-extent-bounding-box"><i class="fa fa-check"></i><b>3.2.5</b> Subsetting to a geographic extent (bounding box)</a></li>
 </ul></li>
 <li class="chapter" data-level="3.3" data-path="sp-join.html"><a href="sp-join.html"><i class="fa fa-check"></i><b>3.3</b> Spatial Join</a>
 <ul>
@@ -314,8 +295,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.2.1" data-path="read-and-write-a-raster-data-file.html"><a href="read-and-write-a-raster-data-file.html#read-raster-files"><i class="fa fa-check"></i><b>4.2.1</b> Read raster file(s)</a></li>
 <li class="chapter" data-level="4.2.2" data-path="read-and-write-a-raster-data-file.html"><a href="read-and-write-a-raster-data-file.html#write-raster-files"><i class="fa fa-check"></i><b>4.2.2</b> Write raster files</a></li>
 </ul></li>
-<li class="chapter" data-level="4.3" data-path="access-values.html"><a href="access-values.html"><i class="fa fa-check"></i><b>4.3</b> Access values</a></li>
-<li class="chapter" data-level="4.4" data-path="quick-plot-and-interactive-map.html"><a href="quick-plot-and-interactive-map.html"><i class="fa fa-check"></i><b>4.4</b> Quick plot and interactive map</a></li>
+<li class="chapter" data-level="4.3" data-path="extract-information-from-raster-data-object.html"><a href="extract-information-from-raster-data-object.html"><i class="fa fa-check"></i><b>4.3</b> Extract information from raster data object</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="extract-information-from-raster-data-object.html"><a href="extract-information-from-raster-data-object.html#get-crs"><i class="fa fa-check"></i><b>4.3.1</b> Get CRS</a></li>
+<li class="chapter" data-level="4.3.2" data-path="extract-information-from-raster-data-object.html"><a href="extract-information-from-raster-data-object.html#subset"><i class="fa fa-check"></i><b>4.3.2</b> Subset</a></li>
+<li class="chapter" data-level="4.3.3" data-path="extract-information-from-raster-data-object.html"><a href="extract-information-from-raster-data-object.html#get-cell-values"><i class="fa fa-check"></i><b>4.3.3</b> Get cell values</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="turning-a-raster-object-into-a-data-frame.html"><a href="turning-a-raster-object-into-a-data-frame.html"><i class="fa fa-check"></i><b>4.4</b> Turning a raster object into a <code>data.frame</code></a></li>
+<li class="chapter" data-level="4.5" data-path="quick-plot-and-interactive-map.html"><a href="quick-plot-and-interactive-map.html"><i class="fa fa-check"></i><b>4.5</b> Quick plot and interactive map</a></li>
+<li class="chapter" data-level="4.6" data-path="working-with-netcdfs.html"><a href="working-with-netcdfs.html"><i class="fa fa-check"></i><b>4.6</b> Working with netCDFs</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="int-RV.html"><a href="int-RV.html"><i class="fa fa-check"></i><b>5</b> Spatial Interactions of Vector and Raster Data</a>
 <ul>
@@ -323,12 +311,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="" data-path="before-you-start-4.html"><a href="before-you-start-4.html#direction-for-replication-4"><i class="fa fa-check"></i>Direction for replication</a></li>
 </ul></li>
-<li class="chapter" data-level="5.1" data-path="raster-crop.html"><a href="raster-crop.html"><i class="fa fa-check"></i><b>5.1</b> Cropping (Spatial subsetting) to the Area of Interest</a></li>
+<li class="chapter" data-level="5.1" data-path="raster-crop.html"><a href="raster-crop.html"><i class="fa fa-check"></i><b>5.1</b> Cropping to the Area of Interest</a></li>
 <li class="chapter" data-level="5.2" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html"><i class="fa fa-check"></i><b>5.2</b> Extracting Values from Raster Layers for Vector Data</a>
 <ul>
-<li class="chapter" data-level="5.2.1" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#points"><i class="fa fa-check"></i><b>5.2.1</b> Points</a></li>
-<li class="chapter" data-level="5.2.2" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#polygons-terra-way"><i class="fa fa-check"></i><b>5.2.2</b> Polygons (<code>terra</code> way)</a></li>
-<li class="chapter" data-level="5.2.3" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#polygons-exactextractr-way"><i class="fa fa-check"></i><b>5.2.3</b> Polygons (<code>exactextractr</code> way)</a></li>
+<li class="chapter" data-level="5.2.1" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#simple-visual-illustrations-of-raster-data-extraction"><i class="fa fa-check"></i><b>5.2.1</b> Simple visual illustrations of raster data extraction</a></li>
+<li class="chapter" data-level="5.2.2" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#extracting-to-points"><i class="fa fa-check"></i><b>5.2.2</b> Extracting to Points</a></li>
+<li class="chapter" data-level="5.2.3" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#extracting-to-polygons-terra-way"><i class="fa fa-check"></i><b>5.2.3</b> Extracting to Polygons (<code>terra</code> way)</a></li>
+<li class="chapter" data-level="5.2.4" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#extracting-to-polygons-exactextractr-way"><i class="fa fa-check"></i><b>5.2.4</b> Extracting to Polygons (<code>exactextractr</code> way)</a></li>
 </ul></li>
 <li class="chapter" data-level="5.3" data-path="extract-speed.html"><a href="extract-speed.html"><i class="fa fa-check"></i><b>5.3</b> Extraction speed comparison</a>
 <ul>
@@ -338,7 +327,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul></li>
 <li class="part"><span><b>III (slightly) Advanced Topics</b></span></li>
-<li class="chapter" data-level="6" data-path="EE.html"><a href="EE.html"><i class="fa fa-check"></i><b>6</b> Speed Things Up</a>
+<li class="chapter" data-level="6" data-path="EE.html"><a href="EE.html"><i class="fa fa-check"></i><b>6</b> Extraction Speed Considerations</a>
 <ul>
 <li class="chapter" data-level="" data-path="before-you-start-5.html"><a href="before-you-start-5.html"><i class="fa fa-check"></i>Before you start</a>
 <ul>
@@ -399,12 +388,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.7.3" data-path="merging-stars-objects-using-c-and-st-mosaic.html"><a href="merging-stars-objects-using-c-and-st-mosaic.html#merging-stars-objects-of-different-spatial-extents"><i class="fa fa-check"></i><b>7.7.3</b> Merging <code>stars</code> objects of different spatial extents</a></li>
 </ul></li>
 <li class="chapter" data-level="7.8" data-path="convert-to-rb.html"><a href="convert-to-rb.html"><i class="fa fa-check"></i><b>7.8</b> Convert from and to <code>Raster</code><span class="math inline">\(^*\)</span> objects</a></li>
-<li class="chapter" data-level="7.9" data-path="spatial-cropping.html"><a href="spatial-cropping.html"><i class="fa fa-check"></i><b>7.9</b> Spatial cropping</a></li>
-<li class="chapter" data-level="7.10" data-path="extraction-stars.html"><a href="extraction-stars.html"><i class="fa fa-check"></i><b>7.10</b> Extracting values from <code>stars</code> for vector data</a>
-<ul>
-<li class="chapter" data-level="7.10.1" data-path="extraction-stars.html"><a href="extraction-stars.html#points-1"><i class="fa fa-check"></i><b>7.10.1</b> Points</a></li>
-<li class="chapter" data-level="7.10.2" data-path="extraction-stars.html"><a href="extraction-stars.html#polygons"><i class="fa fa-check"></i><b>7.10.2</b> Polygons</a></li>
-</ul></li>
 </ul></li>
 <li class="part"><span><b>IV Extensions</b></span></li>
 <li class="chapter" data-level="8" data-path="create-maps.html"><a href="create-maps.html"><i class="fa fa-check"></i><b>8</b> Creating Maps using <code>ggplot2</code></a>
@@ -478,9 +461,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.4.1" data-path="daymet-with-daymetr-and-feddata.html"><a href="daymet-with-daymetr-and-feddata.html#for-points-data"><i class="fa fa-check"></i><b>9.4.1</b> For points data</a></li>
 <li class="chapter" data-level="9.4.2" data-path="daymet-with-daymetr-and-feddata.html"><a href="daymet-with-daymetr-and-feddata.html#daymet-poly"><i class="fa fa-check"></i><b>9.4.2</b> For polygons data</a></li>
 </ul></li>
-<li class="chapter" data-level="9.5" data-path="usgs-under-construction.html"><a href="usgs-under-construction.html"><i class="fa fa-check"></i><b>9.5</b> USGS (under construction)</a></li>
-<li class="chapter" data-level="9.6" data-path="sentinel-with-sen2r-under-construction.html"><a href="sentinel-with-sen2r-under-construction.html"><i class="fa fa-check"></i><b>9.6</b> Sentinel with <code>sen2r</code> (under construction)</a></li>
-<li class="chapter" data-level="9.7" data-path="census-with-tidycensus-under-construction.html"><a href="census-with-tidycensus-under-construction.html"><i class="fa fa-check"></i><b>9.7</b> Census with <code>tidycensus</code> (under construction)</a></li>
+<li class="chapter" data-level="9.5" data-path="gridMET.html"><a href="gridMET.html"><i class="fa fa-check"></i><b>9.5</b> gridMET</a>
+<ul>
+<li class="chapter" data-level="9.5.1" data-path="gridMET.html"><a href="gridMET.html#practical-examples"><i class="fa fa-check"></i><b>9.5.1</b> Practical Examples</a></li>
+</ul></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="par-comp.html"><a href="par-comp.html"><i class="fa fa-check"></i><b>A</b> Loop and Parallel Computing</a>
@@ -539,10 +523,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <div id="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature" class="section level2" number="2.2">
 <h2><span class="header-section-number">2.2</span> Simple feature geometry, simple feature geometry list-column, and simple feature</h2>
-<p>Here, we learn how different types of <code>sfg</code> are constructed. We also learn how to create <code>sfc</code> and <code>sf</code> from <code>sfg</code> from scratch.<a href="#fn37" class="footnote-ref" id="fnref37"><sup>37</sup></a></p>
+<p>Here, we learn how different types of <code>sfg</code> are constructed. We also learn how to create <code>sfc</code> and <code>sf</code> from <code>sfg</code> from scratch.<a href="#fn34" class="footnote-ref" id="fnref34"><sup>34</sup></a></p>
 <div id="simple-feature-geometry-sfg" class="section level3" number="2.2.1">
 <h3><span class="header-section-number">2.2.1</span> Simple feature geometry (<code>sfg</code>)</h3>
-<p>The <code>sf</code> package uses a class of <code>sfg</code> (simple feature geometry) objects to represent a geometry of a single geometric feature (say, a city as a point, a river as a line, county and school district as polygons). There are different types of <code>sfg</code>s. Here are some example feature types that we commonly encounter as an economist<a href="#fn38" class="footnote-ref" id="fnref38"><sup>38</sup></a>:</p>
+<p>The <code>sf</code> package uses a class of <code>sfg</code> (simple feature geometry) objects to represent a geometry of a single geometric feature (say, a city as a point, a river as a line, county and school district as polygons). There are different types of <code>sfg</code>s. Here are some example feature types that we commonly encounter as an economist<a href="#fn35" class="footnote-ref" id="fnref35"><sup>35</sup></a>:</p>
 <ul>
 <li><code>POINT</code>: area-less feature that represents a point (e.g., well, city, farmland)</li>
 <li><code>LINESTRING</code>: (e.g., a tributary of a river)</li>
@@ -551,43 +535,43 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><code>MULTIPOLYGON</code>: collection of polygons to represent a single object (e.g., countries with islands: U.S., Japan)</li>
 </ul>
 <hr />
-<p><code>POINT</code> is the simplest geometry type and is represented by a vector of two<a href="#fn39" class="footnote-ref" id="fnref39"><sup>39</sup></a> numeric values. An example below shows how a <code>POINT</code> feature can be made from scratch:</p>
-<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb101-1"></a><span class="co">#--- create a POINT ---#</span></span>
-<span id="cb101-2"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb101-2"></a>a_point &lt;-<span class="st"> </span><span class="kw">st_point</span>(<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">1</span>))</span></code></pre></div>
+<p><code>POINT</code> is the simplest geometry type and is represented by a vector of two<a href="#fn36" class="footnote-ref" id="fnref36"><sup>36</sup></a> numeric values. An example below shows how a <code>POINT</code> feature can be made from scratch:</p>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- create a POINT ---#</span></span>
+<span id="cb101-2"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb101-2" aria-hidden="true" tabindex="-1"></a>a_point <span class="ot">&lt;-</span> <span class="fu">st_point</span>(<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">1</span>))</span></code></pre></div>
 <p>The <code>st_point()</code> function creates a <code>POINT</code> object when supplied with a vector of two numeric values. If you check the class of the newly created object,</p>
-<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb102-1"></a><span class="co">#--- check the class of the object ---#</span></span>
-<span id="cb102-2"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb102-2"></a><span class="kw">class</span>(a_point)</span></code></pre></div>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- check the class of the object ---#</span></span>
+<span id="cb102-2"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb102-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(a_point)</span></code></pre></div>
 <pre><code>[1] &quot;XY&quot;    &quot;POINT&quot; &quot;sfg&quot;  </code></pre>
 <p>you can see that it’s indeed a <code>POINT</code> object. But, it’s also an <code>sfg</code> object. So, <code>a_point</code> is an <code>sfg</code> object of type <code>POINT</code>.</p>
 <hr />
 <p>A <code>LINESTRING</code> objects are represented by a sequence of points:</p>
-<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb104-1"></a><span class="co">#--- collection of points in a matrix form ---#</span></span>
-<span id="cb104-2"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb104-2"></a>s1 &lt;-<span class="st"> </span><span class="kw">rbind</span>(<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">3</span>),<span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">4</span>),<span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">5</span>),<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">5</span>))</span>
-<span id="cb104-3"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb104-3"></a></span>
-<span id="cb104-4"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb104-4"></a><span class="co">#--- see what s1 looks like ---#</span></span>
-<span id="cb104-5"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb104-5"></a>s1</span></code></pre></div>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- collection of points in a matrix form ---#</span></span>
+<span id="cb104-2"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb104-2" aria-hidden="true" tabindex="-1"></a>s1 <span class="ot">&lt;-</span> <span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>),<span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">4</span>),<span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">5</span>),<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">5</span>))</span>
+<span id="cb104-3"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb104-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb104-4"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb104-4" aria-hidden="true" tabindex="-1"></a><span class="co">#--- see what s1 looks like ---#</span></span>
+<span id="cb104-5"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb104-5" aria-hidden="true" tabindex="-1"></a>s1</span></code></pre></div>
 <pre><code>     [,1] [,2]
 [1,]    2    3
 [2,]    3    4
 [3,]    3    5
 [4,]    1    5</code></pre>
-<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb106-1"></a><span class="co">#--- create a &quot;LINESTRING&quot; ---#</span></span>
-<span id="cb106-2"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb106-2"></a>a_linestring &lt;-<span class="st"> </span><span class="kw">st_linestring</span>(s1)</span>
-<span id="cb106-3"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb106-3"></a></span>
-<span id="cb106-4"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb106-4"></a><span class="co">#--- check the class ---#</span></span>
-<span id="cb106-5"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb106-5"></a><span class="kw">class</span>(a_linestring)</span></code></pre></div>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- create a &quot;LINESTRING&quot; ---#</span></span>
+<span id="cb106-2"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb106-2" aria-hidden="true" tabindex="-1"></a>a_linestring <span class="ot">&lt;-</span> <span class="fu">st_linestring</span>(s1)</span>
+<span id="cb106-3"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb106-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb106-4"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb106-4" aria-hidden="true" tabindex="-1"></a><span class="co">#--- check the class ---#</span></span>
+<span id="cb106-5"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb106-5" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(a_linestring)</span></code></pre></div>
 <pre><code>[1] &quot;XY&quot;         &quot;LINESTRING&quot; &quot;sfg&quot;       </code></pre>
 <p><code>s1</code> is a matrix where each row represents a point. By applying <code>st_linestring()</code> function to <code>s1</code>, you create a <code>LINESTRING</code> object. Let’s see what the line looks like.</p>
-<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb108-1"></a><span class="kw">plot</span>(a_linestring)</span></code></pre></div>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(a_linestring)</span></code></pre></div>
 <p><img src="R_GIS_Book_files/figure-html/plot_line-1.png" width="672" /></p>
 <p>As you can see, each pair of consecutive points in the matrix are connected by a straight line to form a line.</p>
 <hr />
 <p>A <code>POLYGON</code> is very similar to <code>LINESTRING</code> in the manner it is represented.</p>
-<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb109-1"></a><span class="co">#--- collection of points in a matrix form ---#</span></span>
-<span id="cb109-2"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb109-2"></a>p1 &lt;-<span class="st"> </span><span class="kw">rbind</span>(<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>), <span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">0</span>), <span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">2</span>), <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">5</span>), <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>), <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>))</span>
-<span id="cb109-3"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb109-3"></a></span>
-<span id="cb109-4"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb109-4"></a><span class="co">#--- see what s1 looks like ---#</span></span>
-<span id="cb109-5"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb109-5"></a>p1</span></code></pre></div>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- collection of points in a matrix form ---#</span></span>
+<span id="cb109-2"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb109-2" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>), <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">0</span>), <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">2</span>), <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">5</span>), <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>), <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>))</span>
+<span id="cb109-3"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb109-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb109-4"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb109-4" aria-hidden="true" tabindex="-1"></a><span class="co">#--- see what s1 looks like ---#</span></span>
+<span id="cb109-5"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb109-5" aria-hidden="true" tabindex="-1"></a>p1</span></code></pre></div>
 <pre><code>     [,1] [,2]
 [1,]    0    0
 [2,]    3    0
@@ -595,91 +579,89 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 [4,]    2    5
 [5,]    1    3
 [6,]    0    0</code></pre>
-<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb111-1"></a> <span class="co">#--- create a &quot;LINESTRING&quot; ---#</span></span>
-<span id="cb111-2"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb111-2"></a>a_polygon &lt;-<span class="st"> </span><span class="kw">st_polygon</span>(<span class="kw">list</span>(p1))</span>
-<span id="cb111-3"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb111-3"></a></span>
-<span id="cb111-4"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb111-4"></a><span class="co">#--- check the class ---#</span></span>
-<span id="cb111-5"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb111-5"></a><span class="kw">class</span>(a_polygon)</span></code></pre></div>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb111-1" aria-hidden="true" tabindex="-1"></a> <span class="co">#--- create a &quot;POLYGON&quot; ---#</span></span>
+<span id="cb111-2"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb111-2" aria-hidden="true" tabindex="-1"></a>a_polygon <span class="ot">&lt;-</span> <span class="fu">st_polygon</span>(<span class="fu">list</span>(p1))</span>
+<span id="cb111-3"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb111-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb111-4"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb111-4" aria-hidden="true" tabindex="-1"></a><span class="co">#--- check the class ---#</span></span>
+<span id="cb111-5"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb111-5" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(a_polygon)</span></code></pre></div>
 <pre><code>[1] &quot;XY&quot;      &quot;POLYGON&quot; &quot;sfg&quot;    </code></pre>
-<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb113-1"></a><span class="co">#--- see what it looks like ---#</span></span>
-<span id="cb113-2"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb113-2"></a><span class="kw">plot</span>(a_polygon)</span></code></pre></div>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- see what it looks like ---#</span></span>
+<span id="cb113-2"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb113-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(a_polygon)</span></code></pre></div>
 <p><img src="R_GIS_Book_files/figure-html/polygon_1-1.png" width="672" /></p>
-<p>Just like the <code>LINESTRING</code> object we created earlier, a <code>POLYGON</code> is represented by a collection of points. The biggest difference between them is that we need to have some positive area enclosed by lines connecting the points. To do that, you have the the same point for the first and last points to close the loop: here, it’s <code>c(0,0)</code>. A <code>POLYGON</code> can have a hole in it. The first matrix of a list becomes the exterior ring, and all the subsequent matrices will be holes within the exterior ring.</p>
-<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb114-1"></a><span class="co">#--- a hole within p1 ---#</span></span>
-<span id="cb114-2"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb114-2"></a>p2 &lt;-<span class="st"> </span><span class="kw">rbind</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>), <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>), <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span>
-<span id="cb114-3"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb114-3"></a></span>
-<span id="cb114-4"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb114-4"></a><span class="co">#--- create a polygon with hole ---#</span></span>
-<span id="cb114-5"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb114-5"></a>a_plygon_with_a_hole &lt;-<span class="st"> </span><span class="kw">st_polygon</span>(<span class="kw">list</span>(p1,p2))</span>
-<span id="cb114-6"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb114-6"></a></span>
-<span id="cb114-7"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb114-7"></a><span class="co">#--- see what it looks like ---#</span></span>
-<span id="cb114-8"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb114-8"></a><span class="kw">plot</span>(a_plygon_with_a_hole)</span></code></pre></div>
+<p>Just like the <code>LINESTRING</code> object we created earlier, a <code>POLYGON</code> is represented by a collection of points. The biggest difference between them is that we need to have some positive area enclosed by lines connecting the points. To do that, you have the the same point for the first and last points to close the loop: here, it’s <code>c(0,0)</code>. A <code>POLYGON</code> can have holes in it. The first matrix of a list becomes the exterior ring, and all the subsequent matrices will be holes within the exterior ring.</p>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- a hole within p1 ---#</span></span>
+<span id="cb114-2"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb114-2" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>), <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>), <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb114-3"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb114-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb114-4"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb114-4" aria-hidden="true" tabindex="-1"></a><span class="co">#--- create a polygon with hole ---#</span></span>
+<span id="cb114-5"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb114-5" aria-hidden="true" tabindex="-1"></a>a_plygon_with_a_hole <span class="ot">&lt;-</span> <span class="fu">st_polygon</span>(<span class="fu">list</span>(p1,p2))</span>
+<span id="cb114-6"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb114-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb114-7"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb114-7" aria-hidden="true" tabindex="-1"></a><span class="co">#--- see what it looks like ---#</span></span>
+<span id="cb114-8"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb114-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(a_plygon_with_a_hole)</span></code></pre></div>
 <p><img src="R_GIS_Book_files/figure-html/polygon_hole-1.png" width="672" /></p>
 <hr />
 <p>You can create a <code>MULTIPOLYGON</code> object in a similar manner. The only difference is that you supply a list of lists of matrices, with each inner list representing a polygon. An example below:</p>
-<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb115-1"></a><span class="co">#--- second polygon ---#</span></span>
-<span id="cb115-2"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb115-2"></a>p3 &lt;-<span class="st"> </span><span class="kw">rbind</span>(<span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">0</span>), <span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">0</span>), <span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">3</span>), <span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">2</span>), <span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">0</span>)) </span>
-<span id="cb115-3"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb115-3"></a></span>
-<span id="cb115-4"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb115-4"></a><span class="co">#--- create a multipolygon ---#</span></span>
-<span id="cb115-5"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb115-5"></a>a_multipolygon &lt;-<span class="st"> </span><span class="kw">st_multipolygon</span>(<span class="kw">list</span>(<span class="kw">list</span>(p1,p2), <span class="kw">list</span>(p3)))</span>
-<span id="cb115-6"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb115-6"></a></span>
-<span id="cb115-7"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb115-7"></a><span class="co">#--- see what it looks like ---#</span></span>
-<span id="cb115-8"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb115-8"></a><span class="kw">plot</span>(a_multipolygon)</span></code></pre></div>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb115-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- second polygon ---#</span></span>
+<span id="cb115-2"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb115-2" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> <span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">0</span>), <span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">0</span>), <span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">3</span>), <span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">2</span>), <span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">0</span>)) </span>
+<span id="cb115-3"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb115-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb115-4"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb115-4" aria-hidden="true" tabindex="-1"></a><span class="co">#--- create a multipolygon ---#</span></span>
+<span id="cb115-5"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb115-5" aria-hidden="true" tabindex="-1"></a>a_multipolygon <span class="ot">&lt;-</span> <span class="fu">st_multipolygon</span>(<span class="fu">list</span>(<span class="fu">list</span>(p1,p2), <span class="fu">list</span>(p3)))</span>
+<span id="cb115-6"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb115-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb115-7"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb115-7" aria-hidden="true" tabindex="-1"></a><span class="co">#--- see what it looks like ---#</span></span>
+<span id="cb115-8"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb115-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(a_multipolygon)</span></code></pre></div>
 <p><img src="R_GIS_Book_files/figure-html/multi_polygon-1.png" width="672" /></p>
-<p>Each of <code>list(p1,p2)</code>, <code>list(p3,p4)</code>, <code>list(p5)</code> represents a polygon. You supply a list of these lists to the <code>st_multipolygon()</code> function to make a <code>MULTIPOLYGON</code> object.</p>
+<p>Each of <code>list(p1,p2)</code> and <code>list(p3)</code> represents a polygon. You supply a list of these lists to the <code>st_multipolygon()</code> function to make a <code>MULTIPOLYGON</code> object.</p>
 </div>
 <div id="create-simple-feature-geometry-list-column-sfc-and-simple-feature-sf-from-scratch" class="section level3" number="2.2.2">
 <h3><span class="header-section-number">2.2.2</span> Create simple feature geometry list-column (<code>sfc</code>) and simple feature (<code>sf</code>) from scratch</h3>
 <p>To make a simple feature geometry list-column (<code>sfc</code>), you can simply supply a list of <code>sfg</code> to the <code>st_sfc()</code> function as follows:</p>
-<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb116-1"></a><span class="co">#--- create an sfc ---#</span></span>
-<span id="cb116-2"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb116-2"></a>sfc_ex &lt;-<span class="st"> </span><span class="kw">st_sfc</span>(<span class="kw">list</span>(a_point,a_linestring,a_polygon,a_multipolygon))</span></code></pre></div>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- create an sfc ---#</span></span>
+<span id="cb116-2"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb116-2" aria-hidden="true" tabindex="-1"></a>sfc_ex <span class="ot">&lt;-</span> <span class="fu">st_sfc</span>(<span class="fu">list</span>(a_point,a_linestring,a_polygon,a_multipolygon))</span></code></pre></div>
 <p>To create an <code>sf</code> object, you first add an <code>sfc</code> as a column to a <code>data.frame</code>.</p>
-<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb117-1"></a><span class="co">#--- create a data.frame ---#</span></span>
-<span id="cb117-2"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb117-2"></a>df_ex &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</span>
-<span id="cb117-3"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb117-3"></a>  <span class="dt">name=</span><span class="kw">c</span>(<span class="st">&#39;A&#39;</span>,<span class="st">&#39;B&#39;</span>,<span class="st">&#39;C&#39;</span>,<span class="st">&#39;D&#39;</span>)</span>
-<span id="cb117-4"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb117-4"></a>)</span>
-<span id="cb117-5"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb117-5"></a></span>
-<span id="cb117-6"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb117-6"></a><span class="co">#--- add the sfc as a column ---#</span></span>
-<span id="cb117-7"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb117-7"></a>df_ex<span class="op">$</span>geometry &lt;-<span class="st"> </span>sfc_ex </span>
-<span id="cb117-8"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb117-8"></a></span>
-<span id="cb117-9"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb117-9"></a><span class="co">#--- take a look ---#</span></span>
-<span id="cb117-10"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb117-10"></a>df_ex</span></code></pre></div>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- create a data.frame ---#</span></span>
+<span id="cb117-2"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb117-2" aria-hidden="true" tabindex="-1"></a>df_ex <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">name=</span><span class="fu">c</span>(<span class="st">&#39;A&#39;</span>,<span class="st">&#39;B&#39;</span>,<span class="st">&#39;C&#39;</span>,<span class="st">&#39;D&#39;</span>))</span>
+<span id="cb117-3"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb117-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb117-4"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb117-4" aria-hidden="true" tabindex="-1"></a><span class="co">#--- add the sfc as a column ---#</span></span>
+<span id="cb117-5"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb117-5" aria-hidden="true" tabindex="-1"></a>df_ex<span class="sc">$</span>geometry <span class="ot">&lt;-</span> sfc_ex </span>
+<span id="cb117-6"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb117-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb117-7"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb117-7" aria-hidden="true" tabindex="-1"></a><span class="co">#--- take a look ---#</span></span>
+<span id="cb117-8"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb117-8" aria-hidden="true" tabindex="-1"></a>df_ex</span></code></pre></div>
 <pre><code>  name                       geometry
 1    A                    POINT (2 1)
 2    B LINESTRING (2 3, 3 4, 3 5, ...
 3    C POLYGON ((0 0, 3 0, 3 2, 2 ...
 4    D MULTIPOLYGON (((0 0, 3 0, 3...</code></pre>
 <p>At this point, it is not yet recognized as an <code>sf</code> by R yet.</p>
-<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb119-1"></a><span class="co">#--- see what it looks like (this is not an sf object yet) ---#</span></span>
-<span id="cb119-2"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb119-2"></a><span class="kw">class</span>(df_ex)</span></code></pre></div>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb119-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- see what it looks like (this is not an sf object yet) ---#</span></span>
+<span id="cb119-2"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb119-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(df_ex)</span></code></pre></div>
 <pre><code>[1] &quot;data.frame&quot;</code></pre>
 <p>You can register it as an <code>sf</code> object using <code>st_as_sf()</code>.</p>
-<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb121-1"></a><span class="co">#--- let R recognize the data frame as sf ---#</span></span>
-<span id="cb121-2"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb121-2"></a>sf_ex &lt;-<span class="st"> </span><span class="kw">st_as_sf</span>(df_ex)</span>
-<span id="cb121-3"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb121-3"></a></span>
-<span id="cb121-4"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb121-4"></a><span class="co">#--- see what it looks like ---#</span></span>
-<span id="cb121-5"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb121-5"></a>sf_ex</span></code></pre></div>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb121-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- let R recognize the data frame as sf ---#</span></span>
+<span id="cb121-2"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb121-2" aria-hidden="true" tabindex="-1"></a>sf_ex <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(df_ex)</span>
+<span id="cb121-3"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb121-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb121-4"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb121-4" aria-hidden="true" tabindex="-1"></a><span class="co">#--- see what it looks like ---#</span></span>
+<span id="cb121-5"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb121-5" aria-hidden="true" tabindex="-1"></a>sf_ex</span></code></pre></div>
 <pre><code>Simple feature collection with 4 features and 1 field
-geometry type:  GEOMETRY
-dimension:      XY
-bbox:           xmin: 0 ymin: 0 xmax: 5 ymax: 5
-CRS:            NA
+Geometry type: GEOMETRY
+Dimension:     XY
+Bounding box:  xmin: 0 ymin: 0 xmax: 5 ymax: 5
+CRS:           NA
   name                       geometry
 1    A                    POINT (2 1)
 2    B LINESTRING (2 3, 3 4, 3 5, ...
 3    C POLYGON ((0 0, 3 0, 3 2, 2 ...
 4    D MULTIPOLYGON (((0 0, 3 0, 3...</code></pre>
 <p>As you can see <code>sf_ex</code> is now recognized also as an <code>sf</code> object.</p>
-<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb123-1"></a><span class="co">#--- check the class ---#</span></span>
-<span id="cb123-2"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb123-2"></a><span class="kw">class</span>(sf_ex)</span></code></pre></div>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb123-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- check the class ---#</span></span>
+<span id="cb123-2"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#cb123-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(sf_ex)</span></code></pre></div>
 <pre><code>[1] &quot;sf&quot;         &quot;data.frame&quot;</code></pre>
 </div>
 </div>
 <div class="footnotes">
 <hr />
-<ol start="37">
-<li id="fn37"><p>Creating spatial objects from scratch yourself is an unnecessary skill for many of us as economists. But, it is still good to know the underlying structure of the data. Also, occasionally the need arises. For example, I had to construct spatial objects from scratch when I designed on-farm randomized nitrogen trials. In such cases, it is of course necessary to understand how different types of <code>sfg</code> are constructed, create <code>sfc</code> from a collection of <code>sfg</code>s, and then create an <code>sf</code> from an <code>sfc</code>.<a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#fnref37" class="footnote-back">↩︎</a></p></li>
-<li id="fn38"><p>You will hardly see the other geometry types: MULTIPOINT and GEOMETRYCOLLECTION. You may see GEOMETRYCOLLECTION after intersecting two spatial objects. You can see <a href="https://r-spatial.github.io/sf/articles/sf1.html#sfg-simple-feature-geometry-1">here</a> if you are interested in learning what they are.<a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#fnref38" class="footnote-back">↩︎</a></p></li>
-<li id="fn39"><p>or three to represent a point in the three-dimensional space<a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#fnref39" class="footnote-back">↩︎</a></p></li>
+<ol start="34">
+<li id="fn34"><p>Creating spatial objects from scratch yourself is an unnecessary skill for many of us as economists. But, it is still good to know the underlying structure of the data. Also, occasionally the need arises. For example, I had to construct spatial objects from scratch when I designed on-farm randomized nitrogen trials. In such cases, it is of course necessary to understand how different types of <code>sfg</code> are constructed, create <code>sfc</code> from a collection of <code>sfg</code>s, and then create an <code>sf</code> from an <code>sfc</code>.<a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#fnref34" class="footnote-back">↩︎</a></p></li>
+<li id="fn35"><p>You will hardly see the other geometry types: MULTIPOINT and GEOMETRYCOLLECTION. You may see GEOMETRYCOLLECTION after intersecting two spatial objects. You can see <a href="https://r-spatial.github.io/sf/articles/sf1.html#sfg-simple-feature-geometry-1">here</a> if you are interested in learning what they are.<a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#fnref35" class="footnote-back">↩︎</a></p></li>
+<li id="fn36"><p>or three to represent a point in the three-dimensional space<a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#fnref36" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>

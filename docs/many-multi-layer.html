@@ -24,7 +24,7 @@
 <meta name="author" content="Taro Mieno" />
 
 
-<meta name="date" content="2020-09-06" />
+<meta name="date" content="2021-10-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,7 @@
   
 <link rel="prev" href="single-raster-layer.html"/>
 <link rel="next" href="stars-basics.html"/>
-<script src="libs/header-attrs-2.3/header-attrs.js"></script>
+<script src="libs/header-attrs-2.9/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -51,8 +51,9 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
 <script src="libs/leaflet-1.3.1/leaflet.js"></script>
 <link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
@@ -62,26 +63,6 @@
 <script src="libs/leaflet-binding-2.0.3/leaflet.js"></script>
 <script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script>
 <script src="libs/leaflet-providers-plugin-2.0.3/leaflet-providers-plugin.js"></script>
-<link href="libs/HomeButton-0.0.1/home-button.css" rel="stylesheet" />
-<script src="libs/HomeButton-0.0.1/home-button.js"></script>
-<script src="libs/HomeButton-0.0.1/easy-button-src.min.js"></script>
-<script src="libs/clipboard-0.0.1/setClipboardText.js"></script>
-<link href="libs/PopupTable-0.0.1/popup.css" rel="stylesheet" />
-<script src="libs/IA_cdl_2015-1/data_stars_IA_cdl_20157013d9.txt"></script>
-<script src="libs/joda-0.0.1/joda.js"></script>
-<script src="libs/joda-0.0.1/addImageQuery-bindings.js"></script>
-<script src="libs/IA_cdl_2016-1/data_stars_IA_cdl_2016f0942b.txt"></script>
-<script src="libs/prcp_tmax_PRISM_m8_y09["tmax", , , ] - 1-1/data_stars_prcp_tmax_PRISM_m8_y09tmax15f4a23.txt"></script>
-<script src="libs/layer.1-1/data_stars_layer16e07dc.txt"></script>
-<script src="libs/layer.2-1/data_stars_layer29d3c0a.txt"></script>
-<script src="libs/layer.3-1/data_stars_layer30124e8.txt"></script>
-<script src="libs/layer.4-1/data_stars_layer4125698.txt"></script>
-<script src="libs/layer.5-1/data_stars_layer56ca504.txt"></script>
-<script src="libs/layer.6-1/data_stars_layer60b51ef.txt"></script>
-<script src="libs/layer.7-1/data_stars_layer7d85baf.txt"></script>
-<script src="libs/layer.8-1/data_stars_layer831db4a.txt"></script>
-<script src="libs/layer.9-1/data_stars_layer935e042.txt"></script>
-<script src="libs/layer.10-1/data_stars_layer102ad98c.txt"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
 <script src="libs/datatables-binding-0.13/datatables.js"></script>
 <link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
@@ -251,8 +232,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.5.2" data-path="quick-and-interactive-view-of-an-sf-object.html"><a href="quick-and-interactive-view-of-an-sf-object.html#interactive-view"><i class="fa fa-check"></i><b>2.5.2</b> Interactive view</a></li>
 </ul></li>
 <li class="chapter" data-level="2.6" data-path="turning-a-data-frame-of-points-into-an-sf.html"><a href="turning-a-data-frame-of-points-into-an-sf.html"><i class="fa fa-check"></i><b>2.6</b> Turning a data.frame of points into an <code>sf</code></a></li>
-<li class="chapter" data-level="2.7" data-path="conv-sp.html"><a href="conv-sp.html"><i class="fa fa-check"></i><b>2.7</b> Conversion to and from sp</a></li>
-<li class="chapter" data-level="2.8" data-path="non-spatial-transformation-of-sf.html"><a href="non-spatial-transformation-of-sf.html"><i class="fa fa-check"></i><b>2.8</b> Non-spatial transformation of sf</a>
+<li class="chapter" data-level="2.7" data-path="conv-sp.html"><a href="conv-sp.html"><i class="fa fa-check"></i><b>2.7</b> Conversion to and from sp objects</a></li>
+<li class="chapter" data-level="2.8" data-path="non-spatial-transformation-of-sf.html"><a href="non-spatial-transformation-of-sf.html"><i class="fa fa-check"></i><b>2.8</b> Non-spatial transformation of <code>sf</code></a>
 <ul>
 <li class="chapter" data-level="2.8.1" data-path="non-spatial-transformation-of-sf.html"><a href="non-spatial-transformation-of-sf.html#using-dplyr"><i class="fa fa-check"></i><b>2.8.1</b> Using <code>dplyr</code></a></li>
 <li class="chapter" data-level="2.8.2" data-path="non-spatial-transformation-of-sf.html"><a href="non-spatial-transformation-of-sf.html#using-data.table"><i class="fa fa-check"></i><b>2.8.2</b> Using <code>data.table</code></a></li>
@@ -282,7 +263,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.2.2" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#points-source-vs-polygons-target"><i class="fa fa-check"></i><b>3.2.2</b> points (source) vs polygons (target)</a></li>
 <li class="chapter" data-level="3.2.3" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#lines_polygons"><i class="fa fa-check"></i><b>3.2.3</b> lines (source) vs polygons (target)</a></li>
 <li class="chapter" data-level="3.2.4" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#polygons_points"><i class="fa fa-check"></i><b>3.2.4</b> polygons (source) vs points (target)</a></li>
-<li class="chapter" data-level="3.2.5" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#subsetting-to-a-geograpchic-extent-bounding-box"><i class="fa fa-check"></i><b>3.2.5</b> Subsetting to a geograpchic extent (bounding box)</a></li>
+<li class="chapter" data-level="3.2.5" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#subsetting-to-a-geographic-extent-bounding-box"><i class="fa fa-check"></i><b>3.2.5</b> Subsetting to a geographic extent (bounding box)</a></li>
 </ul></li>
 <li class="chapter" data-level="3.3" data-path="sp-join.html"><a href="sp-join.html"><i class="fa fa-check"></i><b>3.3</b> Spatial Join</a>
 <ul>
@@ -314,8 +295,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.2.1" data-path="read-and-write-a-raster-data-file.html"><a href="read-and-write-a-raster-data-file.html#read-raster-files"><i class="fa fa-check"></i><b>4.2.1</b> Read raster file(s)</a></li>
 <li class="chapter" data-level="4.2.2" data-path="read-and-write-a-raster-data-file.html"><a href="read-and-write-a-raster-data-file.html#write-raster-files"><i class="fa fa-check"></i><b>4.2.2</b> Write raster files</a></li>
 </ul></li>
-<li class="chapter" data-level="4.3" data-path="access-values.html"><a href="access-values.html"><i class="fa fa-check"></i><b>4.3</b> Access values</a></li>
-<li class="chapter" data-level="4.4" data-path="quick-plot-and-interactive-map.html"><a href="quick-plot-and-interactive-map.html"><i class="fa fa-check"></i><b>4.4</b> Quick plot and interactive map</a></li>
+<li class="chapter" data-level="4.3" data-path="extract-information-from-raster-data-object.html"><a href="extract-information-from-raster-data-object.html"><i class="fa fa-check"></i><b>4.3</b> Extract information from raster data object</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="extract-information-from-raster-data-object.html"><a href="extract-information-from-raster-data-object.html#get-crs"><i class="fa fa-check"></i><b>4.3.1</b> Get CRS</a></li>
+<li class="chapter" data-level="4.3.2" data-path="extract-information-from-raster-data-object.html"><a href="extract-information-from-raster-data-object.html#subset"><i class="fa fa-check"></i><b>4.3.2</b> Subset</a></li>
+<li class="chapter" data-level="4.3.3" data-path="extract-information-from-raster-data-object.html"><a href="extract-information-from-raster-data-object.html#get-cell-values"><i class="fa fa-check"></i><b>4.3.3</b> Get cell values</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="turning-a-raster-object-into-a-data-frame.html"><a href="turning-a-raster-object-into-a-data-frame.html"><i class="fa fa-check"></i><b>4.4</b> Turning a raster object into a <code>data.frame</code></a></li>
+<li class="chapter" data-level="4.5" data-path="quick-plot-and-interactive-map.html"><a href="quick-plot-and-interactive-map.html"><i class="fa fa-check"></i><b>4.5</b> Quick plot and interactive map</a></li>
+<li class="chapter" data-level="4.6" data-path="working-with-netcdfs.html"><a href="working-with-netcdfs.html"><i class="fa fa-check"></i><b>4.6</b> Working with netCDFs</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="int-RV.html"><a href="int-RV.html"><i class="fa fa-check"></i><b>5</b> Spatial Interactions of Vector and Raster Data</a>
 <ul>
@@ -323,12 +311,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="" data-path="before-you-start-4.html"><a href="before-you-start-4.html#direction-for-replication-4"><i class="fa fa-check"></i>Direction for replication</a></li>
 </ul></li>
-<li class="chapter" data-level="5.1" data-path="raster-crop.html"><a href="raster-crop.html"><i class="fa fa-check"></i><b>5.1</b> Cropping (Spatial subsetting) to the Area of Interest</a></li>
+<li class="chapter" data-level="5.1" data-path="raster-crop.html"><a href="raster-crop.html"><i class="fa fa-check"></i><b>5.1</b> Cropping to the Area of Interest</a></li>
 <li class="chapter" data-level="5.2" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html"><i class="fa fa-check"></i><b>5.2</b> Extracting Values from Raster Layers for Vector Data</a>
 <ul>
-<li class="chapter" data-level="5.2.1" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#points"><i class="fa fa-check"></i><b>5.2.1</b> Points</a></li>
-<li class="chapter" data-level="5.2.2" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#polygons-terra-way"><i class="fa fa-check"></i><b>5.2.2</b> Polygons (<code>terra</code> way)</a></li>
-<li class="chapter" data-level="5.2.3" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#polygons-exactextractr-way"><i class="fa fa-check"></i><b>5.2.3</b> Polygons (<code>exactextractr</code> way)</a></li>
+<li class="chapter" data-level="5.2.1" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#simple-visual-illustrations-of-raster-data-extraction"><i class="fa fa-check"></i><b>5.2.1</b> Simple visual illustrations of raster data extraction</a></li>
+<li class="chapter" data-level="5.2.2" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#extracting-to-points"><i class="fa fa-check"></i><b>5.2.2</b> Extracting to Points</a></li>
+<li class="chapter" data-level="5.2.3" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#extracting-to-polygons-terra-way"><i class="fa fa-check"></i><b>5.2.3</b> Extracting to Polygons (<code>terra</code> way)</a></li>
+<li class="chapter" data-level="5.2.4" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#extracting-to-polygons-exactextractr-way"><i class="fa fa-check"></i><b>5.2.4</b> Extracting to Polygons (<code>exactextractr</code> way)</a></li>
 </ul></li>
 <li class="chapter" data-level="5.3" data-path="extract-speed.html"><a href="extract-speed.html"><i class="fa fa-check"></i><b>5.3</b> Extraction speed comparison</a>
 <ul>
@@ -338,7 +327,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul></li>
 <li class="part"><span><b>III (slightly) Advanced Topics</b></span></li>
-<li class="chapter" data-level="6" data-path="EE.html"><a href="EE.html"><i class="fa fa-check"></i><b>6</b> Speed Things Up</a>
+<li class="chapter" data-level="6" data-path="EE.html"><a href="EE.html"><i class="fa fa-check"></i><b>6</b> Extraction Speed Considerations</a>
 <ul>
 <li class="chapter" data-level="" data-path="before-you-start-5.html"><a href="before-you-start-5.html"><i class="fa fa-check"></i>Before you start</a>
 <ul>
@@ -399,12 +388,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.7.3" data-path="merging-stars-objects-using-c-and-st-mosaic.html"><a href="merging-stars-objects-using-c-and-st-mosaic.html#merging-stars-objects-of-different-spatial-extents"><i class="fa fa-check"></i><b>7.7.3</b> Merging <code>stars</code> objects of different spatial extents</a></li>
 </ul></li>
 <li class="chapter" data-level="7.8" data-path="convert-to-rb.html"><a href="convert-to-rb.html"><i class="fa fa-check"></i><b>7.8</b> Convert from and to <code>Raster</code><span class="math inline">\(^*\)</span> objects</a></li>
-<li class="chapter" data-level="7.9" data-path="spatial-cropping.html"><a href="spatial-cropping.html"><i class="fa fa-check"></i><b>7.9</b> Spatial cropping</a></li>
-<li class="chapter" data-level="7.10" data-path="extraction-stars.html"><a href="extraction-stars.html"><i class="fa fa-check"></i><b>7.10</b> Extracting values from <code>stars</code> for vector data</a>
-<ul>
-<li class="chapter" data-level="7.10.1" data-path="extraction-stars.html"><a href="extraction-stars.html#points-1"><i class="fa fa-check"></i><b>7.10.1</b> Points</a></li>
-<li class="chapter" data-level="7.10.2" data-path="extraction-stars.html"><a href="extraction-stars.html#polygons"><i class="fa fa-check"></i><b>7.10.2</b> Polygons</a></li>
-</ul></li>
 </ul></li>
 <li class="part"><span><b>IV Extensions</b></span></li>
 <li class="chapter" data-level="8" data-path="create-maps.html"><a href="create-maps.html"><i class="fa fa-check"></i><b>8</b> Creating Maps using <code>ggplot2</code></a>
@@ -478,9 +461,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.4.1" data-path="daymet-with-daymetr-and-feddata.html"><a href="daymet-with-daymetr-and-feddata.html#for-points-data"><i class="fa fa-check"></i><b>9.4.1</b> For points data</a></li>
 <li class="chapter" data-level="9.4.2" data-path="daymet-with-daymetr-and-feddata.html"><a href="daymet-with-daymetr-and-feddata.html#daymet-poly"><i class="fa fa-check"></i><b>9.4.2</b> For polygons data</a></li>
 </ul></li>
-<li class="chapter" data-level="9.5" data-path="usgs-under-construction.html"><a href="usgs-under-construction.html"><i class="fa fa-check"></i><b>9.5</b> USGS (under construction)</a></li>
-<li class="chapter" data-level="9.6" data-path="sentinel-with-sen2r-under-construction.html"><a href="sentinel-with-sen2r-under-construction.html"><i class="fa fa-check"></i><b>9.6</b> Sentinel with <code>sen2r</code> (under construction)</a></li>
-<li class="chapter" data-level="9.7" data-path="census-with-tidycensus-under-construction.html"><a href="census-with-tidycensus-under-construction.html"><i class="fa fa-check"></i><b>9.7</b> Census with <code>tidycensus</code> (under construction)</a></li>
+<li class="chapter" data-level="9.5" data-path="gridMET.html"><a href="gridMET.html"><i class="fa fa-check"></i><b>9.5</b> gridMET</a>
+<ul>
+<li class="chapter" data-level="9.5.1" data-path="gridMET.html"><a href="gridMET.html#practical-examples"><i class="fa fa-check"></i><b>9.5.1</b> Practical Examples</a></li>
+</ul></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="par-comp.html"><a href="par-comp.html"><i class="fa fa-check"></i><b>A</b> Loop and Parallel Computing</a>
@@ -545,24 +529,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>We will use the following datasets:</p>
 <ul>
 <li><strong>raster</strong>: daily PRISM data 2010 through 2019 stacked by month</li>
-<li><strong>polygons</strong>: Regular polygon grids over Iowa</li>
+<li><strong>polygons</strong>: US County polygons</li>
 </ul>
 <p><strong>daily PRISM precipitation 2010 through 2019</strong></p>
 <p>You can download all the prism files from <a href="https://www.dropbox.com/sh/gkprbgp8sg5362f/AABLLEUjsGkelCK2aUxaUI72a?dl=0">here</a>. For those who are interested in learning how to generate the series of daily PRISM data files stored by month, see section <a href="download-prism.html#download-prism">9.3</a> for the code.</p>
 <p><strong>US counties</strong></p>
-<div class="sourceCode" id="cb451"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb451-1"><a href="many-multi-layer.html#cb451-1"></a><span class="co">#--- regular grids over Iowa ---#</span></span>
-<span id="cb451-2"><a href="many-multi-layer.html#cb451-2"></a>(</span>
-<span id="cb451-3"><a href="many-multi-layer.html#cb451-3"></a>US_county &lt;-<span class="st"> </span><span class="kw">st_as_sf</span>(<span class="kw">map</span>(<span class="dt">database =</span> <span class="st">&quot;county&quot;</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>, <span class="dt">fill =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb451-4"><a href="many-multi-layer.html#cb451-4"></a><span class="st">  </span><span class="co">#--- get state name from ID  ---#</span></span>
-<span id="cb451-5"><a href="many-multi-layer.html#cb451-5"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">state =</span> <span class="kw">str_split</span>(ID, <span class="st">&quot;,&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">lapply</span>(., <span class="st">`</span><span class="dt">[[</span><span class="st">`</span>, <span class="dv">1</span>) <span class="op">%&gt;%</span><span class="st"> </span>unlist) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb451-6"><a href="many-multi-layer.html#cb451-6"></a><span class="st">  </span><span class="co">#--- project to the CRS of the CDL data ---#</span></span>
-<span id="cb451-7"><a href="many-multi-layer.html#cb451-7"></a><span class="st">  </span><span class="kw">st_transform</span>(<span class="kw">projection</span>(<span class="kw">brick</span>(<span class="st">&quot;./Data/PRISM/PRISM_ppt_y2017_m7.tif&quot;</span>))) </span>
-<span id="cb451-8"><a href="many-multi-layer.html#cb451-8"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb475"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb475-1"><a href="many-multi-layer.html#cb475-1" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb475-2"><a href="many-multi-layer.html#cb475-2" aria-hidden="true" tabindex="-1"></a>US_county <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(<span class="fu">map</span>(<span class="at">database =</span> <span class="st">&quot;county&quot;</span>, <span class="at">plot =</span> <span class="cn">FALSE</span>, <span class="at">fill =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb475-3"><a href="many-multi-layer.html#cb475-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">#--- get state name from ID  ---#</span></span>
+<span id="cb475-4"><a href="many-multi-layer.html#cb475-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">state =</span> <span class="fu">str_split</span>(ID, <span class="st">&quot;,&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">lapply</span>(., <span class="st">`</span><span class="at">[[</span><span class="st">`</span>, <span class="dv">1</span>) <span class="sc">%&gt;%</span> unlist) <span class="sc">%&gt;%</span> </span>
+<span id="cb475-5"><a href="many-multi-layer.html#cb475-5" aria-hidden="true" tabindex="-1"></a>  <span class="co">#--- project to the CRS of the CDL data ---#</span></span>
+<span id="cb475-6"><a href="many-multi-layer.html#cb475-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(<span class="fu">projection</span>(<span class="fu">brick</span>(<span class="st">&quot;Data/PRISM/PRISM_ppt_y2017_m7.tif&quot;</span>))) </span>
+<span id="cb475-7"><a href="many-multi-layer.html#cb475-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>Simple feature collection with 3076 features and 2 fields
-geometry type:  MULTIPOLYGON
-dimension:      XY
-bbox:           xmin: -124.6813 ymin: 25.12993 xmax: -67.00742 ymax: 49.38323
-CRS:            +proj=longlat +datum=NAD83 +no_defs +ellps=GRS80 +towgs84=0,0,0
+Geometry type: MULTIPOLYGON
+Dimension:     XY
+Bounding box:  xmin: -124.6813 ymin: 25.12993 xmax: -67.00742 ymax: 49.38323
+CRS:           +proj=longlat +datum=NAD83 +no_defs
 First 10 features:
                  ID                           geom   state
 1   alabama,autauga MULTIPOLYGON (((-86.50517 3... alabama
@@ -579,49 +562,49 @@ First 10 features:
 <div id="non-par-ext-multi" class="section level3" number="6.2.2">
 <h3><span class="header-section-number">6.2.2</span> Non-parallelized extraction</h3>
 <p>We have already learned in Chapter <a href="extract-speed.html#extract-speed">5.3</a> that extracting values from stacked raster layers is faster than doing so from multiple single-layer raster datasets one at a time. Here, daily precipitation datasets are stacked by year-month and saved as multi-layer GeoTIFF files. For example, <strong>PRISM_ppt_y2009_m1.tif</strong> stores the daily precipitation data for January, 2009. This is how long it takes to extract values for US counties from a month’s of daily PRISM precipitation data.</p>
-<div class="sourceCode" id="cb453"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb453-1"><a href="many-multi-layer.html#cb453-1"></a><span class="kw">tic</span>()</span>
-<span id="cb453-2"><a href="many-multi-layer.html#cb453-2"></a>temp &lt;-<span class="st"> </span><span class="kw">exact_extract</span>(<span class="kw">stack</span>(<span class="st">&quot;./Data/PRISM/PRISM_ppt_y2009_m1.tif&quot;</span>), US_county, <span class="dt">progress =</span> F) </span>
-<span id="cb453-3"><a href="many-multi-layer.html#cb453-3"></a><span class="kw">toc</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb477"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb477-1"><a href="many-multi-layer.html#cb477-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
+<span id="cb477-2"><a href="many-multi-layer.html#cb477-2" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">exact_extract</span>(<span class="fu">stack</span>(<span class="st">&quot;Data/PRISM/PRISM_ppt_y2009_m1.tif&quot;</span>), US_county, <span class="at">progress =</span> F) </span>
+<span id="cb477-3"><a href="many-multi-layer.html#cb477-3" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code></pre></div>
 <pre><code>elapsed 
  26.571 </code></pre>
 <p>Now, to process all the precipitation data from 2009-2018, we consider two approaches in this section are:</p>
 <ol style="list-style-type: decimal">
-<li>parallelize over polygons and do regular loop over year-month</li>
+<li>parallelize over polygons (blocked) and do regular loop over year-month</li>
 <li>parallelize over year-month</li>
 </ol>
 </div>
 <div id="approach-1-parallelize-over-polygons-and-do-regular-loop-over-year-month" class="section level3" number="6.2.3">
 <h3><span class="header-section-number">6.2.3</span> Approach 1: parallelize over polygons and do regular loop over year-month</h3>
 <p>For this approach, let’s measure the time spent on processing one year-month PRISM dataset and then guess how long it would take to process 120 year-month PRISM datasets.</p>
-<div class="sourceCode" id="cb455"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb455-1"><a href="many-multi-layer.html#cb455-1"></a><span class="co">#--- number of polygons in a group ---#</span></span>
-<span id="cb455-2"><a href="many-multi-layer.html#cb455-2"></a>num_in_group &lt;-<span class="st"> </span><span class="kw">floor</span>(<span class="kw">nrow</span>(US_county)<span class="op">/</span>num_cores)</span>
-<span id="cb455-3"><a href="many-multi-layer.html#cb455-3"></a></span>
-<span id="cb455-4"><a href="many-multi-layer.html#cb455-4"></a><span class="co">#--- define group id ---#</span></span>
-<span id="cb455-5"><a href="many-multi-layer.html#cb455-5"></a>US_county &lt;-<span class="st"> </span>US_county <span class="op">%&gt;%</span><span class="st">  </span></span>
-<span id="cb455-6"><a href="many-multi-layer.html#cb455-6"></a><span class="st">  </span><span class="kw">mutate</span>(</span>
-<span id="cb455-7"><a href="many-multi-layer.html#cb455-7"></a>    <span class="co">#--- create grid id ---#</span></span>
-<span id="cb455-8"><a href="many-multi-layer.html#cb455-8"></a>    <span class="dt">poly_id =</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(.),</span>
-<span id="cb455-9"><a href="many-multi-layer.html#cb455-9"></a>    <span class="co">#--- assign group id  ---#</span></span>
-<span id="cb455-10"><a href="many-multi-layer.html#cb455-10"></a>    <span class="dt">group_id =</span> poly_id <span class="op">%/%</span><span class="st"> </span>num_in_group <span class="op">+</span><span class="st"> </span><span class="dv">1</span></span>
-<span id="cb455-11"><a href="many-multi-layer.html#cb455-11"></a>  )</span>
-<span id="cb455-12"><a href="many-multi-layer.html#cb455-12"></a></span>
-<span id="cb455-13"><a href="many-multi-layer.html#cb455-13"></a>extract_by_group &lt;-<span class="st"> </span><span class="cf">function</span>(i){</span>
-<span id="cb455-14"><a href="many-multi-layer.html#cb455-14"></a>  temp_return &lt;-<span class="st"> </span><span class="kw">exact_extract</span>(</span>
-<span id="cb455-15"><a href="many-multi-layer.html#cb455-15"></a>    <span class="kw">stack</span>(<span class="st">&quot;./Data/PRISM/PRISM_ppt_y2009_m1.tif&quot;</span>), </span>
-<span id="cb455-16"><a href="many-multi-layer.html#cb455-16"></a>    <span class="kw">filter</span>(US_county, group_id <span class="op">==</span><span class="st"> </span>i)</span>
-<span id="cb455-17"><a href="many-multi-layer.html#cb455-17"></a>    ) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb455-18"><a href="many-multi-layer.html#cb455-18"></a><span class="st">    </span><span class="co">#--- combine the list of data.frames into one with polygon id ---#</span></span>
-<span id="cb455-19"><a href="many-multi-layer.html#cb455-19"></a><span class="st">    </span><span class="kw">rbindlist</span>(<span class="dt">idcol =</span> <span class="st">&quot;id_within_group&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb455-20"><a href="many-multi-layer.html#cb455-20"></a><span class="st">    </span><span class="co">#--- find the count of land use type values by polygon ---#</span></span>
-<span id="cb455-21"><a href="many-multi-layer.html#cb455-21"></a><span class="st">    </span><span class="kw">melt</span>(<span class="dt">id.var =</span> <span class="kw">c</span>(<span class="st">&quot;id_within_group&quot;</span>, <span class="st">&quot;coverage_fraction&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb455-22"><a href="many-multi-layer.html#cb455-22"></a><span class="st">    </span>.[, <span class="kw">sum</span>(value <span class="op">*</span><span class="st"> </span>coverage_fraction)<span class="op">/</span><span class="kw">sum</span>(coverage_fraction), by =<span class="st"> </span>.(id_within_group, variable)]</span>
-<span id="cb455-23"><a href="many-multi-layer.html#cb455-23"></a></span>
-<span id="cb455-24"><a href="many-multi-layer.html#cb455-24"></a>  <span class="kw">return</span>(temp_return)</span>
-<span id="cb455-25"><a href="many-multi-layer.html#cb455-25"></a>}</span>
-<span id="cb455-26"><a href="many-multi-layer.html#cb455-26"></a></span>
-<span id="cb455-27"><a href="many-multi-layer.html#cb455-27"></a><span class="kw">tic</span>()</span>
-<span id="cb455-28"><a href="many-multi-layer.html#cb455-28"></a>temp &lt;-<span class="st"> </span><span class="kw">mclapply</span>(<span class="dv">1</span><span class="op">:</span>num_cores, extract_by_group, <span class="dt">mc.cores =</span> num_cores)</span>
-<span id="cb455-29"><a href="many-multi-layer.html#cb455-29"></a><span class="kw">toc</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb479"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb479-1"><a href="many-multi-layer.html#cb479-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- number of polygons in a group ---#</span></span>
+<span id="cb479-2"><a href="many-multi-layer.html#cb479-2" aria-hidden="true" tabindex="-1"></a>num_in_group <span class="ot">&lt;-</span> <span class="fu">floor</span>(<span class="fu">nrow</span>(US_county)<span class="sc">/</span>num_cores)</span>
+<span id="cb479-3"><a href="many-multi-layer.html#cb479-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb479-4"><a href="many-multi-layer.html#cb479-4" aria-hidden="true" tabindex="-1"></a><span class="co">#--- define group id ---#</span></span>
+<span id="cb479-5"><a href="many-multi-layer.html#cb479-5" aria-hidden="true" tabindex="-1"></a>US_county <span class="ot">&lt;-</span> US_county <span class="sc">%&gt;%</span>  </span>
+<span id="cb479-6"><a href="many-multi-layer.html#cb479-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb479-7"><a href="many-multi-layer.html#cb479-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">#--- create grid id ---#</span></span>
+<span id="cb479-8"><a href="many-multi-layer.html#cb479-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">poly_id =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(.),</span>
+<span id="cb479-9"><a href="many-multi-layer.html#cb479-9" aria-hidden="true" tabindex="-1"></a>    <span class="co">#--- assign group id  ---#</span></span>
+<span id="cb479-10"><a href="many-multi-layer.html#cb479-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">group_id =</span> poly_id <span class="sc">%/%</span> num_in_group <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb479-11"><a href="many-multi-layer.html#cb479-11" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb479-12"><a href="many-multi-layer.html#cb479-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb479-13"><a href="many-multi-layer.html#cb479-13" aria-hidden="true" tabindex="-1"></a>extract_by_group <span class="ot">&lt;-</span> <span class="cf">function</span>(i){</span>
+<span id="cb479-14"><a href="many-multi-layer.html#cb479-14" aria-hidden="true" tabindex="-1"></a>  temp_return <span class="ot">&lt;-</span> <span class="fu">exact_extract</span>(</span>
+<span id="cb479-15"><a href="many-multi-layer.html#cb479-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stack</span>(<span class="st">&quot;Data/PRISM/PRISM_ppt_y2009_m1.tif&quot;</span>), </span>
+<span id="cb479-16"><a href="many-multi-layer.html#cb479-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(US_county, group_id <span class="sc">==</span> i)</span>
+<span id="cb479-17"><a href="many-multi-layer.html#cb479-17" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span> </span>
+<span id="cb479-18"><a href="many-multi-layer.html#cb479-18" aria-hidden="true" tabindex="-1"></a>    <span class="co">#--- combine the list of data.frames into one with polygon id ---#</span></span>
+<span id="cb479-19"><a href="many-multi-layer.html#cb479-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rbindlist</span>(<span class="at">idcol =</span> <span class="st">&quot;id_within_group&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb479-20"><a href="many-multi-layer.html#cb479-20" aria-hidden="true" tabindex="-1"></a>    <span class="co">#--- find the count of land use type values by polygon ---#</span></span>
+<span id="cb479-21"><a href="many-multi-layer.html#cb479-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">melt</span>(<span class="at">id.var =</span> <span class="fu">c</span>(<span class="st">&quot;id_within_group&quot;</span>, <span class="st">&quot;coverage_fraction&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb479-22"><a href="many-multi-layer.html#cb479-22" aria-hidden="true" tabindex="-1"></a>    .[, <span class="fu">sum</span>(value <span class="sc">*</span> coverage_fraction)<span class="sc">/</span><span class="fu">sum</span>(coverage_fraction), by <span class="ot">=</span> .(id_within_group, variable)]</span>
+<span id="cb479-23"><a href="many-multi-layer.html#cb479-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb479-24"><a href="many-multi-layer.html#cb479-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(temp_return)</span>
+<span id="cb479-25"><a href="many-multi-layer.html#cb479-25" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb479-26"><a href="many-multi-layer.html#cb479-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb479-27"><a href="many-multi-layer.html#cb479-27" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
+<span id="cb479-28"><a href="many-multi-layer.html#cb479-28" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">mclapply</span>(<span class="dv">1</span><span class="sc">:</span>num_cores, extract_by_group, <span class="at">mc.cores =</span> num_cores)</span>
+<span id="cb479-29"><a href="many-multi-layer.html#cb479-29" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code></pre></div>
 <pre><code>elapsed 
  83.694 </code></pre>
 <p>Okay, so this approach does not really help. If we are to process 10 years of daily PRISM data, then it would take roughly 167.39 minutes.</p>
@@ -629,35 +612,35 @@ First 10 features:
 <div id="approach-2-parallelize-over-the-temporal-dimension-year-month" class="section level3" number="6.2.4">
 <h3><span class="header-section-number">6.2.4</span> Approach 2: parallelize over the temporal dimension (year-month)</h3>
 <p>Instead of parallelize over polygons, let’s parallelize over time (year-month). To do so, we first create a <code>data.frame</code> that has all the year-month combinations we will work on.</p>
-<div class="sourceCode" id="cb457"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb457-1"><a href="many-multi-layer.html#cb457-1"></a>(</span>
-<span id="cb457-2"><a href="many-multi-layer.html#cb457-2"></a>month_year_data &lt;-<span class="st"> </span><span class="kw">expand.grid</span>(<span class="dt">month  =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">12</span>, <span class="dt">year =</span> <span class="dv">2009</span><span class="op">:</span><span class="dv">2018</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb457-3"><a href="many-multi-layer.html#cb457-3"></a><span class="st">  </span><span class="kw">data.table</span>()</span>
-<span id="cb457-4"><a href="many-multi-layer.html#cb457-4"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb481"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb481-1"><a href="many-multi-layer.html#cb481-1" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb481-2"><a href="many-multi-layer.html#cb481-2" aria-hidden="true" tabindex="-1"></a>month_year_data <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">month  =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>, <span class="at">year =</span> <span class="dv">2009</span><span class="sc">:</span><span class="dv">2018</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb481-3"><a href="many-multi-layer.html#cb481-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.table</span>()</span>
+<span id="cb481-4"><a href="many-multi-layer.html#cb481-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <p>The following function extract data from a single year-month case:</p>
-<div class="sourceCode" id="cb458"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb458-1"><a href="many-multi-layer.html#cb458-1"></a>get_prism_by_month &lt;-<span class="st"> </span><span class="cf">function</span>(i, vector){</span>
-<span id="cb458-2"><a href="many-multi-layer.html#cb458-2"></a></span>
-<span id="cb458-3"><a href="many-multi-layer.html#cb458-3"></a>  temp_month &lt;-<span class="st"> </span>month_year_data[i, month] <span class="co"># month to work on</span></span>
-<span id="cb458-4"><a href="many-multi-layer.html#cb458-4"></a>  temp_year &lt;-<span class="st"> </span>month_year_data[i, year] <span class="co"># year to work on</span></span>
-<span id="cb458-5"><a href="many-multi-layer.html#cb458-5"></a></span>
-<span id="cb458-6"><a href="many-multi-layer.html#cb458-6"></a>  <span class="co">#--- import raster data ---#</span></span>
-<span id="cb458-7"><a href="many-multi-layer.html#cb458-7"></a>  temp_raster &lt;-<span class="st"> </span><span class="kw">stack</span>(<span class="kw">paste0</span>(<span class="st">&quot;./Data/PRISM/PRISM_ppt_y&quot;</span>, temp_year, <span class="st">&quot;_m&quot;</span>, temp_month, <span class="st">&quot;.tif&quot;</span>)) </span>
-<span id="cb458-8"><a href="many-multi-layer.html#cb458-8"></a></span>
-<span id="cb458-9"><a href="many-multi-layer.html#cb458-9"></a>  temp &lt;-<span class="st"> </span><span class="kw">exact_extract</span>(temp_raster, vector) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb458-10"><a href="many-multi-layer.html#cb458-10"></a><span class="st">    </span><span class="co">#--- combine the extraction results into one data.frame ---#</span></span>
-<span id="cb458-11"><a href="many-multi-layer.html#cb458-11"></a><span class="st">    </span><span class="kw">rbindlist</span>(<span class="dt">idcol =</span> <span class="st">&quot;row_id&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb458-12"><a href="many-multi-layer.html#cb458-12"></a><span class="st">    </span><span class="co">#--- wide to long ---#</span></span>
-<span id="cb458-13"><a href="many-multi-layer.html#cb458-13"></a><span class="st">    </span><span class="kw">melt</span>(<span class="dt">id.var =</span> <span class="kw">c</span>(<span class="st">&quot;row_id&quot;</span>, <span class="st">&quot;coverage_fraction&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb458-14"><a href="many-multi-layer.html#cb458-14"></a><span class="st">    </span><span class="co">#--- find coverage-weighted average ---#</span></span>
-<span id="cb458-15"><a href="many-multi-layer.html#cb458-15"></a><span class="st">    </span>.[, <span class="kw">sum</span>(value<span class="op">*</span>coverage_fraction)<span class="op">/</span><span class="kw">sum</span>(coverage_fraction), by =<span class="st"> </span>.(row_id, variable)]</span>
-<span id="cb458-16"><a href="many-multi-layer.html#cb458-16"></a></span>
-<span id="cb458-17"><a href="many-multi-layer.html#cb458-17"></a>  <span class="kw">return</span>(temp)</span>
-<span id="cb458-18"><a href="many-multi-layer.html#cb458-18"></a></span>
-<span id="cb458-19"><a href="many-multi-layer.html#cb458-19"></a>  <span class="kw">gc</span>()</span>
-<span id="cb458-20"><a href="many-multi-layer.html#cb458-20"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb482"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb482-1"><a href="many-multi-layer.html#cb482-1" aria-hidden="true" tabindex="-1"></a>get_prism_by_month <span class="ot">&lt;-</span> <span class="cf">function</span>(i, vector){</span>
+<span id="cb482-2"><a href="many-multi-layer.html#cb482-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb482-3"><a href="many-multi-layer.html#cb482-3" aria-hidden="true" tabindex="-1"></a>  temp_month <span class="ot">&lt;-</span> month_year_data[i, month] <span class="co"># month to work on</span></span>
+<span id="cb482-4"><a href="many-multi-layer.html#cb482-4" aria-hidden="true" tabindex="-1"></a>  temp_year <span class="ot">&lt;-</span> month_year_data[i, year] <span class="co"># year to work on</span></span>
+<span id="cb482-5"><a href="many-multi-layer.html#cb482-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb482-6"><a href="many-multi-layer.html#cb482-6" aria-hidden="true" tabindex="-1"></a>  <span class="co">#--- import raster data ---#</span></span>
+<span id="cb482-7"><a href="many-multi-layer.html#cb482-7" aria-hidden="true" tabindex="-1"></a>  temp_raster <span class="ot">&lt;-</span> <span class="fu">stack</span>(<span class="fu">paste0</span>(<span class="st">&quot;Data/PRISM/PRISM_ppt_y&quot;</span>, temp_year, <span class="st">&quot;_m&quot;</span>, temp_month, <span class="st">&quot;.tif&quot;</span>)) </span>
+<span id="cb482-8"><a href="many-multi-layer.html#cb482-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb482-9"><a href="many-multi-layer.html#cb482-9" aria-hidden="true" tabindex="-1"></a>  temp <span class="ot">&lt;-</span> <span class="fu">exact_extract</span>(temp_raster, vector) <span class="sc">%&gt;%</span> </span>
+<span id="cb482-10"><a href="many-multi-layer.html#cb482-10" aria-hidden="true" tabindex="-1"></a>    <span class="co">#--- combine the extraction results into one data.frame ---#</span></span>
+<span id="cb482-11"><a href="many-multi-layer.html#cb482-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rbindlist</span>(<span class="at">idcol =</span> <span class="st">&quot;row_id&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb482-12"><a href="many-multi-layer.html#cb482-12" aria-hidden="true" tabindex="-1"></a>    <span class="co">#--- wide to long ---#</span></span>
+<span id="cb482-13"><a href="many-multi-layer.html#cb482-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">melt</span>(<span class="at">id.var =</span> <span class="fu">c</span>(<span class="st">&quot;row_id&quot;</span>, <span class="st">&quot;coverage_fraction&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb482-14"><a href="many-multi-layer.html#cb482-14" aria-hidden="true" tabindex="-1"></a>    <span class="co">#--- find coverage-weighted average ---#</span></span>
+<span id="cb482-15"><a href="many-multi-layer.html#cb482-15" aria-hidden="true" tabindex="-1"></a>    .[, <span class="fu">sum</span>(value<span class="sc">*</span>coverage_fraction)<span class="sc">/</span><span class="fu">sum</span>(coverage_fraction), by <span class="ot">=</span> .(row_id, variable)]</span>
+<span id="cb482-16"><a href="many-multi-layer.html#cb482-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb482-17"><a href="many-multi-layer.html#cb482-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(temp)</span>
+<span id="cb482-18"><a href="many-multi-layer.html#cb482-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb482-19"><a href="many-multi-layer.html#cb482-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gc</span>()</span>
+<span id="cb482-20"><a href="many-multi-layer.html#cb482-20" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>We then loop over the rows of <code>month_year_data</code> in parallel.</p>
-<div class="sourceCode" id="cb459"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb459-1"><a href="many-multi-layer.html#cb459-1"></a><span class="kw">tic</span>()</span>
-<span id="cb459-2"><a href="many-multi-layer.html#cb459-2"></a>temp &lt;-<span class="st"> </span><span class="kw">mclapply</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(month_year_data), <span class="cf">function</span>(x) <span class="kw">get_prism_by_month</span>(x, US_county), <span class="dt">mc.cores =</span> num_cores)</span>
-<span id="cb459-3"><a href="many-multi-layer.html#cb459-3"></a><span class="kw">toc</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb483"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb483-1"><a href="many-multi-layer.html#cb483-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
+<span id="cb483-2"><a href="many-multi-layer.html#cb483-2" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">mclapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(month_year_data), <span class="cf">function</span>(x) <span class="fu">get_prism_by_month</span>(x, US_county), <span class="at">mc.cores =</span> num_cores)</span>
+<span id="cb483-3"><a href="many-multi-layer.html#cb483-3" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code></pre></div>
 <pre><code>elapsed 
 451.477 </code></pre>
 <p>It took 7.52 minutes. So, Approach 2 is the clear winner.</p>
@@ -670,13 +653,13 @@ First 10 features:
 <p>In summary, while letting each core process a larger amount of data, you need to be careful not to exceed the RAM memory limit of your computer.</p>
 <!-- ```{r by_year, eval = F}
 save_tif <- function(y){
-  temp_ml <- terra::rast(stack(paste0("./Data/PRISM/PRISM_ppt_y", y, "_m", 1:12 ,".tif"))) 
-  writeRaster(temp_ml, paste0("./Data/PRISM/PRISM_ppt_y", y, ".tif"), overwrite = T)
+  temp_ml <- terra::rast(stack(paste0("Data/PRISM/PRISM_ppt_y", y, "_m", 1:12 ,".tif"))) 
+  writeRaster(temp_ml, paste0("Data/PRISM/PRISM_ppt_y", y, ".tif"), overwrite = T)
 }
 
 mclapply(2009:2018, save_tif, mc.cores = 10)
 
-temp_ml <- stack(paste0("./Data/PRISM/PRISM_ppt_y2009.tif"))
+temp_ml <- stack(paste0("Data/PRISM/PRISM_ppt_y2009.tif"))
 
 tic()
 temp <- exact_extract(temp_ml, US_county)

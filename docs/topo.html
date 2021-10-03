@@ -24,7 +24,7 @@
 <meta name="author" content="Taro Mieno" />
 
 
-<meta name="date" content="2020-09-06" />
+<meta name="date" content="2021-10-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,7 @@
   
 <link rel="prev" href="before-you-start-2.html"/>
 <link rel="next" href="spatial-subsetting-or-flagging.html"/>
-<script src="libs/header-attrs-2.3/header-attrs.js"></script>
+<script src="libs/header-attrs-2.9/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -51,8 +51,9 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
 <script src="libs/leaflet-1.3.1/leaflet.js"></script>
 <link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
@@ -62,26 +63,6 @@
 <script src="libs/leaflet-binding-2.0.3/leaflet.js"></script>
 <script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script>
 <script src="libs/leaflet-providers-plugin-2.0.3/leaflet-providers-plugin.js"></script>
-<link href="libs/HomeButton-0.0.1/home-button.css" rel="stylesheet" />
-<script src="libs/HomeButton-0.0.1/home-button.js"></script>
-<script src="libs/HomeButton-0.0.1/easy-button-src.min.js"></script>
-<script src="libs/clipboard-0.0.1/setClipboardText.js"></script>
-<link href="libs/PopupTable-0.0.1/popup.css" rel="stylesheet" />
-<script src="libs/IA_cdl_2015-1/data_stars_IA_cdl_20157013d9.txt"></script>
-<script src="libs/joda-0.0.1/joda.js"></script>
-<script src="libs/joda-0.0.1/addImageQuery-bindings.js"></script>
-<script src="libs/IA_cdl_2016-1/data_stars_IA_cdl_2016f0942b.txt"></script>
-<script src="libs/prcp_tmax_PRISM_m8_y09["tmax", , , ] - 1-1/data_stars_prcp_tmax_PRISM_m8_y09tmax15f4a23.txt"></script>
-<script src="libs/layer.1-1/data_stars_layer16e07dc.txt"></script>
-<script src="libs/layer.2-1/data_stars_layer29d3c0a.txt"></script>
-<script src="libs/layer.3-1/data_stars_layer30124e8.txt"></script>
-<script src="libs/layer.4-1/data_stars_layer4125698.txt"></script>
-<script src="libs/layer.5-1/data_stars_layer56ca504.txt"></script>
-<script src="libs/layer.6-1/data_stars_layer60b51ef.txt"></script>
-<script src="libs/layer.7-1/data_stars_layer7d85baf.txt"></script>
-<script src="libs/layer.8-1/data_stars_layer831db4a.txt"></script>
-<script src="libs/layer.9-1/data_stars_layer935e042.txt"></script>
-<script src="libs/layer.10-1/data_stars_layer102ad98c.txt"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
 <script src="libs/datatables-binding-0.13/datatables.js"></script>
 <link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
@@ -251,8 +232,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.5.2" data-path="quick-and-interactive-view-of-an-sf-object.html"><a href="quick-and-interactive-view-of-an-sf-object.html#interactive-view"><i class="fa fa-check"></i><b>2.5.2</b> Interactive view</a></li>
 </ul></li>
 <li class="chapter" data-level="2.6" data-path="turning-a-data-frame-of-points-into-an-sf.html"><a href="turning-a-data-frame-of-points-into-an-sf.html"><i class="fa fa-check"></i><b>2.6</b> Turning a data.frame of points into an <code>sf</code></a></li>
-<li class="chapter" data-level="2.7" data-path="conv-sp.html"><a href="conv-sp.html"><i class="fa fa-check"></i><b>2.7</b> Conversion to and from sp</a></li>
-<li class="chapter" data-level="2.8" data-path="non-spatial-transformation-of-sf.html"><a href="non-spatial-transformation-of-sf.html"><i class="fa fa-check"></i><b>2.8</b> Non-spatial transformation of sf</a>
+<li class="chapter" data-level="2.7" data-path="conv-sp.html"><a href="conv-sp.html"><i class="fa fa-check"></i><b>2.7</b> Conversion to and from sp objects</a></li>
+<li class="chapter" data-level="2.8" data-path="non-spatial-transformation-of-sf.html"><a href="non-spatial-transformation-of-sf.html"><i class="fa fa-check"></i><b>2.8</b> Non-spatial transformation of <code>sf</code></a>
 <ul>
 <li class="chapter" data-level="2.8.1" data-path="non-spatial-transformation-of-sf.html"><a href="non-spatial-transformation-of-sf.html#using-dplyr"><i class="fa fa-check"></i><b>2.8.1</b> Using <code>dplyr</code></a></li>
 <li class="chapter" data-level="2.8.2" data-path="non-spatial-transformation-of-sf.html"><a href="non-spatial-transformation-of-sf.html#using-data.table"><i class="fa fa-check"></i><b>2.8.2</b> Using <code>data.table</code></a></li>
@@ -282,7 +263,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.2.2" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#points-source-vs-polygons-target"><i class="fa fa-check"></i><b>3.2.2</b> points (source) vs polygons (target)</a></li>
 <li class="chapter" data-level="3.2.3" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#lines_polygons"><i class="fa fa-check"></i><b>3.2.3</b> lines (source) vs polygons (target)</a></li>
 <li class="chapter" data-level="3.2.4" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#polygons_points"><i class="fa fa-check"></i><b>3.2.4</b> polygons (source) vs points (target)</a></li>
-<li class="chapter" data-level="3.2.5" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#subsetting-to-a-geograpchic-extent-bounding-box"><i class="fa fa-check"></i><b>3.2.5</b> Subsetting to a geograpchic extent (bounding box)</a></li>
+<li class="chapter" data-level="3.2.5" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#subsetting-to-a-geographic-extent-bounding-box"><i class="fa fa-check"></i><b>3.2.5</b> Subsetting to a geographic extent (bounding box)</a></li>
 </ul></li>
 <li class="chapter" data-level="3.3" data-path="sp-join.html"><a href="sp-join.html"><i class="fa fa-check"></i><b>3.3</b> Spatial Join</a>
 <ul>
@@ -314,8 +295,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.2.1" data-path="read-and-write-a-raster-data-file.html"><a href="read-and-write-a-raster-data-file.html#read-raster-files"><i class="fa fa-check"></i><b>4.2.1</b> Read raster file(s)</a></li>
 <li class="chapter" data-level="4.2.2" data-path="read-and-write-a-raster-data-file.html"><a href="read-and-write-a-raster-data-file.html#write-raster-files"><i class="fa fa-check"></i><b>4.2.2</b> Write raster files</a></li>
 </ul></li>
-<li class="chapter" data-level="4.3" data-path="access-values.html"><a href="access-values.html"><i class="fa fa-check"></i><b>4.3</b> Access values</a></li>
-<li class="chapter" data-level="4.4" data-path="quick-plot-and-interactive-map.html"><a href="quick-plot-and-interactive-map.html"><i class="fa fa-check"></i><b>4.4</b> Quick plot and interactive map</a></li>
+<li class="chapter" data-level="4.3" data-path="extract-information-from-raster-data-object.html"><a href="extract-information-from-raster-data-object.html"><i class="fa fa-check"></i><b>4.3</b> Extract information from raster data object</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="extract-information-from-raster-data-object.html"><a href="extract-information-from-raster-data-object.html#get-crs"><i class="fa fa-check"></i><b>4.3.1</b> Get CRS</a></li>
+<li class="chapter" data-level="4.3.2" data-path="extract-information-from-raster-data-object.html"><a href="extract-information-from-raster-data-object.html#subset"><i class="fa fa-check"></i><b>4.3.2</b> Subset</a></li>
+<li class="chapter" data-level="4.3.3" data-path="extract-information-from-raster-data-object.html"><a href="extract-information-from-raster-data-object.html#get-cell-values"><i class="fa fa-check"></i><b>4.3.3</b> Get cell values</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="turning-a-raster-object-into-a-data-frame.html"><a href="turning-a-raster-object-into-a-data-frame.html"><i class="fa fa-check"></i><b>4.4</b> Turning a raster object into a <code>data.frame</code></a></li>
+<li class="chapter" data-level="4.5" data-path="quick-plot-and-interactive-map.html"><a href="quick-plot-and-interactive-map.html"><i class="fa fa-check"></i><b>4.5</b> Quick plot and interactive map</a></li>
+<li class="chapter" data-level="4.6" data-path="working-with-netcdfs.html"><a href="working-with-netcdfs.html"><i class="fa fa-check"></i><b>4.6</b> Working with netCDFs</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="int-RV.html"><a href="int-RV.html"><i class="fa fa-check"></i><b>5</b> Spatial Interactions of Vector and Raster Data</a>
 <ul>
@@ -323,12 +311,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="" data-path="before-you-start-4.html"><a href="before-you-start-4.html#direction-for-replication-4"><i class="fa fa-check"></i>Direction for replication</a></li>
 </ul></li>
-<li class="chapter" data-level="5.1" data-path="raster-crop.html"><a href="raster-crop.html"><i class="fa fa-check"></i><b>5.1</b> Cropping (Spatial subsetting) to the Area of Interest</a></li>
+<li class="chapter" data-level="5.1" data-path="raster-crop.html"><a href="raster-crop.html"><i class="fa fa-check"></i><b>5.1</b> Cropping to the Area of Interest</a></li>
 <li class="chapter" data-level="5.2" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html"><i class="fa fa-check"></i><b>5.2</b> Extracting Values from Raster Layers for Vector Data</a>
 <ul>
-<li class="chapter" data-level="5.2.1" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#points"><i class="fa fa-check"></i><b>5.2.1</b> Points</a></li>
-<li class="chapter" data-level="5.2.2" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#polygons-terra-way"><i class="fa fa-check"></i><b>5.2.2</b> Polygons (<code>terra</code> way)</a></li>
-<li class="chapter" data-level="5.2.3" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#polygons-exactextractr-way"><i class="fa fa-check"></i><b>5.2.3</b> Polygons (<code>exactextractr</code> way)</a></li>
+<li class="chapter" data-level="5.2.1" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#simple-visual-illustrations-of-raster-data-extraction"><i class="fa fa-check"></i><b>5.2.1</b> Simple visual illustrations of raster data extraction</a></li>
+<li class="chapter" data-level="5.2.2" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#extracting-to-points"><i class="fa fa-check"></i><b>5.2.2</b> Extracting to Points</a></li>
+<li class="chapter" data-level="5.2.3" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#extracting-to-polygons-terra-way"><i class="fa fa-check"></i><b>5.2.3</b> Extracting to Polygons (<code>terra</code> way)</a></li>
+<li class="chapter" data-level="5.2.4" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#extracting-to-polygons-exactextractr-way"><i class="fa fa-check"></i><b>5.2.4</b> Extracting to Polygons (<code>exactextractr</code> way)</a></li>
 </ul></li>
 <li class="chapter" data-level="5.3" data-path="extract-speed.html"><a href="extract-speed.html"><i class="fa fa-check"></i><b>5.3</b> Extraction speed comparison</a>
 <ul>
@@ -338,7 +327,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul></li>
 <li class="part"><span><b>III (slightly) Advanced Topics</b></span></li>
-<li class="chapter" data-level="6" data-path="EE.html"><a href="EE.html"><i class="fa fa-check"></i><b>6</b> Speed Things Up</a>
+<li class="chapter" data-level="6" data-path="EE.html"><a href="EE.html"><i class="fa fa-check"></i><b>6</b> Extraction Speed Considerations</a>
 <ul>
 <li class="chapter" data-level="" data-path="before-you-start-5.html"><a href="before-you-start-5.html"><i class="fa fa-check"></i>Before you start</a>
 <ul>
@@ -399,12 +388,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.7.3" data-path="merging-stars-objects-using-c-and-st-mosaic.html"><a href="merging-stars-objects-using-c-and-st-mosaic.html#merging-stars-objects-of-different-spatial-extents"><i class="fa fa-check"></i><b>7.7.3</b> Merging <code>stars</code> objects of different spatial extents</a></li>
 </ul></li>
 <li class="chapter" data-level="7.8" data-path="convert-to-rb.html"><a href="convert-to-rb.html"><i class="fa fa-check"></i><b>7.8</b> Convert from and to <code>Raster</code><span class="math inline">\(^*\)</span> objects</a></li>
-<li class="chapter" data-level="7.9" data-path="spatial-cropping.html"><a href="spatial-cropping.html"><i class="fa fa-check"></i><b>7.9</b> Spatial cropping</a></li>
-<li class="chapter" data-level="7.10" data-path="extraction-stars.html"><a href="extraction-stars.html"><i class="fa fa-check"></i><b>7.10</b> Extracting values from <code>stars</code> for vector data</a>
-<ul>
-<li class="chapter" data-level="7.10.1" data-path="extraction-stars.html"><a href="extraction-stars.html#points-1"><i class="fa fa-check"></i><b>7.10.1</b> Points</a></li>
-<li class="chapter" data-level="7.10.2" data-path="extraction-stars.html"><a href="extraction-stars.html#polygons"><i class="fa fa-check"></i><b>7.10.2</b> Polygons</a></li>
-</ul></li>
 </ul></li>
 <li class="part"><span><b>IV Extensions</b></span></li>
 <li class="chapter" data-level="8" data-path="create-maps.html"><a href="create-maps.html"><i class="fa fa-check"></i><b>8</b> Creating Maps using <code>ggplot2</code></a>
@@ -478,9 +461,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.4.1" data-path="daymet-with-daymetr-and-feddata.html"><a href="daymet-with-daymetr-and-feddata.html#for-points-data"><i class="fa fa-check"></i><b>9.4.1</b> For points data</a></li>
 <li class="chapter" data-level="9.4.2" data-path="daymet-with-daymetr-and-feddata.html"><a href="daymet-with-daymetr-and-feddata.html#daymet-poly"><i class="fa fa-check"></i><b>9.4.2</b> For polygons data</a></li>
 </ul></li>
-<li class="chapter" data-level="9.5" data-path="usgs-under-construction.html"><a href="usgs-under-construction.html"><i class="fa fa-check"></i><b>9.5</b> USGS (under construction)</a></li>
-<li class="chapter" data-level="9.6" data-path="sentinel-with-sen2r-under-construction.html"><a href="sentinel-with-sen2r-under-construction.html"><i class="fa fa-check"></i><b>9.6</b> Sentinel with <code>sen2r</code> (under construction)</a></li>
-<li class="chapter" data-level="9.7" data-path="census-with-tidycensus-under-construction.html"><a href="census-with-tidycensus-under-construction.html"><i class="fa fa-check"></i><b>9.7</b> Census with <code>tidycensus</code> (under construction)</a></li>
+<li class="chapter" data-level="9.5" data-path="gridMET.html"><a href="gridMET.html"><i class="fa fa-check"></i><b>9.5</b> gridMET</a>
+<ul>
+<li class="chapter" data-level="9.5.1" data-path="gridMET.html"><a href="gridMET.html#practical-examples"><i class="fa fa-check"></i><b>9.5.1</b> Practical Examples</a></li>
+</ul></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="par-comp.html"><a href="par-comp.html"><i class="fa fa-check"></i><b>A</b> Loop and Parallel Computing</a>
@@ -539,92 +523,92 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <div id="topo" class="section level2" number="3.1">
 <h2><span class="header-section-number">3.1</span> Topological relations</h2>
-<p>Before we learn spatial subsetting and joining, we first look at topological relations. Topological relations refer to the way multiple spatial objects are spatially related to one another. You can identify various types of spatial relations using the <code>sf</code> package. Our main focus is on the intersections of spatial objects, which can be found using <code>st_intersects()</code>.<a href="#fn59" class="footnote-ref" id="fnref59"><sup>59</sup></a> We also briefly cover <code>st_is_within_distance()</code><a href="#fn60" class="footnote-ref" id="fnref60"><sup>60</sup></a>.</p>
+<p>Before we learn spatial subsetting and joining, we first look at topological relations. Topological relations refer to the way multiple spatial objects are spatially related to one another. You can identify various types of spatial relations using the <code>sf</code> package. Our main focus is on the intersections of spatial objects, which can be found using <code>st_intersects()</code><a href="#fn56" class="footnote-ref" id="fnref56"><sup>56</sup></a>. We also briefly cover <code>st_is_within_distance()</code>. If you are interested in other topological relations, run <code>?geos_binary_pred</code>.</p>
 <hr />
 <p>We first create <code>sf</code> objects we are going to use for illustrations.</p>
 <p><strong>POINTS</strong></p>
-<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="topo.html#cb211-1"></a><span class="co">#--- create points ---#</span></span>
-<span id="cb211-2"><a href="topo.html#cb211-2"></a>point_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">st_point</span>(<span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
-<span id="cb211-3"><a href="topo.html#cb211-3"></a>point_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">st_point</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
-<span id="cb211-4"><a href="topo.html#cb211-4"></a>point_<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw">st_point</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>))</span>
-<span id="cb211-5"><a href="topo.html#cb211-5"></a></span>
-<span id="cb211-6"><a href="topo.html#cb211-6"></a><span class="co">#--- combine the points to make a single  sf of points ---#</span></span>
-<span id="cb211-7"><a href="topo.html#cb211-7"></a>(</span>
-<span id="cb211-8"><a href="topo.html#cb211-8"></a>points &lt;-<span class="st"> </span><span class="kw">list</span>(point_<span class="dv">1</span>, point_<span class="dv">2</span>, point_<span class="dv">3</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb211-9"><a href="topo.html#cb211-9"></a><span class="st">  </span><span class="kw">st_sfc</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb211-10"><a href="topo.html#cb211-10"></a><span class="st">  </span><span class="kw">st_as_sf</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb211-11"><a href="topo.html#cb211-11"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">point_name =</span> <span class="kw">c</span>(<span class="st">&quot;point 1&quot;</span>, <span class="st">&quot;point 2&quot;</span>, <span class="st">&quot;point 3&quot;</span>))</span>
-<span id="cb211-12"><a href="topo.html#cb211-12"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="topo.html#cb211-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- create points ---#</span></span>
+<span id="cb211-2"><a href="topo.html#cb211-2" aria-hidden="true" tabindex="-1"></a>point_1 <span class="ot">&lt;-</span> <span class="fu">st_point</span>(<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb211-3"><a href="topo.html#cb211-3" aria-hidden="true" tabindex="-1"></a>point_2 <span class="ot">&lt;-</span> <span class="fu">st_point</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb211-4"><a href="topo.html#cb211-4" aria-hidden="true" tabindex="-1"></a>point_3 <span class="ot">&lt;-</span> <span class="fu">st_point</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>))</span>
+<span id="cb211-5"><a href="topo.html#cb211-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb211-6"><a href="topo.html#cb211-6" aria-hidden="true" tabindex="-1"></a><span class="co">#--- combine the points to make a single  sf of points ---#</span></span>
+<span id="cb211-7"><a href="topo.html#cb211-7" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb211-8"><a href="topo.html#cb211-8" aria-hidden="true" tabindex="-1"></a>points <span class="ot">&lt;-</span> <span class="fu">list</span>(point_1, point_2, point_3) <span class="sc">%&gt;%</span> </span>
+<span id="cb211-9"><a href="topo.html#cb211-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_sfc</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb211-10"><a href="topo.html#cb211-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb211-11"><a href="topo.html#cb211-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">point_name =</span> <span class="fu">c</span>(<span class="st">&quot;point 1&quot;</span>, <span class="st">&quot;point 2&quot;</span>, <span class="st">&quot;point 3&quot;</span>))</span>
+<span id="cb211-12"><a href="topo.html#cb211-12" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>Simple feature collection with 3 features and 1 field
-geometry type:  POINT
-dimension:      XY
-bbox:           xmin: 1 ymin: 1 xmax: 2 ymax: 3
-CRS:            NA
+Geometry type: POINT
+Dimension:     XY
+Bounding box:  xmin: 1 ymin: 1 xmax: 2 ymax: 3
+CRS:           NA
             x point_name
 1 POINT (2 2)    point 1
 2 POINT (1 1)    point 2
 3 POINT (1 3)    point 3</code></pre>
 <hr />
 <p><strong>LINES</strong></p>
-<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="topo.html#cb213-1"></a><span class="co">#--- create points ---#</span></span>
-<span id="cb213-2"><a href="topo.html#cb213-2"></a>line_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">st_linestring</span>(<span class="kw">rbind</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="kw">c</span>(<span class="fl">2.5</span>, <span class="fl">0.5</span>)))</span>
-<span id="cb213-3"><a href="topo.html#cb213-3"></a>line_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">st_linestring</span>(<span class="kw">rbind</span>(<span class="kw">c</span>(<span class="fl">1.5</span>, <span class="fl">0.5</span>), <span class="kw">c</span>(<span class="fl">2.5</span>, <span class="dv">2</span>)))</span>
-<span id="cb213-4"><a href="topo.html#cb213-4"></a></span>
-<span id="cb213-5"><a href="topo.html#cb213-5"></a><span class="co">#--- combine the points to make a single  sf of points ---#</span></span>
-<span id="cb213-6"><a href="topo.html#cb213-6"></a>(</span>
-<span id="cb213-7"><a href="topo.html#cb213-7"></a>lines &lt;-<span class="st"> </span><span class="kw">list</span>(line_<span class="dv">1</span>, line_<span class="dv">2</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb213-8"><a href="topo.html#cb213-8"></a><span class="st">  </span><span class="kw">st_sfc</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb213-9"><a href="topo.html#cb213-9"></a><span class="st">  </span><span class="kw">st_as_sf</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb213-10"><a href="topo.html#cb213-10"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">line_name =</span> <span class="kw">c</span>(<span class="st">&quot;line 1&quot;</span>, <span class="st">&quot;line 2&quot;</span>))</span>
-<span id="cb213-11"><a href="topo.html#cb213-11"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="topo.html#cb213-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- create points ---#</span></span>
+<span id="cb213-2"><a href="topo.html#cb213-2" aria-hidden="true" tabindex="-1"></a>line_1 <span class="ot">&lt;-</span> <span class="fu">st_linestring</span>(<span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="fu">c</span>(<span class="fl">2.5</span>, <span class="fl">0.5</span>)))</span>
+<span id="cb213-3"><a href="topo.html#cb213-3" aria-hidden="true" tabindex="-1"></a>line_2 <span class="ot">&lt;-</span> <span class="fu">st_linestring</span>(<span class="fu">rbind</span>(<span class="fu">c</span>(<span class="fl">1.5</span>, <span class="fl">0.5</span>), <span class="fu">c</span>(<span class="fl">2.5</span>, <span class="dv">2</span>)))</span>
+<span id="cb213-4"><a href="topo.html#cb213-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb213-5"><a href="topo.html#cb213-5" aria-hidden="true" tabindex="-1"></a><span class="co">#--- combine the points to make a single  sf of points ---#</span></span>
+<span id="cb213-6"><a href="topo.html#cb213-6" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb213-7"><a href="topo.html#cb213-7" aria-hidden="true" tabindex="-1"></a>lines <span class="ot">&lt;-</span> <span class="fu">list</span>(line_1, line_2) <span class="sc">%&gt;%</span> </span>
+<span id="cb213-8"><a href="topo.html#cb213-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_sfc</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb213-9"><a href="topo.html#cb213-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb213-10"><a href="topo.html#cb213-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">line_name =</span> <span class="fu">c</span>(<span class="st">&quot;line 1&quot;</span>, <span class="st">&quot;line 2&quot;</span>))</span>
+<span id="cb213-11"><a href="topo.html#cb213-11" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>Simple feature collection with 2 features and 1 field
-geometry type:  LINESTRING
-dimension:      XY
-bbox:           xmin: 0 ymin: 0 xmax: 2.5 ymax: 2
-CRS:            NA
+Geometry type: LINESTRING
+Dimension:     XY
+Bounding box:  xmin: 0 ymin: 0 xmax: 2.5 ymax: 2
+CRS:           NA
                             x line_name
 1   LINESTRING (0 0, 2.5 0.5)    line 1
 2 LINESTRING (1.5 0.5, 2.5 2)    line 2</code></pre>
 <hr />
 <p><strong>POLYGONS</strong></p>
-<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="topo.html#cb215-1"></a><span class="co">#--- create polygons ---#</span></span>
-<span id="cb215-2"><a href="topo.html#cb215-2"></a>polygon_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">st_polygon</span>(<span class="kw">list</span>(</span>
-<span id="cb215-3"><a href="topo.html#cb215-3"></a>  <span class="kw">rbind</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">0</span>), <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">2</span>), <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)) </span>
-<span id="cb215-4"><a href="topo.html#cb215-4"></a>))</span>
-<span id="cb215-5"><a href="topo.html#cb215-5"></a></span>
-<span id="cb215-6"><a href="topo.html#cb215-6"></a>polygon_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">st_polygon</span>(<span class="kw">list</span>(</span>
-<span id="cb215-7"><a href="topo.html#cb215-7"></a>  <span class="kw">rbind</span>(<span class="kw">c</span>(<span class="fl">0.5</span>, <span class="fl">1.5</span>), <span class="kw">c</span>(<span class="fl">0.5</span>, <span class="fl">3.5</span>), <span class="kw">c</span>(<span class="fl">2.5</span>, <span class="fl">3.5</span>), <span class="kw">c</span>(<span class="fl">2.5</span>, <span class="fl">1.5</span>), <span class="kw">c</span>(<span class="fl">0.5</span>, <span class="fl">1.5</span>)) </span>
-<span id="cb215-8"><a href="topo.html#cb215-8"></a>))</span>
-<span id="cb215-9"><a href="topo.html#cb215-9"></a></span>
-<span id="cb215-10"><a href="topo.html#cb215-10"></a>polygon_<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw">st_polygon</span>(<span class="kw">list</span>(</span>
-<span id="cb215-11"><a href="topo.html#cb215-11"></a>  <span class="kw">rbind</span>(<span class="kw">c</span>(<span class="fl">0.5</span>, <span class="fl">2.5</span>), <span class="kw">c</span>(<span class="fl">0.5</span>, <span class="fl">3.2</span>), <span class="kw">c</span>(<span class="fl">2.3</span>, <span class="fl">3.2</span>), <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="kw">c</span>(<span class="fl">0.5</span>, <span class="fl">2.5</span>)) </span>
-<span id="cb215-12"><a href="topo.html#cb215-12"></a>))</span>
-<span id="cb215-13"><a href="topo.html#cb215-13"></a></span>
-<span id="cb215-14"><a href="topo.html#cb215-14"></a><span class="co">#--- combine the polygons to make an sf of polygons ---#</span></span>
-<span id="cb215-15"><a href="topo.html#cb215-15"></a>(</span>
-<span id="cb215-16"><a href="topo.html#cb215-16"></a>polygons &lt;-<span class="st"> </span><span class="kw">list</span>(polygon_<span class="dv">1</span>, polygon_<span class="dv">2</span>, polygon_<span class="dv">3</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb215-17"><a href="topo.html#cb215-17"></a><span class="st">  </span><span class="kw">st_sfc</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb215-18"><a href="topo.html#cb215-18"></a><span class="st">  </span><span class="kw">st_as_sf</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb215-19"><a href="topo.html#cb215-19"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">polygon_name =</span> <span class="kw">c</span>(<span class="st">&quot;polygon 1&quot;</span>, <span class="st">&quot;polygon 2&quot;</span>, <span class="st">&quot;polygon 3&quot;</span>))</span>
-<span id="cb215-20"><a href="topo.html#cb215-20"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="topo.html#cb215-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- create polygons ---#</span></span>
+<span id="cb215-2"><a href="topo.html#cb215-2" aria-hidden="true" tabindex="-1"></a>polygon_1 <span class="ot">&lt;-</span> <span class="fu">st_polygon</span>(<span class="fu">list</span>(</span>
+<span id="cb215-3"><a href="topo.html#cb215-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">0</span>), <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">2</span>), <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)) </span>
+<span id="cb215-4"><a href="topo.html#cb215-4" aria-hidden="true" tabindex="-1"></a>))</span>
+<span id="cb215-5"><a href="topo.html#cb215-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb215-6"><a href="topo.html#cb215-6" aria-hidden="true" tabindex="-1"></a>polygon_2 <span class="ot">&lt;-</span> <span class="fu">st_polygon</span>(<span class="fu">list</span>(</span>
+<span id="cb215-7"><a href="topo.html#cb215-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rbind</span>(<span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">1.5</span>), <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">3.5</span>), <span class="fu">c</span>(<span class="fl">2.5</span>, <span class="fl">3.5</span>), <span class="fu">c</span>(<span class="fl">2.5</span>, <span class="fl">1.5</span>), <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">1.5</span>)) </span>
+<span id="cb215-8"><a href="topo.html#cb215-8" aria-hidden="true" tabindex="-1"></a>))</span>
+<span id="cb215-9"><a href="topo.html#cb215-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb215-10"><a href="topo.html#cb215-10" aria-hidden="true" tabindex="-1"></a>polygon_3 <span class="ot">&lt;-</span> <span class="fu">st_polygon</span>(<span class="fu">list</span>(</span>
+<span id="cb215-11"><a href="topo.html#cb215-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rbind</span>(<span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">2.5</span>), <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">3.2</span>), <span class="fu">c</span>(<span class="fl">2.3</span>, <span class="fl">3.2</span>), <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">2.5</span>)) </span>
+<span id="cb215-12"><a href="topo.html#cb215-12" aria-hidden="true" tabindex="-1"></a>))</span>
+<span id="cb215-13"><a href="topo.html#cb215-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb215-14"><a href="topo.html#cb215-14" aria-hidden="true" tabindex="-1"></a><span class="co">#--- combine the polygons to make an sf of polygons ---#</span></span>
+<span id="cb215-15"><a href="topo.html#cb215-15" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb215-16"><a href="topo.html#cb215-16" aria-hidden="true" tabindex="-1"></a>polygons <span class="ot">&lt;-</span> <span class="fu">list</span>(polygon_1, polygon_2, polygon_3) <span class="sc">%&gt;%</span> </span>
+<span id="cb215-17"><a href="topo.html#cb215-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_sfc</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb215-18"><a href="topo.html#cb215-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb215-19"><a href="topo.html#cb215-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">polygon_name =</span> <span class="fu">c</span>(<span class="st">&quot;polygon 1&quot;</span>, <span class="st">&quot;polygon 2&quot;</span>, <span class="st">&quot;polygon 3&quot;</span>))</span>
+<span id="cb215-20"><a href="topo.html#cb215-20" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>Simple feature collection with 3 features and 1 field
-geometry type:  POLYGON
-dimension:      XY
-bbox:           xmin: 0 ymin: 0 xmax: 2.5 ymax: 3.5
-CRS:            NA
+Geometry type: POLYGON
+Dimension:     XY
+Bounding box:  xmin: 0 ymin: 0 xmax: 2.5 ymax: 3.5
+CRS:           NA
                                x polygon_name
 1 POLYGON ((0 0, 2 0, 2 2, 0 ...    polygon 1
 2 POLYGON ((0.5 1.5, 0.5 3.5,...    polygon 2
 3 POLYGON ((0.5 2.5, 0.5 3.2,...    polygon 3</code></pre>
 <hr />
 <p>Figure <a href="topo.html#fig:plot-point-polygons">3.1</a> shows how they look:</p>
-<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="topo.html#cb217-1"></a><span class="kw">ggplot</span>() <span class="op">+</span></span>
-<span id="cb217-2"><a href="topo.html#cb217-2"></a><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> polygons, <span class="kw">aes</span>(<span class="dt">fill =</span> polygon_name), <span class="dt">alpha =</span> <span class="fl">0.3</span>) <span class="op">+</span></span>
-<span id="cb217-3"><a href="topo.html#cb217-3"></a><span class="st">  </span><span class="kw">scale_fill_discrete</span>(<span class="dt">name =</span> <span class="st">&quot;Polygons&quot;</span>) <span class="op">+</span></span>
-<span id="cb217-4"><a href="topo.html#cb217-4"></a><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> lines, <span class="kw">aes</span>(<span class="dt">color =</span> line_name)) <span class="op">+</span></span>
-<span id="cb217-5"><a href="topo.html#cb217-5"></a><span class="st">  </span><span class="kw">scale_color_discrete</span>(<span class="dt">name =</span> <span class="st">&quot;Lines&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb217-6"><a href="topo.html#cb217-6"></a><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> points, <span class="kw">aes</span>(<span class="dt">shape =</span> point_name), <span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span></span>
-<span id="cb217-7"><a href="topo.html#cb217-7"></a><span class="st">  </span><span class="kw">scale_shape_discrete</span>(<span class="dt">name =</span> <span class="st">&quot;Points&quot;</span>)  </span></code></pre></div>
+<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="topo.html#cb217-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb217-2"><a href="topo.html#cb217-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> polygons, <span class="fu">aes</span>(<span class="at">fill =</span> polygon_name), <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb217-3"><a href="topo.html#cb217-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_discrete</span>(<span class="at">name =</span> <span class="st">&quot;Polygons&quot;</span>) <span class="sc">+</span></span>
+<span id="cb217-4"><a href="topo.html#cb217-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> lines, <span class="fu">aes</span>(<span class="at">color =</span> line_name)) <span class="sc">+</span></span>
+<span id="cb217-5"><a href="topo.html#cb217-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_discrete</span>(<span class="at">name =</span> <span class="st">&quot;Lines&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb217-6"><a href="topo.html#cb217-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> points, <span class="fu">aes</span>(<span class="at">shape =</span> point_name), <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb217-7"><a href="topo.html#cb217-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_shape_discrete</span>(<span class="at">name =</span> <span class="st">&quot;Points&quot;</span>)  </span></code></pre></div>
 <div class="figure"><span id="fig:plot-point-polygons"></span>
 <img src="R_GIS_Book_files/figure-html/plot-point-polygons-1.png" alt="Visualization of the points, lines, and polygons" width="672" />
 <p class="caption">
@@ -636,65 +620,68 @@ Figure 3.1: Visualization of the points, lines, and polygons
 <p>This function identifies which <code>sfg</code> object in an <code>sf</code> (or <code>sfc</code>) intersects with <code>sfg</code> object(s) in another <code>sf</code>. For example, you can use the function to identify which well is located within which county. <code>st_intersects()</code> is the most commonly used topological relation. It is important to understand what it does as it is the default topological relation used when performing spatial subsetting and joining, which we will cover later.</p>
 <hr />
 <p><strong>points and polygons</strong></p>
-<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="topo.html#cb218-1"></a><span class="kw">st_intersects</span>(points, polygons)</span></code></pre></div>
-<pre><code>Sparse geometry binary predicate list of length 3, where the predicate was `intersects&#39;
+<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="topo.html#cb218-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_intersects</span>(points, polygons)</span></code></pre></div>
+<pre><code>Sparse geometry binary predicate list of length 3, where the predicate
+was `intersects&#39;
  1: 1, 2, 3
  2: 1
  3: 2, 3</code></pre>
 <p>As you can see, the output is a list of which polygon(s) each of the points intersect with. The numbers 1, 2, and 3 in the first row mean that 1st (polygon 1), 2nd (polygon 2), and 3rd (polygon 3) objects of the <code>polygons</code> intersect with the first point (point 1) of the <code>points</code> object. The fact that point 1 is considered to be intersecting with polygon 2 means that the area inside the border is considered a part of the polygon (of course).</p>
 <p>If you would like the results of <code>st_intersects()</code> in a matrix form with boolean values filling the matrix, you can add <code>sparse = FALSE</code> option.</p>
-<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="topo.html#cb220-1"></a><span class="kw">st_intersects</span>(points, polygons, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="topo.html#cb220-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_intersects</span>(points, polygons, <span class="at">sparse =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>      [,1]  [,2]  [,3]
 [1,]  TRUE  TRUE  TRUE
 [2,]  TRUE FALSE FALSE
 [3,] FALSE  TRUE  TRUE</code></pre>
 <hr />
 <p><strong>lines and polygons</strong></p>
-<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="topo.html#cb222-1"></a><span class="kw">st_intersects</span>(lines, polygons)</span></code></pre></div>
-<pre><code>Sparse geometry binary predicate list of length 2, where the predicate was `intersects&#39;
+<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="topo.html#cb222-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_intersects</span>(lines, polygons)</span></code></pre></div>
+<pre><code>Sparse geometry binary predicate list of length 2, where the predicate
+was `intersects&#39;
  1: 1
  2: 1, 2</code></pre>
 <p>The output is a list of which polygon(s) each of the lines intersect with.</p>
 <hr />
 <p><strong>polygons and polygons</strong></p>
 <p>For polygons vs polygons interaction, <code>st_intersects()</code> identifies any polygons that either touches (even at a point like polygons 1 and 3) or share some area.</p>
-<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="topo.html#cb224-1"></a><span class="kw">st_intersects</span>(polygons, polygons)</span></code></pre></div>
-<pre><code>Sparse geometry binary predicate list of length 3, where the predicate was `intersects&#39;
+<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="topo.html#cb224-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_intersects</span>(polygons, polygons)</span></code></pre></div>
+<pre><code>Sparse geometry binary predicate list of length 3, where the predicate
+was `intersects&#39;
  1: 1, 2, 3
  2: 1, 2, 3
  3: 1, 2, 3</code></pre>
 </div>
 <div id="st_is_within_distance" class="section level3" number="3.1.2">
 <h3><span class="header-section-number">3.1.2</span> st_is_within_distance()</h3>
-<p>This function identifies whether two spatial objects are within the distance you specify as the name suggests<a href="#fn61" class="footnote-ref" id="fnref61"><sup>61</sup></a>.</p>
+<p>This function identifies whether two spatial objects are within the distance you specify as the name suggests<a href="#fn57" class="footnote-ref" id="fnref57"><sup>57</sup></a>.</p>
 <p>Let’s first create two sets of points.</p>
-<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="topo.html#cb226-1"></a><span class="kw">set.seed</span>(<span class="dv">38424738</span>)</span>
-<span id="cb226-2"><a href="topo.html#cb226-2"></a></span>
-<span id="cb226-3"><a href="topo.html#cb226-3"></a>points_set_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="cf">function</span>(x) <span class="kw">st_point</span>(<span class="kw">runif</span>(<span class="dv">2</span>))) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb226-4"><a href="topo.html#cb226-4"></a><span class="st">  </span><span class="kw">st_sfc</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_as_sf</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb226-5"><a href="topo.html#cb226-5"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">id =</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(.))</span>
-<span id="cb226-6"><a href="topo.html#cb226-6"></a></span>
-<span id="cb226-7"><a href="topo.html#cb226-7"></a>points_set_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="cf">function</span>(x) <span class="kw">st_point</span>(<span class="kw">runif</span>(<span class="dv">2</span>))) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb226-8"><a href="topo.html#cb226-8"></a><span class="st">  </span><span class="kw">st_sfc</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_as_sf</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb226-9"><a href="topo.html#cb226-9"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">id =</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(.))</span></code></pre></div>
+<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="topo.html#cb226-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">38424738</span>)</span>
+<span id="cb226-2"><a href="topo.html#cb226-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb226-3"><a href="topo.html#cb226-3" aria-hidden="true" tabindex="-1"></a>points_set_1 <span class="ot">&lt;-</span> <span class="fu">lapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="cf">function</span>(x) <span class="fu">st_point</span>(<span class="fu">runif</span>(<span class="dv">2</span>))) <span class="sc">%&gt;%</span> </span>
+<span id="cb226-4"><a href="topo.html#cb226-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_sfc</span>() <span class="sc">%&gt;%</span> <span class="fu">st_as_sf</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb226-5"><a href="topo.html#cb226-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(.))</span>
+<span id="cb226-6"><a href="topo.html#cb226-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb226-7"><a href="topo.html#cb226-7" aria-hidden="true" tabindex="-1"></a>points_set_2 <span class="ot">&lt;-</span> <span class="fu">lapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="cf">function</span>(x) <span class="fu">st_point</span>(<span class="fu">runif</span>(<span class="dv">2</span>))) <span class="sc">%&gt;%</span> </span>
+<span id="cb226-8"><a href="topo.html#cb226-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_sfc</span>() <span class="sc">%&gt;%</span> <span class="fu">st_as_sf</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb226-9"><a href="topo.html#cb226-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(.))</span></code></pre></div>
 <p>Here is how they are spatially distributed (Figure <a href="topo.html#fig:map-points-points-points">3.2</a>). Instead of circles of points, their corresponding <code>id</code> (or equivalently row number here) values are displayed.</p>
-<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="topo.html#cb227-1"></a><span class="kw">ggplot</span>() <span class="op">+</span></span>
-<span id="cb227-2"><a href="topo.html#cb227-2"></a><span class="st">  </span><span class="kw">geom_sf_text</span>(<span class="dt">data =</span> points_set_<span class="dv">1</span>, <span class="kw">aes</span>(<span class="dt">label =</span> id), <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span></span>
-<span id="cb227-3"><a href="topo.html#cb227-3"></a><span class="st">  </span><span class="kw">geom_sf_text</span>(<span class="dt">data =</span> points_set_<span class="dv">2</span>, <span class="kw">aes</span>(<span class="dt">label =</span> id), <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="topo.html#cb227-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb227-2"><a href="topo.html#cb227-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf_text</span>(<span class="at">data =</span> points_set_1, <span class="fu">aes</span>(<span class="at">label =</span> id), <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb227-3"><a href="topo.html#cb227-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf_text</span>(<span class="at">data =</span> points_set_2, <span class="fu">aes</span>(<span class="at">label =</span> id), <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>) </span></code></pre></div>
 <div class="figure"><span id="fig:map-points-points-points"></span>
 <img src="R_GIS_Book_files/figure-html/map-points-points-points-1.png" alt="The locations of the set of points" width="672" />
 <p class="caption">
 Figure 3.2: The locations of the set of points
 </p>
 </div>
-<p>We want to know which of the blue points (points_set_2) are located within 0.2 from each of the red points (points_set_1). The following figure (Figure <a href="topo.html#fig:points-points-within">3.3</a>) gives us the answer visually.</p>
-<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="topo.html#cb228-1"></a><span class="co">#--- create 0.2 buffers around points in points_set_1 ---#</span></span>
-<span id="cb228-2"><a href="topo.html#cb228-2"></a>buffer_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">st_buffer</span>(points_set_<span class="dv">1</span>, <span class="dt">dist =</span> <span class="fl">0.2</span>)</span>
-<span id="cb228-3"><a href="topo.html#cb228-3"></a></span>
-<span id="cb228-4"><a href="topo.html#cb228-4"></a><span class="kw">ggplot</span>() <span class="op">+</span></span>
-<span id="cb228-5"><a href="topo.html#cb228-5"></a><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> buffer_<span class="dv">1</span>, <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">fill =</span> <span class="ot">NA</span>) <span class="op">+</span></span>
-<span id="cb228-6"><a href="topo.html#cb228-6"></a><span class="st">  </span><span class="kw">geom_sf_text</span>(<span class="dt">data =</span> points_set_<span class="dv">1</span>, <span class="kw">aes</span>(<span class="dt">label =</span> id), <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span></span>
-<span id="cb228-7"><a href="topo.html#cb228-7"></a><span class="st">  </span><span class="kw">geom_sf_text</span>(<span class="dt">data =</span> points_set_<span class="dv">2</span>, <span class="kw">aes</span>(<span class="dt">label =</span> id), <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>) </span></code></pre></div>
+<p>We want to know which of the blue points (<code>points_set_2</code>) are located within 0.2 from each of the red points (<code>points_set_1</code>). The following figure (Figure <a href="topo.html#fig:points-points-within">3.3</a>) gives us the answer visually.</p>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="topo.html#cb228-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- create 0.2 buffers around points in points_set_1 ---#</span></span>
+<span id="cb228-2"><a href="topo.html#cb228-2" aria-hidden="true" tabindex="-1"></a>buffer_1 <span class="ot">&lt;-</span> <span class="fu">st_buffer</span>(points_set_1, <span class="at">dist =</span> <span class="fl">0.2</span>)</span>
+<span id="cb228-3"><a href="topo.html#cb228-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb228-4"><a href="topo.html#cb228-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb228-5"><a href="topo.html#cb228-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> buffer_1, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">fill =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb228-6"><a href="topo.html#cb228-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf_text</span>(<span class="at">data =</span> points_set_1, <span class="fu">aes</span>(<span class="at">label =</span> id), <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb228-7"><a href="topo.html#cb228-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf_text</span>(<span class="at">data =</span> points_set_2, <span class="fu">aes</span>(<span class="at">label =</span> id), <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>) </span></code></pre></div>
 <div class="figure"><span id="fig:points-points-within"></span>
 <img src="R_GIS_Book_files/figure-html/points-points-within-1.png" alt="The blue points within 0.2 radius of the red points" width="672" />
 <p class="caption">
@@ -702,8 +689,9 @@ Figure 3.3: The blue points within 0.2 radius of the red points
 </p>
 </div>
 <p>Confirm your visual inspection results with the outcome of the following code using <code>st_is_within_distance()</code> function.</p>
-<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="topo.html#cb229-1"></a><span class="kw">st_is_within_distance</span>(points_set_<span class="dv">1</span>, points_set_<span class="dv">2</span>, <span class="dt">dist =</span> <span class="fl">0.2</span>)</span></code></pre></div>
-<pre><code>Sparse geometry binary predicate list of length 5, where the predicate was `is_within_distance&#39;
+<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="topo.html#cb229-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_is_within_distance</span>(points_set_1, points_set_2, <span class="at">dist =</span> <span class="fl">0.2</span>)</span></code></pre></div>
+<pre><code>Sparse geometry binary predicate list of length 5, where the predicate
+was `is_within_distance&#39;
  1: 1
  2: (empty)
  3: (empty)
@@ -713,10 +701,9 @@ Figure 3.3: The blue points within 0.2 radius of the red points
 </div>
 <div class="footnotes">
 <hr />
-<ol start="59">
-<li id="fn59"><p>I would say it is very rare that you use other topological relations like <code>st_within()</code> or <code>st_touches()</code>.<a href="topo.html#fnref59" class="footnote-back">↩︎</a></p></li>
-<li id="fn60"><p>Run <code>?geos_binary_pred</code> to see other topological relations you can find.<a href="topo.html#fnref60" class="footnote-back">↩︎</a></p></li>
-<li id="fn61"><p>This function can be useful to identify neighbors. For example, you may want to find irrigation wells located around well <span class="math inline">\(i\)</span> to label them as well <span class="math inline">\(i\)</span>’s neighbor.<a href="topo.html#fnref61" class="footnote-back">↩︎</a></p></li>
+<ol start="56">
+<li id="fn56"><p>I would say it is very rare that you use other topological relations like <code>st_within()</code> or <code>st_touches()</code>.<a href="topo.html#fnref56" class="footnote-back">↩︎</a></p></li>
+<li id="fn57"><p>This function can be useful to identify neighbors. For example, you may want to find irrigation wells located around well <span class="math inline">\(i\)</span> to label them as well <span class="math inline">\(i\)</span>’s neighbor.<a href="topo.html#fnref57" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>

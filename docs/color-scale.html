@@ -24,7 +24,7 @@
 <meta name="author" content="Taro Mieno" />
 
 
-<meta name="date" content="2020-09-06" />
+<meta name="date" content="2021-10-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,7 @@
   
 <link rel="prev" href="geom-raster.html"/>
 <link rel="next" href="arranging-maps.html"/>
-<script src="libs/header-attrs-2.3/header-attrs.js"></script>
+<script src="libs/header-attrs-2.9/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -51,8 +51,9 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
 <script src="libs/leaflet-1.3.1/leaflet.js"></script>
 <link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
@@ -62,26 +63,6 @@
 <script src="libs/leaflet-binding-2.0.3/leaflet.js"></script>
 <script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script>
 <script src="libs/leaflet-providers-plugin-2.0.3/leaflet-providers-plugin.js"></script>
-<link href="libs/HomeButton-0.0.1/home-button.css" rel="stylesheet" />
-<script src="libs/HomeButton-0.0.1/home-button.js"></script>
-<script src="libs/HomeButton-0.0.1/easy-button-src.min.js"></script>
-<script src="libs/clipboard-0.0.1/setClipboardText.js"></script>
-<link href="libs/PopupTable-0.0.1/popup.css" rel="stylesheet" />
-<script src="libs/IA_cdl_2015-1/data_stars_IA_cdl_20157013d9.txt"></script>
-<script src="libs/joda-0.0.1/joda.js"></script>
-<script src="libs/joda-0.0.1/addImageQuery-bindings.js"></script>
-<script src="libs/IA_cdl_2016-1/data_stars_IA_cdl_2016f0942b.txt"></script>
-<script src="libs/prcp_tmax_PRISM_m8_y09["tmax", , , ] - 1-1/data_stars_prcp_tmax_PRISM_m8_y09tmax15f4a23.txt"></script>
-<script src="libs/layer.1-1/data_stars_layer16e07dc.txt"></script>
-<script src="libs/layer.2-1/data_stars_layer29d3c0a.txt"></script>
-<script src="libs/layer.3-1/data_stars_layer30124e8.txt"></script>
-<script src="libs/layer.4-1/data_stars_layer4125698.txt"></script>
-<script src="libs/layer.5-1/data_stars_layer56ca504.txt"></script>
-<script src="libs/layer.6-1/data_stars_layer60b51ef.txt"></script>
-<script src="libs/layer.7-1/data_stars_layer7d85baf.txt"></script>
-<script src="libs/layer.8-1/data_stars_layer831db4a.txt"></script>
-<script src="libs/layer.9-1/data_stars_layer935e042.txt"></script>
-<script src="libs/layer.10-1/data_stars_layer102ad98c.txt"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
 <script src="libs/datatables-binding-0.13/datatables.js"></script>
 <link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
@@ -251,8 +232,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.5.2" data-path="quick-and-interactive-view-of-an-sf-object.html"><a href="quick-and-interactive-view-of-an-sf-object.html#interactive-view"><i class="fa fa-check"></i><b>2.5.2</b> Interactive view</a></li>
 </ul></li>
 <li class="chapter" data-level="2.6" data-path="turning-a-data-frame-of-points-into-an-sf.html"><a href="turning-a-data-frame-of-points-into-an-sf.html"><i class="fa fa-check"></i><b>2.6</b> Turning a data.frame of points into an <code>sf</code></a></li>
-<li class="chapter" data-level="2.7" data-path="conv-sp.html"><a href="conv-sp.html"><i class="fa fa-check"></i><b>2.7</b> Conversion to and from sp</a></li>
-<li class="chapter" data-level="2.8" data-path="non-spatial-transformation-of-sf.html"><a href="non-spatial-transformation-of-sf.html"><i class="fa fa-check"></i><b>2.8</b> Non-spatial transformation of sf</a>
+<li class="chapter" data-level="2.7" data-path="conv-sp.html"><a href="conv-sp.html"><i class="fa fa-check"></i><b>2.7</b> Conversion to and from sp objects</a></li>
+<li class="chapter" data-level="2.8" data-path="non-spatial-transformation-of-sf.html"><a href="non-spatial-transformation-of-sf.html"><i class="fa fa-check"></i><b>2.8</b> Non-spatial transformation of <code>sf</code></a>
 <ul>
 <li class="chapter" data-level="2.8.1" data-path="non-spatial-transformation-of-sf.html"><a href="non-spatial-transformation-of-sf.html#using-dplyr"><i class="fa fa-check"></i><b>2.8.1</b> Using <code>dplyr</code></a></li>
 <li class="chapter" data-level="2.8.2" data-path="non-spatial-transformation-of-sf.html"><a href="non-spatial-transformation-of-sf.html#using-data.table"><i class="fa fa-check"></i><b>2.8.2</b> Using <code>data.table</code></a></li>
@@ -282,7 +263,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.2.2" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#points-source-vs-polygons-target"><i class="fa fa-check"></i><b>3.2.2</b> points (source) vs polygons (target)</a></li>
 <li class="chapter" data-level="3.2.3" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#lines_polygons"><i class="fa fa-check"></i><b>3.2.3</b> lines (source) vs polygons (target)</a></li>
 <li class="chapter" data-level="3.2.4" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#polygons_points"><i class="fa fa-check"></i><b>3.2.4</b> polygons (source) vs points (target)</a></li>
-<li class="chapter" data-level="3.2.5" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#subsetting-to-a-geograpchic-extent-bounding-box"><i class="fa fa-check"></i><b>3.2.5</b> Subsetting to a geograpchic extent (bounding box)</a></li>
+<li class="chapter" data-level="3.2.5" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#subsetting-to-a-geographic-extent-bounding-box"><i class="fa fa-check"></i><b>3.2.5</b> Subsetting to a geographic extent (bounding box)</a></li>
 </ul></li>
 <li class="chapter" data-level="3.3" data-path="sp-join.html"><a href="sp-join.html"><i class="fa fa-check"></i><b>3.3</b> Spatial Join</a>
 <ul>
@@ -314,8 +295,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.2.1" data-path="read-and-write-a-raster-data-file.html"><a href="read-and-write-a-raster-data-file.html#read-raster-files"><i class="fa fa-check"></i><b>4.2.1</b> Read raster file(s)</a></li>
 <li class="chapter" data-level="4.2.2" data-path="read-and-write-a-raster-data-file.html"><a href="read-and-write-a-raster-data-file.html#write-raster-files"><i class="fa fa-check"></i><b>4.2.2</b> Write raster files</a></li>
 </ul></li>
-<li class="chapter" data-level="4.3" data-path="access-values.html"><a href="access-values.html"><i class="fa fa-check"></i><b>4.3</b> Access values</a></li>
-<li class="chapter" data-level="4.4" data-path="quick-plot-and-interactive-map.html"><a href="quick-plot-and-interactive-map.html"><i class="fa fa-check"></i><b>4.4</b> Quick plot and interactive map</a></li>
+<li class="chapter" data-level="4.3" data-path="extract-information-from-raster-data-object.html"><a href="extract-information-from-raster-data-object.html"><i class="fa fa-check"></i><b>4.3</b> Extract information from raster data object</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="extract-information-from-raster-data-object.html"><a href="extract-information-from-raster-data-object.html#get-crs"><i class="fa fa-check"></i><b>4.3.1</b> Get CRS</a></li>
+<li class="chapter" data-level="4.3.2" data-path="extract-information-from-raster-data-object.html"><a href="extract-information-from-raster-data-object.html#subset"><i class="fa fa-check"></i><b>4.3.2</b> Subset</a></li>
+<li class="chapter" data-level="4.3.3" data-path="extract-information-from-raster-data-object.html"><a href="extract-information-from-raster-data-object.html#get-cell-values"><i class="fa fa-check"></i><b>4.3.3</b> Get cell values</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="turning-a-raster-object-into-a-data-frame.html"><a href="turning-a-raster-object-into-a-data-frame.html"><i class="fa fa-check"></i><b>4.4</b> Turning a raster object into a <code>data.frame</code></a></li>
+<li class="chapter" data-level="4.5" data-path="quick-plot-and-interactive-map.html"><a href="quick-plot-and-interactive-map.html"><i class="fa fa-check"></i><b>4.5</b> Quick plot and interactive map</a></li>
+<li class="chapter" data-level="4.6" data-path="working-with-netcdfs.html"><a href="working-with-netcdfs.html"><i class="fa fa-check"></i><b>4.6</b> Working with netCDFs</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="int-RV.html"><a href="int-RV.html"><i class="fa fa-check"></i><b>5</b> Spatial Interactions of Vector and Raster Data</a>
 <ul>
@@ -323,12 +311,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="" data-path="before-you-start-4.html"><a href="before-you-start-4.html#direction-for-replication-4"><i class="fa fa-check"></i>Direction for replication</a></li>
 </ul></li>
-<li class="chapter" data-level="5.1" data-path="raster-crop.html"><a href="raster-crop.html"><i class="fa fa-check"></i><b>5.1</b> Cropping (Spatial subsetting) to the Area of Interest</a></li>
+<li class="chapter" data-level="5.1" data-path="raster-crop.html"><a href="raster-crop.html"><i class="fa fa-check"></i><b>5.1</b> Cropping to the Area of Interest</a></li>
 <li class="chapter" data-level="5.2" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html"><i class="fa fa-check"></i><b>5.2</b> Extracting Values from Raster Layers for Vector Data</a>
 <ul>
-<li class="chapter" data-level="5.2.1" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#points"><i class="fa fa-check"></i><b>5.2.1</b> Points</a></li>
-<li class="chapter" data-level="5.2.2" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#polygons-terra-way"><i class="fa fa-check"></i><b>5.2.2</b> Polygons (<code>terra</code> way)</a></li>
-<li class="chapter" data-level="5.2.3" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#polygons-exactextractr-way"><i class="fa fa-check"></i><b>5.2.3</b> Polygons (<code>exactextractr</code> way)</a></li>
+<li class="chapter" data-level="5.2.1" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#simple-visual-illustrations-of-raster-data-extraction"><i class="fa fa-check"></i><b>5.2.1</b> Simple visual illustrations of raster data extraction</a></li>
+<li class="chapter" data-level="5.2.2" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#extracting-to-points"><i class="fa fa-check"></i><b>5.2.2</b> Extracting to Points</a></li>
+<li class="chapter" data-level="5.2.3" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#extracting-to-polygons-terra-way"><i class="fa fa-check"></i><b>5.2.3</b> Extracting to Polygons (<code>terra</code> way)</a></li>
+<li class="chapter" data-level="5.2.4" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#extracting-to-polygons-exactextractr-way"><i class="fa fa-check"></i><b>5.2.4</b> Extracting to Polygons (<code>exactextractr</code> way)</a></li>
 </ul></li>
 <li class="chapter" data-level="5.3" data-path="extract-speed.html"><a href="extract-speed.html"><i class="fa fa-check"></i><b>5.3</b> Extraction speed comparison</a>
 <ul>
@@ -338,7 +327,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul></li>
 <li class="part"><span><b>III (slightly) Advanced Topics</b></span></li>
-<li class="chapter" data-level="6" data-path="EE.html"><a href="EE.html"><i class="fa fa-check"></i><b>6</b> Speed Things Up</a>
+<li class="chapter" data-level="6" data-path="EE.html"><a href="EE.html"><i class="fa fa-check"></i><b>6</b> Extraction Speed Considerations</a>
 <ul>
 <li class="chapter" data-level="" data-path="before-you-start-5.html"><a href="before-you-start-5.html"><i class="fa fa-check"></i>Before you start</a>
 <ul>
@@ -399,12 +388,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.7.3" data-path="merging-stars-objects-using-c-and-st-mosaic.html"><a href="merging-stars-objects-using-c-and-st-mosaic.html#merging-stars-objects-of-different-spatial-extents"><i class="fa fa-check"></i><b>7.7.3</b> Merging <code>stars</code> objects of different spatial extents</a></li>
 </ul></li>
 <li class="chapter" data-level="7.8" data-path="convert-to-rb.html"><a href="convert-to-rb.html"><i class="fa fa-check"></i><b>7.8</b> Convert from and to <code>Raster</code><span class="math inline">\(^*\)</span> objects</a></li>
-<li class="chapter" data-level="7.9" data-path="spatial-cropping.html"><a href="spatial-cropping.html"><i class="fa fa-check"></i><b>7.9</b> Spatial cropping</a></li>
-<li class="chapter" data-level="7.10" data-path="extraction-stars.html"><a href="extraction-stars.html"><i class="fa fa-check"></i><b>7.10</b> Extracting values from <code>stars</code> for vector data</a>
-<ul>
-<li class="chapter" data-level="7.10.1" data-path="extraction-stars.html"><a href="extraction-stars.html#points-1"><i class="fa fa-check"></i><b>7.10.1</b> Points</a></li>
-<li class="chapter" data-level="7.10.2" data-path="extraction-stars.html"><a href="extraction-stars.html#polygons"><i class="fa fa-check"></i><b>7.10.2</b> Polygons</a></li>
-</ul></li>
 </ul></li>
 <li class="part"><span><b>IV Extensions</b></span></li>
 <li class="chapter" data-level="8" data-path="create-maps.html"><a href="create-maps.html"><i class="fa fa-check"></i><b>8</b> Creating Maps using <code>ggplot2</code></a>
@@ -478,9 +461,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.4.1" data-path="daymet-with-daymetr-and-feddata.html"><a href="daymet-with-daymetr-and-feddata.html#for-points-data"><i class="fa fa-check"></i><b>9.4.1</b> For points data</a></li>
 <li class="chapter" data-level="9.4.2" data-path="daymet-with-daymetr-and-feddata.html"><a href="daymet-with-daymetr-and-feddata.html#daymet-poly"><i class="fa fa-check"></i><b>9.4.2</b> For polygons data</a></li>
 </ul></li>
-<li class="chapter" data-level="9.5" data-path="usgs-under-construction.html"><a href="usgs-under-construction.html"><i class="fa fa-check"></i><b>9.5</b> USGS (under construction)</a></li>
-<li class="chapter" data-level="9.6" data-path="sentinel-with-sen2r-under-construction.html"><a href="sentinel-with-sen2r-under-construction.html"><i class="fa fa-check"></i><b>9.6</b> Sentinel with <code>sen2r</code> (under construction)</a></li>
-<li class="chapter" data-level="9.7" data-path="census-with-tidycensus-under-construction.html"><a href="census-with-tidycensus-under-construction.html"><i class="fa fa-check"></i><b>9.7</b> Census with <code>tidycensus</code> (under construction)</a></li>
+<li class="chapter" data-level="9.5" data-path="gridMET.html"><a href="gridMET.html"><i class="fa fa-check"></i><b>9.5</b> gridMET</a>
+<ul>
+<li class="chapter" data-level="9.5.1" data-path="gridMET.html"><a href="gridMET.html#practical-examples"><i class="fa fa-check"></i><b>9.5.1</b> Practical Examples</a></li>
+</ul></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="par-comp.html"><a href="par-comp.html"><i class="fa fa-check"></i><b>A</b> Loop and Parallel Computing</a>
@@ -541,17 +525,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">8.3</span> Color scale</h2>
 <!-- https://www.datanovia.com/en/blog/top-r-color-palettes-to-know-for-great-data-visualization/ -->
 <p>Color scale refers to the way variable values are mapped to colors on a figure. For example, in the example below, the color scale for <code>fill</code> maps the value of <code>af_used</code> to a gradient of colors: dark blue for low values to light blue for high values of <code>af_used</code>.</p>
-<div class="sourceCode" id="cb656"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb656-1"><a href="color-scale.html#cb656-1"></a>tmax_long_df &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;./Data/tmax_Jan_09_stars.rds&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb656-2"><a href="color-scale.html#cb656-2"></a><span class="st">    </span><span class="kw">as.data.frame</span>(<span class="dt">xy =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb656-3"><a href="color-scale.html#cb656-3"></a><span class="st">    </span><span class="kw">na.omit</span>() </span></code></pre></div>
-<div class="sourceCode" id="cb657"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb657-1"><a href="color-scale.html#cb657-1"></a>g_col_scale &lt;-<span class="st"> </span><span class="kw">ggplot</span>() <span class="op">+</span></span>
-<span id="cb657-2"><a href="color-scale.html#cb657-2"></a><span class="st">  </span><span class="kw">geom_raster</span>(<span class="dt">data =</span> tmax_long_df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">fill =</span> tmax)) <span class="op">+</span></span>
-<span id="cb657-3"><a href="color-scale.html#cb657-3"></a><span class="st">    </span><span class="kw">facet_wrap</span>(date <span class="op">~</span><span class="st"> </span>.) <span class="op">+</span></span>
-<span id="cb657-4"><a href="color-scale.html#cb657-4"></a><span class="st">    </span><span class="kw">coord_equal</span>() <span class="op">+</span></span>
-<span id="cb657-5"><a href="color-scale.html#cb657-5"></a><span class="st">  </span><span class="kw">theme_void</span>() <span class="op">+</span></span>
-<span id="cb657-6"><a href="color-scale.html#cb657-6"></a><span class="st">  </span><span class="kw">theme</span>(</span>
-<span id="cb657-7"><a href="color-scale.html#cb657-7"></a>    <span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span></span>
-<span id="cb657-8"><a href="color-scale.html#cb657-8"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb648"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb648-1"><a href="color-scale.html#cb648-1" aria-hidden="true" tabindex="-1"></a>tmax_long_df <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">&quot;Data/tmax_Jan_09_stars.rds&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb648-2"><a href="color-scale.html#cb648-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.data.frame</span>(<span class="at">xy =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb648-3"><a href="color-scale.html#cb648-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">na.omit</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb649"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb649-1"><a href="color-scale.html#cb649-1" aria-hidden="true" tabindex="-1"></a>g_col_scale <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb649-2"><a href="color-scale.html#cb649-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_raster</span>(<span class="at">data =</span> tmax_long_df, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">fill =</span> tmax)) <span class="sc">+</span></span>
+<span id="cb649-3"><a href="color-scale.html#cb649-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_wrap</span>(date <span class="sc">~</span> .) <span class="sc">+</span></span>
+<span id="cb649-4"><a href="color-scale.html#cb649-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">coord_equal</span>() <span class="sc">+</span></span>
+<span id="cb649-5"><a href="color-scale.html#cb649-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb649-6"><a href="color-scale.html#cb649-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb649-7"><a href="color-scale.html#cb649-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span></span>
+<span id="cb649-8"><a href="color-scale.html#cb649-8" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
 <p>Often times, it is aesthetically desirable to change the default color scale of <code>ggplot2</code>. For example, if you would like to color-differentiate temperature values, you might want to start from blue for low values to red for high values.</p>
 <p>You can control the color scale using <code>scale_*()</code> functions. Which <code>scale_*()</code> function to use depends on the type of aesthetics (<code>fill</code> or <code>color</code>) and whether the aesthetic variable is continuous or discrete. Providing a wrong kind of <code>scale_*()</code> function results in an error.</p>
 <!-- Does not matter if geom_stars, geom_sf,  -->
@@ -559,60 +543,60 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">8.3.1</span> Viridis color maps</h3>
 <p>The <code>ggplot2</code> packages offers <code>scale_A_viridis_B()</code> functions for <code>viridis</code> color map, where <code>A</code> is the type of aesthetics attribute (<code>fill</code>, <code>color</code>), and <code>B</code> is the type of variable. For example, <code>scale_fill_viridis_c()</code> can be used for <code>fill</code> aesthetics applied to a continuous variable.</p>
 <p>There are five types of palettes available under the <code>viridis</code> color map and can be selected using the <code>option =</code> option. Here is a visualization of all the five palettes.</p>
-<div class="sourceCode" id="cb658"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb658-1"><a href="color-scale.html#cb658-1"></a><span class="kw">data</span>(<span class="st">&quot;geyser&quot;</span>, <span class="dt">package=</span><span class="st">&quot;MASS&quot;</span>)</span>
-<span id="cb658-2"><a href="color-scale.html#cb658-2"></a></span>
-<span id="cb658-3"><a href="color-scale.html#cb658-3"></a><span class="kw">ggplot</span>(geyser, <span class="kw">aes</span>(<span class="dt">x =</span> duration, <span class="dt">y =</span> waiting)) <span class="op">+</span></span>
-<span id="cb658-4"><a href="color-scale.html#cb658-4"></a><span class="st">  </span><span class="kw">xlim</span>(<span class="fl">0.5</span>, <span class="dv">6</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylim</span>(<span class="dv">40</span>, <span class="dv">110</span>) <span class="op">+</span></span>
-<span id="cb658-5"><a href="color-scale.html#cb658-5"></a><span class="st">  </span><span class="kw">stat_density2d</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> ..level..), <span class="dt">geom=</span><span class="st">&quot;polygon&quot;</span>) <span class="op">+</span></span>
-<span id="cb658-6"><a href="color-scale.html#cb658-6"></a><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span></span>
-<span id="cb658-7"><a href="color-scale.html#cb658-7"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">panel.grid=</span><span class="kw">element_blank</span>()) -&gt;<span class="st"> </span>gg</span>
-<span id="cb658-8"><a href="color-scale.html#cb658-8"></a></span>
-<span id="cb658-9"><a href="color-scale.html#cb658-9"></a>(gg <span class="op">+</span><span class="st"> </span><span class="kw">scale_fill_viridis_c</span>(<span class="dt">option=</span><span class="st">&quot;A&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">x=</span><span class="st">&quot;magma&quot;</span>, <span class="dt">y=</span><span class="ot">NULL</span>))<span class="op">/</span></span>
-<span id="cb658-10"><a href="color-scale.html#cb658-10"></a>(gg <span class="op">+</span><span class="st"> </span><span class="kw">scale_fill_viridis_c</span>(<span class="dt">option=</span><span class="st">&quot;B&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">x=</span><span class="st">&quot;inferno&quot;</span>, <span class="dt">y=</span><span class="ot">NULL</span>))<span class="op">/</span></span>
-<span id="cb658-11"><a href="color-scale.html#cb658-11"></a>(gg <span class="op">+</span><span class="st"> </span><span class="kw">scale_fill_viridis_c</span>(<span class="dt">option=</span><span class="st">&quot;C&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">x=</span><span class="st">&quot;plasma&quot;</span>, <span class="dt">y=</span><span class="ot">NULL</span>))<span class="op">/</span></span>
-<span id="cb658-12"><a href="color-scale.html#cb658-12"></a>(gg <span class="op">+</span><span class="st"> </span><span class="kw">scale_fill_viridis_c</span>(<span class="dt">option=</span><span class="st">&quot;D&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">x=</span><span class="st">&quot;viridis&quot;</span>, <span class="dt">y=</span><span class="ot">NULL</span>))<span class="op">/</span></span>
-<span id="cb658-13"><a href="color-scale.html#cb658-13"></a>(gg <span class="op">+</span><span class="st"> </span><span class="kw">scale_fill_viridis_c</span>(<span class="dt">option=</span><span class="st">&quot;E&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">x=</span><span class="st">&quot;cividis&quot;</span>, <span class="dt">y=</span><span class="ot">NULL</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb650"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb650-1"><a href="color-scale.html#cb650-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;geyser&quot;</span>, <span class="at">package=</span><span class="st">&quot;MASS&quot;</span>)</span>
+<span id="cb650-2"><a href="color-scale.html#cb650-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb650-3"><a href="color-scale.html#cb650-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(geyser, <span class="fu">aes</span>(<span class="at">x =</span> duration, <span class="at">y =</span> waiting)) <span class="sc">+</span></span>
+<span id="cb650-4"><a href="color-scale.html#cb650-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="fl">0.5</span>, <span class="dv">6</span>) <span class="sc">+</span> <span class="fu">ylim</span>(<span class="dv">40</span>, <span class="dv">110</span>) <span class="sc">+</span></span>
+<span id="cb650-5"><a href="color-scale.html#cb650-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_density2d</span>(<span class="fu">aes</span>(<span class="at">fill =</span> ..level..), <span class="at">geom=</span><span class="st">&quot;polygon&quot;</span>) <span class="sc">+</span></span>
+<span id="cb650-6"><a href="color-scale.html#cb650-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb650-7"><a href="color-scale.html#cb650-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid=</span><span class="fu">element_blank</span>()) <span class="ot">-&gt;</span> gg</span>
+<span id="cb650-8"><a href="color-scale.html#cb650-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb650-9"><a href="color-scale.html#cb650-9" aria-hidden="true" tabindex="-1"></a>(gg <span class="sc">+</span> <span class="fu">scale_fill_viridis_c</span>(<span class="at">option=</span><span class="st">&quot;A&quot;</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;magma&quot;</span>, <span class="at">y=</span><span class="cn">NULL</span>))<span class="sc">/</span></span>
+<span id="cb650-10"><a href="color-scale.html#cb650-10" aria-hidden="true" tabindex="-1"></a>(gg <span class="sc">+</span> <span class="fu">scale_fill_viridis_c</span>(<span class="at">option=</span><span class="st">&quot;B&quot;</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;inferno&quot;</span>, <span class="at">y=</span><span class="cn">NULL</span>))<span class="sc">/</span></span>
+<span id="cb650-11"><a href="color-scale.html#cb650-11" aria-hidden="true" tabindex="-1"></a>(gg <span class="sc">+</span> <span class="fu">scale_fill_viridis_c</span>(<span class="at">option=</span><span class="st">&quot;C&quot;</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;plasma&quot;</span>, <span class="at">y=</span><span class="cn">NULL</span>))<span class="sc">/</span></span>
+<span id="cb650-12"><a href="color-scale.html#cb650-12" aria-hidden="true" tabindex="-1"></a>(gg <span class="sc">+</span> <span class="fu">scale_fill_viridis_c</span>(<span class="at">option=</span><span class="st">&quot;D&quot;</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;viridis&quot;</span>, <span class="at">y=</span><span class="cn">NULL</span>))<span class="sc">/</span></span>
+<span id="cb650-13"><a href="color-scale.html#cb650-13" aria-hidden="true" tabindex="-1"></a>(gg <span class="sc">+</span> <span class="fu">scale_fill_viridis_c</span>(<span class="at">option=</span><span class="st">&quot;E&quot;</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;cividis&quot;</span>, <span class="at">y=</span><span class="cn">NULL</span>))</span></code></pre></div>
 <p><img src="R_GIS_Book_files/figure-html/viridis-ex-1.png" width="672" /></p>
 <p>Let’s see what the PRISM tmax maps look like using Option <code>A</code> and <code>D</code> (default). Since the aesthetics type is <code>fill</code> and <code>tmax</code> is continuous, <code>scale_fill_viridis_c()</code> is the appropriate one here.</p>
-<div class="sourceCode" id="cb659"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb659-1"><a href="color-scale.html#cb659-1"></a>g_col_scale <span class="op">+</span><span class="st"> </span><span class="kw">scale_fill_viridis_c</span>(<span class="dt">option =</span> <span class="st">&quot;A&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb651"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb651-1"><a href="color-scale.html#cb651-1" aria-hidden="true" tabindex="-1"></a>g_col_scale <span class="sc">+</span> <span class="fu">scale_fill_viridis_c</span>(<span class="at">option =</span> <span class="st">&quot;A&quot;</span>)</span></code></pre></div>
 <p><img src="R_GIS_Book_files/figure-html/tmax-viridis-A-1.png" width="672" /></p>
-<div class="sourceCode" id="cb660"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb660-1"><a href="color-scale.html#cb660-1"></a>g_col_scale <span class="op">+</span><span class="st"> </span><span class="kw">scale_fill_viridis_c</span>(<span class="dt">option =</span> <span class="st">&quot;D&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb652"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb652-1"><a href="color-scale.html#cb652-1" aria-hidden="true" tabindex="-1"></a>g_col_scale <span class="sc">+</span> <span class="fu">scale_fill_viridis_c</span>(<span class="at">option =</span> <span class="st">&quot;D&quot;</span>)</span></code></pre></div>
 <p><img src="R_GIS_Book_files/figure-html/tmax-viridis-D-1.png" width="672" /></p>
 <p>You can reverse the order of the color by adding <code>direction = -1</code>.</p>
-<div class="sourceCode" id="cb661"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb661-1"><a href="color-scale.html#cb661-1"></a>g_col_scale <span class="op">+</span><span class="st"> </span><span class="kw">scale_fill_viridis_c</span>(<span class="dt">option =</span> <span class="st">&quot;D&quot;</span>, <span class="dt">direction =</span> <span class="dv">-1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb653"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb653-1"><a href="color-scale.html#cb653-1" aria-hidden="true" tabindex="-1"></a>g_col_scale <span class="sc">+</span> <span class="fu">scale_fill_viridis_c</span>(<span class="at">option =</span> <span class="st">&quot;D&quot;</span>, <span class="at">direction =</span> <span class="sc">-</span><span class="dv">1</span>)</span></code></pre></div>
 <p><img src="R_GIS_Book_files/figure-html/tmax-viridis-D-direc-1.png" width="672" /></p>
 <p>Let’s now work on aesthetics mapping based on a discrete variable. The code below groups <code>af_used</code> into five groups of ranges.</p>
-<div class="sourceCode" id="cb662"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb662-1"><a href="color-scale.html#cb662-1"></a><span class="co">#--- convert af_used to a discrete variable ---#</span></span>
-<span id="cb662-2"><a href="color-scale.html#cb662-2"></a>gw_Stevens &lt;-<span class="st"> </span><span class="kw">mutate</span>(gw_Stevens, <span class="dt">af_used_cat =</span> <span class="kw">cut_number</span>(af_used, <span class="dt">n =</span> <span class="dv">5</span>))</span>
-<span id="cb662-3"><a href="color-scale.html#cb662-3"></a></span>
-<span id="cb662-4"><a href="color-scale.html#cb662-4"></a><span class="co">#--- take a look ---#</span></span>
-<span id="cb662-5"><a href="color-scale.html#cb662-5"></a><span class="kw">head</span>(gw_Stevens)</span></code></pre></div>
+<div class="sourceCode" id="cb654"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb654-1"><a href="color-scale.html#cb654-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- convert af_used to a discrete variable ---#</span></span>
+<span id="cb654-2"><a href="color-scale.html#cb654-2" aria-hidden="true" tabindex="-1"></a>gw_Stevens <span class="ot">&lt;-</span> <span class="fu">mutate</span>(gw_Stevens, <span class="at">af_used_cat =</span> <span class="fu">cut_number</span>(af_used, <span class="at">n =</span> <span class="dv">5</span>))</span>
+<span id="cb654-3"><a href="color-scale.html#cb654-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb654-4"><a href="color-scale.html#cb654-4" aria-hidden="true" tabindex="-1"></a><span class="co">#--- take a look ---#</span></span>
+<span id="cb654-5"><a href="color-scale.html#cb654-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(gw_Stevens)</span></code></pre></div>
 <pre><code>Simple feature collection with 6 features and 4 fields
-geometry type:  POINT
-dimension:      XY
-bbox:           xmin: -101.4232 ymin: 37.04683 xmax: -101.1111 ymax: 37.29295
-geographic CRS: NAD83
-  well_id year  af_used                   geometry    af_used_cat
-1     234 2010 461.9565  POINT (-101.4232 37.1165)      (377,508]
-2     234 2011 486.0534  POINT (-101.4232 37.1165)      (377,508]
-3     290 2010 457.4391 POINT (-101.2301 37.29295)      (377,508]
-4     290 2011 580.4156 POINT (-101.2301 37.29295) (508,1.19e+03]
-5     317 2010 258.0000 POINT (-101.1111 37.04683)      (157,264]
-6     317 2011 255.0000 POINT (-101.1111 37.04683)      (157,264]</code></pre>
+Geometry type: POINT
+Dimension:     XY
+Bounding box:  xmin: -101.4232 ymin: 37.04683 xmax: -101.1111 ymax: 37.29295
+Geodetic CRS:  NAD83
+    well_id year  af_used                   geometry    af_used_cat
+197     234 2010 461.9565  POINT (-101.4232 37.1165)      (377,508]
+198     234 2011 486.0534  POINT (-101.4232 37.1165)      (377,508]
+247     290 2010 457.4391 POINT (-101.2301 37.29295)      (377,508]
+248     290 2011 580.4156 POINT (-101.2301 37.29295) (508,1.19e+03]
+275     317 2010 258.0000 POINT (-101.1111 37.04683)      (157,264]
+276     317 2011 255.0000 POINT (-101.1111 37.04683)      (157,264]</code></pre>
 <p>Since we would like to control <code>color</code> aesthetics based on a discrete variable, we should be using <code>scale_color_viridis_d()</code>.</p>
-<div class="sourceCode" id="cb664"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb664-1"><a href="color-scale.html#cb664-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> gw_Stevens) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb664-2"><a href="color-scale.html#cb664-2"></a><span class="st">    </span><span class="kw">geom_sf</span>(<span class="kw">aes</span>(<span class="dt">color =</span> af_used_cat), <span class="dt">size =</span> <span class="dv">2</span>) <span class="op">+</span></span>
-<span id="cb664-3"><a href="color-scale.html#cb664-3"></a><span class="st">    </span><span class="kw">scale_color_viridis_d</span>(<span class="dt">option =</span> <span class="st">&quot;C&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb656"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb656-1"><a href="color-scale.html#cb656-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> gw_Stevens) <span class="sc">+</span></span>
+<span id="cb656-2"><a href="color-scale.html#cb656-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">color =</span> af_used_cat), <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb656-3"><a href="color-scale.html#cb656-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_viridis_d</span>(<span class="at">option =</span> <span class="st">&quot;C&quot;</span>)</span></code></pre></div>
 <p><img src="R_GIS_Book_files/figure-html/viridis-color-1.png" width="672" /></p>
 </div>
 <div id="rcolorbrewer-scale__distiller-and-scale__brewer" class="section level3" number="8.3.2">
 <h3><span class="header-section-number">8.3.2</span> <code>RColorBrewer</code>: <code>scale_*_distiller()</code> and <code>scale_*_brewer()</code></h3>
 <p>The <code>RColorBrewer</code> package provides a set of color scales that are useful. Here is the list of color scales you can use.</p>
-<div class="sourceCode" id="cb665"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb665-1"><a href="color-scale.html#cb665-1"></a><span class="co">#--- load RColorBrewer ---#</span></span>
-<span id="cb665-2"><a href="color-scale.html#cb665-2"></a><span class="kw">library</span>(RColorBrewer)</span>
-<span id="cb665-3"><a href="color-scale.html#cb665-3"></a></span>
-<span id="cb665-4"><a href="color-scale.html#cb665-4"></a><span class="co">#--- disply all the color schemes from the package ---#</span></span>
-<span id="cb665-5"><a href="color-scale.html#cb665-5"></a><span class="kw">display.brewer.all</span>()    </span></code></pre></div>
+<div class="sourceCode" id="cb657"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb657-1"><a href="color-scale.html#cb657-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- load RColorBrewer ---#</span></span>
+<span id="cb657-2"><a href="color-scale.html#cb657-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RColorBrewer)</span>
+<span id="cb657-3"><a href="color-scale.html#cb657-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb657-4"><a href="color-scale.html#cb657-4" aria-hidden="true" tabindex="-1"></a><span class="co">#--- disply all the color schemes from the package ---#</span></span>
+<span id="cb657-5"><a href="color-scale.html#cb657-5" aria-hidden="true" tabindex="-1"></a><span class="fu">display.brewer.all</span>()</span></code></pre></div>
 <p><img src="R_GIS_Book_files/figure-html/brewer-disp-1.png" width="672" /></p>
 <p>The first set of color palettes are <strong>sequential</strong> palettes and are suitable for a variable that has ordinal meaning: temperature, precipitation, etc. The second set of palettes are <strong>qualitative</strong> palettes and suitable for qualitative or categorical data. Finally, the third set of palettes are <strong>diverging</strong> palettes and can be suitable for variables that take both negative and positive values like changes in groundwater level.</p>
 <p>Two types of <code>scale</code> functions can be used to use these palettes:</p>
@@ -621,32 +605,32 @@ geographic CRS: NAD83
 <li><code>scale_*_brewer()</code> for a discrete variable</li>
 </ul>
 <p>To use a specific color palette, you can simply add <code>palette = "palette name"</code> inside <code>scale_fill_distiller()</code>. The codes below applies “Spectral” as an example.</p>
-<div class="sourceCode" id="cb666"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb666-1"><a href="color-scale.html#cb666-1"></a>g_col_scale <span class="op">+</span><span class="st"> </span><span class="kw">theme_void</span>() <span class="op">+</span></span>
-<span id="cb666-2"><a href="color-scale.html#cb666-2"></a><span class="st">    </span><span class="kw">scale_fill_distiller</span>(<span class="dt">palette =</span> <span class="st">&quot;Spectral&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb658"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb658-1"><a href="color-scale.html#cb658-1" aria-hidden="true" tabindex="-1"></a>g_col_scale <span class="sc">+</span> <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb658-2"><a href="color-scale.html#cb658-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_fill_distiller</span>(<span class="at">palette =</span> <span class="st">&quot;Spectral&quot;</span>)</span></code></pre></div>
 <p><img src="R_GIS_Book_files/figure-html/brewer-spectral-1.png" width="672" /></p>
 <p>You can reverse the color order by adding <code>trans = "reverse"</code> option.</p>
-<div class="sourceCode" id="cb667"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb667-1"><a href="color-scale.html#cb667-1"></a>g_col_scale <span class="op">+</span><span class="st"> </span><span class="kw">theme_void</span>() <span class="op">+</span></span>
-<span id="cb667-2"><a href="color-scale.html#cb667-2"></a><span class="st">    </span><span class="kw">scale_fill_distiller</span>(<span class="dt">palette =</span> <span class="st">&quot;Spectral&quot;</span>, <span class="dt">trans =</span> <span class="st">&quot;reverse&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb659"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb659-1"><a href="color-scale.html#cb659-1" aria-hidden="true" tabindex="-1"></a>g_col_scale <span class="sc">+</span> <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb659-2"><a href="color-scale.html#cb659-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_fill_distiller</span>(<span class="at">palette =</span> <span class="st">&quot;Spectral&quot;</span>, <span class="at">trans =</span> <span class="st">&quot;reverse&quot;</span>)</span></code></pre></div>
 <p><img src="R_GIS_Book_files/figure-html/brewer-spectral-reverse-1.png" width="672" /></p>
 <p>If you are specifying the <code>color</code> aesthetics based on a continuous variable, then you use <code>scale_color_distiller()</code>.</p>
-<div class="sourceCode" id="cb668"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb668-1"><a href="color-scale.html#cb668-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> gw_Stevens) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb668-2"><a href="color-scale.html#cb668-2"></a><span class="st">    </span><span class="kw">geom_sf</span>(<span class="kw">aes</span>(<span class="dt">color =</span> af_used), <span class="dt">size =</span> <span class="dv">2</span>) <span class="op">+</span></span>
-<span id="cb668-3"><a href="color-scale.html#cb668-3"></a><span class="st">    </span><span class="kw">scale_color_distiller</span>(<span class="dt">palette =</span> <span class="st">&quot;Spectral&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb660"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb660-1"><a href="color-scale.html#cb660-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> gw_Stevens) <span class="sc">+</span></span>
+<span id="cb660-2"><a href="color-scale.html#cb660-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">color =</span> af_used), <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb660-3"><a href="color-scale.html#cb660-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_distiller</span>(<span class="at">palette =</span> <span class="st">&quot;Spectral&quot;</span>)</span></code></pre></div>
 <p><img src="R_GIS_Book_files/figure-html/brewer-spectral-reverse-color-1.png" width="672" /></p>
 <p>Now, suppose the variable of interest comes with categories of ranges of values. The code below groups <code>af_used</code> into five ranges using <code>ggplo2::cut_number()</code>.</p>
-<div class="sourceCode" id="cb669"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb669-1"><a href="color-scale.html#cb669-1"></a>gw_Stevens &lt;-<span class="st"> </span><span class="kw">mutate</span>(gw_Stevens, <span class="dt">af_used_cat =</span> <span class="kw">cut_number</span>(af_used, <span class="dt">n =</span> <span class="dv">5</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb661"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb661-1"><a href="color-scale.html#cb661-1" aria-hidden="true" tabindex="-1"></a>gw_Stevens <span class="ot">&lt;-</span> <span class="fu">mutate</span>(gw_Stevens, <span class="at">af_used_cat =</span> <span class="fu">cut_number</span>(af_used, <span class="at">n =</span> <span class="dv">5</span>))</span></code></pre></div>
 <p>Since <code>af_used_cat</code> is a discrete variable, you can use <code>scale_color_brewer()</code> instead.</p>
-<div class="sourceCode" id="cb670"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb670-1"><a href="color-scale.html#cb670-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> gw_Stevens) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb670-2"><a href="color-scale.html#cb670-2"></a><span class="st">    </span><span class="kw">geom_sf</span>(<span class="kw">aes</span>(<span class="dt">color =</span> af_used_cat), <span class="dt">size =</span> <span class="dv">2</span>) <span class="op">+</span></span>
-<span id="cb670-3"><a href="color-scale.html#cb670-3"></a><span class="st">    </span><span class="kw">scale_color_brewer</span>(<span class="dt">palette =</span> <span class="st">&quot;Spectral&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb662"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb662-1"><a href="color-scale.html#cb662-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> gw_Stevens) <span class="sc">+</span></span>
+<span id="cb662-2"><a href="color-scale.html#cb662-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">color =</span> af_used_cat), <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb662-3"><a href="color-scale.html#cb662-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Spectral&quot;</span>)</span></code></pre></div>
 <p><img src="R_GIS_Book_files/figure-html/brewer-spectral-brewer-1.png" width="672" /></p>
 </div>
 <div id="colorspace-package" class="section level3" number="8.3.3">
 <h3><span class="header-section-number">8.3.3</span> <code>colorspace</code> package</h3>
 <p>If you are not satisfied with the <code>viridis</code> color map or the <code>ColorBrewer</code> palette options, you might want to try the <code>colorspace</code> package.</p>
 <p>Here is the palettes the <code>colorspace</code> package offers.</p>
-<div class="sourceCode" id="cb671"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb671-1"><a href="color-scale.html#cb671-1"></a><span class="co">#--- plot the palettes ---#</span></span>
-<span id="cb671-2"><a href="color-scale.html#cb671-2"></a><span class="kw">hcl_palettes</span>(<span class="dt">plot =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb663"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb663-1"><a href="color-scale.html#cb663-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- plot the palettes ---#</span></span>
+<span id="cb663-2"><a href="color-scale.html#cb663-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hcl_palettes</span>(<span class="at">plot =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <p><img src="R_GIS_Book_files/figure-html/palettes-colorspace-1.png" width="672" /></p>
 <p>The packages offers its own <code>scale_*()</code> functions that follows the following naming convention:</p>
 <p><code>scale_aesthetic_datatype_colorscale</code> where</p>
@@ -656,36 +640,36 @@ geographic CRS: NAD83
 <li>colorscale: <code>qualitative</code>, <code>sequential</code>, <code>diverging</code>, <code>divergingx</code></li>
 </ul>
 <p>For example, to add a sequential color scale to the following map, we would use <code>scale_fill_continuous_sequential()</code> and then pick a palette from the set of sequential palettes shown above. The code below uses the Viridis palette with the reverse option:</p>
-<div class="sourceCode" id="cb672"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb672-1"><a href="color-scale.html#cb672-1"></a><span class="kw">ggplot</span>() <span class="op">+</span><span class="st">  </span></span>
-<span id="cb672-2"><a href="color-scale.html#cb672-2"></a><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> gw_by_county, <span class="kw">aes</span>(<span class="dt">fill =</span> af_used)) <span class="op">+</span></span>
-<span id="cb672-3"><a href="color-scale.html#cb672-3"></a><span class="st">    </span><span class="kw">facet_wrap</span>(. <span class="op">~</span><span class="st"> </span>year) <span class="op">+</span></span>
-<span id="cb672-4"><a href="color-scale.html#cb672-4"></a><span class="st">    </span><span class="kw">scale_fill_continuous_sequential</span>(<span class="dt">palette =</span> <span class="st">&quot;Viridis&quot;</span>, <span class="dt">trans =</span> <span class="st">&quot;reverse&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb664"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb664-1"><a href="color-scale.html#cb664-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb664-2"><a href="color-scale.html#cb664-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_sf</span>(<span class="at">data =</span> gw_by_county, <span class="fu">aes</span>(<span class="at">fill =</span> af_used)) <span class="sc">+</span></span>
+<span id="cb664-3"><a href="color-scale.html#cb664-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_wrap</span>(. <span class="sc">~</span> year) <span class="sc">+</span></span>
+<span id="cb664-4"><a href="color-scale.html#cb664-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_fill_continuous_sequential</span>(<span class="at">palette =</span> <span class="st">&quot;Viridis&quot;</span>, <span class="at">trans =</span> <span class="st">&quot;reverse&quot;</span>)</span></code></pre></div>
 <hr />
 <p>If you still cannot find a palette that satisfies your need (or obsession at this point), then you can easily make your own. The package offers <code>hclwizard()</code>, which starts shiny-based web application to let you design your own color palette.</p>
 <p>After running this,</p>
-<div class="sourceCode" id="cb673"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb673-1"><a href="color-scale.html#cb673-1"></a><span class="kw">hclwizard</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb665"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb665-1"><a href="color-scale.html#cb665-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hclwizard</span>()</span></code></pre></div>
 <p>you should see a web application pop up that looks like this.</p>
 <p><img src="hclwizard.png" /></p>
 <p>After you find a color scale you would like to use, you can go to the <strong>Export</strong>tab, select the <strong>R</strong> tab, and then copy the code that appear in the highlighted area.</p>
 <p><img src="hclwizard_pick_theme.png" /></p>
 <p>You could register the color palette by completing the <code>register =</code> option in the copied code if you think you will use it other times. Otherwise, you can delete the option.</p>
-<div class="sourceCode" id="cb674"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb674-1"><a href="color-scale.html#cb674-1"></a>col_palette &lt;-<span class="st"> </span><span class="kw">sequential_hcl</span>(<span class="dt">n =</span> <span class="dv">7</span>, <span class="dt">h =</span> <span class="kw">c</span>(<span class="dv">36</span>, <span class="dv">200</span>), <span class="dt">c =</span> <span class="kw">c</span>(<span class="dv">60</span>, <span class="ot">NA</span>, <span class="dv">0</span>), <span class="dt">l =</span> <span class="kw">c</span>(<span class="dv">25</span>, <span class="dv">95</span>), <span class="dt">power =</span> <span class="kw">c</span>(<span class="fl">0.7</span>, <span class="fl">1.3</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb666"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb666-1"><a href="color-scale.html#cb666-1" aria-hidden="true" tabindex="-1"></a>col_palette <span class="ot">&lt;-</span> <span class="fu">sequential_hcl</span>(<span class="at">n =</span> <span class="dv">7</span>, <span class="at">h =</span> <span class="fu">c</span>(<span class="dv">36</span>, <span class="dv">200</span>), <span class="at">c =</span> <span class="fu">c</span>(<span class="dv">60</span>, <span class="cn">NA</span>, <span class="dv">0</span>), <span class="at">l =</span> <span class="fu">c</span>(<span class="dv">25</span>, <span class="dv">95</span>), <span class="at">power =</span> <span class="fu">c</span>(<span class="fl">0.7</span>, <span class="fl">1.3</span>))</span></code></pre></div>
 <p>We then use the code as follows:</p>
-<div class="sourceCode" id="cb675"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb675-1"><a href="color-scale.html#cb675-1"></a>g_col_scale <span class="op">+</span><span class="st"> </span><span class="kw">theme_void</span>() <span class="op">+</span></span>
-<span id="cb675-2"><a href="color-scale.html#cb675-2"></a><span class="st">    </span><span class="kw">scale_fill_gradientn</span>(<span class="dt">colors =</span> col_palette)</span></code></pre></div>
-<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-43-1.png" width="672" /></p>
+<div class="sourceCode" id="cb667"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb667-1"><a href="color-scale.html#cb667-1" aria-hidden="true" tabindex="-1"></a>g_col_scale <span class="sc">+</span> <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb667-2"><a href="color-scale.html#cb667-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_fill_gradientn</span>(<span class="at">colors =</span> col_palette)</span></code></pre></div>
+<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-49-1.png" width="672" /></p>
 <p>Note that you are now using <code>scale_*_gradientn()</code> with this approach.</p>
 <p>For a discrete variable, you can use <code>scale_*_manual()</code>:</p>
-<div class="sourceCode" id="cb676"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb676-1"><a href="color-scale.html#cb676-1"></a>col_discrete &lt;-<span class="st"> </span><span class="kw">sequential_hcl</span>(<span class="dt">n =</span> <span class="dv">5</span>, <span class="dt">h =</span> <span class="kw">c</span>(<span class="dv">240</span>, <span class="dv">130</span>), <span class="dt">c =</span> <span class="kw">c</span>(<span class="dv">30</span>, <span class="ot">NA</span>, <span class="dv">33</span>), <span class="dt">l =</span> <span class="kw">c</span>(<span class="dv">25</span>, <span class="dv">95</span>), <span class="dt">power =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="ot">NA</span>), <span class="dt">rev =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb676-2"><a href="color-scale.html#cb676-2"></a></span>
-<span id="cb676-3"><a href="color-scale.html#cb676-3"></a><span class="kw">ggplot</span>() <span class="op">+</span><span class="st">  </span></span>
-<span id="cb676-4"><a href="color-scale.html#cb676-4"></a><span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> gw_Stevens, <span class="kw">aes</span>(<span class="dt">color =</span> af_used_cat), <span class="dt">size =</span> <span class="dv">2</span>) <span class="op">+</span></span>
-<span id="cb676-5"><a href="color-scale.html#cb676-5"></a><span class="st">    </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> col_discrete)</span></code></pre></div>
-<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-44-1.png" width="672" /></p>
-<!-- 
+<div class="sourceCode" id="cb668"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb668-1"><a href="color-scale.html#cb668-1" aria-hidden="true" tabindex="-1"></a>col_discrete <span class="ot">&lt;-</span> <span class="fu">sequential_hcl</span>(<span class="at">n =</span> <span class="dv">5</span>, <span class="at">h =</span> <span class="fu">c</span>(<span class="dv">240</span>, <span class="dv">130</span>), <span class="at">c =</span> <span class="fu">c</span>(<span class="dv">30</span>, <span class="cn">NA</span>, <span class="dv">33</span>), <span class="at">l =</span> <span class="fu">c</span>(<span class="dv">25</span>, <span class="dv">95</span>), <span class="at">power =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="cn">NA</span>), <span class="at">rev =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb668-2"><a href="color-scale.html#cb668-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb668-3"><a href="color-scale.html#cb668-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb668-4"><a href="color-scale.html#cb668-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_sf</span>(<span class="at">data =</span> gw_Stevens, <span class="fu">aes</span>(<span class="at">color =</span> af_used_cat), <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb668-5"><a href="color-scale.html#cb668-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_manual</span>(<span class="at">values =</span> col_discrete)</span></code></pre></div>
+<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-50-1.png" width="672" /></p>
+<!--
 #/*=================================================*/
-#' # Arranging maps 
-#/*=================================================*/   
+#' # Arranging maps
+#/*=================================================*/
 -->
 </div>
 </div>

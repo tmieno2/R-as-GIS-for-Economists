@@ -16,7 +16,7 @@ This book is being developed as part of my effort to put together course materia
 
 **About me**
 
-I am an Assistant Professor at the Department of Agricultural Economics at the University of Nebraska Lincoln, where I also teach Econometrics for Master's students. My research interests lie in precision agriculture, water economics, and agricultural policy. My personal website is [here](http://taromieno.netlify.com/). 
+I am an Associate Professor at the Department of Agricultural Economics at the University of Nebraska Lincoln, where I also teach Econometrics for Master's students. My research interests lie in precision agriculture, water economics, and agricultural policy. My personal website is [here](http://taromieno.netlify.com/). 
 
 **Contributors of the book**
 
@@ -48,11 +48,11 @@ Here I compare them briefly and discuss why R is a good option.
 
 ### R vs Python {-}
 
-Both R and Python are actually heavily dependent on open source software GDAL and GEOS for their core GIS operations (GDAL for reading spatial data, and GEOS for geometrical operations like intersecting two spatial layers).^[For example, see the very first sentence of [this page](https://cran.r-project.org/web/packages/sf/index.html)] So, when you run GIS tasks on R or Python you basically tell R or Python what you want to do and they talk to the software, let it do the job, and return the results to you. This means that R and Python are not much different in their capability at GIS tasks as they are dependent on the common open source software for many GIS tasks. When GDAL and GEOS get better, R and Python get better (with a short lag all thanks to those who make updates available on R). Both of them have good spatial visualization tools as well. Moreover, both R and Python can communicate with QGIS and ArcGIS (as long you as have them installed of course) and use their functionalities from within R and Python via the bridging packages: `RQGIS` and `PyQGIS` for QGIS, and `R-ArcGIS` and `ArcPy`.^[We do not learn them in this lecture note because I do not see the benefits of using them.] So, if you are more familiar with Python than R, go ahead and go with Python. From now on, my discussions assume that you are going for the R option, as otherwise, you would not be reading the rest of the book anyway.
+Both R and Python are actually heavily dependent on open source software GDAL and GEOS for their core GIS operations (GDAL for reading spatial data, and GEOS for geometrical operations like intersecting two spatial layers).^[For example, see the very first sentence of [this page](https://cran.r-project.org/web/packages/sf/index.html)] So, when you run GIS tasks on R or Python you basically tell R or Python what you want to do and they talk to the software, let it do the job, and return the results to you. This means that R and Python are not much different in their capability at GIS tasks as they are dependent on the common open source software for many GIS tasks. When GDAL and GEOS get better, R and Python get better (with a short lag all thanks to those who make updates available on R). Both of them have good spatial visualization tools as well. Moreover, both R and Python can communicate with QGIS and ArcGIS (as long you as have them installed of course) and use their functionalities from within R and Python via the bridging packages: `RQGIS` and `PyQGIS` for QGIS, and `R-ArcGIS` and `ArcPy`.^[We do not learn them in this lecture note because I do not see much benefits of using them.] So, if you are more familiar with Python than R, go ahead and go with Python. From now on, my discussions assume that you are going for the R option, as otherwise, you would not be reading the rest of the book anyway.
 
 ### R vs ArcGIS or QGIS {-}
 
-ArcGIS is commercial software and it is quite expensive (you are likely to be able to get a significant discount if you are a student at or work for a University). On the other hand, QGIS is open source and free. It has seen significant development over the decade, and I would say it is just as competitive as ArcGIS. QGIS also uses open source geospatial software GDAL, GEOS, and others (SAGA, GRASS GIS). Both of them have a graphical interface that helps you implement various GIS tasks unlike R which requires programming. 
+ArcGIS is commercial software and it is quite expensive (you are likely to be able to get a significant discount if you are a student at or work for a University). On the other hand, QGIS is open source and free. It has seen significant developments over the decade, and I would say it is just as competitive as ArcGIS. QGIS also uses open source geospatial software GDAL, GEOS, and others (SAGA, GRASS GIS). Both of them have a graphical interface that aids you implement various GIS tasks unlike R which requires programming. 
 
 Now, since R can use ArcGIS and QGIS through the bridging packages, a more precise question we should be asking is whether you should program GIS tasks using R (possibly using the bridging packages) or manually implement GIS tasks using the graphical interface of ArcGIS or QGIS. The answer is programming GIS tasks using R. First, manual GIS operations are hard to repeat. It is often the case that in the course of a project you need to redo the same GIS task except that the underlying datasets have changed. If you have programmed the process with R, you just run the same code and that's it. You get the desired results. If you did not program it, you need to go through many clicks on the graphical interface all over again, potentially trying to remember how you actually did it the last time.^[You could take a step-by-step note of what you did though.] Second and more important, manual operations are not scalable. It has become much more common that we need to process many large spatial datasets. Imagine you are doing the same operations on $1,000$ files using a graphical interface, or even $50$ files. Do you know what is good at doing the same tasks over and over again without complaining? A computer. Just let it do what it likes to do. You have better things do. 
 
@@ -60,7 +60,7 @@ Finally, should you learn ArcGIS or QGIS in addition to (or before) R? I am doub
 
 One of the things ArcGIS and QGIS can do but R cannot do ($\Omega_{AQ}\setminus\Omega_R$) is create spatial objects by hand using a graphical user interface, like drawing polygons and lines. Another thing that R lags behind ArcGIS and QGIS is 3D data visualization. But, I must say neither of them is essential for economists at the moment. Finally, sometime it is easier and faster to make a map using ArcGIS and QGIS especially for a complicated map.^[Let me know if you know something that is essential for economists that only ArcGIS or QGIS can do. I will add that to the list here.] 
 
-Using R as GIS, however, comes with a learning curve for those who have never used R because basic knowledge of R and general programming is required. On the other hand, the GUI-based use of ArcGIS and QGIS has a very low start-up cost. For those who have used R for other purposes like data wrangling and regression analysis, you have already (or almost) climbed up the hill and are ready to learn how to use R as GIS.
+Using R as GIS, however, comes with a learning curve for those who have never used R because basic knowledge of R and general programming knowledge is required. On the other hand, the GUI-based use of ArcGIS and QGIS has a very low start-up cost. For those who have used R for other purposes like data wrangling and regression analysis, you have already (or almost) climbed up the hill and are ready to learn how to use R as GIS.
 
 ### Summary {-}
 
@@ -82,12 +82,12 @@ Learn R and maybe take advantage of `R-ArcGIS` or `RQGIS`, which this book does 
 
 + **You know for sure that you need to run only a simple GIS task once and never have to do any GIS tasks ever again?**
 
-Stop reading and ask one of your friends to do the job. Pay him/her $\$20$ per hour, which is way below the opportunity cost of setting up either ArcGIS or QGI and learning to do that simple task.
+Stop reading and ask one of your friends to do the job. Pay him/her $\$20$ per hour, which is way below the opportunity cost of setting up either ArcGIS or QGIS and learning to do that simple task.
 
 
 ## How is this book different from other online books and resources? {-}
 
-We are seeing an explosion of online (and free) resources that teach how to use R for spatial data processing.^[This phenomenon is largely thanks to packages like `bookdown` [@Rbookdown], `blogdown` [@Rblogdown], and `pkgdown` [@Rpkgdown] that has lowered the cost of professional contents creation much much lower than before. Indeed, this book was built taking advantage of the `bookdown` package.]  Here is an incomplete list of such resources:
+We are seeing an explosion of online (and free) resources that teach how to use R for spatial data processing.^[This phenomenon is largely thanks to packages like `bookdown` [@Rbookdown], `blogdown` [@Rblogdown], and `pkgdown` [@Rpkgdown] that has significantly lowered the cost of professional contents creation than before. Indeed, this book was built taking advantage of the `bookdown` package.]  Here is an incomplete list of such resources:
 
 + [Geocomputation with R](https://geocompr.robinlovelace.net/)
 + [Spatial Data Science](https://keen-swartz-3146c4.netlify.app/)
@@ -105,55 +105,55 @@ We are seeing an explosion of online (and free) resources that teach how to use 
 + [Geospatial Health Data: Modeling and Visualization with R-INLA and Shiny](https://www.paulamoraga.com/book-geospatial/)
 <!-- + [Nick Eubank](https://www.nickeubank.com/gis-in-r/) -->
 
-Thanks to all these resources, it has become much easier to self-teach R for GIS work than six or seven years ago when I first started using R for GIS. Even though I have not read through all these resources carefully, I am pretty sure every topic found in this book can also be found _somewhere_ in these resources (except the demonstrations). So, you may wonder why on earth you can benefit from reading this book. It all boils down to search costs. Researchers in different disciplines require different sets of spatial data skills. The available resources are typically very general covering so many topics that economists are unlikely to use. It is particularly hard for those who do not have much experience in GIS to identify whether particular skills are essential or not. So, they could spend so much time learning something that is not really useful. The value of this book lies in its deliberate incomprehensiveness. It only packages materials that satisfy the need of most economists, cutting out many topics that are likely to be of limited use for economists. 
+Thanks to all these resources, it has become much easier to self-teach R for GIS work than six or seven years ago when I first started using R for GIS. Even though I have not read through all these resources carefully, I am pretty sure every topic found in this book can also be found _somewhere_ in these resources (except the demonstrations). So, you may wonder why on earth you can benefit from reading this book. It all boils down to search costs. Researchers in different disciplines require different sets of spatial data skills. The available resources are typically very general covering so many topics, some of which economists are unlikely to use. It is particularly hard for those who do not have much experience in GIS to identify whether particular skills are essential or not. So, they could spend so much time learning something that is not really useful. The value of this book lies in its deliberate incomprehensiveness. It only packages materials that satisfy the need of most economists, cutting out many topics that are likely to be of limited use for economists. 
 
 For those who are looking for more comprehensive treatments of spatial data handling and processing in one book, I personally like [Geocomputation with R](https://geocompr.robinlovelace.net/) a lot. Increasingly, the developer of R packages created a website dedicated to their R packages, where you can often find vignettes (tutorials), like [Simple Features for R](https://r-spatial.github.io/sf/). 
 
 
+## Topics covered in this book {-}
 
-## What is going to be covered in this book? {-}
+The book starts with the very basics of spatial data handling (e.g., importing and exporting spatial datasets) and moves on to more practical spatial data operations (e.g., spatial data join) that are useful for research projects. Some parts of this books are still under development. Right now, Chapters 1 through 8, parts of Chapter 9, and Appendix A are available. 
 
-The book starts with the very basics of spatial data handling (e.g., importing and exporting spatial datasets) and moves on to more practical spatial data operations (e.g., spatial data join) that are useful for research projects. This books is still under development. Right now, only Chapters 1 through 5 and Appendix A are available. I will work on the rest of the book over the summer. The "coming soon" chapters are close to be done. I just need to add finishing touches to those chapters. The "wait a bit" chapters need some more work, adding contents, etc.  
-
-+ Chapter 1: Demonstrations of R as GIS (available)
++ Chapter 1: Demonstrations of R as GIS 
 	* groundwater pumping and groundwater level
 	* precision agriculture
 	* land use and weather
 	* corn planted acreage and railroads
 	* groundwater pumping and weather
-+ Chapter 2: The basics of vector data handling using `sf` package (available)
++ Chapter 2: The basics of vector data handling using `sf` package 
 	* spatial data structure in `sf`
 	* import and export vector data
 	* (re)projection of spatial datasets
 	* single-layer geometrical operations (e.g., create buffers, find centroids)
 	* other miscellaneous basic operations
-+ Chapter 3: Spatial interactions of vector datasets (available)
++ Chapter 3: Spatial interactions of vector datasets
 	* understand topological relations of multiple `sf` objects
 	* spatially subsetting a layer based on another layer
 	* extracting values from one layer to another layer
-+ Chapter 4: The basics of raster data handling using the `raster` and `terra`  packages (available)
++ Chapter 4: The basics of raster data handling using the `raster` and `terra`  packages
 	* understand object classes by the `terra` and `raster` packages
 	* import and export raster data
 	* stack raster data
 	* quick plotting
-+ Chapter 5: Spatial interactions of vector and raster datasets (available)
++ Chapter 5: Spatial interactions of vector and raster datasets
 	* cropping a raster layer to the geographic extent of a vector layer 
 	* extracting values from a raster layer to a vector layer
-+ Chapter 6: Speed things up (available)  
++ Chapter 6: Speed things up
 	* make raster data extraction faster by parallelization
-+ Chapter 7: Spatiotemporal raster data handling with the `stars` package (available)  
-+ Chapter 8: Creating publication-quality maps (wait a bit)  
-	* use the `tmap` and `ggplot2` packages to create maps
++ Chapter 7: Spatiotemporal raster data handling with the `stars` package
++ Chapter 8: Creating Maps using the `ggplot2` package
+	* use the `ggplot2` packages to create maps
 + Chapter 9: Download and process publicly available spatial datasets (partially available)
 	* USDA NASS QuickStat (`tidyUSDA`) - available
 	* PRISM (`prism`) - available
 	* Daymet (`daymetr`) - available
-	* Cropland Data Layer (`cdlTools`) - under construction
+	* gridMET - available
+	* Cropland Data Layer (`CropScapeR`) - under construction
 	* USGS (`dataRetrieval`) - under construction
 	* Sentinel 2 (`sen2r`) - under construction
 	* Census (`tidycensus`) - under construction
 + Appendix A: Loop and parallel computation (available)
-+ Appendix B: Cheatsheet (wait a bit)
++ Appendix B: Cheatsheet - under construction
 
 As you can see above, this book does not spend any time on the very basics of GIS concepts. Before you start reading the book, you should know the followings at least (it's not much): 
 
@@ -176,7 +176,7 @@ They are one of the following:
 + R functions
 + R packages
 
-When it is a function, I always put parentheses at the end like this: `st_read()`.^[This is a function that draws values randomly from the uniform distribution.] Sometimes, I combine a package and function in one like this: `sf::st_read()`. This means it is a function called `st_read()` from the `sf` package. 
+When it is a function, I always put parentheses at the end like this: `st_read()`. Sometimes, I combine a package and function in one like this: `sf::st_read()`. This means it is a function called `st_read()` from the `sf` package. 
 
 ### Colored Boxes {-}
 
@@ -200,7 +200,7 @@ Sometimes you will see codes enclosed by parenthesis like this:
 
 ```{r notes_par}
 (
-  a <- runif(5)
+a <- runif(5)
 )
 ```
 

@@ -24,7 +24,7 @@
 <meta name="author" content="Taro Mieno" />
 
 
-<meta name="date" content="2020-09-06" />
+<meta name="date" content="2021-10-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,7 @@
   
 <link rel="prev" href="vector-basics.html"/>
 <link rel="next" href="spatial-data-structure.html"/>
-<script src="libs/header-attrs-2.3/header-attrs.js"></script>
+<script src="libs/header-attrs-2.9/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -51,8 +51,9 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
 <script src="libs/leaflet-1.3.1/leaflet.js"></script>
 <link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
@@ -62,26 +63,6 @@
 <script src="libs/leaflet-binding-2.0.3/leaflet.js"></script>
 <script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script>
 <script src="libs/leaflet-providers-plugin-2.0.3/leaflet-providers-plugin.js"></script>
-<link href="libs/HomeButton-0.0.1/home-button.css" rel="stylesheet" />
-<script src="libs/HomeButton-0.0.1/home-button.js"></script>
-<script src="libs/HomeButton-0.0.1/easy-button-src.min.js"></script>
-<script src="libs/clipboard-0.0.1/setClipboardText.js"></script>
-<link href="libs/PopupTable-0.0.1/popup.css" rel="stylesheet" />
-<script src="libs/IA_cdl_2015-1/data_stars_IA_cdl_20157013d9.txt"></script>
-<script src="libs/joda-0.0.1/joda.js"></script>
-<script src="libs/joda-0.0.1/addImageQuery-bindings.js"></script>
-<script src="libs/IA_cdl_2016-1/data_stars_IA_cdl_2016f0942b.txt"></script>
-<script src="libs/prcp_tmax_PRISM_m8_y09["tmax", , , ] - 1-1/data_stars_prcp_tmax_PRISM_m8_y09tmax15f4a23.txt"></script>
-<script src="libs/layer.1-1/data_stars_layer16e07dc.txt"></script>
-<script src="libs/layer.2-1/data_stars_layer29d3c0a.txt"></script>
-<script src="libs/layer.3-1/data_stars_layer30124e8.txt"></script>
-<script src="libs/layer.4-1/data_stars_layer4125698.txt"></script>
-<script src="libs/layer.5-1/data_stars_layer56ca504.txt"></script>
-<script src="libs/layer.6-1/data_stars_layer60b51ef.txt"></script>
-<script src="libs/layer.7-1/data_stars_layer7d85baf.txt"></script>
-<script src="libs/layer.8-1/data_stars_layer831db4a.txt"></script>
-<script src="libs/layer.9-1/data_stars_layer935e042.txt"></script>
-<script src="libs/layer.10-1/data_stars_layer102ad98c.txt"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
 <script src="libs/datatables-binding-0.13/datatables.js"></script>
 <link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
@@ -251,8 +232,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.5.2" data-path="quick-and-interactive-view-of-an-sf-object.html"><a href="quick-and-interactive-view-of-an-sf-object.html#interactive-view"><i class="fa fa-check"></i><b>2.5.2</b> Interactive view</a></li>
 </ul></li>
 <li class="chapter" data-level="2.6" data-path="turning-a-data-frame-of-points-into-an-sf.html"><a href="turning-a-data-frame-of-points-into-an-sf.html"><i class="fa fa-check"></i><b>2.6</b> Turning a data.frame of points into an <code>sf</code></a></li>
-<li class="chapter" data-level="2.7" data-path="conv-sp.html"><a href="conv-sp.html"><i class="fa fa-check"></i><b>2.7</b> Conversion to and from sp</a></li>
-<li class="chapter" data-level="2.8" data-path="non-spatial-transformation-of-sf.html"><a href="non-spatial-transformation-of-sf.html"><i class="fa fa-check"></i><b>2.8</b> Non-spatial transformation of sf</a>
+<li class="chapter" data-level="2.7" data-path="conv-sp.html"><a href="conv-sp.html"><i class="fa fa-check"></i><b>2.7</b> Conversion to and from sp objects</a></li>
+<li class="chapter" data-level="2.8" data-path="non-spatial-transformation-of-sf.html"><a href="non-spatial-transformation-of-sf.html"><i class="fa fa-check"></i><b>2.8</b> Non-spatial transformation of <code>sf</code></a>
 <ul>
 <li class="chapter" data-level="2.8.1" data-path="non-spatial-transformation-of-sf.html"><a href="non-spatial-transformation-of-sf.html#using-dplyr"><i class="fa fa-check"></i><b>2.8.1</b> Using <code>dplyr</code></a></li>
 <li class="chapter" data-level="2.8.2" data-path="non-spatial-transformation-of-sf.html"><a href="non-spatial-transformation-of-sf.html#using-data.table"><i class="fa fa-check"></i><b>2.8.2</b> Using <code>data.table</code></a></li>
@@ -282,7 +263,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.2.2" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#points-source-vs-polygons-target"><i class="fa fa-check"></i><b>3.2.2</b> points (source) vs polygons (target)</a></li>
 <li class="chapter" data-level="3.2.3" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#lines_polygons"><i class="fa fa-check"></i><b>3.2.3</b> lines (source) vs polygons (target)</a></li>
 <li class="chapter" data-level="3.2.4" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#polygons_points"><i class="fa fa-check"></i><b>3.2.4</b> polygons (source) vs points (target)</a></li>
-<li class="chapter" data-level="3.2.5" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#subsetting-to-a-geograpchic-extent-bounding-box"><i class="fa fa-check"></i><b>3.2.5</b> Subsetting to a geograpchic extent (bounding box)</a></li>
+<li class="chapter" data-level="3.2.5" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#subsetting-to-a-geographic-extent-bounding-box"><i class="fa fa-check"></i><b>3.2.5</b> Subsetting to a geographic extent (bounding box)</a></li>
 </ul></li>
 <li class="chapter" data-level="3.3" data-path="sp-join.html"><a href="sp-join.html"><i class="fa fa-check"></i><b>3.3</b> Spatial Join</a>
 <ul>
@@ -314,8 +295,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.2.1" data-path="read-and-write-a-raster-data-file.html"><a href="read-and-write-a-raster-data-file.html#read-raster-files"><i class="fa fa-check"></i><b>4.2.1</b> Read raster file(s)</a></li>
 <li class="chapter" data-level="4.2.2" data-path="read-and-write-a-raster-data-file.html"><a href="read-and-write-a-raster-data-file.html#write-raster-files"><i class="fa fa-check"></i><b>4.2.2</b> Write raster files</a></li>
 </ul></li>
-<li class="chapter" data-level="4.3" data-path="access-values.html"><a href="access-values.html"><i class="fa fa-check"></i><b>4.3</b> Access values</a></li>
-<li class="chapter" data-level="4.4" data-path="quick-plot-and-interactive-map.html"><a href="quick-plot-and-interactive-map.html"><i class="fa fa-check"></i><b>4.4</b> Quick plot and interactive map</a></li>
+<li class="chapter" data-level="4.3" data-path="extract-information-from-raster-data-object.html"><a href="extract-information-from-raster-data-object.html"><i class="fa fa-check"></i><b>4.3</b> Extract information from raster data object</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="extract-information-from-raster-data-object.html"><a href="extract-information-from-raster-data-object.html#get-crs"><i class="fa fa-check"></i><b>4.3.1</b> Get CRS</a></li>
+<li class="chapter" data-level="4.3.2" data-path="extract-information-from-raster-data-object.html"><a href="extract-information-from-raster-data-object.html#subset"><i class="fa fa-check"></i><b>4.3.2</b> Subset</a></li>
+<li class="chapter" data-level="4.3.3" data-path="extract-information-from-raster-data-object.html"><a href="extract-information-from-raster-data-object.html#get-cell-values"><i class="fa fa-check"></i><b>4.3.3</b> Get cell values</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="turning-a-raster-object-into-a-data-frame.html"><a href="turning-a-raster-object-into-a-data-frame.html"><i class="fa fa-check"></i><b>4.4</b> Turning a raster object into a <code>data.frame</code></a></li>
+<li class="chapter" data-level="4.5" data-path="quick-plot-and-interactive-map.html"><a href="quick-plot-and-interactive-map.html"><i class="fa fa-check"></i><b>4.5</b> Quick plot and interactive map</a></li>
+<li class="chapter" data-level="4.6" data-path="working-with-netcdfs.html"><a href="working-with-netcdfs.html"><i class="fa fa-check"></i><b>4.6</b> Working with netCDFs</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="int-RV.html"><a href="int-RV.html"><i class="fa fa-check"></i><b>5</b> Spatial Interactions of Vector and Raster Data</a>
 <ul>
@@ -323,12 +311,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="" data-path="before-you-start-4.html"><a href="before-you-start-4.html#direction-for-replication-4"><i class="fa fa-check"></i>Direction for replication</a></li>
 </ul></li>
-<li class="chapter" data-level="5.1" data-path="raster-crop.html"><a href="raster-crop.html"><i class="fa fa-check"></i><b>5.1</b> Cropping (Spatial subsetting) to the Area of Interest</a></li>
+<li class="chapter" data-level="5.1" data-path="raster-crop.html"><a href="raster-crop.html"><i class="fa fa-check"></i><b>5.1</b> Cropping to the Area of Interest</a></li>
 <li class="chapter" data-level="5.2" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html"><i class="fa fa-check"></i><b>5.2</b> Extracting Values from Raster Layers for Vector Data</a>
 <ul>
-<li class="chapter" data-level="5.2.1" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#points"><i class="fa fa-check"></i><b>5.2.1</b> Points</a></li>
-<li class="chapter" data-level="5.2.2" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#polygons-terra-way"><i class="fa fa-check"></i><b>5.2.2</b> Polygons (<code>terra</code> way)</a></li>
-<li class="chapter" data-level="5.2.3" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#polygons-exactextractr-way"><i class="fa fa-check"></i><b>5.2.3</b> Polygons (<code>exactextractr</code> way)</a></li>
+<li class="chapter" data-level="5.2.1" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#simple-visual-illustrations-of-raster-data-extraction"><i class="fa fa-check"></i><b>5.2.1</b> Simple visual illustrations of raster data extraction</a></li>
+<li class="chapter" data-level="5.2.2" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#extracting-to-points"><i class="fa fa-check"></i><b>5.2.2</b> Extracting to Points</a></li>
+<li class="chapter" data-level="5.2.3" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#extracting-to-polygons-terra-way"><i class="fa fa-check"></i><b>5.2.3</b> Extracting to Polygons (<code>terra</code> way)</a></li>
+<li class="chapter" data-level="5.2.4" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#extracting-to-polygons-exactextractr-way"><i class="fa fa-check"></i><b>5.2.4</b> Extracting to Polygons (<code>exactextractr</code> way)</a></li>
 </ul></li>
 <li class="chapter" data-level="5.3" data-path="extract-speed.html"><a href="extract-speed.html"><i class="fa fa-check"></i><b>5.3</b> Extraction speed comparison</a>
 <ul>
@@ -338,7 +327,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul></li>
 <li class="part"><span><b>III (slightly) Advanced Topics</b></span></li>
-<li class="chapter" data-level="6" data-path="EE.html"><a href="EE.html"><i class="fa fa-check"></i><b>6</b> Speed Things Up</a>
+<li class="chapter" data-level="6" data-path="EE.html"><a href="EE.html"><i class="fa fa-check"></i><b>6</b> Extraction Speed Considerations</a>
 <ul>
 <li class="chapter" data-level="" data-path="before-you-start-5.html"><a href="before-you-start-5.html"><i class="fa fa-check"></i>Before you start</a>
 <ul>
@@ -399,12 +388,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.7.3" data-path="merging-stars-objects-using-c-and-st-mosaic.html"><a href="merging-stars-objects-using-c-and-st-mosaic.html#merging-stars-objects-of-different-spatial-extents"><i class="fa fa-check"></i><b>7.7.3</b> Merging <code>stars</code> objects of different spatial extents</a></li>
 </ul></li>
 <li class="chapter" data-level="7.8" data-path="convert-to-rb.html"><a href="convert-to-rb.html"><i class="fa fa-check"></i><b>7.8</b> Convert from and to <code>Raster</code><span class="math inline">\(^*\)</span> objects</a></li>
-<li class="chapter" data-level="7.9" data-path="spatial-cropping.html"><a href="spatial-cropping.html"><i class="fa fa-check"></i><b>7.9</b> Spatial cropping</a></li>
-<li class="chapter" data-level="7.10" data-path="extraction-stars.html"><a href="extraction-stars.html"><i class="fa fa-check"></i><b>7.10</b> Extracting values from <code>stars</code> for vector data</a>
-<ul>
-<li class="chapter" data-level="7.10.1" data-path="extraction-stars.html"><a href="extraction-stars.html#points-1"><i class="fa fa-check"></i><b>7.10.1</b> Points</a></li>
-<li class="chapter" data-level="7.10.2" data-path="extraction-stars.html"><a href="extraction-stars.html#polygons"><i class="fa fa-check"></i><b>7.10.2</b> Polygons</a></li>
-</ul></li>
 </ul></li>
 <li class="part"><span><b>IV Extensions</b></span></li>
 <li class="chapter" data-level="8" data-path="create-maps.html"><a href="create-maps.html"><i class="fa fa-check"></i><b>8</b> Creating Maps using <code>ggplot2</code></a>
@@ -478,9 +461,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.4.1" data-path="daymet-with-daymetr-and-feddata.html"><a href="daymet-with-daymetr-and-feddata.html#for-points-data"><i class="fa fa-check"></i><b>9.4.1</b> For points data</a></li>
 <li class="chapter" data-level="9.4.2" data-path="daymet-with-daymetr-and-feddata.html"><a href="daymet-with-daymetr-and-feddata.html#daymet-poly"><i class="fa fa-check"></i><b>9.4.2</b> For polygons data</a></li>
 </ul></li>
-<li class="chapter" data-level="9.5" data-path="usgs-under-construction.html"><a href="usgs-under-construction.html"><i class="fa fa-check"></i><b>9.5</b> USGS (under construction)</a></li>
-<li class="chapter" data-level="9.6" data-path="sentinel-with-sen2r-under-construction.html"><a href="sentinel-with-sen2r-under-construction.html"><i class="fa fa-check"></i><b>9.6</b> Sentinel with <code>sen2r</code> (under construction)</a></li>
-<li class="chapter" data-level="9.7" data-path="census-with-tidycensus-under-construction.html"><a href="census-with-tidycensus-under-construction.html"><i class="fa fa-check"></i><b>9.7</b> Census with <code>tidycensus</code> (under construction)</a></li>
+<li class="chapter" data-level="9.5" data-path="gridMET.html"><a href="gridMET.html"><i class="fa fa-check"></i><b>9.5</b> gridMET</a>
+<ul>
+<li class="chapter" data-level="9.5.1" data-path="gridMET.html"><a href="gridMET.html#practical-examples"><i class="fa fa-check"></i><b>9.5.1</b> Practical Examples</a></li>
+</ul></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="par-comp.html"><a href="par-comp.html"><i class="fa fa-check"></i><b>A</b> Loop and Parallel Computing</a>
@@ -537,9 +521,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   gtag('config', 'UA-59758608-3');
 </script>
 
-<div id="before-you-start-1" class="section level2 unnumbered" number="">
+<div id="before-you-start-1" class="section level2 unnumbered">
 <h2>Before you start</h2>
-<p>In this chapter we learn how to use the <code>sf</code> package to handle and operate on spatial datasets. The <code>sf</code> package uses the class of simple feature (<code>sf</code>)<a href="#fn33" class="footnote-ref" id="fnref33"><sup>33</sup></a> for spatial objects in R. We first learn how <code>sf</code> objects store and represent spatial datasets. We then move on to the following practical topics:</p>
+<p>In this chapter we learn how to use the <code>sf</code> package to handle and operate on spatial datasets. The <code>sf</code> package uses the class of simple feature (<code>sf</code>)<a href="#fn30" class="footnote-ref" id="fnref30"><sup>30</sup></a> for spatial objects in R. We first learn how <code>sf</code> objects store and represent spatial datasets. We then move on to the following practical topics:</p>
 <ul>
 <li>read and write a shapefile and spatial data in other formats (and why you might not want to use the shapefile system any more, but use other alternative formats)</li>
 <li>project and reproject spatial objects</li>
@@ -553,15 +537,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>calculate the length of lines</li>
 </ul></li>
 </ul>
-<div id="sf-or-sp" class="section level3 unnumbered" number="">
+<div id="sf-or-sp" class="section level3 unnumbered">
 <h3><code>sf</code> or <code>sp</code>?</h3>
 <p>The <code>sf</code> package was designed to replace the <code>sp</code> package, which has been one of the most popular and powerful spatial packages in R for more than a decade. It has been about four years since the <code>sf</code> package was first registered on CRAN. A couple of years back, many other spatial packages did not have support for the package yet. In this <a href="https://www.r-bloggers.com/should-i-learn-sf-or-sp-for-spatial-r-programming/">blog post</a> the author responded to the questions of whether one should learn <code>sp</code> or <code>sf</code> saying,</p>
 <p>"That’s a tough question. If you have time, I would say, learn to use both. sf is pretty new, so a lot of packages that depend on spatial classes still rely on sp. So you will need to know sp if you want to do any integration with many other packages, including raster (as of March 2018).</p>
 <p>However, in the future we should see an increasing shift toward the sf package and greater use of sf classes in other packages. I also think that sf is easier to learn to use than sp."</p>
-<p>The future has come, and it’s not a tough question anymore. I cannot think of any major spatial packages that do not support <code>sf</code> package, and <code>sf</code> has largely becomes the standard for handling vector data in <span class="math inline">\(R\)</span><a href="#fn34" class="footnote-ref" id="fnref34"><sup>34</sup></a>. Thus, this lecture note does not cover how to use <code>sp</code> at all.</p>
-<p><code>sf</code> has several advantages over the <code>sp</code> package <span class="citation">(Pebesma <a href="#ref-pebesma2018simple" role="doc-biblioref">2018</a>)</span>.<a href="#fn35" class="footnote-ref" id="fnref35"><sup>35</sup></a> First, it cut off the tie that <code>sp</code> had with ESRI shapefile system, which has a somewhat loose way of representing spatial data. Instead, it uses <em>simple feature access</em>, which is an open standard supported by Open Geospatial Consortium (OGC). Another important benefit is its compatibility with the <code>tidyverse</code> package, which includes widely popular packages like <code>ggplot2</code> and <code>dplyr</code>. Consequently, map-making with <code>ggplot()</code> and data wrangling with a family of <code>dplyr</code> functions come very natural to many <span class="math inline">\(R\)</span> users. <code>sp</code> objects have different slots for spatial information and attributes data, and they are not amenable to <code>dplyr</code> way of data transformation.</p>
+<p>The future has come, and it’s not a tough question anymore. I cannot think of any major spatial packages that do not support <code>sf</code> package, and <code>sf</code> has largely becomes the standard for handling vector data in <span class="math inline">\(R\)</span><a href="#fn31" class="footnote-ref" id="fnref31"><sup>31</sup></a>. Thus, this lecture note does not cover how to use <code>sp</code> at all.</p>
+<p><code>sf</code> has several advantages over the <code>sp</code> package <span class="citation">(<a href="references.html#ref-pebesma2018simple" role="doc-biblioref">Pebesma 2018</a>)</span>.<a href="#fn32" class="footnote-ref" id="fnref32"><sup>32</sup></a> First, it cut off the tie that <code>sp</code> had with ESRI shapefile system, which has a somewhat loose way of representing spatial data. Instead, it uses <em>simple feature access</em>, which is an open standard supported by Open Geospatial Consortium (OGC). Another important benefit is its compatibility with the <code>tidyverse</code> package, which includes widely popular packages like <code>ggplot2</code> and <code>dplyr</code>. Consequently, map-making with <code>ggplot()</code> and data wrangling with a family of <code>dplyr</code> functions come very natural to many <span class="math inline">\(R\)</span> users. <code>sp</code> objects have different slots for spatial information and attributes data, and they are not amenable to <code>dplyr</code> way of data transformation.</p>
 </div>
-<div id="direction-for-replication-1" class="section level3 unnumbered" number="">
+<div id="direction-for-replication-1" class="section level3 unnumbered">
 <h3>Direction for replication</h3>
 <p><strong>Datasets</strong></p>
 <p>All the datasets that you need to import are available <a href="https://www.dropbox.com/sh/7sshtbn8zweu460/AAA2yJNYE_Oy-dpM4lrkc1RXa?dl=0">here</a>. In this chapter, the path to files is set relative to my own working directory (which is hidden). To run the codes without having to mess with paths to the files, follow these steps:</p>
@@ -574,28 +558,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p><strong>Packages</strong></p>
 <p>Run the following code to install or load (if already installed) the <code>pacman</code> package, and then install or load (if already installed) the listed package inside the <code>pacman::p_load()</code> function.</p>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="before-you-start-1.html#cb89-1"></a><span class="cf">if</span> (<span class="op">!</span><span class="kw">require</span>(<span class="st">&quot;pacman&quot;</span>)) <span class="kw">install.packages</span>(<span class="st">&quot;pacman&quot;</span>)</span>
-<span id="cb89-2"><a href="before-you-start-1.html#cb89-2"></a>pacman<span class="op">::</span><span class="kw">p_load</span>(</span>
-<span id="cb89-3"><a href="before-you-start-1.html#cb89-3"></a>  sf, <span class="co"># vector data operations</span></span>
-<span id="cb89-4"><a href="before-you-start-1.html#cb89-4"></a>  dplyr, <span class="co"># data wrangling</span></span>
-<span id="cb89-5"><a href="before-you-start-1.html#cb89-5"></a>  data.table, <span class="co"># data wrangling</span></span>
-<span id="cb89-6"><a href="before-you-start-1.html#cb89-6"></a>  tmap, <span class="co"># make maps</span></span>
-<span id="cb89-7"><a href="before-you-start-1.html#cb89-7"></a>  mapview <span class="co"># create an interactive map </span></span>
-<span id="cb89-8"><a href="before-you-start-1.html#cb89-8"></a>)  </span></code></pre></div>
-</div>
-</div>
-<h3>References</h3>
-<div id="refs" class="references">
-<div id="ref-pebesma2018simple">
-<p>Pebesma, Edzer. 2018. “Simple Features for R: Standardized Support for Spatial Vector Data.” <em>R Journal</em> 10 (1).</p>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="before-you-start-1.html#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">&quot;pacman&quot;</span>)) <span class="fu">install.packages</span>(<span class="st">&quot;pacman&quot;</span>)</span>
+<span id="cb89-2"><a href="before-you-start-1.html#cb89-2" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(</span>
+<span id="cb89-3"><a href="before-you-start-1.html#cb89-3" aria-hidden="true" tabindex="-1"></a>  sf, <span class="co"># vector data operations</span></span>
+<span id="cb89-4"><a href="before-you-start-1.html#cb89-4" aria-hidden="true" tabindex="-1"></a>  dplyr, <span class="co"># data wrangling</span></span>
+<span id="cb89-5"><a href="before-you-start-1.html#cb89-5" aria-hidden="true" tabindex="-1"></a>  data.table, <span class="co"># data wrangling</span></span>
+<span id="cb89-6"><a href="before-you-start-1.html#cb89-6" aria-hidden="true" tabindex="-1"></a>  tmap, <span class="co"># make maps</span></span>
+<span id="cb89-7"><a href="before-you-start-1.html#cb89-7" aria-hidden="true" tabindex="-1"></a>  mapview <span class="co"># create an interactive map </span></span>
+<span id="cb89-8"><a href="before-you-start-1.html#cb89-8" aria-hidden="true" tabindex="-1"></a>)  </span></code></pre></div>
 </div>
 </div>
 <div class="footnotes">
 <hr />
-<ol start="33">
-<li id="fn33"><p>Yes, it is the same as the package name.<a href="before-you-start-1.html#fnref33" class="footnote-back">↩︎</a></p></li>
-<li id="fn34"><p>Even if there are packages that do not support <code>sf</code>, you can always go back and forth between <code>sp</code> and <code>sf</code> objects, which we will learn in Chapter @ref(conv_sp)<a href="before-you-start-1.html#fnref34" class="footnote-back">↩︎</a></p></li>
-<li id="fn35"><p>There are cases where <code>sp</code> is faster completing the same task than <code>sf</code>. For example, see the answer to <a href="https://gis.stackexchange.com/questions/324952/spover-vs-sfst-intersection-in-r">this question</a>. But, I doubt the difference between the two is practically important even with bigger data than the test data.<a href="before-you-start-1.html#fnref35" class="footnote-back">↩︎</a></p></li>
+<ol start="30">
+<li id="fn30"><p>Yes, it is the same as the package name.<a href="before-you-start-1.html#fnref30" class="footnote-back">↩︎</a></p></li>
+<li id="fn31"><p>Even if there are packages that do not support <code>sf</code>, you can always go back and forth between <code>sp</code> and <code>sf</code> objects, which we will learn in Chapter @ref(conv_sp)<a href="before-you-start-1.html#fnref31" class="footnote-back">↩︎</a></p></li>
+<li id="fn32"><p>There are cases where <code>sp</code> is faster completing the same task than <code>sf</code>. For example, see the answer to <a href="https://gis.stackexchange.com/questions/324952/spover-vs-sfst-intersection-in-r">this question</a>. But, I doubt the difference between the two is practically important even with bigger data than the test data.<a href="before-you-start-1.html#fnref32" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>
