@@ -24,7 +24,7 @@
 <meta name="author" content="Taro Mieno" />
 
 
-<meta name="date" content="2021-10-02" />
+<meta name="date" content="2021-10-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -161,7 +161,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="why-r-as-gis-for-economists.html"><a href="why-r-as-gis-for-economists.html#summary"><i class="fa fa-check"></i>Summary</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="how-is-this-book-different-from-other-online-books-and-resources.html"><a href="how-is-this-book-different-from-other-online-books-and-resources.html"><i class="fa fa-check"></i>How is this book different from other online books and resources?</a></li>
-<li class="chapter" data-level="" data-path="what-is-going-to-be-covered-in-this-book.html"><a href="what-is-going-to-be-covered-in-this-book.html"><i class="fa fa-check"></i>What is going to be covered in this book?</a></li>
+<li class="chapter" data-level="" data-path="topics-covered-in-this-book.html"><a href="topics-covered-in-this-book.html"><i class="fa fa-check"></i>Topics covered in this book</a></li>
 <li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html"><i class="fa fa-check"></i>Conventions of the book and some notes</a>
 <ul>
 <li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html#texts-in-gray-boxes"><i class="fa fa-check"></i>Texts in gray boxes</a></li>
@@ -572,17 +572,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb654-4"><a href="color-scale.html#cb654-4" aria-hidden="true" tabindex="-1"></a><span class="co">#--- take a look ---#</span></span>
 <span id="cb654-5"><a href="color-scale.html#cb654-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(gw_Stevens)</span></code></pre></div>
 <pre><code>Simple feature collection with 6 features and 4 fields
-Geometry type: POINT
-Dimension:     XY
-Bounding box:  xmin: -101.4232 ymin: 37.04683 xmax: -101.1111 ymax: 37.29295
-Geodetic CRS:  NAD83
-    well_id year  af_used                   geometry    af_used_cat
-197     234 2010 461.9565  POINT (-101.4232 37.1165)      (377,508]
-198     234 2011 486.0534  POINT (-101.4232 37.1165)      (377,508]
-247     290 2010 457.4391 POINT (-101.2301 37.29295)      (377,508]
-248     290 2011 580.4156 POINT (-101.2301 37.29295) (508,1.19e+03]
-275     317 2010 258.0000 POINT (-101.1111 37.04683)      (157,264]
-276     317 2011 255.0000 POINT (-101.1111 37.04683)      (157,264]</code></pre>
+geometry type:  POINT
+dimension:      XY
+bbox:           xmin: -101.4232 ymin: 37.04683 xmax: -101.1111 ymax: 37.29295
+geographic CRS: NAD83
+  well_id year  af_used                   geometry    af_used_cat
+1     234 2010 461.9565  POINT (-101.4232 37.1165)      (377,508]
+2     234 2011 486.0534  POINT (-101.4232 37.1165)      (377,508]
+3     290 2010 457.4391 POINT (-101.2301 37.29295)      (377,508]
+4     290 2011 580.4156 POINT (-101.2301 37.29295) (508,1.19e+03]
+5     317 2010 258.0000 POINT (-101.1111 37.04683)      (157,264]
+6     317 2011 255.0000 POINT (-101.1111 37.04683)      (157,264]</code></pre>
 <p>Since we would like to control <code>color</code> aesthetics based on a discrete variable, we should be using <code>scale_color_viridis_d()</code>.</p>
 <div class="sourceCode" id="cb656"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb656-1"><a href="color-scale.html#cb656-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> gw_Stevens) <span class="sc">+</span></span>
 <span id="cb656-2"><a href="color-scale.html#cb656-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">color =</span> af_used_cat), <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
@@ -657,7 +657,7 @@ Geodetic CRS:  NAD83
 <p>We then use the code as follows:</p>
 <div class="sourceCode" id="cb667"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb667-1"><a href="color-scale.html#cb667-1" aria-hidden="true" tabindex="-1"></a>g_col_scale <span class="sc">+</span> <span class="fu">theme_void</span>() <span class="sc">+</span></span>
 <span id="cb667-2"><a href="color-scale.html#cb667-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_fill_gradientn</span>(<span class="at">colors =</span> col_palette)</span></code></pre></div>
-<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-49-1.png" width="672" /></p>
+<p><img src="R_GIS_Book_files/figure-html/use-col-scale-1.png" width="672" /></p>
 <p>Note that you are now using <code>scale_*_gradientn()</code> with this approach.</p>
 <p>For a discrete variable, you can use <code>scale_*_manual()</code>:</p>
 <div class="sourceCode" id="cb668"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb668-1"><a href="color-scale.html#cb668-1" aria-hidden="true" tabindex="-1"></a>col_discrete <span class="ot">&lt;-</span> <span class="fu">sequential_hcl</span>(<span class="at">n =</span> <span class="dv">5</span>, <span class="at">h =</span> <span class="fu">c</span>(<span class="dv">240</span>, <span class="dv">130</span>), <span class="at">c =</span> <span class="fu">c</span>(<span class="dv">30</span>, <span class="cn">NA</span>, <span class="dv">33</span>), <span class="at">l =</span> <span class="fu">c</span>(<span class="dv">25</span>, <span class="dv">95</span>), <span class="at">power =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="cn">NA</span>), <span class="at">rev =</span> <span class="cn">TRUE</span>)</span>
@@ -665,7 +665,7 @@ Geodetic CRS:  NAD83
 <span id="cb668-3"><a href="color-scale.html#cb668-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb668-4"><a href="color-scale.html#cb668-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_sf</span>(<span class="at">data =</span> gw_Stevens, <span class="fu">aes</span>(<span class="at">color =</span> af_used_cat), <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
 <span id="cb668-5"><a href="color-scale.html#cb668-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_manual</span>(<span class="at">values =</span> col_discrete)</span></code></pre></div>
-<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-50-1.png" width="672" /></p>
+<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-45-1.png" width="672" /></p>
 <!--
 #/*=================================================*/
 #' # Arranging maps

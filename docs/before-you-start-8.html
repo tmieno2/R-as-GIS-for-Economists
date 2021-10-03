@@ -24,7 +24,7 @@
 <meta name="author" content="Taro Mieno" />
 
 
-<meta name="date" content="2021-10-02" />
+<meta name="date" content="2021-10-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -161,7 +161,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="why-r-as-gis-for-economists.html"><a href="why-r-as-gis-for-economists.html#summary"><i class="fa fa-check"></i>Summary</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="how-is-this-book-different-from-other-online-books-and-resources.html"><a href="how-is-this-book-different-from-other-online-books-and-resources.html"><i class="fa fa-check"></i>How is this book different from other online books and resources?</a></li>
-<li class="chapter" data-level="" data-path="what-is-going-to-be-covered-in-this-book.html"><a href="what-is-going-to-be-covered-in-this-book.html"><i class="fa fa-check"></i>What is going to be covered in this book?</a></li>
+<li class="chapter" data-level="" data-path="topics-covered-in-this-book.html"><a href="topics-covered-in-this-book.html"><i class="fa fa-check"></i>Topics covered in this book</a></li>
 <li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html"><i class="fa fa-check"></i>Conventions of the book and some notes</a>
 <ul>
 <li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html#texts-in-gray-boxes"><i class="fa fa-check"></i>Texts in gray boxes</a></li>
@@ -532,43 +532,43 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>Run the following code to install or load (if already installed) the <code>pacman</code> package, and then install or load (if already installed) the listed package inside the <code>pacman::p_load()</code> function.</li>
 </ul>
-<div class="sourceCode" id="cb739"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb739-1"><a href="before-you-start-8.html#cb739-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">&quot;pacman&quot;</span>)) <span class="fu">install.packages</span>(<span class="st">&quot;pacman&quot;</span>)</span>
-<span id="cb739-2"><a href="before-you-start-8.html#cb739-2" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(</span>
-<span id="cb739-3"><a href="before-you-start-8.html#cb739-3" aria-hidden="true" tabindex="-1"></a>  stars, <span class="co"># spatiotemporal data handling</span></span>
-<span id="cb739-4"><a href="before-you-start-8.html#cb739-4" aria-hidden="true" tabindex="-1"></a>  terra, <span class="co"># raster data handling</span></span>
-<span id="cb739-5"><a href="before-you-start-8.html#cb739-5" aria-hidden="true" tabindex="-1"></a>  raster, <span class="co"># raster data handling</span></span>
-<span id="cb739-6"><a href="before-you-start-8.html#cb739-6" aria-hidden="true" tabindex="-1"></a>  sf, <span class="co"># vector data handling</span></span>
-<span id="cb739-7"><a href="before-you-start-8.html#cb739-7" aria-hidden="true" tabindex="-1"></a>  dplyr, <span class="co"># data wrangling</span></span>
-<span id="cb739-8"><a href="before-you-start-8.html#cb739-8" aria-hidden="true" tabindex="-1"></a>  stringr, <span class="co"># string manipulation</span></span>
-<span id="cb739-9"><a href="before-you-start-8.html#cb739-9" aria-hidden="true" tabindex="-1"></a>  lubridate, <span class="co"># dates handling</span></span>
-<span id="cb739-10"><a href="before-you-start-8.html#cb739-10" aria-hidden="true" tabindex="-1"></a>  data.table, <span class="co"># data wrangling</span></span>
-<span id="cb739-11"><a href="before-you-start-8.html#cb739-11" aria-hidden="true" tabindex="-1"></a>  tidyr, <span class="co"># reshape</span></span>
-<span id="cb739-12"><a href="before-you-start-8.html#cb739-12" aria-hidden="true" tabindex="-1"></a>  tidyUSDA, <span class="co"># download USDA NASS data</span></span>
-<span id="cb739-13"><a href="before-you-start-8.html#cb739-13" aria-hidden="true" tabindex="-1"></a>  keyring, <span class="co"># API key management</span></span>
-<span id="cb739-14"><a href="before-you-start-8.html#cb739-14" aria-hidden="true" tabindex="-1"></a>  FedData, <span class="co"># download Daymet data</span></span>
-<span id="cb739-15"><a href="before-you-start-8.html#cb739-15" aria-hidden="true" tabindex="-1"></a>  daymetr, <span class="co"># download Daymet data</span></span>
-<span id="cb739-16"><a href="before-you-start-8.html#cb739-16" aria-hidden="true" tabindex="-1"></a>  ggplot2, <span class="co"># make maps</span></span>
-<span id="cb739-17"><a href="before-you-start-8.html#cb739-17" aria-hidden="true" tabindex="-1"></a>  tmap, <span class="co"># make maps</span></span>
-<span id="cb739-18"><a href="before-you-start-8.html#cb739-18" aria-hidden="true" tabindex="-1"></a>  future.apply, <span class="co"># parallel processing</span></span>
-<span id="cb739-19"><a href="before-you-start-8.html#cb739-19" aria-hidden="true" tabindex="-1"></a>  CropScapeR, <span class="co"># download CDL data</span></span>
-<span id="cb739-20"><a href="before-you-start-8.html#cb739-20" aria-hidden="true" tabindex="-1"></a>  prism, <span class="co"># download PRISM data</span></span>
-<span id="cb739-21"><a href="before-you-start-8.html#cb739-21" aria-hidden="true" tabindex="-1"></a>  exactextractr <span class="co"># extract raster values to sf</span></span>
-<span id="cb739-22"><a href="before-you-start-8.html#cb739-22" aria-hidden="true" tabindex="-1"></a>)  </span></code></pre></div>
+<div class="sourceCode" id="cb740"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb740-1"><a href="before-you-start-8.html#cb740-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">&quot;pacman&quot;</span>)) <span class="fu">install.packages</span>(<span class="st">&quot;pacman&quot;</span>)</span>
+<span id="cb740-2"><a href="before-you-start-8.html#cb740-2" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(</span>
+<span id="cb740-3"><a href="before-you-start-8.html#cb740-3" aria-hidden="true" tabindex="-1"></a>  stars, <span class="co"># spatiotemporal data handling</span></span>
+<span id="cb740-4"><a href="before-you-start-8.html#cb740-4" aria-hidden="true" tabindex="-1"></a>  terra, <span class="co"># raster data handling</span></span>
+<span id="cb740-5"><a href="before-you-start-8.html#cb740-5" aria-hidden="true" tabindex="-1"></a>  raster, <span class="co"># raster data handling</span></span>
+<span id="cb740-6"><a href="before-you-start-8.html#cb740-6" aria-hidden="true" tabindex="-1"></a>  sf, <span class="co"># vector data handling</span></span>
+<span id="cb740-7"><a href="before-you-start-8.html#cb740-7" aria-hidden="true" tabindex="-1"></a>  dplyr, <span class="co"># data wrangling</span></span>
+<span id="cb740-8"><a href="before-you-start-8.html#cb740-8" aria-hidden="true" tabindex="-1"></a>  stringr, <span class="co"># string manipulation</span></span>
+<span id="cb740-9"><a href="before-you-start-8.html#cb740-9" aria-hidden="true" tabindex="-1"></a>  lubridate, <span class="co"># dates handling</span></span>
+<span id="cb740-10"><a href="before-you-start-8.html#cb740-10" aria-hidden="true" tabindex="-1"></a>  data.table, <span class="co"># data wrangling</span></span>
+<span id="cb740-11"><a href="before-you-start-8.html#cb740-11" aria-hidden="true" tabindex="-1"></a>  tidyr, <span class="co"># reshape</span></span>
+<span id="cb740-12"><a href="before-you-start-8.html#cb740-12" aria-hidden="true" tabindex="-1"></a>  tidyUSDA, <span class="co"># download USDA NASS data</span></span>
+<span id="cb740-13"><a href="before-you-start-8.html#cb740-13" aria-hidden="true" tabindex="-1"></a>  keyring, <span class="co"># API key management</span></span>
+<span id="cb740-14"><a href="before-you-start-8.html#cb740-14" aria-hidden="true" tabindex="-1"></a>  FedData, <span class="co"># download Daymet data</span></span>
+<span id="cb740-15"><a href="before-you-start-8.html#cb740-15" aria-hidden="true" tabindex="-1"></a>  daymetr, <span class="co"># download Daymet data</span></span>
+<span id="cb740-16"><a href="before-you-start-8.html#cb740-16" aria-hidden="true" tabindex="-1"></a>  ggplot2, <span class="co"># make maps</span></span>
+<span id="cb740-17"><a href="before-you-start-8.html#cb740-17" aria-hidden="true" tabindex="-1"></a>  tmap, <span class="co"># make maps</span></span>
+<span id="cb740-18"><a href="before-you-start-8.html#cb740-18" aria-hidden="true" tabindex="-1"></a>  future.apply, <span class="co"># parallel processing</span></span>
+<span id="cb740-19"><a href="before-you-start-8.html#cb740-19" aria-hidden="true" tabindex="-1"></a>  CropScapeR, <span class="co"># download CDL data</span></span>
+<span id="cb740-20"><a href="before-you-start-8.html#cb740-20" aria-hidden="true" tabindex="-1"></a>  prism, <span class="co"># download PRISM data</span></span>
+<span id="cb740-21"><a href="before-you-start-8.html#cb740-21" aria-hidden="true" tabindex="-1"></a>  exactextractr <span class="co"># extract raster values to sf</span></span>
+<span id="cb740-22"><a href="before-you-start-8.html#cb740-22" aria-hidden="true" tabindex="-1"></a>)  </span></code></pre></div>
 <ul>
 <li>Run the following code to define the theme for map:</li>
 </ul>
-<div class="sourceCode" id="cb740"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb740-1"><a href="before-you-start-8.html#cb740-1" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_bw</span>())</span>
-<span id="cb740-2"><a href="before-you-start-8.html#cb740-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb740-3"><a href="before-you-start-8.html#cb740-3" aria-hidden="true" tabindex="-1"></a>theme_for_map <span class="ot">&lt;-</span> <span class="fu">theme</span>(</span>
-<span id="cb740-4"><a href="before-you-start-8.html#cb740-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">axis.ticks =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb740-5"><a href="before-you-start-8.html#cb740-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">axis.text=</span> <span class="fu">element_blank</span>(), </span>
-<span id="cb740-6"><a href="before-you-start-8.html#cb740-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">axis.line =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb740-7"><a href="before-you-start-8.html#cb740-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">panel.border =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb740-8"><a href="before-you-start-8.html#cb740-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">panel.grid.major =</span> <span class="fu">element_line</span>(<span class="at">color=</span><span class="st">&#39;transparent&#39;</span>),</span>
-<span id="cb740-9"><a href="before-you-start-8.html#cb740-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">panel.grid.minor =</span> <span class="fu">element_line</span>(<span class="at">color=</span><span class="st">&#39;transparent&#39;</span>),</span>
-<span id="cb740-10"><a href="before-you-start-8.html#cb740-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">panel.background =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb740-11"><a href="before-you-start-8.html#cb740-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">&quot;transparent&quot;</span>,<span class="at">color=</span><span class="st">&#39;transparent&#39;</span>)</span>
-<span id="cb740-12"><a href="before-you-start-8.html#cb740-12" aria-hidden="true" tabindex="-1"></a>)  </span></code></pre></div>
+<div class="sourceCode" id="cb741"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb741-1"><a href="before-you-start-8.html#cb741-1" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_bw</span>())</span>
+<span id="cb741-2"><a href="before-you-start-8.html#cb741-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb741-3"><a href="before-you-start-8.html#cb741-3" aria-hidden="true" tabindex="-1"></a>theme_for_map <span class="ot">&lt;-</span> <span class="fu">theme</span>(</span>
+<span id="cb741-4"><a href="before-you-start-8.html#cb741-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">axis.ticks =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb741-5"><a href="before-you-start-8.html#cb741-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">axis.text=</span> <span class="fu">element_blank</span>(), </span>
+<span id="cb741-6"><a href="before-you-start-8.html#cb741-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">axis.line =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb741-7"><a href="before-you-start-8.html#cb741-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">panel.border =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb741-8"><a href="before-you-start-8.html#cb741-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">panel.grid.major =</span> <span class="fu">element_line</span>(<span class="at">color=</span><span class="st">&#39;transparent&#39;</span>),</span>
+<span id="cb741-9"><a href="before-you-start-8.html#cb741-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">panel.grid.minor =</span> <span class="fu">element_line</span>(<span class="at">color=</span><span class="st">&#39;transparent&#39;</span>),</span>
+<span id="cb741-10"><a href="before-you-start-8.html#cb741-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">panel.background =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb741-11"><a href="before-you-start-8.html#cb741-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">&quot;transparent&quot;</span>,<span class="at">color=</span><span class="st">&#39;transparent&#39;</span>)</span>
+<span id="cb741-12"><a href="before-you-start-8.html#cb741-12" aria-hidden="true" tabindex="-1"></a>)  </span></code></pre></div>
 </div>
 </div>
             </section>

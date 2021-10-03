@@ -24,7 +24,7 @@
 <meta name="author" content="Taro Mieno" />
 
 
-<meta name="date" content="2021-10-02" />
+<meta name="date" content="2021-10-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -161,7 +161,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="why-r-as-gis-for-economists.html"><a href="why-r-as-gis-for-economists.html#summary"><i class="fa fa-check"></i>Summary</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="how-is-this-book-different-from-other-online-books-and-resources.html"><a href="how-is-this-book-different-from-other-online-books-and-resources.html"><i class="fa fa-check"></i>How is this book different from other online books and resources?</a></li>
-<li class="chapter" data-level="" data-path="what-is-going-to-be-covered-in-this-book.html"><a href="what-is-going-to-be-covered-in-this-book.html"><i class="fa fa-check"></i>What is going to be covered in this book?</a></li>
+<li class="chapter" data-level="" data-path="topics-covered-in-this-book.html"><a href="topics-covered-in-this-book.html"><i class="fa fa-check"></i>Topics covered in this book</a></li>
 <li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html"><i class="fa fa-check"></i>Conventions of the book and some notes</a>
 <ul>
 <li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html#texts-in-gray-boxes"><i class="fa fa-check"></i>Texts in gray boxes</a></li>
@@ -569,7 +569,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb672-3"><a href="arranging-maps.html#cb672-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_grid</span>(type <span class="sc">~</span> .) <span class="sc">+</span></span>
 <span id="cb672-4"><a href="arranging-maps.html#cb672-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_fill_viridis</span>() <span class="sc">+</span></span>
 <span id="cb672-5"><a href="arranging-maps.html#cb672-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_void</span>()</span></code></pre></div>
-<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-52-1.png" width="672" /></p>
+<p><img src="R_GIS_Book_files/figure-html/tm-pr-faceted-1.png" width="672" /></p>
 <p>As you can see, a single color scale is created for precipitation recorded in mm and temperature observed in Celsius. On this particular day, precipitation of more than 150 mm was observed on a part of the west coast. Consequently, you see almost no color differentiation on the tmax map which ranges roughly from -20 to 30. It is simply not a good idea to facet for two variables observed at different scales.</p>
 <p>Instead, you should have an independent color scale for each of the variables and then just combine them. Now, you might ask if you really need to combine the two. Can’t you just have two figures and arrange them in the manner you would like on a pdf or WORD document? If you are still convinced that you need to have two panels of figures as one figure, then you can use the <code>patchwork</code> package.</p>
 <div class="sourceCode" id="cb673"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb673-1"><a href="arranging-maps.html#cb673-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span></code></pre></div>
@@ -583,7 +583,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb674-7"><a href="arranging-maps.html#cb674-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">coord_equal</span>() <span class="sc">+</span></span>
 <span id="cb674-8"><a href="arranging-maps.html#cb674-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</span>
 <span id="cb674-9"><a href="arranging-maps.html#cb674-9" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-53-1.png" width="672" /></p>
+<p><img src="R_GIS_Book_files/figure-html/pw-ex-1.png" width="672" /></p>
 <div class="sourceCode" id="cb675"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb675-1"><a href="arranging-maps.html#cb675-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- ppt ---#</span></span>
 <span id="cb675-2"><a href="arranging-maps.html#cb675-2" aria-hidden="true" tabindex="-1"></a>(</span>
 <span id="cb675-3"><a href="arranging-maps.html#cb675-3" aria-hidden="true" tabindex="-1"></a>g_ppt <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
@@ -593,23 +593,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb675-7"><a href="arranging-maps.html#cb675-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">coord_equal</span>() <span class="sc">+</span></span>
 <span id="cb675-8"><a href="arranging-maps.html#cb675-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</span>
 <span id="cb675-9"><a href="arranging-maps.html#cb675-9" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-53-2.png" width="672" /></p>
-<p>It is best to just look at examples to get the sense of how <code>patchwork</code> works. A fuller treatment of <code>patchwork</code> is found at its <code>packagedown</code> website (<a href="https://patchwork.data-imaginist.com/index.html" class="uri">https://patchwork.data-imaginist.com/index.html</a>).</p>
+<p><img src="R_GIS_Book_files/figure-html/pw-ex-2.png" width="672" /></p>
+<p>It is best to just look at examples to get the sense of how <code>patchwork</code> works. A fuller treatment of <code>patchwork</code> is found here (<a href="https://patchwork.data-imaginist.com/index.html" class="uri">https://patchwork.data-imaginist.com/index.html</a>).</p>
 <p><strong>Example 1</strong></p>
 <div class="sourceCode" id="cb676"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb676-1"><a href="arranging-maps.html#cb676-1" aria-hidden="true" tabindex="-1"></a>g_tmax <span class="sc">+</span> g_ppt</span></code></pre></div>
-<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-54-1.png" width="672" /></p>
+<p><img src="R_GIS_Book_files/figure-html/pw-ex-1-1.png" width="672" /></p>
 <p><strong>Example 2</strong></p>
 <div class="sourceCode" id="cb677"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb677-1"><a href="arranging-maps.html#cb677-1" aria-hidden="true" tabindex="-1"></a>g_tmax <span class="sc">/</span> g_ppt <span class="sc">/</span> g_tmax</span></code></pre></div>
-<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-55-1.png" width="672" /></p>
+<p><img src="R_GIS_Book_files/figure-html/pw-ex-2-1.png" width="672" /></p>
 <p><strong>Example 3</strong></p>
 <div class="sourceCode" id="cb678"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb678-1"><a href="arranging-maps.html#cb678-1" aria-hidden="true" tabindex="-1"></a>g_tmax <span class="sc">+</span> g_ppt <span class="sc">+</span> <span class="fu">plot_layout</span>(<span class="at">nrow =</span> <span class="dv">2</span>)</span></code></pre></div>
-<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-56-1.png" width="672" /></p>
+<p><img src="R_GIS_Book_files/figure-html/pw-ex-3-1.png" width="672" /></p>
 <p><strong>Example 4</strong></p>
 <div class="sourceCode" id="cb679"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb679-1"><a href="arranging-maps.html#cb679-1" aria-hidden="true" tabindex="-1"></a>g_tmax <span class="sc">+</span> g_ppt <span class="sc">+</span> g_tmax <span class="sc">+</span> g_ppt <span class="sc">+</span> <span class="fu">plot_layout</span>(<span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">byrow =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
-<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-57-1.png" width="672" /></p>
+<p><img src="R_GIS_Book_files/figure-html/pw-ex-4-1.png" width="672" /></p>
 <p><strong>Example 5</strong></p>
 <div class="sourceCode" id="cb680"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb680-1"><a href="arranging-maps.html#cb680-1" aria-hidden="true" tabindex="-1"></a>g_tmax <span class="sc">|</span> (g_ppt<span class="sc">/</span>g_tmax)</span></code></pre></div>
-<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-58-1.png" width="672" /></p>
+<p><img src="R_GIS_Book_files/figure-html/pw-ex-5-1.png" width="672" /></p>
 <hr />
 <p>Sometimes figures are placed too close to each other. In such a case, you can pad a figure at the time of generating individual figures by adding the <code>plot.margin</code> option to <code>theme()</code>. For example, the following code creates space at the bottom of <code>g_tmax</code> (5 cm), and vertically stack <code>g_tmax</code> and <code>g_ppt</code>.</p>
 <div class="sourceCode" id="cb681"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb681-1"><a href="arranging-maps.html#cb681-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- space at the bottom ---#</span></span>
@@ -617,7 +617,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb681-3"><a href="arranging-maps.html#cb681-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb681-4"><a href="arranging-maps.html#cb681-4" aria-hidden="true" tabindex="-1"></a><span class="co">#--- vertically stack ---#</span></span>
 <span id="cb681-5"><a href="arranging-maps.html#cb681-5" aria-hidden="true" tabindex="-1"></a>g_tmax<span class="sc">/</span>g_ppt</span></code></pre></div>
-<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-59-1.png" width="672" /></p>
+<p><img src="R_GIS_Book_files/figure-html/pad-one-1.png" width="672" /></p>
 <p>In <code>plot.margin = unit(c(a, b, c, d), "cm")</code>, here is which margin <code>a</code>, <code>b</code>, <code>c</code>, and <code>d</code> refers to.</p>
 <ul>
 <li>a: top</li>
@@ -637,7 +637,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb682-6"><a href="arranging-maps.html#cb682-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_sf_text</span>(<span class="at">data =</span> three_counties, <span class="fu">aes</span>(<span class="at">label =</span> NAME)) <span class="sc">+</span></span>
 <span id="cb682-7"><a href="arranging-maps.html#cb682-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_void</span>()</span>
 <span id="cb682-8"><a href="arranging-maps.html#cb682-8" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-60-1.png" width="672" /></p>
+<p><img src="R_GIS_Book_files/figure-html/three-counties-map-1.png" width="672" /></p>
 <p>Well, for those who are not familiar with Kansas, it might be useful to show where in Kansas they are located on the same map (or even where Kansas is in the U.S.). This can be achieved using <code>ggplotGrob()</code> and <code>annotation_custom()</code>. The steps are the following:</p>
 <ul>
 <li>create a map of the area of interest and turn it into a <code>grob</code> object using <code>ggplotGrob()</code></li>
@@ -663,19 +663,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb686-2"><a href="arranging-maps.html#cb686-2" aria-hidden="true" tabindex="-1"></a>g_inset <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb686-3"><a href="arranging-maps.html#cb686-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_equal</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">expand =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb686-4"><a href="arranging-maps.html#cb686-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-63-1.png" width="672" /></p>
+<p><img src="R_GIS_Book_files/figure-html/inset-map-1.png" width="672" /></p>
 <p>You now have a blank canvas to put the images on. Let’s add a layer to the canvas using <code>annotation_custom()</code> in which you provide the <code>grob</code> object (a map) and specify the range of the canvas the map occupies. Since the extent of x and y are set to [0, 1] above with <code>coord_equal(xlim = c(0, 1), ylim = c(0, 1), expand = FALSE)</code>, the following code put the <code>grob_aoi</code> to cover the entire y range and up to 0.8 of x from 0.</p>
 <div class="sourceCode" id="cb687"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb687-1"><a href="arranging-maps.html#cb687-1" aria-hidden="true" tabindex="-1"></a>g_inset <span class="sc">+</span></span>
 <span id="cb687-2"><a href="arranging-maps.html#cb687-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">annotation_custom</span>(grob_aoi, <span class="at">xmin =</span> <span class="dv">0</span>, <span class="at">xmax =</span> <span class="fl">0.8</span>, <span class="at">ymin =</span> <span class="dv">0</span>,</span>
 <span id="cb687-3"><a href="arranging-maps.html#cb687-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">ymax =</span> <span class="dv">1</span>)</span></code></pre></div>
-<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-64-1.png" width="672" /></p>
+<p><img src="R_GIS_Book_files/figure-html/inset-annotation-1-1.png" width="672" /></p>
 <p>Similarly, we can add <code>grob_region</code> using <code>annotation_custom()</code>. Let’s put it at the right lower corner of the map.</p>
 <div class="sourceCode" id="cb688"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb688-1"><a href="arranging-maps.html#cb688-1" aria-hidden="true" tabindex="-1"></a>g_inset <span class="sc">+</span></span>
 <span id="cb688-2"><a href="arranging-maps.html#cb688-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">annotation_custom</span>(grob_aoi, <span class="at">xmin =</span> <span class="dv">0</span>, <span class="at">xmax =</span> <span class="fl">0.8</span>, <span class="at">ymin =</span> <span class="dv">0</span>,</span>
 <span id="cb688-3"><a href="arranging-maps.html#cb688-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">ymax =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
 <span id="cb688-4"><a href="arranging-maps.html#cb688-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">annotation_custom</span>(grob_region, <span class="at">xmin =</span> <span class="fl">0.6</span>, <span class="at">xmax =</span> <span class="dv">1</span>, <span class="at">ymin =</span> <span class="dv">0</span>,</span>
 <span id="cb688-5"><a href="arranging-maps.html#cb688-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">ymax =</span> <span class="fl">0.3</span>)</span></code></pre></div>
-<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-65-1.png" width="672" /></p>
+<p><img src="R_GIS_Book_files/figure-html/inset-annotation-2-1.png" width="672" /></p>
 <p>Note that the resulting map still has the default theme because it does not inherit the theme of maps added by <code>annotation_custom()</code>. So, you can add <code>theme_void()</code> to the map to make the border disappear.</p>
 <div class="sourceCode" id="cb689"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb689-1"><a href="arranging-maps.html#cb689-1" aria-hidden="true" tabindex="-1"></a>g_inset <span class="sc">+</span></span>
 <span id="cb689-2"><a href="arranging-maps.html#cb689-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">annotation_custom</span>(grob_aoi, <span class="at">xmin =</span> <span class="dv">0</span>, <span class="at">xmax =</span> <span class="fl">0.8</span>, <span class="at">ymin =</span> <span class="dv">0</span>,</span>
@@ -683,7 +683,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb689-4"><a href="arranging-maps.html#cb689-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">annotation_custom</span>(grob_region, <span class="at">xmin =</span> <span class="fl">0.6</span>, <span class="at">xmax =</span> <span class="dv">1</span>, <span class="at">ymin =</span> <span class="dv">0</span>,</span>
 <span id="cb689-5"><a href="arranging-maps.html#cb689-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">ymax =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
 <span id="cb689-6"><a href="arranging-maps.html#cb689-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_void</span>()</span></code></pre></div>
-<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-66-1.png" width="672" /></p>
+<p><img src="R_GIS_Book_files/figure-html/add-void-custom-1.png" width="672" /></p>
 <!-- ### A table in a map
 
 see [here](https://rud.is/books/30-day-map-challenge/lines-01.html#lines-05)

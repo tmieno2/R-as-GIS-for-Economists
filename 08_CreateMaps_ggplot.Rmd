@@ -1,5 +1,21 @@
 # (PART) Extensions {-}
 
+```{r ch8-setup, include = FALSE, cache = FALSE}
+library(knitr)
+knitr::opts_chunk$set(
+  echo = TRUE,
+  cache = TRUE,
+  comment = NA,
+  message = FALSE,
+  warning = FALSE,
+  tidy = FALSE,
+  cache.lazy = FALSE
+)
+
+library(here)
+opts_knit$set(root.dir = here())
+```
+
 # Creating Maps using `ggplot2` {#create-maps}
 
 ## Before you start {-}
@@ -162,7 +178,7 @@ There are various aesthetics options you can use. Available aesthetics vary by t
 
 For illustration here, let's focus on the wells in one county so it is easy to detect the differences across various aesthetics configurations.
 
-```{r , results = "hide"}
+```{r gw-stevens, results = "hide"}
 #--- wells in Stevens County ---#
 gw_Stevens <- KS_county %>%
 	filter(NAME == "Stevens") %>%
@@ -410,7 +426,7 @@ The values of the expression (`TRUE` or `FALSE`) appear in the gray strips, whic
 
 If you feel like the panels are too close to each other, you could provide more space between them using `panel.spacing` (both vertically and horizontally), `panel.spacing.x` (horizontally), and `panel.spacing.y` (vertically) options in `theme()`. Suppose you would like to place more space between the upper and lower panels, then you use `panel.spacing.y` like this:
 
-```{r }
+```{r panel-spacing}
 ggplot() +
 	#--- KS county boundary ---#
 	geom_sf(data = st_transform(KS_county, 32614)) +
@@ -550,7 +566,7 @@ We use the following objects that have the same information but come in differen
 
 **Raster as stars**
 
-```{r echo = F, eval = F}
+```{r raster-as-stars, echo = F, eval = F}
 tmax_Jan_09 <- read_stars("Data/PRISM/PRISM_tmax_y2009_m1.tif") %>%
 	#--- change the variable name ---#
 	setNames("tmax") %>%
@@ -990,13 +1006,13 @@ After you find a color scale you would like to use, you can go to the **Export**
 
 You could register the color palette by completing the `register =` option in the copied code if you think you will use it other times. Otherwise, you can delete the option.
 
-```{r }
+```{r seq-hcl}
 col_palette <- sequential_hcl(n = 7, h = c(36, 200), c = c(60, NA, 0), l = c(25, 95), power = c(0.7, 1.3))
 ```
 
 We then use the code as follows:
 
-```{r }
+```{r use-col-scale}
 g_col_scale + theme_void() +
 	scale_fill_gradientn(colors = col_palette)
 ```
@@ -1057,7 +1073,7 @@ ppt_long_df <- read_stars("Data/PRISM/PRISM_ppt_y2009_m1.tif") %>%
 
 Let's extract tmax and precipitation on Jan 1, 2009 from their respective datasets, and combine them.
 
-```{r }
+```{r tm-pr-combine}
 #--- get tmax on Jan 1, 2009 ---#
 tmax_df <- filter(tmax_long_df, date == ymd("2009-01-01")) %>%
 	setnames("tmax", "value") %>%
@@ -1074,7 +1090,7 @@ combined_df <- rbind(tmax_df, ppt_df)
 
 Here is the map faceted for tmax and precipitation:
 
-```{r }
+```{r tm-pr-faceted}
 ggplot() +
 	geom_raster(data = combined_df, aes(x = x, y = y, fill = value)) +
 	facet_grid(type ~ .) +
@@ -1093,7 +1109,7 @@ library(patchwork)
 `patchwork` combines `ggplot` objects (maps) using simple operators: `+`, `/`, and `|`. Let's first create maps of tmax and precipitation separately.
 
 
-```{r }
+```{r pw-ex}
 #--- tmax ---#
 (
 g_tmax <- ggplot() +
@@ -1116,35 +1132,35 @@ g_ppt <- ggplot() +
 
 ```
 
-It is best to just look at examples to get the sense of how `patchwork` works. A fuller treatment of `patchwork` is found at its `packagedown` website (<https://patchwork.data-imaginist.com/index.html>).
+It is best to just look at examples to get the sense of how `patchwork` works. A fuller treatment of `patchwork` is found here (<https://patchwork.data-imaginist.com/index.html>).
 
 **Example 1**
 
-```{r }
+```{r pw-ex-1}
 g_tmax + g_ppt
 ```
 
 **Example 2**
 
-```{r }
+```{r pw-ex-2}
 g_tmax / g_ppt / g_tmax
 ```
 
 **Example 3**
 
-```{r }
+```{r pw-ex-3}
 g_tmax + g_ppt + plot_layout(nrow = 2)
 ```
 
 **Example 4**
 
-```{r }
+```{r pw-ex-4}
 g_tmax + g_ppt + g_tmax + g_ppt + plot_layout(nrow = 3, byrow = FALSE)
 ```
 
 **Example 5**
 
-```{r }
+```{r pw-ex-5}
 g_tmax | (g_ppt/g_tmax)
 ```
 
@@ -1152,7 +1168,7 @@ g_tmax | (g_ppt/g_tmax)
 
 Sometimes figures are placed too close to each other. In such a case, you can pad a figure at the time of generating individual figures by adding the `plot.margin` option to `theme()`. For example, the following code creates space at the bottom of `g_tmax` (5 cm), and vertically stack `g_tmax` and `g_ppt`.
 
-```{r }
+```{r pad-one}
 #--- space at the bottom ---#
 g_tmax <- g_tmax + theme(plot.margin = unit(c(0, 0, 5, 0), "cm"))
 
@@ -1171,7 +1187,7 @@ In `plot.margin = unit(c(a, b, c, d), "cm")`, here is which margin `a`, `b`, `c`
 
 Sometimes, it is useful to present a map that covers a larger geographical range than the area of interest in the same map. This provides a better sense of the geographic extent and  location of the area of interest relative to the larger geographic extent that the readers are more familiar with. For example, suppose your work is restricted to three counties in Kansas: Cheyenne, Sherman, and Wallace. Here is the map of three counties:
 
-```{r }
+```{r three-counties-map}
 three_counties <- filter(KS_county, NAME %in% c("Cheyenne", "Sherman", "Wallace"))
 
 (
@@ -1188,7 +1204,7 @@ Well, for those who are not familiar with Kansas, it might be useful to show whe
 + create a map of the region that includes the area of interest and turn it into a `grob` object using `ggplotGrob()`
 + combine the two using `annotation_custom()`
 
-```{r }
+```{r grob-start}
 #--- convert the ggplot into a grob ---#
 grob_aoi <- ggplotGrob(g_three_counties)
 
@@ -1196,7 +1212,7 @@ grob_aoi <- ggplotGrob(g_three_counties)
 class(grob_aoi)
 ```
 
-```{r }
+```{r ks-region-map}
 #--- create a map of Kansas ---#
 g_region <- ggplot() +
 	geom_sf(data = KS_county) +
@@ -1209,7 +1225,7 @@ grob_region <- ggplotGrob(g_region)
 
 Now that we have two maps, we can now put them on the same map using `annotation_custom()`. The first task is to initiate a `ggplot` with `coord_equal()` as follows:
 
-```{r }
+```{r inset-map}
 (
 g_inset <- ggplot() +
   coord_equal(xlim = c(0, 1), ylim = c(0, 1), expand = FALSE)
@@ -1218,7 +1234,7 @@ g_inset <- ggplot() +
 
 You now have a blank canvas to put the images on. Let's add a layer to the canvas using `annotation_custom()` in which you provide the `grob` object (a map) and specify the range of the canvas the map occupies. Since the extent of x and y are set to [0, 1] above with `coord_equal(xlim = c(0, 1), ylim = c(0, 1), expand = FALSE)`, the following code put the `grob_aoi` to cover the entire y range and up to 0.8 of x from 0.
 
-```{r }
+```{r inset-annotation-1}
 g_inset +
     annotation_custom(grob_aoi, xmin = 0, xmax = 0.8, ymin = 0,
         ymax = 1)
@@ -1226,7 +1242,7 @@ g_inset +
 
 Similarly, we can add `grob_region` using `annotation_custom()`. Let's put it at the right lower corner of the map.
 
-```{r }
+```{r inset-annotation-2}
 g_inset +
     annotation_custom(grob_aoi, xmin = 0, xmax = 0.8, ymin = 0,
         ymax = 1) +
@@ -1236,7 +1252,7 @@ g_inset +
 
 Note that the resulting map still has the default theme because it does not inherit the theme of maps added by `annotation_custom()`. So, you can add `theme_void()` to the map to make the border disappear.
 
-```{r }
+```{r add-void-custom}
 g_inset +
     annotation_custom(grob_aoi, xmin = 0, xmax = 0.8, ymin = 0,
         ymax = 1) +
@@ -1286,40 +1302,41 @@ g_base <- ggplot() +
 
 Right now, the map shows geographic coordinates, gray background, and grid lines. They are not very aesthetically appealing. Adding the pre-defined theme by `theme_*()` can alter the theme of a map very quickly. One of the themes suitable for maps is `theme_void()`.
 
-```{r }
+```{r add-void}
 g_base + theme_void()
 ```
 
 As you can see, all the axes information (`axis.title`, `axis.ticks`, `axis.text`,) and panel information (`panel.background`, `panel.border`, `panel.grid`) are gone among other parts of the figure. You can confirm this by evaluating `theme_void()`.
 
-```{r }
+```{r inside-void}
 theme_void()
 ```
 
 Applying the theme to a map obviates the need to suppress parts of a figure individually. You can suppress parts of the figure individually using `theme()`. For example, the following code gets rid of `axis.text`.
 
-```{r }
+```{r theme-remove-at}
 g_base + theme(axis.text = element_blank())
 ```
 
 So, if `theme_void()` is overdoing things, you can build your own theme specifically for maps. For example, this is the theme I used for maps in Chapter \@ref(demo).
 
-```{r }
-theme_for_map <- theme(
-  axis.ticks = element_blank(),
-  axis.text= element_blank(),
-  axis.line = element_blank(),
-  panel.border = element_blank(),
-  panel.grid = element_line(color='transparent'),
-  panel.background = element_blank(),
-  plot.background = element_rect(fill = "transparent",color='transparent')
-)
+```{r set-theme}
+theme_for_map <- 
+	theme(
+	  axis.ticks = element_blank(),
+	  axis.text= element_blank(),
+	  axis.line = element_blank(),
+	  panel.border = element_blank(),
+	  panel.grid = element_line(color='transparent'),
+	  panel.background = element_blank(),
+	  plot.background = element_rect(fill = "transparent",color='transparent')
+	)
 
 ```
 
 Applying the theme to the map:
 
-```{r }
+```{r apply-theme}
 g_base + theme_for_map
 ```
 
@@ -1327,7 +1344,7 @@ This is very similar to `theme_void()` except that `strip.background` is not los
 
 You can use `theme_void()` as a starting point and override components of it like this.
 
-```{r }
+```{r void-correct-theme}
 #--- bring back a color to strip.background  ---#
 theme_for_map_2 <- theme_void() + theme(strip.background = element_rect(fill = "gray"))
 
@@ -1339,7 +1356,7 @@ g_base + theme_for_map_2
 
 `theme_bw()` is also a good theme for maps.
 
-```{r }
+```{r theme-bw}
 ggplot() +
 	geom_sf(data = gw_by_county, aes(fill = af_used)) +
 	facet_grid(year ~ .) +
@@ -1348,7 +1365,7 @@ ggplot() +
 
 If you do not like the gray grid lines, you can remove them like this.
 
-```{r }
+```{r remove-grid-lines}
 ggplot() +
 	geom_sf(data = gw_by_county, aes(fill = af_used)) +
 	facet_grid(year ~ .) +
@@ -1364,7 +1381,7 @@ ggplot() +
 
 Not all themes are suitable for maps. For example, `theme_classic()` is not a very good option as you can see below:
 
-```{r }
+```{r theme-classic}
 g_base + theme_classic()
 ```
 
@@ -1376,7 +1393,7 @@ Legends can be modified using `legend.*()` options for `theme()` and `guide_*()`
 
 A legend consists of three elements: legend title, legend key (e.g., color bar), and legend label (or legend text). For example, in the figure below, `af_used` is the legend title, the color bar is the legend key, and the numbers below the color bar are legend labels. Knowing the name of these elements helps because the name of the options contains the name of the specific part of the legend.
 
-```{r }
+```{r lg-start}
 (
 g_legend <- ggplot() +
 	geom_sf(data = gw_by_county, aes(fill = af_used)) +
@@ -1387,7 +1404,7 @@ g_legend <- ggplot() +
 
 Let's first change the color scale to Viridis using `scale_fill_viridis_c()` (see section \@ref(color-scale) for picking a color scale).
 
-```{r }
+```{r lg-viridis}
 g_legend +
 	scale_fill_viridis_c()
 ```
@@ -1395,14 +1412,14 @@ g_legend +
 Right now, the legend title is `af_used`, which does not tell the readers what it means. In general, you can change the title of a legend by using the `name` option inside the `scale` function for the legend (here, `scale_fill_viridis_c()`). So, this one works:
 
 
-```{r }
+```{r lg-title}
 g_legend +
 	scale_fill_viridis_c(name = "Groundwater pumping (acre-feet)")
 ```
 
 Alternatively, you can use `labs()` function.^[`labs()` can also be used to specify the x- and y-axis titles.]. Since the legend is for the `fill` aesthetic attribute, you should add `fill = "legend title"` as follows:
 
-```{r }
+```{r lg-fill}
 g_legend +
 	scale_fill_viridis_c() +
 	labs(fill = "Groundwater pumping (acre-feet)")
@@ -1410,7 +1427,7 @@ g_legend +
 
 Since the legend title is long, the legend is taking up about the half of the space of the entire figure. So, let's put the legend below the maps (bottom of the figure) by adding `theme(legend.position = "bottom")`.
 
-```{r }
+```{r lg-bottom}
 g_legend +
 	scale_fill_viridis_c() +
 	labs(fill = "Groundwater pumping (acre-feet)") +
@@ -1419,7 +1436,7 @@ g_legend +
 
 It would be aesthetically better to have the legend title on top of the color bar. This can be done by using the `guides()` function. Since we would like to alter the aesthetics of the legend for `fill` involving a color bar, we use `fill = guide_colorbar()`. To place the legend title on top, you add `title.position="top"` inside the `guide_colorbar()` function as follows:
 
-```{r }
+```{r lg-bar-top}
 g_legend +
 	scale_fill_viridis_c() +
 	labs(fill = "Groundwater pumping (acre-feet)") +
@@ -1429,7 +1446,7 @@ g_legend +
 
 This looks better. But, the legend labels are too close to each other so it is hard to read them because the color bar is too short. Let's elongate the color bar so that we have enough space between legend labels using `legend.key.width = ` option for `theme()`. Let's also make the legend thinner using `legend.key.height = ` option.
 
-```{r }
+```{r lg-key}
 g_legend +
 	scale_fill_viridis_c() +
 	labs(fill = "Groundwater pumping (acre-feet)") +
@@ -1445,7 +1462,7 @@ g_legend +
 
 If the journal you are submitting an article to is requesting a specific font family for the texts in the figure, you can use `legend.text = element_text()` and `legend.title = element_text()` inside `theme()` for the legend labels and legend title, respectively. The following code uses the font family of "Times" and font size of 12 for both the labels and the title.
 
-```{r }
+```{r lg-text-font}
 g_legend +
 	scale_fill_viridis_c() +
 	labs(fill = "Groundwater pumping (acre-feet)") +
@@ -1483,7 +1500,7 @@ g_legend_2 <- ggplot(data = gw_Stevens) +
 
 The legend is too long, so first put the legend title on top of the legend labels using the code below:
 
-```{r }
+```{r lg-title-top-again}
 g_legend_2 +
 	guides(
 		color = guide_legend(title.position="top")
@@ -1493,7 +1510,7 @@ g_legend_2 +
 
 Since the legend is for the `color` aesthetic attribute, `color = guide_legend()` was used. The legend labels are still a bit too long, so let's arrange them in two rows using the `nrow = ` option.
 
-```{r }
+```{r lg-title-row}
 g_legend_2 +
 	guides(
 		color = guide_legend(title.position="top", nrow = 2)
@@ -1520,7 +1537,7 @@ Facet strips refer to the area of boxed where the values of faceting variables a
 + `strip.switch.pad.wrap`
 
 
-```{r }
+```{r facet-wrap}
 ggplot() +
 	#--- KS county boundary ---#
 	geom_sf(data = st_transform(KS_county, 32614)) +
@@ -1536,7 +1553,7 @@ ggplot() +
 
 To make texts in the strips more descriptive of what they actually mean you can make variable that have texts you want to show on the map as their values.
 
-```{r }
+```{r facet-text-change}
 gw_KS_sf <- gw_KS_sf %>%
 	mutate(
 		high_low = ifelse(af_used > 500, "High water use", "Low water use"),
@@ -1560,13 +1577,13 @@ g_facet <- ggplot() +
 
 You probably noticed that the high water use cases are now appear on top. This is because the panels of figures are arranged in a way that the strip texts are alphabetically ordered. `High water use` precedes `Low water use`. Sometimes, this is not desirable. To force a specific order, you can turn the faceting variable (here `high_low`) into a `factor` with the order of its values defined using `levels =`. The following code converts `high_low` into a factor where "Low water use" is the first level and "High water use" is the second level.
 
-```{r }
+```{r factor-levels-order}
 gw_KS_sf <- mutate(gw_KS_sf, high_low = factor(high_low, levels = c("Low water use", "High water use")))
 ```
 
 Now, "Low water use" cases appear first (on top).
 
-```{r }
+```{r show-order-change}
 g_facet <- ggplot() +
 	#--- KS county boundary ---#
 	geom_sf(data = st_transform(KS_county, 32614)) +
@@ -1583,7 +1600,7 @@ g_facet
 
 You can control how strip texts and strip boxes appear using `strip.text` and `strip.background` options. Here is an example:
 
-```{r }
+```{r facet-strip-background}
 g_facet + theme(
 	strip.text.x = element_text(size = 12, family = "Times", color = "blue"),
 	strip.background = element_rect(fill = "red", color = "black")
@@ -1593,7 +1610,7 @@ g_facet + theme(
 
 Instead of having descriptions of cases on top of the figures, you could have one of the descriptions on the right side of the figures using `facet_grid()`.
 
-```{r }
+```{r facet-right}
 g_facet +
 	#--- this overrides facet_wrap(high_low ~ year_txt) ---#
 	facet_grid(high_low ~ year_txt)
@@ -1602,7 +1619,7 @@ g_facet +
 
 Now case descriptions for `high_low` are too long and it is squeezing the space for maps. Let's flip `high_low` and `year`.
 
-```{r }
+```{r facet-right-left}
 g_facet +
 	#--- this overrides facet_grid(high_low ~ year_txt) ---#
 	facet_grid(year_txt ~ high_low)
@@ -1611,7 +1628,7 @@ g_facet +
 
 This is slightly better than before, but not much. Let's rotate strip texts for `year` using the `angle = ` option.
 
-```{r }
+```{r angle}
 g_facet +
 	#--- this overrides facet_grid(high_low ~ year_txt) ---#
 	facet_grid(year_txt ~ high_low) +
@@ -1625,7 +1642,7 @@ Since we only want to change the angle of strip texts for the second faceting va
 
 Let's change the size of the strip texts to 12 and use `Times` font family.
 
-```{r }
+```{r font-times}
 g_facet +
 	#--- this overrides facet_grid(high_low ~ year_txt) ---#
 	facet_grid(year_txt ~ high_low) +
@@ -1639,7 +1656,7 @@ g_facet +
 
 The strip texts for `high_low` are too close to maps that letter "g" in "High" is truncated. Let's move them up.
 
-```{r }
+```{r move-g}
 g_facet +
 	#--- this overrides facet_grid(high_low ~ year_txt) ---#
 	facet_grid(year_txt ~ high_low) +
@@ -1653,7 +1670,7 @@ g_facet +
 
 Now the upper part of the letters is truncated. We could just put more margin below the texts using the `margin = margin(top, right, bottom, left, unit in text)` option.
 
-```{r }
+```{r more-margin}
 g_facet +
 	#--- this overrides facet_grid(high_low ~ year_txt) ---#
 	facet_grid(year_txt ~ high_low) +
@@ -1666,7 +1683,7 @@ g_facet +
 
 For completeness, let's make the legend look better as well (this is discussed in section \@ref(theme)).
 
-```{r }
+```{r make-legend-look-better}
 (
 g_facet <- g_facet +
 	#--- this overrides facet_grid(high_low ~ year_txt) ---#
@@ -1695,7 +1712,7 @@ Alright, setting aside the problem of whether the information provided in the ma
 
 The `ggspatial` package lets you put a north arrow and scale bar on a map using `annotation_scale()` and `annotation_north_arrow()`.
 
-```{r }
+```{r nc-read-map}
 #--- get North Carolina county borders ---#
 nc <- st_read(system.file("shape/nc.shp", package="sf"))
 
@@ -1723,7 +1740,7 @@ g_nc +
 
 You can add pads from the plot border to fine tune the location of the scale bar:
 
-```{r echo = F}
+```{r add-pads}
 g_nc +
   annotation_scale(
   	location = "bl",
@@ -1737,7 +1754,7 @@ A positive number means that the scale bar will be placed further away from clos
 
 You can add a north arrow using `annotation_north_arrow()`. Accepted arguments are similar to those for `annotation_scale()`.
 
-```{r }
+```{r add-north-arrow}
 g_nc +
   annotation_scale(
   	location = "bl",
@@ -1852,7 +1869,7 @@ While vector graphics are scalable, raster graphics are not. If you enlarge rast
 
 Let's try to save the following `ggplot` object.
 
-```{r }
+```{r make-g-nc-to-save}
 #--- get North Carolina county borders ---#
 nc <- st_read(system.file("shape/nc.shp", package="sf"))
 
@@ -1888,7 +1905,7 @@ You change the unit with the `units` option. By default, `in` (inches) is used.
 
 You can control the resolution of the output image by specifying DPI (dots per inch) using the `dpi` option. The default DPI value is 300, but you can specify any value suitable for the output image, including "retina" (320) or "screen" (72). 600 or higher is recommended when a high resolution output is required.
 
-```{r}
+```{r, eval = F}
 #--- dpi = 320 ---#
 ggsave("nc_dpi_320.png", g_nc, height = 5, width = 7, dpi = 320)
 

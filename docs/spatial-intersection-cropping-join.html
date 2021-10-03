@@ -24,7 +24,7 @@
 <meta name="author" content="Taro Mieno" />
 
 
-<meta name="date" content="2021-10-02" />
+<meta name="date" content="2021-10-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -161,7 +161,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="why-r-as-gis-for-economists.html"><a href="why-r-as-gis-for-economists.html#summary"><i class="fa fa-check"></i>Summary</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="how-is-this-book-different-from-other-online-books-and-resources.html"><a href="how-is-this-book-different-from-other-online-books-and-resources.html"><i class="fa fa-check"></i>How is this book different from other online books and resources?</a></li>
-<li class="chapter" data-level="" data-path="what-is-going-to-be-covered-in-this-book.html"><a href="what-is-going-to-be-covered-in-this-book.html"><i class="fa fa-check"></i>What is going to be covered in this book?</a></li>
+<li class="chapter" data-level="" data-path="topics-covered-in-this-book.html"><a href="topics-covered-in-this-book.html"><i class="fa fa-check"></i>Topics covered in this book</a></li>
 <li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html"><i class="fa fa-check"></i>Conventions of the book and some notes</a>
 <ul>
 <li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html#texts-in-gray-boxes"><i class="fa fa-check"></i>Texts in gray boxes</a></li>
@@ -546,14 +546,14 @@ Figure 3.22: Visualization of the points, lines, and polygons
 <span id="cb296-3"><a href="spatial-intersection-cropping-join.html#cb296-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">int_name =</span> <span class="fu">paste0</span>(line_name, <span class="st">&quot;-&quot;</span>, polygon_name))</span>
 <span id="cb296-4"><a href="spatial-intersection-cropping-join.html#cb296-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>Simple feature collection with 3 features and 3 fields
-Geometry type: LINESTRING
-Dimension:     XY
-Bounding box:  xmin: 0 ymin: 0 xmax: 2.5 ymax: 2
-CRS:           NA
-    line_name polygon_name                              x         int_name
-1      line 1    polygon 1        LINESTRING (0 0, 2 0.4) line 1-polygon 1
-2      line 2    polygon 1   LINESTRING (1.5 0.5, 2 1.25) line 2-polygon 1
-2.1    line 2    polygon 2 LINESTRING (2.166667 1.5, 2... line 2-polygon 2</code></pre>
+geometry type:  LINESTRING
+dimension:      XY
+bbox:           xmin: 0 ymin: 0 xmax: 2.5 ymax: 2
+CRS:            NA
+  line_name polygon_name                              x         int_name
+1    line 1    polygon 1        LINESTRING (0 0, 2 0.4) line 1-polygon 1
+2    line 2    polygon 1   LINESTRING (1.5 0.5, 2 1.25) line 2-polygon 1
+3    line 2    polygon 2 LINESTRING (2.166667 1.5, 2... line 2-polygon 2</code></pre>
 <p>As you can see in the output, each instance of the intersections of the lines and polygons become an observation (line 1-polygon 1, line 2-polygon 1, and line 2-polygon 2). The part of the lines that did not intersect with a polygon is cut out and does not remain in the returned <code>sf</code>. To see this, see Figure <a href="spatial-intersection-cropping-join.html#fig:lines-polygons-int">3.23</a> below:</p>
 <div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb298-1"><a href="spatial-intersection-cropping-join.html#cb298-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb298-2"><a href="spatial-intersection-cropping-join.html#cb298-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">#--- here are all the original polygons  ---#</span></span>
@@ -607,33 +607,22 @@ Figure 3.24: The outcome of the intersections of polygon 2 and polygons 1 and 3
 <span id="cb302-3"><a href="spatial-intersection-cropping-join.html#cb302-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">huc_county =</span> <span class="fu">paste0</span>(HUC_CODE, <span class="st">&quot;-&quot;</span>, county_code))</span>
 <span id="cb302-4"><a href="spatial-intersection-cropping-join.html#cb302-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>Simple feature collection with 349 features and 5 fields
-Geometry type: GEOMETRY
-Dimension:     XY
-Bounding box:  xmin: 203228.6 ymin: 4470941 xmax: 736832.9 ymax: 4822687
-Projected CRS: NAD83 / UTM zone 15N
+geometry type:  GEOMETRY
+dimension:      XY
+bbox:           xmin: 203228.6 ymin: 4470941 xmax: 736832.9 ymax: 4822687
+projected CRS:  NAD83 / UTM zone 15N
 First 10 features:
-      HUC_CODE county_code year  acres                       geometry
-732   07080207         083 2018 183500 POLYGON ((482898.9 4711686,...
-803   07080205         083 2018 183500 POLYGON ((499779.5 4696819,...
-826   07080105         083 2018 183500 POLYGON ((461843.7 4683106,...
-627   10170204         141 2018 167000 POLYGON ((269413.3 4793330,...
-687   10230003         141 2018 167000 POLYGON ((271582.4 4754543,...
-731   10230002         141 2018 167000 POLYGON ((267630.3 4790946,...
-683   07100003         081 2018 184500 POLYGON ((436126.2 4789504,...
-686   07080203         081 2018 184500 MULTIPOLYGON (((459473.1 47...
-732.1 07080207         081 2018 184500 POLYGON ((429583.2 4779598,...
-747   07100005         081 2018 184500 POLYGON ((420999.4 4772213,...
-        huc_county
-732   07080207-083
-803   07080205-083
-826   07080105-083
-627   10170204-141
-687   10230003-141
-731   10230002-141
-683   07100003-081
-686   07080203-081
-732.1 07080207-081
-747   07100005-081</code></pre>
+   HUC_CODE county_code year  acres                       geometry   huc_county
+1  07080207         083 2018 183500 POLYGON ((482898.9 4711686,... 07080207-083
+2  07080205         083 2018 183500 POLYGON ((499779.5 4696819,... 07080205-083
+3  07080105         083 2018 183500 POLYGON ((461843.7 4683106,... 07080105-083
+4  10170204         141 2018 167000 POLYGON ((269413.3 4793330,... 10170204-141
+5  10230003         141 2018 167000 POLYGON ((271582.4 4754543,... 10230003-141
+6  10230002         141 2018 167000 POLYGON ((267630.3 4790946,... 10230002-141
+7  07100003         081 2018 184500 POLYGON ((436126.2 4789504,... 07100003-081
+8  07080203         081 2018 184500 MULTIPOLYGON (((459473.1 47... 07080203-081
+9  07080207         081 2018 184500 POLYGON ((429583.2 4779598,... 07080207-081
+10 07100005         081 2018 184500 POLYGON ((420999.4 4772213,... 07100005-081</code></pre>
 <p>The key difference from the <code>st_join()</code> example is that each observation of the returned data is a unique HUC-county intersection. Figure <a href="spatial-intersection-cropping-join.html#fig:inter-ex">3.25</a> below is a map of all the intersections of the HUC unit with <code>HUC_CODE ==10170203</code> and the four intersecting counties.</p>
 <div class="sourceCode" id="cb304"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb304-1"><a href="spatial-intersection-cropping-join.html#cb304-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(<span class="fu">filter</span>(HUC_intersections, HUC_CODE <span class="sc">==</span> <span class="st">&quot;10170203&quot;</span>)) <span class="sc">+</span> </span>
 <span id="cb304-2"><a href="spatial-intersection-cropping-join.html#cb304-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="at">col =</span> <span class="st">&quot;huc_county&quot;</span>) <span class="sc">+</span></span>
@@ -657,10 +646,10 @@ Figure 3.25: Intersections of a HUC unit and Iowa counties
 <span id="cb305-9"><a href="spatial-intersection-cropping-join.html#cb305-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">aw_acres =</span> <span class="fu">sum</span>(weight <span class="sc">*</span> acres))</span>
 <span id="cb305-10"><a href="spatial-intersection-cropping-join.html#cb305-10" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>Simple feature collection with 55 features and 2 fields
-Geometry type: GEOMETRY
-Dimension:     XY
-Bounding box:  xmin: 203228.6 ymin: 4470941 xmax: 736832.9 ymax: 4822687
-Projected CRS: NAD83 / UTM zone 15N
+geometry type:  GEOMETRY
+dimension:      XY
+bbox:           xmin: 203228.6 ymin: 4470941 xmax: 736832.9 ymax: 4822687
+projected CRS:  NAD83 / UTM zone 15N
 # A tibble: 55 x 3
    HUC_CODE aw_acres                                                    geometry
    &lt;chr&gt;       &lt;dbl&gt;                                              &lt;GEOMETRY [m]&gt;

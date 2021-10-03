@@ -24,7 +24,7 @@
 <meta name="author" content="Taro Mieno" />
 
 
-<meta name="date" content="2021-10-02" />
+<meta name="date" content="2021-10-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -161,7 +161,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="why-r-as-gis-for-economists.html"><a href="why-r-as-gis-for-economists.html#summary"><i class="fa fa-check"></i>Summary</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="how-is-this-book-different-from-other-online-books-and-resources.html"><a href="how-is-this-book-different-from-other-online-books-and-resources.html"><i class="fa fa-check"></i>How is this book different from other online books and resources?</a></li>
-<li class="chapter" data-level="" data-path="what-is-going-to-be-covered-in-this-book.html"><a href="what-is-going-to-be-covered-in-this-book.html"><i class="fa fa-check"></i>What is going to be covered in this book?</a></li>
+<li class="chapter" data-level="" data-path="topics-covered-in-this-book.html"><a href="topics-covered-in-this-book.html"><i class="fa fa-check"></i>Topics covered in this book</a></li>
 <li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html"><i class="fa fa-check"></i>Conventions of the book and some notes</a>
 <ul>
 <li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html#texts-in-gray-boxes"><i class="fa fa-check"></i>Texts in gray boxes</a></li>
@@ -710,30 +710,30 @@ First 10 features:
 <span id="cb84-8"><a href="demonstration-5-groundwater-use-for-agricultural-irrigation.html#cb84-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb84-9"><a href="demonstration-5-groundwater-use-for-agricultural-irrigation.html#cb84-9" aria-hidden="true" tabindex="-1"></a><span class="co">#--- take a look ---#</span></span>
 <span id="cb84-10"><a href="demonstration-5-groundwater-use-for-agricultural-irrigation.html#cb84-10" aria-hidden="true" tabindex="-1"></a>daymet_to_merge</span></code></pre></div>
-<pre><code>       well_id year prcp_4 prcp_5 prcp_6 prcp_7 prcp_8 prcp_9   tmax_4   tmax_5
-    1:       1 2010     42     94     70     89     63     15 20.96667 24.19355
-    2:       1 2011     25     26     23     35     37      9 21.91667 26.30645
-    3:       3 2010     85     62    109    112     83     41 19.93333 21.64516
-    4:       3 2011     80    104     44    124    118     14 18.40000 22.62903
-    5:       7 2010     44     83     23     99    105     13 18.81667 22.14516
-   ---                                                                         
-56160:   78049 2011     27      6     38     37     34     36 22.81667 26.70968
-56161:   78050 2010     35     48     68    111     56      9 21.38333 24.85484
-56162:   78050 2011     26      7     44     38     34     35 22.76667 26.70968
-56163:   78051 2010     30     62     48     29     76      3 21.05000 24.14516
-56164:   78051 2011     33     18     25      6     39     23 21.90000 26.11290
-         tmax_6   tmax_7   tmax_8   tmax_9
-    1: 32.51667 33.50000 34.17742 31.43333
-    2: 35.16667 38.62903 36.90323 28.66667
-    3: 30.73333 32.80645 33.56452 28.93333
-    4: 30.08333 35.08065 32.90323 25.81667
-    5: 31.30000 33.12903 32.67742 30.16667
-   ---                                    
-56160: 35.01667 38.32258 36.54839 28.80000
-56161: 33.16667 33.88710 34.40323 32.11667
-56162: 34.91667 38.32258 36.54839 28.83333
-56163: 32.90000 33.83871 34.38710 31.56667
-56164: 34.61667 38.37097 36.66129 28.45000</code></pre>
+<pre><code>       well_id year prcp_4 prcp_5 prcp_6 prcp_7 prcp_8 prcp_9   tmax_4   tmax_5   tmax_6
+    1:       1 2010     42     94     70     89     63     15 20.96667 24.19355 32.51667
+    2:       1 2011     25     26     23     35     37      9 21.91667 26.30645 35.16667
+    3:       3 2010     85     62    109    112     83     41 19.93333 21.64516 30.73333
+    4:       3 2011     80    104     44    124    118     14 18.40000 22.62903 30.08333
+    5:       7 2010     44     83     23     99    105     13 18.81667 22.14516 31.30000
+   ---                                                                                  
+56160:   78049 2011     27      6     38     37     34     36 22.81667 26.70968 35.01667
+56161:   78050 2010     35     48     68    111     56      9 21.38333 24.85484 33.16667
+56162:   78050 2011     26      7     44     38     34     35 22.76667 26.70968 34.91667
+56163:   78051 2010     30     62     48     29     76      3 21.05000 24.14516 32.90000
+56164:   78051 2011     33     18     25      6     39     23 21.90000 26.11290 34.61667
+         tmax_7   tmax_8   tmax_9
+    1: 33.50000 34.17742 31.43333
+    2: 38.62903 36.90323 28.66667
+    3: 32.80645 33.56452 28.93333
+    4: 35.08065 32.90323 25.81667
+    5: 33.12903 32.67742 30.16667
+   ---                           
+56160: 38.32258 36.54839 28.80000
+56161: 33.88710 34.40323 32.11667
+56162: 38.32258 36.54839 28.83333
+56163: 33.83871 34.38710 31.56667
+56164: 38.37097 36.66129 28.45000</code></pre>
 <p>Now, let’s merge the weather data to the groundwater pumping dataset.</p>
 <div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="demonstration-5-groundwater-use-for-agricultural-irrigation.html#cb86-1" aria-hidden="true" tabindex="-1"></a>(</span>
 <span id="cb86-2"><a href="demonstration-5-groundwater-use-for-agricultural-irrigation.html#cb86-2" aria-hidden="true" tabindex="-1"></a>reg_data <span class="ot">&lt;-</span> </span>
@@ -743,30 +743,30 @@ First 10 features:
 <span id="cb86-6"><a href="demonstration-5-groundwater-use-for-agricultural-irrigation.html#cb86-6" aria-hidden="true" tabindex="-1"></a>  <span class="co">#--- join ---#</span></span>
 <span id="cb86-7"><a href="demonstration-5-groundwater-use-for-agricultural-irrigation.html#cb86-7" aria-hidden="true" tabindex="-1"></a>  daymet_to_merge[., <span class="at">on =</span> <span class="fu">c</span>(<span class="st">&quot;well_id&quot;</span>, <span class="st">&quot;year&quot;</span>)]</span>
 <span id="cb86-8"><a href="demonstration-5-groundwater-use-for-agricultural-irrigation.html#cb86-8" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<pre><code>       well_id year prcp_4 prcp_5 prcp_6 prcp_7 prcp_8 prcp_9   tmax_4   tmax_5
-    1:       1 2010     42     94     70     89     63     15 20.96667 24.19355
-    2:       1 2011     25     26     23     35     37      9 21.91667 26.30645
-    3:       3 2010     85     62    109    112     83     41 19.93333 21.64516
-    4:       3 2011     80    104     44    124    118     14 18.40000 22.62903
-    5:       7 2010     44     83     23     99    105     13 18.81667 22.14516
-   ---                                                                         
-56221:   79348 2011     NA     NA     NA     NA     NA     NA       NA       NA
-56222:   79349 2011     NA     NA     NA     NA     NA     NA       NA       NA
-56223:   79367 2011     NA     NA     NA     NA     NA     NA       NA       NA
-56224:   79372 2011     NA     NA     NA     NA     NA     NA       NA       NA
-56225:   80930 2011     NA     NA     NA     NA     NA     NA       NA       NA
-         tmax_6   tmax_7   tmax_8   tmax_9   af_used
-    1: 32.51667 33.50000 34.17742 31.43333  67.00000
-    2: 35.16667 38.62903 36.90323 28.66667 171.00000
-    3: 30.73333 32.80645 33.56452 28.93333  30.93438
-    4: 30.08333 35.08065 32.90323 25.81667  12.00000
-    5: 31.30000 33.12903 32.67742 30.16667   0.00000
-   ---                                              
-56221:       NA       NA       NA       NA  76.00000
-56222:       NA       NA       NA       NA 182.00000
-56223:       NA       NA       NA       NA   0.00000
-56224:       NA       NA       NA       NA 134.00000
-56225:       NA       NA       NA       NA  23.69150</code></pre>
+<pre><code>       well_id year prcp_4 prcp_5 prcp_6 prcp_7 prcp_8 prcp_9   tmax_4   tmax_5   tmax_6
+    1:       1 2010     42     94     70     89     63     15 20.96667 24.19355 32.51667
+    2:       1 2011     25     26     23     35     37      9 21.91667 26.30645 35.16667
+    3:       3 2010     85     62    109    112     83     41 19.93333 21.64516 30.73333
+    4:       3 2011     80    104     44    124    118     14 18.40000 22.62903 30.08333
+    5:       7 2010     44     83     23     99    105     13 18.81667 22.14516 31.30000
+   ---                                                                                  
+56221:   79348 2011     NA     NA     NA     NA     NA     NA       NA       NA       NA
+56222:   79349 2011     NA     NA     NA     NA     NA     NA       NA       NA       NA
+56223:   79367 2011     NA     NA     NA     NA     NA     NA       NA       NA       NA
+56224:   79372 2011     NA     NA     NA     NA     NA     NA       NA       NA       NA
+56225:   80930 2011     NA     NA     NA     NA     NA     NA       NA       NA       NA
+         tmax_7   tmax_8   tmax_9   af_used
+    1: 33.50000 34.17742 31.43333  67.00000
+    2: 38.62903 36.90323 28.66667 171.00000
+    3: 32.80645 33.56452 28.93333  30.93438
+    4: 35.08065 32.90323 25.81667  12.00000
+    5: 33.12903 32.67742 30.16667   0.00000
+   ---                                     
+56221:       NA       NA       NA  76.00000
+56222:       NA       NA       NA 182.00000
+56223:       NA       NA       NA   0.00000
+56224:       NA       NA       NA 134.00000
+56225:       NA       NA       NA  23.69150</code></pre>
 <hr />
 <p>Let’s run regression and display the results.</p>
 <div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="demonstration-5-groundwater-use-for-agricultural-irrigation.html#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- run FE ---#</span></span>

@@ -24,7 +24,7 @@
 <meta name="author" content="Taro Mieno" />
 
 
-<meta name="date" content="2021-10-02" />
+<meta name="date" content="2021-10-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -161,7 +161,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="why-r-as-gis-for-economists.html"><a href="why-r-as-gis-for-economists.html#summary"><i class="fa fa-check"></i>Summary</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="how-is-this-book-different-from-other-online-books-and-resources.html"><a href="how-is-this-book-different-from-other-online-books-and-resources.html"><i class="fa fa-check"></i>How is this book different from other online books and resources?</a></li>
-<li class="chapter" data-level="" data-path="what-is-going-to-be-covered-in-this-book.html"><a href="what-is-going-to-be-covered-in-this-book.html"><i class="fa fa-check"></i>What is going to be covered in this book?</a></li>
+<li class="chapter" data-level="" data-path="topics-covered-in-this-book.html"><a href="topics-covered-in-this-book.html"><i class="fa fa-check"></i>Topics covered in this book</a></li>
 <li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html"><i class="fa fa-check"></i>Conventions of the book and some notes</a>
 <ul>
 <li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html#texts-in-gray-boxes"><i class="fa fa-check"></i>Texts in gray boxes</a></li>
@@ -620,10 +620,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb61-14"><a href="demo4.html#cb61-14" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(year, NAME, county_code, short_desc, Value)</span>
 <span id="cb61-15"><a href="demo4.html#cb61-15" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>Simple feature collection with 90 features and 5 fields (with 6 geometries empty)
-Geometry type: MULTIPOLYGON
-Dimension:     XY
-Bounding box:  xmin: -91.51308 ymin: 36.9703 xmax: -87.4952 ymax: 42.50848
-Geodetic CRS:  NAD83
+geometry type:  MULTIPOLYGON
+dimension:      XY
+bbox:           xmin: -91.51308 ymin: 36.9703 xmax: -87.4952 ymax: 42.50848
+CRS:            +proj=longlat +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +no_defs 
 First 10 features:
    year        NAME county_code           short_desc  Value
 1  2018      Bureau         011 CORN - ACRES PLANTED 264000
@@ -637,16 +637,16 @@ First 10 features:
 9  2018 Rock Island         161 CORN - ACRES PLANTED  68400
 10 2018  Stephenson         177 CORN - ACRES PLANTED 166500
                          geometry
-1  MULTIPOLYGON (((-89.85691 4...
+1  MULTIPOLYGON (((-89.8569 41...
 2  MULTIPOLYGON (((-90.16133 4...
-3  MULTIPOLYGON (((-90.43247 4...
+3  MULTIPOLYGON (((-90.43227 4...
 4  MULTIPOLYGON (((-90.50668 4...
 5  MULTIPOLYGON (((-89.63118 4...
 6  MULTIPOLYGON (((-90.99255 4...
 7  MULTIPOLYGON (((-89.68598 4...
 8  MULTIPOLYGON (((-89.33303 4...
 9  MULTIPOLYGON (((-90.33573 4...
-10 MULTIPOLYGON (((-89.92054 4...</code></pre>
+10 MULTIPOLYGON (((-89.9205 42...</code></pre>
 <p>A nice thing about this function is that the data is downloaded as an <code>sf</code> object with county geometry with <code>geometry = TRUE</code>. So, you can immediately plot it (Figure <a href="demo4.html#fig:map-il-corn-acreage">1.13</a>) and use it for later spatial interactions without having to merge the downloaded data to an independent county boundary data.</p>
 <div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="demo4.html#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(IL_corn_planted) <span class="sc">+</span></span>
 <span id="cb63-2"><a href="demo4.html#cb63-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> Value <span class="sc">/</span> <span class="dv">1000</span>)) <span class="sc">+</span></span>

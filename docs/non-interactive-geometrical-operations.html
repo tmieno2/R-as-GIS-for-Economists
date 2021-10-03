@@ -24,7 +24,7 @@
 <meta name="author" content="Taro Mieno" />
 
 
-<meta name="date" content="2021-10-02" />
+<meta name="date" content="2021-10-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -161,7 +161,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="why-r-as-gis-for-economists.html"><a href="why-r-as-gis-for-economists.html#summary"><i class="fa fa-check"></i>Summary</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="how-is-this-book-different-from-other-online-books-and-resources.html"><a href="how-is-this-book-different-from-other-online-books-and-resources.html"><i class="fa fa-check"></i>How is this book different from other online books and resources?</a></li>
-<li class="chapter" data-level="" data-path="what-is-going-to-be-covered-in-this-book.html"><a href="what-is-going-to-be-covered-in-this-book.html"><i class="fa fa-check"></i>What is going to be covered in this book?</a></li>
+<li class="chapter" data-level="" data-path="topics-covered-in-this-book.html"><a href="topics-covered-in-this-book.html"><i class="fa fa-check"></i>Topics covered in this book</a></li>
 <li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html"><i class="fa fa-check"></i>Conventions of the book and some notes</a>
 <ul>
 <li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html#texts-in-gray-boxes"><i class="fa fa-check"></i>Texts in gray boxes</a></li>
@@ -621,10 +621,10 @@ Projected CRS: WGS 84 / UTM zone 14N
 <span id="cb197-2"><a href="non-interactive-geometrical-operations.html#cb197-2" aria-hidden="true" tabindex="-1"></a>NE_counties <span class="ot">&lt;-</span> <span class="fu">mutate</span>(NE_counties, <span class="at">area =</span> <span class="fu">as.numeric</span>(area))</span>
 <span id="cb197-3"><a href="non-interactive-geometrical-operations.html#cb197-3" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>Simple feature collection with 3 features and 10 fields
-Geometry type: MULTIPOLYGON
-Dimension:     XY
-Bounding box:  xmin: 239494.1 ymin: 4430632 xmax: 310778.1 ymax: 4543676
-Projected CRS: WGS 84 / UTM zone 14N
+geometry type:  MULTIPOLYGON
+dimension:      XY
+bbox:           xmin: 239494.1 ymin: 4430632 xmax: 310778.1 ymax: 4543676
+projected CRS:  WGS 84 / UTM zone 14N
   STATEFP COUNTYFP COUNTYNS       AFFGEOID GEOID    NAME LSAD      ALAND
 1      31      135 00835889 0500000US31135 31135 Perkins   06 2287828025
 2      31      029 00835836 0500000US31029 31029   Chase   06 2316533447
@@ -643,10 +643,10 @@ Projected CRS: WGS 84 / UTM zone 14N
 <span id="cb199-3"><a href="non-interactive-geometrical-operations.html#cb199-3" aria-hidden="true" tabindex="-1"></a>NE_centroids <span class="ot">&lt;-</span> <span class="fu">st_centroid</span>(NE_counties)</span>
 <span id="cb199-4"><a href="non-interactive-geometrical-operations.html#cb199-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>Simple feature collection with 3 features and 10 fields
-Geometry type: POINT
-Dimension:     XY
-Bounding box:  xmin: 271156.7 ymin: 4450826 xmax: 276594.1 ymax: 4525635
-Projected CRS: WGS 84 / UTM zone 14N
+geometry type:  POINT
+dimension:      XY
+bbox:           xmin: 271156.7 ymin: 4450826 xmax: 276594.1 ymax: 4525635
+projected CRS:  WGS 84 / UTM zone 14N
   STATEFP COUNTYFP COUNTYNS       AFFGEOID GEOID    NAME LSAD      ALAND
 1      31      135 00835889 0500000US31135 31135 Perkins   06 2287828025
 2      31      029 00835836 0500000US31029 31029   Chase   06 2316533447
@@ -741,10 +741,10 @@ GEOGCRS[&quot;NAD83&quot;,
 <span id="cb208-2"><a href="non-interactive-geometrical-operations.html#cb208-2" aria-hidden="true" tabindex="-1"></a>a_railroad <span class="ot">&lt;-</span> <span class="fu">mutate</span>(a_railroad, <span class="at">length =</span> <span class="fu">st_length</span>(a_railroad))</span>
 <span id="cb208-3"><a href="non-interactive-geometrical-operations.html#cb208-3" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>Simple feature collection with 10 features and 4 fields
-Geometry type: MULTILINESTRING
-Dimension:     XY
-Bounding box:  xmin: -79.74031 ymin: 35.0571 xmax: -79.2377 ymax: 35.51776
-Geodetic CRS:  NAD83
+geometry type:  MULTILINESTRING
+dimension:      XY
+bbox:           xmin: -79.74031 ymin: 35.0571 xmax: -79.2377 ymax: 35.51776
+geographic CRS: NAD83
       LINEARID                    FULLNAME MTFCC                       geometry
 1  11020239500       Norfolk Southern Rlwy R1011 MULTILINESTRING ((-79.47058...
 2  11020239501       Norfolk Southern Rlwy R1011 MULTILINESTRING ((-79.46687...
@@ -757,16 +757,16 @@ Geodetic CRS:  NAD83
 9  11020239589    Aberdeen and Rockfish RR R1011 MULTILINESTRING ((-79.38736...
 10 11020239591 Aberdeen and Briar Patch RR R1011 MULTILINESTRING ((-79.53848...
            length
-1    662.0043 [m]
-2    658.1026 [m]
-3  19953.8571 [m]
-4  13880.5060 [m]
-5   7183.7286 [m]
-6   1062.4649 [m]
-7   7832.3375 [m]
-8  31773.7700 [m]
-9   4544.6795 [m]
-10 17101.8581 [m]</code></pre>
+1    661.3381 [m]
+2    657.4261 [m]
+3  19982.5998 [m]
+4  13888.3385 [m]
+5   7194.7745 [m]
+6   1061.2335 [m]
+7   7824.0945 [m]
+8  31756.9803 [m]
+9   4547.1970 [m]
+10 17103.0691 [m]</code></pre>
 <!-- ## st_distance
 
 The `st_distance` function calculates distances between spatial objects. Its output is the matrix of distances whose $i,j$ element is the distance between the $i$th `sfg` of the first `sf` and $j$th `sfg` of the second `sf`. The following code find the distance between the first 10 wells in `urnrd_wells_sf`.

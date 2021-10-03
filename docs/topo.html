@@ -24,7 +24,7 @@
 <meta name="author" content="Taro Mieno" />
 
 
-<meta name="date" content="2021-10-02" />
+<meta name="date" content="2021-10-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -161,7 +161,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="why-r-as-gis-for-economists.html"><a href="why-r-as-gis-for-economists.html#summary"><i class="fa fa-check"></i>Summary</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="how-is-this-book-different-from-other-online-books-and-resources.html"><a href="how-is-this-book-different-from-other-online-books-and-resources.html"><i class="fa fa-check"></i>How is this book different from other online books and resources?</a></li>
-<li class="chapter" data-level="" data-path="what-is-going-to-be-covered-in-this-book.html"><a href="what-is-going-to-be-covered-in-this-book.html"><i class="fa fa-check"></i>What is going to be covered in this book?</a></li>
+<li class="chapter" data-level="" data-path="topics-covered-in-this-book.html"><a href="topics-covered-in-this-book.html"><i class="fa fa-check"></i>Topics covered in this book</a></li>
 <li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html"><i class="fa fa-check"></i>Conventions of the book and some notes</a>
 <ul>
 <li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html#texts-in-gray-boxes"><i class="fa fa-check"></i>Texts in gray boxes</a></li>
@@ -540,10 +540,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb211-11"><a href="topo.html#cb211-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">point_name =</span> <span class="fu">c</span>(<span class="st">&quot;point 1&quot;</span>, <span class="st">&quot;point 2&quot;</span>, <span class="st">&quot;point 3&quot;</span>))</span>
 <span id="cb211-12"><a href="topo.html#cb211-12" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>Simple feature collection with 3 features and 1 field
-Geometry type: POINT
-Dimension:     XY
-Bounding box:  xmin: 1 ymin: 1 xmax: 2 ymax: 3
-CRS:           NA
+geometry type:  POINT
+dimension:      XY
+bbox:           xmin: 1 ymin: 1 xmax: 2 ymax: 3
+CRS:            NA
             x point_name
 1 POINT (2 2)    point 1
 2 POINT (1 1)    point 2
@@ -562,10 +562,10 @@ CRS:           NA
 <span id="cb213-10"><a href="topo.html#cb213-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">line_name =</span> <span class="fu">c</span>(<span class="st">&quot;line 1&quot;</span>, <span class="st">&quot;line 2&quot;</span>))</span>
 <span id="cb213-11"><a href="topo.html#cb213-11" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>Simple feature collection with 2 features and 1 field
-Geometry type: LINESTRING
-Dimension:     XY
-Bounding box:  xmin: 0 ymin: 0 xmax: 2.5 ymax: 2
-CRS:           NA
+geometry type:  LINESTRING
+dimension:      XY
+bbox:           xmin: 0 ymin: 0 xmax: 2.5 ymax: 2
+CRS:            NA
                             x line_name
 1   LINESTRING (0 0, 2.5 0.5)    line 1
 2 LINESTRING (1.5 0.5, 2.5 2)    line 2</code></pre>
@@ -592,10 +592,10 @@ CRS:           NA
 <span id="cb215-19"><a href="topo.html#cb215-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">polygon_name =</span> <span class="fu">c</span>(<span class="st">&quot;polygon 1&quot;</span>, <span class="st">&quot;polygon 2&quot;</span>, <span class="st">&quot;polygon 3&quot;</span>))</span>
 <span id="cb215-20"><a href="topo.html#cb215-20" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>Simple feature collection with 3 features and 1 field
-Geometry type: POLYGON
-Dimension:     XY
-Bounding box:  xmin: 0 ymin: 0 xmax: 2.5 ymax: 3.5
-CRS:           NA
+geometry type:  POLYGON
+dimension:      XY
+bbox:           xmin: 0 ymin: 0 xmax: 2.5 ymax: 3.5
+CRS:            NA
                                x polygon_name
 1 POLYGON ((0 0, 2 0, 2 2, 0 ...    polygon 1
 2 POLYGON ((0.5 1.5, 0.5 3.5,...    polygon 2
@@ -621,8 +621,7 @@ Figure 3.1: Visualization of the points, lines, and polygons
 <hr />
 <p><strong>points and polygons</strong></p>
 <div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="topo.html#cb218-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_intersects</span>(points, polygons)</span></code></pre></div>
-<pre><code>Sparse geometry binary predicate list of length 3, where the predicate
-was `intersects&#39;
+<pre><code>Sparse geometry binary predicate list of length 3, where the predicate was `intersects&#39;
  1: 1, 2, 3
  2: 1
  3: 2, 3</code></pre>
@@ -636,8 +635,7 @@ was `intersects&#39;
 <hr />
 <p><strong>lines and polygons</strong></p>
 <div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="topo.html#cb222-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_intersects</span>(lines, polygons)</span></code></pre></div>
-<pre><code>Sparse geometry binary predicate list of length 2, where the predicate
-was `intersects&#39;
+<pre><code>Sparse geometry binary predicate list of length 2, where the predicate was `intersects&#39;
  1: 1
  2: 1, 2</code></pre>
 <p>The output is a list of which polygon(s) each of the lines intersect with.</p>
@@ -690,8 +688,7 @@ Figure 3.3: The blue points within 0.2 radius of the red points
 </div>
 <p>Confirm your visual inspection results with the outcome of the following code using <code>st_is_within_distance()</code> function.</p>
 <div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="topo.html#cb229-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_is_within_distance</span>(points_set_1, points_set_2, <span class="at">dist =</span> <span class="fl">0.2</span>)</span></code></pre></div>
-<pre><code>Sparse geometry binary predicate list of length 5, where the predicate
-was `is_within_distance&#39;
+<pre><code>Sparse geometry binary predicate list of length 5, where the predicate was `is_within_distance&#39;
  1: 1
  2: (empty)
  3: (empty)

@@ -24,7 +24,7 @@
 <meta name="author" content="Taro Mieno" />
 
 
-<meta name="date" content="2021-10-02" />
+<meta name="date" content="2021-10-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -161,7 +161,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="why-r-as-gis-for-economists.html"><a href="why-r-as-gis-for-economists.html#summary"><i class="fa fa-check"></i>Summary</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="how-is-this-book-different-from-other-online-books-and-resources.html"><a href="how-is-this-book-different-from-other-online-books-and-resources.html"><i class="fa fa-check"></i>How is this book different from other online books and resources?</a></li>
-<li class="chapter" data-level="" data-path="what-is-going-to-be-covered-in-this-book.html"><a href="what-is-going-to-be-covered-in-this-book.html"><i class="fa fa-check"></i>What is going to be covered in this book?</a></li>
+<li class="chapter" data-level="" data-path="topics-covered-in-this-book.html"><a href="topics-covered-in-this-book.html"><i class="fa fa-check"></i>Topics covered in this book</a></li>
 <li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html"><i class="fa fa-check"></i>Conventions of the book and some notes</a>
 <ul>
 <li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html#texts-in-gray-boxes"><i class="fa fa-check"></i>Texts in gray boxes</a></li>
@@ -524,10 +524,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="ggsave" class="section level2" number="8.6">
 <h2><span class="header-section-number">8.6</span> Saving a <code>ggplot</code> object as an image</h2>
 <p>Maps created with <code>ggplot2</code> can be saved using <code>ggsave()</code> with the following syntax:</p>
-<div class="sourceCode" id="cb731"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb731-1"><a href="ggsave.html#cb731-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">filename =</span> file name, <span class="at">plot =</span> ggplot object)</span>
-<span id="cb731-2"><a href="ggsave.html#cb731-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb731-3"><a href="ggsave.html#cb731-3" aria-hidden="true" tabindex="-1"></a><span class="co">#--- or just this ---#</span></span>
-<span id="cb731-4"><a href="ggsave.html#cb731-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(file name, ggplot object)</span></code></pre></div>
+<div class="sourceCode" id="cb732"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb732-1"><a href="ggsave.html#cb732-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">filename =</span> file name, <span class="at">plot =</span> ggplot object)</span>
+<span id="cb732-2"><a href="ggsave.html#cb732-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb732-3"><a href="ggsave.html#cb732-3" aria-hidden="true" tabindex="-1"></a><span class="co">#--- or just this ---#</span></span>
+<span id="cb732-4"><a href="ggsave.html#cb732-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(file name, ggplot object)</span></code></pre></div>
 <p>Many different file formats are supported including pdf, svg, eps, png, jpg, tif, etc. One thing you want to keep in mind is the type of graphics:</p>
 <ul>
 <li>vector graphics (pdf, svg, eps)</li>
@@ -535,8 +535,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>While vector graphics are scalable, raster graphics are not. If you enlarge raster graphics, the cells making up the figure become visible, making the figure unappealing. So, unless it is required to save figures as raster graphics, it is encouraged to save figures as vector graphics.<a href="#fn89" class="footnote-ref" id="fnref89"><sup>89</sup></a></p>
 <p>Let’s try to save the following <code>ggplot</code> object.</p>
-<div class="sourceCode" id="cb732"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb732-1"><a href="ggsave.html#cb732-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- get North Carolina county borders ---#</span></span>
-<span id="cb732-2"><a href="ggsave.html#cb732-2" aria-hidden="true" tabindex="-1"></a>nc <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="fu">system.file</span>(<span class="st">&quot;shape/nc.shp&quot;</span>, <span class="at">package=</span><span class="st">&quot;sf&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb733"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb733-1"><a href="ggsave.html#cb733-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- get North Carolina county borders ---#</span></span>
+<span id="cb733-2"><a href="ggsave.html#cb733-2" aria-hidden="true" tabindex="-1"></a>nc <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="fu">system.file</span>(<span class="st">&quot;shape/nc.shp&quot;</span>, <span class="at">package=</span><span class="st">&quot;sf&quot;</span>))</span></code></pre></div>
 <pre><code>Reading layer `nc&#39; from data source 
   `/Library/Frameworks/R.framework/Versions/4.0/Resources/library/sf/shape/nc.shp&#39; 
   using driver `ESRI Shapefile&#39;
@@ -545,28 +545,28 @@ Geometry type: MULTIPOLYGON
 Dimension:     XY
 Bounding box:  xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965
 Geodetic CRS:  NAD27</code></pre>
-<div class="sourceCode" id="cb734"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb734-1"><a href="ggsave.html#cb734-1" aria-hidden="true" tabindex="-1"></a>(</span>
-<span id="cb734-2"><a href="ggsave.html#cb734-2" aria-hidden="true" tabindex="-1"></a><span class="co">#--- create a map ---#</span></span>
-<span id="cb734-3"><a href="ggsave.html#cb734-3" aria-hidden="true" tabindex="-1"></a>g_nc <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(nc) <span class="sc">+</span> <span class="fu">geom_sf</span>()</span>
-<span id="cb734-4"><a href="ggsave.html#cb734-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-108-1.png" width="672" /></p>
+<div class="sourceCode" id="cb735"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb735-1"><a href="ggsave.html#cb735-1" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb735-2"><a href="ggsave.html#cb735-2" aria-hidden="true" tabindex="-1"></a><span class="co">#--- create a map ---#</span></span>
+<span id="cb735-3"><a href="ggsave.html#cb735-3" aria-hidden="true" tabindex="-1"></a>g_nc <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(nc) <span class="sc">+</span> <span class="fu">geom_sf</span>()</span>
+<span id="cb735-4"><a href="ggsave.html#cb735-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p><img src="R_GIS_Book_files/figure-html/make-g-nc-to-save-1.png" width="672" /></p>
 <p><code>ggsave()</code> automatically detects the file format from the file name. For example, the following code saves <code>g_nc</code> as nc.pdf. <code>ggsave()</code> knows the <code>ggplot</code> object was intended to be saved as a pdf file from the extension of the specified file name.</p>
-<div class="sourceCode" id="cb735"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb735-1"><a href="ggsave.html#cb735-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">&quot;nc.pdf&quot;</span>, g_nc)</span></code></pre></div>
+<div class="sourceCode" id="cb736"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb736-1"><a href="ggsave.html#cb736-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">&quot;nc.pdf&quot;</span>, g_nc)</span></code></pre></div>
 <p>Similarly,</p>
-<div class="sourceCode" id="cb736"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb736-1"><a href="ggsave.html#cb736-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- save as an eps file ---#</span></span>
-<span id="cb736-2"><a href="ggsave.html#cb736-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">&quot;nc.eps&quot;</span>, g_nc)</span>
-<span id="cb736-3"><a href="ggsave.html#cb736-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb736-4"><a href="ggsave.html#cb736-4" aria-hidden="true" tabindex="-1"></a><span class="co">#--- save as an eps file ---#</span></span>
-<span id="cb736-5"><a href="ggsave.html#cb736-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">&quot;nc.svg&quot;</span>, g_nc)</span></code></pre></div>
+<div class="sourceCode" id="cb737"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb737-1"><a href="ggsave.html#cb737-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- save as an eps file ---#</span></span>
+<span id="cb737-2"><a href="ggsave.html#cb737-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">&quot;nc.eps&quot;</span>, g_nc)</span>
+<span id="cb737-3"><a href="ggsave.html#cb737-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb737-4"><a href="ggsave.html#cb737-4" aria-hidden="true" tabindex="-1"></a><span class="co">#--- save as an eps file ---#</span></span>
+<span id="cb737-5"><a href="ggsave.html#cb737-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">&quot;nc.svg&quot;</span>, g_nc)</span></code></pre></div>
 <p>You can change the output size with <code>height</code> and <code>width</code> options. For example, the following code creates a pdf file of <code>height = 5</code> inches and <code>width = 7</code> inches.</p>
-<div class="sourceCode" id="cb737"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb737-1"><a href="ggsave.html#cb737-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">&quot;nc.pdf&quot;</span>, g_nc, <span class="at">height =</span> <span class="dv">5</span>, <span class="at">width =</span> <span class="dv">7</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb738"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb738-1"><a href="ggsave.html#cb738-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">&quot;nc.pdf&quot;</span>, g_nc, <span class="at">height =</span> <span class="dv">5</span>, <span class="at">width =</span> <span class="dv">7</span>)</span></code></pre></div>
 <p>You change the unit with the <code>units</code> option. By default, <code>in</code> (inches) is used.</p>
 <p>You can control the resolution of the output image by specifying DPI (dots per inch) using the <code>dpi</code> option. The default DPI value is 300, but you can specify any value suitable for the output image, including “retina” (320) or “screen” (72). 600 or higher is recommended when a high resolution output is required.</p>
-<div class="sourceCode" id="cb738"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb738-1"><a href="ggsave.html#cb738-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- dpi = 320 ---#</span></span>
-<span id="cb738-2"><a href="ggsave.html#cb738-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">&quot;nc_dpi_320.png&quot;</span>, g_nc, <span class="at">height =</span> <span class="dv">5</span>, <span class="at">width =</span> <span class="dv">7</span>, <span class="at">dpi =</span> <span class="dv">320</span>)</span>
-<span id="cb738-3"><a href="ggsave.html#cb738-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb738-4"><a href="ggsave.html#cb738-4" aria-hidden="true" tabindex="-1"></a><span class="co">#--- dpi = 72 ---#</span></span>
-<span id="cb738-5"><a href="ggsave.html#cb738-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">&quot;nc_dpi_screen.png&quot;</span>, g_nc, <span class="at">height =</span> <span class="dv">5</span>, <span class="at">width =</span> <span class="dv">7</span>, <span class="at">dpi =</span> <span class="st">&quot;screen&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb739"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb739-1"><a href="ggsave.html#cb739-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- dpi = 320 ---#</span></span>
+<span id="cb739-2"><a href="ggsave.html#cb739-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">&quot;nc_dpi_320.png&quot;</span>, g_nc, <span class="at">height =</span> <span class="dv">5</span>, <span class="at">width =</span> <span class="dv">7</span>, <span class="at">dpi =</span> <span class="dv">320</span>)</span>
+<span id="cb739-3"><a href="ggsave.html#cb739-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb739-4"><a href="ggsave.html#cb739-4" aria-hidden="true" tabindex="-1"></a><span class="co">#--- dpi = 72 ---#</span></span>
+<span id="cb739-5"><a href="ggsave.html#cb739-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">&quot;nc_dpi_screen.png&quot;</span>, g_nc, <span class="at">height =</span> <span class="dv">5</span>, <span class="at">width =</span> <span class="dv">7</span>, <span class="at">dpi =</span> <span class="st">&quot;screen&quot;</span>)</span></code></pre></div>
 
 </div>
 <!-- </div> -->

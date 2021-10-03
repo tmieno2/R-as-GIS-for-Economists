@@ -24,7 +24,7 @@
 <meta name="author" content="Taro Mieno" />
 
 
-<meta name="date" content="2021-10-02" />
+<meta name="date" content="2021-10-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -161,7 +161,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="why-r-as-gis-for-economists.html"><a href="why-r-as-gis-for-economists.html#summary"><i class="fa fa-check"></i>Summary</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="how-is-this-book-different-from-other-online-books-and-resources.html"><a href="how-is-this-book-different-from-other-online-books-and-resources.html"><i class="fa fa-check"></i>How is this book different from other online books and resources?</a></li>
-<li class="chapter" data-level="" data-path="what-is-going-to-be-covered-in-this-book.html"><a href="what-is-going-to-be-covered-in-this-book.html"><i class="fa fa-check"></i>What is going to be covered in this book?</a></li>
+<li class="chapter" data-level="" data-path="topics-covered-in-this-book.html"><a href="topics-covered-in-this-book.html"><i class="fa fa-check"></i>Topics covered in this book</a></li>
 <li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html"><i class="fa fa-check"></i>Conventions of the book and some notes</a>
 <ul>
 <li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html#texts-in-gray-boxes"><i class="fa fa-check"></i>Texts in gray boxes</a></li>
@@ -526,14 +526,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Here we learn how the <code>sf</code> package stores spatial data along with the definition of three key <code>sf</code> object classes: simple feature geometry (<code>sfg</code>), simple feature geometry list-column (<code>sfc</code>), and simple feature (<code>sf</code>). The <code>sf</code> package provides a simply way of storing geographic information and the attributes of the geographic units in a single dataset. This special type of dataset is called simple feature (<code>sf</code>). It is best to take a look at an example to see how this is achieved. We use North Carolina county boundaries with county attributes (Figure <a href="spatial-data-structure.html#fig:nc-county">2.1</a>).</p>
 <div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="spatial-data-structure.html#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- a dataset that comes with the sf package ---#</span></span>
 <span id="cb90-2"><a href="spatial-data-structure.html#cb90-2" aria-hidden="true" tabindex="-1"></a>nc <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="fu">system.file</span>(<span class="st">&quot;shape/nc.shp&quot;</span>, <span class="at">package=</span><span class="st">&quot;sf&quot;</span>)) </span></code></pre></div>
-<pre><code>Reading layer `nc&#39; from data source 
-  `/Library/Frameworks/R.framework/Versions/4.0/Resources/library/sf/shape/nc.shp&#39; 
-  using driver `ESRI Shapefile&#39;
+<pre><code>Reading layer `nc&#39; from data source `/Library/Frameworks/R.framework/Versions/4.0/Resources/library/sf/shape/nc.shp&#39; using driver `ESRI Shapefile&#39;
 Simple feature collection with 100 features and 14 fields
-Geometry type: MULTIPOLYGON
-Dimension:     XY
-Bounding box:  xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965
-Geodetic CRS:  NAD27</code></pre>
+geometry type:  MULTIPOLYGON
+dimension:      XY
+bbox:           xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965
+geographic CRS: NAD27</code></pre>
 <div class="figure"><span id="fig:nc-county"></span>
 <img src="R_GIS_Book_files/figure-html/nc-county-1.png" alt="North Carolina county boundary" width="672" />
 <p class="caption">

@@ -24,7 +24,7 @@
 <meta name="author" content="Taro Mieno" />
 
 
-<meta name="date" content="2021-10-02" />
+<meta name="date" content="2021-10-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -161,7 +161,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="why-r-as-gis-for-economists.html"><a href="why-r-as-gis-for-economists.html#summary"><i class="fa fa-check"></i>Summary</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="how-is-this-book-different-from-other-online-books-and-resources.html"><a href="how-is-this-book-different-from-other-online-books-and-resources.html"><i class="fa fa-check"></i>How is this book different from other online books and resources?</a></li>
-<li class="chapter" data-level="" data-path="what-is-going-to-be-covered-in-this-book.html"><a href="what-is-going-to-be-covered-in-this-book.html"><i class="fa fa-check"></i>What is going to be covered in this book?</a></li>
+<li class="chapter" data-level="" data-path="topics-covered-in-this-book.html"><a href="topics-covered-in-this-book.html"><i class="fa fa-check"></i>Topics covered in this book</a></li>
 <li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html"><i class="fa fa-check"></i>Conventions of the book and some notes</a>
 <ul>
 <li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html#texts-in-gray-boxes"><i class="fa fa-check"></i>Texts in gray boxes</a></li>
@@ -526,24 +526,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>There are several packages that lets you download data from the USDA NASS QuickStat. Here we use the <code>tidyUSDA</code> package <span class="citation">(<a href="references.html#ref-tidyUSDA" role="doc-biblioref">Lindblad 2020</a>)</span>. A nice thing about <a href="https://github.com/bradlindblad/tidyUSDA">tidyUSDA</a> is that it gives you an option to download data as an <code>sf</code> object, which means you can immediately visualize the data or spatially interact it with other spatial objects.</p>
 <p>First thing you want to do is to get an API key from this <a href="https://quickstats.nass.usda.gov/api">website</a>, which you need to actually download data.</p>
 <p>You can download data using <code>getQuickstat()</code>. There are number of options you can use to narrow down the scope of the data you are downloading including <code>data_item</code>, <code>geographic_level</code>, <code>year</code>, <code>commodity</code>, and so on. See its <a href="https://cran.r-project.org/web/packages/tidyUSDA/tidyUSDA.pdf">manual</a> for the full list of parameters you can set. As an example, the code below download corn-related data by county in Illinois for year 2016 as an <code>sf</code> object.</p>
-<div class="sourceCode" id="cb741"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb741-1"><a href="nass-quick.html#cb741-1" aria-hidden="true" tabindex="-1"></a>(</span>
-<span id="cb741-2"><a href="nass-quick.html#cb741-2" aria-hidden="true" tabindex="-1"></a>IL_corn_yield <span class="ot">&lt;-</span> </span>
-<span id="cb741-3"><a href="nass-quick.html#cb741-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">getQuickstat</span>(</span>
-<span id="cb741-4"><a href="nass-quick.html#cb741-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">#--- put your API key in place of key_get() ---#</span></span>
-<span id="cb741-5"><a href="nass-quick.html#cb741-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">key =</span> <span class="fu">key_get</span>(<span class="st">&quot;usda_nass_qs_api&quot;</span>),</span>
-<span id="cb741-6"><a href="nass-quick.html#cb741-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">program =</span> <span class="st">&quot;SURVEY&quot;</span>,</span>
-<span id="cb741-7"><a href="nass-quick.html#cb741-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">commodity =</span> <span class="st">&quot;CORN&quot;</span>,</span>
-<span id="cb741-8"><a href="nass-quick.html#cb741-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">geographic_level =</span> <span class="st">&quot;COUNTY&quot;</span>,</span>
-<span id="cb741-9"><a href="nass-quick.html#cb741-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">state =</span> <span class="st">&quot;ILLINOIS&quot;</span>,</span>
-<span id="cb741-10"><a href="nass-quick.html#cb741-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">year =</span> <span class="st">&quot;2016&quot;</span>,</span>
-<span id="cb741-11"><a href="nass-quick.html#cb741-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">geometry =</span> <span class="cn">TRUE</span></span>
-<span id="cb741-12"><a href="nass-quick.html#cb741-12" aria-hidden="true" tabindex="-1"></a>  )  <span class="sc">%&gt;%</span> </span>
-<span id="cb741-13"><a href="nass-quick.html#cb741-13" aria-hidden="true" tabindex="-1"></a>  <span class="co">#--- keep only some of the variables ---#</span></span>
-<span id="cb741-14"><a href="nass-quick.html#cb741-14" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(</span>
-<span id="cb741-15"><a href="nass-quick.html#cb741-15" aria-hidden="true" tabindex="-1"></a>    year, county_name, county_code, state_name, </span>
-<span id="cb741-16"><a href="nass-quick.html#cb741-16" aria-hidden="true" tabindex="-1"></a>    state_fips_code, short_desc, Value</span>
-<span id="cb741-17"><a href="nass-quick.html#cb741-17" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb741-18"><a href="nass-quick.html#cb741-18" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb742"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb742-1"><a href="nass-quick.html#cb742-1" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb742-2"><a href="nass-quick.html#cb742-2" aria-hidden="true" tabindex="-1"></a>IL_corn_yield <span class="ot">&lt;-</span> </span>
+<span id="cb742-3"><a href="nass-quick.html#cb742-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">getQuickstat</span>(</span>
+<span id="cb742-4"><a href="nass-quick.html#cb742-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">#--- put your API key in place of key_get() ---#</span></span>
+<span id="cb742-5"><a href="nass-quick.html#cb742-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">key =</span> <span class="fu">key_get</span>(<span class="st">&quot;usda_nass_qs_api&quot;</span>),</span>
+<span id="cb742-6"><a href="nass-quick.html#cb742-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">program =</span> <span class="st">&quot;SURVEY&quot;</span>,</span>
+<span id="cb742-7"><a href="nass-quick.html#cb742-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">commodity =</span> <span class="st">&quot;CORN&quot;</span>,</span>
+<span id="cb742-8"><a href="nass-quick.html#cb742-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">geographic_level =</span> <span class="st">&quot;COUNTY&quot;</span>,</span>
+<span id="cb742-9"><a href="nass-quick.html#cb742-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">state =</span> <span class="st">&quot;ILLINOIS&quot;</span>,</span>
+<span id="cb742-10"><a href="nass-quick.html#cb742-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">year =</span> <span class="st">&quot;2016&quot;</span>,</span>
+<span id="cb742-11"><a href="nass-quick.html#cb742-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">geometry =</span> <span class="cn">TRUE</span></span>
+<span id="cb742-12"><a href="nass-quick.html#cb742-12" aria-hidden="true" tabindex="-1"></a>  )  <span class="sc">%&gt;%</span> </span>
+<span id="cb742-13"><a href="nass-quick.html#cb742-13" aria-hidden="true" tabindex="-1"></a>  <span class="co">#--- keep only some of the variables ---#</span></span>
+<span id="cb742-14"><a href="nass-quick.html#cb742-14" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(</span>
+<span id="cb742-15"><a href="nass-quick.html#cb742-15" aria-hidden="true" tabindex="-1"></a>    year, county_name, county_code, state_name, </span>
+<span id="cb742-16"><a href="nass-quick.html#cb742-16" aria-hidden="true" tabindex="-1"></a>    state_fips_code, short_desc, Value</span>
+<span id="cb742-17"><a href="nass-quick.html#cb742-17" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb742-18"><a href="nass-quick.html#cb742-18" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>Simple feature collection with 384 features and 7 fields (with 16 geometries empty)
 Geometry type: MULTIPOLYGON
 Dimension:     XY
@@ -573,12 +573,12 @@ First 10 features:
 9   65000 MULTIPOLYGON (((-90.33573 4...
 10 179500 MULTIPOLYGON (((-89.92054 4...</code></pre>
 <p>As you can see, it is an <code>sf</code> object with <code>geometry</code> column due to <code>geometry = TRUE</code> option. This means that you can immediately create a map with the data (Figure <a href="nass-quick.html#fig:corn-yield-IL">9.1</a>):</p>
-<div class="sourceCode" id="cb743"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb743-1"><a href="nass-quick.html#cb743-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb743-2"><a href="nass-quick.html#cb743-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(</span>
-<span id="cb743-3"><a href="nass-quick.html#cb743-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> <span class="fu">filter</span>(IL_corn_yield, short_desc <span class="sc">==</span> <span class="st">&quot;CORN, GRAIN - YIELD, MEASURED IN BU / ACRE&quot;</span>), </span>
-<span id="cb743-4"><a href="nass-quick.html#cb743-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">fill =</span> Value)</span>
-<span id="cb743-5"><a href="nass-quick.html#cb743-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb743-6"><a href="nass-quick.html#cb743-6" aria-hidden="true" tabindex="-1"></a>  theme_for_map</span></code></pre></div>
+<div class="sourceCode" id="cb744"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb744-1"><a href="nass-quick.html#cb744-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb744-2"><a href="nass-quick.html#cb744-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(</span>
+<span id="cb744-3"><a href="nass-quick.html#cb744-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> <span class="fu">filter</span>(IL_corn_yield, short_desc <span class="sc">==</span> <span class="st">&quot;CORN, GRAIN - YIELD, MEASURED IN BU / ACRE&quot;</span>), </span>
+<span id="cb744-4"><a href="nass-quick.html#cb744-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">fill =</span> Value)</span>
+<span id="cb744-5"><a href="nass-quick.html#cb744-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb744-6"><a href="nass-quick.html#cb744-6" aria-hidden="true" tabindex="-1"></a>  theme_for_map</span></code></pre></div>
 <div class="figure"><span id="fig:corn-yield-IL"></span>
 <img src="R_GIS_Book_files/figure-html/corn-yield-IL-1.png" alt="Corn Yield (bu/acre) in Illinois in 2016" width="672" />
 <p class="caption">
@@ -586,23 +586,23 @@ Figure 9.1: Corn Yield (bu/acre) in Illinois in 2016
 </p>
 </div>
 <p>You can download data for multiple states and years at the same time like below (if you want data for the whole U.S., don’t specify the state parameter).</p>
-<div class="sourceCode" id="cb744"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb744-1"><a href="nass-quick.html#cb744-1" aria-hidden="true" tabindex="-1"></a>(</span>
-<span id="cb744-2"><a href="nass-quick.html#cb744-2" aria-hidden="true" tabindex="-1"></a>IL_CO_NE_corn <span class="ot">&lt;-</span> </span>
-<span id="cb744-3"><a href="nass-quick.html#cb744-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">getQuickstat</span>(</span>
-<span id="cb744-4"><a href="nass-quick.html#cb744-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">key =</span> <span class="fu">key_get</span>(<span class="st">&quot;usda_nass_qs_api&quot;</span>),</span>
-<span id="cb744-5"><a href="nass-quick.html#cb744-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">program =</span> <span class="st">&quot;SURVEY&quot;</span>,</span>
-<span id="cb744-6"><a href="nass-quick.html#cb744-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">commodity =</span> <span class="st">&quot;CORN&quot;</span>,</span>
-<span id="cb744-7"><a href="nass-quick.html#cb744-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">geographic_level =</span> <span class="st">&quot;COUNTY&quot;</span>,</span>
-<span id="cb744-8"><a href="nass-quick.html#cb744-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">state =</span> <span class="fu">c</span>(<span class="st">&quot;ILLINOIS&quot;</span>, <span class="st">&quot;COLORADO&quot;</span>, <span class="st">&quot;NEBRASKA&quot;</span>),</span>
-<span id="cb744-9"><a href="nass-quick.html#cb744-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">year =</span> <span class="fu">paste</span>(<span class="dv">2014</span><span class="sc">:</span><span class="dv">2018</span>),</span>
-<span id="cb744-10"><a href="nass-quick.html#cb744-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">geometry =</span> <span class="cn">TRUE</span></span>
-<span id="cb744-11"><a href="nass-quick.html#cb744-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
-<span id="cb744-12"><a href="nass-quick.html#cb744-12" aria-hidden="true" tabindex="-1"></a>  <span class="co">#--- keep only some of the variables ---#</span></span>
-<span id="cb744-13"><a href="nass-quick.html#cb744-13" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(</span>
-<span id="cb744-14"><a href="nass-quick.html#cb744-14" aria-hidden="true" tabindex="-1"></a>    year, county_name, county_code, state_name, </span>
-<span id="cb744-15"><a href="nass-quick.html#cb744-15" aria-hidden="true" tabindex="-1"></a>    state_fips_code, short_desc, Value</span>
-<span id="cb744-16"><a href="nass-quick.html#cb744-16" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb744-17"><a href="nass-quick.html#cb744-17" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb745"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb745-1"><a href="nass-quick.html#cb745-1" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb745-2"><a href="nass-quick.html#cb745-2" aria-hidden="true" tabindex="-1"></a>IL_CO_NE_corn <span class="ot">&lt;-</span> </span>
+<span id="cb745-3"><a href="nass-quick.html#cb745-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">getQuickstat</span>(</span>
+<span id="cb745-4"><a href="nass-quick.html#cb745-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">key =</span> <span class="fu">key_get</span>(<span class="st">&quot;usda_nass_qs_api&quot;</span>),</span>
+<span id="cb745-5"><a href="nass-quick.html#cb745-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">program =</span> <span class="st">&quot;SURVEY&quot;</span>,</span>
+<span id="cb745-6"><a href="nass-quick.html#cb745-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">commodity =</span> <span class="st">&quot;CORN&quot;</span>,</span>
+<span id="cb745-7"><a href="nass-quick.html#cb745-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">geographic_level =</span> <span class="st">&quot;COUNTY&quot;</span>,</span>
+<span id="cb745-8"><a href="nass-quick.html#cb745-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">state =</span> <span class="fu">c</span>(<span class="st">&quot;ILLINOIS&quot;</span>, <span class="st">&quot;COLORADO&quot;</span>, <span class="st">&quot;NEBRASKA&quot;</span>),</span>
+<span id="cb745-9"><a href="nass-quick.html#cb745-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">year =</span> <span class="fu">paste</span>(<span class="dv">2014</span><span class="sc">:</span><span class="dv">2018</span>),</span>
+<span id="cb745-10"><a href="nass-quick.html#cb745-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">geometry =</span> <span class="cn">TRUE</span></span>
+<span id="cb745-11"><a href="nass-quick.html#cb745-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb745-12"><a href="nass-quick.html#cb745-12" aria-hidden="true" tabindex="-1"></a>  <span class="co">#--- keep only some of the variables ---#</span></span>
+<span id="cb745-13"><a href="nass-quick.html#cb745-13" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(</span>
+<span id="cb745-14"><a href="nass-quick.html#cb745-14" aria-hidden="true" tabindex="-1"></a>    year, county_name, county_code, state_name, </span>
+<span id="cb745-15"><a href="nass-quick.html#cb745-15" aria-hidden="true" tabindex="-1"></a>    state_fips_code, short_desc, Value</span>
+<span id="cb745-16"><a href="nass-quick.html#cb745-16" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb745-17"><a href="nass-quick.html#cb745-17" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>Simple feature collection with 6384 features and 7 fields (with 588 geometries empty)
 Geometry type: MULTIPOLYGON
 Dimension:     XY
@@ -634,11 +634,11 @@ First 10 features:
 <div id="look-for-parameter-values" class="section level3" number="9.1.1">
 <h3><span class="header-section-number">9.1.1</span> Look for parameter values</h3>
 <p>This package has a function that lets you see all the possible parameter values you can use for many of these parameters. For example, suppose you know you would like irrigated corn yields in Colorado, but you are not sure what parameter value (string) you should supply to the <code>data_item</code> parameter. Then, you can do this:<a href="#fn90" class="footnote-ref" id="fnref90"><sup>90</sup></a></p>
-<div class="sourceCode" id="cb746"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb746-1"><a href="nass-quick.html#cb746-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- get all the possible values for data_item ---#</span></span>
-<span id="cb746-2"><a href="nass-quick.html#cb746-2" aria-hidden="true" tabindex="-1"></a>all_items <span class="ot">&lt;-</span> tidyUSDA<span class="sc">::</span>allDataItem </span>
-<span id="cb746-3"><a href="nass-quick.html#cb746-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb746-4"><a href="nass-quick.html#cb746-4" aria-hidden="true" tabindex="-1"></a><span class="co">#--- take a look at the first six ---#</span></span>
-<span id="cb746-5"><a href="nass-quick.html#cb746-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(all_items)</span></code></pre></div>
+<div class="sourceCode" id="cb747"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb747-1"><a href="nass-quick.html#cb747-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- get all the possible values for data_item ---#</span></span>
+<span id="cb747-2"><a href="nass-quick.html#cb747-2" aria-hidden="true" tabindex="-1"></a>all_items <span class="ot">&lt;-</span> tidyUSDA<span class="sc">::</span>allDataItem </span>
+<span id="cb747-3"><a href="nass-quick.html#cb747-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb747-4"><a href="nass-quick.html#cb747-4" aria-hidden="true" tabindex="-1"></a><span class="co">#--- take a look at the first six ---#</span></span>
+<span id="cb747-5"><a href="nass-quick.html#cb747-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(all_items)</span></code></pre></div>
 <pre><code>                                                                           short_desc1 
                                                                      &quot;AG LAND - ACRES&quot; 
                                                                            short_desc2 
@@ -652,10 +652,10 @@ First 10 features:
                                                                            short_desc6 
 &quot;AG LAND, (EXCL CROPLAND &amp; PASTURELAND &amp; WOODLAND) - AREA, MEASURED IN PCT OF AG LAND&quot; </code></pre>
 <p>You can use key words like “CORN,” “YIELD,” “IRRIGATED” to narrow the entire list using <code>grep()</code><a href="#fn91" class="footnote-ref" id="fnref91"><sup>91</sup></a>:</p>
-<div class="sourceCode" id="cb748"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb748-1"><a href="nass-quick.html#cb748-1" aria-hidden="true" tabindex="-1"></a>all_items <span class="sc">%&gt;%</span> </span>
-<span id="cb748-2"><a href="nass-quick.html#cb748-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">grep</span>(<span class="at">pattern =</span> <span class="st">&quot;CORN&quot;</span>, ., <span class="at">value =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb748-3"><a href="nass-quick.html#cb748-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">grep</span>(<span class="at">pattern =</span> <span class="st">&quot;YIELD&quot;</span>, ., <span class="at">value =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb748-4"><a href="nass-quick.html#cb748-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">grep</span>(<span class="at">pattern =</span> <span class="st">&quot;IRRIGATED&quot;</span>, ., <span class="at">value =</span> <span class="cn">TRUE</span>)  </span></code></pre></div>
+<div class="sourceCode" id="cb749"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb749-1"><a href="nass-quick.html#cb749-1" aria-hidden="true" tabindex="-1"></a>all_items <span class="sc">%&gt;%</span> </span>
+<span id="cb749-2"><a href="nass-quick.html#cb749-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">grep</span>(<span class="at">pattern =</span> <span class="st">&quot;CORN&quot;</span>, ., <span class="at">value =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb749-3"><a href="nass-quick.html#cb749-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">grep</span>(<span class="at">pattern =</span> <span class="st">&quot;YIELD&quot;</span>, ., <span class="at">value =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb749-4"><a href="nass-quick.html#cb749-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">grep</span>(<span class="at">pattern =</span> <span class="st">&quot;IRRIGATED&quot;</span>, ., <span class="at">value =</span> <span class="cn">TRUE</span>)  </span></code></pre></div>
 <pre><code>                                                          short_desc9227 
                  &quot;CORN, GRAIN, IRRIGATED - YIELD, MEASURED IN BU / ACRE&quot; 
                                                           short_desc9228 
@@ -685,56 +685,56 @@ First 10 features:
                                                          short_desc28564 
              &quot;SWEET CORN, NON-IRRIGATED - YIELD, MEASURED IN CWT / ACRE&quot; </code></pre>
 <p>Looking at the list, we know the exact text value we want, which is the first entry of the vector.</p>
-<div class="sourceCode" id="cb750"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb750-1"><a href="nass-quick.html#cb750-1" aria-hidden="true" tabindex="-1"></a>(</span>
-<span id="cb750-2"><a href="nass-quick.html#cb750-2" aria-hidden="true" tabindex="-1"></a>CO_ir_corn_yield <span class="ot">&lt;-</span> </span>
-<span id="cb750-3"><a href="nass-quick.html#cb750-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">getQuickstat</span>(</span>
-<span id="cb750-4"><a href="nass-quick.html#cb750-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">key =</span> <span class="fu">key_get</span>(<span class="st">&quot;usda_nass_qs_api&quot;</span>),</span>
-<span id="cb750-5"><a href="nass-quick.html#cb750-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">program =</span> <span class="st">&quot;SURVEY&quot;</span>,</span>
-<span id="cb750-6"><a href="nass-quick.html#cb750-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">data_item =</span> <span class="st">&quot;CORN, GRAIN, IRRIGATED - YIELD, MEASURED IN BU / ACRE&quot;</span>,</span>
-<span id="cb750-7"><a href="nass-quick.html#cb750-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">geographic_level =</span> <span class="st">&quot;COUNTY&quot;</span>,</span>
-<span id="cb750-8"><a href="nass-quick.html#cb750-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">state =</span> <span class="st">&quot;COLORADO&quot;</span>,</span>
-<span id="cb750-9"><a href="nass-quick.html#cb750-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">year =</span> <span class="st">&quot;2018&quot;</span>,</span>
-<span id="cb750-10"><a href="nass-quick.html#cb750-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">geometry =</span> <span class="cn">TRUE</span></span>
-<span id="cb750-11"><a href="nass-quick.html#cb750-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
-<span id="cb750-12"><a href="nass-quick.html#cb750-12" aria-hidden="true" tabindex="-1"></a>  <span class="co">#--- keep only some of the variables ---#</span></span>
-<span id="cb750-13"><a href="nass-quick.html#cb750-13" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(year, NAME, county_code, short_desc, Value)</span>
-<span id="cb750-14"><a href="nass-quick.html#cb750-14" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb751"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb751-1"><a href="nass-quick.html#cb751-1" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb751-2"><a href="nass-quick.html#cb751-2" aria-hidden="true" tabindex="-1"></a>CO_ir_corn_yield <span class="ot">&lt;-</span> </span>
+<span id="cb751-3"><a href="nass-quick.html#cb751-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">getQuickstat</span>(</span>
+<span id="cb751-4"><a href="nass-quick.html#cb751-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">key =</span> <span class="fu">key_get</span>(<span class="st">&quot;usda_nass_qs_api&quot;</span>),</span>
+<span id="cb751-5"><a href="nass-quick.html#cb751-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">program =</span> <span class="st">&quot;SURVEY&quot;</span>,</span>
+<span id="cb751-6"><a href="nass-quick.html#cb751-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">data_item =</span> <span class="st">&quot;CORN, GRAIN, IRRIGATED - YIELD, MEASURED IN BU / ACRE&quot;</span>,</span>
+<span id="cb751-7"><a href="nass-quick.html#cb751-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">geographic_level =</span> <span class="st">&quot;COUNTY&quot;</span>,</span>
+<span id="cb751-8"><a href="nass-quick.html#cb751-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">state =</span> <span class="st">&quot;COLORADO&quot;</span>,</span>
+<span id="cb751-9"><a href="nass-quick.html#cb751-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">year =</span> <span class="st">&quot;2018&quot;</span>,</span>
+<span id="cb751-10"><a href="nass-quick.html#cb751-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">geometry =</span> <span class="cn">TRUE</span></span>
+<span id="cb751-11"><a href="nass-quick.html#cb751-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb751-12"><a href="nass-quick.html#cb751-12" aria-hidden="true" tabindex="-1"></a>  <span class="co">#--- keep only some of the variables ---#</span></span>
+<span id="cb751-13"><a href="nass-quick.html#cb751-13" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(year, NAME, county_code, short_desc, Value)</span>
+<span id="cb751-14"><a href="nass-quick.html#cb751-14" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <p>Here is the complete list of functions that gives you the possible values of the parameters for <code>getQuickstat()</code>.</p>
-<div class="sourceCode" id="cb751"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb751-1"><a href="nass-quick.html#cb751-1" aria-hidden="true" tabindex="-1"></a>tidyUSDA<span class="sc">::</span>allCategory </span>
-<span id="cb751-2"><a href="nass-quick.html#cb751-2" aria-hidden="true" tabindex="-1"></a>tidyUSDA<span class="sc">::</span>allSector </span>
-<span id="cb751-3"><a href="nass-quick.html#cb751-3" aria-hidden="true" tabindex="-1"></a>tidyUSDA<span class="sc">::</span>allGroup </span>
-<span id="cb751-4"><a href="nass-quick.html#cb751-4" aria-hidden="true" tabindex="-1"></a>tidyUSDA<span class="sc">::</span>allCommodity </span>
-<span id="cb751-5"><a href="nass-quick.html#cb751-5" aria-hidden="true" tabindex="-1"></a>tidyUSDA<span class="sc">::</span>allDomain </span>
-<span id="cb751-6"><a href="nass-quick.html#cb751-6" aria-hidden="true" tabindex="-1"></a>tidyUSDA<span class="sc">::</span>allCounty </span>
-<span id="cb751-7"><a href="nass-quick.html#cb751-7" aria-hidden="true" tabindex="-1"></a>tidyUSDA<span class="sc">::</span>allProgram </span>
-<span id="cb751-8"><a href="nass-quick.html#cb751-8" aria-hidden="true" tabindex="-1"></a>tidyUSDA<span class="sc">::</span>allDataItem </span>
-<span id="cb751-9"><a href="nass-quick.html#cb751-9" aria-hidden="true" tabindex="-1"></a>tidyUSDA<span class="sc">::</span>allState </span>
-<span id="cb751-10"><a href="nass-quick.html#cb751-10" aria-hidden="true" tabindex="-1"></a>tidyUSDA<span class="sc">::</span>allGeogLevel </span></code></pre></div>
+<div class="sourceCode" id="cb752"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb752-1"><a href="nass-quick.html#cb752-1" aria-hidden="true" tabindex="-1"></a>tidyUSDA<span class="sc">::</span>allCategory </span>
+<span id="cb752-2"><a href="nass-quick.html#cb752-2" aria-hidden="true" tabindex="-1"></a>tidyUSDA<span class="sc">::</span>allSector </span>
+<span id="cb752-3"><a href="nass-quick.html#cb752-3" aria-hidden="true" tabindex="-1"></a>tidyUSDA<span class="sc">::</span>allGroup </span>
+<span id="cb752-4"><a href="nass-quick.html#cb752-4" aria-hidden="true" tabindex="-1"></a>tidyUSDA<span class="sc">::</span>allCommodity </span>
+<span id="cb752-5"><a href="nass-quick.html#cb752-5" aria-hidden="true" tabindex="-1"></a>tidyUSDA<span class="sc">::</span>allDomain </span>
+<span id="cb752-6"><a href="nass-quick.html#cb752-6" aria-hidden="true" tabindex="-1"></a>tidyUSDA<span class="sc">::</span>allCounty </span>
+<span id="cb752-7"><a href="nass-quick.html#cb752-7" aria-hidden="true" tabindex="-1"></a>tidyUSDA<span class="sc">::</span>allProgram </span>
+<span id="cb752-8"><a href="nass-quick.html#cb752-8" aria-hidden="true" tabindex="-1"></a>tidyUSDA<span class="sc">::</span>allDataItem </span>
+<span id="cb752-9"><a href="nass-quick.html#cb752-9" aria-hidden="true" tabindex="-1"></a>tidyUSDA<span class="sc">::</span>allState </span>
+<span id="cb752-10"><a href="nass-quick.html#cb752-10" aria-hidden="true" tabindex="-1"></a>tidyUSDA<span class="sc">::</span>allGeogLevel </span></code></pre></div>
 </div>
 <div id="caveats" class="section level3" number="9.1.2">
 <h3><span class="header-section-number">9.1.2</span> Caveats</h3>
 <p>You cannot retrieve more than <span class="math inline">\(50,000\)</span> (the limit is set by QuickStat) rows of data. The query below requests much more than <span class="math inline">\(50,000\)</span> observations, and fail. In this case, you need to narrow the search and chop the task into smaller tasks.</p>
-<div class="sourceCode" id="cb752"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb752-1"><a href="nass-quick.html#cb752-1" aria-hidden="true" tabindex="-1"></a>many_states_corn <span class="ot">&lt;-</span> <span class="fu">getQuickstat</span>(</span>
-<span id="cb752-2"><a href="nass-quick.html#cb752-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">key =</span> <span class="fu">key_get</span>(<span class="st">&quot;usda_nass_qs_api&quot;</span>),</span>
-<span id="cb752-3"><a href="nass-quick.html#cb752-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">program =</span> <span class="st">&quot;SURVEY&quot;</span>,</span>
-<span id="cb752-4"><a href="nass-quick.html#cb752-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">commodity =</span> <span class="st">&quot;CORN&quot;</span>,</span>
-<span id="cb752-5"><a href="nass-quick.html#cb752-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">geographic_level =</span> <span class="st">&quot;COUNTY&quot;</span>,</span>
-<span id="cb752-6"><a href="nass-quick.html#cb752-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">state =</span> <span class="fu">c</span>(<span class="st">&quot;ILLINOIS&quot;</span>, <span class="st">&quot;COLORADO&quot;</span>, <span class="st">&quot;NEBRASKA&quot;</span>, <span class="st">&quot;IOWA&quot;</span>, <span class="st">&quot;KANSAS&quot;</span>),</span>
-<span id="cb752-7"><a href="nass-quick.html#cb752-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">year =</span> <span class="fu">paste</span>(<span class="dv">1995</span><span class="sc">:</span><span class="dv">2018</span>),</span>
-<span id="cb752-8"><a href="nass-quick.html#cb752-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">geometry =</span> <span class="cn">TRUE</span></span>
-<span id="cb752-9"><a href="nass-quick.html#cb752-9" aria-hidden="true" tabindex="-1"></a>  ) </span></code></pre></div>
-<pre><code>Error in UseMethod(&quot;left_join&quot;): no applicable method for &#39;left_join&#39; applied to an object of class &quot;list&quot;</code></pre>
+<div class="sourceCode" id="cb753"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb753-1"><a href="nass-quick.html#cb753-1" aria-hidden="true" tabindex="-1"></a>many_states_corn <span class="ot">&lt;-</span> <span class="fu">getQuickstat</span>(</span>
+<span id="cb753-2"><a href="nass-quick.html#cb753-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">key =</span> <span class="fu">key_get</span>(<span class="st">&quot;usda_nass_qs_api&quot;</span>),</span>
+<span id="cb753-3"><a href="nass-quick.html#cb753-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">program =</span> <span class="st">&quot;SURVEY&quot;</span>,</span>
+<span id="cb753-4"><a href="nass-quick.html#cb753-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">commodity =</span> <span class="st">&quot;CORN&quot;</span>,</span>
+<span id="cb753-5"><a href="nass-quick.html#cb753-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">geographic_level =</span> <span class="st">&quot;COUNTY&quot;</span>,</span>
+<span id="cb753-6"><a href="nass-quick.html#cb753-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">state =</span> <span class="fu">c</span>(<span class="st">&quot;ILLINOIS&quot;</span>, <span class="st">&quot;COLORADO&quot;</span>, <span class="st">&quot;NEBRASKA&quot;</span>, <span class="st">&quot;IOWA&quot;</span>, <span class="st">&quot;KANSAS&quot;</span>),</span>
+<span id="cb753-7"><a href="nass-quick.html#cb753-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">year =</span> <span class="fu">paste</span>(<span class="dv">1995</span><span class="sc">:</span><span class="dv">2018</span>),</span>
+<span id="cb753-8"><a href="nass-quick.html#cb753-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">geometry =</span> <span class="cn">TRUE</span></span>
+<span id="cb753-9"><a href="nass-quick.html#cb753-9" aria-hidden="true" tabindex="-1"></a>  ) </span></code></pre></div>
+<pre><code>Error in open.connection(con, &quot;rb&quot;): HTTP error 413.</code></pre>
 <p>Another caveat is that the query returns an error when there is no observation that satisfy your query criteria. For example, even though “CORN, GRAIN, IRRIGATED - YIELD, MEASURED IN BU / ACRE” is one of the values you can use for <code>data_item</code>, there is no entry for the statistic in Illinois in 2018. Therefore, the following query fails.</p>
-<div class="sourceCode" id="cb754"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb754-1"><a href="nass-quick.html#cb754-1" aria-hidden="true" tabindex="-1"></a>many_states_corn <span class="ot">&lt;-</span> </span>
-<span id="cb754-2"><a href="nass-quick.html#cb754-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">getQuickstat</span>(</span>
-<span id="cb754-3"><a href="nass-quick.html#cb754-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">key =</span> <span class="fu">key_get</span>(<span class="st">&quot;usda_nass_qs_api&quot;</span>),</span>
-<span id="cb754-4"><a href="nass-quick.html#cb754-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">program =</span> <span class="st">&quot;SURVEY&quot;</span>,</span>
-<span id="cb754-5"><a href="nass-quick.html#cb754-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">data_item =</span> <span class="st">&quot;CORN, GRAIN, IRRIGATED - YIELD, MEASURED IN BU / ACRE&quot;</span>,</span>
-<span id="cb754-6"><a href="nass-quick.html#cb754-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">geographic_level =</span> <span class="st">&quot;COUNTY&quot;</span>,</span>
-<span id="cb754-7"><a href="nass-quick.html#cb754-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">state =</span> <span class="st">&quot;ILLINOIS&quot;</span>,</span>
-<span id="cb754-8"><a href="nass-quick.html#cb754-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">year =</span> <span class="st">&quot;2018&quot;</span>,</span>
-<span id="cb754-9"><a href="nass-quick.html#cb754-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">geometry =</span> <span class="cn">TRUE</span></span>
-<span id="cb754-10"><a href="nass-quick.html#cb754-10" aria-hidden="true" tabindex="-1"></a>  ) </span></code></pre></div>
+<div class="sourceCode" id="cb755"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb755-1"><a href="nass-quick.html#cb755-1" aria-hidden="true" tabindex="-1"></a>many_states_corn <span class="ot">&lt;-</span> </span>
+<span id="cb755-2"><a href="nass-quick.html#cb755-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">getQuickstat</span>(</span>
+<span id="cb755-3"><a href="nass-quick.html#cb755-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">key =</span> <span class="fu">key_get</span>(<span class="st">&quot;usda_nass_qs_api&quot;</span>),</span>
+<span id="cb755-4"><a href="nass-quick.html#cb755-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">program =</span> <span class="st">&quot;SURVEY&quot;</span>,</span>
+<span id="cb755-5"><a href="nass-quick.html#cb755-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">data_item =</span> <span class="st">&quot;CORN, GRAIN, IRRIGATED - YIELD, MEASURED IN BU / ACRE&quot;</span>,</span>
+<span id="cb755-6"><a href="nass-quick.html#cb755-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">geographic_level =</span> <span class="st">&quot;COUNTY&quot;</span>,</span>
+<span id="cb755-7"><a href="nass-quick.html#cb755-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">state =</span> <span class="st">&quot;ILLINOIS&quot;</span>,</span>
+<span id="cb755-8"><a href="nass-quick.html#cb755-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">year =</span> <span class="st">&quot;2018&quot;</span>,</span>
+<span id="cb755-9"><a href="nass-quick.html#cb755-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">geometry =</span> <span class="cn">TRUE</span></span>
+<span id="cb755-10"><a href="nass-quick.html#cb755-10" aria-hidden="true" tabindex="-1"></a>  ) </span></code></pre></div>
 <pre><code>Error in UseMethod(&quot;left_join&quot;): no applicable method for &#39;left_join&#39; applied to an object of class &quot;list&quot;</code></pre>
 <!-- 
 #/*=================================================*/

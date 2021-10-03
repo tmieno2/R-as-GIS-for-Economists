@@ -24,7 +24,7 @@
 <meta name="author" content="Taro Mieno" />
 
 
-<meta name="date" content="2021-10-02" />
+<meta name="date" content="2021-10-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -161,7 +161,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="why-r-as-gis-for-economists.html"><a href="why-r-as-gis-for-economists.html#summary"><i class="fa fa-check"></i>Summary</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="how-is-this-book-different-from-other-online-books-and-resources.html"><a href="how-is-this-book-different-from-other-online-books-and-resources.html"><i class="fa fa-check"></i>How is this book different from other online books and resources?</a></li>
-<li class="chapter" data-level="" data-path="what-is-going-to-be-covered-in-this-book.html"><a href="what-is-going-to-be-covered-in-this-book.html"><i class="fa fa-check"></i>What is going to be covered in this book?</a></li>
+<li class="chapter" data-level="" data-path="topics-covered-in-this-book.html"><a href="topics-covered-in-this-book.html"><i class="fa fa-check"></i>Topics covered in this book</a></li>
 <li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html"><i class="fa fa-check"></i>Conventions of the book and some notes</a>
 <ul>
 <li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html#texts-in-gray-boxes"><i class="fa fa-check"></i>Texts in gray boxes</a></li>
@@ -524,8 +524,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="daymet-with-daymetr-and-feddata" class="section level2" number="9.4">
 <h2><span class="header-section-number">9.4</span> Daymet with <code>daymetr</code> and <code>FedData</code></h2>
 <p>For this section, we use the <code>daymetr</code> <span class="citation">(<a href="references.html#ref-daymetr" role="doc-biblioref">Hufkens et al. 2018</a>)</span> and <code>FedData</code> packages <span class="citation">(<a href="references.html#ref-feddata" role="doc-biblioref">Bocinsky 2016</a>)</span>.</p>
-<div class="sourceCode" id="cb823"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb823-1"><a href="daymet-with-daymetr-and-feddata.html#cb823-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(daymetr)  </span>
-<span id="cb823-2"><a href="daymet-with-daymetr-and-feddata.html#cb823-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(FedData)  </span></code></pre></div>
+<div class="sourceCode" id="cb824"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb824-1"><a href="daymet-with-daymetr-and-feddata.html#cb824-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(daymetr)  </span>
+<span id="cb824-2"><a href="daymet-with-daymetr-and-feddata.html#cb824-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(FedData)  </span></code></pre></div>
 <p>Daymet data consists of “tiles,” each of which consisting of raster cells of 1km by 1km. Here is the map of the tiles (Figure <a href="daymet-with-daymetr-and-feddata.html#fig:daymet-tiles">9.3</a>)</p>
 <div class="figure"><span id="fig:daymet-tiles"></span>
 <img src="R_GIS_Book_files/figure-html/daymet-tiles-1.png" alt="Daymet Tiles" width="672" />
@@ -557,16 +557,16 @@ Figure 9.3: Daymet Tiles
 <li>internal: <code>TRUE</code> (dafault) or <code>FALSE</code></li>
 </ul>
 <p>For example, the code below downloads daily weather data for a point (lat = <span class="math inline">\(36\)</span>, longitude = <span class="math inline">\(-100\)</span>) starting from 2000 to 2002 and assigns the downloaded data to <code>temp_daymet</code>.</p>
-<div class="sourceCode" id="cb824"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb824-1"><a href="daymet-with-daymetr-and-feddata.html#cb824-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- download daymet data ---#</span></span>
-<span id="cb824-2"><a href="daymet-with-daymetr-and-feddata.html#cb824-2" aria-hidden="true" tabindex="-1"></a>temp_daymet <span class="ot">&lt;-</span> <span class="fu">download_daymet</span>(</span>
-<span id="cb824-3"><a href="daymet-with-daymetr-and-feddata.html#cb824-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">lat =</span> <span class="dv">36</span>,</span>
-<span id="cb824-4"><a href="daymet-with-daymetr-and-feddata.html#cb824-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">lon =</span> <span class="sc">-</span><span class="dv">100</span>,</span>
-<span id="cb824-5"><a href="daymet-with-daymetr-and-feddata.html#cb824-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">start =</span> <span class="dv">2000</span>,</span>
-<span id="cb824-6"><a href="daymet-with-daymetr-and-feddata.html#cb824-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">end =</span> <span class="dv">2002</span></span>
-<span id="cb824-7"><a href="daymet-with-daymetr-and-feddata.html#cb824-7" aria-hidden="true" tabindex="-1"></a>) </span>
-<span id="cb824-8"><a href="daymet-with-daymetr-and-feddata.html#cb824-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb824-9"><a href="daymet-with-daymetr-and-feddata.html#cb824-9" aria-hidden="true" tabindex="-1"></a><span class="co">#--- structure ---#</span></span>
-<span id="cb824-10"><a href="daymet-with-daymetr-and-feddata.html#cb824-10" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(temp_daymet)</span></code></pre></div>
+<div class="sourceCode" id="cb825"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb825-1"><a href="daymet-with-daymetr-and-feddata.html#cb825-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- download daymet data ---#</span></span>
+<span id="cb825-2"><a href="daymet-with-daymetr-and-feddata.html#cb825-2" aria-hidden="true" tabindex="-1"></a>temp_daymet <span class="ot">&lt;-</span> <span class="fu">download_daymet</span>(</span>
+<span id="cb825-3"><a href="daymet-with-daymetr-and-feddata.html#cb825-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">lat =</span> <span class="dv">36</span>,</span>
+<span id="cb825-4"><a href="daymet-with-daymetr-and-feddata.html#cb825-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">lon =</span> <span class="sc">-</span><span class="dv">100</span>,</span>
+<span id="cb825-5"><a href="daymet-with-daymetr-and-feddata.html#cb825-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">start =</span> <span class="dv">2000</span>,</span>
+<span id="cb825-6"><a href="daymet-with-daymetr-and-feddata.html#cb825-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">end =</span> <span class="dv">2002</span></span>
+<span id="cb825-7"><a href="daymet-with-daymetr-and-feddata.html#cb825-7" aria-hidden="true" tabindex="-1"></a>) </span>
+<span id="cb825-8"><a href="daymet-with-daymetr-and-feddata.html#cb825-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb825-9"><a href="daymet-with-daymetr-and-feddata.html#cb825-9" aria-hidden="true" tabindex="-1"></a><span class="co">#--- structure ---#</span></span>
+<span id="cb825-10"><a href="daymet-with-daymetr-and-feddata.html#cb825-10" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(temp_daymet)</span></code></pre></div>
 <pre><code>List of 7
  $ site     : chr &quot;Daymet&quot;
  $ tile     : num 11380
@@ -575,50 +575,50 @@ Figure 9.3: Daymet Tiles
  $ altitude : num 746
  $ tile     : num 11380
  $ data     :&#39;data.frame&#39;:  1095 obs. of  9 variables:
-  ..$ year         : int [1:1095] 2000 2000 2000 2000 2000 2000 2000 2000 2000 2000 ...
-  ..$ yday         : int [1:1095] 1 2 3 4 5 6 7 8 9 10 ...
-  ..$ dayl..s.     : num [1:1095] 34571 34606 34644 34685 34729 ...
+  ..$ year         : num [1:1095] 2000 2000 2000 2000 2000 2000 2000 2000 2000 2000 ...
+  ..$ yday         : num [1:1095] 1 2 3 4 5 6 7 8 9 10 ...
+  ..$ dayl..s.     : num [1:1095] 34560 34560 34560 34560 34560 ...
   ..$ prcp..mm.day.: num [1:1095] 0 0 0 0 0 0 0 0 0 0 ...
-  ..$ srad..W.m.2. : num [1:1095] 334 231 148 319 338 ...
-  ..$ swe..kg.m.2. : num [1:1095] 18.2 15 13.6 13.6 13.6 ...
-  ..$ tmax..deg.c. : num [1:1095] 20.9 13.88 4.49 9.18 13.37 ...
-  ..$ tmin..deg.c. : num [1:1095] -2.73 1.69 -2.6 -10.16 -8.97 ...
-  ..$ vp..Pa.      : num [1:1095] 500 690 504 282 310 ...
+  ..$ srad..W.m.2. : num [1:1095] 317 298 282 262 314 ...
+  ..$ swe..kg.m.2. : num [1:1095] 16 16 12 12 12 12 12 12 12 12 ...
+  ..$ tmax..deg.c. : num [1:1095] 18 20 13.5 4 10 13 10 11 12.5 14.5 ...
+  ..$ tmin..deg.c. : num [1:1095] -2.5 1.5 -2.5 -10 -9 -5 -9 -8.5 -7 -4.5 ...
+  ..$ vp..Pa.      : num [1:1095] 520 680 520 280 320 440 320 320 360 440 ...
  - attr(*, &quot;class&quot;)= chr &quot;daymetr&quot;</code></pre>
 <p>As you can see, <code>temp_daymet</code> has bunch of site information other than the download Daymet data.</p>
-<div class="sourceCode" id="cb826"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb826-1"><a href="daymet-with-daymetr-and-feddata.html#cb826-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- get the data part ---#</span></span>
-<span id="cb826-2"><a href="daymet-with-daymetr-and-feddata.html#cb826-2" aria-hidden="true" tabindex="-1"></a>temp_daymet_data <span class="ot">&lt;-</span> temp_daymet<span class="sc">$</span>data</span>
-<span id="cb826-3"><a href="daymet-with-daymetr-and-feddata.html#cb826-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb826-4"><a href="daymet-with-daymetr-and-feddata.html#cb826-4" aria-hidden="true" tabindex="-1"></a><span class="co">#--- take a look ---#</span></span>
-<span id="cb826-5"><a href="daymet-with-daymetr-and-feddata.html#cb826-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(temp_daymet_data)</span></code></pre></div>
+<div class="sourceCode" id="cb827"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb827-1"><a href="daymet-with-daymetr-and-feddata.html#cb827-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- get the data part ---#</span></span>
+<span id="cb827-2"><a href="daymet-with-daymetr-and-feddata.html#cb827-2" aria-hidden="true" tabindex="-1"></a>temp_daymet_data <span class="ot">&lt;-</span> temp_daymet<span class="sc">$</span>data</span>
+<span id="cb827-3"><a href="daymet-with-daymetr-and-feddata.html#cb827-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb827-4"><a href="daymet-with-daymetr-and-feddata.html#cb827-4" aria-hidden="true" tabindex="-1"></a><span class="co">#--- take a look ---#</span></span>
+<span id="cb827-5"><a href="daymet-with-daymetr-and-feddata.html#cb827-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(temp_daymet_data)</span></code></pre></div>
 <pre><code>  year yday dayl..s. prcp..mm.day. srad..W.m.2. swe..kg.m.2. tmax..deg.c.
-1 2000    1 34571.11             0       334.34        18.23        20.90
-2 2000    2 34606.19             0       231.20        15.00        13.88
-3 2000    3 34644.13             0       148.29        13.57         4.49
-4 2000    4 34684.93             0       319.13        13.57         9.18
-5 2000    5 34728.55             0       337.67        13.57        13.37
-6 2000    6 34774.96             0       275.72        13.11         9.98
+1 2000    1  34560.0             0        316.8           16         18.0
+2 2000    2  34560.0             0        297.6           16         20.0
+3 2000    3  34560.0             0        281.6           12         13.5
+4 2000    4  34560.0             0        262.4           12          4.0
+5 2000    5  34560.0             0        313.6           12         10.0
+6 2000    6  34905.6             0        304.0           12         13.0
   tmin..deg.c. vp..Pa.
-1        -2.73  499.56
-2         1.69  689.87
-3        -2.60  504.40
-4       -10.16  282.35
-5        -8.97  310.05
-6        -4.89  424.78</code></pre>
+1         -2.5     520
+2          1.5     680
+3         -2.5     520
+4        -10.0     280
+5         -9.0     320
+6         -5.0     440</code></pre>
 <p>As you might have noticed, <code>yday</code> is not the date of each observation, but the day of the year. You can easily convert it into dates like this:</p>
-<div class="sourceCode" id="cb828"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb828-1"><a href="daymet-with-daymetr-and-feddata.html#cb828-1" aria-hidden="true" tabindex="-1"></a>temp_daymet_data <span class="ot">&lt;-</span> <span class="fu">mutate</span>(temp_daymet_data, <span class="at">date =</span> <span class="fu">as.Date</span>(<span class="fu">paste</span>(year, yday, <span class="at">sep =</span> <span class="st">&quot;-&quot;</span>), <span class="st">&quot;%Y-%j&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb829"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb829-1"><a href="daymet-with-daymetr-and-feddata.html#cb829-1" aria-hidden="true" tabindex="-1"></a>temp_daymet_data <span class="ot">&lt;-</span> <span class="fu">mutate</span>(temp_daymet_data, <span class="at">date =</span> <span class="fu">as.Date</span>(<span class="fu">paste</span>(year, yday, <span class="at">sep =</span> <span class="st">&quot;-&quot;</span>), <span class="st">&quot;%Y-%j&quot;</span>))</span></code></pre></div>
 <p>One dates are obtained, you can use the <code>lubridate</code> package to extract day, month, and year using <code>day()</code>, <code>month()</code>, and <code>year()</code>, respectively.</p>
-<div class="sourceCode" id="cb829"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb829-1"><a href="daymet-with-daymetr-and-feddata.html#cb829-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
-<span id="cb829-2"><a href="daymet-with-daymetr-and-feddata.html#cb829-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb829-3"><a href="daymet-with-daymetr-and-feddata.html#cb829-3" aria-hidden="true" tabindex="-1"></a>temp_daymet_data <span class="ot">&lt;-</span> <span class="fu">mutate</span>(temp_daymet_data,</span>
-<span id="cb829-4"><a href="daymet-with-daymetr-and-feddata.html#cb829-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">day =</span> <span class="fu">day</span>(date),</span>
-<span id="cb829-5"><a href="daymet-with-daymetr-and-feddata.html#cb829-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">month =</span> <span class="fu">month</span>(date),</span>
-<span id="cb829-6"><a href="daymet-with-daymetr-and-feddata.html#cb829-6" aria-hidden="true" tabindex="-1"></a>  <span class="co">#--- this is already there though ---#</span></span>
-<span id="cb829-7"><a href="daymet-with-daymetr-and-feddata.html#cb829-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">year =</span> <span class="fu">year</span>(date)</span>
-<span id="cb829-8"><a href="daymet-with-daymetr-and-feddata.html#cb829-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb829-9"><a href="daymet-with-daymetr-and-feddata.html#cb829-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb829-10"><a href="daymet-with-daymetr-and-feddata.html#cb829-10" aria-hidden="true" tabindex="-1"></a><span class="co">#--- take a look ---#</span></span>
-<span id="cb829-11"><a href="daymet-with-daymetr-and-feddata.html#cb829-11" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">select</span>(temp_daymet_data, year, month, day) <span class="sc">%&gt;%</span>  head</span></code></pre></div>
+<div class="sourceCode" id="cb830"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb830-1"><a href="daymet-with-daymetr-and-feddata.html#cb830-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb830-2"><a href="daymet-with-daymetr-and-feddata.html#cb830-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb830-3"><a href="daymet-with-daymetr-and-feddata.html#cb830-3" aria-hidden="true" tabindex="-1"></a>temp_daymet_data <span class="ot">&lt;-</span> <span class="fu">mutate</span>(temp_daymet_data,</span>
+<span id="cb830-4"><a href="daymet-with-daymetr-and-feddata.html#cb830-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">day =</span> <span class="fu">day</span>(date),</span>
+<span id="cb830-5"><a href="daymet-with-daymetr-and-feddata.html#cb830-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">month =</span> <span class="fu">month</span>(date),</span>
+<span id="cb830-6"><a href="daymet-with-daymetr-and-feddata.html#cb830-6" aria-hidden="true" tabindex="-1"></a>  <span class="co">#--- this is already there though ---#</span></span>
+<span id="cb830-7"><a href="daymet-with-daymetr-and-feddata.html#cb830-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">year =</span> <span class="fu">year</span>(date)</span>
+<span id="cb830-8"><a href="daymet-with-daymetr-and-feddata.html#cb830-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb830-9"><a href="daymet-with-daymetr-and-feddata.html#cb830-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb830-10"><a href="daymet-with-daymetr-and-feddata.html#cb830-10" aria-hidden="true" tabindex="-1"></a><span class="co">#--- take a look ---#</span></span>
+<span id="cb830-11"><a href="daymet-with-daymetr-and-feddata.html#cb830-11" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">select</span>(temp_daymet_data, year, month, day) <span class="sc">%&gt;%</span>  head</span></code></pre></div>
 <pre><code>  year month day
 1 2000     1   1
 2 2000     1   2
@@ -627,85 +627,85 @@ Figure 9.3: Daymet Tiles
 5 2000     1   5
 6 2000     1   6</code></pre>
 <p>This helps you find group statistics like monthly precipitation.</p>
-<div class="sourceCode" id="cb831"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb831-1"><a href="daymet-with-daymetr-and-feddata.html#cb831-1" aria-hidden="true" tabindex="-1"></a>temp_daymet_data <span class="sc">%&gt;%</span> </span>
-<span id="cb831-2"><a href="daymet-with-daymetr-and-feddata.html#cb831-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(month) <span class="sc">%&gt;%</span> </span>
-<span id="cb831-3"><a href="daymet-with-daymetr-and-feddata.html#cb831-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">prcp =</span> <span class="fu">mean</span>(prcp..mm.day.))</span></code></pre></div>
+<div class="sourceCode" id="cb832"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb832-1"><a href="daymet-with-daymetr-and-feddata.html#cb832-1" aria-hidden="true" tabindex="-1"></a>temp_daymet_data <span class="sc">%&gt;%</span> </span>
+<span id="cb832-2"><a href="daymet-with-daymetr-and-feddata.html#cb832-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(month) <span class="sc">%&gt;%</span> </span>
+<span id="cb832-3"><a href="daymet-with-daymetr-and-feddata.html#cb832-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">prcp =</span> <span class="fu">mean</span>(prcp..mm.day.))</span></code></pre></div>
 <pre><code># A tibble: 12 x 2
    month  prcp
    &lt;dbl&gt; &lt;dbl&gt;
- 1     1 0.762
- 2     2 1.20 
- 3     3 2.08 
- 4     4 1.24 
- 5     5 3.53 
- 6     6 3.45 
- 7     7 1.78 
- 8     8 1.19 
- 9     9 1.32 
-10    10 4.78 
-11    11 0.407
-12    12 0.743</code></pre>
+ 1     1 0.968
+ 2     2 1.09 
+ 3     3 1.94 
+ 4     4 1.49 
+ 5     5 3.56 
+ 6     6 3.52 
+ 7     7 1.69 
+ 8     8 0.989
+ 9     9 1.31 
+10    10 4.69 
+11    11 0.556
+12    12 0.739</code></pre>
 <p>Downloading Daymet data for many points is just applying the same operations above to them using a loop. Let’s create random points within California and get their coordinates.</p>
-<div class="sourceCode" id="cb833"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb833-1"><a href="daymet-with-daymetr-and-feddata.html#cb833-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">389548</span>)</span>
-<span id="cb833-2"><a href="daymet-with-daymetr-and-feddata.html#cb833-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb833-3"><a href="daymet-with-daymetr-and-feddata.html#cb833-3" aria-hidden="true" tabindex="-1"></a>random_points <span class="ot">&lt;-</span> </span>
-<span id="cb833-4"><a href="daymet-with-daymetr-and-feddata.html#cb833-4" aria-hidden="true" tabindex="-1"></a>  tigris<span class="sc">::</span><span class="fu">counties</span>(<span class="at">state =</span> <span class="st">&quot;CA&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb833-5"><a href="daymet-with-daymetr-and-feddata.html#cb833-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb833-6"><a href="daymet-with-daymetr-and-feddata.html#cb833-6" aria-hidden="true" tabindex="-1"></a>  <span class="co">#--- 10 points ---#</span></span>
-<span id="cb833-7"><a href="daymet-with-daymetr-and-feddata.html#cb833-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_sample</span>(<span class="dv">10</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb833-8"><a href="daymet-with-daymetr-and-feddata.html#cb833-8" aria-hidden="true" tabindex="-1"></a>  <span class="co">#--- get the coordinates ---#</span></span>
-<span id="cb833-9"><a href="daymet-with-daymetr-and-feddata.html#cb833-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_coordinates</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb833-10"><a href="daymet-with-daymetr-and-feddata.html#cb833-10" aria-hidden="true" tabindex="-1"></a>  <span class="co">#--- as tibble (data.frame) ---#</span></span>
-<span id="cb833-11"><a href="daymet-with-daymetr-and-feddata.html#cb833-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb833-12"><a href="daymet-with-daymetr-and-feddata.html#cb833-12" aria-hidden="true" tabindex="-1"></a>  <span class="co">#--- assign site id ---#</span></span>
-<span id="cb833-13"><a href="daymet-with-daymetr-and-feddata.html#cb833-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">site_id =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>())</span></code></pre></div>
-<p>To loop over the points, you can first write a function like this:</p>
-<div class="sourceCode" id="cb834"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb834-1"><a href="daymet-with-daymetr-and-feddata.html#cb834-1" aria-hidden="true" tabindex="-1"></a>get_daymet <span class="ot">&lt;-</span> <span class="cf">function</span>(i){</span>
+<div class="sourceCode" id="cb834"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb834-1"><a href="daymet-with-daymetr-and-feddata.html#cb834-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">389548</span>)</span>
 <span id="cb834-2"><a href="daymet-with-daymetr-and-feddata.html#cb834-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb834-3"><a href="daymet-with-daymetr-and-feddata.html#cb834-3" aria-hidden="true" tabindex="-1"></a>  temp_lat <span class="ot">&lt;-</span> random_points[i, ] <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Y)</span>
-<span id="cb834-4"><a href="daymet-with-daymetr-and-feddata.html#cb834-4" aria-hidden="true" tabindex="-1"></a>  temp_lon <span class="ot">&lt;-</span> random_points[i, ] <span class="sc">%&gt;%</span> <span class="fu">pull</span>(X)</span>
-<span id="cb834-5"><a href="daymet-with-daymetr-and-feddata.html#cb834-5" aria-hidden="true" tabindex="-1"></a>  temp_site <span class="ot">&lt;-</span> random_points[i, ] <span class="sc">%&gt;%</span> <span class="fu">pull</span>(site_id)</span>
-<span id="cb834-6"><a href="daymet-with-daymetr-and-feddata.html#cb834-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb834-7"><a href="daymet-with-daymetr-and-feddata.html#cb834-7" aria-hidden="true" tabindex="-1"></a>  temp_daymet <span class="ot">&lt;-</span> <span class="fu">download_daymet</span>(</span>
-<span id="cb834-8"><a href="daymet-with-daymetr-and-feddata.html#cb834-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">lat =</span> temp_lat,</span>
-<span id="cb834-9"><a href="daymet-with-daymetr-and-feddata.html#cb834-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">lon =</span> temp_lon,</span>
-<span id="cb834-10"><a href="daymet-with-daymetr-and-feddata.html#cb834-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">start =</span> <span class="dv">2000</span>,</span>
-<span id="cb834-11"><a href="daymet-with-daymetr-and-feddata.html#cb834-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">end =</span> <span class="dv">2002</span></span>
-<span id="cb834-12"><a href="daymet-with-daymetr-and-feddata.html#cb834-12" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
-<span id="cb834-13"><a href="daymet-with-daymetr-and-feddata.html#cb834-13" aria-hidden="true" tabindex="-1"></a>  <span class="co">#--- just get the data part ---#</span></span>
-<span id="cb834-14"><a href="daymet-with-daymetr-and-feddata.html#cb834-14" aria-hidden="true" tabindex="-1"></a>  .<span class="sc">$</span>data <span class="sc">%&gt;%</span> </span>
-<span id="cb834-15"><a href="daymet-with-daymetr-and-feddata.html#cb834-15" aria-hidden="true" tabindex="-1"></a>  <span class="co">#--- convert to tibble (not strictly necessary) ---#</span></span>
-<span id="cb834-16"><a href="daymet-with-daymetr-and-feddata.html#cb834-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb834-17"><a href="daymet-with-daymetr-and-feddata.html#cb834-17" aria-hidden="true" tabindex="-1"></a>  <span class="co">#--- assign site_id so you know which record is for which site_id ---#</span></span>
-<span id="cb834-18"><a href="daymet-with-daymetr-and-feddata.html#cb834-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">site_id =</span> temp_site) <span class="sc">%&gt;%</span> </span>
-<span id="cb834-19"><a href="daymet-with-daymetr-and-feddata.html#cb834-19" aria-hidden="true" tabindex="-1"></a>  <span class="co">#--- get date from day of the year ---#</span></span>
-<span id="cb834-20"><a href="daymet-with-daymetr-and-feddata.html#cb834-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">date =</span> <span class="fu">as.Date</span>(<span class="fu">paste</span>(year, yday, <span class="at">sep =</span> <span class="st">&quot;-&quot;</span>), <span class="st">&quot;%Y-%j&quot;</span>))</span>
-<span id="cb834-21"><a href="daymet-with-daymetr-and-feddata.html#cb834-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb834-22"><a href="daymet-with-daymetr-and-feddata.html#cb834-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(temp_daymet)</span>
-<span id="cb834-23"><a href="daymet-with-daymetr-and-feddata.html#cb834-23" aria-hidden="true" tabindex="-1"></a>}  </span></code></pre></div>
+<span id="cb834-3"><a href="daymet-with-daymetr-and-feddata.html#cb834-3" aria-hidden="true" tabindex="-1"></a>random_points <span class="ot">&lt;-</span> </span>
+<span id="cb834-4"><a href="daymet-with-daymetr-and-feddata.html#cb834-4" aria-hidden="true" tabindex="-1"></a>  tigris<span class="sc">::</span><span class="fu">counties</span>(<span class="at">state =</span> <span class="st">&quot;CA&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb834-5"><a href="daymet-with-daymetr-and-feddata.html#cb834-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb834-6"><a href="daymet-with-daymetr-and-feddata.html#cb834-6" aria-hidden="true" tabindex="-1"></a>  <span class="co">#--- 10 points ---#</span></span>
+<span id="cb834-7"><a href="daymet-with-daymetr-and-feddata.html#cb834-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_sample</span>(<span class="dv">10</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb834-8"><a href="daymet-with-daymetr-and-feddata.html#cb834-8" aria-hidden="true" tabindex="-1"></a>  <span class="co">#--- get the coordinates ---#</span></span>
+<span id="cb834-9"><a href="daymet-with-daymetr-and-feddata.html#cb834-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_coordinates</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb834-10"><a href="daymet-with-daymetr-and-feddata.html#cb834-10" aria-hidden="true" tabindex="-1"></a>  <span class="co">#--- as tibble (data.frame) ---#</span></span>
+<span id="cb834-11"><a href="daymet-with-daymetr-and-feddata.html#cb834-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb834-12"><a href="daymet-with-daymetr-and-feddata.html#cb834-12" aria-hidden="true" tabindex="-1"></a>  <span class="co">#--- assign site id ---#</span></span>
+<span id="cb834-13"><a href="daymet-with-daymetr-and-feddata.html#cb834-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">site_id =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>())</span></code></pre></div>
+<p>To loop over the points, you can first write a function like this:</p>
+<div class="sourceCode" id="cb835"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb835-1"><a href="daymet-with-daymetr-and-feddata.html#cb835-1" aria-hidden="true" tabindex="-1"></a>get_daymet <span class="ot">&lt;-</span> <span class="cf">function</span>(i){</span>
+<span id="cb835-2"><a href="daymet-with-daymetr-and-feddata.html#cb835-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb835-3"><a href="daymet-with-daymetr-and-feddata.html#cb835-3" aria-hidden="true" tabindex="-1"></a>  temp_lat <span class="ot">&lt;-</span> random_points[i, ] <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Y)</span>
+<span id="cb835-4"><a href="daymet-with-daymetr-and-feddata.html#cb835-4" aria-hidden="true" tabindex="-1"></a>  temp_lon <span class="ot">&lt;-</span> random_points[i, ] <span class="sc">%&gt;%</span> <span class="fu">pull</span>(X)</span>
+<span id="cb835-5"><a href="daymet-with-daymetr-and-feddata.html#cb835-5" aria-hidden="true" tabindex="-1"></a>  temp_site <span class="ot">&lt;-</span> random_points[i, ] <span class="sc">%&gt;%</span> <span class="fu">pull</span>(site_id)</span>
+<span id="cb835-6"><a href="daymet-with-daymetr-and-feddata.html#cb835-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb835-7"><a href="daymet-with-daymetr-and-feddata.html#cb835-7" aria-hidden="true" tabindex="-1"></a>  temp_daymet <span class="ot">&lt;-</span> <span class="fu">download_daymet</span>(</span>
+<span id="cb835-8"><a href="daymet-with-daymetr-and-feddata.html#cb835-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">lat =</span> temp_lat,</span>
+<span id="cb835-9"><a href="daymet-with-daymetr-and-feddata.html#cb835-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">lon =</span> temp_lon,</span>
+<span id="cb835-10"><a href="daymet-with-daymetr-and-feddata.html#cb835-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">start =</span> <span class="dv">2000</span>,</span>
+<span id="cb835-11"><a href="daymet-with-daymetr-and-feddata.html#cb835-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">end =</span> <span class="dv">2002</span></span>
+<span id="cb835-12"><a href="daymet-with-daymetr-and-feddata.html#cb835-12" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb835-13"><a href="daymet-with-daymetr-and-feddata.html#cb835-13" aria-hidden="true" tabindex="-1"></a>  <span class="co">#--- just get the data part ---#</span></span>
+<span id="cb835-14"><a href="daymet-with-daymetr-and-feddata.html#cb835-14" aria-hidden="true" tabindex="-1"></a>  .<span class="sc">$</span>data <span class="sc">%&gt;%</span> </span>
+<span id="cb835-15"><a href="daymet-with-daymetr-and-feddata.html#cb835-15" aria-hidden="true" tabindex="-1"></a>  <span class="co">#--- convert to tibble (not strictly necessary) ---#</span></span>
+<span id="cb835-16"><a href="daymet-with-daymetr-and-feddata.html#cb835-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb835-17"><a href="daymet-with-daymetr-and-feddata.html#cb835-17" aria-hidden="true" tabindex="-1"></a>  <span class="co">#--- assign site_id so you know which record is for which site_id ---#</span></span>
+<span id="cb835-18"><a href="daymet-with-daymetr-and-feddata.html#cb835-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">site_id =</span> temp_site) <span class="sc">%&gt;%</span> </span>
+<span id="cb835-19"><a href="daymet-with-daymetr-and-feddata.html#cb835-19" aria-hidden="true" tabindex="-1"></a>  <span class="co">#--- get date from day of the year ---#</span></span>
+<span id="cb835-20"><a href="daymet-with-daymetr-and-feddata.html#cb835-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">date =</span> <span class="fu">as.Date</span>(<span class="fu">paste</span>(year, yday, <span class="at">sep =</span> <span class="st">&quot;-&quot;</span>), <span class="st">&quot;%Y-%j&quot;</span>))</span>
+<span id="cb835-21"><a href="daymet-with-daymetr-and-feddata.html#cb835-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb835-22"><a href="daymet-with-daymetr-and-feddata.html#cb835-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(temp_daymet)</span>
+<span id="cb835-23"><a href="daymet-with-daymetr-and-feddata.html#cb835-23" aria-hidden="true" tabindex="-1"></a>}  </span></code></pre></div>
 <p>Here is what the function returns for the 1st row of <code>random_points</code>:</p>
-<div class="sourceCode" id="cb835"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb835-1"><a href="daymet-with-daymetr-and-feddata.html#cb835-1" aria-hidden="true" tabindex="-1"></a><span class="fu">get_daymet</span>(<span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb836"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb836-1"><a href="daymet-with-daymetr-and-feddata.html#cb836-1" aria-hidden="true" tabindex="-1"></a><span class="fu">get_daymet</span>(<span class="dv">1</span>)</span></code></pre></div>
 <pre><code># A tibble: 1,095 x 11
     year  yday dayl..s. prcp..mm.day. srad..W.m.2. swe..kg.m.2. tmax..deg.c.
-   &lt;int&gt; &lt;int&gt;    &lt;dbl&gt;         &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;
- 1  2000     1   34131.             0         246.            0         7.02
- 2  2000     2   34168.             0         251.            0         4.67
- 3  2000     3   34208.             0         247.            0         7.32
- 4  2000     4   34251              0         267.            0        10   
- 5  2000     5   34297              0         240.            0         4.87
- 6  2000     6   34346.             0         274.            0         7.79
- 7  2000     7   34398.             0         262.            0         7.29
- 8  2000     8   34453.             0         291.            0        11.2 
- 9  2000     9   34510.             0         268.            0        10.0 
-10  2000    10   34570.             0         277.            0        11.8 
+   &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;         &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;
+ 1  2000     1   33523.             0         230.            0         12  
+ 2  2000     2   33523.             0         240             0         11.5
+ 3  2000     3   33523.             0         243.            0         13.5
+ 4  2000     4   33523.             1         230.            0         13  
+ 5  2000     5   33523.             0         243.            0         14  
+ 6  2000     6   33523.             0         243.            0         13  
+ 7  2000     7   33523.             0         246.            0         14  
+ 8  2000     8   33869.             0         230.            0         13  
+ 9  2000     9   33869.             0         227.            0         12.5
+10  2000    10   33869.             0         214.            0         14  
 # … with 1,085 more rows, and 4 more variables: tmin..deg.c. &lt;dbl&gt;,
 #   vp..Pa. &lt;dbl&gt;, site_id &lt;int&gt;, date &lt;date&gt;</code></pre>
 <p>You can now simply loop over the rows.</p>
-<div class="sourceCode" id="cb837"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb837-1"><a href="daymet-with-daymetr-and-feddata.html#cb837-1" aria-hidden="true" tabindex="-1"></a>(</span>
-<span id="cb837-2"><a href="daymet-with-daymetr-and-feddata.html#cb837-2" aria-hidden="true" tabindex="-1"></a>daymet_all_points <span class="ot">&lt;-</span> <span class="fu">lapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(random_points), get_daymet) <span class="sc">%&gt;%</span> </span>
-<span id="cb837-3"><a href="daymet-with-daymetr-and-feddata.html#cb837-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">#--- need to combine the list of data.frames into a single data.frame ---#</span></span>
-<span id="cb837-4"><a href="daymet-with-daymetr-and-feddata.html#cb837-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>()</span>
-<span id="cb837-5"><a href="daymet-with-daymetr-and-feddata.html#cb837-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb838"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb838-1"><a href="daymet-with-daymetr-and-feddata.html#cb838-1" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb838-2"><a href="daymet-with-daymetr-and-feddata.html#cb838-2" aria-hidden="true" tabindex="-1"></a>daymet_all_points <span class="ot">&lt;-</span> <span class="fu">lapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(random_points), get_daymet) <span class="sc">%&gt;%</span> </span>
+<span id="cb838-3"><a href="daymet-with-daymetr-and-feddata.html#cb838-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">#--- need to combine the list of data.frames into a single data.frame ---#</span></span>
+<span id="cb838-4"><a href="daymet-with-daymetr-and-feddata.html#cb838-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>()</span>
+<span id="cb838-5"><a href="daymet-with-daymetr-and-feddata.html#cb838-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code># A tibble: 10,950 x 11
     year  yday dayl..s. prcp..mm.day. srad..W.m.2. swe..kg.m.2. tmax..deg.c.
    &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;         &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;
@@ -722,25 +722,25 @@ Figure 9.3: Daymet Tiles
 # … with 10,940 more rows, and 4 more variables: tmin..deg.c. &lt;dbl&gt;,
 #   vp..Pa. &lt;dbl&gt;, site_id &lt;int&gt;, date &lt;date&gt;</code></pre>
 <p>Or better yet, you can easily parallelize this process as follows (see Chapter <a href="par-comp.html#par-comp">A</a> if you are not familiar with parallelization in R):</p>
-<div class="sourceCode" id="cb839"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb839-1"><a href="daymet-with-daymetr-and-feddata.html#cb839-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(future.apply)    </span>
-<span id="cb839-2"><a href="daymet-with-daymetr-and-feddata.html#cb839-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(parallel)</span>
-<span id="cb839-3"><a href="daymet-with-daymetr-and-feddata.html#cb839-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb839-4"><a href="daymet-with-daymetr-and-feddata.html#cb839-4" aria-hidden="true" tabindex="-1"></a><span class="co">#--- parallelization planning ---#</span></span>
-<span id="cb839-5"><a href="daymet-with-daymetr-and-feddata.html#cb839-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plan</span>(multiprocess, <span class="at">workers =</span> <span class="fu">detectCores</span>() <span class="sc">-</span> <span class="dv">1</span>)</span>
-<span id="cb839-6"><a href="daymet-with-daymetr-and-feddata.html#cb839-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb839-7"><a href="daymet-with-daymetr-and-feddata.html#cb839-7" aria-hidden="true" tabindex="-1"></a><span class="co">#--- parallelized lapply ---#</span></span>
-<span id="cb839-8"><a href="daymet-with-daymetr-and-feddata.html#cb839-8" aria-hidden="true" tabindex="-1"></a>daymet_all_points <span class="ot">&lt;-</span> <span class="fu">future_lapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(random_points), get_daymet) <span class="sc">%&gt;%</span> </span>
-<span id="cb839-9"><a href="daymet-with-daymetr-and-feddata.html#cb839-9" aria-hidden="true" tabindex="-1"></a>  <span class="co">#--- need to combine the list of data.frames into a single data.frame ---#</span></span>
-<span id="cb839-10"><a href="daymet-with-daymetr-and-feddata.html#cb839-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb840"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb840-1"><a href="daymet-with-daymetr-and-feddata.html#cb840-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(future.apply)    </span>
+<span id="cb840-2"><a href="daymet-with-daymetr-and-feddata.html#cb840-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(parallel)</span>
+<span id="cb840-3"><a href="daymet-with-daymetr-and-feddata.html#cb840-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb840-4"><a href="daymet-with-daymetr-and-feddata.html#cb840-4" aria-hidden="true" tabindex="-1"></a><span class="co">#--- parallelization planning ---#</span></span>
+<span id="cb840-5"><a href="daymet-with-daymetr-and-feddata.html#cb840-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plan</span>(multiprocess, <span class="at">workers =</span> <span class="fu">detectCores</span>() <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb840-6"><a href="daymet-with-daymetr-and-feddata.html#cb840-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb840-7"><a href="daymet-with-daymetr-and-feddata.html#cb840-7" aria-hidden="true" tabindex="-1"></a><span class="co">#--- parallelized lapply ---#</span></span>
+<span id="cb840-8"><a href="daymet-with-daymetr-and-feddata.html#cb840-8" aria-hidden="true" tabindex="-1"></a>daymet_all_points <span class="ot">&lt;-</span> <span class="fu">future_lapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(random_points), get_daymet) <span class="sc">%&gt;%</span> </span>
+<span id="cb840-9"><a href="daymet-with-daymetr-and-feddata.html#cb840-9" aria-hidden="true" tabindex="-1"></a>  <span class="co">#--- need to combine the list of data.frames into a single data.frame ---#</span></span>
+<span id="cb840-10"><a href="daymet-with-daymetr-and-feddata.html#cb840-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>()</span></code></pre></div>
 </div>
 <div id="daymet-poly" class="section level3" number="9.4.2">
 <h3><span class="header-section-number">9.4.2</span> For polygons data</h3>
 <p>Suppose you are interested in getting Daymet data for select counties in Michigan (Figure <a href="daymet-with-daymetr-and-feddata.html#fig:michi-fig">9.4</a>).</p>
-<div class="sourceCode" id="cb840"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb840-1"><a href="daymet-with-daymetr-and-feddata.html#cb840-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- entire MI ---#</span></span>
-<span id="cb840-2"><a href="daymet-with-daymetr-and-feddata.html#cb840-2" aria-hidden="true" tabindex="-1"></a>MI_counties <span class="ot">&lt;-</span> tigris<span class="sc">::</span><span class="fu">counties</span>(<span class="at">state =</span> <span class="st">&quot;MI&quot;</span>)</span>
-<span id="cb840-3"><a href="daymet-with-daymetr-and-feddata.html#cb840-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb840-4"><a href="daymet-with-daymetr-and-feddata.html#cb840-4" aria-hidden="true" tabindex="-1"></a><span class="co">#--- select counties ---#</span></span>
-<span id="cb840-5"><a href="daymet-with-daymetr-and-feddata.html#cb840-5" aria-hidden="true" tabindex="-1"></a>MI_counties_select <span class="ot">&lt;-</span> <span class="fu">filter</span>(MI_counties, NAME <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Luce&quot;</span>, <span class="st">&quot;Chippewa&quot;</span>, <span class="st">&quot;Mackinac&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb841"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb841-1"><a href="daymet-with-daymetr-and-feddata.html#cb841-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- entire MI ---#</span></span>
+<span id="cb841-2"><a href="daymet-with-daymetr-and-feddata.html#cb841-2" aria-hidden="true" tabindex="-1"></a>MI_counties <span class="ot">&lt;-</span> tigris<span class="sc">::</span><span class="fu">counties</span>(<span class="at">state =</span> <span class="st">&quot;MI&quot;</span>)</span>
+<span id="cb841-3"><a href="daymet-with-daymetr-and-feddata.html#cb841-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb841-4"><a href="daymet-with-daymetr-and-feddata.html#cb841-4" aria-hidden="true" tabindex="-1"></a><span class="co">#--- select counties ---#</span></span>
+<span id="cb841-5"><a href="daymet-with-daymetr-and-feddata.html#cb841-5" aria-hidden="true" tabindex="-1"></a>MI_counties_select <span class="ot">&lt;-</span> <span class="fu">filter</span>(MI_counties, NAME <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Luce&quot;</span>, <span class="st">&quot;Chippewa&quot;</span>, <span class="st">&quot;Mackinac&quot;</span>))</span></code></pre></div>
 <div class="figure"><span id="fig:michi-fig"></span>
 <img src="R_GIS_Book_files/figure-html/michi-fig-1.png" alt="Select Michigan counties for which we download Daymet data" width="672" />
 <p class="caption">
@@ -749,18 +749,18 @@ Figure 9.4: Select Michigan counties for which we download Daymet data
 </div>
 <p>We can use <code>FedData::get_daymet()</code> to download Daymet data that covers the spatial extent of the polygons data. The downloaded dataset can be assigned to an R object as <code>RasterBrick</code> (you could alternatively write the downloaded data to a file). In order to let the function know the spatial extent for which it download Daymet data, we supply a <code>SpatialPolygonsDataFrame</code> object supported by the <code>sp</code> package. Since our main vector data handling package is <code>sf</code> we need to convert the <code>sf</code> object to a <code>sp</code> object.</p>
 <p>The code below downloads <code>prcp</code> and <code>tmax</code> for the spatial extent of Michigan counties for 2000 and 2001:</p>
-<div class="sourceCode" id="cb841"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb841-1"><a href="daymet-with-daymetr-and-feddata.html#cb841-1" aria-hidden="true" tabindex="-1"></a>(</span>
-<span id="cb841-2"><a href="daymet-with-daymetr-and-feddata.html#cb841-2" aria-hidden="true" tabindex="-1"></a>MI_daymet_select <span class="ot">&lt;-</span> FedData<span class="sc">::</span><span class="fu">get_daymet</span>(</span>
-<span id="cb841-3"><a href="daymet-with-daymetr-and-feddata.html#cb841-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">#--- supply the vector data in sp ---#</span></span>
-<span id="cb841-4"><a href="daymet-with-daymetr-and-feddata.html#cb841-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">template =</span> <span class="fu">as</span>(MI_counties_select, <span class="st">&quot;Spatial&quot;</span>),</span>
-<span id="cb841-5"><a href="daymet-with-daymetr-and-feddata.html#cb841-5" aria-hidden="true" tabindex="-1"></a>  <span class="co">#--- label ---#</span></span>
-<span id="cb841-6"><a href="daymet-with-daymetr-and-feddata.html#cb841-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">label =</span> <span class="st">&quot;MI_counties_select&quot;</span>,</span>
-<span id="cb841-7"><a href="daymet-with-daymetr-and-feddata.html#cb841-7" aria-hidden="true" tabindex="-1"></a>  <span class="co">#--- variables to download ---#</span></span>
-<span id="cb841-8"><a href="daymet-with-daymetr-and-feddata.html#cb841-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">elements =</span> <span class="fu">c</span>(<span class="st">&quot;prcp&quot;</span>,<span class="st">&quot;tmax&quot;</span>),</span>
-<span id="cb841-9"><a href="daymet-with-daymetr-and-feddata.html#cb841-9" aria-hidden="true" tabindex="-1"></a>  <span class="co">#--- years ---#</span></span>
-<span id="cb841-10"><a href="daymet-with-daymetr-and-feddata.html#cb841-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">years =</span> <span class="dv">2000</span><span class="sc">:</span><span class="dv">2001</span></span>
-<span id="cb841-11"><a href="daymet-with-daymetr-and-feddata.html#cb841-11" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb841-12"><a href="daymet-with-daymetr-and-feddata.html#cb841-12" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb842"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb842-1"><a href="daymet-with-daymetr-and-feddata.html#cb842-1" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb842-2"><a href="daymet-with-daymetr-and-feddata.html#cb842-2" aria-hidden="true" tabindex="-1"></a>MI_daymet_select <span class="ot">&lt;-</span> FedData<span class="sc">::</span><span class="fu">get_daymet</span>(</span>
+<span id="cb842-3"><a href="daymet-with-daymetr-and-feddata.html#cb842-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">#--- supply the vector data in sp ---#</span></span>
+<span id="cb842-4"><a href="daymet-with-daymetr-and-feddata.html#cb842-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">template =</span> <span class="fu">as</span>(MI_counties_select, <span class="st">&quot;Spatial&quot;</span>),</span>
+<span id="cb842-5"><a href="daymet-with-daymetr-and-feddata.html#cb842-5" aria-hidden="true" tabindex="-1"></a>  <span class="co">#--- label ---#</span></span>
+<span id="cb842-6"><a href="daymet-with-daymetr-and-feddata.html#cb842-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">label =</span> <span class="st">&quot;MI_counties_select&quot;</span>,</span>
+<span id="cb842-7"><a href="daymet-with-daymetr-and-feddata.html#cb842-7" aria-hidden="true" tabindex="-1"></a>  <span class="co">#--- variables to download ---#</span></span>
+<span id="cb842-8"><a href="daymet-with-daymetr-and-feddata.html#cb842-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">elements =</span> <span class="fu">c</span>(<span class="st">&quot;prcp&quot;</span>,<span class="st">&quot;tmax&quot;</span>),</span>
+<span id="cb842-9"><a href="daymet-with-daymetr-and-feddata.html#cb842-9" aria-hidden="true" tabindex="-1"></a>  <span class="co">#--- years ---#</span></span>
+<span id="cb842-10"><a href="daymet-with-daymetr-and-feddata.html#cb842-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">years =</span> <span class="dv">2000</span><span class="sc">:</span><span class="dv">2001</span></span>
+<span id="cb842-11"><a href="daymet-with-daymetr-and-feddata.html#cb842-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb842-12"><a href="daymet-with-daymetr-and-feddata.html#cb842-12" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>$prcp
 class      : RasterBrick 
 dimensions : 96, 156, 14976, 730  (nrow, ncol, ncell, nlayers)
@@ -785,26 +785,26 @@ min values :         0.5,        -4.5,        -8.0,        -8.5,        -7.0,   
 max values :         3.0,         3.0,         0.5,        -2.5,        -2.5,         0.0,         0.5,         1.5,         4.0,         3.0,         3.5,         0.5,        -6.5,        -4.0,         0.0, ... </code></pre>
 <p>As you can see, Daymet <code>prcp</code> and <code>tmax</code> data are stored separately as <code>RasterBrick</code>. Now that you have stars objects, you can extract values for your target polygons data using the methods described in Chapter <a href="int-RV.html#int-RV">5</a>.</p>
 <p>If you use the <code>stars</code> package for raster data handling (see Chapter <a href="stars-basics.html#stars-basics">7</a>), you can convert them into <code>stars</code> object using <code>st_as_stars()</code>.</p>
-<div class="sourceCode" id="cb843"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb843-1"><a href="daymet-with-daymetr-and-feddata.html#cb843-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- tmax as stars ---#</span></span>
-<span id="cb843-2"><a href="daymet-with-daymetr-and-feddata.html#cb843-2" aria-hidden="true" tabindex="-1"></a>tmax_stars <span class="ot">&lt;-</span> <span class="fu">st_as_stars</span>(MI_daymet_select<span class="sc">$</span>tmax)</span>
-<span id="cb843-3"><a href="daymet-with-daymetr-and-feddata.html#cb843-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb843-4"><a href="daymet-with-daymetr-and-feddata.html#cb843-4" aria-hidden="true" tabindex="-1"></a><span class="co">#--- prcp as stars ---#</span></span>
-<span id="cb843-5"><a href="daymet-with-daymetr-and-feddata.html#cb843-5" aria-hidden="true" tabindex="-1"></a>prcp_stars <span class="ot">&lt;-</span> <span class="fu">st_as_stars</span>(MI_daymet_select<span class="sc">$</span>prcp)</span></code></pre></div>
+<div class="sourceCode" id="cb844"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb844-1"><a href="daymet-with-daymetr-and-feddata.html#cb844-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- tmax as stars ---#</span></span>
+<span id="cb844-2"><a href="daymet-with-daymetr-and-feddata.html#cb844-2" aria-hidden="true" tabindex="-1"></a>tmax_stars <span class="ot">&lt;-</span> <span class="fu">st_as_stars</span>(MI_daymet_select<span class="sc">$</span>tmax)</span>
+<span id="cb844-3"><a href="daymet-with-daymetr-and-feddata.html#cb844-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb844-4"><a href="daymet-with-daymetr-and-feddata.html#cb844-4" aria-hidden="true" tabindex="-1"></a><span class="co">#--- prcp as stars ---#</span></span>
+<span id="cb844-5"><a href="daymet-with-daymetr-and-feddata.html#cb844-5" aria-hidden="true" tabindex="-1"></a>prcp_stars <span class="ot">&lt;-</span> <span class="fu">st_as_stars</span>(MI_daymet_select<span class="sc">$</span>prcp)</span></code></pre></div>
 <p>Now, the third dimension (band) is not recognized as dates. We can use <code>st_set_dimension()</code> to change that (see Chapter <a href="stars-set-time.html#stars-set-time">7.5</a>). Before that, we first need to recover <code>Date</code> values from the “band” values as follows:</p>
-<div class="sourceCode" id="cb844"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb844-1"><a href="daymet-with-daymetr-and-feddata.html#cb844-1" aria-hidden="true" tabindex="-1"></a>date_values <span class="ot">&lt;-</span> tmax_stars <span class="sc">%&gt;%</span> </span>
-<span id="cb844-2"><a href="daymet-with-daymetr-and-feddata.html#cb844-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">#--- get band values ---#</span></span>
-<span id="cb844-3"><a href="daymet-with-daymetr-and-feddata.html#cb844-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_get_dimension_values</span>(., <span class="st">&quot;band&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb844-4"><a href="daymet-with-daymetr-and-feddata.html#cb844-4" aria-hidden="true" tabindex="-1"></a>  <span class="co">#--- remove X ---#</span></span>
-<span id="cb844-5"><a href="daymet-with-daymetr-and-feddata.html#cb844-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gsub</span>(<span class="st">&quot;X&quot;</span>, <span class="st">&quot;&quot;</span>, .) <span class="sc">%&gt;%</span> </span>
-<span id="cb844-6"><a href="daymet-with-daymetr-and-feddata.html#cb844-6" aria-hidden="true" tabindex="-1"></a>  <span class="co">#--- convert to date ---#</span></span>
-<span id="cb844-7"><a href="daymet-with-daymetr-and-feddata.html#cb844-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ymd</span>(.)</span>
-<span id="cb844-8"><a href="daymet-with-daymetr-and-feddata.html#cb844-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb844-9"><a href="daymet-with-daymetr-and-feddata.html#cb844-9" aria-hidden="true" tabindex="-1"></a><span class="co">#--- take a look ---#</span></span>
-<span id="cb844-10"><a href="daymet-with-daymetr-and-feddata.html#cb844-10" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(date_values)</span></code></pre></div>
+<div class="sourceCode" id="cb845"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb845-1"><a href="daymet-with-daymetr-and-feddata.html#cb845-1" aria-hidden="true" tabindex="-1"></a>date_values <span class="ot">&lt;-</span> tmax_stars <span class="sc">%&gt;%</span> </span>
+<span id="cb845-2"><a href="daymet-with-daymetr-and-feddata.html#cb845-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">#--- get band values ---#</span></span>
+<span id="cb845-3"><a href="daymet-with-daymetr-and-feddata.html#cb845-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_get_dimension_values</span>(., <span class="st">&quot;band&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb845-4"><a href="daymet-with-daymetr-and-feddata.html#cb845-4" aria-hidden="true" tabindex="-1"></a>  <span class="co">#--- remove X ---#</span></span>
+<span id="cb845-5"><a href="daymet-with-daymetr-and-feddata.html#cb845-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gsub</span>(<span class="st">&quot;X&quot;</span>, <span class="st">&quot;&quot;</span>, .) <span class="sc">%&gt;%</span> </span>
+<span id="cb845-6"><a href="daymet-with-daymetr-and-feddata.html#cb845-6" aria-hidden="true" tabindex="-1"></a>  <span class="co">#--- convert to date ---#</span></span>
+<span id="cb845-7"><a href="daymet-with-daymetr-and-feddata.html#cb845-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ymd</span>(.)</span>
+<span id="cb845-8"><a href="daymet-with-daymetr-and-feddata.html#cb845-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb845-9"><a href="daymet-with-daymetr-and-feddata.html#cb845-9" aria-hidden="true" tabindex="-1"></a><span class="co">#--- take a look ---#</span></span>
+<span id="cb845-10"><a href="daymet-with-daymetr-and-feddata.html#cb845-10" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(date_values)</span></code></pre></div>
 <pre><code>[1] &quot;2000-01-01&quot; &quot;2000-01-02&quot; &quot;2000-01-03&quot; &quot;2000-01-04&quot; &quot;2000-01-05&quot;
 [6] &quot;2000-01-06&quot;</code></pre>
-<div class="sourceCode" id="cb846"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb846-1"><a href="daymet-with-daymetr-and-feddata.html#cb846-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- tmax ---#</span></span>
-<span id="cb846-2"><a href="daymet-with-daymetr-and-feddata.html#cb846-2" aria-hidden="true" tabindex="-1"></a><span class="fu">st_set_dimensions</span>(tmax_stars, <span class="dv">3</span>, <span class="at">values =</span> date_values, <span class="at">names =</span> <span class="st">&quot;date&quot;</span> )  </span></code></pre></div>
+<div class="sourceCode" id="cb847"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb847-1"><a href="daymet-with-daymetr-and-feddata.html#cb847-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- tmax ---#</span></span>
+<span id="cb847-2"><a href="daymet-with-daymetr-and-feddata.html#cb847-2" aria-hidden="true" tabindex="-1"></a><span class="fu">st_set_dimensions</span>(tmax_stars, <span class="dv">3</span>, <span class="at">values =</span> date_values, <span class="at">names =</span> <span class="st">&quot;date&quot;</span> )  </span></code></pre></div>
 <pre><code>stars object with 3 dimensions and 1 attribute
 attribute(s), summary of first 1e+05 cells:
   X2000.01.01    
@@ -824,8 +824,8 @@ date    1 730      NA    NA                         Date    NA
 x                         NULL [x]
 y                         NULL [y]
 date 2000-01-01,...,2001-12-31    </code></pre>
-<div class="sourceCode" id="cb848"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb848-1"><a href="daymet-with-daymetr-and-feddata.html#cb848-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- prcp ---#</span></span>
-<span id="cb848-2"><a href="daymet-with-daymetr-and-feddata.html#cb848-2" aria-hidden="true" tabindex="-1"></a><span class="fu">st_set_dimensions</span>(prcp_stars, <span class="dv">3</span>, <span class="at">values =</span> date_values, <span class="at">names =</span> <span class="st">&quot;date&quot;</span> )  </span></code></pre></div>
+<div class="sourceCode" id="cb849"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb849-1"><a href="daymet-with-daymetr-and-feddata.html#cb849-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- prcp ---#</span></span>
+<span id="cb849-2"><a href="daymet-with-daymetr-and-feddata.html#cb849-2" aria-hidden="true" tabindex="-1"></a><span class="fu">st_set_dimensions</span>(prcp_stars, <span class="dv">3</span>, <span class="at">values =</span> date_values, <span class="at">names =</span> <span class="st">&quot;date&quot;</span> )  </span></code></pre></div>
 <pre><code>stars object with 3 dimensions and 1 attribute
 attribute(s), summary of first 1e+05 cells:
   X2000.01.01    
@@ -846,7 +846,7 @@ x                         NULL [x]
 y                         NULL [y]
 date 2000-01-01,...,2001-12-31    </code></pre>
 <p>Notice that the date dimension has NA for <code>delta</code>. This is because Daymet removes observations for December 31 in leap years to make the time dimension 365 consistently across years. This means that there is a one-day gap between “2000-12-30” and “2000-01-01” as you can see below:</p>
-<div class="sourceCode" id="cb850"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb850-1"><a href="daymet-with-daymetr-and-feddata.html#cb850-1" aria-hidden="true" tabindex="-1"></a>date_values[<span class="dv">364</span><span class="sc">:</span><span class="dv">367</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb851"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb851-1"><a href="daymet-with-daymetr-and-feddata.html#cb851-1" aria-hidden="true" tabindex="-1"></a>date_values[<span class="dv">364</span><span class="sc">:</span><span class="dv">367</span>]</span></code></pre></div>
 <pre><code>[1] &quot;2000-12-29&quot; &quot;2000-12-30&quot; &quot;2001-01-01&quot; &quot;2001-01-02&quot;</code></pre>
 </div>
 </div>

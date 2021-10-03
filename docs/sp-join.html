@@ -24,7 +24,7 @@
 <meta name="author" content="Taro Mieno" />
 
 
-<meta name="date" content="2021-10-02" />
+<meta name="date" content="2021-10-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -161,7 +161,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="why-r-as-gis-for-economists.html"><a href="why-r-as-gis-for-economists.html#summary"><i class="fa fa-check"></i>Summary</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="how-is-this-book-different-from-other-online-books-and-resources.html"><a href="how-is-this-book-different-from-other-online-books-and-resources.html"><i class="fa fa-check"></i>How is this book different from other online books and resources?</a></li>
-<li class="chapter" data-level="" data-path="what-is-going-to-be-covered-in-this-book.html"><a href="what-is-going-to-be-covered-in-this-book.html"><i class="fa fa-check"></i>What is going to be covered in this book?</a></li>
+<li class="chapter" data-level="" data-path="topics-covered-in-this-book.html"><a href="topics-covered-in-this-book.html"><i class="fa fa-check"></i>Topics covered in this book</a></li>
 <li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html"><i class="fa fa-check"></i>Conventions of the book and some notes</a>
 <ul>
 <li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html#texts-in-gray-boxes"><i class="fa fa-check"></i>Texts in gray boxes</a></li>
@@ -583,10 +583,10 @@ Figure 3.16: Map of county-level fake corn price
 <span id="cb271-3"><a href="sp-join.html#cb271-3" aria-hidden="true" tabindex="-1"></a>KS_wells_County <span class="ot">&lt;-</span> <span class="fu">st_join</span>(KS_wells, KS_corn_price)</span>
 <span id="cb271-4"><a href="sp-join.html#cb271-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>Simple feature collection with 37647 features and 5 fields
-Geometry type: POINT
-Dimension:     XY
-Bounding box:  xmin: -102.0495 ymin: 36.99552 xmax: -94.62089 ymax: 40.00199
-Geodetic CRS:  NAD83
+geometry type:  POINT
+dimension:      XY
+bbox:           xmin: -102.0495 ymin: 36.99552 xmax: -94.62089 ymax: 40.00199
+geographic CRS: NAD83
 First 10 features:
    site    af_used in_hpa COUNTYFP corn_price                   geometry
 1     1 232.099948   TRUE      069   3.556731 POINT (-100.4423 37.52046)
@@ -622,10 +622,10 @@ Figure 3.17: Map of wells color-differentiated by corn price
 <span id="cb274-4"><a href="sp-join.html#cb274-4" aria-hidden="true" tabindex="-1"></a><span class="co">#--- take a look ---#</span></span>
 <span id="cb274-5"><a href="sp-join.html#cb274-5" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">select</span>(KS_County_wells, COUNTYFP, site, af_used)</span></code></pre></div>
 <pre><code>Simple feature collection with 37652 features and 3 fields
-Geometry type: MULTIPOLYGON
-Dimension:     XY
-Bounding box:  xmin: -102.0517 ymin: 36.99308 xmax: -94.59193 ymax: 40.00308
-Geodetic CRS:  NAD83
+geometry type:  MULTIPOLYGON
+dimension:      XY
+bbox:           xmin: -102.0517 ymin: 36.99308 xmax: -94.59193 ymax: 40.00308
+geographic CRS: NAD83
 First 10 features:
     COUNTYFP  site   af_used                       geometry
 1        133 53861  17.01790 MULTIPOLYGON (((-95.5255 37...
@@ -643,40 +643,40 @@ First 10 features:
 <span id="cb276-2"><a href="sp-join.html#cb276-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(COUNTYFP) <span class="sc">%&gt;%</span> </span>
 <span id="cb276-3"><a href="sp-join.html#cb276-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">af_used =</span> <span class="fu">sum</span>(af_used, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) </span></code></pre></div>
 <pre><code>Simple feature collection with 105 features and 2 fields
-Geometry type: POLYGON
-Dimension:     XY
-Bounding box:  xmin: -102.0517 ymin: 36.99308 xmax: -94.59193 ymax: 40.00308
-Geodetic CRS:  NAD83
+geometry type:  MULTIPOLYGON
+dimension:      XY
+bbox:           xmin: -102.0517 ymin: 36.99308 xmax: -94.59193 ymax: 40.00308
+geographic CRS: NAD83
 # A tibble: 105 x 3
    COUNTYFP af_used                                                     geometry
-   &lt;fct&gt;      &lt;dbl&gt;                                                &lt;POLYGON [°]&gt;
- 1 001           0  ((-95.5255 37.73276, -95.08808 37.73248, -95.07969 37.8198,…
- 2 003           0  ((-95.51897 38.03823, -95.07788 38.03771, -95.06583 38.3899…
- 3 005         771. ((-95.57035 39.41905, -95.18089 39.41922, -94.99785 39.4188…
- 4 007        4972. ((-99.0115 37.38426, -99.00138 37.37502, -99.0003 36.99936,…
- 5 009       61083. ((-99.03241 38.34833, -99.03231 38.26123, -98.91258 38.2610…
- 6 011           0  ((-95.08801 37.67452, -94.61787 37.67311, -94.61789 37.6822…
- 7 013         480. ((-95.78894 39.653, -95.56413 39.65287, -95.33974 39.65298,…
- 8 015         343. ((-97.15333 37.47554, -96.52569 37.4764, -96.5253 37.60701,…
- 9 017           0  ((-96.84077 38.08562, -96.52278 38.08637, -96.3581 38.08582…
-10 019           0  ((-96.52558 36.99868, -96.50029 36.99864, -96.21757 36.9990…
+   &lt;fct&gt;      &lt;dbl&gt;                                           &lt;MULTIPOLYGON [°]&gt;
+ 1 001           0  (((-95.51931 37.82026, -95.51897 38.03823, -95.07788 38.037…
+ 2 003           0  (((-95.50833 38.39028, -95.06583 38.38994, -95.07788 38.037…
+ 3 005         771. (((-95.56413 39.65287, -95.33974 39.65298, -95.11519 39.652…
+ 4 007        4972. (((-99.0126 37.47042, -98.46466 37.47101, -98.46493 37.3841…
+ 5 009       61083. (((-99.03297 38.69676, -98.48611 38.69688, -98.47991 38.681…
+ 6 011           0  (((-95.08808 37.73248, -95.07969 37.8198, -95.07788 38.0377…
+ 7 013         480. (((-95.78811 40.00047, -95.78457 40.00046, -95.3399 40.0000…
+ 8 015         343. (((-97.15248 37.91273, -97.15291 38.0877, -96.84077 38.0856…
+ 9 017           0  (((-96.83765 38.34864, -96.81951 38.52245, -96.35378 38.521…
+10 019           0  (((-96.52487 37.30273, -95.9644 37.29923, -95.96427 36.9992…
 # … with 95 more rows</code></pre>
 <p>Of course, it is just as easy to get other types of statistics by simply modifying the <code>summarize()</code> part.</p>
 <p>However, this two-step process can actually be done in one step using <code>aggregate()</code>, in which you specify how you want to aggregate with the <code>FUN</code> option as follows:</p>
 <div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb278-1"><a href="sp-join.html#cb278-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- mean ---#</span></span>
 <span id="cb278-2"><a href="sp-join.html#cb278-2" aria-hidden="true" tabindex="-1"></a><span class="fu">aggregate</span>(KS_wells, KS_counties, <span class="at">FUN =</span> mean)</span></code></pre></div>
 <pre><code>Simple feature collection with 105 features and 3 fields
-Geometry type: MULTIPOLYGON
-Dimension:     XY
-Bounding box:  xmin: -102.0517 ymin: 36.99308 xmax: -94.59193 ymax: 40.00308
-Geodetic CRS:  NAD83
+geometry type:  MULTIPOLYGON
+dimension:      XY
+bbox:           xmin: -102.0517 ymin: 36.99308 xmax: -94.59193 ymax: 40.00308
+geographic CRS: NAD83
 First 10 features:
        site    af_used    in_hpa                       geometry
 1  62226.50   8.508950 0.0000000 MULTIPOLYGON (((-95.5255 37...
-2  35153.23 175.890557 0.4466292 MULTIPOLYGON (((-102.0446 3...
+2  35184.64 176.390742 0.4481793 MULTIPOLYGON (((-102.0446 3...
 3  40086.82  35.465123 0.0000000 MULTIPOLYGON (((-98.48738 3...
-4  40191.67 286.324733 1.0000000 MULTIPOLYGON (((-101.5566 3...
-5  51256.15  46.013373 0.9743976 MULTIPOLYGON (((-98.47279 3...
+4  40179.41 285.672916 1.0000000 MULTIPOLYGON (((-101.5566 3...
+5  51249.39  46.048048 0.9743783 MULTIPOLYGON (((-98.47279 3...
 6  33033.13 202.612377 1.0000000 MULTIPOLYGON (((-102.0419 3...
 7  29840.40   0.000000 0.0000000 MULTIPOLYGON (((-96.52278 3...
 8  28235.82  94.585634 0.9736842 MULTIPOLYGON (((-102.0517 4...
@@ -685,17 +685,17 @@ First 10 features:
 <div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb280-1"><a href="sp-join.html#cb280-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- sum ---#</span></span>
 <span id="cb280-2"><a href="sp-join.html#cb280-2" aria-hidden="true" tabindex="-1"></a><span class="fu">aggregate</span>(KS_wells, KS_counties, <span class="at">FUN =</span> sum)</span></code></pre></div>
 <pre><code>Simple feature collection with 105 features and 3 fields
-Geometry type: MULTIPOLYGON
-Dimension:     XY
-Bounding box:  xmin: -102.0517 ymin: 36.99308 xmax: -94.59193 ymax: 40.00308
-Geodetic CRS:  NAD83
+geometry type:  MULTIPOLYGON
+dimension:      XY
+bbox:           xmin: -102.0517 ymin: 36.99308 xmax: -94.59193 ymax: 40.00308
+geographic CRS: NAD83
 First 10 features:
        site      af_used in_hpa                       geometry
 1    124453 1.701790e+01      0 MULTIPOLYGON (((-95.5255 37...
-2  12514550 6.261704e+04    159 MULTIPOLYGON (((-102.0446 3...
+2  12560917 6.297149e+04    160 MULTIPOLYGON (((-102.0446 3...
 3   1964254 1.737791e+03      0 MULTIPOLYGON (((-98.48738 3...
-4  42442400 3.023589e+05   1056 MULTIPOLYGON (((-101.5566 3...
-5  68068173 6.110576e+04   1294 MULTIPOLYGON (((-98.47279 3...
+4  42389277 3.013849e+05   1055 MULTIPOLYGON (((-101.5566 3...
+5  68007942 6.110576e+04   1293 MULTIPOLYGON (((-98.47279 3...
 6  15756801 9.664610e+04    477 MULTIPOLYGON (((-102.0419 3...
 7    149202 0.000000e+00      0 MULTIPOLYGON (((-96.52278 3...
 8  17167377 5.750807e+04    592 MULTIPOLYGON (((-102.0517 4...
@@ -704,17 +704,17 @@ First 10 features:
 <p>Notice that the <code>mean()</code> function was applied to all the columns in <code>KS_wells</code>, including site id number. So, you might want to select variables you want to join before you apply the <code>aggregate()</code> function like this:</p>
 <div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb282-1"><a href="sp-join.html#cb282-1" aria-hidden="true" tabindex="-1"></a><span class="fu">aggregate</span>(dplyr<span class="sc">::</span><span class="fu">select</span>(KS_wells, af_used), KS_counties, <span class="at">FUN =</span> mean)</span></code></pre></div>
 <pre><code>Simple feature collection with 105 features and 1 field
-Geometry type: MULTIPOLYGON
-Dimension:     XY
-Bounding box:  xmin: -102.0517 ymin: 36.99308 xmax: -94.59193 ymax: 40.00308
-Geodetic CRS:  NAD83
+geometry type:  MULTIPOLYGON
+dimension:      XY
+bbox:           xmin: -102.0517 ymin: 36.99308 xmax: -94.59193 ymax: 40.00308
+geographic CRS: NAD83
 First 10 features:
       af_used                       geometry
 1    8.508950 MULTIPOLYGON (((-95.5255 37...
-2  175.890557 MULTIPOLYGON (((-102.0446 3...
+2  176.390742 MULTIPOLYGON (((-102.0446 3...
 3   35.465123 MULTIPOLYGON (((-98.48738 3...
-4  286.324733 MULTIPOLYGON (((-101.5566 3...
-5   46.013373 MULTIPOLYGON (((-98.47279 3...
+4  285.672916 MULTIPOLYGON (((-101.5566 3...
+5   46.048048 MULTIPOLYGON (((-98.47279 3...
 6  202.612377 MULTIPOLYGON (((-102.0419 3...
 7    0.000000 MULTIPOLYGON (((-96.52278 3...
 8   94.585634 MULTIPOLYGON (((-102.0517 4...
@@ -794,10 +794,10 @@ Figure 3.20: Map of HUC units superimposed on the counties in Iowas
 <span id="cb290-2"><a href="sp-join.html#cb290-2" aria-hidden="true" tabindex="-1"></a>HUC_joined <span class="ot">&lt;-</span> <span class="fu">st_join</span>(HUC_IA, IA_corn)</span>
 <span id="cb290-3"><a href="sp-join.html#cb290-3" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>Simple feature collection with 349 features and 4 fields
-Geometry type: POLYGON
-Dimension:     XY
-Bounding box:  xmin: 154941.7 ymin: 4346327 xmax: 773299.8 ymax: 4907735
-Projected CRS: NAD83 / UTM zone 15N
+geometry type:  POLYGON
+dimension:      XY
+bbox:           xmin: 154941.7 ymin: 4346327 xmax: 773299.8 ymax: 4907735
+projected CRS:  NAD83 / UTM zone 15N
 First 10 features:
       HUC_CODE county_code year  acres                       geometry
 608   10170203         149 2018 226500 POLYGON ((235551.4 4907513,...
@@ -817,10 +817,10 @@ First 10 features:
 <span id="cb292-3"><a href="sp-join.html#cb292-3" aria-hidden="true" tabindex="-1"></a>temp_HUC_county <span class="ot">&lt;-</span> <span class="fu">filter</span>(HUC_joined, HUC_CODE <span class="sc">==</span> <span class="dv">10170203</span>)</span>
 <span id="cb292-4"><a href="sp-join.html#cb292-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>Simple feature collection with 4 features and 4 fields
-Geometry type: POLYGON
-Dimension:     XY
-Bounding box:  xmin: 154941.7 ymin: 4709628 xmax: 248115.2 ymax: 4907735
-Projected CRS: NAD83 / UTM zone 15N
+geometry type:  POLYGON
+dimension:      XY
+bbox:           xmin: 154941.7 ymin: 4709628 xmax: 248115.2 ymax: 4907735
+projected CRS:  NAD83 / UTM zone 15N
       HUC_CODE county_code year  acres                       geometry
 608   10170203         149 2018 226500 POLYGON ((235551.4 4907513,...
 608.1 10170203         167 2018 249000 POLYGON ((235551.4 4907513,...

@@ -24,7 +24,7 @@
 <meta name="author" content="Taro Mieno" />
 
 
-<meta name="date" content="2021-10-02" />
+<meta name="date" content="2021-10-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -161,7 +161,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="why-r-as-gis-for-economists.html"><a href="why-r-as-gis-for-economists.html#summary"><i class="fa fa-check"></i>Summary</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="how-is-this-book-different-from-other-online-books-and-resources.html"><a href="how-is-this-book-different-from-other-online-books-and-resources.html"><i class="fa fa-check"></i>How is this book different from other online books and resources?</a></li>
-<li class="chapter" data-level="" data-path="what-is-going-to-be-covered-in-this-book.html"><a href="what-is-going-to-be-covered-in-this-book.html"><i class="fa fa-check"></i>What is going to be covered in this book?</a></li>
+<li class="chapter" data-level="" data-path="topics-covered-in-this-book.html"><a href="topics-covered-in-this-book.html"><i class="fa fa-check"></i>Topics covered in this book</a></li>
 <li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html"><i class="fa fa-check"></i>Conventions of the book and some notes</a>
 <ul>
 <li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html#texts-in-gray-boxes"><i class="fa fa-check"></i>Texts in gray boxes</a></li>
@@ -614,10 +614,10 @@ Figure 3.6: Kansas counties that are completely within the HPA boundary
 <span id="cb242-4"><a href="spatial-subsetting-or-flagging.html#cb242-4" aria-hidden="true" tabindex="-1"></a><span class="co">#--- take a look ---#</span></span>
 <span id="cb242-5"><a href="spatial-subsetting-or-flagging.html#cb242-5" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">select</span>(KS_counties, COUNTYFP, intersects_hpa)</span></code></pre></div>
 <pre><code>Simple feature collection with 105 features and 2 fields
-Geometry type: MULTIPOLYGON
-Dimension:     XY
-Bounding box:  xmin: -102.0517 ymin: 36.99308 xmax: -94.59193 ymax: 40.00308
-Geodetic CRS:  NAD83
+geometry type:  MULTIPOLYGON
+dimension:      XY
+bbox:           xmin: -102.0517 ymin: 36.99308 xmax: -94.59193 ymax: 40.00308
+geographic CRS: NAD83
 First 10 features:
    COUNTYFP intersects_hpa                       geometry
 1       133          FALSE MULTIPOLYGON (((-95.5255 37...
@@ -670,10 +670,10 @@ Figure 3.8: A map of Kansas irrigation wells and HPA
 <span id="cb247-4"><a href="spatial-subsetting-or-flagging.html#cb247-4" aria-hidden="true" tabindex="-1"></a><span class="co">#--- take a look ---#</span></span>
 <span id="cb247-5"><a href="spatial-subsetting-or-flagging.html#cb247-5" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">select</span>(KS_wells, site, in_hpa)</span></code></pre></div>
 <pre><code>Simple feature collection with 37647 features and 2 fields
-Geometry type: POINT
-Dimension:     XY
-Bounding box:  xmin: -102.0495 ymin: 36.99552 xmax: -94.62089 ymax: 40.00199
-Geodetic CRS:  NAD83
+geometry type:  POINT
+dimension:      XY
+bbox:           xmin: -102.0495 ymin: 36.99552 xmax: -94.62089 ymax: 40.00199
+geographic CRS: NAD83
 First 10 features:
    site in_hpa                   geometry
 1     1   TRUE POINT (-100.4423 37.52046)
@@ -733,10 +733,10 @@ Figure 3.10: Railroads that intersect Kansas county boundaries
 <span id="cb252-9"><a href="spatial-subsetting-or-flagging.html#cb252-9" aria-hidden="true" tabindex="-1"></a><span class="co">#--- take a look ---#</span></span>
 <span id="cb252-10"><a href="spatial-subsetting-or-flagging.html#cb252-10" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">select</span>(rail_roads, LINEARID, intersect_ks)</span></code></pre></div>
 <pre><code>Simple feature collection with 180958 features and 2 fields
-Geometry type: MULTILINESTRING
-Dimension:     XY
-Bounding box:  xmin: -165.4011 ymin: 17.95174 xmax: -65.74931 ymax: 65.00006
-Geodetic CRS:  NAD83
+geometry type:  MULTILINESTRING
+dimension:      XY
+bbox:           xmin: -165.4011 ymin: 17.95174 xmax: -65.74931 ymax: 65.00006
+geographic CRS: NAD83
 First 10 features:
       LINEARID intersect_ks                       geometry
 1  11020239500        FALSE MULTILINESTRING ((-79.47058...
@@ -790,10 +790,10 @@ Figure 3.12: Counties that have at least one well
 <span id="cb257-8"><a href="spatial-subsetting-or-flagging.html#cb257-8" aria-hidden="true" tabindex="-1"></a><span class="co">#--- take a look ---#</span></span>
 <span id="cb257-9"><a href="spatial-subsetting-or-flagging.html#cb257-9" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">select</span>(KS_counties, NAME, COUNTYFP, intersect_wells)</span></code></pre></div>
 <pre><code>Simple feature collection with 105 features and 3 fields
-Geometry type: MULTIPOLYGON
-Dimension:     XY
-Bounding box:  xmin: -102.0517 ymin: 36.99308 xmax: -94.59193 ymax: 40.00308
-Geodetic CRS:  NAD83
+geometry type:  MULTIPOLYGON
+dimension:      XY
+bbox:           xmin: -102.0517 ymin: 36.99308 xmax: -94.59193 ymax: 40.00308
+geographic CRS: NAD83
 First 10 features:
         NAME COUNTYFP intersect_wells                       geometry
 1     Neosho      133           FALSE MULTIPOLYGON (((-95.5255 37...

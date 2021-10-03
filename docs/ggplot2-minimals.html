@@ -24,7 +24,7 @@
 <meta name="author" content="Taro Mieno" />
 
 
-<meta name="date" content="2021-10-02" />
+<meta name="date" content="2021-10-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -161,7 +161,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="why-r-as-gis-for-economists.html"><a href="why-r-as-gis-for-economists.html#summary"><i class="fa fa-check"></i>Summary</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="how-is-this-book-different-from-other-online-books-and-resources.html"><a href="how-is-this-book-different-from-other-online-books-and-resources.html"><i class="fa fa-check"></i>How is this book different from other online books and resources?</a></li>
-<li class="chapter" data-level="" data-path="what-is-going-to-be-covered-in-this-book.html"><a href="what-is-going-to-be-covered-in-this-book.html"><i class="fa fa-check"></i>What is going to be covered in this book?</a></li>
+<li class="chapter" data-level="" data-path="topics-covered-in-this-book.html"><a href="topics-covered-in-this-book.html"><i class="fa fa-check"></i>Topics covered in this book</a></li>
 <li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html"><i class="fa fa-check"></i>Conventions of the book and some notes</a>
 <ul>
 <li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html#texts-in-gray-boxes"><i class="fa fa-check"></i>Texts in gray boxes</a></li>
@@ -526,7 +526,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><strong>Note:</strong> This section does not provide a complete treatment of the basics of the <code>ggplot2</code> package. Rather, it provides the minimal knowledge of the package so that readers who are not familiar with the package can still understand the codes for map making presented in Chapter <a href="create-maps.html#create-maps">8</a>.</p>
 <p>The <code>ggplot2</code> package is a general and extensive data visualization tool. It is very popular among R users due to its elegance in and ease of use in generating high-quality figures. The <code>ggplot2</code> package is designed following the “grammar of graphics,” which makes it possible to visualize data in an easy and consistent manner irrespective of the type of figures generated, whether it is a simple scatter plot or a complicated map. This means that learning the basics of how <code>ggplot2</code> works directly helps in creating maps as well. This chapter goes over the basics of how <code>ggplot2</code> works in general.</p>
 <p>In <code>ggplot2</code>, you first specify what data to use and then specify how to use the data for visualization depending on what types of figures you intend to make using <code>geom_*()</code>. As a simple example, let’s use <code>mpg</code> data to create a simple scatter plot. Here is what <code>mpg</code> dataset looks like:</p>
-<div class="sourceCode" id="cb933"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb933-1"><a href="ggplot2-minimals.html#cb933-1" aria-hidden="true" tabindex="-1"></a>mpg </span></code></pre></div>
+<div class="sourceCode" id="cb934"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb934-1"><a href="ggplot2-minimals.html#cb934-1" aria-hidden="true" tabindex="-1"></a>mpg </span></code></pre></div>
 <pre><code># A tibble: 234 x 11
    manufacturer model    displ  year   cyl trans   drv     cty   hwy fl    class
    &lt;chr&gt;        &lt;chr&gt;    &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;
@@ -542,66 +542,66 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 10 audi         a4 quat…   2    2008     4 manual… 4        20    28 p     comp…
 # … with 224 more rows</code></pre>
 <p>The code below creates a scatter plot of <code>displ</code> and <code>hwy</code> variables in the <code>mpg</code> dataset.</p>
-<div class="sourceCode" id="cb935"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb935-1"><a href="ggplot2-minimals.html#cb935-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> mpg) <span class="sc">+</span> </span>
-<span id="cb935-2"><a href="ggplot2-minimals.html#cb935-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy))</span></code></pre></div>
-<p><img src="R_GIS_Book_files/figure-html/mgp-scatter-1.png" width="480" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb936"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb936-1"><a href="ggplot2-minimals.html#cb936-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> mpg) <span class="sc">+</span> </span>
-<span id="cb936-2"><a href="ggplot2-minimals.html#cb936-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">color =</span> class))</span></code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:gg-point-class-aes"></span>
-<img src="R_GIS_Book_files/figure-html/gg-point-class-aes-1.png" alt="Scatter plot where observations are color-differentiated by class" width="480" />
+<span id="cb936-2"><a href="ggplot2-minimals.html#cb936-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy))</span></code></pre></div>
+<p><img src="R_GIS_Book_files/figure-html/mgp-scatter-1.png" width="672" /></p>
+<div class="sourceCode" id="cb937"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb937-1"><a href="ggplot2-minimals.html#cb937-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> mpg) <span class="sc">+</span> </span>
+<span id="cb937-2"><a href="ggplot2-minimals.html#cb937-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">color =</span> class))</span></code></pre></div>
+<div class="figure"><span id="fig:gg-point-class-aes"></span>
+<img src="R_GIS_Book_files/figure-html/gg-point-class-aes-1.png" alt="Scatter plot where observations are color-differentiated by class" width="672" />
 <p class="caption">
 Figure B.1: Scatter plot where observations are color-differentiated by class
 </p>
 </div>
 <p>However, this one does not work because <code>color = class</code> is outside of <code>aes()</code> and R does not look for <code>class</code> object inside <code>mpg</code>.</p>
-<div class="sourceCode" id="cb937"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb937-1"><a href="ggplot2-minimals.html#cb937-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> mpg) <span class="sc">+</span> </span>
-<span id="cb937-2"><a href="ggplot2-minimals.html#cb937-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy), <span class="at">color =</span> class)</span></code></pre></div>
+<div class="sourceCode" id="cb938"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb938-1"><a href="ggplot2-minimals.html#cb938-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> mpg) <span class="sc">+</span> </span>
+<span id="cb938-2"><a href="ggplot2-minimals.html#cb938-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy), <span class="at">color =</span> class)</span></code></pre></div>
 <pre><code>Error in rep(value[[k]], length.out = n): attempt to replicate an object of type &#39;builtin&#39;</code></pre>
-<p><img src="R_GIS_Book_files/figure-html/mpg-aes-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p><img src="R_GIS_Book_files/figure-html/mpg-aes-1.png" width="672" /></p>
 <p>You can still specify the color that is applied universally to all the observations in the dataset like this:</p>
-<div class="sourceCode" id="cb939"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb939-1"><a href="ggplot2-minimals.html#cb939-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> mpg) <span class="sc">+</span> </span>
-<span id="cb939-2"><a href="ggplot2-minimals.html#cb939-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy), <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
-<p><img src="R_GIS_Book_files/figure-html/mpg-color-1.png" width="480" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb940"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb940-1"><a href="ggplot2-minimals.html#cb940-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> mpg) <span class="sc">+</span> </span>
+<span id="cb940-2"><a href="ggplot2-minimals.html#cb940-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy), <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
+<p><img src="R_GIS_Book_files/figure-html/mpg-color-1.png" width="672" /></p>
 <p>These examples should clarify what <code>aes()</code> does: it <strong>makes the aesthetics of the figure data-dependent</strong>.</p>
 <p>In the code to create Figure <a href="ggplot2-minimals.html#fig:gg-point-class-aes">B.1</a>, the default color option was used for color-differentiation by <code>class</code>. You can specify the color scheme using <code>scale_*()</code>. The <code>scale_*()</code> function generally takes the form o f<code>scale_x_y()</code>, where <strong>x</strong> is the type of aesthetics you want to control, and <strong>y</strong> is the method for specifying the color scheme. For example, in the code above, the type of aesthetics is <code>color</code>. And suppose we would like to use the brewer method. Then the <code>scale</code> function we should be using is <code>scale_color_brewer()</code>. The code below uses <code>scale_color_brewer()</code> and the <code>palette</code> option to specify the color scheme by ourselves.</p>
-<div class="sourceCode" id="cb940"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb940-1"><a href="ggplot2-minimals.html#cb940-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> mpg) <span class="sc">+</span> </span>
-<span id="cb940-2"><a href="ggplot2-minimals.html#cb940-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">color =</span> class)) <span class="sc">+</span></span>
-<span id="cb940-3"><a href="ggplot2-minimals.html#cb940-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="dv">1</span>)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:gg-point-class-scale"></span>
-<img src="R_GIS_Book_files/figure-html/gg-point-class-scale-1.png" alt="Scatter plot where the color scheme is defined by the user" width="480" />
+<div class="sourceCode" id="cb941"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb941-1"><a href="ggplot2-minimals.html#cb941-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> mpg) <span class="sc">+</span> </span>
+<span id="cb941-2"><a href="ggplot2-minimals.html#cb941-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">color =</span> class)) <span class="sc">+</span></span>
+<span id="cb941-3"><a href="ggplot2-minimals.html#cb941-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="figure"><span id="fig:gg-point-class-scale"></span>
+<img src="R_GIS_Book_files/figure-html/gg-point-class-scale-1.png" alt="Scatter plot where the color scheme is defined by the user" width="672" />
 <p class="caption">
 Figure B.2: Scatter plot where the color scheme is defined by the user
 </p>
 </div>
 <p>As you can see the color scheme is now changed. There are many other different types of pallets available.</p>
 <p>To create a different type of figure than scatter plot, you can pick a different <code>geom_*()</code>. For example, <code>geom_histogram()</code> creates a histogram.</p>
-<div class="sourceCode" id="cb941"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb941-1"><a href="ggplot2-minimals.html#cb941-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> mpg) <span class="sc">+</span> </span>
-<span id="cb941-2"><a href="ggplot2-minimals.html#cb941-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> hwy), <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;white&quot;</span>)</span></code></pre></div>
-<p><img src="R_GIS_Book_files/figure-html/geom-hist-1.png" width="480" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb942"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb942-1"><a href="ggplot2-minimals.html#cb942-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> mpg) <span class="sc">+</span> </span>
+<span id="cb942-2"><a href="ggplot2-minimals.html#cb942-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> hwy), <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;white&quot;</span>)</span></code></pre></div>
+<p><img src="R_GIS_Book_files/figure-html/geom-hist-1.png" width="672" /></p>
 <p>You can save a created figure (or more precisely the data underpins the figure) as an R object as follows:</p>
-<div class="sourceCode" id="cb942"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb942-1"><a href="ggplot2-minimals.html#cb942-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- save the figure to g_plot ---#</span></span>
-<span id="cb942-2"><a href="ggplot2-minimals.html#cb942-2" aria-hidden="true" tabindex="-1"></a>g_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> mpg) <span class="sc">+</span> </span>
-<span id="cb942-3"><a href="ggplot2-minimals.html#cb942-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">color =</span> class)) <span class="sc">+</span></span>
-<span id="cb942-4"><a href="ggplot2-minimals.html#cb942-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="dv">1</span>)</span>
-<span id="cb942-5"><a href="ggplot2-minimals.html#cb942-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb942-6"><a href="ggplot2-minimals.html#cb942-6" aria-hidden="true" tabindex="-1"></a><span class="co">#--- see the class ---#</span></span>
-<span id="cb942-7"><a href="ggplot2-minimals.html#cb942-7" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(g_plot)</span></code></pre></div>
+<div class="sourceCode" id="cb943"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb943-1"><a href="ggplot2-minimals.html#cb943-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- save the figure to g_plot ---#</span></span>
+<span id="cb943-2"><a href="ggplot2-minimals.html#cb943-2" aria-hidden="true" tabindex="-1"></a>g_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> mpg) <span class="sc">+</span> </span>
+<span id="cb943-3"><a href="ggplot2-minimals.html#cb943-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">color =</span> class)) <span class="sc">+</span></span>
+<span id="cb943-4"><a href="ggplot2-minimals.html#cb943-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="dv">1</span>)</span>
+<span id="cb943-5"><a href="ggplot2-minimals.html#cb943-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb943-6"><a href="ggplot2-minimals.html#cb943-6" aria-hidden="true" tabindex="-1"></a><span class="co">#--- see the class ---#</span></span>
+<span id="cb943-7"><a href="ggplot2-minimals.html#cb943-7" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(g_plot)</span></code></pre></div>
 <pre><code>[1] &quot;gg&quot;     &quot;ggplot&quot;</code></pre>
 <p>You can call the saved object to see the figure.</p>
-<div class="sourceCode" id="cb944"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb944-1"><a href="ggplot2-minimals.html#cb944-1" aria-hidden="true" tabindex="-1"></a>g_plot</span></code></pre></div>
-<p><img src="R_GIS_Book_files/figure-html/g-call-1.png" width="480" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb945"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb945-1"><a href="ggplot2-minimals.html#cb945-1" aria-hidden="true" tabindex="-1"></a>g_plot</span></code></pre></div>
+<p><img src="R_GIS_Book_files/figure-html/g-call-1.png" width="672" /></p>
 <p>Another important feature of <code>ggplot2</code> is that you can add layers to an existing <code>ggplot</code> object by <code>+ geom_*()</code>. For example, the following code adds the linear regression line to the plot:</p>
-<div class="sourceCode" id="cb945"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb945-1"><a href="ggplot2-minimals.html#cb945-1" aria-hidden="true" tabindex="-1"></a>g_plot <span class="sc">+</span> </span>
-<span id="cb945-2"><a href="ggplot2-minimals.html#cb945-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy), <span class="at">method =</span> <span class="st">&quot;lm&quot;</span>)</span></code></pre></div>
-<p><img src="R_GIS_Book_files/figure-html/g-add-layers-1.png" width="480" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb946"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb946-1"><a href="ggplot2-minimals.html#cb946-1" aria-hidden="true" tabindex="-1"></a>g_plot <span class="sc">+</span> </span>
+<span id="cb946-2"><a href="ggplot2-minimals.html#cb946-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy), <span class="at">method =</span> <span class="st">&quot;lm&quot;</span>)</span></code></pre></div>
+<p><img src="R_GIS_Book_files/figure-html/g-add-layers-1.png" width="672" /></p>
 <p>This feature makes it very easy to plot different spatial objects in a single map as we will find out later.</p>
 <p>“Faceting” is another useful feature of the package. Faceting splits the data into groups and generates a figure for each group where the aesthetics of the figures are consistent across the groups. Faceting can be done using <code>facet_wrap()</code> or <code>facet_grid()</code>. Here is an example using <code>facet_wrap()</code>:</p>
-<div class="sourceCode" id="cb946"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb946-1"><a href="ggplot2-minimals.html#cb946-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> mpg) <span class="sc">+</span> </span>
-<span id="cb946-2"><a href="ggplot2-minimals.html#cb946-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">color =</span> class)) <span class="sc">+</span> </span>
-<span id="cb946-3"><a href="ggplot2-minimals.html#cb946-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy), <span class="at">method =</span> <span class="st">&quot;lm&quot;</span>) <span class="sc">+</span></span>
-<span id="cb946-4"><a href="ggplot2-minimals.html#cb946-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb946-5"><a href="ggplot2-minimals.html#cb946-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(year <span class="sc">~</span> .) </span></code></pre></div>
-<p><img src="R_GIS_Book_files/figure-html/gg-facet-1.png" width="480" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb947"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb947-1"><a href="ggplot2-minimals.html#cb947-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> mpg) <span class="sc">+</span> </span>
+<span id="cb947-2"><a href="ggplot2-minimals.html#cb947-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">color =</span> class)) <span class="sc">+</span> </span>
+<span id="cb947-3"><a href="ggplot2-minimals.html#cb947-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy), <span class="at">method =</span> <span class="st">&quot;lm&quot;</span>) <span class="sc">+</span></span>
+<span id="cb947-4"><a href="ggplot2-minimals.html#cb947-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb947-5"><a href="ggplot2-minimals.html#cb947-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(year <span class="sc">~</span> .) </span></code></pre></div>
+<p><img src="R_GIS_Book_files/figure-html/gg-facet-1.png" width="672" /></p>
 <p><code>year ~ .</code> inside <code>facet_wrap()</code> tells R to split the data by year. The <code>.</code> in <code>year ~ .</code> means “no variable.”<a href="#fn108" class="footnote-ref" id="fnref108"><sup>108</sup></a> So, the above code splits the <code>mpg</code> data by <code>year</code>, applies the <code>geom_point()</code> and <code>geom_smooth()</code>, applies <code>scale_color_brewer()</code> to each of them, and then creates a figure for each group. The created figures are then presented side-by-side.<a href="#fn109" class="footnote-ref" id="fnref109"><sup>109</sup></a> This feature can be handy, for example, when you would like to display changes in land use over time where faceting is done by year.</p>
 <p>While there are other important <code>ggplot2</code> features to be aware of to make informative maps, I will not discuss them here. Rather, I will introduce them when they first appear in the lecture through examples. For those who are interested in learning the basics of <code>ggplot2</code>, there are numerous books written about it on the market. Some prominent ones are</p>
 

@@ -24,7 +24,7 @@
 <meta name="author" content="Taro Mieno" />
 
 
-<meta name="date" content="2021-10-02" />
+<meta name="date" content="2021-10-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -161,7 +161,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="why-r-as-gis-for-economists.html"><a href="why-r-as-gis-for-economists.html#summary"><i class="fa fa-check"></i>Summary</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="how-is-this-book-different-from-other-online-books-and-resources.html"><a href="how-is-this-book-different-from-other-online-books-and-resources.html"><i class="fa fa-check"></i>How is this book different from other online books and resources?</a></li>
-<li class="chapter" data-level="" data-path="what-is-going-to-be-covered-in-this-book.html"><a href="what-is-going-to-be-covered-in-this-book.html"><i class="fa fa-check"></i>What is going to be covered in this book?</a></li>
+<li class="chapter" data-level="" data-path="topics-covered-in-this-book.html"><a href="topics-covered-in-this-book.html"><i class="fa fa-check"></i>Topics covered in this book</a></li>
 <li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html"><i class="fa fa-check"></i>Conventions of the book and some notes</a>
 <ul>
 <li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html#texts-in-gray-boxes"><i class="fa fa-check"></i>Texts in gray boxes</a></li>
@@ -566,8 +566,8 @@ GEOGCRS[&quot;WGS 84&quot;,
             ORDER[2],
             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
     USAGE[
-        SCOPE[&quot;Horizontal component of 3D system.&quot;],
-        AREA[&quot;World.&quot;],
+        SCOPE[&quot;unknown&quot;],
+        AREA[&quot;World&quot;],
         BBOX[-90,-180,90,180]],
     ID[&quot;EPSG&quot;,4326]]</code></pre>
 <p>Notice that <code>wkt</code> was also altered accordingly to reflect the change in CRS: datum was changed to WGS 84. Now, let’s transform (reproject) the data using <code>NAD83 / UTM zone 17N</code> CRS. Its EPSG number is <span class="math inline">\(26917\)</span>.<a href="#fn46" class="footnote-ref" id="fnref46"><sup>46</sup></a> So, the following code does the job.</p>
@@ -613,8 +613,8 @@ PROJCRS[&quot;NAD83 / UTM zone 17N&quot;,
             ORDER[2],
             LENGTHUNIT[&quot;metre&quot;,1]],
     USAGE[
-        SCOPE[&quot;Engineering survey, topographic mapping.&quot;],
-        AREA[&quot;North America - between 84°W and 78°W - onshore and offshore. Canada - Nunavut; Ontario; Quebec. United States (USA) - Florida; Georgia; Kentucky; Maryland; Michigan; New York; North Carolina; Ohio; Pennsylvania; South Carolina; Tennessee; Virginia; West Virginia.&quot;],
+        SCOPE[&quot;unknown&quot;],
+        AREA[&quot;North America - 84°W to 78°W and NAD83 by country&quot;],
         BBOX[23.81,-84,84,-78]],
     ID[&quot;EPSG&quot;,26917]]</code></pre>
 <p>As you can see in its CRS information, the projection system is now UTM zone 17N.</p>
@@ -661,8 +661,8 @@ PROJCRS[&quot;NAD83 / UTM zone 17N&quot;,
             ORDER[2],
             LENGTHUNIT[&quot;metre&quot;,1]],
     USAGE[
-        SCOPE[&quot;Engineering survey, topographic mapping.&quot;],
-        AREA[&quot;North America - between 84°W and 78°W - onshore and offshore. Canada - Nunavut; Ontario; Quebec. United States (USA) - Florida; Georgia; Kentucky; Maryland; Michigan; New York; North Carolina; Ohio; Pennsylvania; South Carolina; Tennessee; Virginia; West Virginia.&quot;],
+        SCOPE[&quot;unknown&quot;],
+        AREA[&quot;North America - 84°W to 78°W and NAD83 by country&quot;],
         BBOX[23.81,-84,84,-78]],
     ID[&quot;EPSG&quot;,26917]]</code></pre>
 <!-- However, notice that the `epsg` component of CRS is $NA$. ESRI shapefile format uses WTK (Well-known Text) format to refer to the CRS in use, which is saved in .prj file. So, if there is no corresponding SRID number for the CRS in use, the `epsg` component number would get lost when you save an `sf` object when you save it as an ESRI shapefile. This is exactly what happened to 

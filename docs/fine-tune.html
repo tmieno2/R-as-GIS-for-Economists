@@ -24,7 +24,7 @@
 <meta name="author" content="Taro Mieno" />
 
 
-<meta name="date" content="2021-10-02" />
+<meta name="date" content="2021-10-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -161,7 +161,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="why-r-as-gis-for-economists.html"><a href="why-r-as-gis-for-economists.html#summary"><i class="fa fa-check"></i>Summary</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="how-is-this-book-different-from-other-online-books-and-resources.html"><a href="how-is-this-book-different-from-other-online-books-and-resources.html"><i class="fa fa-check"></i>How is this book different from other online books and resources?</a></li>
-<li class="chapter" data-level="" data-path="what-is-going-to-be-covered-in-this-book.html"><a href="what-is-going-to-be-covered-in-this-book.html"><i class="fa fa-check"></i>What is going to be covered in this book?</a></li>
+<li class="chapter" data-level="" data-path="topics-covered-in-this-book.html"><a href="topics-covered-in-this-book.html"><i class="fa fa-check"></i>Topics covered in this book</a></li>
 <li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html"><i class="fa fa-check"></i>Conventions of the book and some notes</a>
 <ul>
 <li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html#texts-in-gray-boxes"><i class="fa fa-check"></i>Texts in gray boxes</a></li>
@@ -570,7 +570,7 @@ First 10 features:
 <!-- https://ggplot2-book.org/polishing.html -->
 <p>Right now, the map shows geographic coordinates, gray background, and grid lines. They are not very aesthetically appealing. Adding the pre-defined theme by <code>theme_*()</code> can alter the theme of a map very quickly. One of the themes suitable for maps is <code>theme_void()</code>.</p>
 <div class="sourceCode" id="cb693"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb693-1"><a href="fine-tune.html#cb693-1" aria-hidden="true" tabindex="-1"></a>g_base <span class="sc">+</span> <span class="fu">theme_void</span>()</span></code></pre></div>
-<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-67-1.png" width="672" /></p>
+<p><img src="R_GIS_Book_files/figure-html/add-void-1.png" width="672" /></p>
 <p>As you can see, all the axes information (<code>axis.title</code>, <code>axis.ticks</code>, <code>axis.text</code>,) and panel information (<code>panel.background</code>, <code>panel.border</code>, <code>panel.grid</code>) are gone among other parts of the figure. You can confirm this by evaluating <code>theme_void()</code>.</p>
 <div class="sourceCode" id="cb694"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb694-1"><a href="fine-tune.html#cb694-1" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_void</span>()</span></code></pre></div>
 <pre><code>List of 92
@@ -781,20 +781,21 @@ First 10 features:
  - attr(*, &quot;validate&quot;)= logi TRUE</code></pre>
 <p>Applying the theme to a map obviates the need to suppress parts of a figure individually. You can suppress parts of the figure individually using <code>theme()</code>. For example, the following code gets rid of <code>axis.text</code>.</p>
 <div class="sourceCode" id="cb696"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb696-1"><a href="fine-tune.html#cb696-1" aria-hidden="true" tabindex="-1"></a>g_base <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">axis.text =</span> <span class="fu">element_blank</span>())</span></code></pre></div>
-<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-69-1.png" width="672" /></p>
+<p><img src="R_GIS_Book_files/figure-html/theme-remove-at-1.png" width="672" /></p>
 <p>So, if <code>theme_void()</code> is overdoing things, you can build your own theme specifically for maps. For example, this is the theme I used for maps in Chapter <a href="demo.html#demo">1</a>.</p>
-<div class="sourceCode" id="cb697"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb697-1"><a href="fine-tune.html#cb697-1" aria-hidden="true" tabindex="-1"></a>theme_for_map <span class="ot">&lt;-</span> <span class="fu">theme</span>(</span>
-<span id="cb697-2"><a href="fine-tune.html#cb697-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">axis.ticks =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb697-3"><a href="fine-tune.html#cb697-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">axis.text=</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb697-4"><a href="fine-tune.html#cb697-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">axis.line =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb697-5"><a href="fine-tune.html#cb697-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">panel.border =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb697-6"><a href="fine-tune.html#cb697-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">panel.grid =</span> <span class="fu">element_line</span>(<span class="at">color=</span><span class="st">&#39;transparent&#39;</span>),</span>
-<span id="cb697-7"><a href="fine-tune.html#cb697-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">panel.background =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb697-8"><a href="fine-tune.html#cb697-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">&quot;transparent&quot;</span>,<span class="at">color=</span><span class="st">&#39;transparent&#39;</span>)</span>
-<span id="cb697-9"><a href="fine-tune.html#cb697-9" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb697"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb697-1"><a href="fine-tune.html#cb697-1" aria-hidden="true" tabindex="-1"></a>theme_for_map <span class="ot">&lt;-</span> </span>
+<span id="cb697-2"><a href="fine-tune.html#cb697-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(</span>
+<span id="cb697-3"><a href="fine-tune.html#cb697-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">axis.ticks =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb697-4"><a href="fine-tune.html#cb697-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">axis.text=</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb697-5"><a href="fine-tune.html#cb697-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">axis.line =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb697-6"><a href="fine-tune.html#cb697-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">panel.border =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb697-7"><a href="fine-tune.html#cb697-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">panel.grid =</span> <span class="fu">element_line</span>(<span class="at">color=</span><span class="st">&#39;transparent&#39;</span>),</span>
+<span id="cb697-8"><a href="fine-tune.html#cb697-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">panel.background =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb697-9"><a href="fine-tune.html#cb697-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">&quot;transparent&quot;</span>,<span class="at">color=</span><span class="st">&#39;transparent&#39;</span>)</span>
+<span id="cb697-10"><a href="fine-tune.html#cb697-10" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
 <p>Applying the theme to the map:</p>
 <div class="sourceCode" id="cb698"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb698-1"><a href="fine-tune.html#cb698-1" aria-hidden="true" tabindex="-1"></a>g_base <span class="sc">+</span> theme_for_map</span></code></pre></div>
-<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-71-1.png" width="672" /></p>
+<p><img src="R_GIS_Book_files/figure-html/apply-theme-1.png" width="672" /></p>
 <p>This is very similar to <code>theme_void()</code> except that <code>strip.background</code> is not lost.</p>
 <p>You can use <code>theme_void()</code> as a starting point and override components of it like this.</p>
 <div class="sourceCode" id="cb699"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb699-1"><a href="fine-tune.html#cb699-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- bring back a color to strip.background  ---#</span></span>
@@ -802,14 +803,14 @@ First 10 features:
 <span id="cb699-3"><a href="fine-tune.html#cb699-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb699-4"><a href="fine-tune.html#cb699-4" aria-hidden="true" tabindex="-1"></a><span class="co">#--- apply the new theme ---#</span></span>
 <span id="cb699-5"><a href="fine-tune.html#cb699-5" aria-hidden="true" tabindex="-1"></a>g_base <span class="sc">+</span> theme_for_map_2</span></code></pre></div>
-<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-72-1.png" width="672" /></p>
+<p><img src="R_GIS_Book_files/figure-html/void-correct-theme-1.png" width="672" /></p>
 <hr />
 <p><code>theme_bw()</code> is also a good theme for maps.</p>
 <div class="sourceCode" id="cb700"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb700-1"><a href="fine-tune.html#cb700-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb700-2"><a href="fine-tune.html#cb700-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_sf</span>(<span class="at">data =</span> gw_by_county, <span class="fu">aes</span>(<span class="at">fill =</span> af_used)) <span class="sc">+</span></span>
 <span id="cb700-3"><a href="fine-tune.html#cb700-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_grid</span>(year <span class="sc">~</span> .) <span class="sc">+</span></span>
 <span id="cb700-4"><a href="fine-tune.html#cb700-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>()</span></code></pre></div>
-<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-73-1.png" width="672" /></p>
+<p><img src="R_GIS_Book_files/figure-html/theme-bw-1.png" width="672" /></p>
 <p>If you do not like the gray grid lines, you can remove them like this.</p>
 <div class="sourceCode" id="cb701"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb701-1"><a href="fine-tune.html#cb701-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb701-2"><a href="fine-tune.html#cb701-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_sf</span>(<span class="at">data =</span> gw_by_county, <span class="fu">aes</span>(<span class="at">fill =</span> af_used)) <span class="sc">+</span></span>
@@ -818,11 +819,11 @@ First 10 features:
 <span id="cb701-5"><a href="fine-tune.html#cb701-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(</span>
 <span id="cb701-6"><a href="fine-tune.html#cb701-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid =</span> <span class="fu">element_line</span>(<span class="at">color=</span><span class="st">&#39;transparent&#39;</span>)</span>
 <span id="cb701-7"><a href="fine-tune.html#cb701-7" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
-<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-74-1.png" width="672" /></p>
+<p><img src="R_GIS_Book_files/figure-html/remove-grid-lines-1.png" width="672" /></p>
 <hr />
 <p>Not all themes are suitable for maps. For example, <code>theme_classic()</code> is not a very good option as you can see below:</p>
 <div class="sourceCode" id="cb702"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb702-1"><a href="fine-tune.html#cb702-1" aria-hidden="true" tabindex="-1"></a>g_base <span class="sc">+</span> <span class="fu">theme_classic</span>()</span></code></pre></div>
-<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-75-1.png" width="672" /></p>
+<p><img src="R_GIS_Book_files/figure-html/theme-classic-1.png" width="672" /></p>
 <p>If you are not satisfied with <code>theme_void()</code> and not willing to make up your own theme, then you may want to take a look at other pre-made themes that are available from <code>ggplot2</code> (see <a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">here</a>) and <code>ggthemes</code> (see <a href="https://yutannihilation.github.io/allYourFigureAreBelongToUs/ggthemes/">here</a>). Note that some themes are more invasive than <code>theme_void()</code>, altering the default color scale.</p>
 </div>
 <div id="legend" class="section level3" number="8.5.2">
@@ -835,33 +836,33 @@ First 10 features:
 <span id="cb703-4"><a href="fine-tune.html#cb703-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_wrap</span>(. <span class="sc">~</span> year) <span class="sc">+</span></span>
 <span id="cb703-5"><a href="fine-tune.html#cb703-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_void</span>()</span>
 <span id="cb703-6"><a href="fine-tune.html#cb703-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-76-1.png" width="672" /></p>
+<p><img src="R_GIS_Book_files/figure-html/lg-start-1.png" width="672" /></p>
 <p>Let’s first change the color scale to Viridis using <code>scale_fill_viridis_c()</code> (see section <a href="color-scale.html#color-scale">8.3</a> for picking a color scale).</p>
 <div class="sourceCode" id="cb704"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb704-1"><a href="fine-tune.html#cb704-1" aria-hidden="true" tabindex="-1"></a>g_legend <span class="sc">+</span></span>
 <span id="cb704-2"><a href="fine-tune.html#cb704-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_fill_viridis_c</span>()</span></code></pre></div>
-<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-77-1.png" width="672" /></p>
+<p><img src="R_GIS_Book_files/figure-html/lg-viridis-1.png" width="672" /></p>
 <p>Right now, the legend title is <code>af_used</code>, which does not tell the readers what it means. In general, you can change the title of a legend by using the <code>name</code> option inside the <code>scale</code> function for the legend (here, <code>scale_fill_viridis_c()</code>). So, this one works:</p>
 <div class="sourceCode" id="cb705"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb705-1"><a href="fine-tune.html#cb705-1" aria-hidden="true" tabindex="-1"></a>g_legend <span class="sc">+</span></span>
 <span id="cb705-2"><a href="fine-tune.html#cb705-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_fill_viridis_c</span>(<span class="at">name =</span> <span class="st">&quot;Groundwater pumping (acre-feet)&quot;</span>)</span></code></pre></div>
-<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-78-1.png" width="672" /></p>
+<p><img src="R_GIS_Book_files/figure-html/lg-title-1.png" width="672" /></p>
 <p>Alternatively, you can use <code>labs()</code> function.<a href="#fn88" class="footnote-ref" id="fnref88"><sup>88</sup></a>. Since the legend is for the <code>fill</code> aesthetic attribute, you should add <code>fill = "legend title"</code> as follows:</p>
 <div class="sourceCode" id="cb706"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb706-1"><a href="fine-tune.html#cb706-1" aria-hidden="true" tabindex="-1"></a>g_legend <span class="sc">+</span></span>
 <span id="cb706-2"><a href="fine-tune.html#cb706-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_fill_viridis_c</span>() <span class="sc">+</span></span>
 <span id="cb706-3"><a href="fine-tune.html#cb706-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">&quot;Groundwater pumping (acre-feet)&quot;</span>)</span></code></pre></div>
-<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-79-1.png" width="672" /></p>
+<p><img src="R_GIS_Book_files/figure-html/lg-fill-1.png" width="672" /></p>
 <p>Since the legend title is long, the legend is taking up about the half of the space of the entire figure. So, let’s put the legend below the maps (bottom of the figure) by adding <code>theme(legend.position = "bottom")</code>.</p>
 <div class="sourceCode" id="cb707"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb707-1"><a href="fine-tune.html#cb707-1" aria-hidden="true" tabindex="-1"></a>g_legend <span class="sc">+</span></span>
 <span id="cb707-2"><a href="fine-tune.html#cb707-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_fill_viridis_c</span>() <span class="sc">+</span></span>
 <span id="cb707-3"><a href="fine-tune.html#cb707-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">&quot;Groundwater pumping (acre-feet)&quot;</span>) <span class="sc">+</span></span>
 <span id="cb707-4"><a href="fine-tune.html#cb707-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
-<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-80-1.png" width="672" /></p>
+<p><img src="R_GIS_Book_files/figure-html/lg-bottom-1.png" width="672" /></p>
 <p>It would be aesthetically better to have the legend title on top of the color bar. This can be done by using the <code>guides()</code> function. Since we would like to alter the aesthetics of the legend for <code>fill</code> involving a color bar, we use <code>fill = guide_colorbar()</code>. To place the legend title on top, you add <code>title.position="top"</code> inside the <code>guide_colorbar()</code> function as follows:</p>
 <div class="sourceCode" id="cb708"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb708-1"><a href="fine-tune.html#cb708-1" aria-hidden="true" tabindex="-1"></a>g_legend <span class="sc">+</span></span>
 <span id="cb708-2"><a href="fine-tune.html#cb708-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_fill_viridis_c</span>() <span class="sc">+</span></span>
 <span id="cb708-3"><a href="fine-tune.html#cb708-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">&quot;Groundwater pumping (acre-feet)&quot;</span>) <span class="sc">+</span></span>
 <span id="cb708-4"><a href="fine-tune.html#cb708-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>) <span class="sc">+</span></span>
 <span id="cb708-5"><a href="fine-tune.html#cb708-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">guides</span>(<span class="at">fill =</span> <span class="fu">guide_colorbar</span>(<span class="at">title.position=</span><span class="st">&quot;top&quot;</span>))</span></code></pre></div>
-<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-81-1.png" width="672" /></p>
+<p><img src="R_GIS_Book_files/figure-html/lg-bar-top-1.png" width="672" /></p>
 <p>This looks better. But, the legend labels are too close to each other so it is hard to read them because the color bar is too short. Let’s elongate the color bar so that we have enough space between legend labels using <code>legend.key.width =</code> option for <code>theme()</code>. Let’s also make the legend thinner using <code>legend.key.height =</code> option.</p>
 <div class="sourceCode" id="cb709"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb709-1"><a href="fine-tune.html#cb709-1" aria-hidden="true" tabindex="-1"></a>g_legend <span class="sc">+</span></span>
 <span id="cb709-2"><a href="fine-tune.html#cb709-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_fill_viridis_c</span>() <span class="sc">+</span></span>
@@ -873,7 +874,7 @@ First 10 features:
 <span id="cb709-8"><a href="fine-tune.html#cb709-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.key.width =</span> <span class="fu">unit</span>(<span class="dv">2</span>, <span class="st">&quot;cm&quot;</span>)</span>
 <span id="cb709-9"><a href="fine-tune.html#cb709-9" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
 <span id="cb709-10"><a href="fine-tune.html#cb709-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">guides</span>(<span class="at">fill =</span> <span class="fu">guide_colorbar</span>(<span class="at">title.position=</span><span class="st">&quot;top&quot;</span>))</span></code></pre></div>
-<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-82-1.png" width="672" /></p>
+<p><img src="R_GIS_Book_files/figure-html/lg-key-1.png" width="672" /></p>
 <p>If the journal you are submitting an article to is requesting a specific font family for the texts in the figure, you can use <code>legend.text = element_text()</code> and <code>legend.title = element_text()</code> inside <code>theme()</code> for the legend labels and legend title, respectively. The following code uses the font family of “Times” and font size of 12 for both the labels and the title.</p>
 <div class="sourceCode" id="cb710"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb710-1"><a href="fine-tune.html#cb710-1" aria-hidden="true" tabindex="-1"></a>g_legend <span class="sc">+</span></span>
 <span id="cb710-2"><a href="fine-tune.html#cb710-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_fill_viridis_c</span>() <span class="sc">+</span></span>
@@ -887,7 +888,7 @@ First 10 features:
 <span id="cb710-10"><a href="fine-tune.html#cb710-10" aria-hidden="true" tabindex="-1"></a>        <span class="co">#--- NEW LINES HERE!! ---#</span></span>
 <span id="cb710-11"><a href="fine-tune.html#cb710-11" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
 <span id="cb710-12"><a href="fine-tune.html#cb710-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">guides</span>(<span class="at">fill =</span> <span class="fu">guide_colorbar</span>(<span class="at">title.position=</span><span class="st">&quot;top&quot;</span>))</span></code></pre></div>
-<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-83-1.png" width="672" /></p>
+<p><img src="R_GIS_Book_files/figure-html/lg-text-font-1.png" width="672" /></p>
 <p>For the other options to control the legend with a color bar, see <a href="https://ggplot2.tidyverse.org/reference/guide_colorbar.html">here</a>.</p>
 <hr />
 <p>When the legend is made for discrete values, you can use <code>guide_legend()</code>. Let’s use the following map as a starting point.</p>
@@ -908,13 +909,13 @@ First 10 features:
 <span id="cb712-2"><a href="fine-tune.html#cb712-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">guides</span>(</span>
 <span id="cb712-3"><a href="fine-tune.html#cb712-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">color =</span> <span class="fu">guide_legend</span>(<span class="at">title.position=</span><span class="st">&quot;top&quot;</span>)</span>
 <span id="cb712-4"><a href="fine-tune.html#cb712-4" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
-<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-84-1.png" width="672" /></p>
+<p><img src="R_GIS_Book_files/figure-html/lg-title-top-again-1.png" width="672" /></p>
 <p>Since the legend is for the <code>color</code> aesthetic attribute, <code>color = guide_legend()</code> was used. The legend labels are still a bit too long, so let’s arrange them in two rows using the <code>nrow =</code> option.</p>
 <div class="sourceCode" id="cb713"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb713-1"><a href="fine-tune.html#cb713-1" aria-hidden="true" tabindex="-1"></a>g_legend_2 <span class="sc">+</span></span>
 <span id="cb713-2"><a href="fine-tune.html#cb713-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">guides</span>(</span>
 <span id="cb713-3"><a href="fine-tune.html#cb713-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">color =</span> <span class="fu">guide_legend</span>(<span class="at">title.position=</span><span class="st">&quot;top&quot;</span>, <span class="at">nrow =</span> <span class="dv">2</span>)</span>
 <span id="cb713-4"><a href="fine-tune.html#cb713-4" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
-<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-85-1.png" width="672" /></p>
+<p><img src="R_GIS_Book_files/figure-html/lg-title-row-1.png" width="672" /></p>
 <p>For the other options for <code>guide_legend()</code>, see <a href="https://ggplot2.tidyverse.org/reference/guide_legend.html">here</a>.</p>
 <!--
 #/*=================================================*/
@@ -942,7 +943,7 @@ First 10 features:
 <span id="cb714-8"><a href="fine-tune.html#cb714-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_void</span>() <span class="sc">+</span></span>
 <span id="cb714-9"><a href="fine-tune.html#cb714-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_viridis_c</span>() <span class="sc">+</span></span>
 <span id="cb714-10"><a href="fine-tune.html#cb714-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
-<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-86-1.png" width="672" /></p>
+<p><img src="R_GIS_Book_files/figure-html/facet-wrap-1.png" width="672" /></p>
 <p>To make texts in the strips more descriptive of what they actually mean you can make variable that have texts you want to show on the map as their values.</p>
 <div class="sourceCode" id="cb715"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb715-1"><a href="fine-tune.html#cb715-1" aria-hidden="true" tabindex="-1"></a>gw_KS_sf <span class="ot">&lt;-</span> gw_KS_sf <span class="sc">%&gt;%</span></span>
 <span id="cb715-2"><a href="fine-tune.html#cb715-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
@@ -962,7 +963,7 @@ First 10 features:
 <span id="cb715-16"><a href="fine-tune.html#cb715-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_viridis_c</span>() <span class="sc">+</span></span>
 <span id="cb715-17"><a href="fine-tune.html#cb715-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</span>
 <span id="cb715-18"><a href="fine-tune.html#cb715-18" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-87-1.png" width="672" /></p>
+<p><img src="R_GIS_Book_files/figure-html/facet-text-change-1.png" width="672" /></p>
 <p>You probably noticed that the high water use cases are now appear on top. This is because the panels of figures are arranged in a way that the strip texts are alphabetically ordered. <code>High water use</code> precedes <code>Low water use</code>. Sometimes, this is not desirable. To force a specific order, you can turn the faceting variable (here <code>high_low</code>) into a <code>factor</code> with the order of its values defined using <code>levels =</code>. The following code converts <code>high_low</code> into a factor where “Low water use” is the first level and “High water use” is the second level.</p>
 <div class="sourceCode" id="cb716"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb716-1"><a href="fine-tune.html#cb716-1" aria-hidden="true" tabindex="-1"></a>gw_KS_sf <span class="ot">&lt;-</span> <span class="fu">mutate</span>(gw_KS_sf, <span class="at">high_low =</span> <span class="fu">factor</span>(high_low, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;Low water use&quot;</span>, <span class="st">&quot;High water use&quot;</span>)))</span></code></pre></div>
 <p>Now, “Low water use” cases appear first (on top).</p>
@@ -978,23 +979,23 @@ First 10 features:
 <span id="cb717-10"><a href="fine-tune.html#cb717-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</span>
 <span id="cb717-11"><a href="fine-tune.html#cb717-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb717-12"><a href="fine-tune.html#cb717-12" aria-hidden="true" tabindex="-1"></a>g_facet</span></code></pre></div>
-<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-89-1.png" width="672" /></p>
+<p><img src="R_GIS_Book_files/figure-html/show-order-change-1.png" width="672" /></p>
 <p>You can control how strip texts and strip boxes appear using <code>strip.text</code> and <code>strip.background</code> options. Here is an example:</p>
 <div class="sourceCode" id="cb718"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb718-1"><a href="fine-tune.html#cb718-1" aria-hidden="true" tabindex="-1"></a>g_facet <span class="sc">+</span> <span class="fu">theme</span>(</span>
 <span id="cb718-2"><a href="fine-tune.html#cb718-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">strip.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>, <span class="at">family =</span> <span class="st">&quot;Times&quot;</span>, <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>),</span>
 <span id="cb718-3"><a href="fine-tune.html#cb718-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">strip.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">&quot;red&quot;</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>)</span>
 <span id="cb718-4"><a href="fine-tune.html#cb718-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-90-1.png" width="672" /></p>
+<p><img src="R_GIS_Book_files/figure-html/facet-strip-background-1.png" width="672" /></p>
 <p>Instead of having descriptions of cases on top of the figures, you could have one of the descriptions on the right side of the figures using <code>facet_grid()</code>.</p>
 <div class="sourceCode" id="cb719"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb719-1"><a href="fine-tune.html#cb719-1" aria-hidden="true" tabindex="-1"></a>g_facet <span class="sc">+</span></span>
 <span id="cb719-2"><a href="fine-tune.html#cb719-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">#--- this overrides facet_wrap(high_low ~ year_txt) ---#</span></span>
 <span id="cb719-3"><a href="fine-tune.html#cb719-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_grid</span>(high_low <span class="sc">~</span> year_txt)</span></code></pre></div>
-<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-91-1.png" width="672" /></p>
+<p><img src="R_GIS_Book_files/figure-html/facet-right-1.png" width="672" /></p>
 <p>Now case descriptions for <code>high_low</code> are too long and it is squeezing the space for maps. Let’s flip <code>high_low</code> and <code>year</code>.</p>
 <div class="sourceCode" id="cb720"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb720-1"><a href="fine-tune.html#cb720-1" aria-hidden="true" tabindex="-1"></a>g_facet <span class="sc">+</span></span>
 <span id="cb720-2"><a href="fine-tune.html#cb720-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">#--- this overrides facet_grid(high_low ~ year_txt) ---#</span></span>
 <span id="cb720-3"><a href="fine-tune.html#cb720-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_grid</span>(year_txt <span class="sc">~</span> high_low)</span></code></pre></div>
-<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-92-1.png" width="672" /></p>
+<p><img src="R_GIS_Book_files/figure-html/facet-right-left-1.png" width="672" /></p>
 <p>This is slightly better than before, but not much. Let’s rotate strip texts for <code>year</code> using the <code>angle =</code> option.</p>
 <div class="sourceCode" id="cb721"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb721-1"><a href="fine-tune.html#cb721-1" aria-hidden="true" tabindex="-1"></a>g_facet <span class="sc">+</span></span>
 <span id="cb721-2"><a href="fine-tune.html#cb721-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">#--- this overrides facet_grid(high_low ~ year_txt) ---#</span></span>
@@ -1002,7 +1003,7 @@ First 10 features:
 <span id="cb721-4"><a href="fine-tune.html#cb721-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(</span>
 <span id="cb721-5"><a href="fine-tune.html#cb721-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">strip.text.y =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="sc">-</span> <span class="dv">90</span>)</span>
 <span id="cb721-6"><a href="fine-tune.html#cb721-6" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
-<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-93-1.png" width="672" /></p>
+<p><img src="R_GIS_Book_files/figure-html/angle-1.png" width="672" /></p>
 <p>Since we only want to change the angle of strip texts for the second faceting variable, we need to work on <code>strip.text.y</code> (if you want to work on the first one, you use <code>strip.text.x</code>.).</p>
 <p>Let’s change the size of the strip texts to 12 and use <code>Times</code> font family.</p>
 <div class="sourceCode" id="cb722"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb722-1"><a href="fine-tune.html#cb722-1" aria-hidden="true" tabindex="-1"></a>g_facet <span class="sc">+</span></span>
@@ -1013,7 +1014,7 @@ First 10 features:
 <span id="cb722-6"><a href="fine-tune.html#cb722-6" aria-hidden="true" tabindex="-1"></a>        <span class="co">#--- moves up the strip texts ---#</span></span>
 <span id="cb722-7"><a href="fine-tune.html#cb722-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">strip.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>, <span class="at">family =</span> <span class="st">&quot;Times&quot;</span>)</span>
 <span id="cb722-8"><a href="fine-tune.html#cb722-8" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
-<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-94-1.png" width="672" /></p>
+<p><img src="R_GIS_Book_files/figure-html/font-times-1.png" width="672" /></p>
 <p>The strip texts for <code>high_low</code> are too close to maps that letter “g” in “High” is truncated. Let’s move them up.</p>
 <div class="sourceCode" id="cb723"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb723-1"><a href="fine-tune.html#cb723-1" aria-hidden="true" tabindex="-1"></a>g_facet <span class="sc">+</span></span>
 <span id="cb723-2"><a href="fine-tune.html#cb723-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">#--- this overrides facet_grid(high_low ~ year_txt) ---#</span></span>
@@ -1023,7 +1024,7 @@ First 10 features:
 <span id="cb723-6"><a href="fine-tune.html#cb723-6" aria-hidden="true" tabindex="-1"></a>        <span class="co">#--- moves up the strip texts ---#</span></span>
 <span id="cb723-7"><a href="fine-tune.html#cb723-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">strip.text.x =</span> <span class="fu">element_text</span>(<span class="at">vjust =</span> <span class="dv">2</span>, <span class="at">size =</span> <span class="dv">12</span>, <span class="at">family =</span> <span class="st">&quot;Times&quot;</span>)</span>
 <span id="cb723-8"><a href="fine-tune.html#cb723-8" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
-<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-95-1.png" width="672" /></p>
+<p><img src="R_GIS_Book_files/figure-html/move-g-1.png" width="672" /></p>
 <p>Now the upper part of the letters is truncated. We could just put more margin below the texts using the <code>margin = margin(top, right, bottom, left, unit in text)</code> option.</p>
 <div class="sourceCode" id="cb724"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb724-1"><a href="fine-tune.html#cb724-1" aria-hidden="true" tabindex="-1"></a>g_facet <span class="sc">+</span></span>
 <span id="cb724-2"><a href="fine-tune.html#cb724-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">#--- this overrides facet_grid(high_low ~ year_txt) ---#</span></span>
@@ -1032,7 +1033,7 @@ First 10 features:
 <span id="cb724-5"><a href="fine-tune.html#cb724-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">strip.text.y =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="sc">-</span> <span class="dv">90</span>, <span class="at">size =</span> <span class="dv">12</span>, <span class="at">family =</span> <span class="st">&quot;Times&quot;</span>),</span>
 <span id="cb724-6"><a href="fine-tune.html#cb724-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">strip.text.x =</span> <span class="fu">element_text</span>(<span class="at">margin =</span> <span class="fu">margin</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="fl">0.2</span>, <span class="dv">0</span>, <span class="st">&quot;cm&quot;</span>), <span class="at">size =</span> <span class="dv">12</span>, <span class="at">family =</span> <span class="st">&quot;Times&quot;</span>)</span>
 <span id="cb724-7"><a href="fine-tune.html#cb724-7" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
-<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-96-1.png" width="672" /></p>
+<p><img src="R_GIS_Book_files/figure-html/more-margin-1.png" width="672" /></p>
 <p>For completeness, let’s make the legend look better as well (this is discussed in section <a href="fine-tune.html#theme">8.5.1</a>).</p>
 <div class="sourceCode" id="cb725"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb725-1"><a href="fine-tune.html#cb725-1" aria-hidden="true" tabindex="-1"></a>(</span>
 <span id="cb725-2"><a href="fine-tune.html#cb725-2" aria-hidden="true" tabindex="-1"></a>g_facet <span class="ot">&lt;-</span> g_facet <span class="sc">+</span></span>
@@ -1054,7 +1055,7 @@ First 10 features:
 <span id="cb725-18"><a href="fine-tune.html#cb725-18" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
 <span id="cb725-19"><a href="fine-tune.html#cb725-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">guides</span>(<span class="at">color =</span> <span class="fu">guide_colorbar</span>(<span class="at">title.position=</span><span class="st">&quot;top&quot;</span>))</span>
 <span id="cb725-20"><a href="fine-tune.html#cb725-20" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-97-1.png" width="672" /></p>
+<p><img src="R_GIS_Book_files/figure-html/make-legend-look-better-1.png" width="672" /></p>
 <p>Alright, setting aside the problem of whether the information provided in the maps is meaningful or not, the maps look great at least.</p>
 </div>
 <div id="north-arrow-and-scale-bar" class="section level3" number="8.5.4">
@@ -1074,7 +1075,7 @@ Geodetic CRS:  NAD27</code></pre>
 <span id="cb728-2"><a href="fine-tune.html#cb728-2" aria-hidden="true" tabindex="-1"></a><span class="co">#--- create a simple map ---#</span></span>
 <span id="cb728-3"><a href="fine-tune.html#cb728-3" aria-hidden="true" tabindex="-1"></a>g_nc <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(nc) <span class="sc">+</span> <span class="fu">geom_sf</span>() <span class="sc">+</span> <span class="fu">theme_void</span>()</span>
 <span id="cb728-4"><a href="fine-tune.html#cb728-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-98-1.png" width="672" /></p>
+<p><img src="R_GIS_Book_files/figure-html/nc-read-map-1.png" width="672" /></p>
 <p>Here is an example code that adds a scale bar:</p>
 <div class="sourceCode" id="cb729"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb729-1"><a href="fine-tune.html#cb729-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- load ggspatial ---#</span></span>
 <span id="cb729-2"><a href="fine-tune.html#cb729-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggspatial)</span>
@@ -1087,23 +1088,30 @@ Geodetic CRS:  NAD27</code></pre>
 <span id="cb729-9"><a href="fine-tune.html#cb729-9" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
 <p><code>location</code> determines where the scale bar is. The first letter is either <code>t</code> (top) or <code>b</code> (bottom), and the second letter is either <code>l (left)</code> or <code>r</code> (right). <code>width_hint</code> is the length of the scale bar relative to the plot. The distance number (200 km) was generated automatically according to the length of the bar.</p>
 <p>You can add pads from the plot border to fine tune the location of the scale bar:</p>
-<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-100-1.png" width="672" /></p>
-<p>A positive number means that the scale bar will be placed further away from closest border of the plot.</p>
-<p>You can add a north arrow using <code>annotation_north_arrow()</code>. Accepted arguments are similar to those for <code>annotation_scale()</code>.</p>
 <div class="sourceCode" id="cb730"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb730-1"><a href="fine-tune.html#cb730-1" aria-hidden="true" tabindex="-1"></a>g_nc <span class="sc">+</span></span>
 <span id="cb730-2"><a href="fine-tune.html#cb730-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotation_scale</span>(</span>
 <span id="cb730-3"><a href="fine-tune.html#cb730-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">location =</span> <span class="st">&quot;bl&quot;</span>,</span>
 <span id="cb730-4"><a href="fine-tune.html#cb730-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">width_hint =</span> <span class="fl">0.2</span>,</span>
-<span id="cb730-5"><a href="fine-tune.html#cb730-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">pad_x =</span> <span class="fu">unit</span>(<span class="dv">3</span>, <span class="st">&quot;cm&quot;</span>)</span>
-<span id="cb730-6"><a href="fine-tune.html#cb730-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb730-7"><a href="fine-tune.html#cb730-7" aria-hidden="true" tabindex="-1"></a>  <span class="co">#--- add north arrow ---#</span></span>
-<span id="cb730-8"><a href="fine-tune.html#cb730-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotation_north_arrow</span>(</span>
-<span id="cb730-9"><a href="fine-tune.html#cb730-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">location =</span> <span class="st">&quot;tl&quot;</span>,</span>
-<span id="cb730-10"><a href="fine-tune.html#cb730-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">pad_x =</span> <span class="fu">unit</span>(<span class="fl">0.5</span>, <span class="st">&quot;in&quot;</span>),</span>
-<span id="cb730-11"><a href="fine-tune.html#cb730-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">pad_y =</span> <span class="fu">unit</span>(<span class="fl">0.1</span>, <span class="st">&quot;in&quot;</span>),</span>
-<span id="cb730-12"><a href="fine-tune.html#cb730-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">style =</span> north_arrow_fancy_orienteering</span>
-<span id="cb730-13"><a href="fine-tune.html#cb730-13" aria-hidden="true" tabindex="-1"></a>   )</span></code></pre></div>
-<p><img src="R_GIS_Book_files/figure-html/unnamed-chunk-101-1.png" width="672" /></p>
+<span id="cb730-5"><a href="fine-tune.html#cb730-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">pad_x =</span> <span class="fu">unit</span>(<span class="dv">3</span>, <span class="st">&quot;cm&quot;</span>),</span>
+<span id="cb730-6"><a href="fine-tune.html#cb730-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">pad_y =</span> <span class="fu">unit</span>(<span class="dv">2</span>, <span class="st">&quot;cm&quot;</span>)</span>
+<span id="cb730-7"><a href="fine-tune.html#cb730-7" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<p><img src="R_GIS_Book_files/figure-html/add-pads-1.png" width="672" /></p>
+<p>A positive number means that the scale bar will be placed further away from closest border of the plot.</p>
+<p>You can add a north arrow using <code>annotation_north_arrow()</code>. Accepted arguments are similar to those for <code>annotation_scale()</code>.</p>
+<div class="sourceCode" id="cb731"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb731-1"><a href="fine-tune.html#cb731-1" aria-hidden="true" tabindex="-1"></a>g_nc <span class="sc">+</span></span>
+<span id="cb731-2"><a href="fine-tune.html#cb731-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotation_scale</span>(</span>
+<span id="cb731-3"><a href="fine-tune.html#cb731-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">location =</span> <span class="st">&quot;bl&quot;</span>,</span>
+<span id="cb731-4"><a href="fine-tune.html#cb731-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">width_hint =</span> <span class="fl">0.2</span>,</span>
+<span id="cb731-5"><a href="fine-tune.html#cb731-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">pad_x =</span> <span class="fu">unit</span>(<span class="dv">3</span>, <span class="st">&quot;cm&quot;</span>)</span>
+<span id="cb731-6"><a href="fine-tune.html#cb731-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb731-7"><a href="fine-tune.html#cb731-7" aria-hidden="true" tabindex="-1"></a>  <span class="co">#--- add north arrow ---#</span></span>
+<span id="cb731-8"><a href="fine-tune.html#cb731-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotation_north_arrow</span>(</span>
+<span id="cb731-9"><a href="fine-tune.html#cb731-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">location =</span> <span class="st">&quot;tl&quot;</span>,</span>
+<span id="cb731-10"><a href="fine-tune.html#cb731-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">pad_x =</span> <span class="fu">unit</span>(<span class="fl">0.5</span>, <span class="st">&quot;in&quot;</span>),</span>
+<span id="cb731-11"><a href="fine-tune.html#cb731-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">pad_y =</span> <span class="fu">unit</span>(<span class="fl">0.1</span>, <span class="st">&quot;in&quot;</span>),</span>
+<span id="cb731-12"><a href="fine-tune.html#cb731-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">style =</span> north_arrow_fancy_orienteering</span>
+<span id="cb731-13"><a href="fine-tune.html#cb731-13" aria-hidden="true" tabindex="-1"></a>   )</span></code></pre></div>
+<p><img src="R_GIS_Book_files/figure-html/add-north-arrow-1.png" width="672" /></p>
 <p>There are several <code>style</code>s you can pick from. Run <code>?north_arrow_orienteering</code> to see other options.</p>
 <!-- ----
 

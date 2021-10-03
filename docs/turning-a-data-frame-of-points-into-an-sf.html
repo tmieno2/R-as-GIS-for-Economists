@@ -24,7 +24,7 @@
 <meta name="author" content="Taro Mieno" />
 
 
-<meta name="date" content="2021-10-02" />
+<meta name="date" content="2021-10-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -161,7 +161,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="why-r-as-gis-for-economists.html"><a href="why-r-as-gis-for-economists.html#summary"><i class="fa fa-check"></i>Summary</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="how-is-this-book-different-from-other-online-books-and-resources.html"><a href="how-is-this-book-different-from-other-online-books-and-resources.html"><i class="fa fa-check"></i>How is this book different from other online books and resources?</a></li>
-<li class="chapter" data-level="" data-path="what-is-going-to-be-covered-in-this-book.html"><a href="what-is-going-to-be-covered-in-this-book.html"><i class="fa fa-check"></i>What is going to be covered in this book?</a></li>
+<li class="chapter" data-level="" data-path="topics-covered-in-this-book.html"><a href="topics-covered-in-this-book.html"><i class="fa fa-check"></i>Topics covered in this book</a></li>
 <li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html"><i class="fa fa-check"></i>Conventions of the book and some notes</a>
 <ul>
 <li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html#texts-in-gray-boxes"><i class="fa fa-check"></i>Texts in gray boxes</a></li>
@@ -562,10 +562,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb149-4"><a href="turning-a-data-frame-of-points-into-an-sf.html#cb149-4" aria-hidden="true" tabindex="-1"></a><span class="co">#--- take a look at the data ---#</span></span>
 <span id="cb149-5"><a href="turning-a-data-frame-of-points-into-an-sf.html#cb149-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(wells_sf[,<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>])</span></code></pre></div>
 <pre><code>Simple feature collection with 6 features and 5 fields
-Geometry type: POINT
-Dimension:     XY
-Bounding box:  xmin: -102.6249 ymin: 40.69824 xmax: -99.58401 ymax: 41.11699
-CRS:           NA
+geometry type:  POINT
+dimension:      XY
+bbox:           xmin: -102.6249 ymin: 40.69824 xmax: -99.58401 ymax: 41.11699
+CRS:            NA
   wellid ownerid        nrdname acres  regdate                   geometry
 1      2  106106 Central Platte   160 12/30/55 POINT (-99.58401 40.69825)
 2      3   14133   South Platte    46  4/29/31 POINT (-102.6249 41.11699)
@@ -583,10 +583,10 @@ CRS:           NA
 <span id="cb151-7"><a href="turning-a-data-frame-of-points-into-an-sf.html#cb151-7" aria-hidden="true" tabindex="-1"></a><span class="co">#--- see the change ---#</span></span>
 <span id="cb151-8"><a href="turning-a-data-frame-of-points-into-an-sf.html#cb151-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(wells_sf[,<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>])</span></code></pre></div>
 <pre><code>Simple feature collection with 6 features and 5 fields
-Geometry type: POINT
-Dimension:     XY
-Bounding box:  xmin: -102.6249 ymin: 40.69824 xmax: -99.58401 ymax: 41.11699
-Geodetic CRS:  NAD83
+geometry type:  POINT
+dimension:      XY
+bbox:           xmin: -102.6249 ymin: 40.69824 xmax: -99.58401 ymax: 41.11699
+geographic CRS: NAD83
   wellid ownerid        nrdname acres  regdate                   geometry
 1      2  106106 Central Platte   160 12/30/55 POINT (-99.58401 40.69825)
 2      3   14133   South Platte    46  4/29/31 POINT (-102.6249 41.11699)

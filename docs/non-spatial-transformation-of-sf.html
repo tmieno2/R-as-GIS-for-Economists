@@ -24,7 +24,7 @@
 <meta name="author" content="Taro Mieno" />
 
 
-<meta name="date" content="2021-10-02" />
+<meta name="date" content="2021-10-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -161,7 +161,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="why-r-as-gis-for-economists.html"><a href="why-r-as-gis-for-economists.html#summary"><i class="fa fa-check"></i>Summary</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="how-is-this-book-different-from-other-online-books-and-resources.html"><a href="how-is-this-book-different-from-other-online-books-and-resources.html"><i class="fa fa-check"></i>How is this book different from other online books and resources?</a></li>
-<li class="chapter" data-level="" data-path="what-is-going-to-be-covered-in-this-book.html"><a href="what-is-going-to-be-covered-in-this-book.html"><i class="fa fa-check"></i>What is going to be covered in this book?</a></li>
+<li class="chapter" data-level="" data-path="topics-covered-in-this-book.html"><a href="topics-covered-in-this-book.html"><i class="fa fa-check"></i>Topics covered in this book</a></li>
 <li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html"><i class="fa fa-check"></i>Conventions of the book and some notes</a>
 <ul>
 <li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html#texts-in-gray-boxes"><i class="fa fa-check"></i>Texts in gray boxes</a></li>
@@ -529,10 +529,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="non-spatial-transformation-of-sf.html#cb157-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- here is what the data looks like ---#</span></span>
 <span id="cb157-2"><a href="non-spatial-transformation-of-sf.html#cb157-2" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">select</span>(wells_sf, wellid, nrdname, acres, regdate, nrdname)</span></code></pre></div>
 <pre><code>Simple feature collection with 105822 features and 4 fields
-Geometry type: POINT
-Dimension:     XY
-Bounding box:  xmin: -104.0531 ymin: 40.00161 xmax: -96.87681 ymax: 41.85942
-Geodetic CRS:  NAD83
+geometry type:  POINT
+dimension:      XY
+bbox:           xmin: -104.0531 ymin: 40.00161 xmax: -96.87681 ymax: 41.85942
+geographic CRS: NAD83
 First 10 features:
    wellid           nrdname acres  regdate                   geometry
 1       2    Central Platte   160 12/30/55 POINT (-99.58401 40.69825)
@@ -556,10 +556,10 @@ First 10 features:
 <span id="cb159-7"><a href="non-spatial-transformation-of-sf.html#cb159-7" aria-hidden="true" tabindex="-1"></a>  <span class="co">#--- hectare instead of acre ---#</span></span>
 <span id="cb159-8"><a href="non-spatial-transformation-of-sf.html#cb159-8" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">hectare =</span> acres <span class="sc">*</span> <span class="fl">0.404686</span>) </span></code></pre></div>
 <pre><code>Simple feature collection with 63271 features and 5 fields
-Geometry type: POINT
-Dimension:     XY
-Bounding box:  xmin: -104.0529 ymin: 40.00161 xmax: -96.87681 ymax: 41.73599
-Geodetic CRS:  NAD83
+geometry type:  POINT
+dimension:      XY
+bbox:           xmin: -104.0529 ymin: 40.00161 xmax: -96.87681 ymax: 41.73599
+geographic CRS: NAD83
 First 10 features:
    wellid           nrdname acres  regdate                   geometry   hectare
 1       2    Central Platte   160 12/30/55 POINT (-99.58401 40.69825)  64.74976
@@ -773,115 +773,115 @@ Geodetic CRS:  NAD83
 100: 0.212     2.024  2241    2241    Brunswick 37019  37019       10  2181
       AREA PERIMETER CNTY_ CNTY_ID         NAME  FIPS FIPSNO CRESS_ID BIR74
      SID74 NWBIR74 BIR79 SID79 NWBIR79 geometry
-  1:     1      10  1364     0      19  &lt;XY[1]&gt;
-  2:     0      10   542     3      12  &lt;XY[1]&gt;
-  3:     5     208  3616     6     260  &lt;XY[1]&gt;
-  4:     1     123   830     2     145  &lt;XY[3]&gt;
-  5:     9    1066  1606     3    1197  &lt;XY[1]&gt;
-  6:     7     954  1838     5    1237  &lt;XY[1]&gt;
-  7:     0     115   350     2     139  &lt;XY[1]&gt;
-  8:     0     254   594     2     371  &lt;XY[1]&gt;
-  9:     4     748  1190     2     844  &lt;XY[1]&gt;
- 10:     1     160  2038     5     176  &lt;XY[1]&gt;
- 11:     2     550  1253     2     597  &lt;XY[1]&gt;
- 12:    16    1243  5386     5    1369  &lt;XY[1]&gt;
- 13:     4     930  2074     4    1058  &lt;XY[1]&gt;
- 14:     4     613  1790     4     650  &lt;XY[1]&gt;
- 15:     4    1179  2753     6    1492  &lt;XY[1]&gt;
- 16:    18    2365  4463    17    2980  &lt;XY[1]&gt;
- 17:     3     622  2275     4     933  &lt;XY[1]&gt;
- 18:     4     200  3725     7     222  &lt;XY[1]&gt;
- 19:     1      17  1775     1      33  &lt;XY[1]&gt;
- 20:     1     230   676     0     310  &lt;XY[1]&gt;
- 21:     1     368   899     1     491  &lt;XY[1]&gt;
- 22:     0       4   977     0       5  &lt;XY[1]&gt;
- 23:     1      65  1568     1      76  &lt;XY[1]&gt;
- 24:     2     736  1863     0     950  &lt;XY[1]&gt;
- 25:    10    3919 15704    18    5031  &lt;XY[1]&gt;
- 26:    23    5483 20543    38    7089  &lt;XY[1]&gt;
- 27:    13    1243  5767    11    1397  &lt;XY[1]&gt;
- 28:     6     921  1616     5    1161  &lt;XY[1]&gt;
- 29:     4     776  4478     6    1086  &lt;XY[1]&gt;
- 30:    16    3732 10432    22    4948  &lt;XY[1]&gt;
- 31:     8    1851  5189     7    2274  &lt;XY[1]&gt;
- 32:     0       1   919     2       4  &lt;XY[1]&gt;
- 33:    10    2186  4359     9    2696  &lt;XY[1]&gt;
- 34:     6     309  4249     9     360  &lt;XY[1]&gt;
- 35:     0      12   869     1      10  &lt;XY[1]&gt;
- 36:     2     883  1849     1    1033  &lt;XY[1]&gt;
- 37:    16    4397 20857    31    6221  &lt;XY[1]&gt;
- 38:     2       5   926     2       3  &lt;XY[1]&gt;
- 39:     4    1144  5400     5    1305  &lt;XY[1]&gt;
- 40:     1     148  1438     3     177  &lt;XY[1]&gt;
- 41:     0     128  1683     2     150  &lt;XY[1]&gt;
- 42:     8     736  7143     8     941  &lt;XY[1]&gt;
- 43:     5     326  4314    15     407  &lt;XY[1]&gt;
- 44:     5     521  1141     0     651  &lt;XY[1]&gt;
- 45:     0     116   319     0     141  &lt;XY[1]&gt;
- 46:     5     134  2215     5     128  &lt;XY[1]&gt;
- 47:     7     384  5711    12     483  &lt;XY[1]&gt;
- 48:     2     591  2398     3     687  &lt;XY[1]&gt;
- 49:    11    1827  4706    13    2330  &lt;XY[1]&gt;
- 50:     3    1057  6427     8    1504  &lt;XY[1]&gt;
- 51:    14    2620  6635    11    3059  &lt;XY[1]&gt;
- 52:     5     790  6883    21     914  &lt;XY[1]&gt;
- 53:     9     930  9956    18    1206  &lt;XY[1]&gt;
- 54:     6    1165  4780    13    1349  &lt;XY[1]&gt;
- 55:     2      57  2463     8      62  &lt;XY[1]&gt;
- 56:     0      43  1059     1      73  &lt;XY[3]&gt;
- 57:     7    1131  2909     4    1163  &lt;XY[2]&gt;
- 58:     3     281   883     2     406  &lt;XY[1]&gt;
- 59:     4     534  1178     4     664  &lt;XY[1]&gt;
- 60:     5     736  2949     6     905  &lt;XY[1]&gt;
- 61:    12     495  3543     8     576  &lt;XY[1]&gt;
- 62:    18    2593  8227    23    3073  &lt;XY[1]&gt;
- 63:     6    1051  4789    10    1453  &lt;XY[1]&gt;
- 64:    10    1491  5526    21    1729  &lt;XY[1]&gt;
- 65:     8     302  2817     7     350  &lt;XY[1]&gt;
- 66:     2     215  1504     5     307  &lt;XY[1]&gt;
- 67:     5     844  3534     5    1151  &lt;XY[1]&gt;
- 68:    44    8027 30757    35   11631  &lt;XY[1]&gt;
- 69:     3     856  5669    20    1203  &lt;XY[1]&gt;
- 70:     3     472  1598     8     588  &lt;XY[1]&gt;
- 71:     5     370  3039     7     528  &lt;XY[1]&gt;
- 72:     5     158  3679     8     264  &lt;XY[1]&gt;
- 73:     0      40   488     1      45  &lt;XY[1]&gt;
- 74:    10    1826  4225    14    2047  &lt;XY[1]&gt;
- 75:     3      92  1401     4     104  &lt;XY[1]&gt;
- 76:    11    1523 11455    26    2194  &lt;XY[1]&gt;
- 77:     1      95   673     0      79  &lt;XY[1]&gt;
- 78:     0       9  1157     3      22  &lt;XY[1]&gt;
- 79:     4    1396  3447     4    1524  &lt;XY[1]&gt;
- 80:     1     222   631     1     277  &lt;XY[1]&gt;
- 81:     2      32  1173     1      42  &lt;XY[1]&gt;
- 82:    38    7043 26370    57   10614  &lt;XY[1]&gt;
- 83:     1     297   650     2     305  &lt;XY[1]&gt;
- 84:     4    1034  5273     9    1348  &lt;XY[1]&gt;
- 85:    15     952  1875     4    1161  &lt;XY[1]&gt;
- 86:     7     987  1706     6    1172  &lt;XY[1]&gt;
- 87:     0     134   427     0     169  &lt;XY[2]&gt;
- 88:     4    1061  2777     7    1227  &lt;XY[1]&gt;
- 89:     4    1043  3108     7    1218  &lt;XY[1]&gt;
- 90:     0       1   419     0       5  &lt;XY[1]&gt;
- 91:    13    1744  7595    18    2342  &lt;XY[2]&gt;
- 92:     8    1206  2617    16    1436  &lt;XY[1]&gt;
- 93:    29    2217 14655    23    3568  &lt;XY[1]&gt;
- 94:    31    5904  9087    26    6899  &lt;XY[1]&gt;
- 95:     5     341  3339     4     487  &lt;XY[2]&gt;
- 96:     8     818  2052     5    1023  &lt;XY[1]&gt;
- 97:     4     580  1602     3     763  &lt;XY[1]&gt;
- 98:    15    1431  4144    17    1832  &lt;XY[1]&gt;
- 99:    12    1633  6917     9    2100  &lt;XY[1]&gt;
-100:     5     659  2655     6     841  &lt;XY[1]&gt;
+  1:     1      10  1364     0      19     &lt;XY&gt;
+  2:     0      10   542     3      12     &lt;XY&gt;
+  3:     5     208  3616     6     260     &lt;XY&gt;
+  4:     1     123   830     2     145     &lt;XY&gt;
+  5:     9    1066  1606     3    1197     &lt;XY&gt;
+  6:     7     954  1838     5    1237     &lt;XY&gt;
+  7:     0     115   350     2     139     &lt;XY&gt;
+  8:     0     254   594     2     371     &lt;XY&gt;
+  9:     4     748  1190     2     844     &lt;XY&gt;
+ 10:     1     160  2038     5     176     &lt;XY&gt;
+ 11:     2     550  1253     2     597     &lt;XY&gt;
+ 12:    16    1243  5386     5    1369     &lt;XY&gt;
+ 13:     4     930  2074     4    1058     &lt;XY&gt;
+ 14:     4     613  1790     4     650     &lt;XY&gt;
+ 15:     4    1179  2753     6    1492     &lt;XY&gt;
+ 16:    18    2365  4463    17    2980     &lt;XY&gt;
+ 17:     3     622  2275     4     933     &lt;XY&gt;
+ 18:     4     200  3725     7     222     &lt;XY&gt;
+ 19:     1      17  1775     1      33     &lt;XY&gt;
+ 20:     1     230   676     0     310     &lt;XY&gt;
+ 21:     1     368   899     1     491     &lt;XY&gt;
+ 22:     0       4   977     0       5     &lt;XY&gt;
+ 23:     1      65  1568     1      76     &lt;XY&gt;
+ 24:     2     736  1863     0     950     &lt;XY&gt;
+ 25:    10    3919 15704    18    5031     &lt;XY&gt;
+ 26:    23    5483 20543    38    7089     &lt;XY&gt;
+ 27:    13    1243  5767    11    1397     &lt;XY&gt;
+ 28:     6     921  1616     5    1161     &lt;XY&gt;
+ 29:     4     776  4478     6    1086     &lt;XY&gt;
+ 30:    16    3732 10432    22    4948     &lt;XY&gt;
+ 31:     8    1851  5189     7    2274     &lt;XY&gt;
+ 32:     0       1   919     2       4     &lt;XY&gt;
+ 33:    10    2186  4359     9    2696     &lt;XY&gt;
+ 34:     6     309  4249     9     360     &lt;XY&gt;
+ 35:     0      12   869     1      10     &lt;XY&gt;
+ 36:     2     883  1849     1    1033     &lt;XY&gt;
+ 37:    16    4397 20857    31    6221     &lt;XY&gt;
+ 38:     2       5   926     2       3     &lt;XY&gt;
+ 39:     4    1144  5400     5    1305     &lt;XY&gt;
+ 40:     1     148  1438     3     177     &lt;XY&gt;
+ 41:     0     128  1683     2     150     &lt;XY&gt;
+ 42:     8     736  7143     8     941     &lt;XY&gt;
+ 43:     5     326  4314    15     407     &lt;XY&gt;
+ 44:     5     521  1141     0     651     &lt;XY&gt;
+ 45:     0     116   319     0     141     &lt;XY&gt;
+ 46:     5     134  2215     5     128     &lt;XY&gt;
+ 47:     7     384  5711    12     483     &lt;XY&gt;
+ 48:     2     591  2398     3     687     &lt;XY&gt;
+ 49:    11    1827  4706    13    2330     &lt;XY&gt;
+ 50:     3    1057  6427     8    1504     &lt;XY&gt;
+ 51:    14    2620  6635    11    3059     &lt;XY&gt;
+ 52:     5     790  6883    21     914     &lt;XY&gt;
+ 53:     9     930  9956    18    1206     &lt;XY&gt;
+ 54:     6    1165  4780    13    1349     &lt;XY&gt;
+ 55:     2      57  2463     8      62     &lt;XY&gt;
+ 56:     0      43  1059     1      73     &lt;XY&gt;
+ 57:     7    1131  2909     4    1163     &lt;XY&gt;
+ 58:     3     281   883     2     406     &lt;XY&gt;
+ 59:     4     534  1178     4     664     &lt;XY&gt;
+ 60:     5     736  2949     6     905     &lt;XY&gt;
+ 61:    12     495  3543     8     576     &lt;XY&gt;
+ 62:    18    2593  8227    23    3073     &lt;XY&gt;
+ 63:     6    1051  4789    10    1453     &lt;XY&gt;
+ 64:    10    1491  5526    21    1729     &lt;XY&gt;
+ 65:     8     302  2817     7     350     &lt;XY&gt;
+ 66:     2     215  1504     5     307     &lt;XY&gt;
+ 67:     5     844  3534     5    1151     &lt;XY&gt;
+ 68:    44    8027 30757    35   11631     &lt;XY&gt;
+ 69:     3     856  5669    20    1203     &lt;XY&gt;
+ 70:     3     472  1598     8     588     &lt;XY&gt;
+ 71:     5     370  3039     7     528     &lt;XY&gt;
+ 72:     5     158  3679     8     264     &lt;XY&gt;
+ 73:     0      40   488     1      45     &lt;XY&gt;
+ 74:    10    1826  4225    14    2047     &lt;XY&gt;
+ 75:     3      92  1401     4     104     &lt;XY&gt;
+ 76:    11    1523 11455    26    2194     &lt;XY&gt;
+ 77:     1      95   673     0      79     &lt;XY&gt;
+ 78:     0       9  1157     3      22     &lt;XY&gt;
+ 79:     4    1396  3447     4    1524     &lt;XY&gt;
+ 80:     1     222   631     1     277     &lt;XY&gt;
+ 81:     2      32  1173     1      42     &lt;XY&gt;
+ 82:    38    7043 26370    57   10614     &lt;XY&gt;
+ 83:     1     297   650     2     305     &lt;XY&gt;
+ 84:     4    1034  5273     9    1348     &lt;XY&gt;
+ 85:    15     952  1875     4    1161     &lt;XY&gt;
+ 86:     7     987  1706     6    1172     &lt;XY&gt;
+ 87:     0     134   427     0     169     &lt;XY&gt;
+ 88:     4    1061  2777     7    1227     &lt;XY&gt;
+ 89:     4    1043  3108     7    1218     &lt;XY&gt;
+ 90:     0       1   419     0       5     &lt;XY&gt;
+ 91:    13    1744  7595    18    2342     &lt;XY&gt;
+ 92:     8    1206  2617    16    1436     &lt;XY&gt;
+ 93:    29    2217 14655    23    3568     &lt;XY&gt;
+ 94:    31    5904  9087    26    6899     &lt;XY&gt;
+ 95:     5     341  3339     4     487     &lt;XY&gt;
+ 96:     8     818  2052     5    1023     &lt;XY&gt;
+ 97:     4     580  1602     3     763     &lt;XY&gt;
+ 98:    15    1431  4144    17    1832     &lt;XY&gt;
+ 99:    12    1633  6917     9    2100     &lt;XY&gt;
+100:     5     659  2655     6     841     &lt;XY&gt;
      SID74 NWBIR74 BIR79 SID79 NWBIR79 geometry</code></pre>
 <p>But, the geometry information is still there as you can see from this:</p>
 <div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="non-spatial-transformation-of-sf.html#cb173-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- take a look at what&#39;s inside the geometry column ---#</span></span>
 <span id="cb173-2"><a href="non-spatial-transformation-of-sf.html#cb173-2" aria-hidden="true" tabindex="-1"></a>nc_dt<span class="sc">$</span>geometry </span></code></pre></div>
 <pre><code>Geometry set for 100 features 
-Geometry type: MULTIPOLYGON
-Dimension:     XY
-Bounding box:  xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965
-Geodetic CRS:  NAD27
+geometry type:  MULTIPOLYGON
+dimension:      XY
+bbox:           xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965
+geographic CRS: NAD27
 First 5 geometries:</code></pre>
 <div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="non-spatial-transformation-of-sf.html#cb175-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- check the class of the geometry column ---#</span></span>
 <span id="cb175-2"><a href="non-spatial-transformation-of-sf.html#cb175-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(nc_dt<span class="sc">$</span>geometry) </span></code></pre></div>
@@ -895,10 +895,10 @@ First 5 geometries:</code></pre>
 <span id="cb179-3"><a href="non-spatial-transformation-of-sf.html#cb179-3" aria-hidden="true" tabindex="-1"></a>wells_sf_again <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(wells_dt)</span>
 <span id="cb179-4"><a href="non-spatial-transformation-of-sf.html#cb179-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>Simple feature collection with 105822 features and 6 fields
-Geometry type: POINT
-Dimension:     XY
-Bounding box:  xmin: -104.0531 ymin: 40.00161 xmax: -96.87681 ymax: 41.85942
-Geodetic CRS:  NAD83
+geometry type:  POINT
+dimension:      XY
+bbox:           xmin: -104.0531 ymin: 40.00161 xmax: -96.87681 ymax: 41.85942
+geographic CRS: NAD83
 First 10 features:
    wellid ownerid           nrdname acres  regdate section
 1       2  106106    Central Platte   160 12/30/55       3
@@ -927,10 +927,10 @@ First 10 features:
 <span id="cb181-3"><a href="non-spatial-transformation-of-sf.html#cb181-3" aria-hidden="true" tabindex="-1"></a>nc_sf_again <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(nc_dt)</span>
 <span id="cb181-4"><a href="non-spatial-transformation-of-sf.html#cb181-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>Simple feature collection with 100 features and 14 fields
-Geometry type: MULTIPOLYGON
-Dimension:     XY
-Bounding box:  xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965
-Geodetic CRS:  NAD27
+geometry type:  MULTIPOLYGON
+dimension:      XY
+bbox:           xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965
+geographic CRS: NAD27
 First 10 features:
     AREA PERIMETER CNTY_ CNTY_ID        NAME  FIPS FIPSNO CRESS_ID BIR74 SID74
 1  0.114     1.442  1825    1825        Ashe 37009  37009        5  1091     1
