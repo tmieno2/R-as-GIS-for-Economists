@@ -69,7 +69,7 @@ There are other packages that will be loaded during the demonstration.
 
 ## Repetitive processes and looping
 
-### What is looping? 
+### What is looping?
 
 We sometimes need to run the same process over and over again often with slight changes in parameters. In such a case, it is very time-consuming and messy to write all of the steps one bye one. For example, suppose you are interested in knowing the square of 1 through 5 ($[1, 2, 3, 4, 5]$). The following code certainly works:
 
@@ -152,7 +152,7 @@ lapply(1:5, square_it)
 
 Finally, it is a myth that you should always use `lapply()` instead of the explicit for loop syntax because `lapply()` (or other `apply()` families) is faster. They are basically the same.^[Check this [discussion](https://stackoverflow.com/questions/7142767/why-are-loops-slow-in-r) on StackOverflow. You might want to check out [this video](https://www.youtube.com/watch?v=GyNqlOjhPCQ) at 6:10 as well.]  
 
-### Looping over multiple variables using lapply()  
+### Looping over multiple variables using lapply()
 
 `lapply()` allows you to loop over only one variable. However, it is often the case that you want to loop over multiple variables^[the `map()` function from the `purrr` package allows you to loop over two variable.]. However, it is easy to achieve this. The trick is to create a `data.frame` of the variables where the complete list of the combinations of the variables are stored, and then loop over row of the `data.frame`. As an example, suppose we are interested in understanding the sensitivity of corn revenue to corn price and applied nitrogen amount. We consider the range of $3.0/bu to $5.0/bu for corn price and 0 lb/acre to 300/acre for nitrogen rate. 
 
@@ -224,7 +224,7 @@ bind_rows(rev_data)
 rbindlist(rev_data)
 ```
 
-### Do you really need to loop? 
+### Do you really need to loop?
 
 Actually, we should not have used for loop or `lapply()` in any of the examples above in practice^[By the way, note that `lapply()` is no magic. It's basically a for loop and not rally any faster than for loop.] This is because they can be easily vectorized. Vectorized operations are those that take vectors as inputs and work on each element of the vectors in parallel^[This does not mean that the process is parallelized by using multiple cores.]. 
 

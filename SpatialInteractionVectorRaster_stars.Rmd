@@ -250,7 +250,7 @@ ggplot() +
 
 The numbers inside the cells are the values that the cells hold. After the extraction, Points 1, 2, and 3 would have $50$, $4$, and $54$.
 
-### Extraction using `st_extract()` 
+### Extraction using `st_extract()`
 
 For the illustrations in this section, we use the following datasets: 
 
@@ -837,7 +837,7 @@ extracted_cdl_KS %>%
 
 ## Simple speed comparison
 
-### Points 
+### Points
 
 For illustrations we use `KS_wells` as points data and `tmax_m1_y09_KS_stars` as Raster data. `KS_wells` is fairly large containing `r nrow(KS_wells)` points in total. We compare three options: `stars::st_extract()`, `terra::extract()`, and `exact_extract()`. 
 
@@ -919,7 +919,7 @@ And you know why I did not introduce this method above. Just use the `terra::ext
 In summary, `terra::extract()` is by far the fastest at the moment. If you are looking to speed things up, use `terra::extract()`. The `exact_extract()` option has no place. However, I highly doubt `st_extract()` continues to be this slow. I will update you when things change.   
 
 
-### Polygons 
+### Polygons
 
 Here, `aggregate()` and `exact_extract()` are compared. The comparisons of the two approaches require a lot more elaborations than in the points case. In some cases, `aggregate()` outperforms `exact_extract()`. A rough summary of the comparative advantages of the two methods is the following:
 
