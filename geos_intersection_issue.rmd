@@ -1,0 +1,43 @@
+Thanks for this package. I have a quick question. 
+
+When we apply `st_intersection()` on two sets of sf objects, it finds the intersection of all the combinations of sfg objects in both of the sf objects. But, `geos_intersection()` only does the intersection of `n`th `geos` from the first and second sets of `geos` vector. Examples below to just clarify what I am talking about. 
+
+```r
+# create polygons
+poly1 <- "POLYGON ((0 0, 0 10, 10 10, 10 0, 0 0))"
+poly2 <- "POLYGON ((0 0, 0 12, 12 12, 12 0, 0 0))"
+poly3 <- "POLYGON ((5 5, 5 15, 15 15, 15 5, 5 5))"
+poly4 <- "POLYGON ((8 8, 8 12, 12 12, 12 8, 8 8))"
+
+# combine polygons
+polygons_1 <- c(poly1, poly2)
+polygons_2 <- c(poly3, poly4)
+
+# convert sets of polygons into sfc
+polygons_1_sf <- polygons_1 %>% st_as_sfc()
+polygons_2_sf <- polygons_2 %>% st_as_sfc()
+```
+
+When I do 
+
+```r
+st_intersection(polygons_1_sf, polygons_2_sf)
+```
+
+Here is what I get:
+
+<img width="457" alt="Screen Shot 2022-01-15 at 5 29 40 PM" src="https://user-images.githubusercontent.com/13700450/149641019-a43b0c13-43d1-4788-bf97-6a37014362b9.png">
+
+But, when I do
+
+```r
+geos_intersection(polygons_1, polygons_2)
+```
+
+This is what I get:
+
+<img width="834" alt="Screen Shot 2022-01-15 at 5 31 28 PM" src="https://user-images.githubusercontent.com/13700450/149641048-9afaf7a7-9d71-4838-81e4-f979f5c6d173.png">
+
+And, if I try `geos_intersection()` on two sets of vectors with differing numbers of polygons, then I get an error saying the length of the vectors do not match. 
+
+I looked through all the functions in the [Reference](https://paleolimbot.github.io/geos/reference/index.html) tab, but I cannot seem to find a function that behaves like `st_intersection()`. Did I miss such a function? For my personal use of the sf package, I often use `st_intersection()` on sf objects with tons of polygons, which tends to take quite long.  If I could enjoy the benefit of the speed of the `geos` package on these operations in an easy way like `st_intersection()` lets me without having to loop over polygons, it would be really nice. 

@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>5.3 Extraction speed comparison | R as GIS for Economists</title>
+  <title>2.6 Turning a data.frame of points into an sf | R as GIS for Economists</title>
   <meta name="description" content="This is a book for Economists who regularly use spatial datasets for their econometric work." />
   <meta name="generator" content="bookdown 0.25 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="5.3 Extraction speed comparison | R as GIS for Economists" />
+  <meta property="og:title" content="2.6 Turning a data.frame of points into an sf | R as GIS for Economists" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is a book for Economists who regularly use spatial datasets for their econometric work." />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="5.3 Extraction speed comparison | R as GIS for Economists" />
+  <meta name="twitter:title" content="2.6 Turning a data.frame of points into an sf | R as GIS for Economists" />
   
   <meta name="twitter:description" content="This is a book for Economists who regularly use spatial datasets for their econometric work." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="extracting-values-from-raster-layers-for-vector-data.html"/>
-<link rel="next" href="EE.html"/>
+<link rel="prev" href="quick-and-interactive-view-of-an-sf-object.html"/>
+<link rel="next" href="conv_sp.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -546,172 +546,89 @@ div.csl-indent {
   gtag('config', 'UA-59758608-3');
 </script>
 
-<div id="extract-speed" class="section level2 hasAnchor" number="5.3">
-<h2><span class="header-section-number">5.3</span> Extraction speed comparison<a href="extract-speed.html#extract-speed" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Here we compare the extraction speed of <code>raster::extract()</code>, <code>terra::extract()</code>, and <code>exact_extract()</code>.</p>
-<div id="points-terraextract-and-rasterextract" class="section level3 hasAnchor" number="5.3.1">
-<h3><span class="header-section-number">5.3.1</span> Points: <code>terra::extract()</code> and <code>raster::extract()</code><a href="extract-speed.html#points-terraextract-and-rasterextract" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p><code>exact_extract()</code> uses C++ as the backend. Therefore, it is considerably faster than <code>raster::extract()</code>.</p>
-<div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb422-1"><a href="extract-speed.html#cb422-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- terra ---#</span></span>
-<span id="cb422-2"><a href="extract-speed.html#cb422-2" aria-hidden="true" tabindex="-1"></a>KS_wells_sv <span class="ot">&lt;-</span> <span class="fu">vect</span>(KS_wells)</span>
-<span id="cb422-3"><a href="extract-speed.html#cb422-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
-<span id="cb422-4"><a href="extract-speed.html#cb422-4" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">extract</span>(prism_tmax_0701_KS_sr, KS_wells_sv)</span>
-<span id="cb422-5"><a href="extract-speed.html#cb422-5" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code></pre></div>
-<pre><code>0.064 sec elapsed</code></pre>
-<div class="sourceCode" id="cb424"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb424-1"><a href="extract-speed.html#cb424-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- raster ---#</span></span>
-<span id="cb424-2"><a href="extract-speed.html#cb424-2" aria-hidden="true" tabindex="-1"></a>prism_tmax_0701_KS_lr <span class="ot">&lt;-</span> <span class="fu">as</span>(prism_tmax_0701_KS_sr, <span class="st">&quot;Raster&quot;</span>)</span>
-<span id="cb424-3"><a href="extract-speed.html#cb424-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
-<span id="cb424-4"><a href="extract-speed.html#cb424-4" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> raster<span class="sc">::</span><span class="fu">extract</span>(prism_tmax_0701_KS_lr, KS_wells)</span>
-<span id="cb424-5"><a href="extract-speed.html#cb424-5" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code></pre></div>
-<pre><code>0.42 sec elapsed</code></pre>
-<p>As you can see, <code>terra::extract()</code> is much faster. The time differential between the two packages can be substantial as the raster data becomes larger.</p>
+<div id="turning-a-data.frame-of-points-into-an-sf" class="section level2 hasAnchor" number="2.6">
+<h2><span class="header-section-number">2.6</span> Turning a data.frame of points into an <code>sf</code><a href="turning-a-data.frame-of-points-into-an-sf.html#turning-a-data.frame-of-points-into-an-sf" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Often times, you have a dataset with geographic coordinates as variables in a csv or other formats, which would not be recognized as a spatial dataset by R immediately when it is read into R. In this case, you need to identify which variables represent the geographic coordinates from the data set, and create an <code>sf</code> yourself. Fortunately, it is easy to do so using the <code>st_as_sf()</code> function. Let’s first read a dataset (irrigation wells in Nebraska):</p>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="turning-a-data.frame-of-points-into-an-sf.html#cb145-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- read irrigation well registration data ---#</span></span>
+<span id="cb145-2"><a href="turning-a-data.frame-of-points-into-an-sf.html#cb145-2" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb145-3"><a href="turning-a-data.frame-of-points-into-an-sf.html#cb145-3" aria-hidden="true" tabindex="-1"></a>  wells <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">&quot;Data/well_registration.rds&quot;</span>)</span>
+<span id="cb145-4"><a href="turning-a-data.frame-of-points-into-an-sf.html#cb145-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>        wellid ownerid        nrdname acres  regdate section     longdd
+     1:      2  106106 Central Platte   160 12/30/55       3  -99.58401
+     2:      3   14133   South Platte    46  4/29/31       8 -102.62495
+     3:      4   14133   South Platte    46  4/29/31       8 -102.62495
+     4:      5   14133   South Platte    46  4/29/31       8 -102.62495
+     5:      6   15837 Central Platte   160  8/29/32      20  -99.62580
+    ---                                                                
+105818: 244568  135045 Upper Big Blue    NA  8/26/16      30  -97.58872
+105819: 244569  105428    Little Blue    NA  8/26/16      24  -97.60752
+105820: 244570  135045 Upper Big Blue    NA  8/26/16      30  -97.58294
+105821: 244571  135045 Upper Big Blue    NA  8/26/16      25  -97.59775
+105822: 244572  105428    Little Blue    NA  8/26/16      15  -97.64086
+           latdd
+     1: 40.69825
+     2: 41.11699
+     3: 41.11699
+     4: 41.11699
+     5: 40.73268
+    ---         
+105818: 40.89017
+105819: 40.13257
+105820: 40.88722
+105821: 40.89639
+105822: 40.13380</code></pre>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="turning-a-data.frame-of-points-into-an-sf.html#cb147-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- check the class ---#</span></span>
+<span id="cb147-2"><a href="turning-a-data.frame-of-points-into-an-sf.html#cb147-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(wells)</span></code></pre></div>
+<pre><code>[1] &quot;data.table&quot; &quot;data.frame&quot;</code></pre>
+<p>As you can see the data is not an <code>sf</code> object. In this dataset, <code>longdd</code> and <code>latdd</code> represent longitude and latitude, respectively. We now turn the dataset into an <code>sf</code> object:</p>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="turning-a-data.frame-of-points-into-an-sf.html#cb149-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- recognize it as an sf ---#</span></span>
+<span id="cb149-2"><a href="turning-a-data.frame-of-points-into-an-sf.html#cb149-2" aria-hidden="true" tabindex="-1"></a>wells_sf <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(wells, <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">&quot;longdd&quot;</span>, <span class="st">&quot;latdd&quot;</span>))</span>
+<span id="cb149-3"><a href="turning-a-data.frame-of-points-into-an-sf.html#cb149-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb149-4"><a href="turning-a-data.frame-of-points-into-an-sf.html#cb149-4" aria-hidden="true" tabindex="-1"></a><span class="co">#--- take a look at the data ---#</span></span>
+<span id="cb149-5"><a href="turning-a-data.frame-of-points-into-an-sf.html#cb149-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(wells_sf[, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>])</span></code></pre></div>
+<pre><code>Simple feature collection with 6 features and 5 fields
+Geometry type: POINT
+Dimension:     XY
+Bounding box:  xmin: -102.6249 ymin: 40.69824 xmax: -99.58401 ymax: 41.11699
+CRS:           NA
+  wellid ownerid        nrdname acres  regdate                   geometry
+1      2  106106 Central Platte   160 12/30/55 POINT (-99.58401 40.69825)
+2      3   14133   South Platte    46  4/29/31 POINT (-102.6249 41.11699)
+3      4   14133   South Platte    46  4/29/31 POINT (-102.6249 41.11699)
+4      5   14133   South Platte    46  4/29/31 POINT (-102.6249 41.11699)
+5      6   15837 Central Platte   160  8/29/32  POINT (-99.6258 40.73268)
+6      7   90248 Central Platte   120  2/15/35 POINT (-99.64524 40.73164)</code></pre>
+<p>Note that the CRS of <code>wells_sf</code> is NA. Obviously, <span class="math inline">\(R\)</span> does not know the reference system without you telling it. We know<a href="#fn48" class="footnote-ref" id="fnref48"><sup>48</sup></a> that the geographic coordinates in the wells data is NAD 83 (<span class="math inline">\(epsg=4269\)</span>) for this dataset. So, we can assign the right CRS using either <code>st_set_crs()</code> or <code>st_crs()</code>.</p>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="turning-a-data.frame-of-points-into-an-sf.html#cb151-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- set CRS ---#</span></span>
+<span id="cb151-2"><a href="turning-a-data.frame-of-points-into-an-sf.html#cb151-2" aria-hidden="true" tabindex="-1"></a>wells_sf <span class="ot">&lt;-</span> <span class="fu">st_set_crs</span>(wells_sf, <span class="dv">4269</span>)</span>
+<span id="cb151-3"><a href="turning-a-data.frame-of-points-into-an-sf.html#cb151-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb151-4"><a href="turning-a-data.frame-of-points-into-an-sf.html#cb151-4" aria-hidden="true" tabindex="-1"></a><span class="co">#--- or this ---#</span></span>
+<span id="cb151-5"><a href="turning-a-data.frame-of-points-into-an-sf.html#cb151-5" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(wells_sf) <span class="ot">&lt;-</span> <span class="dv">4269</span></span>
+<span id="cb151-6"><a href="turning-a-data.frame-of-points-into-an-sf.html#cb151-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb151-7"><a href="turning-a-data.frame-of-points-into-an-sf.html#cb151-7" aria-hidden="true" tabindex="-1"></a><span class="co">#--- see the change ---#</span></span>
+<span id="cb151-8"><a href="turning-a-data.frame-of-points-into-an-sf.html#cb151-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(wells_sf[, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>])</span></code></pre></div>
+<pre><code>Simple feature collection with 6 features and 5 fields
+Geometry type: POINT
+Dimension:     XY
+Bounding box:  xmin: -102.6249 ymin: 40.69824 xmax: -99.58401 ymax: 41.11699
+Geodetic CRS:  NAD83
+  wellid ownerid        nrdname acres  regdate                   geometry
+1      2  106106 Central Platte   160 12/30/55 POINT (-99.58401 40.69825)
+2      3   14133   South Platte    46  4/29/31 POINT (-102.6249 41.11699)
+3      4   14133   South Platte    46  4/29/31 POINT (-102.6249 41.11699)
+4      5   14133   South Platte    46  4/29/31 POINT (-102.6249 41.11699)
+5      6   15837 Central Platte   160  8/29/32  POINT (-99.6258 40.73268)
+6      7   90248 Central Platte   120  2/15/35 POINT (-99.64524 40.73164)</code></pre>
+<!-- 
+#/*=================================================*/
+#' # Conversion to and from sp {#conv_sp}
+#/*=================================================*/ 
+-->
 </div>
-<div id="polygons-exact_extract-terraextract-and-rasterextract" class="section level3 hasAnchor" number="5.3.2">
-<h3><span class="header-section-number">5.3.2</span> Polygons: <code>exact_extract()</code>, <code>terra::extract()</code>, and <code>raster::extract()</code><a href="extract-speed.html#polygons-exact_extract-terraextract-and-rasterextract" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p><code>terra::extract()</code> is faster than <code>exact_extract()</code> for a relatively small raster data. Let’s time them and see the difference.</p>
-<div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb426-1"><a href="extract-speed.html#cb426-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- terra::extract ---#</span></span>
-<span id="cb426-2"><a href="extract-speed.html#cb426-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
-<span id="cb426-3"><a href="extract-speed.html#cb426-3" aria-hidden="true" tabindex="-1"></a>terra_extract_temp <span class="ot">&lt;-</span> </span>
-<span id="cb426-4"><a href="extract-speed.html#cb426-4" aria-hidden="true" tabindex="-1"></a>  terra<span class="sc">::</span><span class="fu">extract</span>(</span>
-<span id="cb426-5"><a href="extract-speed.html#cb426-5" aria-hidden="true" tabindex="-1"></a>    prism_tmax_0701_KS_sr, </span>
-<span id="cb426-6"><a href="extract-speed.html#cb426-6" aria-hidden="true" tabindex="-1"></a>    KS_county_sv</span>
-<span id="cb426-7"><a href="extract-speed.html#cb426-7" aria-hidden="true" tabindex="-1"></a>  )  </span>
-<span id="cb426-8"><a href="extract-speed.html#cb426-8" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code></pre></div>
-<pre><code>0.074 sec elapsed</code></pre>
-<div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb428-1"><a href="extract-speed.html#cb428-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- exact_extract ---#</span></span>
-<span id="cb428-2"><a href="extract-speed.html#cb428-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
-<span id="cb428-3"><a href="extract-speed.html#cb428-3" aria-hidden="true" tabindex="-1"></a>exact_extract_temp <span class="ot">&lt;-</span> </span>
-<span id="cb428-4"><a href="extract-speed.html#cb428-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">exact_extract</span>(</span>
-<span id="cb428-5"><a href="extract-speed.html#cb428-5" aria-hidden="true" tabindex="-1"></a>    prism_tmax_0701_KS_sr, </span>
-<span id="cb428-6"><a href="extract-speed.html#cb428-6" aria-hidden="true" tabindex="-1"></a>    KS_county_sf, </span>
-<span id="cb428-7"><a href="extract-speed.html#cb428-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">progress =</span> <span class="cn">FALSE</span></span>
-<span id="cb428-8"><a href="extract-speed.html#cb428-8" aria-hidden="true" tabindex="-1"></a>  )  </span>
-<span id="cb428-9"><a href="extract-speed.html#cb428-9" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code></pre></div>
-<pre><code>0.263 sec elapsed</code></pre>
-<div class="sourceCode" id="cb430"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb430-1"><a href="extract-speed.html#cb430-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- raster::extract ---#</span></span>
-<span id="cb430-2"><a href="extract-speed.html#cb430-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
-<span id="cb430-3"><a href="extract-speed.html#cb430-3" aria-hidden="true" tabindex="-1"></a>raster_extract_temp <span class="ot">&lt;-</span> </span>
-<span id="cb430-4"><a href="extract-speed.html#cb430-4" aria-hidden="true" tabindex="-1"></a>  raster<span class="sc">::</span><span class="fu">extract</span>(</span>
-<span id="cb430-5"><a href="extract-speed.html#cb430-5" aria-hidden="true" tabindex="-1"></a>    prism_tmax_0701_KS_lr, </span>
-<span id="cb430-6"><a href="extract-speed.html#cb430-6" aria-hidden="true" tabindex="-1"></a>    KS_county_sf</span>
-<span id="cb430-7"><a href="extract-speed.html#cb430-7" aria-hidden="true" tabindex="-1"></a>  )  </span>
-<span id="cb430-8"><a href="extract-speed.html#cb430-8" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code></pre></div>
-<pre><code>2.738 sec elapsed</code></pre>
-<p>As you can see, <code>raster::extract()</code> is by far the slowest. <code>terra::extract()</code> is faster than <code>exact_extract()</code>. However, once the raster data becomes larger (or spatially finer), then <code>exact_extact()</code> starts to shine.</p>
-<hr />
-<p>Let’s disaggregate the prism data by a factor of 10 to create a much larger raster data.<a href="#fn75" class="footnote-ref" id="fnref75"><sup>75</sup></a></p>
-<div class="sourceCode" id="cb432"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb432-1"><a href="extract-speed.html#cb432-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- disaggregate ---#</span></span>
-<span id="cb432-2"><a href="extract-speed.html#cb432-2" aria-hidden="true" tabindex="-1"></a>(</span>
-<span id="cb432-3"><a href="extract-speed.html#cb432-3" aria-hidden="true" tabindex="-1"></a>prism_tmax_0701_KS_sr_10 <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">disagg</span>(prism_tmax_0701_KS_sr, <span class="at">fact =</span> <span class="dv">10</span>)</span>
-<span id="cb432-4"><a href="extract-speed.html#cb432-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<pre><code>class       : SpatRaster 
-dimensions  : 730, 1790, 1  (nrow, ncol, nlyr)
-resolution  : 0.004166667, 0.004166667  (x, y)
-extent      : -102.0625, -94.60417, 36.97917, 40.02083  (xmin, xmax, ymin, ymax)
-coord. ref. : lon/lat NAD83 
-source      : memory 
-name        : PRISM_tmax_stable_4kmD2_20180701_bil 
-min value   :                               27.711 
-max value   :                               37.656 </code></pre>
-<p>The disaggregated PRISM data now has 10 times more rows and columns.</p>
-<div class="sourceCode" id="cb434"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb434-1"><a href="extract-speed.html#cb434-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- original ---#</span></span>
-<span id="cb434-2"><a href="extract-speed.html#cb434-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(prism_tmax_0701_KS_sr)  </span></code></pre></div>
-<pre><code>[1]  73 179   1</code></pre>
-<div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb436-1"><a href="extract-speed.html#cb436-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- disaggregated ---#</span></span>
-<span id="cb436-2"><a href="extract-speed.html#cb436-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(prism_tmax_0701_KS_sr_10)  </span></code></pre></div>
-<pre><code>[1]  730 1790    1</code></pre>
-<hr />
-<p>Now, let’s compare <code>terra::extrct()</code> and <code>exact_extrct()</code> using the disaggregated data.</p>
-<div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb438-1"><a href="extract-speed.html#cb438-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- terra extract ---#</span></span>
-<span id="cb438-2"><a href="extract-speed.html#cb438-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
-<span id="cb438-3"><a href="extract-speed.html#cb438-3" aria-hidden="true" tabindex="-1"></a>terra_extract_temp <span class="ot">&lt;-</span> </span>
-<span id="cb438-4"><a href="extract-speed.html#cb438-4" aria-hidden="true" tabindex="-1"></a>  terra<span class="sc">::</span><span class="fu">extract</span>(</span>
-<span id="cb438-5"><a href="extract-speed.html#cb438-5" aria-hidden="true" tabindex="-1"></a>    prism_tmax_0701_KS_sr_10, </span>
-<span id="cb438-6"><a href="extract-speed.html#cb438-6" aria-hidden="true" tabindex="-1"></a>    KS_county_sv</span>
-<span id="cb438-7"><a href="extract-speed.html#cb438-7" aria-hidden="true" tabindex="-1"></a>  )  </span>
-<span id="cb438-8"><a href="extract-speed.html#cb438-8" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code></pre></div>
-<pre><code>4.739 sec elapsed</code></pre>
-<div class="sourceCode" id="cb440"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb440-1"><a href="extract-speed.html#cb440-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- exact extract ---#</span></span>
-<span id="cb440-2"><a href="extract-speed.html#cb440-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
-<span id="cb440-3"><a href="extract-speed.html#cb440-3" aria-hidden="true" tabindex="-1"></a>exact_extract_temp <span class="ot">&lt;-</span> </span>
-<span id="cb440-4"><a href="extract-speed.html#cb440-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">exact_extract</span>(</span>
-<span id="cb440-5"><a href="extract-speed.html#cb440-5" aria-hidden="true" tabindex="-1"></a>    prism_tmax_0701_KS_sr_10, </span>
-<span id="cb440-6"><a href="extract-speed.html#cb440-6" aria-hidden="true" tabindex="-1"></a>    KS_county_sf, </span>
-<span id="cb440-7"><a href="extract-speed.html#cb440-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">progress =</span> <span class="cn">FALSE</span></span>
-<span id="cb440-8"><a href="extract-speed.html#cb440-8" aria-hidden="true" tabindex="-1"></a>  )  </span>
-<span id="cb440-9"><a href="extract-speed.html#cb440-9" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code></pre></div>
-<pre><code>0.299 sec elapsed</code></pre>
-<p>As you can see, <code>exact_extract()</code> is considerably faster. The difference in time becomes even more pronounced as the size of the raster data becomes larger and the number of polygons are greater. The time difference of several seconds seem nothing, but imagine processing PRISM files for the entire US over 20 years, then you would appreciate the speed of <code>exact_extract()</code>.</p>
-</div>
-<div id="single-layer-vs-multi-layer" class="section level3 hasAnchor" number="5.3.3">
-<h3><span class="header-section-number">5.3.3</span> Single-layer vs multi-layer<a href="extract-speed.html#single-layer-vs-multi-layer" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Pretend that you have five dates of PRISM tmax data (here we repeat the same file five times) and would like to extract values from all of them. Extracting values from a multi-layer raster objects (<code>RasterStack</code> for <code>raster</code> package) takes less time than extracting values from the individual layers one at a time. This can be observed below.</p>
-<hr />
-<p><strong><code>terra::extract()</code></strong></p>
-<div class="sourceCode" id="cb442"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb442-1"><a href="extract-speed.html#cb442-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- extract from 5 layers one at a time ---#</span></span>
-<span id="cb442-2"><a href="extract-speed.html#cb442-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
-<span id="cb442-3"><a href="extract-speed.html#cb442-3" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">extract</span>(prism_tmax_0701_KS_sr_10, KS_county_sv)</span>
-<span id="cb442-4"><a href="extract-speed.html#cb442-4" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">extract</span>(prism_tmax_0701_KS_sr_10, KS_county_sv)</span>
-<span id="cb442-5"><a href="extract-speed.html#cb442-5" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">extract</span>(prism_tmax_0701_KS_sr_10, KS_county_sv)</span>
-<span id="cb442-6"><a href="extract-speed.html#cb442-6" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">extract</span>(prism_tmax_0701_KS_sr_10, KS_county_sv)</span>
-<span id="cb442-7"><a href="extract-speed.html#cb442-7" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">extract</span>(prism_tmax_0701_KS_sr_10, KS_county_sv)</span>
-<span id="cb442-8"><a href="extract-speed.html#cb442-8" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code></pre></div>
-<pre><code>26.319 sec elapsed</code></pre>
-<div class="sourceCode" id="cb444"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb444-1"><a href="extract-speed.html#cb444-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- extract from a 5-layer SpatRaster ---#</span></span>
-<span id="cb444-2"><a href="extract-speed.html#cb444-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
-<span id="cb444-3"><a href="extract-speed.html#cb444-3" aria-hidden="true" tabindex="-1"></a>prism_tmax_ml_5 <span class="ot">&lt;-</span> </span>
-<span id="cb444-4"><a href="extract-speed.html#cb444-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(</span>
-<span id="cb444-5"><a href="extract-speed.html#cb444-5" aria-hidden="true" tabindex="-1"></a>    prism_tmax_0701_KS_sr_10, </span>
-<span id="cb444-6"><a href="extract-speed.html#cb444-6" aria-hidden="true" tabindex="-1"></a>    prism_tmax_0701_KS_sr_10, </span>
-<span id="cb444-7"><a href="extract-speed.html#cb444-7" aria-hidden="true" tabindex="-1"></a>    prism_tmax_0701_KS_sr_10, </span>
-<span id="cb444-8"><a href="extract-speed.html#cb444-8" aria-hidden="true" tabindex="-1"></a>    prism_tmax_0701_KS_sr_10, </span>
-<span id="cb444-9"><a href="extract-speed.html#cb444-9" aria-hidden="true" tabindex="-1"></a>    prism_tmax_0701_KS_sr_10</span>
-<span id="cb444-10"><a href="extract-speed.html#cb444-10" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb444-11"><a href="extract-speed.html#cb444-11" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">extract</span>(prism_tmax_ml_5, KS_county_sv)</span>
-<span id="cb444-12"><a href="extract-speed.html#cb444-12" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code></pre></div>
-<pre><code>6.408 sec elapsed</code></pre>
-<hr />
-<p><strong><code>exact_extract()</code></strong></p>
-<div class="sourceCode" id="cb446"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb446-1"><a href="extract-speed.html#cb446-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- extract from 5 layers one at a time ---#</span></span>
-<span id="cb446-2"><a href="extract-speed.html#cb446-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
-<span id="cb446-3"><a href="extract-speed.html#cb446-3" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">exact_extract</span>(prism_tmax_0701_KS_sr_10, KS_county_sf, <span class="at">progress =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb446-4"><a href="extract-speed.html#cb446-4" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">exact_extract</span>(prism_tmax_0701_KS_sr_10, KS_county_sf, <span class="at">progress =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb446-5"><a href="extract-speed.html#cb446-5" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">exact_extract</span>(prism_tmax_0701_KS_sr_10, KS_county_sf, <span class="at">progress =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb446-6"><a href="extract-speed.html#cb446-6" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">exact_extract</span>(prism_tmax_0701_KS_sr_10, KS_county_sf, <span class="at">progress =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb446-7"><a href="extract-speed.html#cb446-7" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">exact_extract</span>(prism_tmax_0701_KS_sr_10, KS_county_sf, <span class="at">progress =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb446-8"><a href="extract-speed.html#cb446-8" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code></pre></div>
-<pre><code>1.965 sec elapsed</code></pre>
-<div class="sourceCode" id="cb448"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb448-1"><a href="extract-speed.html#cb448-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- extract from from a 5-layer SpatRaster ---#</span></span>
-<span id="cb448-2"><a href="extract-speed.html#cb448-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
-<span id="cb448-3"><a href="extract-speed.html#cb448-3" aria-hidden="true" tabindex="-1"></a>prism_tmax_stack_5 <span class="ot">&lt;-</span> </span>
-<span id="cb448-4"><a href="extract-speed.html#cb448-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(</span>
-<span id="cb448-5"><a href="extract-speed.html#cb448-5" aria-hidden="true" tabindex="-1"></a>    prism_tmax_0701_KS_sr_10, </span>
-<span id="cb448-6"><a href="extract-speed.html#cb448-6" aria-hidden="true" tabindex="-1"></a>    prism_tmax_0701_KS_sr_10, </span>
-<span id="cb448-7"><a href="extract-speed.html#cb448-7" aria-hidden="true" tabindex="-1"></a>    prism_tmax_0701_KS_sr_10, </span>
-<span id="cb448-8"><a href="extract-speed.html#cb448-8" aria-hidden="true" tabindex="-1"></a>    prism_tmax_0701_KS_sr_10, </span>
-<span id="cb448-9"><a href="extract-speed.html#cb448-9" aria-hidden="true" tabindex="-1"></a>    prism_tmax_0701_KS_sr_10</span>
-<span id="cb448-10"><a href="extract-speed.html#cb448-10" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb448-11"><a href="extract-speed.html#cb448-11" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> </span>
-<span id="cb448-12"><a href="extract-speed.html#cb448-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">exact_extract</span>(</span>
-<span id="cb448-13"><a href="extract-speed.html#cb448-13" aria-hidden="true" tabindex="-1"></a>    prism_tmax_stack_5, </span>
-<span id="cb448-14"><a href="extract-speed.html#cb448-14" aria-hidden="true" tabindex="-1"></a>    KS_county_sf, </span>
-<span id="cb448-15"><a href="extract-speed.html#cb448-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">progress =</span> <span class="cn">FALSE</span></span>
-<span id="cb448-16"><a href="extract-speed.html#cb448-16" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb448-17"><a href="extract-speed.html#cb448-17" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code></pre></div>
-<pre><code>0.487 sec elapsed</code></pre>
-<p>The reduction in computation time for both methods makes sense. Since both layers have exactly the same geographic extent and resolution, finding the polygons-cells correspondence is done once and then it can be used repeatedly across the layers for the multi-layer <code>SparRaster</code> and <code>RasterStack</code>. This clearly suggests that when you are processing many layers of the same spatial resolution and extent, you should first stack them and then extract values at the same time instead of processing them one by one as long as your memory allows you to do so.</p>
-<!-- There is much more to discuss about the computation speed of raster data extraction for polygons. For those who are interested in this topic, go to Chapter \@ref(EE). -->
-
-</div>
-</div>
-<!-- </div> -->
-
-
-
 <div class="footnotes">
 <hr />
-<ol start="75">
-<li id="fn75"><p>We did not introduce this function as it is very rare that you need this function in research projects.<a href="extract-speed.html#fnref75" class="footnote-back">↩︎</a></p></li>
+<ol start="48">
+<li id="fn48"><p>Yes, YOU need to know the CRS of your data.<a href="turning-a-data.frame-of-points-into-an-sf.html#fnref48" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>
@@ -719,8 +636,8 @@ max value   :                               37.656 </code></pre>
           </div>
         </div>
       </div>
-<a href="extracting-values-from-raster-layers-for-vector-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="EE.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="quick-and-interactive-view-of-an-sf-object.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="conv_sp.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

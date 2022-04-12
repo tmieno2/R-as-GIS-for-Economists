@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>5.3 Extraction speed comparison | R as GIS for Economists</title>
+  <title>7.7 Merging stars objects using c() and st_mosaic() | R as GIS for Economists</title>
   <meta name="description" content="This is a book for Economists who regularly use spatial datasets for their econometric work." />
   <meta name="generator" content="bookdown 0.25 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="5.3 Extraction speed comparison | R as GIS for Economists" />
+  <meta property="og:title" content="7.7 Merging stars objects using c() and st_mosaic() | R as GIS for Economists" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is a book for Economists who regularly use spatial datasets for their econometric work." />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="5.3 Extraction speed comparison | R as GIS for Economists" />
+  <meta name="twitter:title" content="7.7 Merging stars objects using c() and st_mosaic() | R as GIS for Economists" />
   
   <meta name="twitter:description" content="This is a book for Economists who regularly use spatial datasets for their econometric work." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="extracting-values-from-raster-layers-for-vector-data.html"/>
-<link rel="next" href="EE.html"/>
+<link rel="prev" href="dplyr-op.html"/>
+<link rel="next" href="convert-to-rb.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -546,172 +546,254 @@ div.csl-indent {
   gtag('config', 'UA-59758608-3');
 </script>
 
-<div id="extract-speed" class="section level2 hasAnchor" number="5.3">
-<h2><span class="header-section-number">5.3</span> Extraction speed comparison<a href="extract-speed.html#extract-speed" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Here we compare the extraction speed of <code>raster::extract()</code>, <code>terra::extract()</code>, and <code>exact_extract()</code>.</p>
-<div id="points-terraextract-and-rasterextract" class="section level3 hasAnchor" number="5.3.1">
-<h3><span class="header-section-number">5.3.1</span> Points: <code>terra::extract()</code> and <code>raster::extract()</code><a href="extract-speed.html#points-terraextract-and-rasterextract" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p><code>exact_extract()</code> uses C++ as the backend. Therefore, it is considerably faster than <code>raster::extract()</code>.</p>
-<div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb422-1"><a href="extract-speed.html#cb422-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- terra ---#</span></span>
-<span id="cb422-2"><a href="extract-speed.html#cb422-2" aria-hidden="true" tabindex="-1"></a>KS_wells_sv <span class="ot">&lt;-</span> <span class="fu">vect</span>(KS_wells)</span>
-<span id="cb422-3"><a href="extract-speed.html#cb422-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
-<span id="cb422-4"><a href="extract-speed.html#cb422-4" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">extract</span>(prism_tmax_0701_KS_sr, KS_wells_sv)</span>
-<span id="cb422-5"><a href="extract-speed.html#cb422-5" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code></pre></div>
-<pre><code>0.064 sec elapsed</code></pre>
-<div class="sourceCode" id="cb424"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb424-1"><a href="extract-speed.html#cb424-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- raster ---#</span></span>
-<span id="cb424-2"><a href="extract-speed.html#cb424-2" aria-hidden="true" tabindex="-1"></a>prism_tmax_0701_KS_lr <span class="ot">&lt;-</span> <span class="fu">as</span>(prism_tmax_0701_KS_sr, <span class="st">&quot;Raster&quot;</span>)</span>
-<span id="cb424-3"><a href="extract-speed.html#cb424-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
-<span id="cb424-4"><a href="extract-speed.html#cb424-4" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> raster<span class="sc">::</span><span class="fu">extract</span>(prism_tmax_0701_KS_lr, KS_wells)</span>
-<span id="cb424-5"><a href="extract-speed.html#cb424-5" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code></pre></div>
-<pre><code>0.42 sec elapsed</code></pre>
-<p>As you can see, <code>terra::extract()</code> is much faster. The time differential between the two packages can be substantial as the raster data becomes larger.</p>
+<div id="merging-stars-objects-using-c-and-st_mosaic" class="section level2 hasAnchor" number="7.7">
+<h2><span class="header-section-number">7.7</span> Merging <code>stars</code> objects using <code>c()</code> and <code>st_mosaic()</code><a href="merging-stars-objects-using-c-and-st_mosaic.html#merging-stars-objects-using-c-and-st_mosaic" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="merging-stars-objects-along-the-third-dimension-band" class="section level3 hasAnchor" number="7.7.1">
+<h3><span class="header-section-number">7.7.1</span> Merging <code>stars</code> objects along the third dimension (band)<a href="merging-stars-objects-using-c-and-st_mosaic.html#merging-stars-objects-along-the-third-dimension-band" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Here we learn how to merge multiple <code>stars</code> objects that have</p>
+<ul>
+<li>the <strong>same</strong> attributes</li>
+<li>the <strong>same</strong> spatial extent and resolution</li>
+<li><strong>different</strong> bands (dates here)</li>
+</ul>
+<p>For example, consider merging PRISM precipitation data in January and February. Both of them have exactly the same spatial extent and resolutions and represent the same attribute (precipitation). However, they differ in the third dimension (date). So, you are trying to stack data of the same attributes along the third dimension (date) while making sure that spatial correspondence is maintained. This merge is kind of like <code>rbind()</code> that stacks multiple <code>data.frame</code>s vertically while making sure the variables are aligned correctly.</p>
+<p>Let’s import the PRISM precipitation data for February, 2009.</p>
+<div class="sourceCode" id="cb556"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb556-1"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb556-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- read the February ppt data ---#        </span></span>
+<span id="cb556-2"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb556-2" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb556-3"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb556-3" aria-hidden="true" tabindex="-1"></a>ppt_m2_y09_stars <span class="ot">&lt;-</span> <span class="fu">read_stars</span>(<span class="st">&quot;Data/PRISM_ppt_y2009_m2.tif&quot;</span>) </span>
+<span id="cb556-4"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb556-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>stars object with 3 dimensions and 1 attribute
+attribute(s), summary of first 1e+05 cells:
+                        Min. 1st Qu. Median      Mean 3rd Qu.   Max.  NA&#39;s
+PRISM_ppt_y2009_m2.tif     0       0      0 0.1855858       0 11.634 60401
+dimension(s):
+     from   to   offset      delta refsys point
+x       1 1405 -125.021  0.0416667  NAD83 FALSE
+y       1  621  49.9375 -0.0416667  NAD83 FALSE
+band    1   28       NA         NA     NA    NA
+                                                                          values
+x                                                                           NULL
+y                                                                           NULL
+band PRISM_ppt_stable_4kmD2_20090201_bil,...,PRISM_ppt_stable_4kmD2_20090228_bil
+     x/y
+x    [x]
+y    [y]
+band    </code></pre>
+<p>Note here that the third dimension of <code>ppt_m2_y09_stars</code> has not been changed to date.</p>
+<p>Now, let’s try to merge the two:</p>
+<div class="sourceCode" id="cb558"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb558-1"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb558-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- combine the two ---#</span></span>
+<span id="cb558-2"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb558-2" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb558-3"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb558-3" aria-hidden="true" tabindex="-1"></a>ppt_m1_to_m2_y09_stars <span class="ot">&lt;-</span> <span class="fu">c</span>(ppt_m1_y09_stars, ppt_m2_y09_stars, <span class="at">along =</span> <span class="dv">3</span>)</span>
+<span id="cb558-4"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb558-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>stars object with 3 dimensions and 1 attribute
+attribute(s), summary of first 1e+05 cells:
+                        Min. 1st Qu. Median     Mean 3rd Qu.   Max.  NA&#39;s
+PRISM_ppt_y2009_m1.tif     0       0  0.436 3.543222  3.4925 56.208 60401
+dimension(s):
+     from   to     offset      delta refsys point values x/y
+x       1 1405   -125.021  0.0416667  NAD83 FALSE   NULL [x]
+y       1  621    49.9375 -0.0416667  NAD83 FALSE   NULL [y]
+date    1   59 2009-01-01     1 days   Date    NA   NULL    </code></pre>
+<p>As you noticed, the second object (<code>ppt_m2_y09_stars</code>) was assumed to have the same date characteristics as the first one: the data in February is observed daily (<code>delta</code> is 1 day). This causes no problem in this instance as the February data is indeed observed daily starting from <code>2009-02-01</code>. However, be careful if you are appending the data that does not start from 1 day after (or more generally <code>delta</code> for the time dimension) the first data or the data that does not follow the same observation interval.</p>
+<p>For this reason, it is advisable to first set the date values if it has not been set. Pretend that the February data actually starts from <code>2009-02-02</code> to <code>2009-03-01</code> to see what happens when the regular interval (<code>delta</code>) is not kept after merging.</p>
+<div class="sourceCode" id="cb560"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb560-1"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb560-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- starting date ---#</span></span>
+<span id="cb560-2"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb560-2" aria-hidden="true" tabindex="-1"></a>start_date <span class="ot">&lt;-</span> <span class="fu">ymd</span>(<span class="st">&quot;2009-02-01&quot;</span>)</span>
+<span id="cb560-3"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb560-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb560-4"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb560-4" aria-hidden="true" tabindex="-1"></a><span class="co">#--- ending date ---#</span></span>
+<span id="cb560-5"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb560-5" aria-hidden="true" tabindex="-1"></a>end_date <span class="ot">&lt;-</span> <span class="fu">ymd</span>(<span class="st">&quot;2009-02-28&quot;</span>)</span>
+<span id="cb560-6"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb560-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb560-7"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb560-7" aria-hidden="true" tabindex="-1"></a><span class="co">#--- sequence of dates  ---#</span></span>
+<span id="cb560-8"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb560-8" aria-hidden="true" tabindex="-1"></a>dates_ls <span class="ot">&lt;-</span> <span class="fu">seq</span>(start_date, end_date, <span class="st">&quot;days&quot;</span>)       </span>
+<span id="cb560-9"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb560-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb560-10"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb560-10" aria-hidden="true" tabindex="-1"></a><span class="co">#--- pretend the data actually starts from `2009-02-02` to `2009-03-01` ---#</span></span>
+<span id="cb560-11"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb560-11" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb560-12"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb560-12" aria-hidden="true" tabindex="-1"></a>ppt_m2_y09_stars <span class="ot">&lt;-</span> <span class="fu">st_set_dimensions</span>(ppt_m2_y09_stars, <span class="dv">3</span>, <span class="at">values =</span> <span class="fu">c</span>(dates_ls[<span class="sc">-</span><span class="dv">1</span>], <span class="fu">ymd</span>(<span class="st">&quot;2009-03-01&quot;</span>)), <span class="at">name =</span> <span class="st">&quot;date&quot;</span>)</span>
+<span id="cb560-13"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb560-13" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>stars object with 3 dimensions and 1 attribute
+attribute(s), summary of first 1e+05 cells:
+                        Min. 1st Qu. Median      Mean 3rd Qu.   Max.  NA&#39;s
+PRISM_ppt_y2009_m2.tif     0       0      0 0.1855858       0 11.634 60401
+dimension(s):
+     from   to     offset      delta refsys point values x/y
+x       1 1405   -125.021  0.0416667  NAD83 FALSE   NULL [x]
+y       1  621    49.9375 -0.0416667  NAD83 FALSE   NULL [y]
+date    1   28 2009-02-02     1 days   Date    NA   NULL    </code></pre>
+<p>If you merge the two,</p>
+<div class="sourceCode" id="cb562"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb562-1"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb562-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(ppt_m1_y09_stars, ppt_m2_y09_stars, <span class="at">along =</span> <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>stars object with 3 dimensions and 1 attribute
+attribute(s), summary of first 1e+05 cells:
+                        Min. 1st Qu. Median     Mean 3rd Qu.   Max.  NA&#39;s
+PRISM_ppt_y2009_m1.tif     0       0  0.436 3.543222  3.4925 56.208 60401
+dimension(s):
+     from   to   offset      delta refsys point                    values x/y
+x       1 1405 -125.021  0.0416667  NAD83 FALSE                      NULL [x]
+y       1  621  49.9375 -0.0416667  NAD83 FALSE                      NULL [y]
+date    1   59       NA         NA   Date    NA 2009-01-01,...,2009-03-01    </code></pre>
+<p>The date dimension does not have <code>delta</code> any more, and correctly so because there is a one-day gap between the end date of the first <code>stars</code> object (“2009-01-31”) and the start date of the second <code>stars</code> object (“2009-02-02”). So, all the date values are now stored in <code>values</code>.</p>
 </div>
-<div id="polygons-exact_extract-terraextract-and-rasterextract" class="section level3 hasAnchor" number="5.3.2">
-<h3><span class="header-section-number">5.3.2</span> Polygons: <code>exact_extract()</code>, <code>terra::extract()</code>, and <code>raster::extract()</code><a href="extract-speed.html#polygons-exact_extract-terraextract-and-rasterextract" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p><code>terra::extract()</code> is faster than <code>exact_extract()</code> for a relatively small raster data. Let’s time them and see the difference.</p>
-<div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb426-1"><a href="extract-speed.html#cb426-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- terra::extract ---#</span></span>
-<span id="cb426-2"><a href="extract-speed.html#cb426-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
-<span id="cb426-3"><a href="extract-speed.html#cb426-3" aria-hidden="true" tabindex="-1"></a>terra_extract_temp <span class="ot">&lt;-</span> </span>
-<span id="cb426-4"><a href="extract-speed.html#cb426-4" aria-hidden="true" tabindex="-1"></a>  terra<span class="sc">::</span><span class="fu">extract</span>(</span>
-<span id="cb426-5"><a href="extract-speed.html#cb426-5" aria-hidden="true" tabindex="-1"></a>    prism_tmax_0701_KS_sr, </span>
-<span id="cb426-6"><a href="extract-speed.html#cb426-6" aria-hidden="true" tabindex="-1"></a>    KS_county_sv</span>
-<span id="cb426-7"><a href="extract-speed.html#cb426-7" aria-hidden="true" tabindex="-1"></a>  )  </span>
-<span id="cb426-8"><a href="extract-speed.html#cb426-8" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code></pre></div>
-<pre><code>0.074 sec elapsed</code></pre>
-<div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb428-1"><a href="extract-speed.html#cb428-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- exact_extract ---#</span></span>
-<span id="cb428-2"><a href="extract-speed.html#cb428-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
-<span id="cb428-3"><a href="extract-speed.html#cb428-3" aria-hidden="true" tabindex="-1"></a>exact_extract_temp <span class="ot">&lt;-</span> </span>
-<span id="cb428-4"><a href="extract-speed.html#cb428-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">exact_extract</span>(</span>
-<span id="cb428-5"><a href="extract-speed.html#cb428-5" aria-hidden="true" tabindex="-1"></a>    prism_tmax_0701_KS_sr, </span>
-<span id="cb428-6"><a href="extract-speed.html#cb428-6" aria-hidden="true" tabindex="-1"></a>    KS_county_sf, </span>
-<span id="cb428-7"><a href="extract-speed.html#cb428-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">progress =</span> <span class="cn">FALSE</span></span>
-<span id="cb428-8"><a href="extract-speed.html#cb428-8" aria-hidden="true" tabindex="-1"></a>  )  </span>
-<span id="cb428-9"><a href="extract-speed.html#cb428-9" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code></pre></div>
-<pre><code>0.263 sec elapsed</code></pre>
-<div class="sourceCode" id="cb430"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb430-1"><a href="extract-speed.html#cb430-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- raster::extract ---#</span></span>
-<span id="cb430-2"><a href="extract-speed.html#cb430-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
-<span id="cb430-3"><a href="extract-speed.html#cb430-3" aria-hidden="true" tabindex="-1"></a>raster_extract_temp <span class="ot">&lt;-</span> </span>
-<span id="cb430-4"><a href="extract-speed.html#cb430-4" aria-hidden="true" tabindex="-1"></a>  raster<span class="sc">::</span><span class="fu">extract</span>(</span>
-<span id="cb430-5"><a href="extract-speed.html#cb430-5" aria-hidden="true" tabindex="-1"></a>    prism_tmax_0701_KS_lr, </span>
-<span id="cb430-6"><a href="extract-speed.html#cb430-6" aria-hidden="true" tabindex="-1"></a>    KS_county_sf</span>
-<span id="cb430-7"><a href="extract-speed.html#cb430-7" aria-hidden="true" tabindex="-1"></a>  )  </span>
-<span id="cb430-8"><a href="extract-speed.html#cb430-8" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code></pre></div>
-<pre><code>2.738 sec elapsed</code></pre>
-<p>As you can see, <code>raster::extract()</code> is by far the slowest. <code>terra::extract()</code> is faster than <code>exact_extract()</code>. However, once the raster data becomes larger (or spatially finer), then <code>exact_extact()</code> starts to shine.</p>
-<hr />
-<p>Let’s disaggregate the prism data by a factor of 10 to create a much larger raster data.<a href="#fn75" class="footnote-ref" id="fnref75"><sup>75</sup></a></p>
-<div class="sourceCode" id="cb432"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb432-1"><a href="extract-speed.html#cb432-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- disaggregate ---#</span></span>
-<span id="cb432-2"><a href="extract-speed.html#cb432-2" aria-hidden="true" tabindex="-1"></a>(</span>
-<span id="cb432-3"><a href="extract-speed.html#cb432-3" aria-hidden="true" tabindex="-1"></a>prism_tmax_0701_KS_sr_10 <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">disagg</span>(prism_tmax_0701_KS_sr, <span class="at">fact =</span> <span class="dv">10</span>)</span>
-<span id="cb432-4"><a href="extract-speed.html#cb432-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<pre><code>class       : SpatRaster 
-dimensions  : 730, 1790, 1  (nrow, ncol, nlyr)
-resolution  : 0.004166667, 0.004166667  (x, y)
-extent      : -102.0625, -94.60417, 36.97917, 40.02083  (xmin, xmax, ymin, ymax)
-coord. ref. : lon/lat NAD83 
-source      : memory 
-name        : PRISM_tmax_stable_4kmD2_20180701_bil 
-min value   :                               27.711 
-max value   :                               37.656 </code></pre>
-<p>The disaggregated PRISM data now has 10 times more rows and columns.</p>
-<div class="sourceCode" id="cb434"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb434-1"><a href="extract-speed.html#cb434-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- original ---#</span></span>
-<span id="cb434-2"><a href="extract-speed.html#cb434-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(prism_tmax_0701_KS_sr)  </span></code></pre></div>
-<pre><code>[1]  73 179   1</code></pre>
-<div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb436-1"><a href="extract-speed.html#cb436-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- disaggregated ---#</span></span>
-<span id="cb436-2"><a href="extract-speed.html#cb436-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(prism_tmax_0701_KS_sr_10)  </span></code></pre></div>
-<pre><code>[1]  730 1790    1</code></pre>
-<hr />
-<p>Now, let’s compare <code>terra::extrct()</code> and <code>exact_extrct()</code> using the disaggregated data.</p>
-<div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb438-1"><a href="extract-speed.html#cb438-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- terra extract ---#</span></span>
-<span id="cb438-2"><a href="extract-speed.html#cb438-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
-<span id="cb438-3"><a href="extract-speed.html#cb438-3" aria-hidden="true" tabindex="-1"></a>terra_extract_temp <span class="ot">&lt;-</span> </span>
-<span id="cb438-4"><a href="extract-speed.html#cb438-4" aria-hidden="true" tabindex="-1"></a>  terra<span class="sc">::</span><span class="fu">extract</span>(</span>
-<span id="cb438-5"><a href="extract-speed.html#cb438-5" aria-hidden="true" tabindex="-1"></a>    prism_tmax_0701_KS_sr_10, </span>
-<span id="cb438-6"><a href="extract-speed.html#cb438-6" aria-hidden="true" tabindex="-1"></a>    KS_county_sv</span>
-<span id="cb438-7"><a href="extract-speed.html#cb438-7" aria-hidden="true" tabindex="-1"></a>  )  </span>
-<span id="cb438-8"><a href="extract-speed.html#cb438-8" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code></pre></div>
-<pre><code>4.739 sec elapsed</code></pre>
-<div class="sourceCode" id="cb440"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb440-1"><a href="extract-speed.html#cb440-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- exact extract ---#</span></span>
-<span id="cb440-2"><a href="extract-speed.html#cb440-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
-<span id="cb440-3"><a href="extract-speed.html#cb440-3" aria-hidden="true" tabindex="-1"></a>exact_extract_temp <span class="ot">&lt;-</span> </span>
-<span id="cb440-4"><a href="extract-speed.html#cb440-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">exact_extract</span>(</span>
-<span id="cb440-5"><a href="extract-speed.html#cb440-5" aria-hidden="true" tabindex="-1"></a>    prism_tmax_0701_KS_sr_10, </span>
-<span id="cb440-6"><a href="extract-speed.html#cb440-6" aria-hidden="true" tabindex="-1"></a>    KS_county_sf, </span>
-<span id="cb440-7"><a href="extract-speed.html#cb440-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">progress =</span> <span class="cn">FALSE</span></span>
-<span id="cb440-8"><a href="extract-speed.html#cb440-8" aria-hidden="true" tabindex="-1"></a>  )  </span>
-<span id="cb440-9"><a href="extract-speed.html#cb440-9" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code></pre></div>
-<pre><code>0.299 sec elapsed</code></pre>
-<p>As you can see, <code>exact_extract()</code> is considerably faster. The difference in time becomes even more pronounced as the size of the raster data becomes larger and the number of polygons are greater. The time difference of several seconds seem nothing, but imagine processing PRISM files for the entire US over 20 years, then you would appreciate the speed of <code>exact_extract()</code>.</p>
+<div id="merge-two" class="section level3 hasAnchor" number="7.7.2">
+<h3><span class="header-section-number">7.7.2</span> Merging <code>stars</code> objects of different attributes<a href="merging-stars-objects-using-c-and-st_mosaic.html#merge-two" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Here we learn how to merge multiple <code>stars</code> objects that have</p>
+<ul>
+<li><strong>different</strong> attributes</li>
+<li>the <strong>same</strong> spatial extent and resolution</li>
+<li>the <strong>same</strong> bands (dates here)</li>
+</ul>
+<p>For example, consider merging PRISM precipitation and tmax data in January. Both of them have exactly the same spatial extent and resolutions and the date characteristics (starting and ending on the same dates with the same time interval). However, they differ in what they represent: precipitation and tmax. This merge is kind of like <code>cbind()</code> that combines multiple <code>data.frame</code>s of different variables while making sure the observation correspondence is correct.</p>
+<p>Let’s read the daily tmax data for January, 2009:</p>
+<div class="sourceCode" id="cb564"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb564-1"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb564-1" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb564-2"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb564-2" aria-hidden="true" tabindex="-1"></a>tmax_m1_y09_stars <span class="ot">&lt;-</span> <span class="fu">read_stars</span>(<span class="st">&quot;Data/PRISM_tmax_y2009_m1.tif&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb564-3"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb564-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">#--- change the attribute name ---#</span></span>
+<span id="cb564-4"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb564-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">setNames</span>(<span class="st">&quot;tmax&quot;</span>)</span>
+<span id="cb564-5"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb564-5" aria-hidden="true" tabindex="-1"></a>)   </span></code></pre></div>
+<pre><code>stars object with 3 dimensions and 1 attribute
+attribute(s), summary of first 1e+05 cells:
+         Min. 1st Qu. Median      Mean 3rd Qu.  Max.  NA&#39;s
+tmax  -17.898  -7.761 -2.248 -3.062721   1.718 7.994 60401
+dimension(s):
+     from   to   offset      delta refsys point
+x       1 1405 -125.021  0.0416667  NAD83 FALSE
+y       1  621  49.9375 -0.0416667  NAD83 FALSE
+band    1   31       NA         NA     NA    NA
+                                                                            values
+x                                                                             NULL
+y                                                                             NULL
+band PRISM_tmax_stable_4kmD2_20090101_bil,...,PRISM_tmax_stable_4kmD2_20090131_bil
+     x/y
+x    [x]
+y    [y]
+band    </code></pre>
+<p>Now, let’s merge the PRISM ppt and tmax data in January, 2009.</p>
+<div class="sourceCode" id="cb566"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb566-1"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb566-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(ppt_m1_y09_stars, tmax_m1_y09_stars)</span></code></pre></div>
+<pre><code>Error in c.stars(ppt_m1_y09_stars, tmax_m1_y09_stars): don&#39;t know how to merge arrays: please specify parameter along</code></pre>
+<p>Oops. Well, the problem is that the third dimension of the two objects is not the same. Even though we know that the <strong>x</strong>th element of their third dimension represent the same thing, they look different to R’s eyes. So, we first need to change the third dimension of <code>tmax_m1_y09_stars</code> to be consistent with the third dimension of <code>ppt_m1_y09_stars</code> (<code>dates_ls_m1</code> was defined in Chapter <a href="stars-set-time.html#stars-set-time">7.5</a>).</p>
+<div class="sourceCode" id="cb568"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb568-1"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb568-1" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb568-2"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb568-2" aria-hidden="true" tabindex="-1"></a>tmax_m1_y09_stars <span class="ot">&lt;-</span> <span class="fu">st_set_dimensions</span>(tmax_m1_y09_stars, <span class="dv">3</span>, <span class="at">values =</span> dates_ls_m1, <span class="at">names =</span> <span class="st">&quot;date&quot;</span>)</span>
+<span id="cb568-3"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb568-3" aria-hidden="true" tabindex="-1"></a>)   </span></code></pre></div>
+<pre><code>stars object with 3 dimensions and 1 attribute
+attribute(s), summary of first 1e+05 cells:
+         Min. 1st Qu. Median      Mean 3rd Qu.  Max.  NA&#39;s
+tmax  -17.898  -7.761 -2.248 -3.062721   1.718 7.994 60401
+dimension(s):
+     from   to     offset      delta refsys point values x/y
+x       1 1405   -125.021  0.0416667  NAD83 FALSE   NULL [x]
+y       1  621    49.9375 -0.0416667  NAD83 FALSE   NULL [y]
+date    1   31 2009-01-01     1 days   Date    NA   NULL    </code></pre>
+<p>Now, we can merge the two.</p>
+<div class="sourceCode" id="cb570"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb570-1"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb570-1" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb570-2"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb570-2" aria-hidden="true" tabindex="-1"></a>ppt_tmax_m1_y09_stars <span class="ot">&lt;-</span> <span class="fu">c</span>(ppt_m1_y09_stars, tmax_m1_y09_stars)</span>
+<span id="cb570-3"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb570-3" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>stars object with 3 dimensions and 2 attributes
+attribute(s), summary of first 1e+05 cells:
+                           Min. 1st Qu. Median      Mean 3rd Qu.   Max.  NA&#39;s
+PRISM_ppt_y2009_m1.tif    0.000   0.000  0.436  3.543222  3.4925 56.208 60401
+tmax                    -17.898  -7.761 -2.248 -3.062721  1.7180  7.994 60401
+dimension(s):
+     from   to     offset      delta refsys point values x/y
+x       1 1405   -125.021  0.0416667  NAD83 FALSE   NULL [x]
+y       1  621    49.9375 -0.0416667  NAD83 FALSE   NULL [y]
+date    1   31 2009-01-01     1 days   Date    NA   NULL    </code></pre>
+<p>As you can see, now we have another attribute called <code>tmax</code>.</p>
 </div>
-<div id="single-layer-vs-multi-layer" class="section level3 hasAnchor" number="5.3.3">
-<h3><span class="header-section-number">5.3.3</span> Single-layer vs multi-layer<a href="extract-speed.html#single-layer-vs-multi-layer" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Pretend that you have five dates of PRISM tmax data (here we repeat the same file five times) and would like to extract values from all of them. Extracting values from a multi-layer raster objects (<code>RasterStack</code> for <code>raster</code> package) takes less time than extracting values from the individual layers one at a time. This can be observed below.</p>
+<div id="merging-stars-objects-of-different-spatial-extents" class="section level3 hasAnchor" number="7.7.3">
+<h3><span class="header-section-number">7.7.3</span> Merging <code>stars</code> objects of different spatial extents<a href="merging-stars-objects-using-c-and-st_mosaic.html#merging-stars-objects-of-different-spatial-extents" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Here we learn how to merge multiple <code>stars</code> objects that have</p>
+<ul>
+<li>the <strong>same</strong> attributes</li>
+<li><strong>different</strong> spatial extent but <strong>same</strong> resolution<a href="#fn86" class="footnote-ref" id="fnref86"><sup>86</sup></a></li>
+<li>the <strong>same</strong> bands (dates here)</li>
+</ul>
+<p>Some times you have multiple separate raster datasets that have different spatial coverages and would like to combine them into one. You can do that using <code>st_mosaic()</code>.</p>
+<p>Let’s split <code>tmax_m1_y09_stars</code> into two parts:</p>
+<div class="sourceCode" id="cb572"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb572-1"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb572-1" aria-hidden="true" tabindex="-1"></a>tmax_1 <span class="ot">&lt;-</span> <span class="fu">filter</span>(tmax_m1_y09_stars, x <span class="sc">&lt;=</span> <span class="sc">-</span><span class="dv">100</span>) </span>
+<span id="cb572-2"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb572-2" aria-hidden="true" tabindex="-1"></a>tmax_2 <span class="ot">&lt;-</span> <span class="fu">filter</span>(tmax_m1_y09_stars, x <span class="sc">&gt;</span> <span class="sc">-</span><span class="dv">100</span>)</span></code></pre></div>
+<p>Here (Figure <a href="merging-stars-objects-using-c-and-st_mosaic.html#fig:map-indiv">7.3</a>) is what they look like (only Jan 1, 1980):</p>
+<div class="sourceCode" id="cb573"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb573-1"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb573-1" aria-hidden="true" tabindex="-1"></a>g_1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb573-2"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb573-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_stars</span>(<span class="at">data =</span> tmax_1[,,,<span class="dv">1</span>]) <span class="sc">+</span></span>
+<span id="cb573-3"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb573-3" aria-hidden="true" tabindex="-1"></a>  theme_for_map <span class="sc">+</span></span>
+<span id="cb573-4"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb573-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb573-5"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb573-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span></span>
+<span id="cb573-6"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb573-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb573-7"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb573-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb573-8"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb573-8" aria-hidden="true" tabindex="-1"></a>g_2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb573-9"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb573-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_stars</span>(<span class="at">data =</span> tmax_2[,,,<span class="dv">1</span>]) <span class="sc">+</span></span>
+<span id="cb573-10"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb573-10" aria-hidden="true" tabindex="-1"></a>  theme_for_map <span class="sc">+</span></span>
+<span id="cb573-11"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb573-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb573-12"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb573-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span></span>
+<span id="cb573-13"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb573-13" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb573-14"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb573-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb573-15"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb573-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb573-16"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb573-16" aria-hidden="true" tabindex="-1"></a>g_1 <span class="sc">+</span> g_2</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:map-indiv"></span>
+<img src="R_GIS_Book_files/figure-html/map-indiv-1.png" alt="Two spatially non-overlapping stars objects" width="672" />
+<p class="caption">
+Figure 7.3: Two spatially non-overlapping stars objects
+</p>
+</div>
+<p>Let’s combine the two using <code>st_mosaic()</code>:</p>
+<div class="sourceCode" id="cb574"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb574-1"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb574-1" aria-hidden="true" tabindex="-1"></a>tmax_combined <span class="ot">&lt;-</span> <span class="fu">st_mosaic</span>(tmax_1, tmax_2) </span></code></pre></div>
+<p>Here is what the combined object looks like (Figure <a href="merging-stars-objects-using-c-and-st_mosaic.html#fig:plot-combine">7.4</a>)</p>
+<div class="sourceCode" id="cb575"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb575-1"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb575-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb575-2"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb575-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_stars</span>(<span class="at">data =</span> tmax_combined[,,,<span class="dv">1</span>]) <span class="sc">+</span></span>
+<span id="cb575-3"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb575-3" aria-hidden="true" tabindex="-1"></a>  theme_for_map </span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:plot-combine"></span>
+<img src="R_GIS_Book_files/figure-html/plot-combine-1.png" alt="Map of the stars objects combined into one" width="672" />
+<p class="caption">
+Figure 7.4: Map of the stars objects combined into one
+</p>
+</div>
 <hr />
-<p><strong><code>terra::extract()</code></strong></p>
-<div class="sourceCode" id="cb442"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb442-1"><a href="extract-speed.html#cb442-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- extract from 5 layers one at a time ---#</span></span>
-<span id="cb442-2"><a href="extract-speed.html#cb442-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
-<span id="cb442-3"><a href="extract-speed.html#cb442-3" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">extract</span>(prism_tmax_0701_KS_sr_10, KS_county_sv)</span>
-<span id="cb442-4"><a href="extract-speed.html#cb442-4" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">extract</span>(prism_tmax_0701_KS_sr_10, KS_county_sv)</span>
-<span id="cb442-5"><a href="extract-speed.html#cb442-5" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">extract</span>(prism_tmax_0701_KS_sr_10, KS_county_sv)</span>
-<span id="cb442-6"><a href="extract-speed.html#cb442-6" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">extract</span>(prism_tmax_0701_KS_sr_10, KS_county_sv)</span>
-<span id="cb442-7"><a href="extract-speed.html#cb442-7" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">extract</span>(prism_tmax_0701_KS_sr_10, KS_county_sv)</span>
-<span id="cb442-8"><a href="extract-speed.html#cb442-8" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code></pre></div>
-<pre><code>26.319 sec elapsed</code></pre>
-<div class="sourceCode" id="cb444"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb444-1"><a href="extract-speed.html#cb444-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- extract from a 5-layer SpatRaster ---#</span></span>
-<span id="cb444-2"><a href="extract-speed.html#cb444-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
-<span id="cb444-3"><a href="extract-speed.html#cb444-3" aria-hidden="true" tabindex="-1"></a>prism_tmax_ml_5 <span class="ot">&lt;-</span> </span>
-<span id="cb444-4"><a href="extract-speed.html#cb444-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(</span>
-<span id="cb444-5"><a href="extract-speed.html#cb444-5" aria-hidden="true" tabindex="-1"></a>    prism_tmax_0701_KS_sr_10, </span>
-<span id="cb444-6"><a href="extract-speed.html#cb444-6" aria-hidden="true" tabindex="-1"></a>    prism_tmax_0701_KS_sr_10, </span>
-<span id="cb444-7"><a href="extract-speed.html#cb444-7" aria-hidden="true" tabindex="-1"></a>    prism_tmax_0701_KS_sr_10, </span>
-<span id="cb444-8"><a href="extract-speed.html#cb444-8" aria-hidden="true" tabindex="-1"></a>    prism_tmax_0701_KS_sr_10, </span>
-<span id="cb444-9"><a href="extract-speed.html#cb444-9" aria-hidden="true" tabindex="-1"></a>    prism_tmax_0701_KS_sr_10</span>
-<span id="cb444-10"><a href="extract-speed.html#cb444-10" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb444-11"><a href="extract-speed.html#cb444-11" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">extract</span>(prism_tmax_ml_5, KS_county_sv)</span>
-<span id="cb444-12"><a href="extract-speed.html#cb444-12" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code></pre></div>
-<pre><code>6.408 sec elapsed</code></pre>
-<hr />
-<p><strong><code>exact_extract()</code></strong></p>
-<div class="sourceCode" id="cb446"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb446-1"><a href="extract-speed.html#cb446-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- extract from 5 layers one at a time ---#</span></span>
-<span id="cb446-2"><a href="extract-speed.html#cb446-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
-<span id="cb446-3"><a href="extract-speed.html#cb446-3" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">exact_extract</span>(prism_tmax_0701_KS_sr_10, KS_county_sf, <span class="at">progress =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb446-4"><a href="extract-speed.html#cb446-4" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">exact_extract</span>(prism_tmax_0701_KS_sr_10, KS_county_sf, <span class="at">progress =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb446-5"><a href="extract-speed.html#cb446-5" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">exact_extract</span>(prism_tmax_0701_KS_sr_10, KS_county_sf, <span class="at">progress =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb446-6"><a href="extract-speed.html#cb446-6" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">exact_extract</span>(prism_tmax_0701_KS_sr_10, KS_county_sf, <span class="at">progress =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb446-7"><a href="extract-speed.html#cb446-7" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">exact_extract</span>(prism_tmax_0701_KS_sr_10, KS_county_sf, <span class="at">progress =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb446-8"><a href="extract-speed.html#cb446-8" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code></pre></div>
-<pre><code>1.965 sec elapsed</code></pre>
-<div class="sourceCode" id="cb448"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb448-1"><a href="extract-speed.html#cb448-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- extract from from a 5-layer SpatRaster ---#</span></span>
-<span id="cb448-2"><a href="extract-speed.html#cb448-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
-<span id="cb448-3"><a href="extract-speed.html#cb448-3" aria-hidden="true" tabindex="-1"></a>prism_tmax_stack_5 <span class="ot">&lt;-</span> </span>
-<span id="cb448-4"><a href="extract-speed.html#cb448-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(</span>
-<span id="cb448-5"><a href="extract-speed.html#cb448-5" aria-hidden="true" tabindex="-1"></a>    prism_tmax_0701_KS_sr_10, </span>
-<span id="cb448-6"><a href="extract-speed.html#cb448-6" aria-hidden="true" tabindex="-1"></a>    prism_tmax_0701_KS_sr_10, </span>
-<span id="cb448-7"><a href="extract-speed.html#cb448-7" aria-hidden="true" tabindex="-1"></a>    prism_tmax_0701_KS_sr_10, </span>
-<span id="cb448-8"><a href="extract-speed.html#cb448-8" aria-hidden="true" tabindex="-1"></a>    prism_tmax_0701_KS_sr_10, </span>
-<span id="cb448-9"><a href="extract-speed.html#cb448-9" aria-hidden="true" tabindex="-1"></a>    prism_tmax_0701_KS_sr_10</span>
-<span id="cb448-10"><a href="extract-speed.html#cb448-10" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb448-11"><a href="extract-speed.html#cb448-11" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> </span>
-<span id="cb448-12"><a href="extract-speed.html#cb448-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">exact_extract</span>(</span>
-<span id="cb448-13"><a href="extract-speed.html#cb448-13" aria-hidden="true" tabindex="-1"></a>    prism_tmax_stack_5, </span>
-<span id="cb448-14"><a href="extract-speed.html#cb448-14" aria-hidden="true" tabindex="-1"></a>    KS_county_sf, </span>
-<span id="cb448-15"><a href="extract-speed.html#cb448-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">progress =</span> <span class="cn">FALSE</span></span>
-<span id="cb448-16"><a href="extract-speed.html#cb448-16" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb448-17"><a href="extract-speed.html#cb448-17" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code></pre></div>
-<pre><code>0.487 sec elapsed</code></pre>
-<p>The reduction in computation time for both methods makes sense. Since both layers have exactly the same geographic extent and resolution, finding the polygons-cells correspondence is done once and then it can be used repeatedly across the layers for the multi-layer <code>SparRaster</code> and <code>RasterStack</code>. This clearly suggests that when you are processing many layers of the same spatial resolution and extent, you should first stack them and then extract values at the same time instead of processing them one by one as long as your memory allows you to do so.</p>
-<!-- There is much more to discuss about the computation speed of raster data extraction for polygons. For those who are interested in this topic, go to Chapter \@ref(EE). -->
-
+<p>It is okay to have the two <code>stars</code> objects to be combined have a spatial overlap. The following split creates two <code>stars</code> objects with a spatial overlap.</p>
+<div class="sourceCode" id="cb576"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb576-1"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb576-1" aria-hidden="true" tabindex="-1"></a>tmax_1 <span class="ot">&lt;-</span> <span class="fu">filter</span>(tmax_m1_y09_stars, x <span class="sc">&lt;=</span> <span class="sc">-</span><span class="dv">100</span>) </span>
+<span id="cb576-2"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb576-2" aria-hidden="true" tabindex="-1"></a>tmax_2 <span class="ot">&lt;-</span> <span class="fu">filter</span>(tmax_m1_y09_stars, x <span class="sc">&gt;</span> <span class="sc">-</span><span class="dv">110</span>) </span></code></pre></div>
+<p>Here (Figure <a href="merging-stars-objects-using-c-and-st_mosaic.html#fig:map-indiv-2">7.5</a>) is what they look like (only Jan 1, 1980):</p>
+<div class="sourceCode" id="cb577"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb577-1"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb577-1" aria-hidden="true" tabindex="-1"></a>g_1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb577-2"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb577-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_stars</span>(<span class="at">data =</span> tmax_m1_y09_stars[,,,<span class="dv">1</span>], <span class="at">fill =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb577-3"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb577-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_stars</span>(<span class="at">data =</span> tmax_1[,,,<span class="dv">1</span>]) <span class="sc">+</span></span>
+<span id="cb577-4"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb577-4" aria-hidden="true" tabindex="-1"></a>  theme_for_map</span>
+<span id="cb577-5"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb577-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb577-6"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb577-6" aria-hidden="true" tabindex="-1"></a>g_2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb577-7"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb577-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_stars</span>(<span class="at">data =</span> tmax_m1_y09_stars[,,,<span class="dv">1</span>], <span class="at">fill =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb577-8"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb577-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_stars</span>(<span class="at">data =</span> tmax_2[,,,<span class="dv">1</span>]) <span class="sc">+</span></span>
+<span id="cb577-9"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb577-9" aria-hidden="true" tabindex="-1"></a>  theme_for_map</span>
+<span id="cb577-10"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb577-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb577-11"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb577-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb577-12"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb577-12" aria-hidden="true" tabindex="-1"></a>g_1 <span class="sc">/</span> g_2</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:map-indiv-2"></span>
+<img src="R_GIS_Book_files/figure-html/map-indiv-2-1.png" alt="Two spatially overlapping stars objects" width="672" />
+<p class="caption">
+Figure 7.5: Two spatially overlapping stars objects
+</p>
+</div>
+<p>As you can see below, <code>st_mosaic()</code> reconciles the spatial overlap between the two <code>stars</code> objects.</p>
+<div class="sourceCode" id="cb578"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb578-1"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb578-1" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb578-2"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb578-2" aria-hidden="true" tabindex="-1"></a>tmax_combined <span class="ot">&lt;-</span> <span class="fu">st_mosaic</span>(tmax_1, tmax_2) </span>
+<span id="cb578-3"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb578-3" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>stars object with 3 dimensions and 1 attribute
+attribute(s), summary of first 1e+05 cells:
+         Min. 1st Qu. Median      Mean 3rd Qu.  Max.  NA&#39;s
+tmax  -17.898  -7.761 -2.248 -3.062721   1.718 7.994 60401
+dimension(s):
+     from   to   offset      delta refsys point values x/y
+x       1 1405 -125.021  0.0416667  NAD83    NA   NULL [x]
+y       1  621  49.9375 -0.0416667  NAD83    NA   NULL [y]
+band    1   31       NA         NA     NA    NA   NULL    </code></pre>
+<p>Here is the plot (Figure <a href="merging-stars-objects-using-c-and-st_mosaic.html#fig:plot-combine-overlapped">7.6</a>):</p>
+<div class="sourceCode" id="cb580"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb580-1"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb580-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb580-2"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb580-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_stars</span>(<span class="at">data =</span> tmax_combined[,,,<span class="dv">1</span>]) <span class="sc">+</span></span>
+<span id="cb580-3"><a href="merging-stars-objects-using-c-and-st_mosaic.html#cb580-3" aria-hidden="true" tabindex="-1"></a>  theme_for_map</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:plot-combine-overlapped"></span>
+<img src="R_GIS_Book_files/figure-html/plot-combine-overlapped-1.png" alt="Map of the spatially-overlapping stars objects combined into one" width="672" />
+<p class="caption">
+Figure 7.6: Map of the spatially-overlapping stars objects combined into one
+</p>
 </div>
 </div>
-<!-- </div> -->
-
-
-
+</div>
 <div class="footnotes">
 <hr />
-<ol start="75">
-<li id="fn75"><p>We did not introduce this function as it is very rare that you need this function in research projects.<a href="extract-speed.html#fnref75" class="footnote-back">↩︎</a></p></li>
+<ol start="86">
+<li id="fn86"><p>Technically, you can actually merge <code>stars</code> objects of different spatial resolutions. But, you probably should not.<a href="merging-stars-objects-using-c-and-st_mosaic.html#fnref86" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>
@@ -719,8 +801,8 @@ max value   :                               37.656 </code></pre>
           </div>
         </div>
       </div>
-<a href="extracting-values-from-raster-layers-for-vector-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="EE.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="dplyr-op.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="convert-to-rb.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

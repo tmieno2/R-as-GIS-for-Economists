@@ -1,0 +1,71 @@
+```{r }
+library(geos)
+library(data.table)
+library(sf)
+library(tidyverse)
+```
+
+```{r }
+poly1 <- "POLYGON ((0 0, 0 10, 10 10, 10 0, 0 0))"
+poly2 <- "POLYGON ((0 0, 0 12, 12 12, 12 0, 0 0))"
+poly3 <- "POLYGON ((5 5, 5 15, 15 15, 15 5, 5 5))"
+poly4 <- "POLYGON ((8 8, 8 12, 12 12, 12 8, 8 8))"
+
+polygons_1 <- c(poly1, poly2)
+polygons_2 <- c(poly3, poly4)
+
+polygons_1_sf <- polygons_1 %>% st_as_sfc()
+polygons_2_sf <- polygons_2 %>% st_as_sfc()
+
+st_intersection(polygons_1_sf, polygons_2_sf)
+geos_intersection(polygons_1, polygons_2)
+
+
+
+geos_difference(poly1, poly2)
+
+ggplot() +
+  geom_sf(data = st_as_sfc(poly1)) +
+  geom_sf(data = st_as_sfc(poly2)) +
+  geom_sf(data = geos_difference(poly1, poly2) %>%
+    st_as_sfc(), fill = "red")
+
+states_df <- as_tibble(ggplot2::map_data("state"))
+
+
+geos_sym_difference(poly1, poly2)
+
+geos_union(poly1, poly2)
+
+
+line <- "LINESTRING (11 0, 11 10)"
+geos_snap(poly1, line, tolerance = 2)
+
+
+geos_shared_paths("LINESTRING (0 0, 1 1, 2 2)", "LINESTRING (3 3, 2 2, 1 1)")
+
+library(sf)
+# > Linking to GEOS 3.9.1, GDAL 3.3.2, PROJ 8.1.0
+nc <- read_sf(system.file("shape/nc.shp", package = "sf")) %>%
+  st_transform(32119) # North Carolina state plane, m.
+
+temp$buffer
+temp <-
+  nc %>%
+  data.table() %>%
+  mutate(buffer = geos_buffer(geometry, 10)) %>%
+  mutate(area = st_area(geometry, 10)) %>%
+  mutate(buffer_sf = st_as_sf(buffer))
+
+nc_geos <- as_geos_geometry(nc)
+
+temp <- geos_intersection(nc_geos, nc_geos)
+geos_unnest(temp[56])
+
+
+nc_geos %>%
+  geos_make_collection() %>%
+  geos_unary_union() %>%
+  st_as_sfc(nc_state)
+```
+
