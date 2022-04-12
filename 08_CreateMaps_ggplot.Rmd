@@ -59,7 +59,7 @@ All the datasets that you need to import are available [here](https://www.dropbo
 
 + Run the following code to install or load (if already installed) the `pacman` package, and then install or load (if already installed) the listed package inside the `pacman::p_load()` function.
 
-```{r Chap9_packages, results = "hide"}
+```{r Chap9_packages, results = "hide", cache = F}
 if (!require("pacman")) install.packages("pacman")
 pacman::p_load(
   stars, # spatiotemporal data handling
@@ -96,12 +96,12 @@ The following datasets will be used for illustrations.
 
 **Points**
 
-+ `af_used`: total annual groundwater pumping at individual irrigatiton wells
++ `af_used`: total annual groundwater pumping at individual irrigation wells
 
 ```{r import_KS_wells_ch_9, results = "hide"}
 #--- read in the KS wells data ---#
 (
-gw_KS_sf <- readRDS( "Data/gw_KS_sf.rds")
+  gw_KS_sf <- readRDS("Data/gw_KS_sf.rds")
 )
 ```
 
@@ -113,9 +113,9 @@ gw_KS_sf
 
 ```{r county-KS, results = "hide", cache = F}
 (
-KS_county <- tigris::counties(state = "Kansas", cb = TRUE) %>%
-  st_as_sf() %>%
-  st_transform(st_crs(gw_KS_sf))
+  KS_county <- tigris::counties(state = "Kansas", cb = TRUE) %>%
+    st_as_sf() %>%
+    st_transform(st_crs(gw_KS_sf))
 )
 ```
 
@@ -127,8 +127,8 @@ KS_county
 
 ```{r import-railroads, results = "hide"}
 (
-KS_railroads <- st_read(dsn = "Data/", layer = "tl_2015_us_rails") %>%
-  st_crop(KS_county)
+  KS_railroads <- st_read(dsn = "Data/", layer = "tl_2015_us_rails") %>%
+    st_crop(KS_county)
 )
 ```
 
@@ -143,22 +143,22 @@ KS_railroads
 
 ```{r wells-map}
 (
-g_wells <- ggplot(data = gw_KS_sf) +
-	geom_sf()
+  g_wells <- ggplot(data = gw_KS_sf) +
+    geom_sf()
 )
 ```
 
 ```{r county-map}
 (
-g_county <- ggplot(data = KS_county) +
-	geom_sf()
+  g_county <- ggplot(data = KS_county) +
+    geom_sf()
 )
 ```
 
 ```{r lines-map}
 (
-g_rail <- ggplot(data = KS_railroads) +
-	geom_sf()
+  g_rail <- ggplot(data = KS_railroads) +
+    geom_sf()
 )
 ```
 
@@ -181,8 +181,8 @@ For illustration here, let's focus on the wells in one county so it is easy to d
 ```{r gw-stevens, results = "hide"}
 #--- wells in Stevens County ---#
 gw_Stevens <- KS_county %>%
-	filter(NAME == "Stevens") %>%
-	st_crop(gw_KS_sf, .)
+  filter(NAME == "Stevens") %>%
+  st_crop(gw_KS_sf, .)
 ```
 
 **example 1**
@@ -192,8 +192,8 @@ gw_Stevens <- KS_county %>%
 
 ```{r wells-map-e1}
 (
-ggplot(data = gw_Stevens) +
-	geom_sf(aes(color = af_used), size = 2)
+  ggplot(data = gw_Stevens) +
+    geom_sf(aes(color = af_used), size = 2)
 )
 ```
 
@@ -205,8 +205,8 @@ ggplot(data = gw_Stevens) +
 
 ```{r wells-map-e2}
 (
-ggplot(data = gw_Stevens) +
-	geom_sf(aes(size = af_used), color = "blue", shape = 15)
+  ggplot(data = gw_Stevens) +
+    geom_sf(aes(size = af_used), color = "blue", shape = 15)
 )
 ```
 
@@ -217,11 +217,11 @@ ggplot(data = gw_Stevens) +
 
 ```{r wells-map-e3}
 (
-gw_Stevens %>%
-	cbind(., st_coordinates(.)) %>%
-	mutate(east_west = ifelse(X < -101.3, "west", "east")) %>%
-	ggplot(data = .) +
-		geom_sf(aes(shape = east_west, color = east_west))
+  gw_Stevens %>%
+    cbind(., st_coordinates(.)) %>%
+    mutate(east_west = ifelse(X < -101.3, "west", "east")) %>%
+    ggplot(data = .) +
+    geom_sf(aes(shape = east_west, color = east_west))
 )
 ```
 
@@ -239,7 +239,7 @@ gw_Stevens %>%
 
 ```{r county-map-e1}
 ggplot(data = KS_county) +
-	geom_sf(color = "red", fill = "darkgreen")
+  geom_sf(color = "red", fill = "darkgreen")
 ```
 
 **example 2**
@@ -247,15 +247,36 @@ ggplot(data = KS_county) +
 + **color**: default (black)
 + **fill**: dependent on the total amount of pumping in 2010
 
-```{r county-map-e2}
-KS_county_with_pumping <- gw_KS_sf %>%
-	#--- only year == 2010 ---#
-	filter(., year == 2010) %>%
-	#--- get total pumping by county ---#
-	aggregate(., KS_county, sum, na.rm = TRUE)
+```{r inlcude = F}
+# In knitting the book, dplyr operations like filter, mutate cause an error even though they would not produce any errors when you are running on an R session. The solution used here is to create the object to be used and save it, and then read it.
+
+# KS_county_with_pumping <-
+#   gw_KS_sf %>%
+#   #--- only year == 2010 ---#
+#   dplyr::filter(year == 2010) %>%
+#   #--- get total pumping by county ---#
+#   aggregate(., KS_county, sum, na.rm = TRUE)
+
+# saveRDS(KS_county_with_pumping, "Data/KS_county_with_pumping.rds")
+
+KS_county_with_pumping <- readRDS("Data/KS_county_with_pumping.rds")
+```
+
+```{r county-map-e2-echo, eval = F}
+KS_county_with_pumping <-
+  gw_KS_sf %>%
+  #--- only year == 2010 ---#
+  dplyr::filter(year == 2010) %>%
+  #--- get total pumping by county ---#
+  aggregate(., KS_county, sum, na.rm = TRUE)
 
 ggplot(data = KS_county_with_pumping) +
-	geom_sf(aes(fill = af_used))
+  geom_sf(aes(fill = af_used))
+```
+
+```{r count-map-e2-show, echo = F}
+ggplot(data = KS_county_with_pumping) +
+  geom_sf(aes(fill = af_used))
 ```
 
 ### Plotting multiple spatial objects in one figure
@@ -264,24 +285,24 @@ You can combine all the layers created by `geom_sf()` additively so they appear 
 
 ```{r g-multiple-1}
 ggplot() +
-	#--- this one uses KS_wells ---#
-	geom_sf(data = gw_KS_sf, size = 0.4) +
-	#--- this one uses KS_county ---#
-	geom_sf(data = KS_county) +
-	#--- this one uses KS_railroads ---#
-	geom_sf(data = KS_railroads, color = "red")
+  #--- this one uses KS_wells ---#
+  geom_sf(data = gw_KS_sf, size = 0.4) +
+  #--- this one uses KS_county ---#
+  geom_sf(data = KS_county) +
+  #--- this one uses KS_railroads ---#
+  geom_sf(data = KS_railroads, color = "red")
 ```
 
 Oops, you cannot see wells (points) in the figure. The order of `geom_sf()` matters. The layer added later will come on top of the preceding layers. That's why wells are hidden beneath Kansas counties. So, let's do this:
 
 ```{r g-multiple-2}
 ggplot(data = KS_county) +
-	#--- this one uses KS_county ---#
-	geom_sf() +
-	#--- this one uses KS_county ---#
-	geom_sf(data = gw_KS_sf, size = 0.4) +
-	#--- this one uses KS_railroads ---#
-	geom_sf(data = KS_railroads, color = "red")
+  #--- this one uses KS_county ---#
+  geom_sf() +
+  #--- this one uses KS_county ---#
+  geom_sf(data = gw_KS_sf, size = 0.4) +
+  #--- this one uses KS_railroads ---#
+  geom_sf(data = KS_railroads, color = "red")
 ```
 
 Better.
@@ -290,13 +311,13 @@ Note that since you are using different datasets for each layer, you need to spe
 
 ```{r g-multiple-3}
 (
-g_all <- ggplot() +
-	#--- this one uses KS_county ---#
-	geom_sf(data = KS_county) +
-	#--- this one uses KS_wells ---#
-	geom_sf(data = gw_KS_sf, size = 0.4) +
-	#--- this one uses KS_railroads ---#
-	geom_sf(data = KS_railroads, color = "red")
+  g_all <- ggplot() +
+    #--- this one uses KS_county ---#
+    geom_sf(data = KS_county) +
+    #--- this one uses KS_wells ---#
+    geom_sf(data = gw_KS_sf, size = 0.4) +
+    #--- this one uses KS_railroads ---#
+    geom_sf(data = KS_railroads, color = "red")
 )
 ```
 
@@ -306,12 +327,12 @@ Alternatively, you could add `fill = NA` to `geom_sf(data = KS_county)` instead 
 
 ```{r g-multiple-4}
 ggplot() +
-	#--- this one uses KS_wells ---#
-	geom_sf(data = gw_KS_sf, size = 0.4) +
-	#--- this one uses KS_county ---#
-	geom_sf(data = KS_county, fill = NA) +
-	#--- this one uses KS_railroads ---#
-	geom_sf(data = KS_railroads, color = "red")
+  #--- this one uses KS_wells ---#
+  geom_sf(data = gw_KS_sf, size = 0.4) +
+  #--- this one uses KS_county ---#
+  geom_sf(data = KS_county, fill = NA) +
+  #--- this one uses KS_railroads ---#
+  geom_sf(data = KS_railroads, color = "red")
 ```
 
 This is fine as long as you do not intend to color-code counties.
@@ -329,59 +350,58 @@ Let's convert the CRS to WGS 84/ UTM zone 14N (EPSG code: 32614), make a map, an
 
 ```{r wells-map-14N}
 g_32614 <- st_transform(KS_county, 32614) %>%
-	ggplot(data = .) +
-		geom_sf()
+  ggplot(data = .) +
+  geom_sf()
 ```
 
 ```{r patchwork}
-g_county/g_32614
+g_county / g_32614
 ```
 
 Alternatively, you could use `coord_sf()` to alter the CRS on the map, but not the CRS of the sf object itself.
 
 ```{r wells-map-crs}
 ggplot() +
-	#--- epsg: 4269 ---#
-	geom_sf(data = KS_county) +
-	coord_sf(crs = 32614)
+  #--- epsg: 4269 ---#
+  geom_sf(data = KS_county) +
+  coord_sf(crs = 32614)
 ```
 
 When multiple layers are used for map creation, the CRS of the first layer is applied for all the layers.
 
 ```{r wells-map-crs-order}
 ggplot() +
-	#--- epsg: 32614 ---#
-	geom_sf(data = st_transform(KS_county, 32614)) +
-	#--- epsg: 4269 ---#
-	geom_sf(data = KS_railroads)
+  #--- epsg: 32614 ---#
+  geom_sf(data = st_transform(KS_county, 32614)) +
+  #--- epsg: 4269 ---#
+  geom_sf(data = KS_railroads)
 ```
 
 `coord_sf()` applies to all the layers.
 
 ```{r wells-map-coodsf}
 ggplot() +
-	#--- epsg: 32614 ---#
-	geom_sf(data = st_transform(KS_county, 32614)) +
-	#--- epsg: 4269 ---#
-	geom_sf(data = KS_railroads) +
-	#--- using 4269 ---#
-	coord_sf(crs = 4269)
+  #--- epsg: 32614 ---#
+  geom_sf(data = st_transform(KS_county, 32614)) +
+  #--- epsg: 4269 ---#
+  geom_sf(data = KS_railroads) +
+  #--- using 4269 ---#
+  coord_sf(crs = 4269)
 ```
 
 Finally, you could limit the geographic scope of the map to be created by adding `xlim()` and `ylim()`.
 
 ```{r wells-map-coodsf-lim}
 ggplot() +
-	#--- epsg: 32614 ---#
-	geom_sf(data = st_transform(KS_county, 32614)) +
-	#--- epsg: 4269 ---#
-	geom_sf(data = KS_railroads) +
-	#--- using 4269 ---#
-	coord_sf(crs = 4269) +
-	#--- limit the geographic scope of the map ---#
-	xlim(-99, -97) +
-	ylim(37, 39)
-
+  #--- epsg: 32614 ---#
+  geom_sf(data = st_transform(KS_county, 32614)) +
+  #--- epsg: 4269 ---#
+  geom_sf(data = KS_railroads) +
+  #--- using 4269 ---#
+  coord_sf(crs = 4269) +
+  #--- limit the geographic scope of the map ---#
+  xlim(-99, -97) +
+  ylim(37, 39)
 ```
 
 ### Faceting
@@ -390,36 +410,36 @@ Faceting splits the data into groups and generates a figure for each group, wher
 
 ```{r facet-1}
 ggplot() +
-	#--- KS county boundary ---#
-	geom_sf(data = st_transform(KS_county, 32614)) +
-	#--- wells ---#
-	geom_sf(data = gw_KS_sf, aes(color = af_used)) +
-	#--- facet by year (side by side) ---#
-	facet_wrap(. ~ year)
+  #--- KS county boundary ---#
+  geom_sf(data = st_transform(KS_county, 32614)) +
+  #--- wells ---#
+  geom_sf(data = gw_KS_sf, aes(color = af_used)) +
+  #--- facet by year (side by side) ---#
+  facet_wrap(. ~ year)
 ```
 
 Note that the above code creates a single legend that applies to both panels, which allows you to compare values across panels (years here). Further, also note that the values of the faceting variable (`year`) are displayed in the gray strips above the maps. You can have panels stacked vertically by using the `ncol` option (or `nrow` also works) in `facet_wrap(. ~ year)` as follows:
 
 ```{r facet-2}
 ggplot() +
-	#--- KS county boundary ---#
-	geom_sf(data = st_transform(KS_county, 32614)) +
-	#--- wells ---#
-	geom_sf(data = gw_KS_sf, aes(color = af_used)) +
-	#--- facet by year (side by side) ---#
-	facet_wrap(. ~ year, ncol = 1)
+  #--- KS county boundary ---#
+  geom_sf(data = st_transform(KS_county, 32614)) +
+  #--- wells ---#
+  geom_sf(data = gw_KS_sf, aes(color = af_used)) +
+  #--- facet by year (side by side) ---#
+  facet_wrap(. ~ year, ncol = 1)
 ```
 
 Two-way faceting is possible by supplying a variable name (or expression) in place of `.` in `facet_wrap(. ~ year)`. The code below uses an expression `(af_used > 200)` in place of `.`. This divides the dataset by whether water use is greater than 200 or not and by year.
 
 ```{r facet-3}
 ggplot() +
-	#--- KS county boundary ---#
-	geom_sf(data = st_transform(KS_county, 32614)) +
-	#--- wells ---#
-	geom_sf(data = gw_KS_sf, aes(color = af_used)) +
-	#--- facet by year (side by side) ---#
-	facet_wrap((af_used > 200) ~ year)
+  #--- KS county boundary ---#
+  geom_sf(data = st_transform(KS_county, 32614)) +
+  #--- wells ---#
+  geom_sf(data = gw_KS_sf, aes(color = af_used)) +
+  #--- facet by year (side by side) ---#
+  facet_wrap((af_used > 200) ~ year)
 ```
 
 The values of the expression (`TRUE` or `FALSE`) appear in the gray strips, which is not informative. We will discuss in detail how to control texts in the strips section \@ref(fine-tune).
@@ -428,15 +448,14 @@ If you feel like the panels are too close to each other, you could provide more 
 
 ```{r panel-spacing}
 ggplot() +
-	#--- KS county boundary ---#
-	geom_sf(data = st_transform(KS_county, 32614)) +
-	#--- wells ---#
-	geom_sf(data = gw_KS_sf, aes(color = af_used)) +
-	#--- facet by year (side by side) ---#
-	facet_wrap((af_used > 200) ~ year) +
-	#--- add more space between panels ---#
-	theme(panel.spacing.y = unit(2, "lines"))
-
+  #--- KS county boundary ---#
+  geom_sf(data = st_transform(KS_county, 32614)) +
+  #--- wells ---#
+  geom_sf(data = gw_KS_sf, aes(color = af_used)) +
+  #--- facet by year (side by side) ---#
+  facet_wrap((af_used > 200) ~ year) +
+  #--- add more space between panels ---#
+  theme(panel.spacing.y = unit(2, "lines"))
 ```
 
 
@@ -446,46 +465,46 @@ You can add labels to a map using `geom_sf_text()` or `geom_sf_label()` and prov
 
 ```{r add-labels, warnings = F}
 ggplot() +
-	#--- KS county boundary ---#
-	geom_sf(data = KS_county) +
-	geom_sf_text(
-		data = KS_county,
-		aes(label = NAME),
-		size = 3,
-		color = "blue"
-	)
+  #--- KS county boundary ---#
+  geom_sf(data = KS_county) +
+  geom_sf_text(
+    data = KS_county,
+    aes(label = NAME),
+    size = 3,
+    color = "blue"
+  )
 ```
 
 If you would like to have overlapping labels not printed, you can add `check_overlap = TRUE`.
 
 ```{r add-labels-overlap, warnings = F}
 ggplot() +
-	#--- KS county boundary ---#
-	geom_sf(data = KS_county) +
-	geom_sf_text(
-		data = KS_county,
-		aes(label = NAME),
-		check_overlap = TRUE,
-		size = 3,
-		color = "blue"
-	)
+  #--- KS county boundary ---#
+  geom_sf(data = KS_county) +
+  geom_sf_text(
+    data = KS_county,
+    aes(label = NAME),
+    check_overlap = TRUE,
+    size = 3,
+    color = "blue"
+  )
 ```
 
 The `nudge_x` and `nudge_y` options let you shift the labels.
 
 ```{r nudge, warnings = F}
 ggplot() +
-	#--- KS county boundary ---#
-	geom_sf(data = KS_county) +
-	geom_sf_text(
-		data = KS_county,
-		aes(label = NAME),
-		check_overlap = TRUE,
-		size = 3,
-		color = "blue",
-		nudge_x = -0.1,
-		nudge_y = 0.1
-	)
+  #--- KS county boundary ---#
+  geom_sf(data = KS_county) +
+  geom_sf_text(
+    data = KS_county,
+    aes(label = NAME),
+    check_overlap = TRUE,
+    size = 3,
+    color = "blue",
+    nudge_x = -0.1,
+    nudge_y = 0.1
+  )
 ```
 
 If you would like a fine control on a few objects, you can always work on them separately.
@@ -497,50 +516,50 @@ KS_less_Cheyenne <- filter(KS_county, NAME != "Cheyenne")
 
 ```{r nudge-sep, warnings = F}
 ggplot() +
-	#--- KS county boundary ---#
-	geom_sf(data = KS_county) +
-	geom_sf_text(
-		data = KS_less_Cheyenne,
-		aes(label = NAME),
-		check_overlap = TRUE,
-		size = 3,
-		color = "blue",
-		nudge_x = -0.1,
-		nudge_y = 0.1
-	) +
-	geom_sf_text(
-		data = Cheyenne,
-		aes(label = NAME),
-		size = 2.5,
-		color = "red",
-		nudge_y = 0.2
-	)
+  #--- KS county boundary ---#
+  geom_sf(data = KS_county) +
+  geom_sf_text(
+    data = KS_less_Cheyenne,
+    aes(label = NAME),
+    check_overlap = TRUE,
+    size = 3,
+    color = "blue",
+    nudge_x = -0.1,
+    nudge_y = 0.1
+  ) +
+  geom_sf_text(
+    data = Cheyenne,
+    aes(label = NAME),
+    size = 2.5,
+    color = "red",
+    nudge_y = 0.2
+  )
 ```
 
 You could also use `annotate()` to place texts on a map, which can be useful if you would like to place arbitrary texts that are not part of `sf` object.
 
 ```{r nudge-sep-annotate, warnings = F}
 ggplot() +
-	#--- KS county boundary ---#
-	geom_sf(data = KS_county) +
-	geom_sf_text(
-		data = KS_less_Cheyenne,
-		aes(label = NAME),
-		check_overlap = TRUE,
-		size = 3,
-		color = "blue",
-		nudge_x = -0.1,
-		nudge_y = 0.1
-	) +
-	#--- use annotate to add texts on the map ---#
-	annotate(
-		geom = "text",
-		x = -102,
-		y = 39.8,
-		size = 3,
-		label = "Cheyennes",
-		color = "red"
-	)
+  #--- KS county boundary ---#
+  geom_sf(data = KS_county) +
+  geom_sf_text(
+    data = KS_less_Cheyenne,
+    aes(label = NAME),
+    check_overlap = TRUE,
+    size = 3,
+    color = "blue",
+    nudge_x = -0.1,
+    nudge_y = 0.1
+  ) +
+  #--- use annotate to add texts on the map ---#
+  annotate(
+    geom = "text",
+    x = -102,
+    y = 39.8,
+    size = 3,
+    label = "Cheyennes",
+    color = "red"
+  )
 ```
 
 As you can see, you need to tell where the texts should be placed with `x` and `y`, provide the texts you want on the map to `label`.
@@ -567,16 +586,19 @@ We use the following objects that have the same information but come in differen
 **Raster as stars**
 
 ```{r raster-as-stars, echo = F, eval = F}
-tmax_Jan_09 <- read_stars("Data/PRISM/PRISM_tmax_y2009_m1.tif") %>%
-	#--- change the variable name ---#
-	setNames("tmax") %>%
-	#--- first five days of January ---#
-	filter(band <= 5) %>%
-	#--- set the date values ---#
-	st_set_dimensions("band",
-		values = seq(ymd("2009-01-01"), ymd("2009-01-05"), by = "days"),
- 		names = "date"
- 	)
+tmax_Jan_09 <- 
+  read_stars("Data/PRISM/PRISM_tmax_y2009_m1.tif") %>%
+  #--- change the variable name ---#
+  setNames("tmax") %>%
+  #--- set the date values ---#
+  st_set_dimensions("band",
+    values = seq(ymd("2009-01-01"), ymd("2009-01-31"), by = "days"),
+    names = "date"
+  ) %>%
+  #--- first five days of January ---#
+  filter(date <= ymd("2009-01-05"))
+
+saveRDS(tmax_Jan_09, "Data/tmax_Jan_09_stars.rds")
 ```
 
 ```{r tmax-data-get}
@@ -587,7 +609,7 @@ tmax_Jan_09 <- readRDS("Data/tmax_Jan_09_stars.rds")
 
 ```{r echo = F, eval = F}
 as(tmax_Jan_09, "Raster") %>%
-	writeRaster("Data/tmax_Jan_09.tif")
+  writeRaster("Data/tmax_Jan_09.tif")
 ```
 
 ```{r tmax-data-get-brick, cache = F}
@@ -601,15 +623,16 @@ In order to create maps from the information stored in `Raster`$^*$ objects, you
 
 ```{r convert-df, eval = F}
 #--- convert to data.frame ---#
-tmax_Jan_09_df <- as.data.frame(tmax_Jan_09_rs, xy = TRUE) %>%
-	#--- remove cells with NA for any of the layers ---#
+tmax_Jan_09_df <-
+  as.data.frame(tmax_Jan_09_rs, xy = TRUE) %>%
+  #--- remove cells with NA for any of the layers ---#
   na.omit() %>%
   #--- change the variable names ---#
- 	setnames(
- 		paste0("tmax_Jan_09.", 1:5),
-		seq(ymd("2009-01-01"), ymd("2009-01-05"), by = "days") %>%
- 		as.character()
- 	)
+  setnames(
+    paste0("tmax_Jan_09.", 1:5),
+    seq(ymd("2009-01-01"), ymd("2009-01-05"), by = "days") %>%
+      as.character()
+  )
 
 #--- take a look ---#
 head(tmax_Jan_09_df)
@@ -628,13 +651,13 @@ Once the conversion is done, you can use `geom_raster()` to create a map. Unlike
 
 ```{r tmax-rs}
 (
-g_tmax_map <- ggplot(data = tmax_Jan_09_df) +
-  geom_raster(aes(x = x, y = y, fill = `2009-01-01`)) +
-  scale_fill_viridis_c() +
-  theme_void() +
-  theme(
-  	legend.position = "bottom"
-  )
+  g_tmax_map <- ggplot(data = tmax_Jan_09_df) +
+    geom_raster(aes(x = x, y = y, fill = `2009-01-01`)) +
+    scale_fill_viridis_c() +
+    theme_void() +
+    theme(
+      legend.position = "bottom"
+    )
 )
 ```
 
@@ -647,7 +670,8 @@ g_tmax_map + coord_equal()
 We only visualized tmax data for one day (`layer.1`) out of five days of tmax records. To present all of them at the same time we can facet using `facet_wrap()`. However, before we do that we need to have the data in a long format like this:
 
 ```{r tmax-long}
-tmax_long_df <- tmax_Jan_09_df %>%
+tmax_long_df <- 
+  tmax_Jan_09_df %>%
   pivot_longer(
     c(-x, -y),
     names_to = "date",
@@ -663,12 +687,12 @@ Let's now use `facet_wrap()` to create a series of tmax maps.
 ```{r tmax-rs-facet}
 ggplot() +
   geom_raster(data = tmax_long_df, aes(x = x, y = y, fill = tmax)) +
-	facet_wrap(date ~ .) +
-	coord_equal() +
+  facet_wrap(date ~ .) +
+  coord_equal() +
   scale_fill_viridis_c() +
   theme_void() +
   theme(
-  	legend.position = "bottom"
+    legend.position = "bottom"
   )
 ```
 
@@ -690,12 +714,12 @@ One key difference from the conversion of `Raster`$^*$ objects is that the `data
 ```{r tmax-stars-facet}
 ggplot() +
   geom_raster(data = tmax_long_df, aes(x = x, y = y, fill = tmax)) +
-	facet_wrap(date ~ .) +
-	coord_equal() +
+  facet_wrap(date ~ .) +
+  coord_equal() +
   scale_fill_viridis_c() +
   theme_void() +
   theme(
-  	legend.position = "bottom"
+    legend.position = "bottom"
   )
 ```
 
@@ -705,27 +729,27 @@ We saw above that `geom_raster()` requires converting a `stars` object to a `dat
 
 ```{r stars-stars}
 ggplot() +
-	geom_stars(data = tmax_Jan_09) +
-	theme_void()
+  geom_stars(data = tmax_Jan_09) +
+  theme_void()
 ```
 
 The fill color of the raster cells are automatically set to the attribute (here tmax) as if `aes(fill = tmax)`. It is a good idea to add `coord_equal()` because of the same issue we saw with `geom_raster()`.
 
 ```{r stars-stars-ce}
 ggplot() +
-	geom_stars(data = tmax_Jan_09) +
-	theme_void() +
-	coord_equal()
+  geom_stars(data = tmax_Jan_09) +
+  theme_void() +
+  coord_equal()
 ```
 
 By default, `geom_stars()` plots only the first band. In order to present all the layers at the same time, you can add `facet_wrap( ~ x)` where **x** is the name of the third dimension of the stars object (`date` here).
 
 ```{r stars-stars-facet}
 ggplot() +
-	geom_stars(data = tmax_Jan_09) +
-	facet_wrap( ~ date) +
-	coord_equal() +
-	theme_void()
+  geom_stars(data = tmax_Jan_09) +
+  facet_wrap(~date) +
+  coord_equal() +
+  theme_void()
 ```
 
 ### adding `geom_sf()` layers
@@ -735,7 +759,7 @@ You can easily add `geom_sf()` layers to a map created with `geom_raster()` or `
 ```{r add-sf, results = "hide"}
 #--- crop to KS ---#
 KS_tmax_Jan_09_stars <- tmax_Jan_09 %>%
-	st_crop(., KS_county)
+  st_crop(., KS_county)
 
 #--- convert to a df ---#
 KS_tmax_Jan_09_df <- as.data.frame(KS_tmax_Jan_09_stars, xy = TRUE) %>%
@@ -747,12 +771,12 @@ KS_tmax_Jan_09_df <- as.data.frame(KS_tmax_Jan_09_stars, xy = TRUE) %>%
 ```{r raster-sf}
 ggplot() +
   geom_raster(data = KS_tmax_Jan_09_df, aes(x = x, y = y, fill = tmax)) +
- 	geom_sf(data = KS_county, fill = NA) +
-	facet_wrap(date ~ .) +
+  geom_sf(data = KS_county, fill = NA) +
+  facet_wrap(date ~ .) +
   scale_fill_viridis_c() +
   theme_void() +
   theme(
-  	legend.position = "bottom"
+    legend.position = "bottom"
   )
 ```
 
@@ -761,13 +785,13 @@ Notice that `coord_equal()` is not necessary in the above code. Indeed, if you t
 ```{r raster-sf-error, error = TRUE}
 ggplot() +
   geom_raster(data = KS_tmax_Jan_09_df, aes(x = x, y = y, fill = tmax)) +
- 	geom_sf(data = KS_county, fill = NA) +
-	facet_wrap(date ~ .) +
-	coord_equal() +
+  geom_sf(data = KS_county, fill = NA) +
+  facet_wrap(date ~ .) +
+  coord_equal() +
   scale_fill_viridis_c() +
   theme_void() +
   theme(
-  	legend.position = "bottom"
+    legend.position = "bottom"
   )
 ```
 
@@ -776,12 +800,12 @@ Further, the original `stars` or `Raster`$^*$ must have the same CRS as the `sf`
 ```{r raster-sf-cs}
 ggplot() +
   geom_raster(data = KS_tmax_Jan_09_df, aes(x = x, y = y, fill = tmax)) +
- 	geom_sf(data = st_transform(KS_county, 32614), fill = NA) +
-	facet_wrap(date ~ .) +
+  geom_sf(data = st_transform(KS_county, 32614), fill = NA) +
+  facet_wrap(date ~ .) +
   scale_fill_viridis_c() +
   theme_void() +
   theme(
-  	legend.position = "bottom"
+    legend.position = "bottom"
   )
 ```
 
@@ -794,20 +818,20 @@ This is basically the same as the case with `geom_stars()`
 
 ```{r stars-sf}
 ggplot() +
-	geom_stars(data = KS_tmax_Jan_09_stars) +
-	geom_sf(data = KS_county, fill = NA) +
-	facet_wrap( ~ date) +
-	theme_void()
+  geom_stars(data = KS_tmax_Jan_09_stars) +
+  geom_sf(data = KS_county, fill = NA) +
+  facet_wrap(~date) +
+  theme_void()
 ```
 
 Just like the case with `geom_raster()`, `coord_equal()` is not necessary and the `stars` and `sf` objects must have the same CRS.
 
 ```{r stars-sf-cs}
 ggplot() +
-	geom_stars(data = KS_tmax_Jan_09_stars) +
-	geom_sf(data = st_transform(KS_county, 32614), fill = NA) +
-	facet_wrap( ~ date) +
-	theme_void()
+  geom_stars(data = KS_tmax_Jan_09_stars) +
+  geom_sf(data = st_transform(KS_county, 32614), fill = NA) +
+  facet_wrap(~date) +
+  theme_void()
 ```
 
 <!--
@@ -825,18 +849,18 @@ Color scale refers to the way variable values are mapped to colors on a figure. 
 
 ```{r tmax-long-sf-color}
 tmax_long_df <- readRDS("Data/tmax_Jan_09_stars.rds") %>%
-	as.data.frame(xy = TRUE) %>%
-	na.omit()
+  as.data.frame(xy = TRUE) %>%
+  na.omit()
 ```
 
 ```{r tmax-long-sf-color-def}
 g_col_scale <- ggplot() +
   geom_raster(data = tmax_long_df, aes(x = x, y = y, fill = tmax)) +
-	facet_wrap(date ~ .) +
-	coord_equal() +
+  facet_wrap(date ~ .) +
+  coord_equal() +
   theme_void() +
   theme(
-  	legend.position = "bottom"
+    legend.position = "bottom"
   )
 ```
 
@@ -853,36 +877,36 @@ The `ggplot2` packages offers `scale_A_viridis_B()` functions for `viridis` colo
 There are five types of palettes available under the `viridis` color map and can be selected using the `option = ` option. Here is a visualization of all the five palettes.
 
 ```{r viridis-ex, fig.height = 12}
-data("geyser", package="MASS")
+data("geyser", package = "MASS")
 
 ggplot(geyser, aes(x = duration, y = waiting)) +
-  xlim(0.5, 6) + ylim(40, 110) +
-  stat_density2d(aes(fill = ..level..), geom="polygon") +
+  xlim(0.5, 6) +
+  ylim(40, 110) +
+  stat_density2d(aes(fill = ..level..), geom = "polygon") +
   theme_bw() +
-  theme(panel.grid=element_blank()) -> gg
+  theme(panel.grid = element_blank()) -> gg
 
-(gg + scale_fill_viridis_c(option="A") + labs(x="magma", y=NULL))/
-(gg + scale_fill_viridis_c(option="B") + labs(x="inferno", y=NULL))/
-(gg + scale_fill_viridis_c(option="C") + labs(x="plasma", y=NULL))/
-(gg + scale_fill_viridis_c(option="D") + labs(x="viridis", y=NULL))/
-(gg + scale_fill_viridis_c(option="E") + labs(x="cividis", y=NULL))
-
+(gg + scale_fill_viridis_c(option = "A") + labs(x = "magma", y = NULL)) /
+  (gg + scale_fill_viridis_c(option = "B") + labs(x = "inferno", y = NULL)) /
+  (gg + scale_fill_viridis_c(option = "C") + labs(x = "plasma", y = NULL)) /
+  (gg + scale_fill_viridis_c(option = "D") + labs(x = "viridis", y = NULL)) /
+  (gg + scale_fill_viridis_c(option = "E") + labs(x = "cividis", y = NULL))
 ```
 
 Let's see what the PRISM tmax maps look like using Option `A` and `D` (default). Since the aesthetics type is `fill` and `tmax` is continuous, `scale_fill_viridis_c()` is the appropriate one here.
 
 ```{r tmax-viridis-A}
-g_col_scale	+ scale_fill_viridis_c(option = "A")
+g_col_scale + scale_fill_viridis_c(option = "A")
 ```
 
 ```{r tmax-viridis-D}
-g_col_scale	+ scale_fill_viridis_c(option = "D")
+g_col_scale + scale_fill_viridis_c(option = "D")
 ```
 
 You can reverse the order of the color by adding `direction = -1`.
 
 ```{r tmax-viridis-D-direc}
-g_col_scale	+ scale_fill_viridis_c(option = "D", direction = -1)
+g_col_scale + scale_fill_viridis_c(option = "D", direction = -1)
 ```
 
 Let's now work on aesthetics mapping based on a discrete variable. The code below groups `af_used` into five groups of ranges.
@@ -895,12 +919,17 @@ gw_Stevens <- mutate(gw_Stevens, af_used_cat = cut_number(af_used, n = 5))
 head(gw_Stevens)
 ```
 
+```{r include = F}
+# saveRDS(gw_Stevens, "Data/gw_Stevens.rds")
+gw_Stevens <- readRDS("Data/gw_Stevens.rds")
+```
+
 Since we would like to control `color` aesthetics based on a discrete variable, we should be using `scale_color_viridis_d()`.
 
-```{r viridis-color}
+```{r viridis-color, cache = F}
 ggplot(data = gw_Stevens) +
-	geom_sf(aes(color = af_used_cat), size = 2) +
-	scale_color_viridis_d(option = "C")
+  geom_sf(aes(color = af_used_cat), size = 2) +
+  scale_color_viridis_d(option = "C")
 ```
 
 ### `RColorBrewer`: `scale_*_distiller()` and `scale_*_brewer()`
@@ -926,27 +955,27 @@ To use a specific color palette, you can simply add `palette = "palette name"` i
 
 ```{r brewer-spectral}
 g_col_scale + theme_void() +
-	scale_fill_distiller(palette = "Spectral")
+  scale_fill_distiller(palette = "Spectral")
 ```
 
 You can reverse the color order by adding `trans = "reverse"` option.
 
 ```{r brewer-spectral-reverse}
 g_col_scale + theme_void() +
-	scale_fill_distiller(palette = "Spectral", trans = "reverse")
+  scale_fill_distiller(palette = "Spectral", trans = "reverse")
 ```
 
 If you are specifying the `color` aesthetics based on a continuous variable, then you use `scale_color_distiller()`.
 
 ```{r brewer-spectral-reverse-color}
 ggplot(data = gw_Stevens) +
-	geom_sf(aes(color = af_used), size = 2) +
-	scale_color_distiller(palette = "Spectral")
+  geom_sf(aes(color = af_used), size = 2) +
+  scale_color_distiller(palette = "Spectral")
 ```
 
 Now, suppose the variable of interest comes with categories of ranges of values. The code below groups `af_used` into five ranges using `ggplo2::cut_number()`.
 
-```{r brewer-spectral-reverse-color-disc}
+```{r brewer-spectral-reverse-color-disc, eval = F}
 gw_Stevens <- mutate(gw_Stevens, af_used_cat = cut_number(af_used, n = 5))
 ```
 
@@ -954,8 +983,8 @@ Since `af_used_cat` is a discrete variable, you can use `scale_color_brewer()` i
 
 ```{r brewer-spectral-brewer}
 ggplot(data = gw_Stevens) +
-	geom_sf(aes(color = af_used_cat), size = 2) +
-	scale_color_brewer(palette = "Spectral")
+  geom_sf(aes(color = af_used_cat), size = 2) +
+  scale_color_brewer(palette = "Spectral")
 ```
 
 ### `colorspace` package
@@ -981,9 +1010,9 @@ For example, to add a sequential color scale to the following map, we would use 
 
 ```{r base-map-viridis, eval = F}
 ggplot() +
-	geom_sf(data = gw_by_county, aes(fill = af_used)) +
-	facet_wrap(. ~ year) +
-	scale_fill_continuous_sequential(palette = "Viridis", trans = "reverse")
+  geom_sf(data = gw_by_county, aes(fill = af_used)) +
+  facet_wrap(. ~ year) +
+  scale_fill_continuous_sequential(palette = "Viridis", trans = "reverse")
 ```
 
 ---
@@ -1014,7 +1043,7 @@ We then use the code as follows:
 
 ```{r use-col-scale}
 g_col_scale + theme_void() +
-	scale_fill_gradientn(colors = col_palette)
+  scale_fill_gradientn(colors = col_palette)
 ```
 
 Note that you are now using `scale_*_gradientn()` with this approach.
@@ -1025,8 +1054,8 @@ For a discrete variable, you can use `scale_*_manual()`:
 col_discrete <- sequential_hcl(n = 5, h = c(240, 130), c = c(30, NA, 33), l = c(25, 95), power = c(1, NA), rev = TRUE)
 
 ggplot() +
-	geom_sf(data = gw_Stevens, aes(color = af_used_cat), size = 2) +
-	scale_color_manual(values = col_discrete)
+  geom_sf(data = gw_Stevens, aes(color = af_used_cat), size = 2) +
+  scale_color_manual(values = col_discrete)
 ```
 
 <!--
@@ -1044,31 +1073,39 @@ Faceting using `facet_wrap()` or `facet_grid()` allows for dividing the data int
 ```{r ex-facet}
 ggplot() +
   geom_raster(data = tmax_long_df, aes(x = x, y = y, fill = tmax)) +
-	facet_wrap(date ~ .) +
-	coord_equal() +
+  facet_wrap(date ~ .) +
+  coord_equal() +
   scale_fill_viridis_c() +
   theme_void() +
   theme(
-  	legend.position = "bottom"
+    legend.position = "bottom"
   )
 ```
 
-However, faceting is not suitable for creating maps of different variables. To see this let's plot tmax and precipitation on Jan 1, 2009 together.
+However, faceting is not suitable for creating maps of different variables. To see this let's plot tmax and precipitation on Jan 1, 2009 together. We first read precipitation data for Jan 1, 2009.
 
-```{r ppt-get}
+```{r ppt-get, echo = F, eval = F}
+# This is for creating
 #--- import precip data ---#
-ppt_long_df <- read_stars("Data/PRISM/PRISM_ppt_y2009_m1.tif") %>%
-	#--- change the variable name ---#
-	setNames("ppt") %>%
-	#--- first five days of January ---#
-	filter(band <= 5) %>%
-	#--- set the date values ---#
-	st_set_dimensions("band",
-		values = seq(ymd("2009-01-01"), ymd("2009-01-05"), by = "days"),
- 		names = "date"
- 	) %>%
- 	as.data.frame(xy = TRUE) %>%
- 	na.omit()
+ppt_long_df <-
+  read_stars("Data/PRISM/PRISM_ppt_y2009_m1.tif") %>%
+  #--- change the variable name ---#
+  setNames("ppt") %>%
+  st_set_dimensions("band",
+    values = seq(ymd("2009-01-01"), ymd("2009-01-31"), by = "days"),
+    names = "date"
+  ) %>%
+  #--- first five days of January ---#
+  filter(date <= ymd("2009-01-05")) %>%
+  as.data.frame(xy = TRUE) %>%
+  na.omit()
+
+saveRDS(ppt_long_df, "ReplicationData/Chapter 8/ppt_long_df.rds")
+saveRDS(ppt_long_df, "Data/ppt_long_df.rds")
+```
+
+```{r read-ppt-data}
+ppt_long_df <- readRDS("Data/ppt_long_df.rds")
 ```
 
 Let's extract tmax and precipitation on Jan 1, 2009 from their respective datasets, and combine them.
@@ -1076,13 +1113,12 @@ Let's extract tmax and precipitation on Jan 1, 2009 from their respective datase
 ```{r tm-pr-combine}
 #--- get tmax on Jan 1, 2009 ---#
 tmax_df <- filter(tmax_long_df, date == ymd("2009-01-01")) %>%
-	setnames("tmax", "value") %>%
-	mutate(type = "tmax")
+  setnames("tmax", "value") %>%
+  mutate(type = "tmax")
 
 #--- get precipitation on Jan 1, 2009 ---#
 ppt_df <- filter(ppt_long_df, date == ymd("2009-01-01")) %>%
-	setnames("ppt", "value") %>%
-	mutate(type = "ppt")
+  mutate(type = "ppt")
 
 #--- combine them ---#
 combined_df <- rbind(tmax_df, ppt_df)
@@ -1092,10 +1128,10 @@ Here is the map faceted for tmax and precipitation:
 
 ```{r tm-pr-faceted}
 ggplot() +
-	geom_raster(data = combined_df, aes(x = x, y = y, fill = value)) +
-	facet_grid(type ~ .) +
-	scale_fill_viridis() +
-	theme_void()
+  geom_raster(data = combined_df, aes(x = x, y = y, fill = value)) +
+  facet_grid(type ~ .) +
+  scale_fill_viridis() +
+  theme_void()
 ```
 
 As you can see, a single color scale is created for precipitation recorded in mm and temperature observed in Celsius. On this particular day, precipitation of more than 150 mm was observed on a part of the west coast. Consequently, you see almost no color differentiation on the tmax map which ranges roughly from -20 to 30. It is simply not a good idea to facet for two variables observed at different scales.
@@ -1112,24 +1148,23 @@ library(patchwork)
 ```{r pw-ex}
 #--- tmax ---#
 (
-g_tmax <- ggplot() +
-	geom_raster(data = tmax_df, aes(x = x, y = y, fill = value)) +
-	scale_fill_viridis() +
-	theme_void() +
-	coord_equal() +
-	theme(legend.position = "bottom")
+  g_tmax <- ggplot() +
+    geom_raster(data = tmax_df, aes(x = x, y = y, fill = value)) +
+    scale_fill_viridis() +
+    theme_void() +
+    coord_equal() +
+    theme(legend.position = "bottom")
 )
 
 #--- ppt ---#
 (
-g_ppt <- ggplot() +
-	geom_raster(data = ppt_df, aes(x = x, y = y, fill = value)) +
-	scale_fill_viridis() +
-	theme_void() +
-	coord_equal() +
-	theme(legend.position = "bottom")
+  g_ppt <- ggplot() +
+    geom_raster(data = ppt_df, aes(x = x, y = y, fill = value)) +
+    scale_fill_viridis() +
+    theme_void() +
+    coord_equal() +
+    theme(legend.position = "bottom")
 )
-
 ```
 
 It is best to just look at examples to get the sense of how `patchwork` works. A fuller treatment of `patchwork` is found here (<https://patchwork.data-imaginist.com/index.html>).
@@ -1161,7 +1196,7 @@ g_tmax + g_ppt + g_tmax + g_ppt + plot_layout(nrow = 3, byrow = FALSE)
 **Example 5**
 
 ```{r pw-ex-5}
-g_tmax | (g_ppt/g_tmax)
+g_tmax | (g_ppt / g_tmax)
 ```
 
 ---
@@ -1173,7 +1208,7 @@ Sometimes figures are placed too close to each other. In such a case, you can pa
 g_tmax <- g_tmax + theme(plot.margin = unit(c(0, 0, 5, 0), "cm"))
 
 #--- vertically stack ---#
-g_tmax/g_ppt
+g_tmax / g_ppt
 ```
 
 In `plot.margin = unit(c(a, b, c, d), "cm")`, here is which margin `a`, `b`, `c`, and `d` refers to.
@@ -1191,10 +1226,10 @@ Sometimes, it is useful to present a map that covers a larger geographical range
 three_counties <- filter(KS_county, NAME %in% c("Cheyenne", "Sherman", "Wallace"))
 
 (
-g_three_counties <- ggplot() +
-	geom_sf(data = three_counties) +
-	geom_sf_text(data = three_counties, aes(label = NAME)) +
-	theme_void()
+  g_three_counties <- ggplot() +
+    geom_sf(data = three_counties) +
+    geom_sf_text(data = three_counties, aes(label = NAME)) +
+    theme_void()
 )
 ```
 
@@ -1215,9 +1250,9 @@ class(grob_aoi)
 ```{r ks-region-map}
 #--- create a map of Kansas ---#
 g_region <- ggplot() +
-	geom_sf(data = KS_county) +
-	geom_sf(data = three_counties, fill = "blue", color = "red", alpha = 0.5) +
-	theme_void()
+  geom_sf(data = KS_county) +
+  geom_sf(data = three_counties, fill = "blue", color = "red", alpha = 0.5) +
+  theme_void()
 
 #--- convert to a grob ---#
 grob_region <- ggplotGrob(g_region)
@@ -1227,8 +1262,8 @@ Now that we have two maps, we can now put them on the same map using `annotation
 
 ```{r inset-map}
 (
-g_inset <- ggplot() +
-  coord_equal(xlim = c(0, 1), ylim = c(0, 1), expand = FALSE)
+  g_inset <- ggplot() +
+    coord_equal(xlim = c(0, 1), ylim = c(0, 1), expand = FALSE)
 )
 ```
 
@@ -1236,29 +1271,39 @@ You now have a blank canvas to put the images on. Let's add a layer to the canva
 
 ```{r inset-annotation-1}
 g_inset +
-    annotation_custom(grob_aoi, xmin = 0, xmax = 0.8, ymin = 0,
-        ymax = 1)
+  annotation_custom(grob_aoi,
+    xmin = 0, xmax = 0.8, ymin = 0,
+    ymax = 1
+  )
 ```
 
 Similarly, we can add `grob_region` using `annotation_custom()`. Let's put it at the right lower corner of the map.
 
 ```{r inset-annotation-2}
 g_inset +
-    annotation_custom(grob_aoi, xmin = 0, xmax = 0.8, ymin = 0,
-        ymax = 1) +
-    annotation_custom(grob_region, xmin = 0.6, xmax = 1, ymin = 0,
-        ymax = 0.3)
+  annotation_custom(grob_aoi,
+    xmin = 0, xmax = 0.8, ymin = 0,
+    ymax = 1
+  ) +
+  annotation_custom(grob_region,
+    xmin = 0.6, xmax = 1, ymin = 0,
+    ymax = 0.3
+  )
 ```
 
 Note that the resulting map still has the default theme because it does not inherit the theme of maps added by `annotation_custom()`. So, you can add `theme_void()` to the map to make the border disappear.
 
 ```{r add-void-custom}
 g_inset +
-    annotation_custom(grob_aoi, xmin = 0, xmax = 0.8, ymin = 0,
-        ymax = 1) +
-    annotation_custom(grob_region, xmin = 0.6, xmax = 1, ymin = 0,
-        ymax = 0.3) +
-    theme_void()
+  annotation_custom(grob_aoi,
+    xmin = 0, xmax = 0.8, ymin = 0,
+    ymax = 1
+  ) +
+  annotation_custom(grob_region,
+    xmin = 0.6, xmax = 1, ymin = 0,
+    ymax = 0.3
+  ) +
+  theme_void()
 ```
 
 <!-- ### A table in a map
@@ -1279,19 +1324,19 @@ This section presents a number of small tips to beautify your maps so that they 
 
 ```{r total-gw-county}
 (
-gw_by_county <- st_join(KS_county, gw_KS_sf) %>%
-	data.table() %>%
-	.[, .(af_used = sum(af_used, na.rm = TRUE)), by = .(COUNTYFP, year)] %>%
-	left_join(KS_county, ., by = c("COUNTYFP")) %>%
-	filter(!is.na(year))
+  gw_by_county <- st_join(KS_county, gw_KS_sf) %>%
+    data.table() %>%
+    .[, .(af_used = sum(af_used, na.rm = TRUE)), by = .(COUNTYFP, year)] %>%
+    left_join(KS_county, ., by = c("COUNTYFP")) %>%
+    filter(!is.na(year))
 )
 ```
 
 ```{r base-map-fine}
 (
-g_base <- ggplot() +
-	geom_sf(data = gw_by_county, aes(fill = af_used)) +
-	facet_wrap(. ~ year)
+  g_base <- ggplot() +
+    geom_sf(data = gw_by_county, aes(fill = af_used)) +
+    facet_wrap(. ~ year)
 )
 ```
 
@@ -1321,17 +1366,16 @@ g_base + theme(axis.text = element_blank())
 So, if `theme_void()` is overdoing things, you can build your own theme specifically for maps. For example, this is the theme I used for maps in Chapter \@ref(demo).
 
 ```{r set-theme}
-theme_for_map <- 
-	theme(
-	  axis.ticks = element_blank(),
-	  axis.text= element_blank(),
-	  axis.line = element_blank(),
-	  panel.border = element_blank(),
-	  panel.grid = element_line(color='transparent'),
-	  panel.background = element_blank(),
-	  plot.background = element_rect(fill = "transparent",color='transparent')
-	)
-
+theme_for_map <-
+  theme(
+    axis.ticks = element_blank(),
+    axis.text = element_blank(),
+    axis.line = element_blank(),
+    panel.border = element_blank(),
+    panel.grid = element_line(color = "transparent"),
+    panel.background = element_blank(),
+    plot.background = element_rect(fill = "transparent", color = "transparent")
+  )
 ```
 
 Applying the theme to the map:
@@ -1358,22 +1402,21 @@ g_base + theme_for_map_2
 
 ```{r theme-bw}
 ggplot() +
-	geom_sf(data = gw_by_county, aes(fill = af_used)) +
-	facet_grid(year ~ .) +
-	theme_bw()
+  geom_sf(data = gw_by_county, aes(fill = af_used)) +
+  facet_grid(year ~ .) +
+  theme_bw()
 ```
 
 If you do not like the gray grid lines, you can remove them like this.
 
 ```{r remove-grid-lines}
 ggplot() +
-	geom_sf(data = gw_by_county, aes(fill = af_used)) +
-	facet_grid(year ~ .) +
-	theme_bw() +
-	theme(
-		panel.grid = element_line(color='transparent')
-	)
-
+  geom_sf(data = gw_by_county, aes(fill = af_used)) +
+  facet_grid(year ~ .) +
+  theme_bw() +
+  theme(
+    panel.grid = element_line(color = "transparent")
+  )
 ```
 
 
@@ -1395,10 +1438,10 @@ A legend consists of three elements: legend title, legend key (e.g., color bar),
 
 ```{r lg-start}
 (
-g_legend <- ggplot() +
-	geom_sf(data = gw_by_county, aes(fill = af_used)) +
-	facet_wrap(. ~ year) +
-	theme_void()
+  g_legend <- ggplot() +
+    geom_sf(data = gw_by_county, aes(fill = af_used)) +
+    facet_wrap(. ~ year) +
+    theme_void()
 )
 ```
 
@@ -1406,7 +1449,7 @@ Let's first change the color scale to Viridis using `scale_fill_viridis_c()` (se
 
 ```{r lg-viridis}
 g_legend +
-	scale_fill_viridis_c()
+  scale_fill_viridis_c()
 ```
 
 Right now, the legend title is `af_used`, which does not tell the readers what it means. In general, you can change the title of a legend by using the `name` option inside the `scale` function for the legend (here, `scale_fill_viridis_c()`). So, this one works:
@@ -1414,68 +1457,66 @@ Right now, the legend title is `af_used`, which does not tell the readers what i
 
 ```{r lg-title}
 g_legend +
-	scale_fill_viridis_c(name = "Groundwater pumping (acre-feet)")
+  scale_fill_viridis_c(name = "Groundwater pumping (acre-feet)")
 ```
 
 Alternatively, you can use `labs()` function.^[`labs()` can also be used to specify the x- and y-axis titles.]. Since the legend is for the `fill` aesthetic attribute, you should add `fill = "legend title"` as follows:
 
 ```{r lg-fill}
 g_legend +
-	scale_fill_viridis_c() +
-	labs(fill = "Groundwater pumping (acre-feet)")
+  scale_fill_viridis_c() +
+  labs(fill = "Groundwater pumping (acre-feet)")
 ```
 
 Since the legend title is long, the legend is taking up about the half of the space of the entire figure. So, let's put the legend below the maps (bottom of the figure) by adding `theme(legend.position = "bottom")`.
 
 ```{r lg-bottom}
 g_legend +
-	scale_fill_viridis_c() +
-	labs(fill = "Groundwater pumping (acre-feet)") +
-	theme(legend.position = "bottom")
+  scale_fill_viridis_c() +
+  labs(fill = "Groundwater pumping (acre-feet)") +
+  theme(legend.position = "bottom")
 ```
 
 It would be aesthetically better to have the legend title on top of the color bar. This can be done by using the `guides()` function. Since we would like to alter the aesthetics of the legend for `fill` involving a color bar, we use `fill = guide_colorbar()`. To place the legend title on top, you add `title.position="top"` inside the `guide_colorbar()` function as follows:
 
 ```{r lg-bar-top}
 g_legend +
-	scale_fill_viridis_c() +
-	labs(fill = "Groundwater pumping (acre-feet)") +
-	theme(legend.position = "bottom") +
-	guides(fill = guide_colorbar(title.position="top"))
+  scale_fill_viridis_c() +
+  labs(fill = "Groundwater pumping (acre-feet)") +
+  theme(legend.position = "bottom") +
+  guides(fill = guide_colorbar(title.position = "top"))
 ```
 
 This looks better. But, the legend labels are too close to each other so it is hard to read them because the color bar is too short. Let's elongate the color bar so that we have enough space between legend labels using `legend.key.width = ` option for `theme()`. Let's also make the legend thinner using `legend.key.height = ` option.
 
 ```{r lg-key}
 g_legend +
-	scale_fill_viridis_c() +
-	labs(fill = "Groundwater pumping (acre-feet)") +
-	theme(
-		legend.position = "bottom",
-		#--- NEW LINES HERE!! ---#
-		legend.key.height = unit(0.5, "cm"),
-		legend.key.width = unit(2, "cm")
-	) +
-	guides(fill = guide_colorbar(title.position="top"))
-
+  scale_fill_viridis_c() +
+  labs(fill = "Groundwater pumping (acre-feet)") +
+  theme(
+    legend.position = "bottom",
+    #--- NEW LINES HERE!! ---#
+    legend.key.height = unit(0.5, "cm"),
+    legend.key.width = unit(2, "cm")
+  ) +
+  guides(fill = guide_colorbar(title.position = "top"))
 ```
 
 If the journal you are submitting an article to is requesting a specific font family for the texts in the figure, you can use `legend.text = element_text()` and `legend.title = element_text()` inside `theme()` for the legend labels and legend title, respectively. The following code uses the font family of "Times" and font size of 12 for both the labels and the title.
 
 ```{r lg-text-font}
 g_legend +
-	scale_fill_viridis_c() +
-	labs(fill = "Groundwater pumping (acre-feet)") +
-	theme(
-		legend.position = "bottom",
-		legend.key.height = unit(0.5, "cm"),
-		legend.key.width = unit(2, "cm"),
-		legend.text = element_text(size = 12, family = "Times"),
-		legend.title = element_text(size = 12, family = "Times")
-		#--- NEW LINES HERE!! ---#
-	) +
-	guides(fill = guide_colorbar(title.position="top"))
-
+  scale_fill_viridis_c() +
+  labs(fill = "Groundwater pumping (acre-feet)") +
+  theme(
+    legend.position = "bottom",
+    legend.key.height = unit(0.5, "cm"),
+    legend.key.width = unit(2, "cm"),
+    legend.text = element_text(size = 12, family = "Times"),
+    legend.title = element_text(size = 12, family = "Times")
+    #--- NEW LINES HERE!! ---#
+  ) +
+  guides(fill = guide_colorbar(title.position = "top"))
 ```
 
 For the other options to control the legend with a color bar, see [here](https://ggplot2.tidyverse.org/reference/guide_colorbar.html).
@@ -1484,17 +1525,20 @@ For the other options to control the legend with a color bar, see [here](https:/
 
 When the legend is made for discrete values, you can use `guide_legend()`. Let's use the following map as a starting point.
 
-```{r tmax-viridis-D-discrete-guide}
+```{r make-gw_stevens, eval = F}
 #--- convert af_used to a discrete variable ---#
 gw_Stevens <- mutate(gw_Stevens, af_used_cat = cut_number(af_used, n = 5))
+```
 
+```{r tmax-viridis-D-discrete-guide}
 (
-g_legend_2 <- ggplot(data = gw_Stevens) +
-	geom_sf(aes(color = af_used_cat), size = 2) +
-	scale_color_viridis(discrete = TRUE, option = "C") +
-	labs(color = "Groundwater pumping (acre-feet)")  +
-	theme_void() +
-	theme(legend.position = "bottom")
+  g_legend_2 <-
+    ggplot(data = gw_Stevens) +
+    geom_sf(aes(color = af_used_cat), size = 2) +
+    scale_color_viridis(discrete = TRUE, option = "C") +
+    labs(color = "Groundwater pumping (acre-feet)") +
+    theme_void() +
+    theme(legend.position = "bottom")
 )
 ```
 
@@ -1502,20 +1546,18 @@ The legend is too long, so first put the legend title on top of the legend label
 
 ```{r lg-title-top-again}
 g_legend_2 +
-	guides(
-		color = guide_legend(title.position="top")
-	)
-
+  guides(
+    color = guide_legend(title.position = "top")
+  )
 ```
 
 Since the legend is for the `color` aesthetic attribute, `color = guide_legend()` was used. The legend labels are still a bit too long, so let's arrange them in two rows using the `nrow = ` option.
 
 ```{r lg-title-row}
 g_legend_2 +
-	guides(
-		color = guide_legend(title.position="top", nrow = 2)
-	)
-
+  guides(
+    color = guide_legend(title.position = "top", nrow = 2)
+  )
 ```
 
 For the other options for `guide_legend()`, see [here](https://ggplot2.tidyverse.org/reference/guide_legend.html).
@@ -1539,61 +1581,99 @@ Facet strips refer to the area of boxed where the values of faceting variables a
 
 ```{r facet-wrap}
 ggplot() +
-	#--- KS county boundary ---#
-	geom_sf(data = st_transform(KS_county, 32614)) +
-	#--- wells ---#
-	geom_sf(data = gw_KS_sf, aes(color = af_used)) +
-	#--- facet by year (side by side) ---#
-	facet_wrap((af_used > 500) ~ year) +
-	theme_void() +
-	scale_color_viridis_c() +
-	theme(legend.position = "bottom")
-
+  #--- KS county boundary ---#
+  geom_sf(data = st_transform(KS_county, 32614)) +
+  #--- wells ---#
+  geom_sf(data = gw_KS_sf, aes(color = af_used)) +
+  #--- facet by year (side by side) ---#
+  facet_wrap((af_used > 500) ~ year) +
+  theme_void() +
+  scale_color_viridis_c() +
+  theme(legend.position = "bottom")
 ```
 
 To make texts in the strips more descriptive of what they actually mean you can make variable that have texts you want to show on the map as their values.
 
-```{r facet-text-change}
-gw_KS_sf <- gw_KS_sf %>%
-	mutate(
-		high_low = ifelse(af_used > 500, "High water use", "Low water use"),
-		year_txt = paste("Year: ", year)
-	)
+```{r include = F}
+# gw_KS_sf <-
+#   gw_KS_sf %>%
+#   mutate(
+#     high_low = ifelse(af_used > 500, "High water use", "Low water use"),
+#     year_txt = paste("Year: ", year)
+#   )
+# 
+# saveRDS(gw_KS_sf, "Data/gw_KS_sf_with_text.rds")
 
+gw_KS_sf <- readRDS("Data/gw_KS_sf_with_text.rds")
+```
+
+```{r facet-text-change-echo, eval = F}
+gw_KS_sf <-
+  gw_KS_sf %>%
+  mutate(
+    high_low = ifelse(af_used > 500, "High water use", "Low water use"),
+    year_txt = paste("Year: ", year)
+  )
+```
+
+```{r facet-text-change-show}
 (
-g_facet <- ggplot() +
-	#--- KS county boundary ---#
-	geom_sf(data = st_transform(KS_county, 32614)) +
-	#--- wells ---#
-	geom_sf(data = gw_KS_sf, aes(color = af_used)) +
-	#--- facet by year (side by side) ---#
-	facet_wrap(high_low ~ year_txt) +
-	theme_void() +
-	scale_color_viridis_c() +
-	theme(legend.position = "bottom")
+  g_facet <-
+    ggplot() +
+    #--- KS county boundary ---#
+    geom_sf(data = st_transform(KS_county, 32614)) +
+    #--- wells ---#
+    geom_sf(data = gw_KS_sf, aes(color = af_used)) +
+    #--- facet by year (side by side) ---#
+    facet_wrap(high_low ~ year_txt) +
+    theme_void() +
+    scale_color_viridis_c() +
+    theme(legend.position = "bottom")
 )
-
 ```
 
 You probably noticed that the high water use cases are now appear on top. This is because the panels of figures are arranged in a way that the strip texts are alphabetically ordered. `High water use` precedes `Low water use`. Sometimes, this is not desirable. To force a specific order, you can turn the faceting variable (here `high_low`) into a `factor` with the order of its values defined using `levels =`. The following code converts `high_low` into a factor where "Low water use" is the first level and "High water use" is the second level.
 
-```{r factor-levels-order}
-gw_KS_sf <- mutate(gw_KS_sf, high_low = factor(high_low, levels = c("Low water use", "High water use")))
+```{r include = F}
+# gw_KS_sf <- 
+#   mutate(
+#     gw_KS_sf, 
+#     high_low = factor(
+#       high_low, 
+#       levels = c("Low water use", "High water use")
+#     )
+#   )
+# 
+# saveRDS(gw_KS_sf, "Data/gw_KS_sf_factor.rds")
+
+gw_KS_sf <- readRDS("Data/gw_KS_sf_factor.rds")
+```
+
+```{r factor-levels-order, eval = F}
+gw_KS_sf <-
+  mutate(
+    gw_KS_sf,
+    high_low = factor(
+      high_low,
+      levels = c("Low water use", "High water use")
+    )
+  )
 ```
 
 Now, "Low water use" cases appear first (on top).
 
 ```{r show-order-change}
-g_facet <- ggplot() +
-	#--- KS county boundary ---#
-	geom_sf(data = st_transform(KS_county, 32614)) +
-	#--- wells ---#
-	geom_sf(data = gw_KS_sf, aes(color = af_used)) +
-	#--- facet by year (side by side) ---#
-	facet_wrap(high_low ~ year_txt) +
-	theme_void() +
-	scale_color_viridis_c() +
-	theme(legend.position = "bottom")
+g_facet <- 
+  ggplot() +
+  #--- KS county boundary ---#
+  geom_sf(data = st_transform(KS_county, 32614)) +
+  #--- wells ---#
+  geom_sf(data = gw_KS_sf, aes(color = af_used)) +
+  #--- facet by year (side by side) ---#
+  facet_wrap(high_low ~ year_txt) +
+  theme_void() +
+  scale_color_viridis_c() +
+  theme(legend.position = "bottom")
 
 g_facet
 ```
@@ -1602,40 +1682,36 @@ You can control how strip texts and strip boxes appear using `strip.text` and `s
 
 ```{r facet-strip-background}
 g_facet + theme(
-	strip.text.x = element_text(size = 12, family = "Times", color = "blue"),
-	strip.background = element_rect(fill = "red", color = "black")
+  strip.text.x = element_text(size = 12, family = "Times", color = "blue"),
+  strip.background = element_rect(fill = "red", color = "black")
 )
-
 ```
 
 Instead of having descriptions of cases on top of the figures, you could have one of the descriptions on the right side of the figures using `facet_grid()`.
 
 ```{r facet-right}
 g_facet +
-	#--- this overrides facet_wrap(high_low ~ year_txt) ---#
-	facet_grid(high_low ~ year_txt)
-
+  #--- this overrides facet_wrap(high_low ~ year_txt) ---#
+  facet_grid(high_low ~ year_txt)
 ```
 
 Now case descriptions for `high_low` are too long and it is squeezing the space for maps. Let's flip `high_low` and `year`.
 
 ```{r facet-right-left}
 g_facet +
-	#--- this overrides facet_grid(high_low ~ year_txt) ---#
-	facet_grid(year_txt ~ high_low)
-
+  #--- this overrides facet_grid(high_low ~ year_txt) ---#
+  facet_grid(year_txt ~ high_low)
 ```
 
 This is slightly better than before, but not much. Let's rotate strip texts for `year` using the `angle = ` option.
 
 ```{r angle}
 g_facet +
-	#--- this overrides facet_grid(high_low ~ year_txt) ---#
-	facet_grid(year_txt ~ high_low) +
-	theme(
-		strip.text.y = element_text(angle = - 90)
-	)
-
+  #--- this overrides facet_grid(high_low ~ year_txt) ---#
+  facet_grid(year_txt ~ high_low) +
+  theme(
+    strip.text.y = element_text(angle = -90)
+  )
 ```
 
 Since we only want to change the angle of strip texts for the second faceting variable, we need to work on `strip.text.y` (if you want to work on the first one, you use `strip.text.x`.).
@@ -1644,65 +1720,62 @@ Let's change the size of the strip texts to 12 and use `Times` font family.
 
 ```{r font-times}
 g_facet +
-	#--- this overrides facet_grid(high_low ~ year_txt) ---#
-	facet_grid(year_txt ~ high_low) +
-	theme(
-		strip.text.y = element_text(angle = - 90, size = 12, family = "Times"),
-		#--- moves up the strip texts ---#
-		strip.text.x = element_text(size = 12, family = "Times")
-	)
-
+  #--- this overrides facet_grid(high_low ~ year_txt) ---#
+  facet_grid(year_txt ~ high_low) +
+  theme(
+    strip.text.y = element_text(angle = -90, size = 12, family = "Times"),
+    #--- moves up the strip texts ---#
+    strip.text.x = element_text(size = 12, family = "Times")
+  )
 ```
 
 The strip texts for `high_low` are too close to maps that letter "g" in "High" is truncated. Let's move them up.
 
 ```{r move-g}
 g_facet +
-	#--- this overrides facet_grid(high_low ~ year_txt) ---#
-	facet_grid(year_txt ~ high_low) +
-	theme(
-		strip.text.y = element_text(angle = - 90, size = 12, family = "Times"),
-		#--- moves up the strip texts ---#
-		strip.text.x = element_text(vjust = 2, size = 12, family = "Times")
-	)
-
+  #--- this overrides facet_grid(high_low ~ year_txt) ---#
+  facet_grid(year_txt ~ high_low) +
+  theme(
+    strip.text.y = element_text(angle = -90, size = 12, family = "Times"),
+    #--- moves up the strip texts ---#
+    strip.text.x = element_text(vjust = 2, size = 12, family = "Times")
+  )
 ```
 
 Now the upper part of the letters is truncated. We could just put more margin below the texts using the `margin = margin(top, right, bottom, left, unit in text)` option.
 
 ```{r more-margin}
 g_facet +
-	#--- this overrides facet_grid(high_low ~ year_txt) ---#
-	facet_grid(year_txt ~ high_low) +
-	theme(
-		strip.text.y = element_text(angle = - 90, size = 12, family = "Times"),
-		strip.text.x = element_text(margin = margin(0, 0, 0.2, 0, "cm"), size = 12, family = "Times")
-	)
-
+  #--- this overrides facet_grid(high_low ~ year_txt) ---#
+  facet_grid(year_txt ~ high_low) +
+  theme(
+    strip.text.y = element_text(angle = -90, size = 12, family = "Times"),
+    strip.text.x = element_text(margin = margin(0, 0, 0.2, 0, "cm"), size = 12, family = "Times")
+  )
 ```
 
 For completeness, let's make the legend look better as well (this is discussed in section \@ref(theme)).
 
 ```{r make-legend-look-better}
 (
-g_facet <- g_facet +
-	#--- this overrides facet_grid(high_low ~ year_txt) ---#
-	facet_grid(year_txt ~ high_low) +
-	theme(
-		strip.text.y = element_text(angle = - 90, size = 12, family = "Times"),
-		strip.text.x = element_text(margin = margin(0, 0, 0.2, 0, "cm"), size = 12, family = "Times")
-	) +
-	theme(legend.position = "bottom") +
-	labs(color = "Groundwater pumping (acre-feet)")  +
-	theme(
-		legend.position = "bottom",
-		legend.key.height = unit(0.5, "cm"),
-		legend.key.width = unit(2, "cm"),
-		legend.text = element_text(size = 12, family = "Times"),
-		legend.title = element_text(size = 12, family = "Times")
-		#--- NEW LINES HERE!! ---#
-	) +
-	guides(color = guide_colorbar(title.position="top"))
+  g_facet <- g_facet +
+    #--- this overrides facet_grid(high_low ~ year_txt) ---#
+    facet_grid(year_txt ~ high_low) +
+    theme(
+      strip.text.y = element_text(angle = -90, size = 12, family = "Times"),
+      strip.text.x = element_text(margin = margin(0, 0, 0.2, 0, "cm"), size = 12, family = "Times")
+    ) +
+    theme(legend.position = "bottom") +
+    labs(color = "Groundwater pumping (acre-feet)") +
+    theme(
+      legend.position = "bottom",
+      legend.key.height = unit(0.5, "cm"),
+      legend.key.width = unit(2, "cm"),
+      legend.text = element_text(size = 12, family = "Times"),
+      legend.title = element_text(size = 12, family = "Times")
+      #--- NEW LINES HERE!! ---#
+    ) +
+    guides(color = guide_colorbar(title.position = "top"))
 )
 ```
 
@@ -1714,11 +1787,13 @@ The `ggspatial` package lets you put a north arrow and scale bar on a map using 
 
 ```{r nc-read-map}
 #--- get North Carolina county borders ---#
-nc <- st_read(system.file("shape/nc.shp", package="sf"))
+nc <- st_read(system.file("shape/nc.shp", package = "sf"))
 
 (
-#--- create a simple map ---#
-g_nc <- ggplot(nc) + geom_sf() + theme_void()
+  #--- create a simple map ---#
+  g_nc <- ggplot(nc) +
+    geom_sf() +
+    theme_void()
 )
 ```
 
@@ -1731,8 +1806,8 @@ library(ggspatial)
 #--- add scale bar ---#
 g_nc +
   annotation_scale(
-  	location = "bl",
-  	width_hint = 0.2
+    location = "bl",
+    width_hint = 0.2
   )
 ```
 
@@ -1743,9 +1818,9 @@ You can add pads from the plot border to fine tune the location of the scale bar
 ```{r add-pads}
 g_nc +
   annotation_scale(
-  	location = "bl",
-  	width_hint = 0.2,
-		pad_x = unit(3, "cm"),
+    location = "bl",
+    width_hint = 0.2,
+    pad_x = unit(3, "cm"),
     pad_y = unit(2, "cm")
   )
 ```
@@ -1757,18 +1832,17 @@ You can add a north arrow using `annotation_north_arrow()`. Accepted arguments a
 ```{r add-north-arrow}
 g_nc +
   annotation_scale(
-  	location = "bl",
-  	width_hint = 0.2,
-		pad_x = unit(3, "cm")
+    location = "bl",
+    width_hint = 0.2,
+    pad_x = unit(3, "cm")
   ) +
   #--- add north arrow ---#
   annotation_north_arrow(
-  	location = "tl",
+    location = "tl",
     pad_x = unit(0.5, "in"),
     pad_y = unit(0.1, "in"),
     style = north_arrow_fancy_orienteering
-   )
-
+  )
 ```
 
 There are several `style`s you can pick from. Run `?north_arrow_orienteering` to see other options.
@@ -1779,29 +1853,28 @@ Sometimes, it is hard to find the right place to put a scale bar or north arrow.
 
 ```{r eval = F}
 g_facet_gw <- ggplot() +
-	#--- KS county boundary ---#
-	geom_sf(data = st_transform(KS_county, 32614)) +
-	#--- wells ---#
-	geom_sf(data = gw_KS_sf, aes(color = af_used)) +
-	#--- facet by year (side by side) ---#
-	facet_wrap(high_low ~ year_txt) +
-	theme_void() +
-	scale_color_viridis_c() +
-	theme(legend.position = "bottom")
+  #--- KS county boundary ---#
+  geom_sf(data = st_transform(KS_county, 32614)) +
+  #--- wells ---#
+  geom_sf(data = gw_KS_sf, aes(color = af_used)) +
+  #--- facet by year (side by side) ---#
+  facet_wrap(high_low ~ year_txt) +
+  theme_void() +
+  scale_color_viridis_c() +
+  theme(legend.position = "bottom")
 ```
 
 Let's add a scale bar:
 
 ```{r eval = F}
 g_facet_gw +
-	#--- add a scale bar ---#
-	annotation_scale(
-  	location = "br",
-  	width_hint = 0.2,
-		pad_x = unit(1, "cm"),
-		pad_y = unit(0.3, "cm")
+  #--- add a scale bar ---#
+  annotation_scale(
+    location = "br",
+    width_hint = 0.2,
+    pad_x = unit(1, "cm"),
+    pad_y = unit(0.3, "cm")
   )
-
 ```
 
 Well, it is hard to see the scale bars, and it is probably better to put them outside of the Kansas state border.
@@ -1809,41 +1882,40 @@ Well, it is hard to see the scale bars, and it is probably better to put them ou
 
 ```{r eval = F}
 g_facet_gw +
-	#--- add a scale bar ---#
-	annotation_scale(
-  	location = "br",
-  	width_hint = 0.2,
-		pad_x = unit(1, "cm"),
-		pad_y = unit(-0.1, "cm")
+  #--- add a scale bar ---#
+  annotation_scale(
+    location = "br",
+    width_hint = 0.2,
+    pad_x = unit(1, "cm"),
+    pad_y = unit(-0.1, "cm")
   )
-
 ```
 
 ```{r eval = F}
-	 +
-	annotation_scale(
-  	location = "bl",
-  	width_hint = 0.2,
-		pad_y = unit(-0.1, "cm")
++
+  annotation_scale(
+    location = "bl",
+    width_hint = 0.2,
+    pad_y = unit(-0.1, "cm")
   )
 
 KS_county_buf <- st_transform(KS_county, 32614) %>%
-	st_bbox() %>%
-	st_as_sfc() %>%
-	st_buffer(15000)
+  st_bbox() %>%
+  st_as_sfc() %>%
+  st_buffer(15000)
 
 g_facet +
-	geom_sf(data = KS_county_buf, fill = NA)
+  geom_sf(data = KS_county_buf, fill = NA)
 ```
 
 ```{r eval = F}
 g_facet +
-	geom_sf(data = KS_county_buf, fill = NA, color = NA) +
+  geom_sf(data = KS_county_buf, fill = NA, color = NA) +
   annotation_scale(
-  	location = "br",
-  	line_width = 0.4,
-		pad_x = unit(0.3, "in"),
-		pad_y = unit(-0.001, "in")
+    location = "br",
+    line_width = 0.4,
+    pad_x = unit(0.3, "in"),
+    pad_y = unit(-0.001, "in")
   )
 ```
 
@@ -1871,11 +1943,12 @@ Let's try to save the following `ggplot` object.
 
 ```{r make-g-nc-to-save}
 #--- get North Carolina county borders ---#
-nc <- st_read(system.file("shape/nc.shp", package="sf"))
+nc <- st_read(system.file("shape/nc.shp", package = "sf"))
 
 (
-#--- create a map ---#
-g_nc <- ggplot(nc) + geom_sf()
+  #--- create a map ---#
+  g_nc <- ggplot(nc) +
+    geom_sf()
 )
 ```
 
@@ -1912,7 +1985,3 @@ ggsave("nc_dpi_320.png", g_nc, height = 5, width = 7, dpi = 320)
 #--- dpi = 72 ---#
 ggsave("nc_dpi_screen.png", g_nc, height = 5, width = 7, dpi = "screen")
 ```
-
-
-
-

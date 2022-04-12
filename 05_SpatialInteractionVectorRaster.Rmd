@@ -131,9 +131,9 @@ pacman::p_load(
   data.table, # data wrangling
   prism, # download PRISM data
   tictoc, # timing codes
-  tigris, # to get county sf 
+  tigris, # to get county sf
   tmap # for mapping
-)  
+)
 ```
 
 ## Cropping to the Area of Interest {#raster-crop}
@@ -149,16 +149,16 @@ options(prism.path = "Data")
 
 #--- download PRISM precipitation data ---#
 get_prism_dailys(
-  type = "tmax", 
-  date = "2018-07-01", 
-  keepZip = FALSE 
+  type = "tmax",
+  date = "2018-07-01",
+  keepZip = FALSE
 )
 
 #--- the file name of the PRISM data just downloaded ---#
 prism_file <- "Data/PRISM_tmax_stable_4kmD2_20180701_bil/PRISM_tmax_stable_4kmD2_20180701_bil.bil"
 
 #--- read in the prism data ---#
-prism_tmax_0701_sr <- rast(prism_file) 
+prism_tmax_0701_sr <- rast(prism_file)
 ```
 
 ```{r prism-tmax-map, echo = F, fig.cap = "Map of PRISM tmax data on July 1, 2018"}
@@ -172,14 +172,13 @@ We now get Kansas county border data from the `tigris` package (Figure \@ref(fig
 
 ```{r get_KS_county, cache = F, results = "hide"}
 #--- Kansas boundary (sf) ---#
-KS_county_sf <- 
+KS_county_sf <-
   #--- get Kansas county boundary ---
-  tigris::counties(state = "Kansas", cb = TRUE) %>% 
+  tigris::counties(state = "Kansas", cb = TRUE) %>%
   #--- sp to sf ---#
-  st_as_sf() %>% 
+  st_as_sf() %>%
   #--- transform using the CRS of the PRISM tmax data  ---#
-  st_transform(terra::crs(prism_tmax_0701_sr)) 
-
+  st_transform(terra::crs(prism_tmax_0701_sr))
 ```
 
 ```{r ks-county-map, echo = FALSE, fig.cap = "Kansas county boundaries"}
@@ -202,7 +201,7 @@ So, in this case, this does the job.
 
 ```{r crop_prism_to_KS, cache = F}
 #--- crop the entire PRISM to its KS portion---#
-prism_tmax_0701_KS_sr <- crop(prism_tmax_0701_sr, KS_county_sf)
+prism_tmax_0701_KS_sr <- terra::crop(prism_tmax_0701_sr, KS_county_sf)
 ```
 
 The figure below (Figure \@ref(fig:prism-ks-viz)) shows the PRISM tmax raster data cropped to the geographic extent of Kansas. Notice that the cropped raster layer extends beyond the outer boundary of Kansas state boundary (it is a bit hard to see, but look at the upper right corner).  
@@ -326,7 +325,7 @@ polygons_extract_viz <-
 polygons_extract_viz
 ```
 
-There is a polygon overlaid on top of the cells along with their centroids represented by block dots. Extracting raster values to a polygon means finding raster cells that intersect with the polygons and get the value of all those cells and assigns them to the polygon. As you can see some cells are completely inside the polygon, while others are only partially overlapping with the polygon. Depending on the function you use and its options, you regard different cells as being spatially related to the polygons. For example, by default, `terra::extract()` will extract only the cells whose centroid is inside the polygon. But, you can add an option to include the cells that are only partially intersected with the polygon. In such a case, you can also get the fraction of the cell what is overlapped with the polygon, which enables us to find area-weighted values later. We will discuss the details these below.
+There is a polygon overlaid on top of the cells along with their centroids represented by black dots. Extracting raster values to a polygon means finding raster cells that intersect with the polygons and get the value of all those cells and assigns them to the polygon. As you can see some cells are completely inside the polygon, while others are only partially overlapping with the polygon. Depending on the function you use and its options, you regard different cells as being spatially related to the polygons. For example, by default, `terra::extract()` will extract only the cells whose centroid is inside the polygon. But, you can add an option to include the cells that are only partially intersected with the polygon. In such a case, you can also get the fraction of the cell what is overlapped with the polygon, which enables us to find area-weighted values later. We will discuss the details these below.
 
 **PRISM tmax data for 07/02/2018**
 
@@ -388,7 +387,7 @@ Let's extract tmax values from the PRISM tmax layer (`prism_tmax_0701_KS_sr`) to
 tmax_from_prism <- terra::extract(prism_tmax_0701_KS_sr, KS_wells)
 ```
 
-Oh, okay. So, the problem is that the points data (`KS_wells`) is an `sf` object, and `terra::extract()` does not like it (I thought this would be fixed by now after a year...). Let's turn KS_wells into an `SpatVect` object and then apply `terra::extract()`:
+Oh, okay. So, the problem is that the points data (`KS_wells`) is an `sf` object, and `terra::extract()` does not like it (I thought this would be fixed by now ...). Let's turn KS_wells into an `SpatVect` object and then apply `terra::extract()`:
 
 ```{r extract_tmax}
 tmax_from_prism <- terra::extract(prism_tmax_0701_KS_sr, vect(KS_wells))
@@ -490,7 +489,8 @@ So, `terra::extract()` returns a `data.frame`, where `ID` values represent the c
 
 ```{r c05-mean-merge}
 #--- get mean tmax ---#
-mean_tmax <- tmax_by_county %>% 
+mean_tmax <- 
+  tmax_by_county %>% 
   group_by(ID) %>% 
   summarize(tmax = mean(PRISM_tmax_stable_4kmD2_20180701_bil))
 
@@ -784,7 +784,7 @@ Let's disaggregate the prism data by a factor of 10 to create a much larger rast
 ```{r prism_disaggregate}
 #--- disaggregate ---#
 (
-prism_tmax_0701_KS_sr_10 <- terra::disaggregate(prism_tmax_0701_KS_sr, fact = 10)
+prism_tmax_0701_KS_sr_10 <- terra::disagg(prism_tmax_0701_KS_sr, fact = 10)
 )
 ```
 

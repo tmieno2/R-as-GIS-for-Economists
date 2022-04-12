@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>2.8 Non-spatial transformation of sf | R as GIS for Economists</title>
   <meta name="description" content="This is a book for Economists who regularly use spatial datasets for their econometric work." />
-  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.25 and GitBook 2.6.7" />
 
   <meta property="og:title" content="2.8 Non-spatial transformation of sf | R as GIS for Economists" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="This is a book for Economists who regularly use spatial datasets for their econometric work." />
   
@@ -24,17 +23,17 @@
 <meta name="author" content="Taro Mieno" />
 
 
-<meta name="date" content="2021-10-06" />
+<meta name="date" content="2022-04-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="conv-sp.html"/>
+<link rel="prev" href="conv_sp.html"/>
 <link rel="next" href="non-interactive-geometrical-operations.html"/>
-<script src="libs/header-attrs-2.9/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -50,32 +49,35 @@
 
 
 
-
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
-<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
 <script src="libs/leaflet-1.3.1/leaflet.js"></script>
 <link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
-<script src="libs/Proj4Leaflet-1.0.1/proj4-compressed.js"></script>
+<script src="libs/proj4-2.6.2/proj4.min.js"></script>
 <script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
 <link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
-<script src="libs/leaflet-binding-2.0.3/leaflet.js"></script>
+<script src="libs/leaflet-binding-2.1.1/leaflet.js"></script>
 <script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script>
-<script src="libs/leaflet-providers-plugin-2.0.3/leaflet-providers-plugin.js"></script>
+<script src="libs/leaflet-providers-plugin-2.1.1/leaflet-providers-plugin.js"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="libs/datatables-binding-0.13/datatables.js"></script>
-<link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
-<link href="libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
-<script src="libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
-<link href="libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
+<script src="libs/datatables-binding-0.21/datatables.js"></script>
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
 
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -136,6 +138,29 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
 </head>
 
 <body>
@@ -151,344 +176,344 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">R as GIS for Economists</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
-<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html"><i class="fa fa-check"></i>Preface</a>
+<li><a href="index.html#welcome">Welcome<span></span></a></li>
+<li><a href="preface.html#preface">Preface<span></span></a>
 <ul>
-<li class="chapter" data-level="" data-path="why-r-as-gis-for-economists.html"><a href="why-r-as-gis-for-economists.html"><i class="fa fa-check"></i>Why R as GIS for Economists?</a>
+<li><a href="why-r-as-gis-for-economists.html#why-r-as-gis-for-economists">Why R as GIS for Economists?<span></span></a>
 <ul>
-<li class="chapter" data-level="" data-path="why-r-as-gis-for-economists.html"><a href="why-r-as-gis-for-economists.html#r-vs-python"><i class="fa fa-check"></i>R vs Python</a></li>
-<li class="chapter" data-level="" data-path="why-r-as-gis-for-economists.html"><a href="why-r-as-gis-for-economists.html#r-vs-arcgis-or-qgis"><i class="fa fa-check"></i>R vs ArcGIS or QGIS</a></li>
-<li class="chapter" data-level="" data-path="why-r-as-gis-for-economists.html"><a href="why-r-as-gis-for-economists.html#summary"><i class="fa fa-check"></i>Summary</a></li>
+<li><a href="why-r-as-gis-for-economists.html#r-vs-python">R vs Python<span></span></a></li>
+<li><a href="why-r-as-gis-for-economists.html#r-vs-arcgis-or-qgis">R vs ArcGIS or QGIS<span></span></a></li>
+<li><a href="why-r-as-gis-for-economists.html#summary">Summary<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="how-is-this-book-different-from-other-online-books-and-resources.html"><a href="how-is-this-book-different-from-other-online-books-and-resources.html"><i class="fa fa-check"></i>How is this book different from other online books and resources?</a></li>
-<li class="chapter" data-level="" data-path="topics-covered-in-this-book.html"><a href="topics-covered-in-this-book.html"><i class="fa fa-check"></i>Topics covered in this book</a></li>
-<li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html"><i class="fa fa-check"></i>Conventions of the book and some notes</a>
+<li><a href="how-is-this-book-different-from-other-online-books-and-resources.html#how-is-this-book-different-from-other-online-books-and-resources">How is this book different from other online books and resources?<span></span></a></li>
+<li><a href="topics-covered-in-this-book.html#topics-covered-in-this-book">Topics covered in this book<span></span></a></li>
+<li><a href="conventions-of-the-book-and-some-notes.html#conventions-of-the-book-and-some-notes">Conventions of the book and some notes<span></span></a>
 <ul>
-<li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html#texts-in-gray-boxes"><i class="fa fa-check"></i>Texts in gray boxes</a></li>
-<li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html#colored-boxes"><i class="fa fa-check"></i>Colored Boxes</a></li>
-<li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html#parentheses-around-codes"><i class="fa fa-check"></i>Parentheses around codes</a></li>
-<li class="chapter" data-level="" data-path="conventions-of-the-book-and-some-notes.html"><a href="conventions-of-the-book-and-some-notes.html#footnotes"><i class="fa fa-check"></i>Footnotes</a></li>
+<li><a href="conventions-of-the-book-and-some-notes.html#texts-in-gray-boxes">Texts in gray boxes<span></span></a></li>
+<li><a href="conventions-of-the-book-and-some-notes.html#colored-boxes">Colored Boxes<span></span></a></li>
+<li><a href="conventions-of-the-book-and-some-notes.html#parentheses-around-codes">Parentheses around codes<span></span></a></li>
+<li><a href="conventions-of-the-book-and-some-notes.html#footnotes">Footnotes<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="session-information.html"><a href="session-information.html"><i class="fa fa-check"></i>Session Information</a></li>
+<li><a href="session-information.html#session-information">Session Information<span></span></a></li>
 </ul></li>
-<li class="part"><span><b>I Demonstration</b></span></li>
-<li class="chapter" data-level="1" data-path="demo.html"><a href="demo.html"><i class="fa fa-check"></i><b>1</b> R as GIS: Demonstrations</a>
+<li class="part"><span><b>I Demonstration<span></span></b></span></li>
+<li class="chapter" data-level="1" data-path="demo.html"><a href="demo.html"><i class="fa fa-check"></i><b>1</b> R as GIS: Demonstrations<span></span></a>
 <ul>
-<li class="chapter" data-level="" data-path="before-you-start.html"><a href="before-you-start.html"><i class="fa fa-check"></i>Before you start</a>
+<li><a href="before-you-start.html#before-you-start">Before you start<span></span></a>
 <ul>
-<li class="chapter" data-level="" data-path="before-you-start.html"><a href="before-you-start.html#target-audience"><i class="fa fa-check"></i>Target Audience</a></li>
-<li class="chapter" data-level="" data-path="before-you-start.html"><a href="before-you-start.html#direction-for-replication"><i class="fa fa-check"></i>Direction for replication</a></li>
+<li><a href="before-you-start.html#target-audience">Target Audience<span></span></a></li>
+<li><a href="before-you-start.html#direction-for-replication">Direction for replication<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="1.1" data-path="Demo1.html"><a href="Demo1.html"><i class="fa fa-check"></i><b>1.1</b> Demonstration 1: The impact of groundwater pumping on depth to water table</a>
+<li class="chapter" data-level="1.1" data-path="Demo1.html"><a href="Demo1.html"><i class="fa fa-check"></i><b>1.1</b> Demonstration 1: The impact of groundwater pumping on depth to water table<span></span></a>
 <ul>
-<li class="chapter" data-level="1.1.1" data-path="Demo1.html"><a href="Demo1.html#project-overview"><i class="fa fa-check"></i><b>1.1.1</b> Project Overview</a></li>
-<li class="chapter" data-level="1.1.2" data-path="Demo1.html"><a href="Demo1.html#project-demonstration"><i class="fa fa-check"></i><b>1.1.2</b> Project Demonstration</a></li>
+<li class="chapter" data-level="1.1.1" data-path="Demo1.html"><a href="Demo1.html#project-overview"><i class="fa fa-check"></i><b>1.1.1</b> Project Overview<span></span></a></li>
+<li class="chapter" data-level="1.1.2" data-path="Demo1.html"><a href="Demo1.html#project-demonstration"><i class="fa fa-check"></i><b>1.1.2</b> Project Demonstration<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="1.2" data-path="demonstration-2-precision-agriculture.html"><a href="demonstration-2-precision-agriculture.html"><i class="fa fa-check"></i><b>1.2</b> Demonstration 2: Precision Agriculture</a>
+<li class="chapter" data-level="1.2" data-path="demonstration-2-precision-agriculture.html"><a href="demonstration-2-precision-agriculture.html"><i class="fa fa-check"></i><b>1.2</b> Demonstration 2: Precision Agriculture<span></span></a>
 <ul>
-<li class="chapter" data-level="1.2.1" data-path="demonstration-2-precision-agriculture.html"><a href="demonstration-2-precision-agriculture.html#project-overview-1"><i class="fa fa-check"></i><b>1.2.1</b> Project Overview</a></li>
-<li class="chapter" data-level="1.2.2" data-path="demonstration-2-precision-agriculture.html"><a href="demonstration-2-precision-agriculture.html#project-demonstration-1"><i class="fa fa-check"></i><b>1.2.2</b> Project Demonstration</a></li>
+<li class="chapter" data-level="1.2.1" data-path="demonstration-2-precision-agriculture.html"><a href="demonstration-2-precision-agriculture.html#project-overview-1"><i class="fa fa-check"></i><b>1.2.1</b> Project Overview<span></span></a></li>
+<li class="chapter" data-level="1.2.2" data-path="demonstration-2-precision-agriculture.html"><a href="demonstration-2-precision-agriculture.html#project-demonstration-1"><i class="fa fa-check"></i><b>1.2.2</b> Project Demonstration<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="1.3" data-path="demo3.html"><a href="demo3.html"><i class="fa fa-check"></i><b>1.3</b> Demonstration 3: Land Use and Weather</a>
+<li class="chapter" data-level="1.3" data-path="demo3.html"><a href="demo3.html"><i class="fa fa-check"></i><b>1.3</b> Demonstration 3: Land Use and Weather<span></span></a>
 <ul>
-<li class="chapter" data-level="1.3.1" data-path="demo3.html"><a href="demo3.html#project-overview-2"><i class="fa fa-check"></i><b>1.3.1</b> Project Overview</a></li>
-<li class="chapter" data-level="1.3.2" data-path="demo3.html"><a href="demo3.html#project-demonstration-2"><i class="fa fa-check"></i><b>1.3.2</b> Project Demonstration</a></li>
+<li class="chapter" data-level="1.3.1" data-path="demo3.html"><a href="demo3.html#project-overview-2"><i class="fa fa-check"></i><b>1.3.1</b> Project Overview<span></span></a></li>
+<li class="chapter" data-level="1.3.2" data-path="demo3.html"><a href="demo3.html#project-demonstration-2"><i class="fa fa-check"></i><b>1.3.2</b> Project Demonstration<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="1.4" data-path="demo4.html"><a href="demo4.html"><i class="fa fa-check"></i><b>1.4</b> Demonstration 4: The Impact of Railroad Presence on Corn Planted Acreage</a>
+<li class="chapter" data-level="1.4" data-path="demo4.html"><a href="demo4.html"><i class="fa fa-check"></i><b>1.4</b> Demonstration 4: The Impact of Railroad Presence on Corn Planted Acreage<span></span></a>
 <ul>
-<li class="chapter" data-level="1.4.1" data-path="demo4.html"><a href="demo4.html#project-overview-3"><i class="fa fa-check"></i><b>1.4.1</b> Project Overview</a></li>
-<li class="chapter" data-level="1.4.2" data-path="demo4.html"><a href="demo4.html#project-demonstration-3"><i class="fa fa-check"></i><b>1.4.2</b> Project Demonstration</a></li>
+<li class="chapter" data-level="1.4.1" data-path="demo4.html"><a href="demo4.html#project-overview-3"><i class="fa fa-check"></i><b>1.4.1</b> Project Overview<span></span></a></li>
+<li class="chapter" data-level="1.4.2" data-path="demo4.html"><a href="demo4.html#project-demonstration-3"><i class="fa fa-check"></i><b>1.4.2</b> Project Demonstration<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="1.5" data-path="demonstration-5-groundwater-use-for-agricultural-irrigation.html"><a href="demonstration-5-groundwater-use-for-agricultural-irrigation.html"><i class="fa fa-check"></i><b>1.5</b> Demonstration 5: Groundwater use for agricultural irrigation</a>
+<li class="chapter" data-level="1.5" data-path="demonstration-5-groundwater-use-for-agricultural-irrigation.html"><a href="demonstration-5-groundwater-use-for-agricultural-irrigation.html"><i class="fa fa-check"></i><b>1.5</b> Demonstration 5: Groundwater use for agricultural irrigation<span></span></a>
 <ul>
-<li class="chapter" data-level="1.5.1" data-path="demonstration-5-groundwater-use-for-agricultural-irrigation.html"><a href="demonstration-5-groundwater-use-for-agricultural-irrigation.html#project-overview-4"><i class="fa fa-check"></i><b>1.5.1</b> Project Overview</a></li>
-<li class="chapter" data-level="1.5.2" data-path="demonstration-5-groundwater-use-for-agricultural-irrigation.html"><a href="demonstration-5-groundwater-use-for-agricultural-irrigation.html#project-demonstration-4"><i class="fa fa-check"></i><b>1.5.2</b> Project Demonstration</a></li>
-</ul></li>
-</ul></li>
-<li class="part"><span><b>II Foundations</b></span></li>
-<li class="chapter" data-level="2" data-path="vector-basics.html"><a href="vector-basics.html"><i class="fa fa-check"></i><b>2</b> Vector Data Handling with <code>sf</code></a>
-<ul>
-<li class="chapter" data-level="" data-path="before-you-start-1.html"><a href="before-you-start-1.html"><i class="fa fa-check"></i>Before you start</a>
-<ul>
-<li><a href="before-you-start-1.html#sf-or-sp"><code>sf</code> or <code>sp</code>?</a></li>
-<li class="chapter" data-level="" data-path="before-you-start-1.html"><a href="before-you-start-1.html#direction-for-replication-1"><i class="fa fa-check"></i>Direction for replication</a></li>
-</ul></li>
-<li class="chapter" data-level="2.1" data-path="spatial-data-structure.html"><a href="spatial-data-structure.html"><i class="fa fa-check"></i><b>2.1</b> Spatial Data Structure</a></li>
-<li class="chapter" data-level="2.2" data-path="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html"><i class="fa fa-check"></i><b>2.2</b> Simple feature geometry, simple feature geometry list-column, and simple feature</a>
-<ul>
-<li class="chapter" data-level="2.2.1" data-path="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#simple-feature-geometry-sfg"><i class="fa fa-check"></i><b>2.2.1</b> Simple feature geometry (<code>sfg</code>)</a></li>
-<li class="chapter" data-level="2.2.2" data-path="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#create-simple-feature-geometry-list-column-sfc-and-simple-feature-sf-from-scratch"><i class="fa fa-check"></i><b>2.2.2</b> Create simple feature geometry list-column (<code>sfc</code>) and simple feature (<code>sf</code>) from scratch</a></li>
-</ul></li>
-<li class="chapter" data-level="2.3" data-path="reading-and-writing-vector-data.html"><a href="reading-and-writing-vector-data.html"><i class="fa fa-check"></i><b>2.3</b> Reading and writing vector data</a>
-<ul>
-<li class="chapter" data-level="2.3.1" data-path="reading-and-writing-vector-data.html"><a href="reading-and-writing-vector-data.html#reading-a-shapefile"><i class="fa fa-check"></i><b>2.3.1</b> Reading a shapefile</a></li>
-<li class="chapter" data-level="2.3.2" data-path="reading-and-writing-vector-data.html"><a href="reading-and-writing-vector-data.html#writing-to-a-shapefile"><i class="fa fa-check"></i><b>2.3.2</b> Writing to a shapefile</a></li>
-<li class="chapter" data-level="2.3.3" data-path="reading-and-writing-vector-data.html"><a href="reading-and-writing-vector-data.html#better-alternatives"><i class="fa fa-check"></i><b>2.3.3</b> Better alternatives</a></li>
-</ul></li>
-<li class="chapter" data-level="2.4" data-path="projection-with-a-different-coordinate-reference-systems.html"><a href="projection-with-a-different-coordinate-reference-systems.html"><i class="fa fa-check"></i><b>2.4</b> Projection with a different Coordinate Reference Systems</a></li>
-<li class="chapter" data-level="2.5" data-path="quick-and-interactive-view-of-an-sf-object.html"><a href="quick-and-interactive-view-of-an-sf-object.html"><i class="fa fa-check"></i><b>2.5</b> Quick and interactive view of an <code>sf</code> object</a>
-<ul>
-<li class="chapter" data-level="2.5.1" data-path="quick-and-interactive-view-of-an-sf-object.html"><a href="quick-and-interactive-view-of-an-sf-object.html#quick-view"><i class="fa fa-check"></i><b>2.5.1</b> Quick view</a></li>
-<li class="chapter" data-level="2.5.2" data-path="quick-and-interactive-view-of-an-sf-object.html"><a href="quick-and-interactive-view-of-an-sf-object.html#interactive-view"><i class="fa fa-check"></i><b>2.5.2</b> Interactive view</a></li>
-</ul></li>
-<li class="chapter" data-level="2.6" data-path="turning-a-data-frame-of-points-into-an-sf.html"><a href="turning-a-data-frame-of-points-into-an-sf.html"><i class="fa fa-check"></i><b>2.6</b> Turning a data.frame of points into an <code>sf</code></a></li>
-<li class="chapter" data-level="2.7" data-path="conv-sp.html"><a href="conv-sp.html"><i class="fa fa-check"></i><b>2.7</b> Conversion to and from sp objects</a></li>
-<li class="chapter" data-level="2.8" data-path="non-spatial-transformation-of-sf.html"><a href="non-spatial-transformation-of-sf.html"><i class="fa fa-check"></i><b>2.8</b> Non-spatial transformation of <code>sf</code></a>
-<ul>
-<li class="chapter" data-level="2.8.1" data-path="non-spatial-transformation-of-sf.html"><a href="non-spatial-transformation-of-sf.html#using-dplyr"><i class="fa fa-check"></i><b>2.8.1</b> Using <code>dplyr</code></a></li>
-<li class="chapter" data-level="2.8.2" data-path="non-spatial-transformation-of-sf.html"><a href="non-spatial-transformation-of-sf.html#using-data.table"><i class="fa fa-check"></i><b>2.8.2</b> Using <code>data.table</code></a></li>
-</ul></li>
-<li class="chapter" data-level="2.9" data-path="non-interactive-geometrical-operations.html"><a href="non-interactive-geometrical-operations.html"><i class="fa fa-check"></i><b>2.9</b> Non-interactive geometrical operations</a>
-<ul>
-<li class="chapter" data-level="2.9.1" data-path="non-interactive-geometrical-operations.html"><a href="non-interactive-geometrical-operations.html#st_buffer"><i class="fa fa-check"></i><b>2.9.1</b> st_buffer</a></li>
-<li class="chapter" data-level="2.9.2" data-path="non-interactive-geometrical-operations.html"><a href="non-interactive-geometrical-operations.html#st_area"><i class="fa fa-check"></i><b>2.9.2</b> st_area</a></li>
-<li class="chapter" data-level="2.9.3" data-path="non-interactive-geometrical-operations.html"><a href="non-interactive-geometrical-operations.html#st_centroid"><i class="fa fa-check"></i><b>2.9.3</b> st_centroid</a></li>
-<li class="chapter" data-level="2.9.4" data-path="non-interactive-geometrical-operations.html"><a href="non-interactive-geometrical-operations.html#st_length"><i class="fa fa-check"></i><b>2.9.4</b> st_length</a></li>
+<li class="chapter" data-level="1.5.1" data-path="demonstration-5-groundwater-use-for-agricultural-irrigation.html"><a href="demonstration-5-groundwater-use-for-agricultural-irrigation.html#project-overview-4"><i class="fa fa-check"></i><b>1.5.1</b> Project Overview<span></span></a></li>
+<li class="chapter" data-level="1.5.2" data-path="demonstration-5-groundwater-use-for-agricultural-irrigation.html"><a href="demonstration-5-groundwater-use-for-agricultural-irrigation.html#project-demonstration-4"><i class="fa fa-check"></i><b>1.5.2</b> Project Demonstration<span></span></a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="int-vv.html"><a href="int-vv.html"><i class="fa fa-check"></i><b>3</b> Spatial Interactions of Vector Data: Subsetting and Joining</a>
+<li class="part"><span><b>II Foundations<span></span></b></span></li>
+<li class="chapter" data-level="2" data-path="vector-basics.html"><a href="vector-basics.html"><i class="fa fa-check"></i><b>2</b> Vector Data Handling with <code>sf</code><span></span></a>
 <ul>
-<li class="chapter" data-level="" data-path="before-you-start-2.html"><a href="before-you-start-2.html"><i class="fa fa-check"></i>Before you start</a>
+<li><a href="before-you-start-1.html#before-you-start-1">Before you start<span></span></a>
 <ul>
-<li class="chapter" data-level="" data-path="before-you-start-2.html"><a href="before-you-start-2.html#direction-for-replication-2"><i class="fa fa-check"></i>Direction for replication</a></li>
+<li><a href="before-you-start-1.html#sf-or-sp"><code>sf</code> or <code>sp</code>?<span></span></a></li>
+<li><a href="before-you-start-1.html#direction-for-replication-1">Direction for replication<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="3.1" data-path="topo.html"><a href="topo.html"><i class="fa fa-check"></i><b>3.1</b> Topological relations</a>
+<li class="chapter" data-level="2.1" data-path="spatial-data-structure.html"><a href="spatial-data-structure.html"><i class="fa fa-check"></i><b>2.1</b> Spatial Data Structure<span></span></a></li>
+<li class="chapter" data-level="2.2" data-path="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html"><i class="fa fa-check"></i><b>2.2</b> Simple feature geometry, simple feature geometry list-column, and simple feature<span></span></a>
 <ul>
-<li class="chapter" data-level="3.1.1" data-path="topo.html"><a href="topo.html#st_intersects"><i class="fa fa-check"></i><b>3.1.1</b> st_intersects()</a></li>
-<li class="chapter" data-level="3.1.2" data-path="topo.html"><a href="topo.html#st_is_within_distance"><i class="fa fa-check"></i><b>3.1.2</b> st_is_within_distance()</a></li>
+<li class="chapter" data-level="2.2.1" data-path="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#simple-feature-geometry-sfg"><i class="fa fa-check"></i><b>2.2.1</b> Simple feature geometry (<code>sfg</code>)<span></span></a></li>
+<li class="chapter" data-level="2.2.2" data-path="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#create-simple-feature-geometry-list-column-sfc-and-simple-feature-sf-from-scratch"><i class="fa fa-check"></i><b>2.2.2</b> Create simple feature geometry list-column (<code>sfc</code>) and simple feature (<code>sf</code>) from scratch<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html"><i class="fa fa-check"></i><b>3.2</b> Spatial Subsetting (or Flagging)</a>
+<li class="chapter" data-level="2.3" data-path="reading-and-writing-vector-data.html"><a href="reading-and-writing-vector-data.html"><i class="fa fa-check"></i><b>2.3</b> Reading and writing vector data<span></span></a>
 <ul>
-<li class="chapter" data-level="3.2.1" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#polygons-source-vs-polygons-target"><i class="fa fa-check"></i><b>3.2.1</b> polygons (source) vs polygons (target)</a></li>
-<li class="chapter" data-level="3.2.2" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#points-source-vs-polygons-target"><i class="fa fa-check"></i><b>3.2.2</b> points (source) vs polygons (target)</a></li>
-<li class="chapter" data-level="3.2.3" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#lines_polygons"><i class="fa fa-check"></i><b>3.2.3</b> lines (source) vs polygons (target)</a></li>
-<li class="chapter" data-level="3.2.4" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#polygons_points"><i class="fa fa-check"></i><b>3.2.4</b> polygons (source) vs points (target)</a></li>
-<li class="chapter" data-level="3.2.5" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#subsetting-to-a-geographic-extent-bounding-box"><i class="fa fa-check"></i><b>3.2.5</b> Subsetting to a geographic extent (bounding box)</a></li>
+<li class="chapter" data-level="2.3.1" data-path="reading-and-writing-vector-data.html"><a href="reading-and-writing-vector-data.html#reading-a-shapefile"><i class="fa fa-check"></i><b>2.3.1</b> Reading a shapefile<span></span></a></li>
+<li class="chapter" data-level="2.3.2" data-path="reading-and-writing-vector-data.html"><a href="reading-and-writing-vector-data.html#writing-to-a-shapefile"><i class="fa fa-check"></i><b>2.3.2</b> Writing to a shapefile<span></span></a></li>
+<li class="chapter" data-level="2.3.3" data-path="reading-and-writing-vector-data.html"><a href="reading-and-writing-vector-data.html#better-alternatives"><i class="fa fa-check"></i><b>2.3.3</b> Better alternatives<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="3.3" data-path="sp-join.html"><a href="sp-join.html"><i class="fa fa-check"></i><b>3.3</b> Spatial Join</a>
+<li class="chapter" data-level="2.4" data-path="projection-with-a-different-coordinate-reference-systems.html"><a href="projection-with-a-different-coordinate-reference-systems.html"><i class="fa fa-check"></i><b>2.4</b> Projection with a different Coordinate Reference Systems<span></span></a></li>
+<li class="chapter" data-level="2.5" data-path="quick-and-interactive-view-of-an-sf-object.html"><a href="quick-and-interactive-view-of-an-sf-object.html"><i class="fa fa-check"></i><b>2.5</b> Quick and interactive view of an <code>sf</code> object<span></span></a>
 <ul>
-<li class="chapter" data-level="3.3.1" data-path="sp-join.html"><a href="sp-join.html#case-1-points-target-vs-polygons-source"><i class="fa fa-check"></i><b>3.3.1</b> Case 1: points (target) vs polygons (source)</a></li>
-<li class="chapter" data-level="3.3.2" data-path="sp-join.html"><a href="sp-join.html#case-2-polygons-target-vs-points-source"><i class="fa fa-check"></i><b>3.3.2</b> Case 2: polygons (target) vs points (source)</a></li>
-<li class="chapter" data-level="3.3.3" data-path="sp-join.html"><a href="sp-join.html#polygon-polygon"><i class="fa fa-check"></i><b>3.3.3</b> Case 3: polygons (target) vs polygons (source)</a></li>
+<li class="chapter" data-level="2.5.1" data-path="quick-and-interactive-view-of-an-sf-object.html"><a href="quick-and-interactive-view-of-an-sf-object.html#quick-view"><i class="fa fa-check"></i><b>2.5.1</b> Quick view<span></span></a></li>
+<li class="chapter" data-level="2.5.2" data-path="quick-and-interactive-view-of-an-sf-object.html"><a href="quick-and-interactive-view-of-an-sf-object.html#interactive-view"><i class="fa fa-check"></i><b>2.5.2</b> Interactive view<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="3.4" data-path="spatial-intersection-cropping-join.html"><a href="spatial-intersection-cropping-join.html"><i class="fa fa-check"></i><b>3.4</b> Spatial Intersection (cropping join)</a>
+<li class="chapter" data-level="2.6" data-path="turning-a-data.frame-of-points-into-an-sf.html"><a href="turning-a-data.frame-of-points-into-an-sf.html"><i class="fa fa-check"></i><b>2.6</b> Turning a data.frame of points into an <code>sf</code><span></span></a></li>
+<li class="chapter" data-level="2.7" data-path="conv_sp.html"><a href="conv_sp.html"><i class="fa fa-check"></i><b>2.7</b> Conversion to and from sp objects<span></span></a></li>
+<li class="chapter" data-level="2.8" data-path="non-spatial-transformation-of-sf.html"><a href="non-spatial-transformation-of-sf.html"><i class="fa fa-check"></i><b>2.8</b> Non-spatial transformation of <code>sf</code><span></span></a>
 <ul>
-<li class="chapter" data-level="3.4.1" data-path="spatial-intersection-cropping-join.html"><a href="spatial-intersection-cropping-join.html#st-intersection"><i class="fa fa-check"></i><b>3.4.1</b> <code>st_intersection()</code></a></li>
-<li class="chapter" data-level="3.4.2" data-path="spatial-intersection-cropping-join.html"><a href="spatial-intersection-cropping-join.html#area-weighted-average"><i class="fa fa-check"></i><b>3.4.2</b> Area-weighted average</a></li>
+<li class="chapter" data-level="2.8.1" data-path="non-spatial-transformation-of-sf.html"><a href="non-spatial-transformation-of-sf.html#using-dplyr"><i class="fa fa-check"></i><b>2.8.1</b> Using <code>dplyr</code><span></span></a></li>
+<li class="chapter" data-level="2.8.2" data-path="non-spatial-transformation-of-sf.html"><a href="non-spatial-transformation-of-sf.html#using-data.table"><i class="fa fa-check"></i><b>2.8.2</b> Using <code>data.table</code><span></span></a></li>
 </ul></li>
-</ul></li>
-<li class="chapter" data-level="4" data-path="raster-basics.html"><a href="raster-basics.html"><i class="fa fa-check"></i><b>4</b> Raster Data Handling</a>
+<li class="chapter" data-level="2.9" data-path="non-interactive-geometrical-operations.html"><a href="non-interactive-geometrical-operations.html"><i class="fa fa-check"></i><b>2.9</b> Non-interactive geometrical operations<span></span></a>
 <ul>
-<li class="chapter" data-level="" data-path="before-you-start-3.html"><a href="before-you-start-3.html"><i class="fa fa-check"></i>Before you start</a>
-<ul>
-<li class="chapter" data-level="" data-path="before-you-start-3.html"><a href="before-you-start-3.html#direction-for-replication-3"><i class="fa fa-check"></i>Direction for replication</a></li>
-</ul></li>
-<li class="chapter" data-level="4.1" data-path="raster-data-object-classes.html"><a href="raster-data-object-classes.html"><i class="fa fa-check"></i><b>4.1</b> Raster data object classes</a>
-<ul>
-<li class="chapter" data-level="4.1.1" data-path="raster-data-object-classes.html"><a href="raster-data-object-classes.html#raster-package-rasterlayer-rasterstack-and-rasterbrick"><i class="fa fa-check"></i><b>4.1.1</b> <code>raster</code> package: <code>RasterLayer</code>, <code>RasterStack</code>, and <code>RasterBrick</code></a></li>
-<li class="chapter" data-level="4.1.2" data-path="raster-data-object-classes.html"><a href="raster-data-object-classes.html#terra-package-spatraster"><i class="fa fa-check"></i><b>4.1.2</b> <code>terra</code> package: <code>SpatRaster</code></a></li>
-<li class="chapter" data-level="4.1.3" data-path="raster-data-object-classes.html"><a href="raster-data-object-classes.html#converting-a-spatraster-object-to-a-raster-object."><i class="fa fa-check"></i><b>4.1.3</b> Converting a <code>SpatRaster</code> object to a <code>Raster</code><span class="math inline">\(^*\)</span> object.</a></li>
-<li class="chapter" data-level="4.1.4" data-path="raster-data-object-classes.html"><a href="raster-data-object-classes.html#vector-data-in-the-terra-package"><i class="fa fa-check"></i><b>4.1.4</b> Vector data in the <code>terra</code> package</a></li>
-</ul></li>
-<li class="chapter" data-level="4.2" data-path="read-and-write-a-raster-data-file.html"><a href="read-and-write-a-raster-data-file.html"><i class="fa fa-check"></i><b>4.2</b> Read and write a raster data file</a>
-<ul>
-<li class="chapter" data-level="4.2.1" data-path="read-and-write-a-raster-data-file.html"><a href="read-and-write-a-raster-data-file.html#read-raster-files"><i class="fa fa-check"></i><b>4.2.1</b> Read raster file(s)</a></li>
-<li class="chapter" data-level="4.2.2" data-path="read-and-write-a-raster-data-file.html"><a href="read-and-write-a-raster-data-file.html#write-raster-files"><i class="fa fa-check"></i><b>4.2.2</b> Write raster files</a></li>
-</ul></li>
-<li class="chapter" data-level="4.3" data-path="extract-information-from-raster-data-object.html"><a href="extract-information-from-raster-data-object.html"><i class="fa fa-check"></i><b>4.3</b> Extract information from raster data object</a>
-<ul>
-<li class="chapter" data-level="4.3.1" data-path="extract-information-from-raster-data-object.html"><a href="extract-information-from-raster-data-object.html#get-crs"><i class="fa fa-check"></i><b>4.3.1</b> Get CRS</a></li>
-<li class="chapter" data-level="4.3.2" data-path="extract-information-from-raster-data-object.html"><a href="extract-information-from-raster-data-object.html#subset"><i class="fa fa-check"></i><b>4.3.2</b> Subset</a></li>
-<li class="chapter" data-level="4.3.3" data-path="extract-information-from-raster-data-object.html"><a href="extract-information-from-raster-data-object.html#get-cell-values"><i class="fa fa-check"></i><b>4.3.3</b> Get cell values</a></li>
-</ul></li>
-<li class="chapter" data-level="4.4" data-path="turning-a-raster-object-into-a-data-frame.html"><a href="turning-a-raster-object-into-a-data-frame.html"><i class="fa fa-check"></i><b>4.4</b> Turning a raster object into a <code>data.frame</code></a></li>
-<li class="chapter" data-level="4.5" data-path="quick-plot-and-interactive-map.html"><a href="quick-plot-and-interactive-map.html"><i class="fa fa-check"></i><b>4.5</b> Quick plot and interactive map</a></li>
-<li class="chapter" data-level="4.6" data-path="work-with-netcdf.html"><a href="work-with-netcdf.html"><i class="fa fa-check"></i><b>4.6</b> Working with netCDFs</a></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="int-RV.html"><a href="int-RV.html"><i class="fa fa-check"></i><b>5</b> Spatial Interactions of Vector and Raster Data</a>
-<ul>
-<li class="chapter" data-level="" data-path="before-you-start-4.html"><a href="before-you-start-4.html"><i class="fa fa-check"></i>Before you start</a>
-<ul>
-<li class="chapter" data-level="" data-path="before-you-start-4.html"><a href="before-you-start-4.html#direction-for-replication-4"><i class="fa fa-check"></i>Direction for replication</a></li>
-</ul></li>
-<li class="chapter" data-level="5.1" data-path="raster-crop.html"><a href="raster-crop.html"><i class="fa fa-check"></i><b>5.1</b> Cropping to the Area of Interest</a></li>
-<li class="chapter" data-level="5.2" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html"><i class="fa fa-check"></i><b>5.2</b> Extracting Values from Raster Layers for Vector Data</a>
-<ul>
-<li class="chapter" data-level="5.2.1" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#simple-visual-illustrations-of-raster-data-extraction"><i class="fa fa-check"></i><b>5.2.1</b> Simple visual illustrations of raster data extraction</a></li>
-<li class="chapter" data-level="5.2.2" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#extracting-to-points"><i class="fa fa-check"></i><b>5.2.2</b> Extracting to Points</a></li>
-<li class="chapter" data-level="5.2.3" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#extracting-to-polygons-terra-way"><i class="fa fa-check"></i><b>5.2.3</b> Extracting to Polygons (<code>terra</code> way)</a></li>
-<li class="chapter" data-level="5.2.4" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#extracting-to-polygons-exactextractr-way"><i class="fa fa-check"></i><b>5.2.4</b> Extracting to Polygons (<code>exactextractr</code> way)</a></li>
-</ul></li>
-<li class="chapter" data-level="5.3" data-path="extract-speed.html"><a href="extract-speed.html"><i class="fa fa-check"></i><b>5.3</b> Extraction speed comparison</a>
-<ul>
-<li class="chapter" data-level="5.3.1" data-path="extract-speed.html"><a href="extract-speed.html#points-terraextract-and-rasterextract"><i class="fa fa-check"></i><b>5.3.1</b> Points: <code>terra::extract()</code> and <code>raster::extract()</code></a></li>
-<li class="chapter" data-level="5.3.2" data-path="extract-speed.html"><a href="extract-speed.html#polygons-exact_extract-terraextract-and-rasterextract"><i class="fa fa-check"></i><b>5.3.2</b> Polygons: <code>exact_extract()</code>, <code>terra::extract()</code>, and <code>raster::extract()</code></a></li>
-<li class="chapter" data-level="5.3.3" data-path="extract-speed.html"><a href="extract-speed.html#single-layer-vs-multi-layer"><i class="fa fa-check"></i><b>5.3.3</b> Single-layer vs multi-layer</a></li>
+<li class="chapter" data-level="2.9.1" data-path="non-interactive-geometrical-operations.html"><a href="non-interactive-geometrical-operations.html#st_buffer"><i class="fa fa-check"></i><b>2.9.1</b> st_buffer<span></span></a></li>
+<li class="chapter" data-level="2.9.2" data-path="non-interactive-geometrical-operations.html"><a href="non-interactive-geometrical-operations.html#st_area"><i class="fa fa-check"></i><b>2.9.2</b> st_area<span></span></a></li>
+<li class="chapter" data-level="2.9.3" data-path="non-interactive-geometrical-operations.html"><a href="non-interactive-geometrical-operations.html#st_centroid"><i class="fa fa-check"></i><b>2.9.3</b> st_centroid<span></span></a></li>
+<li class="chapter" data-level="2.9.4" data-path="non-interactive-geometrical-operations.html"><a href="non-interactive-geometrical-operations.html#st_length"><i class="fa fa-check"></i><b>2.9.4</b> st_length<span></span></a></li>
 </ul></li>
 </ul></li>
-<li class="part"><span><b>III (slightly) Advanced Topics</b></span></li>
-<li class="chapter" data-level="6" data-path="EE.html"><a href="EE.html"><i class="fa fa-check"></i><b>6</b> Extraction Speed Considerations</a>
+<li class="chapter" data-level="3" data-path="int-vv.html"><a href="int-vv.html"><i class="fa fa-check"></i><b>3</b> Spatial Interactions of Vector Data: Subsetting and Joining<span></span></a>
 <ul>
-<li class="chapter" data-level="" data-path="before-you-start-5.html"><a href="before-you-start-5.html"><i class="fa fa-check"></i>Before you start</a>
+<li><a href="before-you-start-2.html#before-you-start-2">Before you start<span></span></a>
 <ul>
-<li class="chapter" data-level="" data-path="before-you-start-5.html"><a href="before-you-start-5.html#direction-for-replication-5"><i class="fa fa-check"></i>Direction for replication</a></li>
+<li><a href="before-you-start-2.html#direction-for-replication-2">Direction for replication<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="6.1" data-path="single-raster-layer.html"><a href="single-raster-layer.html"><i class="fa fa-check"></i><b>6.1</b> Single raster layer</a>
+<li class="chapter" data-level="3.1" data-path="topo.html"><a href="topo.html"><i class="fa fa-check"></i><b>3.1</b> Topological relations<span></span></a>
 <ul>
-<li class="chapter" data-level="6.1.1" data-path="single-raster-layer.html"><a href="single-raster-layer.html#datasets"><i class="fa fa-check"></i><b>6.1.1</b> Datasets</a></li>
-<li class="chapter" data-level="6.1.2" data-path="single-raster-layer.html"><a href="single-raster-layer.html#parallelization"><i class="fa fa-check"></i><b>6.1.2</b> Parallelization</a></li>
-<li class="chapter" data-level="6.1.3" data-path="single-raster-layer.html"><a href="single-raster-layer.html#summary-1"><i class="fa fa-check"></i><b>6.1.3</b> Summary</a></li>
+<li class="chapter" data-level="3.1.1" data-path="topo.html"><a href="topo.html#st_intersects"><i class="fa fa-check"></i><b>3.1.1</b> st_intersects()<span></span></a></li>
+<li class="chapter" data-level="3.1.2" data-path="topo.html"><a href="topo.html#st_is_within_distance"><i class="fa fa-check"></i><b>3.1.2</b> st_is_within_distance()<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="6.2" data-path="many-multi-layer.html"><a href="many-multi-layer.html"><i class="fa fa-check"></i><b>6.2</b> Many multi-layer raster files</a>
+<li class="chapter" data-level="3.2" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html"><i class="fa fa-check"></i><b>3.2</b> Spatial Subsetting (or Flagging)<span></span></a>
 <ul>
-<li class="chapter" data-level="6.2.1" data-path="many-multi-layer.html"><a href="many-multi-layer.html#datasets-1"><i class="fa fa-check"></i><b>6.2.1</b> Datasets</a></li>
-<li class="chapter" data-level="6.2.2" data-path="many-multi-layer.html"><a href="many-multi-layer.html#non-par-ext-multi"><i class="fa fa-check"></i><b>6.2.2</b> Non-parallelized extraction</a></li>
-<li class="chapter" data-level="6.2.3" data-path="many-multi-layer.html"><a href="many-multi-layer.html#approach-1-parallelize-over-polygons-and-do-regular-loop-over-year-month"><i class="fa fa-check"></i><b>6.2.3</b> Approach 1: parallelize over polygons and do regular loop over year-month</a></li>
-<li class="chapter" data-level="6.2.4" data-path="many-multi-layer.html"><a href="many-multi-layer.html#approach-2-parallelize-over-the-temporal-dimension-year-month"><i class="fa fa-check"></i><b>6.2.4</b> Approach 2: parallelize over the temporal dimension (year-month)</a></li>
-<li class="chapter" data-level="6.2.5" data-path="many-multi-layer.html"><a href="many-multi-layer.html#memory-consideration"><i class="fa fa-check"></i><b>6.2.5</b> Memory consideration</a></li>
+<li class="chapter" data-level="3.2.1" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#polygons-source-vs-polygons-target"><i class="fa fa-check"></i><b>3.2.1</b> polygons (source) vs polygons (target)<span></span></a></li>
+<li class="chapter" data-level="3.2.2" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#points-source-vs-polygons-target"><i class="fa fa-check"></i><b>3.2.2</b> points (source) vs polygons (target)<span></span></a></li>
+<li class="chapter" data-level="3.2.3" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#lines_polygons"><i class="fa fa-check"></i><b>3.2.3</b> lines (source) vs polygons (target)<span></span></a></li>
+<li class="chapter" data-level="3.2.4" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#polygons_points"><i class="fa fa-check"></i><b>3.2.4</b> polygons (source) vs points (target)<span></span></a></li>
+<li class="chapter" data-level="3.2.5" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#subsetting-to-a-geographic-extent-bounding-box"><i class="fa fa-check"></i><b>3.2.5</b> Subsetting to a geographic extent (bounding box)<span></span></a></li>
 </ul></li>
+<li class="chapter" data-level="3.3" data-path="sp-join.html"><a href="sp-join.html"><i class="fa fa-check"></i><b>3.3</b> Spatial Join<span></span></a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="sp-join.html"><a href="sp-join.html#case-1-points-target-vs-polygons-source"><i class="fa fa-check"></i><b>3.3.1</b> Case 1: points (target) vs polygons (source)<span></span></a></li>
+<li class="chapter" data-level="3.3.2" data-path="sp-join.html"><a href="sp-join.html#case-2-polygons-target-vs-points-source"><i class="fa fa-check"></i><b>3.3.2</b> Case 2: polygons (target) vs points (source)<span></span></a></li>
+<li class="chapter" data-level="3.3.3" data-path="sp-join.html"><a href="sp-join.html#polygon-polygon"><i class="fa fa-check"></i><b>3.3.3</b> Case 3: polygons (target) vs polygons (source)<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="stars-basics.html"><a href="stars-basics.html"><i class="fa fa-check"></i><b>7</b> Spatiotemporal Raster Data Handling with <code>stars</code></a>
+<li class="chapter" data-level="3.4" data-path="spatial-intersection-cropping-join.html"><a href="spatial-intersection-cropping-join.html"><i class="fa fa-check"></i><b>3.4</b> Spatial Intersection (cropping join)<span></span></a>
 <ul>
-<li class="chapter" data-level="" data-path="before-you-start-6.html"><a href="before-you-start-6.html"><i class="fa fa-check"></i>Before you start</a>
-<ul>
-<li class="chapter" data-level="" data-path="before-you-start-6.html"><a href="before-you-start-6.html#direction-for-replication-6"><i class="fa fa-check"></i>Direction for replication</a></li>
-</ul></li>
-<li class="chapter" data-level="7.1" data-path="stars-structure.html"><a href="stars-structure.html"><i class="fa fa-check"></i><b>7.1</b> Understanding the structure of a <code>stars</code> object</a></li>
-<li class="chapter" data-level="7.2" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html"><i class="fa fa-check"></i><b>7.2</b> Some basic operations on <code>stars</code> objects</a>
-<ul>
-<li class="chapter" data-level="7.2.1" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html#subset-a-stars-object-by-index"><i class="fa fa-check"></i><b>7.2.1</b> Subset a <code>stars</code> object by index</a></li>
-<li class="chapter" data-level="7.2.2" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html#set-attribute-names"><i class="fa fa-check"></i><b>7.2.2</b> Set attribute names</a></li>
-<li class="chapter" data-level="7.2.3" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html#get-the-coordinate-reference-system"><i class="fa fa-check"></i><b>7.2.3</b> Get the coordinate reference system</a></li>
-<li class="chapter" data-level="7.2.4" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html#get-the-dimension-characteristics-and-values"><i class="fa fa-check"></i><b>7.2.4</b> Get the dimension characteristics and values</a></li>
-<li class="chapter" data-level="7.2.5" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html#attributes-to-dimensions-and-vice-versa"><i class="fa fa-check"></i><b>7.2.5</b> Attributes to dimensions, and vice versa</a></li>
-</ul></li>
-<li class="chapter" data-level="7.3" data-path="quick-visualization-for-exploration.html"><a href="quick-visualization-for-exploration.html"><i class="fa fa-check"></i><b>7.3</b> Quick visualization for exploration</a>
-<ul>
-<li class="chapter" data-level="7.3.1" data-path="quick-visualization-for-exploration.html"><a href="quick-visualization-for-exploration.html#quick-static-map"><i class="fa fa-check"></i><b>7.3.1</b> quick static map</a></li>
-<li class="chapter" data-level="7.3.2" data-path="quick-visualization-for-exploration.html"><a href="quick-visualization-for-exploration.html#interactive-map"><i class="fa fa-check"></i><b>7.3.2</b> interactive map</a></li>
-</ul></li>
-<li class="chapter" data-level="7.4" data-path="read-write-stars.html"><a href="read-write-stars.html"><i class="fa fa-check"></i><b>7.4</b> Reading and writing raster data</a>
-<ul>
-<li class="chapter" data-level="7.4.1" data-path="read-write-stars.html"><a href="read-write-stars.html#reading-raster-data"><i class="fa fa-check"></i><b>7.4.1</b> Reading raster data</a></li>
-<li class="chapter" data-level="7.4.2" data-path="read-write-stars.html"><a href="read-write-stars.html#writing-a-stars-object-to-a-file"><i class="fa fa-check"></i><b>7.4.2</b> Writing a <code>stars</code> object to a file</a></li>
-</ul></li>
-<li class="chapter" data-level="7.5" data-path="stars-set-time.html"><a href="stars-set-time.html"><i class="fa fa-check"></i><b>7.5</b> Setting the time dimension manually</a></li>
-<li class="chapter" data-level="7.6" data-path="dplyr-op.html"><a href="dplyr-op.html"><i class="fa fa-check"></i><b>7.6</b> <code>dplyr</code>-like operations</a>
-<ul>
-<li class="chapter" data-level="7.6.1" data-path="dplyr-op.html"><a href="dplyr-op.html#filter"><i class="fa fa-check"></i><b>7.6.1</b> <code>filter()</code></a></li>
-<li class="chapter" data-level="7.6.2" data-path="dplyr-op.html"><a href="dplyr-op.html#select"><i class="fa fa-check"></i><b>7.6.2</b> <code>select()</code></a></li>
-<li class="chapter" data-level="7.6.3" data-path="dplyr-op.html"><a href="dplyr-op.html#mutate"><i class="fa fa-check"></i><b>7.6.3</b> <code>mutate()</code></a></li>
-<li class="chapter" data-level="7.6.4" data-path="dplyr-op.html"><a href="dplyr-op.html#pull"><i class="fa fa-check"></i><b>7.6.4</b> <code>pull()</code></a></li>
-</ul></li>
-<li class="chapter" data-level="7.7" data-path="merging-stars-objects-using-c-and-st-mosaic.html"><a href="merging-stars-objects-using-c-and-st-mosaic.html"><i class="fa fa-check"></i><b>7.7</b> Merging <code>stars</code> objects using <code>c()</code> and <code>st_mosaic()</code></a>
-<ul>
-<li class="chapter" data-level="7.7.1" data-path="merging-stars-objects-using-c-and-st-mosaic.html"><a href="merging-stars-objects-using-c-and-st-mosaic.html#merging-stars-objects-along-the-third-dimension-band"><i class="fa fa-check"></i><b>7.7.1</b> Merging <code>stars</code> objects along the third dimension (band)</a></li>
-<li class="chapter" data-level="7.7.2" data-path="merging-stars-objects-using-c-and-st-mosaic.html"><a href="merging-stars-objects-using-c-and-st-mosaic.html#merge-two"><i class="fa fa-check"></i><b>7.7.2</b> Merging <code>stars</code> objects of different attributes</a></li>
-<li class="chapter" data-level="7.7.3" data-path="merging-stars-objects-using-c-and-st-mosaic.html"><a href="merging-stars-objects-using-c-and-st-mosaic.html#merging-stars-objects-of-different-spatial-extents"><i class="fa fa-check"></i><b>7.7.3</b> Merging <code>stars</code> objects of different spatial extents</a></li>
-</ul></li>
-<li class="chapter" data-level="7.8" data-path="convert-to-rb.html"><a href="convert-to-rb.html"><i class="fa fa-check"></i><b>7.8</b> Convert from and to <code>Raster</code><span class="math inline">\(^*\)</span> objects</a></li>
-</ul></li>
-<li class="part"><span><b>IV Extensions</b></span></li>
-<li class="chapter" data-level="8" data-path="create-maps.html"><a href="create-maps.html"><i class="fa fa-check"></i><b>8</b> Creating Maps using <code>ggplot2</code></a>
-<ul>
-<li class="chapter" data-level="" data-path="before-you-start-7.html"><a href="before-you-start-7.html"><i class="fa fa-check"></i>Before you start</a>
-<ul>
-<li class="chapter" data-level="" data-path="before-you-start-7.html"><a href="before-you-start-7.html#direction-for-replication-7"><i class="fa fa-check"></i>Direction for replication</a></li>
-</ul></li>
-<li class="chapter" data-level="8.1" data-path="geom-sf.html"><a href="geom-sf.html"><i class="fa fa-check"></i><b>8.1</b> Creating maps from <code>sf</code> objects</a>
-<ul>
-<li class="chapter" data-level="8.1.1" data-path="geom-sf.html"><a href="geom-sf.html#datasets-2"><i class="fa fa-check"></i><b>8.1.1</b> Datasets</a></li>
-<li class="chapter" data-level="8.1.2" data-path="geom-sf.html"><a href="geom-sf.html#basic-usage-of-geom_sf"><i class="fa fa-check"></i><b>8.1.2</b> Basic usage of <code>geom_sf()</code></a></li>
-<li class="chapter" data-level="8.1.3" data-path="geom-sf.html"><a href="geom-sf.html#specifying-the-aesthetics"><i class="fa fa-check"></i><b>8.1.3</b> Specifying the aesthetics</a></li>
-<li class="chapter" data-level="8.1.4" data-path="geom-sf.html"><a href="geom-sf.html#plotting-multiple-spatial-objects-in-one-figure"><i class="fa fa-check"></i><b>8.1.4</b> Plotting multiple spatial objects in one figure</a></li>
-<li class="chapter" data-level="8.1.5" data-path="geom-sf.html"><a href="geom-sf.html#crs"><i class="fa fa-check"></i><b>8.1.5</b> CRS</a></li>
-<li class="chapter" data-level="8.1.6" data-path="geom-sf.html"><a href="geom-sf.html#faceting"><i class="fa fa-check"></i><b>8.1.6</b> Faceting</a></li>
-<li class="chapter" data-level="8.1.7" data-path="geom-sf.html"><a href="geom-sf.html#adding-texts-labels-on-a-map"><i class="fa fa-check"></i><b>8.1.7</b> Adding texts (labels) on a map</a></li>
-</ul></li>
-<li class="chapter" data-level="8.2" data-path="geom-raster.html"><a href="geom-raster.html"><i class="fa fa-check"></i><b>8.2</b> Raster data visualization: <code>geom_raster()</code> and <code>geom_stars()</code></a>
-<ul>
-<li class="chapter" data-level="8.2.1" data-path="geom-raster.html"><a href="geom-raster.html#visualize-raster-with-geom_raster"><i class="fa fa-check"></i><b>8.2.1</b> Visualize <code>Raster</code><span class="math inline">\(^*\)</span> with <code>geom_raster()</code></a></li>
-<li class="chapter" data-level="8.2.2" data-path="geom-raster.html"><a href="geom-raster.html#visualize-stars-with-geom_raster"><i class="fa fa-check"></i><b>8.2.2</b> Visualize <code>stars</code> with <code>geom_raster()</code></a></li>
-<li class="chapter" data-level="8.2.3" data-path="geom-raster.html"><a href="geom-raster.html#visualize-stars-with-geom_stars"><i class="fa fa-check"></i><b>8.2.3</b> Visualize <code>stars</code> with <code>geom_stars()</code></a></li>
-<li class="chapter" data-level="8.2.4" data-path="geom-raster.html"><a href="geom-raster.html#adding-geom_sf-layers"><i class="fa fa-check"></i><b>8.2.4</b> adding <code>geom_sf()</code> layers</a></li>
-</ul></li>
-<li class="chapter" data-level="8.3" data-path="color-scale.html"><a href="color-scale.html"><i class="fa fa-check"></i><b>8.3</b> Color scale</a>
-<ul>
-<li class="chapter" data-level="8.3.1" data-path="color-scale.html"><a href="color-scale.html#viridis-color-maps"><i class="fa fa-check"></i><b>8.3.1</b> Viridis color maps</a></li>
-<li class="chapter" data-level="8.3.2" data-path="color-scale.html"><a href="color-scale.html#rcolorbrewer-scale__distiller-and-scale__brewer"><i class="fa fa-check"></i><b>8.3.2</b> <code>RColorBrewer</code>: <code>scale_*_distiller()</code> and <code>scale_*_brewer()</code></a></li>
-<li class="chapter" data-level="8.3.3" data-path="color-scale.html"><a href="color-scale.html#colorspace-package"><i class="fa fa-check"></i><b>8.3.3</b> <code>colorspace</code> package</a></li>
-</ul></li>
-<li class="chapter" data-level="8.4" data-path="arranging-maps.html"><a href="arranging-maps.html"><i class="fa fa-check"></i><b>8.4</b> Arranging maps</a>
-<ul>
-<li class="chapter" data-level="8.4.1" data-path="arranging-maps.html"><a href="arranging-maps.html#multiple-panels-of-figures-as-a-single-figure"><i class="fa fa-check"></i><b>8.4.1</b> Multiple panels of figures as a single figure</a></li>
-<li class="chapter" data-level="8.4.2" data-path="arranging-maps.html"><a href="arranging-maps.html#a-map-in-a-map-inset"><i class="fa fa-check"></i><b>8.4.2</b> A map in a map: inset</a></li>
-</ul></li>
-<li class="chapter" data-level="8.5" data-path="fine-tune.html"><a href="fine-tune.html"><i class="fa fa-check"></i><b>8.5</b> Fine-tuning maps for publication</a>
-<ul>
-<li class="chapter" data-level="8.5.1" data-path="fine-tune.html"><a href="fine-tune.html#theme"><i class="fa fa-check"></i><b>8.5.1</b> Setting the theme</a></li>
-<li class="chapter" data-level="8.5.2" data-path="fine-tune.html"><a href="fine-tune.html#legend"><i class="fa fa-check"></i><b>8.5.2</b> Legend</a></li>
-<li class="chapter" data-level="8.5.3" data-path="fine-tune.html"><a href="fine-tune.html#facet-strips"><i class="fa fa-check"></i><b>8.5.3</b> Facet strips</a></li>
-<li class="chapter" data-level="8.5.4" data-path="fine-tune.html"><a href="fine-tune.html#north-arrow-and-scale-bar"><i class="fa fa-check"></i><b>8.5.4</b> North arrow and scale bar</a></li>
-</ul></li>
-<li class="chapter" data-level="8.6" data-path="ggsave.html"><a href="ggsave.html"><i class="fa fa-check"></i><b>8.6</b> Saving a <code>ggplot</code> object as an image</a></li>
-</ul></li>
-<li class="chapter" data-level="9" data-path="download-data.html"><a href="download-data.html"><i class="fa fa-check"></i><b>9</b> Download and process spatial datasets from within R</a>
-<ul>
-<li class="chapter" data-level="" data-path="before-you-start-8.html"><a href="before-you-start-8.html"><i class="fa fa-check"></i>Before you start</a>
-<ul>
-<li class="chapter" data-level="" data-path="before-you-start-8.html"><a href="before-you-start-8.html#direction-for-replication-8"><i class="fa fa-check"></i>Direction for replication</a></li>
-</ul></li>
-<li class="chapter" data-level="9.1" data-path="nass-quick.html"><a href="nass-quick.html"><i class="fa fa-check"></i><b>9.1</b> USDA NASS QuickStat with <code>tidyUSDA</code></a>
-<ul>
-<li class="chapter" data-level="9.1.1" data-path="nass-quick.html"><a href="nass-quick.html#look-for-parameter-values"><i class="fa fa-check"></i><b>9.1.1</b> Look for parameter values</a></li>
-<li class="chapter" data-level="9.1.2" data-path="nass-quick.html"><a href="nass-quick.html#caveats"><i class="fa fa-check"></i><b>9.1.2</b> Caveats</a></li>
-</ul></li>
-<li class="chapter" data-level="9.2" data-path="CropScapeR.html"><a href="CropScapeR.html"><i class="fa fa-check"></i><b>9.2</b> CDL with <code>CropScapeR</code></a>
-<ul>
-<li class="chapter" data-level="9.2.1" data-path="CropScapeR.html"><a href="CropScapeR.html#getcdldata-download-the-cdl-data-as-raster-data"><i class="fa fa-check"></i><b>9.2.1</b> <code>GetCDLData</code>: Download the CDL data as raster data</a></li>
-<li class="chapter" data-level="9.2.2" data-path="CropScapeR.html"><a href="CropScapeR.html#data-processing-after-downloading-data"><i class="fa fa-check"></i><b>9.2.2</b> Data processing after downloading data</a></li>
-<li class="chapter" data-level="9.2.3" data-path="CropScapeR.html"><a href="CropScapeR.html#other-forms-of-cdl-data"><i class="fa fa-check"></i><b>9.2.3</b> Other forms of CDL data</a></li>
-<li class="chapter" data-level="9.2.4" data-path="CropScapeR.html"><a href="CropScapeR.html#mac-problem"><i class="fa fa-check"></i><b>9.2.4</b> SSL certificate problem on Mac</a></li>
-</ul></li>
-<li class="chapter" data-level="9.3" data-path="download-prism.html"><a href="download-prism.html"><i class="fa fa-check"></i><b>9.3</b> PRISM with <code>prism</code></a>
-<ul>
-<li class="chapter" data-level="9.3.1" data-path="download-prism.html"><a href="download-prism.html#basics"><i class="fa fa-check"></i><b>9.3.1</b> Basics</a></li>
-<li class="chapter" data-level="9.3.2" data-path="download-prism.html"><a href="download-prism.html#download-daily-prism-data-for-many-years-and-build-your-own-datasets"><i class="fa fa-check"></i><b>9.3.2</b> Download daily PRISM data for many years and build your own datasets</a></li>
-</ul></li>
-<li class="chapter" data-level="9.4" data-path="daymet-with-daymetr-and-feddata.html"><a href="daymet-with-daymetr-and-feddata.html"><i class="fa fa-check"></i><b>9.4</b> Daymet with <code>daymetr</code> and <code>FedData</code></a>
-<ul>
-<li class="chapter" data-level="9.4.1" data-path="daymet-with-daymetr-and-feddata.html"><a href="daymet-with-daymetr-and-feddata.html#for-points-data"><i class="fa fa-check"></i><b>9.4.1</b> For points data</a></li>
-<li class="chapter" data-level="9.4.2" data-path="daymet-with-daymetr-and-feddata.html"><a href="daymet-with-daymetr-and-feddata.html#daymet-poly"><i class="fa fa-check"></i><b>9.4.2</b> For polygons data</a></li>
-</ul></li>
-<li class="chapter" data-level="9.5" data-path="gridMET.html"><a href="gridMET.html"><i class="fa fa-check"></i><b>9.5</b> gridMET</a>
-<ul>
-<li class="chapter" data-level="9.5.1" data-path="gridMET.html"><a href="gridMET.html#practical-examples"><i class="fa fa-check"></i><b>9.5.1</b> Practical Examples</a></li>
+<li class="chapter" data-level="3.4.1" data-path="spatial-intersection-cropping-join.html"><a href="spatial-intersection-cropping-join.html#st-intersection"><i class="fa fa-check"></i><b>3.4.1</b> <code>st_intersection()</code><span></span></a></li>
+<li class="chapter" data-level="3.4.2" data-path="spatial-intersection-cropping-join.html"><a href="spatial-intersection-cropping-join.html#area-weighted-average"><i class="fa fa-check"></i><b>3.4.2</b> Area-weighted average<span></span></a></li>
 </ul></li>
 </ul></li>
-<li class="appendix"><span><b>Appendix</b></span></li>
-<li class="chapter" data-level="A" data-path="par-comp.html"><a href="par-comp.html"><i class="fa fa-check"></i><b>A</b> Loop and Parallel Computing</a>
+<li class="chapter" data-level="4" data-path="raster-basics.html"><a href="raster-basics.html"><i class="fa fa-check"></i><b>4</b> Raster Data Handling<span></span></a>
 <ul>
-<li class="chapter" data-level="" data-path="before-you-start-9.html"><a href="before-you-start-9.html"><i class="fa fa-check"></i>Before you start</a>
+<li><a href="before-you-start-3.html#before-you-start-3">Before you start<span></span></a>
 <ul>
-<li class="chapter" data-level="" data-path="before-you-start-9.html"><a href="before-you-start-9.html#direction-for-replication-9"><i class="fa fa-check"></i>Direction for replication</a></li>
-<li class="chapter" data-level="" data-path="before-you-start-9.html"><a href="before-you-start-9.html#packages-to-install-and-load"><i class="fa fa-check"></i>Packages to install and load</a></li>
+<li><a href="before-you-start-3.html#direction-for-replication-3">Direction for replication<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="A.1" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html"><i class="fa fa-check"></i><b>A.1</b> Repetitive processes and looping</a>
+<li class="chapter" data-level="4.1" data-path="raster-data-object-classes.html"><a href="raster-data-object-classes.html"><i class="fa fa-check"></i><b>4.1</b> Raster data object classes<span></span></a>
 <ul>
-<li class="chapter" data-level="A.1.1" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html#what-is-looping"><i class="fa fa-check"></i><b>A.1.1</b> What is looping?</a></li>
-<li class="chapter" data-level="A.1.2" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html#for-loop"><i class="fa fa-check"></i><b>A.1.2</b> For loop</a></li>
-<li class="chapter" data-level="A.1.3" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html#for-loop-using-the-lapply-function"><i class="fa fa-check"></i><b>A.1.3</b> For loop using the <code>lapply()</code> function</a></li>
-<li class="chapter" data-level="A.1.4" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html#looping-over-multiple-variables-using-lapply"><i class="fa fa-check"></i><b>A.1.4</b> Looping over multiple variables using lapply()</a></li>
-<li class="chapter" data-level="A.1.5" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html#do-you-really-need-to-loop"><i class="fa fa-check"></i><b>A.1.5</b> Do you really need to loop?</a></li>
+<li class="chapter" data-level="4.1.1" data-path="raster-data-object-classes.html"><a href="raster-data-object-classes.html#raster-package-rasterlayer-rasterstack-and-rasterbrick"><i class="fa fa-check"></i><b>4.1.1</b> <code>raster</code> package: <code>RasterLayer</code>, <code>RasterStack</code>, and <code>RasterBrick</code><span></span></a></li>
+<li class="chapter" data-level="4.1.2" data-path="raster-data-object-classes.html"><a href="raster-data-object-classes.html#terra-package-spatraster"><i class="fa fa-check"></i><b>4.1.2</b> <code>terra</code> package: <code>SpatRaster</code><span></span></a></li>
+<li class="chapter" data-level="4.1.3" data-path="raster-data-object-classes.html"><a href="raster-data-object-classes.html#converting-a-spatraster-object-to-a-raster-object."><i class="fa fa-check"></i><b>4.1.3</b> Converting a <code>SpatRaster</code> object to a <code>Raster</code><span class="math inline">\(^*\)</span> object.<span></span></a></li>
+<li class="chapter" data-level="4.1.4" data-path="raster-data-object-classes.html"><a href="raster-data-object-classes.html#vector-data-in-the-terra-package"><i class="fa fa-check"></i><b>4.1.4</b> Vector data in the <code>terra</code> package<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="A.2" data-path="parcomp.html"><a href="parcomp.html"><i class="fa fa-check"></i><b>A.2</b> Parallelization of embarrassingly parallel processes</a>
+<li class="chapter" data-level="4.2" data-path="read-and-write-a-raster-data-file.html"><a href="read-and-write-a-raster-data-file.html"><i class="fa fa-check"></i><b>4.2</b> Read and write a raster data file<span></span></a>
 <ul>
-<li class="chapter" data-level="A.2.1" data-path="parcomp.html"><a href="parcomp.html#mac-or-linux-users"><i class="fa fa-check"></i><b>A.2.1</b> Mac or Linux users</a></li>
+<li class="chapter" data-level="4.2.1" data-path="read-and-write-a-raster-data-file.html"><a href="read-and-write-a-raster-data-file.html#read-raster-files"><i class="fa fa-check"></i><b>4.2.1</b> Read raster file(s)<span></span></a></li>
+<li class="chapter" data-level="4.2.2" data-path="read-and-write-a-raster-data-file.html"><a href="read-and-write-a-raster-data-file.html#write-raster-files"><i class="fa fa-check"></i><b>4.2.2</b> Write raster files<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="extract-information-from-raster-data-object.html"><a href="extract-information-from-raster-data-object.html"><i class="fa fa-check"></i><b>4.3</b> Extract information from raster data object<span></span></a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="extract-information-from-raster-data-object.html"><a href="extract-information-from-raster-data-object.html#get-crs"><i class="fa fa-check"></i><b>4.3.1</b> Get CRS<span></span></a></li>
+<li class="chapter" data-level="4.3.2" data-path="extract-information-from-raster-data-object.html"><a href="extract-information-from-raster-data-object.html#subset"><i class="fa fa-check"></i><b>4.3.2</b> Subset<span></span></a></li>
+<li class="chapter" data-level="4.3.3" data-path="extract-information-from-raster-data-object.html"><a href="extract-information-from-raster-data-object.html#get-cell-values"><i class="fa fa-check"></i><b>4.3.3</b> Get cell values<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="turning-a-raster-object-into-a-data.html"><a href="turning-a-raster-object-into-a-data.html"><i class="fa fa-check"></i><b>4.4</b> Turning a raster object into a <code>data.frame</code><span></span></a></li>
+<li class="chapter" data-level="4.5" data-path="quick-visualization.html"><a href="quick-visualization.html"><i class="fa fa-check"></i><b>4.5</b> Quick visualization<span></span></a></li>
+<li class="chapter" data-level="4.6" data-path="work-with-netcdf.html"><a href="work-with-netcdf.html"><i class="fa fa-check"></i><b>4.6</b> Working with netCDFs<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="int-RV.html"><a href="int-RV.html"><i class="fa fa-check"></i><b>5</b> Spatial Interactions of Vector and Raster Data<span></span></a>
+<ul>
+<li><a href="before-you-start-4.html#before-you-start-4">Before you start<span></span></a>
+<ul>
+<li><a href="before-you-start-4.html#direction-for-replication-4">Direction for replication<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="5.1" data-path="raster-crop.html"><a href="raster-crop.html"><i class="fa fa-check"></i><b>5.1</b> Cropping to the Area of Interest<span></span></a></li>
+<li class="chapter" data-level="5.2" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html"><i class="fa fa-check"></i><b>5.2</b> Extracting Values from Raster Layers for Vector Data<span></span></a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#simple-visual-illustrations-of-raster-data-extraction"><i class="fa fa-check"></i><b>5.2.1</b> Simple visual illustrations of raster data extraction<span></span></a></li>
+<li class="chapter" data-level="5.2.2" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#extracting-to-points"><i class="fa fa-check"></i><b>5.2.2</b> Extracting to Points<span></span></a></li>
+<li class="chapter" data-level="5.2.3" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#extracting-to-polygons-terra-way"><i class="fa fa-check"></i><b>5.2.3</b> Extracting to Polygons (<code>terra</code> way)<span></span></a></li>
+<li class="chapter" data-level="5.2.4" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#extracting-to-polygons-exactextractr-way"><i class="fa fa-check"></i><b>5.2.4</b> Extracting to Polygons (<code>exactextractr</code> way)<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="extract-speed.html"><a href="extract-speed.html"><i class="fa fa-check"></i><b>5.3</b> Extraction speed comparison<span></span></a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="extract-speed.html"><a href="extract-speed.html#points-terraextract-and-rasterextract"><i class="fa fa-check"></i><b>5.3.1</b> Points: <code>terra::extract()</code> and <code>raster::extract()</code><span></span></a></li>
+<li class="chapter" data-level="5.3.2" data-path="extract-speed.html"><a href="extract-speed.html#polygons-exact_extract-terraextract-and-rasterextract"><i class="fa fa-check"></i><b>5.3.2</b> Polygons: <code>exact_extract()</code>, <code>terra::extract()</code>, and <code>raster::extract()</code><span></span></a></li>
+<li class="chapter" data-level="5.3.3" data-path="extract-speed.html"><a href="extract-speed.html#single-layer-vs-multi-layer"><i class="fa fa-check"></i><b>5.3.3</b> Single-layer vs multi-layer<span></span></a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="B" data-path="ggplot2-minimals.html"><a href="ggplot2-minimals.html"><i class="fa fa-check"></i><b>B</b> ggplot2 minimals</a></li>
-<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="part"><span><b>III (slightly) Advanced Topics<span></span></b></span></li>
+<li class="chapter" data-level="6" data-path="EE.html"><a href="EE.html"><i class="fa fa-check"></i><b>6</b> Extraction Speed Considerations<span></span></a>
+<ul>
+<li><a href="before-you-start-5.html#before-you-start-5">Before you start<span></span></a>
+<ul>
+<li><a href="before-you-start-5.html#direction-for-replication-5">Direction for replication<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="6.1" data-path="single-raster-layer.html"><a href="single-raster-layer.html"><i class="fa fa-check"></i><b>6.1</b> Single raster layer<span></span></a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="single-raster-layer.html"><a href="single-raster-layer.html#datasets"><i class="fa fa-check"></i><b>6.1.1</b> Datasets<span></span></a></li>
+<li class="chapter" data-level="6.1.2" data-path="single-raster-layer.html"><a href="single-raster-layer.html#parallelization"><i class="fa fa-check"></i><b>6.1.2</b> Parallelization<span></span></a></li>
+<li class="chapter" data-level="6.1.3" data-path="single-raster-layer.html"><a href="single-raster-layer.html#summary-1"><i class="fa fa-check"></i><b>6.1.3</b> Summary<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="many-multi-layer.html"><a href="many-multi-layer.html"><i class="fa fa-check"></i><b>6.2</b> Many multi-layer raster files<span></span></a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="many-multi-layer.html"><a href="many-multi-layer.html#datasets-1"><i class="fa fa-check"></i><b>6.2.1</b> Datasets<span></span></a></li>
+<li class="chapter" data-level="6.2.2" data-path="many-multi-layer.html"><a href="many-multi-layer.html#non-par-ext-multi"><i class="fa fa-check"></i><b>6.2.2</b> Non-parallelized extraction<span></span></a></li>
+<li class="chapter" data-level="6.2.3" data-path="many-multi-layer.html"><a href="many-multi-layer.html#approach-1-parallelize-over-polygons-and-do-regular-loop-over-year-month"><i class="fa fa-check"></i><b>6.2.3</b> Approach 1: parallelize over polygons and do regular loop over year-month<span></span></a></li>
+<li class="chapter" data-level="6.2.4" data-path="many-multi-layer.html"><a href="many-multi-layer.html#approach-2-parallelize-over-the-temporal-dimension-year-month"><i class="fa fa-check"></i><b>6.2.4</b> Approach 2: parallelize over the temporal dimension (year-month)<span></span></a></li>
+<li class="chapter" data-level="6.2.5" data-path="many-multi-layer.html"><a href="many-multi-layer.html#memory-consideration"><i class="fa fa-check"></i><b>6.2.5</b> Memory consideration<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="stars-basics.html"><a href="stars-basics.html"><i class="fa fa-check"></i><b>7</b> Spatiotemporal Raster Data Handling with <code>stars</code><span></span></a>
+<ul>
+<li><a href="before-you-start-6.html#before-you-start-6">Before you start<span></span></a>
+<ul>
+<li><a href="before-you-start-6.html#direction-for-replication-6">Direction for replication<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.1" data-path="stars-structure.html"><a href="stars-structure.html"><i class="fa fa-check"></i><b>7.1</b> Understanding the structure of a <code>stars</code> object<span></span></a></li>
+<li class="chapter" data-level="7.2" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html"><i class="fa fa-check"></i><b>7.2</b> Some basic operations on <code>stars</code> objects<span></span></a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html#subset-a-stars-object-by-index"><i class="fa fa-check"></i><b>7.2.1</b> Subset a <code>stars</code> object by index<span></span></a></li>
+<li class="chapter" data-level="7.2.2" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html#set-attribute-names"><i class="fa fa-check"></i><b>7.2.2</b> Set attribute names<span></span></a></li>
+<li class="chapter" data-level="7.2.3" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html#get-the-coordinate-reference-system"><i class="fa fa-check"></i><b>7.2.3</b> Get the coordinate reference system<span></span></a></li>
+<li class="chapter" data-level="7.2.4" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html#get-the-dimension-characteristics-and-values"><i class="fa fa-check"></i><b>7.2.4</b> Get the dimension characteristics and values<span></span></a></li>
+<li class="chapter" data-level="7.2.5" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html#attributes-to-dimensions-and-vice-versa"><i class="fa fa-check"></i><b>7.2.5</b> Attributes to dimensions, and vice versa<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="quick-visualization-for-exploration.html"><a href="quick-visualization-for-exploration.html"><i class="fa fa-check"></i><b>7.3</b> Quick visualization for exploration<span></span></a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="quick-visualization-for-exploration.html"><a href="quick-visualization-for-exploration.html#quick-static-map"><i class="fa fa-check"></i><b>7.3.1</b> quick static map<span></span></a></li>
+<li class="chapter" data-level="7.3.2" data-path="quick-visualization-for-exploration.html"><a href="quick-visualization-for-exploration.html#interactive-map"><i class="fa fa-check"></i><b>7.3.2</b> interactive map<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="read-write-stars.html"><a href="read-write-stars.html"><i class="fa fa-check"></i><b>7.4</b> Reading and writing raster data<span></span></a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="read-write-stars.html"><a href="read-write-stars.html#reading-raster-data"><i class="fa fa-check"></i><b>7.4.1</b> Reading raster data<span></span></a></li>
+<li class="chapter" data-level="7.4.2" data-path="read-write-stars.html"><a href="read-write-stars.html#writing-a-stars-object-to-a-file"><i class="fa fa-check"></i><b>7.4.2</b> Writing a <code>stars</code> object to a file<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="stars-set-time.html"><a href="stars-set-time.html"><i class="fa fa-check"></i><b>7.5</b> Setting the time dimension manually<span></span></a></li>
+<li class="chapter" data-level="7.6" data-path="dplyr-op.html"><a href="dplyr-op.html"><i class="fa fa-check"></i><b>7.6</b> <code>dplyr</code>-like operations<span></span></a>
+<ul>
+<li class="chapter" data-level="7.6.1" data-path="dplyr-op.html"><a href="dplyr-op.html#filter"><i class="fa fa-check"></i><b>7.6.1</b> <code>filter()</code><span></span></a></li>
+<li class="chapter" data-level="7.6.2" data-path="dplyr-op.html"><a href="dplyr-op.html#select"><i class="fa fa-check"></i><b>7.6.2</b> <code>select()</code><span></span></a></li>
+<li class="chapter" data-level="7.6.3" data-path="dplyr-op.html"><a href="dplyr-op.html#mutate"><i class="fa fa-check"></i><b>7.6.3</b> <code>mutate()</code><span></span></a></li>
+<li class="chapter" data-level="7.6.4" data-path="dplyr-op.html"><a href="dplyr-op.html#pull"><i class="fa fa-check"></i><b>7.6.4</b> <code>pull()</code><span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="merging-stars-objects-using-c-and-st_mosaic.html"><a href="merging-stars-objects-using-c-and-st_mosaic.html"><i class="fa fa-check"></i><b>7.7</b> Merging <code>stars</code> objects using <code>c()</code> and <code>st_mosaic()</code><span></span></a>
+<ul>
+<li class="chapter" data-level="7.7.1" data-path="merging-stars-objects-using-c-and-st_mosaic.html"><a href="merging-stars-objects-using-c-and-st_mosaic.html#merging-stars-objects-along-the-third-dimension-band"><i class="fa fa-check"></i><b>7.7.1</b> Merging <code>stars</code> objects along the third dimension (band)<span></span></a></li>
+<li class="chapter" data-level="7.7.2" data-path="merging-stars-objects-using-c-and-st_mosaic.html"><a href="merging-stars-objects-using-c-and-st_mosaic.html#merge-two"><i class="fa fa-check"></i><b>7.7.2</b> Merging <code>stars</code> objects of different attributes<span></span></a></li>
+<li class="chapter" data-level="7.7.3" data-path="merging-stars-objects-using-c-and-st_mosaic.html"><a href="merging-stars-objects-using-c-and-st_mosaic.html#merging-stars-objects-of-different-spatial-extents"><i class="fa fa-check"></i><b>7.7.3</b> Merging <code>stars</code> objects of different spatial extents<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.8" data-path="convert-to-rb.html"><a href="convert-to-rb.html"><i class="fa fa-check"></i><b>7.8</b> Convert from and to <code>Raster</code><span class="math inline">\(^*\)</span> or <code>SpatRaster</code> objects<span></span></a></li>
+</ul></li>
+<li class="part"><span><b>IV Extensions<span></span></b></span></li>
+<li class="chapter" data-level="8" data-path="create-maps.html"><a href="create-maps.html"><i class="fa fa-check"></i><b>8</b> Creating Maps using <code>ggplot2</code><span></span></a>
+<ul>
+<li><a href="before-you-start-7.html#before-you-start-7">Before you start<span></span></a>
+<ul>
+<li><a href="before-you-start-7.html#direction-for-replication-7">Direction for replication<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="8.1" data-path="geom-sf.html"><a href="geom-sf.html"><i class="fa fa-check"></i><b>8.1</b> Creating maps from <code>sf</code> objects<span></span></a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="geom-sf.html"><a href="geom-sf.html#datasets-2"><i class="fa fa-check"></i><b>8.1.1</b> Datasets<span></span></a></li>
+<li class="chapter" data-level="8.1.2" data-path="geom-sf.html"><a href="geom-sf.html#basic-usage-of-geom_sf"><i class="fa fa-check"></i><b>8.1.2</b> Basic usage of <code>geom_sf()</code><span></span></a></li>
+<li class="chapter" data-level="8.1.3" data-path="geom-sf.html"><a href="geom-sf.html#specifying-the-aesthetics"><i class="fa fa-check"></i><b>8.1.3</b> Specifying the aesthetics<span></span></a></li>
+<li class="chapter" data-level="8.1.4" data-path="geom-sf.html"><a href="geom-sf.html#plotting-multiple-spatial-objects-in-one-figure"><i class="fa fa-check"></i><b>8.1.4</b> Plotting multiple spatial objects in one figure<span></span></a></li>
+<li class="chapter" data-level="8.1.5" data-path="geom-sf.html"><a href="geom-sf.html#crs"><i class="fa fa-check"></i><b>8.1.5</b> CRS<span></span></a></li>
+<li class="chapter" data-level="8.1.6" data-path="geom-sf.html"><a href="geom-sf.html#faceting"><i class="fa fa-check"></i><b>8.1.6</b> Faceting<span></span></a></li>
+<li class="chapter" data-level="8.1.7" data-path="geom-sf.html"><a href="geom-sf.html#adding-texts-labels-on-a-map"><i class="fa fa-check"></i><b>8.1.7</b> Adding texts (labels) on a map<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="geom-raster.html"><a href="geom-raster.html"><i class="fa fa-check"></i><b>8.2</b> Raster data visualization: <code>geom_raster()</code> and <code>geom_stars()</code><span></span></a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="geom-raster.html"><a href="geom-raster.html#visualize-raster-with-geom_raster"><i class="fa fa-check"></i><b>8.2.1</b> Visualize <code>Raster</code><span class="math inline">\(^*\)</span> with <code>geom_raster()</code><span></span></a></li>
+<li class="chapter" data-level="8.2.2" data-path="geom-raster.html"><a href="geom-raster.html#visualize-stars-with-geom_raster"><i class="fa fa-check"></i><b>8.2.2</b> Visualize <code>stars</code> with <code>geom_raster()</code><span></span></a></li>
+<li class="chapter" data-level="8.2.3" data-path="geom-raster.html"><a href="geom-raster.html#visualize-stars-with-geom_stars"><i class="fa fa-check"></i><b>8.2.3</b> Visualize <code>stars</code> with <code>geom_stars()</code><span></span></a></li>
+<li class="chapter" data-level="8.2.4" data-path="geom-raster.html"><a href="geom-raster.html#adding-geom_sf-layers"><i class="fa fa-check"></i><b>8.2.4</b> adding <code>geom_sf()</code> layers<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="color-scale.html"><a href="color-scale.html"><i class="fa fa-check"></i><b>8.3</b> Color scale<span></span></a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="color-scale.html"><a href="color-scale.html#viridis-color-maps"><i class="fa fa-check"></i><b>8.3.1</b> Viridis color maps<span></span></a></li>
+<li class="chapter" data-level="8.3.2" data-path="color-scale.html"><a href="color-scale.html#rcolorbrewer-scale__distiller-and-scale__brewer"><i class="fa fa-check"></i><b>8.3.2</b> <code>RColorBrewer</code>: <code>scale_*_distiller()</code> and <code>scale_*_brewer()</code><span></span></a></li>
+<li class="chapter" data-level="8.3.3" data-path="color-scale.html"><a href="color-scale.html#colorspace-package"><i class="fa fa-check"></i><b>8.3.3</b> <code>colorspace</code> package<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="arranging-maps.html"><a href="arranging-maps.html"><i class="fa fa-check"></i><b>8.4</b> Arranging maps<span></span></a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="arranging-maps.html"><a href="arranging-maps.html#multiple-panels-of-figures-as-a-single-figure"><i class="fa fa-check"></i><b>8.4.1</b> Multiple panels of figures as a single figure<span></span></a></li>
+<li class="chapter" data-level="8.4.2" data-path="arranging-maps.html"><a href="arranging-maps.html#a-map-in-a-map-inset"><i class="fa fa-check"></i><b>8.4.2</b> A map in a map: inset<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="fine-tune.html"><a href="fine-tune.html"><i class="fa fa-check"></i><b>8.5</b> Fine-tuning maps for publication<span></span></a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="fine-tune.html"><a href="fine-tune.html#theme"><i class="fa fa-check"></i><b>8.5.1</b> Setting the theme<span></span></a></li>
+<li class="chapter" data-level="8.5.2" data-path="fine-tune.html"><a href="fine-tune.html#legend"><i class="fa fa-check"></i><b>8.5.2</b> Legend<span></span></a></li>
+<li class="chapter" data-level="8.5.3" data-path="fine-tune.html"><a href="fine-tune.html#facet-strips"><i class="fa fa-check"></i><b>8.5.3</b> Facet strips<span></span></a></li>
+<li class="chapter" data-level="8.5.4" data-path="fine-tune.html"><a href="fine-tune.html#north-arrow-and-scale-bar"><i class="fa fa-check"></i><b>8.5.4</b> North arrow and scale bar<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="ggsave.html"><a href="ggsave.html"><i class="fa fa-check"></i><b>8.6</b> Saving a <code>ggplot</code> object as an image<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="download-data.html"><a href="download-data.html"><i class="fa fa-check"></i><b>9</b> Download and process spatial datasets from within R<span></span></a>
+<ul>
+<li><a href="before-you-start-8.html#before-you-start-8">Before you start<span></span></a>
+<ul>
+<li><a href="before-you-start-8.html#direction-for-replication-8">Direction for replication<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="9.1" data-path="nass-quick.html"><a href="nass-quick.html"><i class="fa fa-check"></i><b>9.1</b> USDA NASS QuickStat with <code>tidyUSDA</code><span></span></a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="nass-quick.html"><a href="nass-quick.html#look-for-parameter-values"><i class="fa fa-check"></i><b>9.1.1</b> Look for parameter values<span></span></a></li>
+<li class="chapter" data-level="9.1.2" data-path="nass-quick.html"><a href="nass-quick.html#caveats"><i class="fa fa-check"></i><b>9.1.2</b> Caveats<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="CropScapeR.html"><a href="CropScapeR.html"><i class="fa fa-check"></i><b>9.2</b> CDL with <code>CropScapeR</code><span></span></a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="CropScapeR.html"><a href="CropScapeR.html#getcdldata-download-the-cdl-data-as-raster-data"><i class="fa fa-check"></i><b>9.2.1</b> <code>GetCDLData</code>: Download the CDL data as raster data<span></span></a></li>
+<li class="chapter" data-level="9.2.2" data-path="CropScapeR.html"><a href="CropScapeR.html#data-processing-after-downloading-data"><i class="fa fa-check"></i><b>9.2.2</b> Data processing after downloading data<span></span></a></li>
+<li class="chapter" data-level="9.2.3" data-path="CropScapeR.html"><a href="CropScapeR.html#other-forms-of-cdl-data"><i class="fa fa-check"></i><b>9.2.3</b> Other forms of CDL data<span></span></a></li>
+<li class="chapter" data-level="9.2.4" data-path="CropScapeR.html"><a href="CropScapeR.html#mac-problem"><i class="fa fa-check"></i><b>9.2.4</b> SSL certificate problem on Mac<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="download-prism.html"><a href="download-prism.html"><i class="fa fa-check"></i><b>9.3</b> PRISM with <code>prism</code><span></span></a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="download-prism.html"><a href="download-prism.html#basics"><i class="fa fa-check"></i><b>9.3.1</b> Basics<span></span></a></li>
+<li class="chapter" data-level="9.3.2" data-path="download-prism.html"><a href="download-prism.html#download-daily-prism-data-for-many-years-and-build-your-own-datasets"><i class="fa fa-check"></i><b>9.3.2</b> Download daily PRISM data for many years and build your own datasets<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="daymet-with-daymetr-and-feddata.html"><a href="daymet-with-daymetr-and-feddata.html"><i class="fa fa-check"></i><b>9.4</b> Daymet with <code>daymetr</code> and <code>FedData</code><span></span></a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="daymet-with-daymetr-and-feddata.html"><a href="daymet-with-daymetr-and-feddata.html#for-points-data"><i class="fa fa-check"></i><b>9.4.1</b> For points data<span></span></a></li>
+<li class="chapter" data-level="9.4.2" data-path="daymet-with-daymetr-and-feddata.html"><a href="daymet-with-daymetr-and-feddata.html#daymet-poly"><i class="fa fa-check"></i><b>9.4.2</b> For polygons data<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="gridMET.html"><a href="gridMET.html"><i class="fa fa-check"></i><b>9.5</b> gridMET<span></span></a>
+<ul>
+<li class="chapter" data-level="9.5.1" data-path="gridMET.html"><a href="gridMET.html#practical-examples"><i class="fa fa-check"></i><b>9.5.1</b> Practical Examples<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="appendix"><span><b>Appendix<span></span></b></span></li>
+<li class="chapter" data-level="A" data-path="par-comp.html"><a href="par-comp.html"><i class="fa fa-check"></i><b>A</b> Loop and Parallel Computing<span></span></a>
+<ul>
+<li><a href="before-you-start-9.html#before-you-start-9">Before you start<span></span></a>
+<ul>
+<li><a href="before-you-start-9.html#direction-for-replication-9">Direction for replication<span></span></a></li>
+<li><a href="before-you-start-9.html#packages-to-install-and-load">Packages to install and load<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="A.1" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html"><i class="fa fa-check"></i><b>A.1</b> Repetitive processes and looping<span></span></a>
+<ul>
+<li class="chapter" data-level="A.1.1" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html#what-is-looping"><i class="fa fa-check"></i><b>A.1.1</b> What is looping?<span></span></a></li>
+<li class="chapter" data-level="A.1.2" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html#for-loop"><i class="fa fa-check"></i><b>A.1.2</b> For loop<span></span></a></li>
+<li class="chapter" data-level="A.1.3" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html#for-loop-using-the-lapply-function"><i class="fa fa-check"></i><b>A.1.3</b> For loop using the <code>lapply()</code> function<span></span></a></li>
+<li class="chapter" data-level="A.1.4" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html#looping-over-multiple-variables-using-lapply"><i class="fa fa-check"></i><b>A.1.4</b> Looping over multiple variables using lapply()<span></span></a></li>
+<li class="chapter" data-level="A.1.5" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html#do-you-really-need-to-loop"><i class="fa fa-check"></i><b>A.1.5</b> Do you really need to loop?<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="A.2" data-path="parcomp.html"><a href="parcomp.html"><i class="fa fa-check"></i><b>A.2</b> Parallelization of embarrassingly parallel processes<span></span></a>
+<ul>
+<li class="chapter" data-level="A.2.1" data-path="parcomp.html"><a href="parcomp.html#mac-or-linux-users"><i class="fa fa-check"></i><b>A.2.1</b> Mac or Linux users<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="B" data-path="ggplot2-minimals.html"><a href="ggplot2-minimals.html"><i class="fa fa-check"></i><b>B</b> ggplot2 minimals<span></span></a></li>
+<li><a href="references.html#references">References<span></span></a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -521,18 +546,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   gtag('config', 'UA-59758608-3');
 </script>
 
-<div id="non-spatial-transformation-of-sf" class="section level2" number="2.8">
-<h2><span class="header-section-number">2.8</span> Non-spatial transformation of <code>sf</code></h2>
-<div id="using-dplyr" class="section level3" number="2.8.1">
-<h3><span class="header-section-number">2.8.1</span> Using <code>dplyr</code></h3>
+<div id="non-spatial-transformation-of-sf" class="section level2 hasAnchor" number="2.8">
+<h2><span class="header-section-number">2.8</span> Non-spatial transformation of <code>sf</code><a href="non-spatial-transformation-of-sf.html#non-spatial-transformation-of-sf" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="using-dplyr" class="section level3 hasAnchor" number="2.8.1">
+<h3><span class="header-section-number">2.8.1</span> Using <code>dplyr</code><a href="non-spatial-transformation-of-sf.html#using-dplyr" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>An important feature of an <code>sf</code> object is that it is basically a <code>data.frame</code> with geometric information stored as a variable (column). This means that transforming an <code>sf</code> object works just like transforming a <code>data.frame</code>. Basically, everything you can do to a <code>data.frame</code>, you can do to an <code>sf</code> as well. The code below just provides an example of basic operations including <code>dplyr::select()</code>, <code>dplyr::filter()</code>, and <code>dplyr::mutate()</code> in action with an <code>sf</code> object to just confirm that <code>dplyr</code> operations works with an <code>sf</code> object just like a <code>data.frame</code>.</p>
 <div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="non-spatial-transformation-of-sf.html#cb157-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- here is what the data looks like ---#</span></span>
 <span id="cb157-2"><a href="non-spatial-transformation-of-sf.html#cb157-2" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">select</span>(wells_sf, wellid, nrdname, acres, regdate, nrdname)</span></code></pre></div>
 <pre><code>Simple feature collection with 105822 features and 4 fields
-geometry type:  POINT
-dimension:      XY
-bbox:           xmin: -104.0531 ymin: 40.00161 xmax: -96.87681 ymax: 41.85942
-geographic CRS: NAD83
+Geometry type: POINT
+Dimension:     XY
+Bounding box:  xmin: -104.0531 ymin: 40.00161 xmax: -96.87681 ymax: 41.85942
+Geodetic CRS:  NAD83
 First 10 features:
    wellid           nrdname acres  regdate                   geometry
 1       2    Central Platte   160 12/30/55 POINT (-99.58401 40.69825)
@@ -548,18 +573,18 @@ First 10 features:
 <p>Notice that <code>geometry</code> column will be retained after <code>dplyr::select()</code> even if you did not tell R to keep it above.</p>
 <p>Let’s apply <code>dplyr::select()</code>, <code>dplyr::filter()</code>, and <code>dplyr::mutate()</code> to the dataset.</p>
 <div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="non-spatial-transformation-of-sf.html#cb159-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- do some transformations ---#</span></span>
-<span id="cb159-2"><a href="non-spatial-transformation-of-sf.html#cb159-2" aria-hidden="true" tabindex="-1"></a>wells_sf <span class="sc">%&gt;%</span> </span>
+<span id="cb159-2"><a href="non-spatial-transformation-of-sf.html#cb159-2" aria-hidden="true" tabindex="-1"></a>wells_sf <span class="sc">%&gt;%</span></span>
 <span id="cb159-3"><a href="non-spatial-transformation-of-sf.html#cb159-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">#--- select variables (geometry will always remain after select) ---#</span></span>
-<span id="cb159-4"><a href="non-spatial-transformation-of-sf.html#cb159-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(wellid, nrdname, acres, regdate, nrdname) <span class="sc">%&gt;%</span> </span>
+<span id="cb159-4"><a href="non-spatial-transformation-of-sf.html#cb159-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(wellid, nrdname, acres, regdate, nrdname) <span class="sc">%&gt;%</span></span>
 <span id="cb159-5"><a href="non-spatial-transformation-of-sf.html#cb159-5" aria-hidden="true" tabindex="-1"></a>  <span class="co">#--- removes observations with acre &lt; 30  ---#</span></span>
-<span id="cb159-6"><a href="non-spatial-transformation-of-sf.html#cb159-6" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(acres <span class="sc">&gt;</span> <span class="dv">30</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb159-6"><a href="non-spatial-transformation-of-sf.html#cb159-6" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(acres <span class="sc">&gt;</span> <span class="dv">30</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb159-7"><a href="non-spatial-transformation-of-sf.html#cb159-7" aria-hidden="true" tabindex="-1"></a>  <span class="co">#--- hectare instead of acre ---#</span></span>
-<span id="cb159-8"><a href="non-spatial-transformation-of-sf.html#cb159-8" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">hectare =</span> acres <span class="sc">*</span> <span class="fl">0.404686</span>) </span></code></pre></div>
+<span id="cb159-8"><a href="non-spatial-transformation-of-sf.html#cb159-8" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">hectare =</span> acres <span class="sc">*</span> <span class="fl">0.404686</span>)</span></code></pre></div>
 <pre><code>Simple feature collection with 63271 features and 5 fields
-geometry type:  POINT
-dimension:      XY
-bbox:           xmin: -104.0529 ymin: 40.00161 xmax: -96.87681 ymax: 41.73599
-geographic CRS: NAD83
+Geometry type: POINT
+Dimension:     XY
+Bounding box:  xmin: -104.0529 ymin: 40.00161 xmax: -96.87681 ymax: 41.73599
+Geodetic CRS:  NAD83
 First 10 features:
    wellid           nrdname acres  regdate                   geometry   hectare
 1       2    Central Platte   160 12/30/55 POINT (-99.58401 40.69825)  64.74976
@@ -574,10 +599,10 @@ First 10 features:
 10     12 Middle Republican   148 11/29/77 POINT (-101.1146 40.35631)  59.89353</code></pre>
 <p>Now, let’s try to get a summary of a variable by group using the <code>group_by()</code> and <code>summarize()</code> functions. Here, we use only the first 100 observations because <code>dplyr::summarize()</code> takes just too long.</p>
 <div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="non-spatial-transformation-of-sf.html#cb161-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- summary by group ---#</span></span>
-<span id="cb161-2"><a href="non-spatial-transformation-of-sf.html#cb161-2" aria-hidden="true" tabindex="-1"></a>wells_by_nrd <span class="ot">&lt;-</span> </span>
-<span id="cb161-3"><a href="non-spatial-transformation-of-sf.html#cb161-3" aria-hidden="true" tabindex="-1"></a>  wells_sf[<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, ] <span class="sc">%&gt;%</span> </span>
+<span id="cb161-2"><a href="non-spatial-transformation-of-sf.html#cb161-2" aria-hidden="true" tabindex="-1"></a>wells_by_nrd <span class="ot">&lt;-</span></span>
+<span id="cb161-3"><a href="non-spatial-transformation-of-sf.html#cb161-3" aria-hidden="true" tabindex="-1"></a>  wells_sf[<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, ] <span class="sc">%&gt;%</span></span>
 <span id="cb161-4"><a href="non-spatial-transformation-of-sf.html#cb161-4" aria-hidden="true" tabindex="-1"></a>  <span class="co">#--- group by nrdname ---#</span></span>
-<span id="cb161-5"><a href="non-spatial-transformation-of-sf.html#cb161-5" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(nrdname) <span class="sc">%&gt;%</span> </span>
+<span id="cb161-5"><a href="non-spatial-transformation-of-sf.html#cb161-5" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(nrdname) <span class="sc">%&gt;%</span></span>
 <span id="cb161-6"><a href="non-spatial-transformation-of-sf.html#cb161-6" aria-hidden="true" tabindex="-1"></a>  <span class="co">#--- summarize ---#</span></span>
 <span id="cb161-7"><a href="non-spatial-transformation-of-sf.html#cb161-7" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarize</span>(<span class="at">tot_acres =</span> <span class="fu">sum</span>(acres, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
 <span id="cb161-8"><a href="non-spatial-transformation-of-sf.html#cb161-8" aria-hidden="true" tabindex="-1"></a></span>
@@ -588,17 +613,17 @@ Geometry type: MULTIPOINT
 Dimension:     XY
 Bounding box:  xmin: -103.6467 ymin: 40.0475 xmax: -97.89758 ymax: 41.24492
 Geodetic CRS:  NAD83
-# A tibble: 8 x 3
-  nrdname       tot_acres                                               geometry
-  &lt;chr&gt;             &lt;dbl&gt;                                       &lt;MULTIPOINT [°]&gt;
-1 Central Plat…     6690. ((-99.00983 40.73009), (-99.03167 40.71927), (-99.026…
-2 Lower Republ…      350  ((-99.30403 40.05116), (-99.21946 40.05126), (-99.238…
-3 Middle Repub…     1396  ((-100.9216 40.18866), (-101.1663 40.36351), (-101.10…
-4 South Platte      1381  ((-103.6467 41.2375), (-103.6128 41.23761), (-103.622…
-5 Tri-Basin          480  ((-98.94967 40.64285), (-98.94906 40.65061), (-98.944…
-6 Twin Platte       1098. ((-100.9571 41.18633), (-100.8659 41.14635), (-101.04…
-7 Upper Big Bl…      330            ((-97.89758 40.86156), (-97.89998 40.86336))
-8 Upper Republ…      480             ((-101.8858 40.47776), (-101.6501 40.6012))</code></pre>
+# A tibble: 8 × 3
+  nrdname           tot_acres                                           geometry
+  &lt;chr&gt;                 &lt;dbl&gt;                                   &lt;MULTIPOINT [°]&gt;
+1 Central Platte        6690. ((-99.00983 40.73009), (-99.03167 40.71927), (-99…
+2 Lower Republican       350  ((-99.30403 40.05116), (-99.21946 40.05126), (-99…
+3 Middle Republican     1396  ((-100.9216 40.18866), (-101.1663 40.36351), (-10…
+4 South Platte          1381  ((-103.6467 41.2375), (-103.6128 41.23761), (-103…
+5 Tri-Basin              480  ((-98.94967 40.64285), (-98.94906 40.65061), (-98…
+6 Twin Platte           1098. ((-100.9571 41.18633), (-100.8659 41.14635), (-10…
+7 Upper Big Blue         330        ((-97.89758 40.86156), (-97.89998 40.86336))
+8 Upper Republican       480         ((-101.8858 40.47776), (-101.6501 40.6012))</code></pre>
 <p>So, we can summarize an <code>sf</code> by group using <code>dplyr::group_by()</code> and <code>dplyr::summarize()</code>. One interesting change that happened is the geometry variable. Each NRD now has <code>multipoint</code> sfg, which is the combination of all the wells (points) located inside the NRD. Now, it is hard to imagine that you need <code>summarized</code> geometries after group summary. Moreover, it is a very slow operation. If you have lots of free time, try running the above code with <code>wells_sf</code> instead of <code>wells_sf[1:100, ]</code>. I never waited for it to finish as it was running for a long long time. It is advised that you simply drop the geometry and turn the <code>sf</code> object into a <code>data.frame</code> (or <code>tibble</code>, <code>data.table</code>) first and then do group summary.</p>
 <div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="non-spatial-transformation-of-sf.html#cb163-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- remove geometry ---#</span></span>
 <span id="cb163-2"><a href="non-spatial-transformation-of-sf.html#cb163-2" aria-hidden="true" tabindex="-1"></a>wells_no_longer_sf <span class="ot">&lt;-</span> <span class="fu">st_drop_geometry</span>(wells_sf)</span>
@@ -613,12 +638,12 @@ Geodetic CRS:  NAD83
 5      6   15837 Central Platte   160  8/29/32      20
 6      7   90248 Central Platte   120  2/15/35      19</code></pre>
 <p>We can now do a group summary very quickly:</p>
-<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="non-spatial-transformation-of-sf.html#cb165-1" aria-hidden="true" tabindex="-1"></a>wells_no_longer_sf <span class="sc">%&gt;%</span> </span>
-<span id="cb165-2"><a href="non-spatial-transformation-of-sf.html#cb165-2" aria-hidden="true" tabindex="-1"></a> <span class="co">#--- group by nrdname ---#</span></span>
-<span id="cb165-3"><a href="non-spatial-transformation-of-sf.html#cb165-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(nrdname) <span class="sc">%&gt;%</span> </span>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="non-spatial-transformation-of-sf.html#cb165-1" aria-hidden="true" tabindex="-1"></a>wells_no_longer_sf <span class="sc">%&gt;%</span></span>
+<span id="cb165-2"><a href="non-spatial-transformation-of-sf.html#cb165-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">#--- group by nrdname ---#</span></span>
+<span id="cb165-3"><a href="non-spatial-transformation-of-sf.html#cb165-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(nrdname) <span class="sc">%&gt;%</span></span>
 <span id="cb165-4"><a href="non-spatial-transformation-of-sf.html#cb165-4" aria-hidden="true" tabindex="-1"></a>  <span class="co">#--- summarize ---#</span></span>
-<span id="cb165-5"><a href="non-spatial-transformation-of-sf.html#cb165-5" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarize</span>(<span class="at">tot_acres =</span> <span class="fu">sum</span>(acres, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) </span></code></pre></div>
-<pre><code># A tibble: 9 x 2
+<span id="cb165-5"><a href="non-spatial-transformation-of-sf.html#cb165-5" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarize</span>(<span class="at">tot_acres =</span> <span class="fu">sum</span>(acres, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
+<pre><code># A tibble: 9 × 2
   nrdname           tot_acres
   &lt;chr&gt;                 &lt;dbl&gt;
 1 Central Platte     1890918.
@@ -631,12 +656,12 @@ Geodetic CRS:  NAD83
 8 Upper Big Blue     1804782.
 9 Upper Republican    551906.</code></pre>
 </div>
-<div id="using-data.table" class="section level3" number="2.8.2">
-<h3><span class="header-section-number">2.8.2</span> Using <code>data.table</code></h3>
+<div id="using-data.table" class="section level3 hasAnchor" number="2.8.2">
+<h3><span class="header-section-number">2.8.2</span> Using <code>data.table</code><a href="non-spatial-transformation-of-sf.html#using-data.table" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The <code>data.table</code> package provides data wrangling options that are extremely fast (see <a href="https://h2oai.github.io/db-benchmark/">here</a> for various benchmark results). It particularly shines when datasets are large and is much faster than <code>dplyr</code>. However, it cannot be as naturally integrated into the workflow involving <code>sf</code> objects as <code>dplyr</code> can. Let’s convert an <code>sf</code> object of points into a <code>data.table</code> object using <code>data.table()</code>.</p>
 <div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="non-spatial-transformation-of-sf.html#cb167-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- convert an sf to data.table ---#</span></span>
 <span id="cb167-2"><a href="non-spatial-transformation-of-sf.html#cb167-2" aria-hidden="true" tabindex="-1"></a>(</span>
-<span id="cb167-3"><a href="non-spatial-transformation-of-sf.html#cb167-3" aria-hidden="true" tabindex="-1"></a>wells_dt <span class="ot">&lt;-</span> <span class="fu">data.table</span>(wells_sf)</span>
+<span id="cb167-3"><a href="non-spatial-transformation-of-sf.html#cb167-3" aria-hidden="true" tabindex="-1"></a>  wells_dt <span class="ot">&lt;-</span> <span class="fu">data.table</span>(wells_sf)</span>
 <span id="cb167-4"><a href="non-spatial-transformation-of-sf.html#cb167-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>        wellid ownerid        nrdname acres  regdate section
      1:      2  106106 Central Platte   160 12/30/55       3
@@ -668,237 +693,57 @@ Geodetic CRS:  NAD83
 <p>You see that <code>wells_dt</code> is no longer an <code>sf</code> object, but the geometry column still remains in the data.</p>
 <p>When you convert an <code>sf</code> of polygons into a <code>data.table</code>, then the geometry column appears to have lost the geometry information as all the entries are just <code>&lt;XY[number]&gt;</code>.</p>
 <div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="non-spatial-transformation-of-sf.html#cb171-1" aria-hidden="true" tabindex="-1"></a>(</span>
-<span id="cb171-2"><a href="non-spatial-transformation-of-sf.html#cb171-2" aria-hidden="true" tabindex="-1"></a>nc_dt <span class="ot">&lt;-</span> <span class="fu">data.table</span>(nc)</span>
+<span id="cb171-2"><a href="non-spatial-transformation-of-sf.html#cb171-2" aria-hidden="true" tabindex="-1"></a>  nc_dt <span class="ot">&lt;-</span> <span class="fu">data.table</span>(nc) <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span>
 <span id="cb171-3"><a href="non-spatial-transformation-of-sf.html#cb171-3" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<pre><code>      AREA PERIMETER CNTY_ CNTY_ID         NAME  FIPS FIPSNO CRESS_ID BIR74
-  1: 0.114     1.442  1825    1825         Ashe 37009  37009        5  1091
-  2: 0.061     1.231  1827    1827    Alleghany 37005  37005        3   487
-  3: 0.143     1.630  1828    1828        Surry 37171  37171       86  3188
-  4: 0.070     2.968  1831    1831    Currituck 37053  37053       27   508
-  5: 0.153     2.206  1832    1832  Northampton 37131  37131       66  1421
-  6: 0.097     1.670  1833    1833     Hertford 37091  37091       46  1452
-  7: 0.062     1.547  1834    1834       Camden 37029  37029       15   286
-  8: 0.091     1.284  1835    1835        Gates 37073  37073       37   420
-  9: 0.118     1.421  1836    1836       Warren 37185  37185       93   968
- 10: 0.124     1.428  1837    1837       Stokes 37169  37169       85  1612
- 11: 0.114     1.352  1838    1838      Caswell 37033  37033       17  1035
- 12: 0.153     1.616  1839    1839   Rockingham 37157  37157       79  4449
- 13: 0.143     1.663  1840    1840    Granville 37077  37077       39  1671
- 14: 0.109     1.325  1841    1841       Person 37145  37145       73  1556
- 15: 0.072     1.085  1842    1842        Vance 37181  37181       91  2180
- 16: 0.190     2.204  1846    1846      Halifax 37083  37083       42  3608
- 17: 0.053     1.171  1848    1848   Pasquotank 37139  37139       70  1638
- 18: 0.199     1.984  1874    1874       Wilkes 37193  37193       97  3146
- 19: 0.081     1.288  1880    1880      Watauga 37189  37189       95  1323
- 20: 0.063     1.000  1881    1881   Perquimans 37143  37143       72   484
- 21: 0.044     1.158  1887    1887       Chowan 37041  37041       21   751
- 22: 0.064     1.213  1892    1892        Avery 37011  37011        6   781
- 23: 0.086     1.267  1893    1893       Yadkin 37197  37197       99  1269
- 24: 0.128     1.554  1897    1897     Franklin 37069  37069       35  1399
- 25: 0.108     1.483  1900    1900      Forsyth 37067  37067       34 11858
- 26: 0.170     1.680  1903    1903     Guilford 37081  37081       41 16184
- 27: 0.111     1.392  1904    1904     Alamance 37001  37001        1  4672
- 28: 0.180     2.151  1905    1905       Bertie 37015  37015        8  1324
- 29: 0.104     1.294  1907    1907       Orange 37135  37135       68  3164
- 30: 0.077     1.271  1908    1908       Durham 37063  37063       32  7970
- 31: 0.142     1.640  1913    1913         Nash 37127  37127       64  4021
- 32: 0.059     1.319  1927    1927     Mitchell 37121  37121       61   671
- 33: 0.131     1.521  1928    1928    Edgecombe 37065  37065       33  3657
- 34: 0.122     1.516  1932    1932     Caldwell 37027  37027       14  3609
- 35: 0.080     1.307  1936    1936       Yancey 37199  37199      100   770
- 36: 0.118     1.899  1937    1937       Martin 37117  37117       59  1549
- 37: 0.219     2.130  1938    1938         Wake 37183  37183       92 14484
- 38: 0.118     1.601  1946    1946      Madison 37115  37115       58   765
- 39: 0.155     1.781  1947    1947      Iredell 37097  37097       49  4139
- 40: 0.069     1.201  1948    1948        Davie 37059  37059       30  1207
- 41: 0.066     1.070  1950    1950    Alexander 37003  37003        2  1333
- 42: 0.145     1.791  1951    1951     Davidson 37057  37057       29  5509
- 43: 0.134     1.755  1958    1958        Burke 37023  37023       12  3573
- 44: 0.100     1.331  1962    1962   Washington 37187  37187       94   990
- 45: 0.099     1.411  1963    1963      Tyrrell 37177  37177       89   248
- 46: 0.116     1.664  1964    1964     McDowell 37111  37111       56  1946
- 47: 0.201     1.805  1968    1968     Randolph 37151  37151       76  4456
- 48: 0.180     2.142  1973    1973      Chatham 37037  37037       19  1646
- 49: 0.094     1.307  1979    1979       Wilson 37195  37195       98  3702
- 50: 0.134     1.590  1980    1980        Rowan 37159  37159       80  4606
- 51: 0.168     1.791  1984    1984         Pitt 37147  37147       74  5094
- 52: 0.106     1.444  1986    1986      Catawba 37035  37035       18  5754
- 53: 0.168     1.995  1988    1988     Buncombe 37021  37021       11  7515
- 54: 0.207     1.851  1989    1989     Johnston 37101  37101       51  3999
- 55: 0.144     1.690  1996    1996      Haywood 37087  37087       44  2110
- 56: 0.094     3.640  2000    2000         Dare 37055  37055       28   521
- 57: 0.203     3.197  2004    2004     Beaufort 37013  37013        7  2692
- 58: 0.141     2.316  2013    2013        Swain 37173  37173       87   675
- 59: 0.070     1.105  2016    2016       Greene 37079  37079       40   870
- 60: 0.065     1.093  2026    2026          Lee 37105  37105       53  2252
- 61: 0.146     1.778  2027    2027   Rutherford 37161  37161       81  2992
- 62: 0.142     1.655  2029    2029        Wayne 37191  37191       96  6638
- 63: 0.154     1.680  2030    2030      Harnett 37085  37085       43  3776
- 64: 0.118     1.506  2032    2032    Cleveland 37045  37045       23  4866
- 65: 0.078     1.384  2034    2034      Lincoln 37109  37109       55  2216
- 66: 0.125     1.601  2039    2039      Jackson 37099  37099       50  1143
- 67: 0.181     1.980  2040    2040        Moore 37125  37125       63  2648
- 68: 0.143     1.887  2041    2041  Mecklenburg 37119  37119       60 21588
- 69: 0.091     1.321  2042    2042     Cabarrus 37025  37025       13  4099
- 70: 0.130     1.732  2044    2044   Montgomery 37123  37123       62  1258
- 71: 0.103     1.461  2045    2045       Stanly 37167  37167       84  2356
- 72: 0.095     1.471  2047    2047    Henderson 37089  37089       45  2574
- 73: 0.078     1.202  2056    2056       Graham 37075  37075       38   415
- 74: 0.104     1.548  2065    2065       Lenoir 37107  37107       54  3589
- 75: 0.098     1.389  2067    2067 Transylvania 37175  37175       88  1173
- 76: 0.091     1.470  2068    2068       Gaston 37071  37071       36  9014
- 77: 0.060     1.036  2071    2071         Polk 37149  37149       75   533
- 78: 0.131     1.677  2082    2082        Macon 37113  37113       57   797
- 79: 0.241     2.214  2083    2083      Sampson 37163  37163       82  3025
- 80: 0.082     1.388  2085    2085      Pamlico 37137  37137       69   542
- 81: 0.120     1.686  2088    2088     Cherokee 37039  37039       20  1027
- 82: 0.172     1.835  2090    2090   Cumberland 37051  37051       26 20366
- 83: 0.121     1.978  2091    2091        Jones 37103  37103       52   578
- 84: 0.163     1.716  2095    2095        Union 37179  37179       90  3915
- 85: 0.138     1.621  2096    2096        Anson 37007  37007        4  1570
- 86: 0.098     1.262  2097    2097         Hoke 37093  37093       47  1494
- 87: 0.167     2.709  2099    2099         Hyde 37095  37095       48   338
- 88: 0.204     1.871  2100    2100       Duplin 37061  37061       31  2483
- 89: 0.121     1.855  2107    2107     Richmond 37153  37153       77  2756
- 90: 0.051     1.096  2109    2109         Clay 37043  37043       22   284
- 91: 0.177     2.916  2119    2119       Craven 37049  37049       25  5868
- 92: 0.080     1.188  2123    2123     Scotland 37165  37165       83  2255
- 93: 0.195     1.783  2146    2146       Onslow 37133  37133       67 11158
- 94: 0.240     2.004  2150    2150      Robeson 37155  37155       78  7889
- 95: 0.125     2.868  2156    2156     Carteret 37031  37031       16  2414
- 96: 0.225     2.107  2162    2162       Bladen 37017  37017        9  1782
- 97: 0.214     2.152  2185    2185       Pender 37141  37141       71  1228
- 98: 0.240     2.365  2232    2232     Columbus 37047  37047       24  3350
- 99: 0.042     0.999  2238    2238  New Hanover 37129  37129       65  5526
-100: 0.212     2.024  2241    2241    Brunswick 37019  37019       10  2181
-      AREA PERIMETER CNTY_ CNTY_ID         NAME  FIPS FIPSNO CRESS_ID BIR74
-     SID74 NWBIR74 BIR79 SID79 NWBIR79 geometry
-  1:     1      10  1364     0      19     &lt;XY&gt;
-  2:     0      10   542     3      12     &lt;XY&gt;
-  3:     5     208  3616     6     260     &lt;XY&gt;
-  4:     1     123   830     2     145     &lt;XY&gt;
-  5:     9    1066  1606     3    1197     &lt;XY&gt;
-  6:     7     954  1838     5    1237     &lt;XY&gt;
-  7:     0     115   350     2     139     &lt;XY&gt;
-  8:     0     254   594     2     371     &lt;XY&gt;
-  9:     4     748  1190     2     844     &lt;XY&gt;
- 10:     1     160  2038     5     176     &lt;XY&gt;
- 11:     2     550  1253     2     597     &lt;XY&gt;
- 12:    16    1243  5386     5    1369     &lt;XY&gt;
- 13:     4     930  2074     4    1058     &lt;XY&gt;
- 14:     4     613  1790     4     650     &lt;XY&gt;
- 15:     4    1179  2753     6    1492     &lt;XY&gt;
- 16:    18    2365  4463    17    2980     &lt;XY&gt;
- 17:     3     622  2275     4     933     &lt;XY&gt;
- 18:     4     200  3725     7     222     &lt;XY&gt;
- 19:     1      17  1775     1      33     &lt;XY&gt;
- 20:     1     230   676     0     310     &lt;XY&gt;
- 21:     1     368   899     1     491     &lt;XY&gt;
- 22:     0       4   977     0       5     &lt;XY&gt;
- 23:     1      65  1568     1      76     &lt;XY&gt;
- 24:     2     736  1863     0     950     &lt;XY&gt;
- 25:    10    3919 15704    18    5031     &lt;XY&gt;
- 26:    23    5483 20543    38    7089     &lt;XY&gt;
- 27:    13    1243  5767    11    1397     &lt;XY&gt;
- 28:     6     921  1616     5    1161     &lt;XY&gt;
- 29:     4     776  4478     6    1086     &lt;XY&gt;
- 30:    16    3732 10432    22    4948     &lt;XY&gt;
- 31:     8    1851  5189     7    2274     &lt;XY&gt;
- 32:     0       1   919     2       4     &lt;XY&gt;
- 33:    10    2186  4359     9    2696     &lt;XY&gt;
- 34:     6     309  4249     9     360     &lt;XY&gt;
- 35:     0      12   869     1      10     &lt;XY&gt;
- 36:     2     883  1849     1    1033     &lt;XY&gt;
- 37:    16    4397 20857    31    6221     &lt;XY&gt;
- 38:     2       5   926     2       3     &lt;XY&gt;
- 39:     4    1144  5400     5    1305     &lt;XY&gt;
- 40:     1     148  1438     3     177     &lt;XY&gt;
- 41:     0     128  1683     2     150     &lt;XY&gt;
- 42:     8     736  7143     8     941     &lt;XY&gt;
- 43:     5     326  4314    15     407     &lt;XY&gt;
- 44:     5     521  1141     0     651     &lt;XY&gt;
- 45:     0     116   319     0     141     &lt;XY&gt;
- 46:     5     134  2215     5     128     &lt;XY&gt;
- 47:     7     384  5711    12     483     &lt;XY&gt;
- 48:     2     591  2398     3     687     &lt;XY&gt;
- 49:    11    1827  4706    13    2330     &lt;XY&gt;
- 50:     3    1057  6427     8    1504     &lt;XY&gt;
- 51:    14    2620  6635    11    3059     &lt;XY&gt;
- 52:     5     790  6883    21     914     &lt;XY&gt;
- 53:     9     930  9956    18    1206     &lt;XY&gt;
- 54:     6    1165  4780    13    1349     &lt;XY&gt;
- 55:     2      57  2463     8      62     &lt;XY&gt;
- 56:     0      43  1059     1      73     &lt;XY&gt;
- 57:     7    1131  2909     4    1163     &lt;XY&gt;
- 58:     3     281   883     2     406     &lt;XY&gt;
- 59:     4     534  1178     4     664     &lt;XY&gt;
- 60:     5     736  2949     6     905     &lt;XY&gt;
- 61:    12     495  3543     8     576     &lt;XY&gt;
- 62:    18    2593  8227    23    3073     &lt;XY&gt;
- 63:     6    1051  4789    10    1453     &lt;XY&gt;
- 64:    10    1491  5526    21    1729     &lt;XY&gt;
- 65:     8     302  2817     7     350     &lt;XY&gt;
- 66:     2     215  1504     5     307     &lt;XY&gt;
- 67:     5     844  3534     5    1151     &lt;XY&gt;
- 68:    44    8027 30757    35   11631     &lt;XY&gt;
- 69:     3     856  5669    20    1203     &lt;XY&gt;
- 70:     3     472  1598     8     588     &lt;XY&gt;
- 71:     5     370  3039     7     528     &lt;XY&gt;
- 72:     5     158  3679     8     264     &lt;XY&gt;
- 73:     0      40   488     1      45     &lt;XY&gt;
- 74:    10    1826  4225    14    2047     &lt;XY&gt;
- 75:     3      92  1401     4     104     &lt;XY&gt;
- 76:    11    1523 11455    26    2194     &lt;XY&gt;
- 77:     1      95   673     0      79     &lt;XY&gt;
- 78:     0       9  1157     3      22     &lt;XY&gt;
- 79:     4    1396  3447     4    1524     &lt;XY&gt;
- 80:     1     222   631     1     277     &lt;XY&gt;
- 81:     2      32  1173     1      42     &lt;XY&gt;
- 82:    38    7043 26370    57   10614     &lt;XY&gt;
- 83:     1     297   650     2     305     &lt;XY&gt;
- 84:     4    1034  5273     9    1348     &lt;XY&gt;
- 85:    15     952  1875     4    1161     &lt;XY&gt;
- 86:     7     987  1706     6    1172     &lt;XY&gt;
- 87:     0     134   427     0     169     &lt;XY&gt;
- 88:     4    1061  2777     7    1227     &lt;XY&gt;
- 89:     4    1043  3108     7    1218     &lt;XY&gt;
- 90:     0       1   419     0       5     &lt;XY&gt;
- 91:    13    1744  7595    18    2342     &lt;XY&gt;
- 92:     8    1206  2617    16    1436     &lt;XY&gt;
- 93:    29    2217 14655    23    3568     &lt;XY&gt;
- 94:    31    5904  9087    26    6899     &lt;XY&gt;
- 95:     5     341  3339     4     487     &lt;XY&gt;
- 96:     8     818  2052     5    1023     &lt;XY&gt;
- 97:     4     580  1602     3     763     &lt;XY&gt;
- 98:    15    1431  4144    17    1832     &lt;XY&gt;
- 99:    12    1633  6917     9    2100     &lt;XY&gt;
-100:     5     659  2655     6     841     &lt;XY&gt;
-     SID74 NWBIR74 BIR79 SID79 NWBIR79 geometry</code></pre>
+<pre><code>    AREA PERIMETER CNTY_ CNTY_ID        NAME  FIPS FIPSNO CRESS_ID BIR74 SID74
+1: 0.114     1.442  1825    1825        Ashe 37009  37009        5  1091     1
+2: 0.061     1.231  1827    1827   Alleghany 37005  37005        3   487     0
+3: 0.143     1.630  1828    1828       Surry 37171  37171       86  3188     5
+4: 0.070     2.968  1831    1831   Currituck 37053  37053       27   508     1
+5: 0.153     2.206  1832    1832 Northampton 37131  37131       66  1421     9
+6: 0.097     1.670  1833    1833    Hertford 37091  37091       46  1452     7
+   NWBIR74 BIR79 SID79 NWBIR79 geometry
+1:      10  1364     0      19  &lt;XY[1]&gt;
+2:      10   542     3      12  &lt;XY[1]&gt;
+3:     208  3616     6     260  &lt;XY[1]&gt;
+4:     123   830     2     145  &lt;XY[3]&gt;
+5:    1066  1606     3    1197  &lt;XY[1]&gt;
+6:     954  1838     5    1237  &lt;XY[1]&gt;</code></pre>
 <p>But, the geometry information is still there as you can see from this:</p>
 <div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="non-spatial-transformation-of-sf.html#cb173-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- take a look at what&#39;s inside the geometry column ---#</span></span>
-<span id="cb173-2"><a href="non-spatial-transformation-of-sf.html#cb173-2" aria-hidden="true" tabindex="-1"></a>nc_dt<span class="sc">$</span>geometry </span></code></pre></div>
-<pre><code>Geometry set for 100 features 
-geometry type:  MULTIPOLYGON
-dimension:      XY
-bbox:           xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965
-geographic CRS: NAD27
+<span id="cb173-2"><a href="non-spatial-transformation-of-sf.html#cb173-2" aria-hidden="true" tabindex="-1"></a>nc_dt<span class="sc">$</span>geometry</span></code></pre></div>
+<pre><code>Geometry set for 6 features 
+Geometry type: MULTIPOLYGON
+Dimension:     XY
+Bounding box:  xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965
+Geodetic CRS:  NAD27
 First 5 geometries:</code></pre>
 <div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="non-spatial-transformation-of-sf.html#cb175-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- check the class of the geometry column ---#</span></span>
-<span id="cb175-2"><a href="non-spatial-transformation-of-sf.html#cb175-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(nc_dt<span class="sc">$</span>geometry) </span></code></pre></div>
+<span id="cb175-2"><a href="non-spatial-transformation-of-sf.html#cb175-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(nc_dt<span class="sc">$</span>geometry)</span></code></pre></div>
 <pre><code>[1] &quot;sfc_MULTIPOLYGON&quot; &quot;sfc&quot;             </code></pre>
-<p>If you try to run <code>sf</code> operations on it, it will of course give you an error. Like this</p>
-<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="non-spatial-transformation-of-sf.html#cb177-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_buffer</span>(wells_dt, <span class="at">dist =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p>If you try to run <code>sf</code> operations on a <code>data.table</code> obejct with a geometry colum, it will of course give you an error. Like this</p>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="non-spatial-transformation-of-sf.html#cb177-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_buffer</span>(nc_dt, <span class="at">dist =</span> <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>Error in UseMethod(&quot;st_buffer&quot;): no applicable method for &#39;st_buffer&#39; applied to an object of class &quot;c(&#39;data.table&#39;, &#39;data.frame&#39;)&quot;</code></pre>
-<p>But, it is easy to revert a <code>data.table</code> object back to an <code>sf</code> object again by using the <code>st_as_sf()</code> function.</p>
-<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="non-spatial-transformation-of-sf.html#cb179-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- wells ---#</span></span>
-<span id="cb179-2"><a href="non-spatial-transformation-of-sf.html#cb179-2" aria-hidden="true" tabindex="-1"></a>(</span>
-<span id="cb179-3"><a href="non-spatial-transformation-of-sf.html#cb179-3" aria-hidden="true" tabindex="-1"></a>wells_sf_again <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(wells_dt)</span>
-<span id="cb179-4"><a href="non-spatial-transformation-of-sf.html#cb179-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>However, you can apply <code>sf</code> spatial operations only on the geometry like this:</p>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="non-spatial-transformation-of-sf.html#cb179-1" aria-hidden="true" tabindex="-1"></a>nc_dt<span class="sc">$</span>geometry <span class="sc">%&gt;%</span></span>
+<span id="cb179-2"><a href="non-spatial-transformation-of-sf.html#cb179-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_buffer</span>(<span class="at">dist =</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb179-3"><a href="non-spatial-transformation-of-sf.html#cb179-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
+<pre><code>Geometry set for 6 features 
+Geometry type: MULTIPOLYGON
+Dimension:     XY
+Bounding box:  xmin: -81.74315 ymin: 36.07122 xmax: -75.77203 ymax: 36.59095
+Geodetic CRS:  NAD27
+First 5 geometries:</code></pre>
+<p>Finally, it is easy to revert a <code>data.table</code> object back to an <code>sf</code> object again by using the <code>st_as_sf()</code> function.</p>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="non-spatial-transformation-of-sf.html#cb181-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- wells ---#</span></span>
+<span id="cb181-2"><a href="non-spatial-transformation-of-sf.html#cb181-2" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb181-3"><a href="non-spatial-transformation-of-sf.html#cb181-3" aria-hidden="true" tabindex="-1"></a>  wells_sf_again <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(wells_dt)</span>
+<span id="cb181-4"><a href="non-spatial-transformation-of-sf.html#cb181-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>Simple feature collection with 105822 features and 6 fields
-geometry type:  POINT
-dimension:      XY
-bbox:           xmin: -104.0531 ymin: 40.00161 xmax: -96.87681 ymax: 41.85942
-geographic CRS: NAD83
+Geometry type: POINT
+Dimension:     XY
+Bounding box:  xmin: -104.0531 ymin: 40.00161 xmax: -96.87681 ymax: 41.85942
+Geodetic CRS:  NAD83
 First 10 features:
    wellid ownerid           nrdname acres  regdate section
 1       2  106106    Central Platte   160 12/30/55       3
@@ -922,47 +767,38 @@ First 10 features:
 8  POINT (-103.0284 41.13243)
 9   POINT (-101.1193 40.3527)
 10 POINT (-101.1146 40.35631)</code></pre>
-<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="non-spatial-transformation-of-sf.html#cb181-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- nc polygons ---#</span></span>
-<span id="cb181-2"><a href="non-spatial-transformation-of-sf.html#cb181-2" aria-hidden="true" tabindex="-1"></a>(</span>
-<span id="cb181-3"><a href="non-spatial-transformation-of-sf.html#cb181-3" aria-hidden="true" tabindex="-1"></a>nc_sf_again <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(nc_dt)</span>
-<span id="cb181-4"><a href="non-spatial-transformation-of-sf.html#cb181-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<pre><code>Simple feature collection with 100 features and 14 fields
-geometry type:  MULTIPOLYGON
-dimension:      XY
-bbox:           xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965
-geographic CRS: NAD27
-First 10 features:
-    AREA PERIMETER CNTY_ CNTY_ID        NAME  FIPS FIPSNO CRESS_ID BIR74 SID74
-1  0.114     1.442  1825    1825        Ashe 37009  37009        5  1091     1
-2  0.061     1.231  1827    1827   Alleghany 37005  37005        3   487     0
-3  0.143     1.630  1828    1828       Surry 37171  37171       86  3188     5
-4  0.070     2.968  1831    1831   Currituck 37053  37053       27   508     1
-5  0.153     2.206  1832    1832 Northampton 37131  37131       66  1421     9
-6  0.097     1.670  1833    1833    Hertford 37091  37091       46  1452     7
-7  0.062     1.547  1834    1834      Camden 37029  37029       15   286     0
-8  0.091     1.284  1835    1835       Gates 37073  37073       37   420     0
-9  0.118     1.421  1836    1836      Warren 37185  37185       93   968     4
-10 0.124     1.428  1837    1837      Stokes 37169  37169       85  1612     1
-   NWBIR74 BIR79 SID79 NWBIR79                       geometry
-1       10  1364     0      19 MULTIPOLYGON (((-81.47276 3...
-2       10   542     3      12 MULTIPOLYGON (((-81.23989 3...
-3      208  3616     6     260 MULTIPOLYGON (((-80.45634 3...
-4      123   830     2     145 MULTIPOLYGON (((-76.00897 3...
-5     1066  1606     3    1197 MULTIPOLYGON (((-77.21767 3...
-6      954  1838     5    1237 MULTIPOLYGON (((-76.74506 3...
-7      115   350     2     139 MULTIPOLYGON (((-76.00897 3...
-8      254   594     2     371 MULTIPOLYGON (((-76.56251 3...
-9      748  1190     2     844 MULTIPOLYGON (((-78.30876 3...
-10     160  2038     5     176 MULTIPOLYGON (((-80.02567 3...</code></pre>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="non-spatial-transformation-of-sf.html#cb183-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- nc polygons ---#</span></span>
+<span id="cb183-2"><a href="non-spatial-transformation-of-sf.html#cb183-2" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb183-3"><a href="non-spatial-transformation-of-sf.html#cb183-3" aria-hidden="true" tabindex="-1"></a>  nc_sf_again <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(nc_dt)</span>
+<span id="cb183-4"><a href="non-spatial-transformation-of-sf.html#cb183-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>Simple feature collection with 6 features and 14 fields
+Geometry type: MULTIPOLYGON
+Dimension:     XY
+Bounding box:  xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965
+Geodetic CRS:  NAD27
+   AREA PERIMETER CNTY_ CNTY_ID        NAME  FIPS FIPSNO CRESS_ID BIR74 SID74
+1 0.114     1.442  1825    1825        Ashe 37009  37009        5  1091     1
+2 0.061     1.231  1827    1827   Alleghany 37005  37005        3   487     0
+3 0.143     1.630  1828    1828       Surry 37171  37171       86  3188     5
+4 0.070     2.968  1831    1831   Currituck 37053  37053       27   508     1
+5 0.153     2.206  1832    1832 Northampton 37131  37131       66  1421     9
+6 0.097     1.670  1833    1833    Hertford 37091  37091       46  1452     7
+  NWBIR74 BIR79 SID79 NWBIR79                       geometry
+1      10  1364     0      19 MULTIPOLYGON (((-81.47276 3...
+2      10   542     3      12 MULTIPOLYGON (((-81.23989 3...
+3     208  3616     6     260 MULTIPOLYGON (((-80.45634 3...
+4     123   830     2     145 MULTIPOLYGON (((-76.00897 3...
+5    1066  1606     3    1197 MULTIPOLYGON (((-77.21767 3...
+6     954  1838     5    1237 MULTIPOLYGON (((-76.74506 3...</code></pre>
 <p>So, this means that if you need fast data transformation, you can first turn an <code>sf</code> to a <code>data.table</code>, transform the data using the <code>data.table</code> functionality, and then revert back to <code>sf</code>. However, for most economists, the geometry variable itself is not of interest in the sense that it never enters econometric models. For most of us, the geographic information contained in the geometry variable is just a glue to tie two datasets together by geographic referencing. Once we get values of spatial variables of interest, there is no point in keeping your data as an sf object. Personally, whenever I no longer need to carry around the geometry variable, I immediately turn an sf object into a <code>data.table</code> for fast data transformation especially when the data is large.</p>
 <p>Those who know the <a href="https://github.com/tidyverse/dtplyr"><code>dtplyr</code> package</a> (it takes advantage of the speed of <code>data.table</code> while you can keep using <code>dplyr</code> syntax and functions) may wonder if it works well with <code>sf</code> objects. Nope:</p>
-<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="non-spatial-transformation-of-sf.html#cb183-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dtplyr)</span>
-<span id="cb183-2"><a href="non-spatial-transformation-of-sf.html#cb183-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb183-3"><a href="non-spatial-transformation-of-sf.html#cb183-3" aria-hidden="true" tabindex="-1"></a><span class="co">#--- convert an &quot;lazy&quot; data.table ---#</span></span>
-<span id="cb183-4"><a href="non-spatial-transformation-of-sf.html#cb183-4" aria-hidden="true" tabindex="-1"></a>wells_ldt <span class="ot">&lt;-</span> <span class="fu">lazy_dt</span>(wells_sf)  </span>
-<span id="cb183-5"><a href="non-spatial-transformation-of-sf.html#cb183-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb183-6"><a href="non-spatial-transformation-of-sf.html#cb183-6" aria-hidden="true" tabindex="-1"></a><span class="co">#--- try  ---#</span></span>
-<span id="cb183-7"><a href="non-spatial-transformation-of-sf.html#cb183-7" aria-hidden="true" tabindex="-1"></a><span class="fu">st_buffer</span>(wells_ldt, <span class="at">dist =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="non-spatial-transformation-of-sf.html#cb185-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dtplyr)</span>
+<span id="cb185-2"><a href="non-spatial-transformation-of-sf.html#cb185-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb185-3"><a href="non-spatial-transformation-of-sf.html#cb185-3" aria-hidden="true" tabindex="-1"></a><span class="co">#--- convert an &quot;lazy&quot; data.table ---#</span></span>
+<span id="cb185-4"><a href="non-spatial-transformation-of-sf.html#cb185-4" aria-hidden="true" tabindex="-1"></a>wells_ldt <span class="ot">&lt;-</span> <span class="fu">lazy_dt</span>(wells_sf)</span>
+<span id="cb185-5"><a href="non-spatial-transformation-of-sf.html#cb185-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb185-6"><a href="non-spatial-transformation-of-sf.html#cb185-6" aria-hidden="true" tabindex="-1"></a><span class="co">#--- try  ---#</span></span>
+<span id="cb185-7"><a href="non-spatial-transformation-of-sf.html#cb185-7" aria-hidden="true" tabindex="-1"></a><span class="fu">st_buffer</span>(wells_ldt, <span class="at">dist =</span> <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>Error in UseMethod(&quot;st_buffer&quot;): no applicable method for &#39;st_buffer&#39; applied to an object of class &quot;c(&#39;dtplyr_step_first&#39;, &#39;dtplyr_step&#39;)&quot;</code></pre>
 <p>By the way, this package is awesome if you really love <code>dplyr</code>, but want the speed of <code>data.table</code>. <code>dtplyr</code> is of course slightly slower than <code>data.table</code> because internal translations of <code>dplyr</code> language to <code>data.table</code> language have to happen first.<a href="#fn52" class="footnote-ref" id="fnref52"><sup>52</sup></a></p>
 </div>
@@ -978,12 +814,11 @@ First 10 features:
           </div>
         </div>
       </div>
-<a href="conv-sp.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="conv_sp.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="non-interactive-geometrical-operations.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -1002,6 +837,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -1022,6 +858,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection",
 "toc_depth": 3,

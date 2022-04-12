@@ -156,7 +156,7 @@ For demonstration, we use PRISM tmax data for the U.S. for January 2019 as a `st
 
 ```{r tmax-m1}
 (
-tmax_m8_y09_stars <- read_stars("./Data/PRISM_tmax_y2009_m8.tif") %>% 
+tmax_m8_y09_stars <- read_stars("Data/PRISM_tmax_y2009_m8.tif") %>% 
   setNames("tmax") %>% 
   filter(band <= 10) %>% 
   st_set_dimensions(

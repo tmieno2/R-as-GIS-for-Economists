@@ -22,7 +22,7 @@ opts_knit$set(root.dir = here())
 setwd(here())
 ```
 
-```{r, echo = FALSE, warning = FALSE, cache = FALSE}
+```{r, include = FALSE, cache = FALSE}
 #--- load packages ---#
 library(data.table)
 library(here)
@@ -136,7 +136,7 @@ The geographic focus of the project is the southwest corner of Nebraska consisti
 
 ```{r NE_county_data, echo = FALSE, results = "hide"}
 #--- Nebraska counties ---#
-NE_county <- 
+NE_county <-
   st_read(
     dsn = "Data",
     layer = "cb_2018_us_county_20m"
@@ -145,13 +145,13 @@ NE_county <-
   mutate(NAME = as.character(NAME)) %>%
   st_transform(32614)
 
-three_counties <- 
+three_counties <-
   st_read(dsn = "Data", layer = "urnrd") %>%
   st_transform(32614)
 ```
 
 ```{r Demo1_read_urnrd_borders}
-three_counties <- 
+three_counties <-
   st_read(dsn = "Data", layer = "urnrd") %>%
   #--- project to WGS84/UTM 14N ---#
   st_transform(32614)
@@ -172,18 +172,18 @@ We have already collected groundwater pumping data, so let's import it.
 ```{r Demo1_urnrd_gw_read}
 #--- groundwater pumping data ---#
 (
-urnrd_gw <- readRDS("Data/urnrd_gw_pumping.rds")
+  urnrd_gw <- readRDS("Data/urnrd_gw_pumping.rds")
 )
 ```
 
 `well_id` is the unique irrigation well identifier, and `vol_af` is the amount of groundwater pumped in acre-feet. This dataset is just a regular `data.frame` with coordinates. We need to convert this dataset into a object of class `sf` so that we can later identify irrigation wells located within a 2-mile radius of USGS monitoring wells (see Figure \@ref(fig:sp-dist-wells) for the spatial distribution of the irrigation wells).
 
 ```{r convert_to_sf}
-urnrd_gw_sf <- 
+urnrd_gw_sf <-
   urnrd_gw %>%
   #--- convert to sf ---#
   st_as_sf(coords = c("lon", "lat")) %>%
-  #--- set CRS WGS UTM 14 (you need to know the CRS of the coordinates to do this) ---# 
+  #--- set CRS WGS UTM 14 (you need to know the CRS of the coordinates to do this) ---#
   st_set_crs(32614)
 
 #--- now sf ---#
@@ -211,7 +211,7 @@ Let's download groundwater level data from NWIS first. The following code downlo
 
 ```{r gwl_data_download, eval = F}
 #--- download groundwater level data ---#
-NE_gwl <- 
+NE_gwl <-
   readNWISdata(
     stateCd = "Nebraska",
     startDate = "1990-01-01",
@@ -238,7 +238,7 @@ We calculate the average groundwater level in March by USGS monitoring well (rig
 
 ```{r avg_march_deptn}
 #--- Average depth to water table in March ---#
-NE_gwl_march <- 
+NE_gwl_march <-
   NE_gwl %>%
   mutate(
     date = as.Date(date),
@@ -258,11 +258,11 @@ head(NE_gwl_march, 10)
 Since `NE_gwl` is missing geographic coordinates for the monitoring wells, we will download them using the `readNWISsite()` function and select only the monitoring wells that are inside the three counties.  
 
 ```{r NE_sites}
-#--- get the list of site ids ---#  
+#--- get the list of site ids ---#
 NE_site_ls <- NE_gwl$site_no %>% unique()
 
-#--- get the locations of the site ids ---#  
-sites_info <- 
+#--- get the locations of the site ids ---#
+sites_info <-
   readNWISsite(siteNumbers = NE_site_ls) %>%
   dplyr::select(site_no, dec_lat_va, dec_long_va) %>%
   #--- turn the data into an sf object ---#
@@ -312,15 +312,15 @@ Now, we will get total nearby pumping by monitoring well and year.
 
 ```{r Demo1_summary_by_buffer, cache = TRUE}
 (
-total_pumping_nearby <- 
-  pumping_nearby %>%
-  #--- calculate total pumping by monitoring well ---#
-  group_by(site_no, year) %>%
-  summarize(nearby_pumping = sum(vol_af, na.rm = TRUE)) %>%
-  #--- NA means 0 pumping ---#  
-  mutate(
-    nearby_pumping = ifelse(is.na(nearby_pumping), 0, nearby_pumping)
-  )
+  total_pumping_nearby <-
+    pumping_nearby %>%
+    #--- calculate total pumping by monitoring well ---#
+    group_by(site_no, year) %>%
+    summarize(nearby_pumping = sum(vol_af, na.rm = TRUE)) %>%
+    #--- NA means 0 pumping ---#
+    mutate(
+      nearby_pumping = ifelse(is.na(nearby_pumping), 0, nearby_pumping)
+    )
 )
 ```
 
@@ -330,7 +330,7 @@ We now merge nearby pumping data to the groundwater level data, and transform th
 
 ```{r Demo_nearby_merge}
 #--- regression-ready data ---#
-reg_data <- 
+reg_data <-
   NE_gwl_march %>%
   #--- pick monitoring wells that are inside the three counties ---#
   filter(site_no %in% unique(sites_info$site_no)) %>%
@@ -356,10 +356,10 @@ Finally, we estimate the model using `feols()` from the `fixest` package (see [h
 
 ```{r Demo_reg_dwt}
 #--- OLS with site_no and year FEs (error clustered by site_no) ---#
-reg_dwt <- 
+reg_dwt <-
   feols(
     dwt_dif ~ nearby_pumping | site_no + year,
-    cluster = "site_no", 
+    cluster = "site_no",
     data = reg_data
   )
 ```
@@ -368,7 +368,7 @@ Here is the regression result.
 
 ```{r reg_dwt_disp}
 modelsummary(
-  reg_dwt, 
+  reg_dwt,
   stars = TRUE,
   gof_omit = "IC|Log|Adj|Within|Pseudo"
 )
@@ -442,7 +442,7 @@ pacman::p_load(
 + Run the following code to define the theme for map:
 
 ```{r define_theme}
-theme_for_map <- 
+theme_for_map <-
   theme(
     axis.ticks = element_blank(),
     axis.text = element_blank(),
@@ -493,7 +493,7 @@ Figure \@ref(fig:Demo2-show-the-map) shows the spatial distribution of the three
 ```{r Demo2-show-the-map, fig.cap = "Spatial distribution of yield, NH3, and EC", fig.height = 9, cache = TRUE}
 
 #--- yield map ---#
-g_yield <- 
+g_yield <-
   ggplot() +
   geom_sf(data = trial_design_16) +
   geom_sf(data = yield, aes(color = yield), size = 0.5) +
@@ -501,7 +501,7 @@ g_yield <-
   theme_for_map
 
 #--- NH3 map ---#
-g_NH3 <- 
+g_NH3 <-
   ggplot() +
   geom_sf(data = trial_design_16) +
   geom_sf(data = NH3_data, aes(color = aa_NH3), size = 0.5) +
@@ -509,7 +509,7 @@ g_NH3 <-
   theme_for_map
 
 #--- NH3 map ---#
-g_ec <- 
+g_ec <-
   ggplot() +
   geom_sf(data = trial_design_16) +
   geom_sf(data = ec, aes(color = ec), size = 0.5) +
@@ -574,7 +574,7 @@ Let's run the function to create six subplots within each of the experimental pl
 
 ```{r Demo2_get_subplots, cache = TRUE}
 #--- generate subplots ---#
-subplots <- 
+subplots <-
   lapply(
     1:nrow(trial_design_16),
     function(x) gen_subplots(trial_design_16[x, ], 6)
@@ -597,13 +597,13 @@ We now identify the mean value of corn yield, nitrogen rate, and EC for each of 
 
 ```{r Demo2_merge_join, cache = TRUE}
 (
-reg_data <- subplots %>%
-  #--- yield ---#
-  st_join(., aggregate(yield, ., mean), join = st_equals) %>%
-  #--- nitrogen ---#
-  st_join(., aggregate(NH3_data, ., mean), join = st_equals) %>%
-  #--- EC ---#
-  st_join(., aggregate(ec, ., mean), join = st_equals)
+  reg_data <- subplots %>%
+    #--- yield ---#
+    st_join(., aggregate(yield, ., mean), join = st_equals) %>%
+    #--- nitrogen ---#
+    st_join(., aggregate(NH3_data, ., mean), join = st_equals) %>%
+    #--- EC ---#
+    st_join(., aggregate(ec, ., mean), join = st_equals)
 )
 ``` 
 
@@ -629,7 +629,7 @@ Here are the visualization of the subplot-level data (Figure \@ref(fig:Demo2-sub
 Let's estimate the model and see the results:
 
 ```{r Demo2_results, dependson = "Demo2_merge_join", cache = TRUE}
-ols_res <- lm(yield ~ aa_NH3 + I(aa_NH3^2) + I(aa_NH3 * ec) + I(aa_NH3^2 * ec), data = reg_data) 
+ols_res <- lm(yield ~ aa_NH3 + I(aa_NH3^2) + I(aa_NH3 * ec) + I(aa_NH3^2 * ec), data = reg_data)
 
 modelsummary(
   ols_res,
@@ -735,7 +735,7 @@ The unit of analysis is artificial grids that we create over Iowa. The grids are
 
 ```{r Demo4_IA_grids} 
 #--- create regular grids (40 cells by 40 columns) over IA ---#
-IA_grids <- 
+IA_grids <-
   IA_boundary %>%
   #--- create grids ---#
   st_make_grid(, n = c(40, 40)) %>%
@@ -744,7 +744,7 @@ IA_grids <-
   #--- find the intersections of IA grids and IA polygon ---#
   st_intersection(., IA_boundary) %>%
   #--- make some of the invalid polygons valid ---#
-  st_make_valid() %>% 
+  st_make_valid() %>%
   #--- calculate the area of each grid ---#
   mutate(
     area = as.numeric(st_area(.)),
@@ -765,7 +765,7 @@ tm_shape(IA_boundary) +
   tm_shape(IA_grids) +
   tm_polygons(alpha = 0) +
   tm_layout(frame = FALSE)
-```  
+```
 
 ---
 
@@ -778,7 +778,7 @@ IA_cdl_2015 <- raster("Data/IA_cdl_2015.tif")
 ```{r Demo4_cdl_download, eval = F}
 #--- download the CDL data for IA in 2015 ---#
 (
-IA_cdl_2015 <- getCDL("Iowa", 2015)$IA2015
+  IA_cdl_2015 <- getCDL("Iowa", 2015)$IA2015
 )
 ```
 
@@ -789,7 +789,7 @@ Figure \@ref(fig:overlap-cdl-grid) shows the map of one of the IA grids and the 
 ```{r overlap-cdl-grid, fig.cap = "Spatial overlap of an IA grid and CDL layer", echo = FALSE, dependson = "Demo4_cdl_download"}
 temp_grid <- IA_grids[100, ]
 
-extent_grid <- 
+extent_grid <-
   temp_grid %>%
   st_transform(., projection(IA_cdl_2015)) %>%
   raster::extent()
@@ -811,7 +811,7 @@ We use `exactextractr::exact_extract()` to identify which cells of the CDL raste
 IA_grids_rp_cdl <- st_transform(IA_grids, projection(IA_cdl_2015))
 
 #--- extract crop type values and find frequencies ---#
-cdl_extracted <- 
+cdl_extracted <-
   exact_extract(IA_cdl_2015, IA_grids_rp_cdl) %>%
   lapply(., function(x) data.table(x)[, .N, by = value]) %>%
   #--- combine the list of data.tables into one data.table ---#
@@ -827,7 +827,7 @@ We then find the corn to soy ratio for each of the IA grids.
 
 ```{r Demo4_share_calc}
 #--- find corn/soy ratio ---#
-corn_soy <- 
+corn_soy <-
   cdl_extracted %>%
   #--- long to wide ---#
   dcast(.id ~ value, value.var = "share") %>%
@@ -871,7 +871,7 @@ When we use `get_prism_dailys()` to download data^[For this project, I could hav
 
 We now try to extract precipitation value by day for each of the IA grids by geographically overlaying IA grids onto the PRISM data layer and identify which PRISM cells each of the IA grid encompass. Figure \@ref(fig:Demo4-prism-crop) shows how the first IA grid overlaps with the PRISM cells^[Do not use `st_buffer()` for spatial objects in geographic coordinates (latitude, longitude) if you intend to use the created buffers for any serious IA (it is difficult to get the right distance parameter anyway.). Significant distortion will be introduced to the buffer due to the fact that one degree in latitude and longitude means different distances at the latitude of IA. Here, I am just creating a buffer to extract PRISM cells to display on the map.]. 
 
-```{r Demo4-prism-crop, fig.cap = "Spatial overlap of an IA grid over PRISM cells"}
+```{r Demo4-prism-crop, fig.cap = "Spatial overlap of an IA grid over PRISM cells", dependson = "Demo4_IA_grids"}
 #--- read a PRISM dataset ---#
 prism_whole <- raster("Data/PRISM/PRISM_ppt_stable_4kmD2_20140401_bil/PRISM_ppt_stable_4kmD2_20140401_bil.bil")
 
@@ -879,12 +879,12 @@ prism_whole <- raster("Data/PRISM/PRISM_ppt_stable_4kmD2_20140401_bil/PRISM_ppt_
 IA_grids_rp_prism <- st_transform(IA_grids, projection(prism_whole))
 
 #--- crop the PRISM data for the 1st IA grid ---#
-PRISM_1 <- crop(prism_whole, st_buffer(IA_grids_rp_prism[1, ], dist = 2000))
+PRISM_1 <- raster::crop(prism_whole, st_buffer(IA_grids_rp_prism[1, ], dist = 2000))
 
 #--- map them ---#
 tm_shape(PRISM_1) +
   tm_raster() +
-tm_shape(IA_grids_rp_prism[1, ]) +
+  tm_shape(IA_grids_rp_prism[1, ]) +
   tm_borders(col = "blue") +
   tm_layout(frame = NA)
 ```
@@ -943,7 +943,7 @@ extract_by_block <- function(i, files_per_core) {
     by = 1
   )
 
-  #--- extract values ---# 
+  #--- extract values ---#
   data_temp <- file_paths[file_index] %>% # get file names
     #--- stack files ---#
     stack() %>%
@@ -964,9 +964,9 @@ Now, let's run the function in parallel and calculate precipitation by period.
 
 ```{r parallel_prism_not_run, eval = FALSE}
 #--- run the function ---#
-precip_by_period <- 
+precip_by_period <-
   future_lapply(
-    1:num_core, 
+    1:num_core,
     function(x) extract_by_block(x, files_per_core)
   ) %>%
   rbindlist() %>%
@@ -1008,7 +1008,7 @@ Here is the regression results table.
 ```{r Demo4_reg_table}
 #--- regression table ---#
 modelsummary(
-  reg_results, 
+  reg_results,
   stars = TRUE,
   gof_omit = "IC|Log|Adj|Within|Pseudo"
 )
@@ -1085,7 +1085,7 @@ pacman::p_load(
 + Run the following code to define the theme for map:
 
 ```{r define_theme_2, eval = F}
-theme_for_map <- 
+theme_for_map <-
   theme(
     axis.ticks = element_blank(),
     axis.text = element_blank(),
@@ -1104,19 +1104,19 @@ We first download corn planted acreage data for 2018 from USDA NASS QuickStat se
 
 ```{r get_quicknass, results = "hide", cache = TRUE}
 (
-IL_corn_planted <- 
-  getQuickstat(
-  #--- use your own API key here fore replication ---#
-    key = key_get("usda_nass_qs_api"),
-    program = "SURVEY",
-    data_item = "CORN - ACRES PLANTED",
-    geographic_level = "COUNTY",
-    state = "ILLINOIS",
-    year = "2018",
-    geometry = TRUE
-  ) %>%
-  #--- keep only some of the variables ---#
-  dplyr::select(year, NAME, county_code, short_desc, Value)
+  IL_corn_planted <-
+    getQuickstat(
+      #--- use your own API key here fore replication ---#
+      key = key_get("usda_nass_qs_api"),
+      program = "SURVEY",
+      data_item = "CORN - ACRES PLANTED",
+      geographic_level = "COUNTY",
+      state = "ILLINOIS",
+      year = "2018",
+      geometry = TRUE
+    ) %>%
+    #--- keep only some of the variables ---#
+    dplyr::select(year, NAME, county_code, short_desc, Value)
 )
 ```
 
@@ -1139,7 +1139,7 @@ ggplot(IL_corn_planted) +
 Let's import the U.S. railroad data and reproject to the CRS of `IL_corn_planted`:
 
 ```{r Demo5_rail, dependson = "get_quicknass", cache = FALSE}
-rail_roads <- 
+rail_roads <-
   st_read(dsn = "Data/", layer = "tl_2015_us_rails") %>%
   #--- reproject to the CRS of IL_corn_planted ---#
   st_transform(st_crs(IL_corn_planted))
@@ -1181,7 +1181,7 @@ Here are the railroads for Richland County:
 ggplot() +
   geom_sf(data = dplyr::filter(IL_corn_planted, NAME == "Richland")) +
   geom_sf(
-    data = dplyr::filter(rails_IL_segmented, NAME == "Richland"), 
+    data = dplyr::filter(rails_IL_segmented, NAME == "Richland"),
     aes(color = LINEARID)
   ) +
   theme(legend.position = "bottom") +
@@ -1192,17 +1192,17 @@ We now calculate the travel distance (Great-circle distance) of each railroad pi
 
 ```{r rail_total_county}
 (
-rail_length_county <- 
-  mutate(
-    rails_IL_segmented,
-    length_in_m = as.numeric(st_length(rails_IL_segmented))
-  )  %>%
-  #--- geometry no longer needed ---#
-  st_drop_geometry() %>% 
-  #--- group by county ID ---#
-  group_by(county_code) %>%
-  #--- sum rail length by county ---#
-  summarize(length_in_m = sum(length_in_m))
+  rail_length_county <-
+    mutate(
+      rails_IL_segmented,
+      length_in_m = as.numeric(st_length(rails_IL_segmented))
+    ) %>%
+    #--- geometry no longer needed ---#
+    st_drop_geometry() %>%
+    #--- group by county ID ---#
+    group_by(county_code) %>%
+    #--- sum rail length by county ---#
+    summarize(length_in_m = sum(length_in_m))
 )
 ```
 
@@ -1288,7 +1288,7 @@ We have already collected annual groundwater pumping data by irrigation wells in
 ```{r Demo5_gw}
 #--- read in the data ---#
 (
-gw_KS_sf <- readRDS("Data/gw_KS_sf.rds")
+  gw_KS_sf <- readRDS("Data/gw_KS_sf.rds")
 )
 ```
 
@@ -1315,7 +1315,7 @@ We now need to get monthly precipitation and maximum temperature data. We have d
 
 ```{r Demo5_getdaymet}
 #--- get the geographic coordinates of the wells ---#
-well_locations <- 
+well_locations <-
   gw_KS_sf %>%
   unique(by = "well_id") %>%
   dplyr::select(well_id) %>%
@@ -1327,7 +1327,7 @@ get_daymet <- function(i) {
   temp_long <- well_locations[i, ]$X
   temp_lat <- well_locations[i, ]$Y
 
-  data_temp <- 
+  data_temp <-
     download_daymet(
       site = temp_site,
       lat = temp_lat,
@@ -1367,7 +1367,7 @@ Here is what one run (for the first well) of `get_daymet()` returns
 ```{r Demo5_one_run}
 #--- one run ---#
 (
-returned_data <- get_daymet(1)[]
+  returned_data <- get_daymet(1)[]
 )
 ```
 
@@ -1380,12 +1380,12 @@ plan(multiprocess, workers = num_cores) # set up cores
 
 #--- run get_daymet with parallelization ---#
 (
-all_daymet <- 
-  future_lapply(
-    1:nrow(well_locations), 
-    get_daymet
-  ) %>%
-  rbindlist()
+  all_daymet <-
+    future_lapply(
+      1:nrow(well_locations),
+      get_daymet
+    ) %>%
+    rbindlist()
 )
 ```
 
@@ -1400,10 +1400,10 @@ Before merging the Daymet data, we need to reshape the data into a wide format t
 
 ```{r Demo5_long_wide}
 #--- long to wide ---#
-daymet_to_merge <- 
-  all_daymet %>% 
+daymet_to_merge <-
+  all_daymet %>%
   dcast(
-    well_id + year ~ month, 
+    well_id + year ~ month,
     value.var = c("prcp", "tmax")
   )
 
@@ -1415,12 +1415,12 @@ Now, let's merge the weather data to the groundwater pumping dataset.
 
 ```{r Demo5_merge_weather}
 (
-reg_data <- 
-  data.table(gw_KS_sf) %>%
-  #--- keep only the relevant variables ---#
-  .[, .(well_id, year, af_used)] %>%
-  #--- join ---#
-  daymet_to_merge[., on = c("well_id", "year")]
+  reg_data <-
+    data.table(gw_KS_sf) %>%
+    #--- keep only the relevant variables ---#
+    .[, .(well_id, year, af_used)] %>%
+    #--- join ---#
+    daymet_to_merge[., on = c("well_id", "year")]
 )
 ```
 
@@ -1430,15 +1430,15 @@ Let's run regression and display the results.
 
 ```{r Demo5_reg_display}
 #--- run FE ---#
-reg_results <- 
+reg_results <-
   fixest::feols(
-  af_used ~ # dependent variable
-  prcp_4 + prcp_5 + prcp_6 + prcp_7 + prcp_8 + prcp_9 
-  + tmax_4 + tmax_5 + tmax_6 + tmax_7 + tmax_8 + tmax_9
-  | well_id + year, # FEs
-  cluster = "well_id", 
-  data = reg_data
-)
+    af_used ~ # dependent variable
+      prcp_4 + prcp_5 + prcp_6 + prcp_7 + prcp_8 + prcp_9
+        + tmax_4 + tmax_5 + tmax_6 + tmax_7 + tmax_8 + tmax_9 |
+        well_id + year, # FEs
+    cluster = "well_id",
+    data = reg_data
+  )
 
 #--- display regression results ---#
 modelsummary::modelsummary(

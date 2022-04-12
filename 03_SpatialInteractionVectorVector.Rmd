@@ -98,15 +98,15 @@ All the datasets that you need to import are available [here](https://www.dropbo
 
 Run the following code to install or load (if already installed) the `pacman` package, and then install or load (if already installed) the listed package inside the `pacman::p_load()` function.
 
-```{r Chap_3_packages}
+```{r Chap_3_packages, cache = F}
 if (!require("pacman")) install.packages("pacman")
 pacman::p_load(
-  sf, # vector data operations 
-  dplyr, # data wrangling 
-  data.table, # data wrangling 
-  ggplot2, # for map creation 
-  tmap # for map creation 
-) 
+  sf, # vector data operations
+  dplyr, # data wrangling
+  data.table, # data wrangling
+  ggplot2, # for map creation
+  tmap # for map creation
+)
 ```
 
 ## Topological relations {#topo}
@@ -288,16 +288,16 @@ First, let's import all the files we will use in this section.
 KS_counties <- readRDS("Data/KS_county_borders.rds")
 
 #--- HPA boundary ---#
-hpa <- st_read(dsn = "Data", layer = "hp_bound2010") %>% 
-  .[1, ] %>% 
-  st_transform(st_crs(KS_counties))  
+hpa <- st_read(dsn = "Data", layer = "hp_bound2010") %>%
+  .[1, ] %>%
+  st_transform(st_crs(KS_counties))
 
 #--- all the irrigation wells in KS ---#
-KS_wells <- readRDS("Data/Kansas_wells.rds") %>% 
+KS_wells <- readRDS("Data/Kansas_wells.rds") %>%
   st_transform(st_crs(KS_counties))
 
 #--- US railroad ---#
-rail_roads <- st_read(dsn = "Data", layer = "tl_2015_us_rails") %>% 
+rail_roads <- st_read(dsn = "Data", layer = "tl_2015_us_rails") %>%
   st_transform(st_crs(KS_counties)) 
 ```
 
@@ -423,13 +423,29 @@ tm_shape(hpa) +
 
 If you just want to flag wells that intersects with HPA instead of dropping the non-intersecting wells, use `st_intersects()`:
 
-```{r well_hpa_flag}
-#--- wells ---#
-KS_wells <- mutate(KS_wells, in_hpa  = st_intersects(KS_wells, hpa, sparse = FALSE))
+```{r well_hpa_flag, include = F}
+# KS_wells <- 
+#   mutate(
+#     KS_wells, 
+#     in_hpa = st_intersects(KS_wells, hpa, sparse = FALSE)
+#   )
 
-#--- take a look ---#
-dplyr::select(KS_wells, site, in_hpa)
+# saveRDS(KS_wells, "Data/KS_wells_with_in_hpa")
+
+KS_wells <- readRDS("Data/KS_wells_with_in_hpa")
 ```
+
+```{r well_hpa_flag_echo, eval = F}
+(
+KS_wells <- mutate(KS_wells, in_hpa = st_intersects(KS_wells, hpa, sparse = FALSE))
+)
+```
+
+```{r well_hpa_flag_show, echo = F}
+KS_wells
+```
+
+
 
 <!-- 
 #%%%%%%%%%%%%%%%%%%%%%

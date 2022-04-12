@@ -67,7 +67,7 @@ pacman::p_load(
   mapview, # create interactive maps
   dplyr, # data wrangling
   sf # vector data handling
-)  
+)
 ```
 
 ## Raster data object classes
@@ -78,7 +78,7 @@ Let's start with taking a look at raster data. We will use the CDL data for Iowa
 
 ```{r read_the_IA_cdl_data_run, echo = F, cache = F}
 (
-IA_cdl_2015 <- raster("Data/IA_cdl_2015.tif")
+  IA_cdl_2015 <- raster("Data/IA_cdl_2015.tif")
 )
 ```
 
@@ -95,7 +95,7 @@ IA_cdl_2016 <- raster("Data/IA_cdl_2016.tif")
 
 #--- stack the two ---#
 (
-IA_cdl_stack <- stack(IA_cdl_2015, IA_cdl_2016)
+  IA_cdl_stack <- stack(IA_cdl_2015, IA_cdl_2016)
 )
 ```
 
@@ -126,7 +126,7 @@ IA_cdl_2015_sr <- rast(IA_cdl_2015)
 IA_cdl_2015_sr
 ```
 
-You can see that the number of layers (`nlyr`) is $1$ because the original object is a `RasterLayer`, which by definition has only one layer. Now, let's convert a `RasterStack` to a `SpatRaster` using `terra::rast()`.  
+You can see that the number of layers (`nlyr` in dimensions) is $1$ because the original object is a `RasterLayer`, which by definition has only one layer. Now, let's convert a `RasterStack` to a `SpatRaster` using `terra::rast()`.  
 
 ```{r spat_raster_nl, cache = F}
 #--- convert to a SpatRaster ---#
@@ -153,13 +153,13 @@ IA_cdl_2016_sr <- rast(IA_cdl_2016)
 
 #--- concatenate ---#
 (
-IA_cdl_ml_sr <- c(IA_cdl_2015_sr, IA_cdl_2016_sr)
+  IA_cdl_ml_sr <- c(IA_cdl_2015_sr, IA_cdl_2016_sr)
 )
 ```
 
 ```{r SR-concatenate-show, cache = F}
 (
-IA_cdl_ml_sr <- c(IA_cdl_2015_sr, IA_cdl_2016_sr)
+  IA_cdl_ml_sr <- c(IA_cdl_2015_sr, IA_cdl_2016_sr)
 )
 ```
 
@@ -192,18 +192,22 @@ This works for any Raster$^*$ object and you do not have to pick the right funct
 
 As an example, let's use Illinois county border data. 
 
-```{r il_county}
+```{r il_county_echo, include = F}
 #--- Illinois county boundary ---#
 (
-IL_county <- tigris::counties(state = "Illinois")
+  IL_county <- tigris::counties(state = "Illinois")
 )
 ```
 
-You cannot convert an `sf` object to `SpatVector` object using `terra::vect()`.
+```{r il_county_eval, echo = F}
+IL_county
+```
+
+You can convert an `sf` object to `SpatVector` object using `terra::vect()`.
 
 ```{r to_sv}
 (
-IL_county_sv <- vect(IL_county)
+  IL_county_sv <- vect(IL_county)
 )
 ```
 
@@ -217,7 +221,7 @@ You use `terra::rast()` to read raster data of many common formats, and it shoul
 
 ```{r read_no_eval_terra, cache  =F}
 (
-IA_cdl_2015_sr <- rast("Data/IA_cdl_2015.tif") 
+  IA_cdl_2015_sr <- rast("Data/IA_cdl_2015.tif")
 )
 ```
 
@@ -232,7 +236,7 @@ files_list <- c("Data/IA_cdl_2015.tif", "Data/IA_cdl_2016.tif")
 
 #--- read the two at the same time ---#
 (
-multi_layer_sr <- rast(files_list) 
+  multi_layer_sr <- rast(files_list)
 )
 ```
 
@@ -281,7 +285,7 @@ You can access the values stored in a `SpatRaster` object using the `terra::valu
 
 ```{r values, eval = F}
 #--- terra::values ---#
-values_from_rs <- terra::values(IA_cdl_stack_sr) 
+values_from_rs <- terra::values(IA_cdl_stack_sr)
 
 #--- take a look ---#
 head(values_from_rs)
@@ -291,7 +295,7 @@ head(values_from_rs)
 # saveRDS(head(values_from_rs), "Data/values-from-rs.rds")
 
 (
-values_from_rs <- readRDS("Data/values-from-rs.rds")
+  values_from_rs <- readRDS("Data/values-from-rs.rds")
 )
 ``` 
 
@@ -317,28 +321,16 @@ readRDS("Data/IA_CDL_df.rds")
 
 <span style="color:red"> Note:</span> I have seen cases where a raster object is converted to a `data.frame` and then to 'sf' for the purpose of interacting it with polygons using `st_join()` to extract and assign cell values for the polygons (see Chapter \@ref(int-vv) for this type of operation). This is, however, not generally recommended for two reasons. First of all, it is much slower than using functions that work on a raster object and polygons directly to extract values for the polygons, such as `terra::extract()` or `exactextractr::exact_extract()`, which are introduced in Chapter \@ref(int-RV). This is primarily because converting a raster object to a `data.frame()` is very slow. Second, once a raster data object is converted to a point `sf` data, one can no longer weight cell values according to the degree of their overlaps with the target polygons. The only case I have found the conversion beneficial (or simply necessary) is to create a map using `ggplot()` from a raster object (the `tmap` package can work directly with raster objects.). While the desire to work with a `data.frame` is understandable as we are very comfortable with working on a `data.frame`, it is very likely that the conversion to a `data.frame` is not only unnecessary, but also inefficient^[If you are aware of cases where a conversion to `data.frame` is beneficial, please let me know. I will put them here.].  
  
-## Quick plot and interactive map
+## Quick visualization
 
 To have a quick visualization of the data values of `SpatRaster` objects, you can simply use `plot()`:
 
-```{r plot_stack, cache = F}
+```{r plot_stack, cache = TRUE}
 plot(IA_cdl_2015_sr)
 ```
 
-If you would like to have an interactive view of raster datasets, you can use the `tmap_leaflet()` function from the `tmap` package just like we did for `sf` objects in Chapter \@ref(int-vv). It still does not support `terra` objects, so you first need to convert a `SpatRaster` object into `Raster`$^*$ objects first. 
+For a more elaborate map using raster data, see Chapter \@ref(geom-raster). 
 
-<br>
-
-```{r int-map-raster, cache = F}
-tmap_leaflet(                                                      
-  tm_shape(as(IA_cdl_2015_sr, "Raster")) + # what sf to use for creating a map 
-  tm_raster() # what type of geometry to put on the map 
-) 
-```
-
-<br>
-
-By clicking on the white box beneath the $+$ and $-$ signs, you can pick the layers to display (here, CDL for Iowa in 2015 and 2016). Note that, in the map above, the raster values are modified because the number of cells of the raster layers are too large. `mapView()` reduced the resolution when creating the map, changing the values during the process. You can specify the maximum number of cells using the `mapview.maxpixels` option.
 
 ## Working with netCDFs {#work-with-netcdf}
 
@@ -349,15 +341,15 @@ It is worth talking about how to read a [netCDFs](https://pjbartlein.github.io/R
 downloader::download(
   url = str_c("http://www.northwestknowledge.net/metdata/data/pr_2018.nc"),
   destfile = "Data/pr_2018.nc",
-  mode = 'wb'
-) 
+  mode = "wb"
+)
 ```
 
 This code should have stored the data as **pr_2018.nc** in the **Data** folder. You can read a netCDF file using `terra::rast()`.
 
 ```{r }
 (
-pr_2018_gm <- rast("Data/pr_2018.nc")
+  pr_2018_gm <- rast("Data/pr_2018.nc")
 )
 ```
 
@@ -371,7 +363,7 @@ Since we have 365 layers and the number at the end of the layer names increase b
 
 ```{r }
 (
-pr_2018_nc <- ncdf4::nc_open("Data/pr_2018.nc")
+  pr_2018_nc <- ncdf4::nc_open("Data/pr_2018.nc")
 )
 ```
 
@@ -385,8 +377,8 @@ Actually, if we use `raster::brick()`, instead of `terra::rast()`, then we can s
 
 ```{r }
 (
-pr_2018_b <- brick("Data/pr_2018.nc")
-) 
+  pr_2018_b <- brick("Data/pr_2018.nc")
+)
 ```
 
 `SpatRaster` or `RasterBrick` objects are easier to work with as many useful functions accept them as inputs, but not the `ncdf4` object. Personally, I first scrutinize a netCDFs file using `nc_open()` and then import it as a `SpatRaster` or `RasterBrick` object^[Even though `RasterBrick` provides the description of how layers are named, I think it is a good practice to see the full description in the `ncdf4` object.]. Recovering the dates for the layers is particularly important as we often wrangle the resulting data based on date (e.g., subset the data so that you have only April to September). An example of date recovery can be seen in Chapter \@ref(gridMET). 

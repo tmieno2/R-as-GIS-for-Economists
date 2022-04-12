@@ -91,8 +91,8 @@ pacman::p_load(
   dplyr, # data wrangling
   data.table, # data wrangling
   tmap, # make maps
-  mapview # create an interactive map 
-)  
+  mapview # create an interactive map
+)
 ```
 
 ## Spatial Data Structure
@@ -101,7 +101,7 @@ Here we learn how the `sf` package stores spatial data along with the definition
 
 ```{r nc_import}
 #--- a dataset that comes with the sf package ---#
-nc <- st_read(system.file("shape/nc.shp", package="sf")) 
+nc <- st_read(system.file("shape/nc.shp", package = "sf"))
 ```
 
 ```{r nc-county, fig.cap = "North Carolina county boundary", echo = FALSE}
@@ -133,7 +133,7 @@ st_geometry(nc[1, ])[[1]][[1]]
 As you can see, the `sfg` consists of a number of points (pairs of two numbers). Connecting the points in the order they are stored delineates the Ashe County boundary.
 
 ```{r }
-plot(st_geometry(nc[1, ])) 
+plot(st_geometry(nc[1, ]))
 ``` 
 
 We will take a closer look at different types of `sfg` in the next section. 
@@ -166,7 +166,7 @@ The `sf` package uses a class of `sfg` (simple feature geometry) objects to repr
 
 ```{r sf_point}
 #--- create a POINT ---#
-a_point <- st_point(c(2,1))
+a_point <- st_point(c(2, 1))
 ```
 
 The `st_point()` function creates a `POINT` object when supplied with a vector of two numeric values. If you check the class of the newly created object,
@@ -184,7 +184,7 @@ A `LINESTRING` objects are represented by a sequence of points:
 
 ```{r linestrting}
 #--- collection of points in a matrix form ---#
-s1 <- rbind(c(2,3),c(3,4),c(3,5),c(1,5))
+s1 <- rbind(c(2, 3), c(3, 4), c(3, 5), c(1, 5))
 
 #--- see what s1 looks like ---#
 s1
@@ -210,11 +210,11 @@ A `POLYGON` is very similar to `LINESTRING` in the manner it is represented.
 
 ```{r polygon_1}
 #--- collection of points in a matrix form ---#
-p1 <- rbind(c(0,0), c(3,0), c(3,2), c(2,5), c(1,3), c(0,0))
+p1 <- rbind(c(0, 0), c(3, 0), c(3, 2), c(2, 5), c(1, 3), c(0, 0))
 
 #--- see what s1 looks like ---#
 p1
- #--- create a "POLYGON" ---#
+#--- create a "POLYGON" ---#
 a_polygon <- st_polygon(list(p1))
 
 #--- check the class ---#
@@ -228,10 +228,10 @@ Just like the `LINESTRING` object we created earlier, a `POLYGON` is represented
 
 ```{r polygon_hole}
 #--- a hole within p1 ---#
-p2 <- rbind(c(1,1), c(1,2), c(2,2), c(1,1))
+p2 <- rbind(c(1, 1), c(1, 2), c(2, 2), c(1, 1))
 
 #--- create a polygon with hole ---#
-a_plygon_with_a_hole <- st_polygon(list(p1,p2))
+a_plygon_with_a_hole <- st_polygon(list(p1, p2))
 
 #--- see what it looks like ---#
 plot(a_plygon_with_a_hole)
@@ -243,10 +243,10 @@ You can create a `MULTIPOLYGON` object in a similar manner. The only difference 
 
 ```{r multi_polygon}
 #--- second polygon ---#
-p3 <- rbind(c(4,0), c(5,0), c(5,3), c(4,2), c(4,0)) 
+p3 <- rbind(c(4, 0), c(5, 0), c(5, 3), c(4, 2), c(4, 0))
 
 #--- create a multipolygon ---#
-a_multipolygon <- st_multipolygon(list(list(p1,p2), list(p3)))
+a_multipolygon <- st_multipolygon(list(list(p1, p2), list(p3)))
 
 #--- see what it looks like ---#
 plot(a_multipolygon)
@@ -261,17 +261,17 @@ To make a simple feature geometry list-column (`sfc`), you can simply supply a l
 
 ```{r gen_sfc}
 #--- create an sfc ---#
-sfc_ex <- st_sfc(list(a_point,a_linestring,a_polygon,a_multipolygon))
+sfc_ex <- st_sfc(list(a_point, a_linestring, a_polygon, a_multipolygon))
 ```
 
 To create an `sf` object, you first add an `sfc` as a column to a `data.frame`.  
 
 ```{r add_sfc_to_df}
 #--- create a data.frame ---#
-df_ex <- data.frame(name=c('A','B','C','D'))
+df_ex <- data.frame(name = c("A", "B", "C", "D"))
 
 #--- add the sfc as a column ---#
-df_ex$geometry <- sfc_ex 
+df_ex$geometry <- sfc_ex
 
 #--- take a look ---#
 df_ex
@@ -307,11 +307,11 @@ The vast majority of people still use ArcGIS to handle spatial data, which has i
 
 ### Reading a shapefile
 
-We can use `st_read()` to read a shapefile. It reads in a shapefile and then turn the data into an sf object. Let's take a look at an example. 
+We can use `st_read()` to read a shapefile. It reads in a shapefile and then turn the data into an sf object. Let's take a look at an example.
 
 ```{r import_nc_shp, results = "hide"}
 #--- read a NE county boundary shapefile ---#
-nc_loaded <- st_read(dsn = "Data", "nc") 
+nc_loaded <- st_read(dsn = "Data", "nc")
 ```
 
 Typically, you have two arguments to specify for `st_read()`. The first one is `dsn`, which is basically the path to folder in which the shapefile you want to import is stored. The second one is the name of the shapefile. Notice that you do not add `.shp` extension to the file name: `nc`, not `nc.shp`.^[When storing a spatial dataset, ArcGIS divides the information into separate files. All of them have the same prefix, but have different extensions. We typically say we read a shapefile, but we really are importing all these files including the shapefile with the .shp extension. When you read those data, you just refer to the common prefix because you really are importing all the files, not just a .shp file.].
@@ -322,10 +322,10 @@ Writing an `sf` object as a shapefile is just as easy. You use the `st_write()` 
 
 ```{r write_nc, eval = FALSE}
 st_write(
-  nc_loaded, 
-  dsn = "Data", 
-  layer = "nc2", 
-  driver = "ESRI Shapefile", 
+  nc_loaded,
+  dsn = "Data",
+  layer = "nc2",
+  driver = "ESRI Shapefile",
   append = FALSE
 )
 ```
@@ -334,9 +334,9 @@ st_write(
 
 ```{r write_nc_error, error = TRUE}
 st_write(
-  nc_loaded, 
-  dsn = "Data", 
-  layer = "nc2", 
+  nc_loaded,
+  dsn = "Data",
+  layer = "nc2",
   driver = "ESRI Shapefile"
 )
 ```
@@ -433,7 +433,7 @@ st_crs(nc_utm17N_2)
 The easiest way to visualize an `sf` object is to use `plot()`:
 
 ```{r quick-plot, fig.cap = "Quick Visualization of an sf object"}
-plot(nc) 
+plot(nc)
 ```
 
 As you can see, `plot()` create a map for each variable where the spatial units are color-differentiated based on the values of the variable. For creating more elaborate maps that are of publication-quality, see Chapter \@ref(create-maps).  
@@ -444,13 +444,13 @@ Sometimes it is useful to be able to tell where certain spatial objects are and 
 
 ```{r nc-import-again, echo = F, results = "hide"}
 #--- read the NC county map data ---#
-nc <- st_read(system.file("shape/nc.shp", package="sf")) 
+nc <- st_read(system.file("shape/nc.shp", package = "sf"))
 ```
 
 ```{r interactive-nc-run, echo = F, cache = F, fig.cap = "Interactive map of North Carolina counties"}
 tmap_leaflet(
   tm_shape(nc) + # what sf to use for creating a map
-  tm_polygons() # what type of geometry to put on the map
+    tm_polygons() # what type of geometry to put on the map
 )
 ```
 
@@ -461,7 +461,7 @@ As you can see, if you put your cursor on a polygon (county) and click on it, th
 <!-- You can be selective in variables to be mapped and make the individual map layers for the selected variables using the `zcol` option. The following code picks `AREA` and `PERIMETER` variables.
 
 ```{r int-select, fig.cap = "Interactive map of North Carolina counties with select variables", cache = F, eval = F}
-mapView(nc, zcol = c("AREA", "PERIMETER"), burst = TRUE) 
+mapView(nc, zcol = c("AREA", "PERIMETER"), burst = TRUE)
 ```
 
 <br> -->
@@ -469,7 +469,7 @@ mapView(nc, zcol = c("AREA", "PERIMETER"), burst = TRUE)
 <!-- For the `zcol` option to work, you need to install the development version of the  `mapview` package using the following code (as of 06/04/2020). 
 
 ```{r mapview_install, eval = F}
-remotes::install_github("r-spatial/mapview@develop")  
+remotes::install_github("r-spatial/mapview@develop")
 ```
 
 By clicking on the white box^[You should see a stack of sheets on your RStudio instead of just a which box. For some unknown reasons, they do not show up in the documents generated by Rmarkdown.] beneath the $+$ and $-$ signs, you can pick the layers to display.
@@ -484,18 +484,18 @@ Alternatively, you could use the `tmap` package to create interactive maps. You 
 ```{r syntax-tmap, eval = F}
 #--- NOT RUN (for polygons) ---#
 tm_shape(sf) +
-  tm_polygons() 
+  tm_polygons()
 
 #--- NOT RUN (for points) ---#
 tm_shape(sf) +
-  tm_symbols() 
+  tm_symbols()
 ```
 
 This creates a static map of `nc` where county boundaries are drawn:
 
 ```{r statics-map}
 (
-tm_nc_polygons <- tm_shape(nc) + tm_polygons()  
+  tm_nc_polygons <- tm_shape(nc) + tm_polygons()
 )
 ```
 
@@ -532,7 +532,7 @@ Often times, you have a dataset with geographic coordinates as variables in a cs
 ```{r data_read_as_dataframe}
 #--- read irrigation well registration data ---#
 (
-wells <- readRDS('Data/well_registration.rds') 
+  wells <- readRDS("Data/well_registration.rds")
 )
 
 #--- check the class ---#
@@ -543,23 +543,23 @@ As you can see the data is not an `sf` object. In this dataset, `longdd` and `la
 
 ```{r dataframe_to_sf}
 #--- recognize it as an sf ---#
-wells_sf <- st_as_sf(wells, coords = c("longdd","latdd"))
+wells_sf <- st_as_sf(wells, coords = c("longdd", "latdd"))
 
 #--- take a look at the data ---#
-head(wells_sf[,1:5])
+head(wells_sf[, 1:5])
 ```
 
 Note that the CRS of `wells_sf` is NA. Obviously, $R$ does not know the reference system without you telling it. We know^[Yes, YOU need to know the CRS of your data.] that the geographic coordinates in the wells data is NAD 83 ($epsg=4269$) for this dataset. So, we can assign the right CRS using either `st_set_crs()` or `st_crs()`.
 
 ```{r set_crs}
 #--- set CRS ---#
-wells_sf <- st_set_crs(wells_sf, 4269) 
+wells_sf <- st_set_crs(wells_sf, 4269)
 
 #--- or this ---#
 st_crs(wells_sf) <- 4269
 
 #--- see the change ---#
-head(wells_sf[,1:5])
+head(wells_sf[, 1:5])
 ```
 
 <!-- 
@@ -581,7 +581,9 @@ class(wells_sp)
 ```
 
 <!-- ```{r }
-list(a_point, a_polygon) %>% st_sfc() %>% st_as_sf() %>% 
+list(a_point, a_polygon) %>%
+  st_sfc() %>%
+  st_as_sf() %>%
   as("Spatial")
 ```
 
@@ -623,23 +625,23 @@ Let's apply `dplyr::select()`, `dplyr::filter()`, and `dplyr::mutate()` to the d
 
 ```{r dplyr_transformation}
 #--- do some transformations ---#
-wells_sf %>% 
+wells_sf %>%
   #--- select variables (geometry will always remain after select) ---#
-  dplyr::select(wellid, nrdname, acres, regdate, nrdname) %>% 
+  dplyr::select(wellid, nrdname, acres, regdate, nrdname) %>%
   #--- removes observations with acre < 30  ---#
-  dplyr::filter(acres > 30) %>% 
+  dplyr::filter(acres > 30) %>%
   #--- hectare instead of acre ---#
-  dplyr::mutate(hectare = acres * 0.404686) 
+  dplyr::mutate(hectare = acres * 0.404686)
 ```
 
 Now, let's try to get a summary of a variable by group using the  `group_by()` and `summarize()` functions. Here, we use only the first 100 observations because `dplyr::summarize()` takes just too long. 
 
 ```{r summary}
 #--- summary by group ---#
-wells_by_nrd <- 
-  wells_sf[1:100, ] %>% 
+wells_by_nrd <-
+  wells_sf[1:100, ] %>%
   #--- group by nrdname ---#
-  dplyr::group_by(nrdname) %>% 
+  dplyr::group_by(nrdname) %>%
   #--- summarize ---#
   dplyr::summarize(tot_acres = sum(acres, na.rm = TRUE))
 
@@ -660,11 +662,11 @@ head(wells_no_longer_sf)
 We can now do a group summary very quickly:
 
 ```{r }
-wells_no_longer_sf %>% 
- #--- group by nrdname ---#
-  dplyr::group_by(nrdname) %>% 
+wells_no_longer_sf %>%
+  #--- group by nrdname ---#
+  dplyr::group_by(nrdname) %>%
   #--- summarize ---#
-  dplyr::summarize(tot_acres = sum(acres, na.rm = TRUE)) 
+  dplyr::summarize(tot_acres = sum(acres, na.rm = TRUE))
 ```
 
 ### Using `data.table`
@@ -674,7 +676,7 @@ The `data.table` package provides data wrangling options that are extremely fast
 ```{r st_to_dt_points}
 #--- convert an sf to data.table ---#
 (
-wells_dt <- data.table(wells_sf)
+  wells_dt <- data.table(wells_sf)
 )
 
 #--- check the class ---#
@@ -687,7 +689,7 @@ When you convert an `sf` of polygons into a `data.table`, then the geometry colu
 
 ```{r st_to_dt_poly}
 (
-nc_dt <- data.table(nc)
+  nc_dt <- data.table(nc) %>% head()
 )
 ```
 
@@ -695,29 +697,37 @@ But, the geometry information is still there as you can see from this:
 
 ```{r geometry_remains}
 #--- take a look at what's inside the geometry column ---#
-nc_dt$geometry 
+nc_dt$geometry
 
 #--- check the class of the geometry column ---#
-class(nc_dt$geometry) 
+class(nc_dt$geometry)
 ```
 
-If you try to run `sf` operations on it, it will of course give you an error. Like this
+If you try to run `sf` operations on a `data.table` obejct with a geometry colum, it will of course give you an error. Like this
 
 ```{r ch3_create_buffer, error = TRUE}
-st_buffer(wells_dt, dist = 2)
+st_buffer(nc_dt, dist = 2)
 ```
 
-But, it is easy to revert a `data.table` object back to an `sf` object again by using the `st_as_sf()` function. 
+However, you can apply `sf` spatial operations only on the geometry like this:
+
+```{r ch3_create_buffer_geom}
+nc_dt$geometry %>%
+  st_buffer(dist = 2) %>%
+  head()
+```
+
+Finally, it is easy to revert a `data.table` object back to an `sf` object again by using the `st_as_sf()` function. 
 
 ```{r table_to_sf}
 #--- wells ---#
 (
-wells_sf_again <- st_as_sf(wells_dt)
+  wells_sf_again <- st_as_sf(wells_dt)
 )
 
 #--- nc polygons ---#
 (
-nc_sf_again <- st_as_sf(nc_dt)
+  nc_sf_again <- st_as_sf(nc_dt)
 )
 ``` 
 
@@ -729,7 +739,7 @@ Those who know the [`dtplyr` package](https://github.com/tidyverse/dtplyr) (it t
 library(dtplyr)
 
 #--- convert an "lazy" data.table ---#
-wells_ldt <- lazy_dt(wells_sf)  
+wells_ldt <- lazy_dt(wells_sf)
 
 #--- try  ---#
 st_buffer(wells_ldt, dist = 2)
@@ -750,10 +760,10 @@ Let's create buffers around points. First, we read well locations data.
 
 ```{r points_import}
 #--- read wells location data ---#
-urnrd_wells_sf <- 
-  readRDS("Data/urnrd_wells.rds") %>% 
+urnrd_wells_sf <-
+  readRDS("Data/urnrd_wells.rds") %>%
   #--- project to UTM 14N WGS 84 ---#
-  st_transform(32614)  
+  st_transform(32614)
 ```
 
 Here is the spatial distribution of the wells (Figure \@ref(fig:urnrd-wells)). 
@@ -776,7 +786,7 @@ As you can see, there are many circles around wells with the radius of $1,600$ m
 ```{r buffer-points-map, fig.cap = "Buffers around wells"}
 tm_shape(wells_buffer) +
   tm_polygons(alpha = 0) +
-tm_shape(urnrd_wells_sf) +
+  tm_shape(urnrd_wells_sf) +
   tm_symbols(col = "red", size = 0.1) +
   tm_layout(frame = NA)
 ```
@@ -788,9 +798,9 @@ A practical application of buffer creation can be seen in Chapter \@ref(Demo1).
 We now create buffers around polygons. First, read NE county boundary data and select three counties (Chase, Dundy, and Perkins).
 
 ```{r ne_counties}
-NE_counties <- 
+NE_counties <-
   readRDS("Data/NE_county_borders.rds") %>%
-  filter(NAME %in% c("Perkins", "Dundy", "Chase")) %>% 
+  filter(NAME %in% c("Perkins", "Dundy", "Chase")) %>%
   st_transform(32614)
 ```
 
@@ -798,7 +808,7 @@ Here is what they look like (Figure \@ref(fig:map-three-counties)):
 
 ```{r map-three-counties, fig.cap = "Map of the three counties"}
 tm_shape(NE_counties) +
-  tm_polygons('NAME', palette="RdYlGn", contrast=.3, title="County") +
+  tm_polygons("NAME", palette = "RdYlGn", contrast = .3, title = "County") +
   tm_layout(frame = NA)
 ```
 
@@ -810,12 +820,12 @@ NE_buffer <- st_buffer(NE_counties, dist = 2000)
 
 ```{r buffer-county, fig.cap = "Buffers around the three counties"}
 tm_shape(NE_buffer) +
-  tm_polygons(col='blue',alpha=0.2) +
-tm_shape(NE_counties) +
-  tm_polygons('NAME', palette="RdYlGn", contrast=.3, title="County") + 
+  tm_polygons(col = "blue", alpha = 0.2) +
+  tm_shape(NE_counties) +
+  tm_polygons("NAME", palette = "RdYlGn", contrast = .3, title = "County") +
   tm_layout(
-    legend.outside=TRUE,
-    frame=FALSE
+    legend.outside = TRUE,
+    frame = FALSE
   )
 ```
 
@@ -828,7 +838,7 @@ The `st_area()` function calculates the area of polygons.
 ```{r get_area}
 #--- generate area by polygon ---#
 (
-NE_counties <- mutate(NE_counties, area = st_area(NE_counties))
+  NE_counties <- mutate(NE_counties, area = st_area(NE_counties))
 )
 ```
 
@@ -842,7 +852,7 @@ So, let's turn it into double.
 
 ```{r convert_to_numeric}
 (
-NE_counties <- mutate(NE_counties, area = as.numeric(area))
+  NE_counties <- mutate(NE_counties, area = as.numeric(area))
 )
 ```
 
@@ -855,7 +865,7 @@ The `st_centroid()` function finds the centroid of each polygon.
 ```{r gen_centroids}
 #--- create centroids ---#
 (
-NE_centroids <- st_centroid(NE_counties)
+  NE_centroids <- st_centroid(NE_counties)
 )
 ```
 
@@ -864,11 +874,11 @@ Here's the map of the output (Figure \@ref(fig:map-centroids)).
 ```{r map-centroids, fig.cap = "The centroids of the polygons"}
 tm_shape(NE_counties) +
   tm_polygons() +
-tm_shape(NE_centroids)+
-  tm_symbols(size=0.5) +
-tm_layout(
-    legend.outside=TRUE,
-    frame=FALSE
+  tm_shape(NE_centroids) +
+  tm_symbols(size = 0.5) +
+  tm_layout(
+    legend.outside = TRUE,
+    frame = FALSE
   )
 ```
 
@@ -877,11 +887,11 @@ It can be useful when creating a map with labels because the centroid of polygon
 ```{r cent-label, fig.cap = "County names placed at the centroids of the counties"}
 tm_shape(NE_counties) +
   tm_polygons() +
-tm_shape(NE_centroids)+
+  tm_shape(NE_centroids) +
   tm_text("NAME") +
-tm_layout(
-    legend.outside=TRUE,
-    frame=FALSE
+  tm_layout(
+    legend.outside = TRUE,
+    frame = FALSE
   )
 ```
 
@@ -894,7 +904,7 @@ We can use `st_length()` to calculate great circle distances^[Great circle dista
 ```{r railroad_import}
 #--- import US railroad data and take only the first 10 of it ---#
 (
-a_railroad <- rail_roads <- st_read(dsn = "Data", layer = "tl_2015_us_rails")[1:10, ]
+  a_railroad <- rail_roads <- st_read(dsn = "Data", layer = "tl_2015_us_rails")[1:10, ]
 )
 
 #--- check CRS ---#
@@ -905,7 +915,7 @@ It uses geodetic coordinate system. Let's calculate the great circle distance of
 
 ```{r get_distance}
 (
-a_railroad <- mutate(a_railroad, length = st_length(a_railroad))
+  a_railroad <- mutate(a_railroad, length = st_length(a_railroad))
 )
 ```
 
