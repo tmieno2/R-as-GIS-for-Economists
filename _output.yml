@@ -1,15 +1,33 @@
-bookdown::gitbook:
-  config:
-    toc:
-      collapse: subsection
-      toc_depth: 3
-      scroll_highlight: yes
-      before: |
-        <li><a href="./">R as GIS for Economists</a></li>
-      after: |
-        <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
-  includes:
-    before_body: header.html
-    # after_body: after.html
-  split_by: section
+# bookdown::gitbook:
+#   config:
+#     toc:
+#       collapse: subsection
+#       toc_depth: 3
+#       scroll_highlight: yes
+#       before: |
+#         <li><a href="./">R as GIS for Economists</a></li>
+#       after: |
+#         <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+#   includes:
+#     before_body: header.html
+#     # after_body: after.html
+#   split_by: section
 
+bookdown::bs4_book:
+  theme:
+    primary: "#3860b6" #links  
+    base_font: 
+      google: 
+        family: Lato
+    heading_font:
+      google:
+        family: Montserrat
+        wght: 600
+    code_font:
+      google: 
+        family: Roboto Mono
+    bg: "#fefefe" #backgrounds
+    fg: "#000000" #fonts
+  includes:
+    in_header: header.html
+  css: style.css
