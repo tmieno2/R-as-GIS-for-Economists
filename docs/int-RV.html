@@ -836,14 +836,14 @@ First 10 features:
 <span class="fu">tic</span><span class="op">(</span><span class="op">)</span>
 <span class="va">temp</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/extract.html">extract</a></span><span class="op">(</span><span class="va">prism_tmax_0701_KS_sr</span>, <span class="va">KS_wells_sv</span><span class="op">)</span>
 <span class="fu">toc</span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code>0.074 sec elapsed</code></pre>
+<pre><code>0.064 sec elapsed</code></pre>
 <div class="sourceCode" id="cb424"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#--- raster ---#</span>
 <span class="va">prism_tmax_0701_KS_lr</span> <span class="op">&lt;-</span> <span class="fu">as</span><span class="op">(</span><span class="va">prism_tmax_0701_KS_sr</span>, <span class="st">"Raster"</span><span class="op">)</span>
 <span class="fu">tic</span><span class="op">(</span><span class="op">)</span>
 <span class="va">temp</span> <span class="op">&lt;-</span> <span class="fu">raster</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/extract.html">extract</a></span><span class="op">(</span><span class="va">prism_tmax_0701_KS_lr</span>, <span class="va">KS_wells</span><span class="op">)</span>
 <span class="fu">toc</span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code>0.495 sec elapsed</code></pre>
+<pre><code>0.433 sec elapsed</code></pre>
 <p>As you can see, <code><a href="https://rdrr.io/pkg/terra/man/extract.html">terra::extract()</a></code> is much faster. The time differential between the two packages can be substantial as the raster data becomes larger.</p>
 </div>
 <div id="polygons-exact_extract-terraextract-and-rasterextract" class="section level3" number="5.3.2">
@@ -860,7 +860,7 @@ First 10 features:
     <span class="va">KS_county_sv</span>
   <span class="op">)</span>  
 <span class="fu">toc</span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code>0.082 sec elapsed</code></pre>
+<pre><code>0.078 sec elapsed</code></pre>
 <div class="sourceCode" id="cb428"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#--- exact_extract ---#</span>
 <span class="fu">tic</span><span class="op">(</span><span class="op">)</span>
@@ -871,7 +871,7 @@ First 10 features:
     progress <span class="op">=</span> <span class="cn">FALSE</span>
   <span class="op">)</span>  
 <span class="fu">toc</span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code>0.292 sec elapsed</code></pre>
+<pre><code>0.256 sec elapsed</code></pre>
 <div class="sourceCode" id="cb430"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#--- raster::extract ---#</span>
 <span class="fu">tic</span><span class="op">(</span><span class="op">)</span>
@@ -881,7 +881,7 @@ First 10 features:
     <span class="va">KS_county_sf</span>
   <span class="op">)</span>  
 <span class="fu">toc</span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code>2.819 sec elapsed</code></pre>
+<pre><code>2.905 sec elapsed</code></pre>
 <p>As you can see, <code><a href="https://rdrr.io/pkg/raster/man/extract.html">raster::extract()</a></code> is by far the slowest. <code><a href="https://rdrr.io/pkg/terra/man/extract.html">terra::extract()</a></code> is faster than <code><a href="https://isciences.gitlab.io/exactextractr/reference/exact_extract.html">exact_extract()</a></code>. However, once the raster data becomes larger (or spatially finer), then <code>exact_extact()</code> starts to shine.</p>
 <hr>
 <p>Let’s disaggregate the prism data by a factor of 10 to create a much larger raster data.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;We did not introduce this function as it is very rare that you need this function in research projects.&lt;/p&gt;"><sup>75</sup></a></p>
@@ -919,7 +919,7 @@ max value   :                               37.656 </code></pre>
     <span class="va">KS_county_sv</span>
   <span class="op">)</span>  
 <span class="fu">toc</span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code>4.907 sec elapsed</code></pre>
+<pre><code>5.01 sec elapsed</code></pre>
 <div class="sourceCode" id="cb440"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#--- exact extract ---#</span>
 <span class="fu">tic</span><span class="op">(</span><span class="op">)</span>
@@ -930,7 +930,7 @@ max value   :                               37.656 </code></pre>
     progress <span class="op">=</span> <span class="cn">FALSE</span>
   <span class="op">)</span>  
 <span class="fu">toc</span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code>0.322 sec elapsed</code></pre>
+<pre><code>0.32 sec elapsed</code></pre>
 <p>As you can see, <code><a href="https://isciences.gitlab.io/exactextractr/reference/exact_extract.html">exact_extract()</a></code> is considerably faster. The difference in time becomes even more pronounced as the size of the raster data becomes larger and the number of polygons are greater. The time difference of several seconds seem nothing, but imagine processing PRISM files for the entire US over 20 years, then you would appreciate the speed of <code><a href="https://isciences.gitlab.io/exactextractr/reference/exact_extract.html">exact_extract()</a></code>.</p>
 </div>
 <div id="single-layer-vs-multi-layer" class="section level3" number="5.3.3">
@@ -949,7 +949,7 @@ max value   :                               37.656 </code></pre>
 <span class="va">temp</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/extract.html">extract</a></span><span class="op">(</span><span class="va">prism_tmax_0701_KS_sr_10</span>, <span class="va">KS_county_sv</span><span class="op">)</span>
 <span class="va">temp</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/extract.html">extract</a></span><span class="op">(</span><span class="va">prism_tmax_0701_KS_sr_10</span>, <span class="va">KS_county_sv</span><span class="op">)</span>
 <span class="fu">toc</span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code>26.413 sec elapsed</code></pre>
+<pre><code>26.548 sec elapsed</code></pre>
 <div class="sourceCode" id="cb444"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#--- extract from a 5-layer SpatRaster ---#</span>
 <span class="fu">tic</span><span class="op">(</span><span class="op">)</span>
@@ -963,7 +963,7 @@ max value   :                               37.656 </code></pre>
   <span class="op">)</span>
 <span class="va">temp</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/extract.html">extract</a></span><span class="op">(</span><span class="va">prism_tmax_ml_5</span>, <span class="va">KS_county_sv</span><span class="op">)</span>
 <span class="fu">toc</span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code>6.448 sec elapsed</code></pre>
+<pre><code>6.254 sec elapsed</code></pre>
 <hr>
 <p><strong><code><a href="https://isciences.gitlab.io/exactextractr/reference/exact_extract.html">exact_extract()</a></code></strong></p>
 <div class="sourceCode" id="cb446"><pre class="downlit sourceCode r">
@@ -975,7 +975,7 @@ max value   :                               37.656 </code></pre>
 <span class="va">temp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://isciences.gitlab.io/exactextractr/reference/exact_extract.html">exact_extract</a></span><span class="op">(</span><span class="va">prism_tmax_0701_KS_sr_10</span>, <span class="va">KS_county_sf</span>, progress <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 <span class="va">temp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://isciences.gitlab.io/exactextractr/reference/exact_extract.html">exact_extract</a></span><span class="op">(</span><span class="va">prism_tmax_0701_KS_sr_10</span>, <span class="va">KS_county_sf</span>, progress <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 <span class="fu">toc</span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code>1.87 sec elapsed</code></pre>
+<pre><code>1.81 sec elapsed</code></pre>
 <div class="sourceCode" id="cb448"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#--- extract from from a 5-layer SpatRaster ---#</span>
 <span class="fu">tic</span><span class="op">(</span><span class="op">)</span>
@@ -994,7 +994,7 @@ max value   :                               37.656 </code></pre>
     progress <span class="op">=</span> <span class="cn">FALSE</span>
   <span class="op">)</span>
 <span class="fu">toc</span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code>0.511 sec elapsed</code></pre>
+<pre><code>0.506 sec elapsed</code></pre>
 <p>The reduction in computation time for both methods makes sense. Since both layers have exactly the same geographic extent and resolution, finding the polygons-cells correspondence is done once and then it can be used repeatedly across the layers for the multi-layer <code>SparRaster</code> and <code>RasterStack</code>. This clearly suggests that when you are processing many layers of the same spatial resolution and extent, you should first stack them and then extract values at the same time instead of processing them one by one as long as your memory allows you to do so.</p>
 <!-- There is much more to discuss about the computation speed of raster data extraction for polygons. For those who are interested in this topic, go to Chapter \@ref(EE). -->
 
