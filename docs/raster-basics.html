@@ -1,618 +1,699 @@
 <!DOCTYPE html>
-<html lang="" xml:lang="">
+<html lang="en">
 <head>
-
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 4 Raster Data Handling | R as GIS for Economists</title>
-  <meta name="description" content="This is a book for Economists who regularly use spatial datasets for their econometric work." />
-  <meta name="generator" content="bookdown 0.25 and GitBook 2.6.7" />
-
-  <meta property="og:title" content="Chapter 4 Raster Data Handling | R as GIS for Economists" />
-  <meta property="og:type" content="book" />
-  
-  <meta property="og:description" content="This is a book for Economists who regularly use spatial datasets for their econometric work." />
-  
-
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 4 Raster Data Handling | R as GIS for Economists" />
-  
-  <meta name="twitter:description" content="This is a book for Economists who regularly use spatial datasets for their econometric work." />
-  
-
-<meta name="author" content="Taro Mieno" />
-
-
-<meta name="date" content="2022-04-12" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-  
-  
-<link rel="prev" href="spatial-intersection-cropping-join.html"/>
-<link rel="next" href="before-you-start-3.html"/>
-<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
-<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
-
-
-
-
-
-
-
-
-<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
-<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
-<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
-<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
-<script src="libs/leaflet-1.3.1/leaflet.js"></script>
-<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
-<script src="libs/proj4-2.6.2/proj4.min.js"></script>
-<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
-<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
-<script src="libs/leaflet-binding-2.1.1/leaflet.js"></script>
-<script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script>
-<script src="libs/leaflet-providers-plugin-2.1.1/leaflet-providers-plugin.js"></script>
-<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="libs/datatables-binding-0.21/datatables.js"></script>
-<link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
-<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet" />
-<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script>
-<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
-
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 4 Raster Data Handling | R as GIS for Economists</title>
+<meta name="author" content="Taro Mieno">
+<meta name="description" content="Before you start In this chapter, we will learn how to use the raster and terra package to handle raster data. The raster package has been (and I must say still is) the most popular and commonly...">
+<meta name="generator" content="bookdown 0.25 with bs4_book()">
+<meta property="og:title" content="Chapter 4 Raster Data Handling | R as GIS for Economists">
+<meta property="og:type" content="book">
+<meta property="og:description" content="Before you start In this chapter, we will learn how to use the raster and terra package to handle raster data. The raster package has been (and I must say still is) the most popular and commonly...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 4 Raster Data Handling | R as GIS for Economists">
+<meta name="twitter:description" content="Before you start In this chapter, we will learn how to use the raster and terra package to handle raster data. The raster package has been (and I must say still is) the most popular and commonly...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
+<script src="libs/leaflet-1.3.1/leaflet.js"></script><link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
+<script src="libs/proj4-2.6.2/proj4.min.js"></script><script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script><link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
+<script src="libs/leaflet-binding-2.1.1/leaflet.js"></script><script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script><script src="libs/leaflet-providers-plugin-2.1.1/leaflet-providers-plugin.js"></script><link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="libs/datatables-binding-0.21/datatables.js"></script><link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet">
+<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script><link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
 <style type="text/css">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-</style>
-
-<style type="text/css">
-/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}
-</style>
-
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
 </head>
+<body data-spy="scroll" data-target="#toc">
 
-<body>
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
 
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">R as GIS for Economists</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
 
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
 
-  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
-
-    <div class="book-summary">
-      <nav role="navigation">
-
-<ul class="summary">
-<li><a href="./">R as GIS for Economists</a></li>
-
-<li class="divider"></li>
-<li><a href="index.html#welcome">Welcome<span></span></a></li>
-<li><a href="preface.html#preface">Preface<span></span></a>
-<ul>
-<li><a href="why-r-as-gis-for-economists.html#why-r-as-gis-for-economists">Why R as GIS for Economists?<span></span></a>
-<ul>
-<li><a href="why-r-as-gis-for-economists.html#r-vs-python">R vs Python<span></span></a></li>
-<li><a href="why-r-as-gis-for-economists.html#r-vs-arcgis-or-qgis">R vs ArcGIS or QGIS<span></span></a></li>
-<li><a href="why-r-as-gis-for-economists.html#summary">Summary<span></span></a></li>
-</ul></li>
-<li><a href="how-is-this-book-different-from-other-online-books-and-resources.html#how-is-this-book-different-from-other-online-books-and-resources">How is this book different from other online books and resources?<span></span></a></li>
-<li><a href="topics-covered-in-this-book.html#topics-covered-in-this-book">Topics covered in this book<span></span></a></li>
-<li><a href="conventions-of-the-book-and-some-notes.html#conventions-of-the-book-and-some-notes">Conventions of the book and some notes<span></span></a>
-<ul>
-<li><a href="conventions-of-the-book-and-some-notes.html#texts-in-gray-boxes">Texts in gray boxes<span></span></a></li>
-<li><a href="conventions-of-the-book-and-some-notes.html#colored-boxes">Colored Boxes<span></span></a></li>
-<li><a href="conventions-of-the-book-and-some-notes.html#parentheses-around-codes">Parentheses around codes<span></span></a></li>
-<li><a href="conventions-of-the-book-and-some-notes.html#footnotes">Footnotes<span></span></a></li>
-</ul></li>
-<li><a href="session-information.html#session-information">Session Information<span></span></a></li>
-</ul></li>
-<li class="part"><span><b>I Demonstration<span></span></b></span></li>
-<li class="chapter" data-level="1" data-path="demo.html"><a href="demo.html"><i class="fa fa-check"></i><b>1</b> R as GIS: Demonstrations<span></span></a>
-<ul>
-<li><a href="before-you-start.html#before-you-start">Before you start<span></span></a>
-<ul>
-<li><a href="before-you-start.html#target-audience">Target Audience<span></span></a></li>
-<li><a href="before-you-start.html#direction-for-replication">Direction for replication<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="1.1" data-path="Demo1.html"><a href="Demo1.html"><i class="fa fa-check"></i><b>1.1</b> Demonstration 1: The impact of groundwater pumping on depth to water table<span></span></a>
-<ul>
-<li class="chapter" data-level="1.1.1" data-path="Demo1.html"><a href="Demo1.html#project-overview"><i class="fa fa-check"></i><b>1.1.1</b> Project Overview<span></span></a></li>
-<li class="chapter" data-level="1.1.2" data-path="Demo1.html"><a href="Demo1.html#project-demonstration"><i class="fa fa-check"></i><b>1.1.2</b> Project Demonstration<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="1.2" data-path="demonstration-2-precision-agriculture.html"><a href="demonstration-2-precision-agriculture.html"><i class="fa fa-check"></i><b>1.2</b> Demonstration 2: Precision Agriculture<span></span></a>
-<ul>
-<li class="chapter" data-level="1.2.1" data-path="demonstration-2-precision-agriculture.html"><a href="demonstration-2-precision-agriculture.html#project-overview-1"><i class="fa fa-check"></i><b>1.2.1</b> Project Overview<span></span></a></li>
-<li class="chapter" data-level="1.2.2" data-path="demonstration-2-precision-agriculture.html"><a href="demonstration-2-precision-agriculture.html#project-demonstration-1"><i class="fa fa-check"></i><b>1.2.2</b> Project Demonstration<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="1.3" data-path="demo3.html"><a href="demo3.html"><i class="fa fa-check"></i><b>1.3</b> Demonstration 3: Land Use and Weather<span></span></a>
-<ul>
-<li class="chapter" data-level="1.3.1" data-path="demo3.html"><a href="demo3.html#project-overview-2"><i class="fa fa-check"></i><b>1.3.1</b> Project Overview<span></span></a></li>
-<li class="chapter" data-level="1.3.2" data-path="demo3.html"><a href="demo3.html#project-demonstration-2"><i class="fa fa-check"></i><b>1.3.2</b> Project Demonstration<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="1.4" data-path="demo4.html"><a href="demo4.html"><i class="fa fa-check"></i><b>1.4</b> Demonstration 4: The Impact of Railroad Presence on Corn Planted Acreage<span></span></a>
-<ul>
-<li class="chapter" data-level="1.4.1" data-path="demo4.html"><a href="demo4.html#project-overview-3"><i class="fa fa-check"></i><b>1.4.1</b> Project Overview<span></span></a></li>
-<li class="chapter" data-level="1.4.2" data-path="demo4.html"><a href="demo4.html#project-demonstration-3"><i class="fa fa-check"></i><b>1.4.2</b> Project Demonstration<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="1.5" data-path="demonstration-5-groundwater-use-for-agricultural-irrigation.html"><a href="demonstration-5-groundwater-use-for-agricultural-irrigation.html"><i class="fa fa-check"></i><b>1.5</b> Demonstration 5: Groundwater use for agricultural irrigation<span></span></a>
-<ul>
-<li class="chapter" data-level="1.5.1" data-path="demonstration-5-groundwater-use-for-agricultural-irrigation.html"><a href="demonstration-5-groundwater-use-for-agricultural-irrigation.html#project-overview-4"><i class="fa fa-check"></i><b>1.5.1</b> Project Overview<span></span></a></li>
-<li class="chapter" data-level="1.5.2" data-path="demonstration-5-groundwater-use-for-agricultural-irrigation.html"><a href="demonstration-5-groundwater-use-for-agricultural-irrigation.html#project-demonstration-4"><i class="fa fa-check"></i><b>1.5.2</b> Project Demonstration<span></span></a></li>
-</ul></li>
-</ul></li>
-<li class="part"><span><b>II Foundations<span></span></b></span></li>
-<li class="chapter" data-level="2" data-path="vector-basics.html"><a href="vector-basics.html"><i class="fa fa-check"></i><b>2</b> Vector Data Handling with <code>sf</code><span></span></a>
-<ul>
-<li><a href="before-you-start-1.html#before-you-start-1">Before you start<span></span></a>
-<ul>
-<li><a href="before-you-start-1.html#sf-or-sp"><code>sf</code> or <code>sp</code>?<span></span></a></li>
-<li><a href="before-you-start-1.html#direction-for-replication-1">Direction for replication<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="2.1" data-path="spatial-data-structure.html"><a href="spatial-data-structure.html"><i class="fa fa-check"></i><b>2.1</b> Spatial Data Structure<span></span></a></li>
-<li class="chapter" data-level="2.2" data-path="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html"><i class="fa fa-check"></i><b>2.2</b> Simple feature geometry, simple feature geometry list-column, and simple feature<span></span></a>
-<ul>
-<li class="chapter" data-level="2.2.1" data-path="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#simple-feature-geometry-sfg"><i class="fa fa-check"></i><b>2.2.1</b> Simple feature geometry (<code>sfg</code>)<span></span></a></li>
-<li class="chapter" data-level="2.2.2" data-path="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#create-simple-feature-geometry-list-column-sfc-and-simple-feature-sf-from-scratch"><i class="fa fa-check"></i><b>2.2.2</b> Create simple feature geometry list-column (<code>sfc</code>) and simple feature (<code>sf</code>) from scratch<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="2.3" data-path="reading-and-writing-vector-data.html"><a href="reading-and-writing-vector-data.html"><i class="fa fa-check"></i><b>2.3</b> Reading and writing vector data<span></span></a>
-<ul>
-<li class="chapter" data-level="2.3.1" data-path="reading-and-writing-vector-data.html"><a href="reading-and-writing-vector-data.html#reading-a-shapefile"><i class="fa fa-check"></i><b>2.3.1</b> Reading a shapefile<span></span></a></li>
-<li class="chapter" data-level="2.3.2" data-path="reading-and-writing-vector-data.html"><a href="reading-and-writing-vector-data.html#writing-to-a-shapefile"><i class="fa fa-check"></i><b>2.3.2</b> Writing to a shapefile<span></span></a></li>
-<li class="chapter" data-level="2.3.3" data-path="reading-and-writing-vector-data.html"><a href="reading-and-writing-vector-data.html#better-alternatives"><i class="fa fa-check"></i><b>2.3.3</b> Better alternatives<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="2.4" data-path="projection-with-a-different-coordinate-reference-systems.html"><a href="projection-with-a-different-coordinate-reference-systems.html"><i class="fa fa-check"></i><b>2.4</b> Projection with a different Coordinate Reference Systems<span></span></a></li>
-<li class="chapter" data-level="2.5" data-path="quick-and-interactive-view-of-an-sf-object.html"><a href="quick-and-interactive-view-of-an-sf-object.html"><i class="fa fa-check"></i><b>2.5</b> Quick and interactive view of an <code>sf</code> object<span></span></a>
-<ul>
-<li class="chapter" data-level="2.5.1" data-path="quick-and-interactive-view-of-an-sf-object.html"><a href="quick-and-interactive-view-of-an-sf-object.html#quick-view"><i class="fa fa-check"></i><b>2.5.1</b> Quick view<span></span></a></li>
-<li class="chapter" data-level="2.5.2" data-path="quick-and-interactive-view-of-an-sf-object.html"><a href="quick-and-interactive-view-of-an-sf-object.html#interactive-view"><i class="fa fa-check"></i><b>2.5.2</b> Interactive view<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="2.6" data-path="turning-a-data.frame-of-points-into-an-sf.html"><a href="turning-a-data.frame-of-points-into-an-sf.html"><i class="fa fa-check"></i><b>2.6</b> Turning a data.frame of points into an <code>sf</code><span></span></a></li>
-<li class="chapter" data-level="2.7" data-path="conv_sp.html"><a href="conv_sp.html"><i class="fa fa-check"></i><b>2.7</b> Conversion to and from sp objects<span></span></a></li>
-<li class="chapter" data-level="2.8" data-path="non-spatial-transformation-of-sf.html"><a href="non-spatial-transformation-of-sf.html"><i class="fa fa-check"></i><b>2.8</b> Non-spatial transformation of <code>sf</code><span></span></a>
-<ul>
-<li class="chapter" data-level="2.8.1" data-path="non-spatial-transformation-of-sf.html"><a href="non-spatial-transformation-of-sf.html#using-dplyr"><i class="fa fa-check"></i><b>2.8.1</b> Using <code>dplyr</code><span></span></a></li>
-<li class="chapter" data-level="2.8.2" data-path="non-spatial-transformation-of-sf.html"><a href="non-spatial-transformation-of-sf.html#using-data.table"><i class="fa fa-check"></i><b>2.8.2</b> Using <code>data.table</code><span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="2.9" data-path="non-interactive-geometrical-operations.html"><a href="non-interactive-geometrical-operations.html"><i class="fa fa-check"></i><b>2.9</b> Non-interactive geometrical operations<span></span></a>
-<ul>
-<li class="chapter" data-level="2.9.1" data-path="non-interactive-geometrical-operations.html"><a href="non-interactive-geometrical-operations.html#st_buffer"><i class="fa fa-check"></i><b>2.9.1</b> st_buffer<span></span></a></li>
-<li class="chapter" data-level="2.9.2" data-path="non-interactive-geometrical-operations.html"><a href="non-interactive-geometrical-operations.html#st_area"><i class="fa fa-check"></i><b>2.9.2</b> st_area<span></span></a></li>
-<li class="chapter" data-level="2.9.3" data-path="non-interactive-geometrical-operations.html"><a href="non-interactive-geometrical-operations.html#st_centroid"><i class="fa fa-check"></i><b>2.9.3</b> st_centroid<span></span></a></li>
-<li class="chapter" data-level="2.9.4" data-path="non-interactive-geometrical-operations.html"><a href="non-interactive-geometrical-operations.html#st_length"><i class="fa fa-check"></i><b>2.9.4</b> st_length<span></span></a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="3" data-path="int-vv.html"><a href="int-vv.html"><i class="fa fa-check"></i><b>3</b> Spatial Interactions of Vector Data: Subsetting and Joining<span></span></a>
-<ul>
-<li><a href="before-you-start-2.html#before-you-start-2">Before you start<span></span></a>
-<ul>
-<li><a href="before-you-start-2.html#direction-for-replication-2">Direction for replication<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="3.1" data-path="topo.html"><a href="topo.html"><i class="fa fa-check"></i><b>3.1</b> Topological relations<span></span></a>
-<ul>
-<li class="chapter" data-level="3.1.1" data-path="topo.html"><a href="topo.html#st_intersects"><i class="fa fa-check"></i><b>3.1.1</b> st_intersects()<span></span></a></li>
-<li class="chapter" data-level="3.1.2" data-path="topo.html"><a href="topo.html#st_is_within_distance"><i class="fa fa-check"></i><b>3.1.2</b> st_is_within_distance()<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="3.2" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html"><i class="fa fa-check"></i><b>3.2</b> Spatial Subsetting (or Flagging)<span></span></a>
-<ul>
-<li class="chapter" data-level="3.2.1" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#polygons-source-vs-polygons-target"><i class="fa fa-check"></i><b>3.2.1</b> polygons (source) vs polygons (target)<span></span></a></li>
-<li class="chapter" data-level="3.2.2" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#points-source-vs-polygons-target"><i class="fa fa-check"></i><b>3.2.2</b> points (source) vs polygons (target)<span></span></a></li>
-<li class="chapter" data-level="3.2.3" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#lines_polygons"><i class="fa fa-check"></i><b>3.2.3</b> lines (source) vs polygons (target)<span></span></a></li>
-<li class="chapter" data-level="3.2.4" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#polygons_points"><i class="fa fa-check"></i><b>3.2.4</b> polygons (source) vs points (target)<span></span></a></li>
-<li class="chapter" data-level="3.2.5" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#subsetting-to-a-geographic-extent-bounding-box"><i class="fa fa-check"></i><b>3.2.5</b> Subsetting to a geographic extent (bounding box)<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="3.3" data-path="sp-join.html"><a href="sp-join.html"><i class="fa fa-check"></i><b>3.3</b> Spatial Join<span></span></a>
-<ul>
-<li class="chapter" data-level="3.3.1" data-path="sp-join.html"><a href="sp-join.html#case-1-points-target-vs-polygons-source"><i class="fa fa-check"></i><b>3.3.1</b> Case 1: points (target) vs polygons (source)<span></span></a></li>
-<li class="chapter" data-level="3.3.2" data-path="sp-join.html"><a href="sp-join.html#case-2-polygons-target-vs-points-source"><i class="fa fa-check"></i><b>3.3.2</b> Case 2: polygons (target) vs points (source)<span></span></a></li>
-<li class="chapter" data-level="3.3.3" data-path="sp-join.html"><a href="sp-join.html#polygon-polygon"><i class="fa fa-check"></i><b>3.3.3</b> Case 3: polygons (target) vs polygons (source)<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="3.4" data-path="spatial-intersection-cropping-join.html"><a href="spatial-intersection-cropping-join.html"><i class="fa fa-check"></i><b>3.4</b> Spatial Intersection (cropping join)<span></span></a>
-<ul>
-<li class="chapter" data-level="3.4.1" data-path="spatial-intersection-cropping-join.html"><a href="spatial-intersection-cropping-join.html#st-intersection"><i class="fa fa-check"></i><b>3.4.1</b> <code>st_intersection()</code><span></span></a></li>
-<li class="chapter" data-level="3.4.2" data-path="spatial-intersection-cropping-join.html"><a href="spatial-intersection-cropping-join.html#area-weighted-average"><i class="fa fa-check"></i><b>3.4.2</b> Area-weighted average<span></span></a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="4" data-path="raster-basics.html"><a href="raster-basics.html"><i class="fa fa-check"></i><b>4</b> Raster Data Handling<span></span></a>
-<ul>
-<li><a href="before-you-start-3.html#before-you-start-3">Before you start<span></span></a>
-<ul>
-<li><a href="before-you-start-3.html#direction-for-replication-3">Direction for replication<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="4.1" data-path="raster-data-object-classes.html"><a href="raster-data-object-classes.html"><i class="fa fa-check"></i><b>4.1</b> Raster data object classes<span></span></a>
-<ul>
-<li class="chapter" data-level="4.1.1" data-path="raster-data-object-classes.html"><a href="raster-data-object-classes.html#raster-package-rasterlayer-rasterstack-and-rasterbrick"><i class="fa fa-check"></i><b>4.1.1</b> <code>raster</code> package: <code>RasterLayer</code>, <code>RasterStack</code>, and <code>RasterBrick</code><span></span></a></li>
-<li class="chapter" data-level="4.1.2" data-path="raster-data-object-classes.html"><a href="raster-data-object-classes.html#terra-package-spatraster"><i class="fa fa-check"></i><b>4.1.2</b> <code>terra</code> package: <code>SpatRaster</code><span></span></a></li>
-<li class="chapter" data-level="4.1.3" data-path="raster-data-object-classes.html"><a href="raster-data-object-classes.html#converting-a-spatraster-object-to-a-raster-object."><i class="fa fa-check"></i><b>4.1.3</b> Converting a <code>SpatRaster</code> object to a <code>Raster</code><span class="math inline">\(^*\)</span> object.<span></span></a></li>
-<li class="chapter" data-level="4.1.4" data-path="raster-data-object-classes.html"><a href="raster-data-object-classes.html#vector-data-in-the-terra-package"><i class="fa fa-check"></i><b>4.1.4</b> Vector data in the <code>terra</code> package<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="4.2" data-path="read-and-write-a-raster-data-file.html"><a href="read-and-write-a-raster-data-file.html"><i class="fa fa-check"></i><b>4.2</b> Read and write a raster data file<span></span></a>
-<ul>
-<li class="chapter" data-level="4.2.1" data-path="read-and-write-a-raster-data-file.html"><a href="read-and-write-a-raster-data-file.html#read-raster-files"><i class="fa fa-check"></i><b>4.2.1</b> Read raster file(s)<span></span></a></li>
-<li class="chapter" data-level="4.2.2" data-path="read-and-write-a-raster-data-file.html"><a href="read-and-write-a-raster-data-file.html#write-raster-files"><i class="fa fa-check"></i><b>4.2.2</b> Write raster files<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="4.3" data-path="extract-information-from-raster-data-object.html"><a href="extract-information-from-raster-data-object.html"><i class="fa fa-check"></i><b>4.3</b> Extract information from raster data object<span></span></a>
-<ul>
-<li class="chapter" data-level="4.3.1" data-path="extract-information-from-raster-data-object.html"><a href="extract-information-from-raster-data-object.html#get-crs"><i class="fa fa-check"></i><b>4.3.1</b> Get CRS<span></span></a></li>
-<li class="chapter" data-level="4.3.2" data-path="extract-information-from-raster-data-object.html"><a href="extract-information-from-raster-data-object.html#subset"><i class="fa fa-check"></i><b>4.3.2</b> Subset<span></span></a></li>
-<li class="chapter" data-level="4.3.3" data-path="extract-information-from-raster-data-object.html"><a href="extract-information-from-raster-data-object.html#get-cell-values"><i class="fa fa-check"></i><b>4.3.3</b> Get cell values<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="4.4" data-path="turning-a-raster-object-into-a-data.html"><a href="turning-a-raster-object-into-a-data.html"><i class="fa fa-check"></i><b>4.4</b> Turning a raster object into a <code>data.frame</code><span></span></a></li>
-<li class="chapter" data-level="4.5" data-path="quick-visualization.html"><a href="quick-visualization.html"><i class="fa fa-check"></i><b>4.5</b> Quick visualization<span></span></a></li>
-<li class="chapter" data-level="4.6" data-path="work-with-netcdf.html"><a href="work-with-netcdf.html"><i class="fa fa-check"></i><b>4.6</b> Working with netCDFs<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="int-RV.html"><a href="int-RV.html"><i class="fa fa-check"></i><b>5</b> Spatial Interactions of Vector and Raster Data<span></span></a>
-<ul>
-<li><a href="before-you-start-4.html#before-you-start-4">Before you start<span></span></a>
-<ul>
-<li><a href="before-you-start-4.html#direction-for-replication-4">Direction for replication<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="5.1" data-path="raster-crop.html"><a href="raster-crop.html"><i class="fa fa-check"></i><b>5.1</b> Cropping to the Area of Interest<span></span></a></li>
-<li class="chapter" data-level="5.2" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html"><i class="fa fa-check"></i><b>5.2</b> Extracting Values from Raster Layers for Vector Data<span></span></a>
-<ul>
-<li class="chapter" data-level="5.2.1" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#simple-visual-illustrations-of-raster-data-extraction"><i class="fa fa-check"></i><b>5.2.1</b> Simple visual illustrations of raster data extraction<span></span></a></li>
-<li class="chapter" data-level="5.2.2" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#extracting-to-points"><i class="fa fa-check"></i><b>5.2.2</b> Extracting to Points<span></span></a></li>
-<li class="chapter" data-level="5.2.3" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#extracting-to-polygons-terra-way"><i class="fa fa-check"></i><b>5.2.3</b> Extracting to Polygons (<code>terra</code> way)<span></span></a></li>
-<li class="chapter" data-level="5.2.4" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#extracting-to-polygons-exactextractr-way"><i class="fa fa-check"></i><b>5.2.4</b> Extracting to Polygons (<code>exactextractr</code> way)<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="5.3" data-path="extract-speed.html"><a href="extract-speed.html"><i class="fa fa-check"></i><b>5.3</b> Extraction speed comparison<span></span></a>
-<ul>
-<li class="chapter" data-level="5.3.1" data-path="extract-speed.html"><a href="extract-speed.html#points-terraextract-and-rasterextract"><i class="fa fa-check"></i><b>5.3.1</b> Points: <code>terra::extract()</code> and <code>raster::extract()</code><span></span></a></li>
-<li class="chapter" data-level="5.3.2" data-path="extract-speed.html"><a href="extract-speed.html#polygons-exact_extract-terraextract-and-rasterextract"><i class="fa fa-check"></i><b>5.3.2</b> Polygons: <code>exact_extract()</code>, <code>terra::extract()</code>, and <code>raster::extract()</code><span></span></a></li>
-<li class="chapter" data-level="5.3.3" data-path="extract-speed.html"><a href="extract-speed.html#single-layer-vs-multi-layer"><i class="fa fa-check"></i><b>5.3.3</b> Single-layer vs multi-layer<span></span></a></li>
-</ul></li>
-</ul></li>
-<li class="part"><span><b>III (slightly) Advanced Topics<span></span></b></span></li>
-<li class="chapter" data-level="6" data-path="EE.html"><a href="EE.html"><i class="fa fa-check"></i><b>6</b> Extraction Speed Considerations<span></span></a>
-<ul>
-<li><a href="before-you-start-5.html#before-you-start-5">Before you start<span></span></a>
-<ul>
-<li><a href="before-you-start-5.html#direction-for-replication-5">Direction for replication<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="6.1" data-path="single-raster-layer.html"><a href="single-raster-layer.html"><i class="fa fa-check"></i><b>6.1</b> Single raster layer<span></span></a>
-<ul>
-<li class="chapter" data-level="6.1.1" data-path="single-raster-layer.html"><a href="single-raster-layer.html#datasets"><i class="fa fa-check"></i><b>6.1.1</b> Datasets<span></span></a></li>
-<li class="chapter" data-level="6.1.2" data-path="single-raster-layer.html"><a href="single-raster-layer.html#parallelization"><i class="fa fa-check"></i><b>6.1.2</b> Parallelization<span></span></a></li>
-<li class="chapter" data-level="6.1.3" data-path="single-raster-layer.html"><a href="single-raster-layer.html#summary-1"><i class="fa fa-check"></i><b>6.1.3</b> Summary<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="6.2" data-path="many-multi-layer.html"><a href="many-multi-layer.html"><i class="fa fa-check"></i><b>6.2</b> Many multi-layer raster files<span></span></a>
-<ul>
-<li class="chapter" data-level="6.2.1" data-path="many-multi-layer.html"><a href="many-multi-layer.html#datasets-1"><i class="fa fa-check"></i><b>6.2.1</b> Datasets<span></span></a></li>
-<li class="chapter" data-level="6.2.2" data-path="many-multi-layer.html"><a href="many-multi-layer.html#non-par-ext-multi"><i class="fa fa-check"></i><b>6.2.2</b> Non-parallelized extraction<span></span></a></li>
-<li class="chapter" data-level="6.2.3" data-path="many-multi-layer.html"><a href="many-multi-layer.html#approach-1-parallelize-over-polygons-and-do-regular-loop-over-year-month"><i class="fa fa-check"></i><b>6.2.3</b> Approach 1: parallelize over polygons and do regular loop over year-month<span></span></a></li>
-<li class="chapter" data-level="6.2.4" data-path="many-multi-layer.html"><a href="many-multi-layer.html#approach-2-parallelize-over-the-temporal-dimension-year-month"><i class="fa fa-check"></i><b>6.2.4</b> Approach 2: parallelize over the temporal dimension (year-month)<span></span></a></li>
-<li class="chapter" data-level="6.2.5" data-path="many-multi-layer.html"><a href="many-multi-layer.html#memory-consideration"><i class="fa fa-check"></i><b>6.2.5</b> Memory consideration<span></span></a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="7" data-path="stars-basics.html"><a href="stars-basics.html"><i class="fa fa-check"></i><b>7</b> Spatiotemporal Raster Data Handling with <code>stars</code><span></span></a>
-<ul>
-<li><a href="before-you-start-6.html#before-you-start-6">Before you start<span></span></a>
-<ul>
-<li><a href="before-you-start-6.html#direction-for-replication-6">Direction for replication<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="7.1" data-path="stars-structure.html"><a href="stars-structure.html"><i class="fa fa-check"></i><b>7.1</b> Understanding the structure of a <code>stars</code> object<span></span></a></li>
-<li class="chapter" data-level="7.2" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html"><i class="fa fa-check"></i><b>7.2</b> Some basic operations on <code>stars</code> objects<span></span></a>
-<ul>
-<li class="chapter" data-level="7.2.1" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html#subset-a-stars-object-by-index"><i class="fa fa-check"></i><b>7.2.1</b> Subset a <code>stars</code> object by index<span></span></a></li>
-<li class="chapter" data-level="7.2.2" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html#set-attribute-names"><i class="fa fa-check"></i><b>7.2.2</b> Set attribute names<span></span></a></li>
-<li class="chapter" data-level="7.2.3" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html#get-the-coordinate-reference-system"><i class="fa fa-check"></i><b>7.2.3</b> Get the coordinate reference system<span></span></a></li>
-<li class="chapter" data-level="7.2.4" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html#get-the-dimension-characteristics-and-values"><i class="fa fa-check"></i><b>7.2.4</b> Get the dimension characteristics and values<span></span></a></li>
-<li class="chapter" data-level="7.2.5" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html#attributes-to-dimensions-and-vice-versa"><i class="fa fa-check"></i><b>7.2.5</b> Attributes to dimensions, and vice versa<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="7.3" data-path="quick-visualization-for-exploration.html"><a href="quick-visualization-for-exploration.html"><i class="fa fa-check"></i><b>7.3</b> Quick visualization for exploration<span></span></a>
-<ul>
-<li class="chapter" data-level="7.3.1" data-path="quick-visualization-for-exploration.html"><a href="quick-visualization-for-exploration.html#quick-static-map"><i class="fa fa-check"></i><b>7.3.1</b> quick static map<span></span></a></li>
-<li class="chapter" data-level="7.3.2" data-path="quick-visualization-for-exploration.html"><a href="quick-visualization-for-exploration.html#interactive-map"><i class="fa fa-check"></i><b>7.3.2</b> interactive map<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="7.4" data-path="read-write-stars.html"><a href="read-write-stars.html"><i class="fa fa-check"></i><b>7.4</b> Reading and writing raster data<span></span></a>
-<ul>
-<li class="chapter" data-level="7.4.1" data-path="read-write-stars.html"><a href="read-write-stars.html#reading-raster-data"><i class="fa fa-check"></i><b>7.4.1</b> Reading raster data<span></span></a></li>
-<li class="chapter" data-level="7.4.2" data-path="read-write-stars.html"><a href="read-write-stars.html#writing-a-stars-object-to-a-file"><i class="fa fa-check"></i><b>7.4.2</b> Writing a <code>stars</code> object to a file<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="7.5" data-path="stars-set-time.html"><a href="stars-set-time.html"><i class="fa fa-check"></i><b>7.5</b> Setting the time dimension manually<span></span></a></li>
-<li class="chapter" data-level="7.6" data-path="dplyr-op.html"><a href="dplyr-op.html"><i class="fa fa-check"></i><b>7.6</b> <code>dplyr</code>-like operations<span></span></a>
-<ul>
-<li class="chapter" data-level="7.6.1" data-path="dplyr-op.html"><a href="dplyr-op.html#filter"><i class="fa fa-check"></i><b>7.6.1</b> <code>filter()</code><span></span></a></li>
-<li class="chapter" data-level="7.6.2" data-path="dplyr-op.html"><a href="dplyr-op.html#select"><i class="fa fa-check"></i><b>7.6.2</b> <code>select()</code><span></span></a></li>
-<li class="chapter" data-level="7.6.3" data-path="dplyr-op.html"><a href="dplyr-op.html#mutate"><i class="fa fa-check"></i><b>7.6.3</b> <code>mutate()</code><span></span></a></li>
-<li class="chapter" data-level="7.6.4" data-path="dplyr-op.html"><a href="dplyr-op.html#pull"><i class="fa fa-check"></i><b>7.6.4</b> <code>pull()</code><span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="7.7" data-path="merging-stars-objects-using-c-and-st_mosaic.html"><a href="merging-stars-objects-using-c-and-st_mosaic.html"><i class="fa fa-check"></i><b>7.7</b> Merging <code>stars</code> objects using <code>c()</code> and <code>st_mosaic()</code><span></span></a>
-<ul>
-<li class="chapter" data-level="7.7.1" data-path="merging-stars-objects-using-c-and-st_mosaic.html"><a href="merging-stars-objects-using-c-and-st_mosaic.html#merging-stars-objects-along-the-third-dimension-band"><i class="fa fa-check"></i><b>7.7.1</b> Merging <code>stars</code> objects along the third dimension (band)<span></span></a></li>
-<li class="chapter" data-level="7.7.2" data-path="merging-stars-objects-using-c-and-st_mosaic.html"><a href="merging-stars-objects-using-c-and-st_mosaic.html#merge-two"><i class="fa fa-check"></i><b>7.7.2</b> Merging <code>stars</code> objects of different attributes<span></span></a></li>
-<li class="chapter" data-level="7.7.3" data-path="merging-stars-objects-using-c-and-st_mosaic.html"><a href="merging-stars-objects-using-c-and-st_mosaic.html#merging-stars-objects-of-different-spatial-extents"><i class="fa fa-check"></i><b>7.7.3</b> Merging <code>stars</code> objects of different spatial extents<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="7.8" data-path="convert-to-rb.html"><a href="convert-to-rb.html"><i class="fa fa-check"></i><b>7.8</b> Convert from and to <code>Raster</code><span class="math inline">\(^*\)</span> or <code>SpatRaster</code> objects<span></span></a></li>
-</ul></li>
-<li class="part"><span><b>IV Extensions<span></span></b></span></li>
-<li class="chapter" data-level="8" data-path="create-maps.html"><a href="create-maps.html"><i class="fa fa-check"></i><b>8</b> Creating Maps using <code>ggplot2</code><span></span></a>
-<ul>
-<li><a href="before-you-start-7.html#before-you-start-7">Before you start<span></span></a>
-<ul>
-<li><a href="before-you-start-7.html#direction-for-replication-7">Direction for replication<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="8.1" data-path="geom-sf.html"><a href="geom-sf.html"><i class="fa fa-check"></i><b>8.1</b> Creating maps from <code>sf</code> objects<span></span></a>
-<ul>
-<li class="chapter" data-level="8.1.1" data-path="geom-sf.html"><a href="geom-sf.html#datasets-2"><i class="fa fa-check"></i><b>8.1.1</b> Datasets<span></span></a></li>
-<li class="chapter" data-level="8.1.2" data-path="geom-sf.html"><a href="geom-sf.html#basic-usage-of-geom_sf"><i class="fa fa-check"></i><b>8.1.2</b> Basic usage of <code>geom_sf()</code><span></span></a></li>
-<li class="chapter" data-level="8.1.3" data-path="geom-sf.html"><a href="geom-sf.html#specifying-the-aesthetics"><i class="fa fa-check"></i><b>8.1.3</b> Specifying the aesthetics<span></span></a></li>
-<li class="chapter" data-level="8.1.4" data-path="geom-sf.html"><a href="geom-sf.html#plotting-multiple-spatial-objects-in-one-figure"><i class="fa fa-check"></i><b>8.1.4</b> Plotting multiple spatial objects in one figure<span></span></a></li>
-<li class="chapter" data-level="8.1.5" data-path="geom-sf.html"><a href="geom-sf.html#crs"><i class="fa fa-check"></i><b>8.1.5</b> CRS<span></span></a></li>
-<li class="chapter" data-level="8.1.6" data-path="geom-sf.html"><a href="geom-sf.html#faceting"><i class="fa fa-check"></i><b>8.1.6</b> Faceting<span></span></a></li>
-<li class="chapter" data-level="8.1.7" data-path="geom-sf.html"><a href="geom-sf.html#adding-texts-labels-on-a-map"><i class="fa fa-check"></i><b>8.1.7</b> Adding texts (labels) on a map<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="8.2" data-path="geom-raster.html"><a href="geom-raster.html"><i class="fa fa-check"></i><b>8.2</b> Raster data visualization: <code>geom_raster()</code> and <code>geom_stars()</code><span></span></a>
-<ul>
-<li class="chapter" data-level="8.2.1" data-path="geom-raster.html"><a href="geom-raster.html#visualize-raster-with-geom_raster"><i class="fa fa-check"></i><b>8.2.1</b> Visualize <code>Raster</code><span class="math inline">\(^*\)</span> with <code>geom_raster()</code><span></span></a></li>
-<li class="chapter" data-level="8.2.2" data-path="geom-raster.html"><a href="geom-raster.html#visualize-stars-with-geom_raster"><i class="fa fa-check"></i><b>8.2.2</b> Visualize <code>stars</code> with <code>geom_raster()</code><span></span></a></li>
-<li class="chapter" data-level="8.2.3" data-path="geom-raster.html"><a href="geom-raster.html#visualize-stars-with-geom_stars"><i class="fa fa-check"></i><b>8.2.3</b> Visualize <code>stars</code> with <code>geom_stars()</code><span></span></a></li>
-<li class="chapter" data-level="8.2.4" data-path="geom-raster.html"><a href="geom-raster.html#adding-geom_sf-layers"><i class="fa fa-check"></i><b>8.2.4</b> adding <code>geom_sf()</code> layers<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="8.3" data-path="color-scale.html"><a href="color-scale.html"><i class="fa fa-check"></i><b>8.3</b> Color scale<span></span></a>
-<ul>
-<li class="chapter" data-level="8.3.1" data-path="color-scale.html"><a href="color-scale.html#viridis-color-maps"><i class="fa fa-check"></i><b>8.3.1</b> Viridis color maps<span></span></a></li>
-<li class="chapter" data-level="8.3.2" data-path="color-scale.html"><a href="color-scale.html#rcolorbrewer-scale__distiller-and-scale__brewer"><i class="fa fa-check"></i><b>8.3.2</b> <code>RColorBrewer</code>: <code>scale_*_distiller()</code> and <code>scale_*_brewer()</code><span></span></a></li>
-<li class="chapter" data-level="8.3.3" data-path="color-scale.html"><a href="color-scale.html#colorspace-package"><i class="fa fa-check"></i><b>8.3.3</b> <code>colorspace</code> package<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="8.4" data-path="arranging-maps.html"><a href="arranging-maps.html"><i class="fa fa-check"></i><b>8.4</b> Arranging maps<span></span></a>
-<ul>
-<li class="chapter" data-level="8.4.1" data-path="arranging-maps.html"><a href="arranging-maps.html#multiple-panels-of-figures-as-a-single-figure"><i class="fa fa-check"></i><b>8.4.1</b> Multiple panels of figures as a single figure<span></span></a></li>
-<li class="chapter" data-level="8.4.2" data-path="arranging-maps.html"><a href="arranging-maps.html#a-map-in-a-map-inset"><i class="fa fa-check"></i><b>8.4.2</b> A map in a map: inset<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="8.5" data-path="fine-tune.html"><a href="fine-tune.html"><i class="fa fa-check"></i><b>8.5</b> Fine-tuning maps for publication<span></span></a>
-<ul>
-<li class="chapter" data-level="8.5.1" data-path="fine-tune.html"><a href="fine-tune.html#theme"><i class="fa fa-check"></i><b>8.5.1</b> Setting the theme<span></span></a></li>
-<li class="chapter" data-level="8.5.2" data-path="fine-tune.html"><a href="fine-tune.html#legend"><i class="fa fa-check"></i><b>8.5.2</b> Legend<span></span></a></li>
-<li class="chapter" data-level="8.5.3" data-path="fine-tune.html"><a href="fine-tune.html#facet-strips"><i class="fa fa-check"></i><b>8.5.3</b> Facet strips<span></span></a></li>
-<li class="chapter" data-level="8.5.4" data-path="fine-tune.html"><a href="fine-tune.html#north-arrow-and-scale-bar"><i class="fa fa-check"></i><b>8.5.4</b> North arrow and scale bar<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="8.6" data-path="ggsave.html"><a href="ggsave.html"><i class="fa fa-check"></i><b>8.6</b> Saving a <code>ggplot</code> object as an image<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="9" data-path="download-data.html"><a href="download-data.html"><i class="fa fa-check"></i><b>9</b> Download and process spatial datasets from within R<span></span></a>
-<ul>
-<li><a href="before-you-start-8.html#before-you-start-8">Before you start<span></span></a>
-<ul>
-<li><a href="before-you-start-8.html#direction-for-replication-8">Direction for replication<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="9.1" data-path="nass-quick.html"><a href="nass-quick.html"><i class="fa fa-check"></i><b>9.1</b> USDA NASS QuickStat with <code>tidyUSDA</code><span></span></a>
-<ul>
-<li class="chapter" data-level="9.1.1" data-path="nass-quick.html"><a href="nass-quick.html#look-for-parameter-values"><i class="fa fa-check"></i><b>9.1.1</b> Look for parameter values<span></span></a></li>
-<li class="chapter" data-level="9.1.2" data-path="nass-quick.html"><a href="nass-quick.html#caveats"><i class="fa fa-check"></i><b>9.1.2</b> Caveats<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="9.2" data-path="CropScapeR.html"><a href="CropScapeR.html"><i class="fa fa-check"></i><b>9.2</b> CDL with <code>CropScapeR</code><span></span></a>
-<ul>
-<li class="chapter" data-level="9.2.1" data-path="CropScapeR.html"><a href="CropScapeR.html#getcdldata-download-the-cdl-data-as-raster-data"><i class="fa fa-check"></i><b>9.2.1</b> <code>GetCDLData</code>: Download the CDL data as raster data<span></span></a></li>
-<li class="chapter" data-level="9.2.2" data-path="CropScapeR.html"><a href="CropScapeR.html#data-processing-after-downloading-data"><i class="fa fa-check"></i><b>9.2.2</b> Data processing after downloading data<span></span></a></li>
-<li class="chapter" data-level="9.2.3" data-path="CropScapeR.html"><a href="CropScapeR.html#other-forms-of-cdl-data"><i class="fa fa-check"></i><b>9.2.3</b> Other forms of CDL data<span></span></a></li>
-<li class="chapter" data-level="9.2.4" data-path="CropScapeR.html"><a href="CropScapeR.html#mac-problem"><i class="fa fa-check"></i><b>9.2.4</b> SSL certificate problem on Mac<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="9.3" data-path="download-prism.html"><a href="download-prism.html"><i class="fa fa-check"></i><b>9.3</b> PRISM with <code>prism</code><span></span></a>
-<ul>
-<li class="chapter" data-level="9.3.1" data-path="download-prism.html"><a href="download-prism.html#basics"><i class="fa fa-check"></i><b>9.3.1</b> Basics<span></span></a></li>
-<li class="chapter" data-level="9.3.2" data-path="download-prism.html"><a href="download-prism.html#download-daily-prism-data-for-many-years-and-build-your-own-datasets"><i class="fa fa-check"></i><b>9.3.2</b> Download daily PRISM data for many years and build your own datasets<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="9.4" data-path="daymet-with-daymetr-and-feddata.html"><a href="daymet-with-daymetr-and-feddata.html"><i class="fa fa-check"></i><b>9.4</b> Daymet with <code>daymetr</code> and <code>FedData</code><span></span></a>
-<ul>
-<li class="chapter" data-level="9.4.1" data-path="daymet-with-daymetr-and-feddata.html"><a href="daymet-with-daymetr-and-feddata.html#for-points-data"><i class="fa fa-check"></i><b>9.4.1</b> For points data<span></span></a></li>
-<li class="chapter" data-level="9.4.2" data-path="daymet-with-daymetr-and-feddata.html"><a href="daymet-with-daymetr-and-feddata.html#daymet-poly"><i class="fa fa-check"></i><b>9.4.2</b> For polygons data<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="9.5" data-path="gridMET.html"><a href="gridMET.html"><i class="fa fa-check"></i><b>9.5</b> gridMET<span></span></a>
-<ul>
-<li class="chapter" data-level="9.5.1" data-path="gridMET.html"><a href="gridMET.html#practical-examples"><i class="fa fa-check"></i><b>9.5.1</b> Practical Examples<span></span></a></li>
-</ul></li>
-</ul></li>
-<li class="appendix"><span><b>Appendix<span></span></b></span></li>
-<li class="chapter" data-level="A" data-path="par-comp.html"><a href="par-comp.html"><i class="fa fa-check"></i><b>A</b> Loop and Parallel Computing<span></span></a>
-<ul>
-<li><a href="before-you-start-9.html#before-you-start-9">Before you start<span></span></a>
-<ul>
-<li><a href="before-you-start-9.html#direction-for-replication-9">Direction for replication<span></span></a></li>
-<li><a href="before-you-start-9.html#packages-to-install-and-load">Packages to install and load<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="A.1" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html"><i class="fa fa-check"></i><b>A.1</b> Repetitive processes and looping<span></span></a>
-<ul>
-<li class="chapter" data-level="A.1.1" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html#what-is-looping"><i class="fa fa-check"></i><b>A.1.1</b> What is looping?<span></span></a></li>
-<li class="chapter" data-level="A.1.2" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html#for-loop"><i class="fa fa-check"></i><b>A.1.2</b> For loop<span></span></a></li>
-<li class="chapter" data-level="A.1.3" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html#for-loop-using-the-lapply-function"><i class="fa fa-check"></i><b>A.1.3</b> For loop using the <code>lapply()</code> function<span></span></a></li>
-<li class="chapter" data-level="A.1.4" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html#looping-over-multiple-variables-using-lapply"><i class="fa fa-check"></i><b>A.1.4</b> Looping over multiple variables using lapply()<span></span></a></li>
-<li class="chapter" data-level="A.1.5" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html#do-you-really-need-to-loop"><i class="fa fa-check"></i><b>A.1.5</b> Do you really need to loop?<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="A.2" data-path="parcomp.html"><a href="parcomp.html"><i class="fa fa-check"></i><b>A.2</b> Parallelization of embarrassingly parallel processes<span></span></a>
-<ul>
-<li class="chapter" data-level="A.2.1" data-path="parcomp.html"><a href="parcomp.html#mac-or-linux-users"><i class="fa fa-check"></i><b>A.2.1</b> Mac or Linux users<span></span></a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="B" data-path="ggplot2-minimals.html"><a href="ggplot2-minimals.html"><i class="fa fa-check"></i><b>B</b> ggplot2 minimals<span></span></a></li>
-<li><a href="references.html#references">References<span></span></a></li>
-<li class="divider"></li>
-<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
-
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Welcome</a></li>
+<li><a class="" href="preface.html">Preface</a></li>
+<li class="book-part">Demonstration</li>
+<li><a class="" href="demo.html"><span class="header-section-number">1</span> R as GIS: Demonstrations</a></li>
+<li class="book-part">Foundations</li>
+<li><a class="" href="vector-basics.html"><span class="header-section-number">2</span> Vector Data Handling with sf</a></li>
+<li><a class="" href="int-vv.html"><span class="header-section-number">3</span> Spatial Interactions of Vector Data: Subsetting and Joining</a></li>
+<li><a class="active" href="raster-basics.html"><span class="header-section-number">4</span> Raster Data Handling</a></li>
+<li><a class="" href="int-RV.html"><span class="header-section-number">5</span> Spatial Interactions of Vector and Raster Data</a></li>
+<li class="book-part">(slightly) Advanced Topics</li>
+<li><a class="" href="EE.html"><span class="header-section-number">6</span> Extraction Speed Considerations</a></li>
+<li><a class="" href="stars-basics.html"><span class="header-section-number">7</span> Spatiotemporal Raster Data Handling with stars</a></li>
+<li class="book-part">Extensions</li>
+<li><a class="" href="create-maps.html"><span class="header-section-number">8</span> Creating Maps using ggplot2</a></li>
+<li><a class="" href="download-data.html"><span class="header-section-number">9</span> Download and process spatial datasets from within R</a></li>
+<li class="book-part">Appendix</li>
+<li><a class="" href="par-comp.html"><span class="header-section-number">A</span> Loop and Parallel Computing</a></li>
+<li><a class="" href="ggplot2-minimals.html"><span class="header-section-number">B</span> ggplot2 minimals</a></li>
+<li><a class="" href="references.html">References</a></li>
 </ul>
 
+        <div class="book-extra">
+          
+        </div>
       </nav>
-    </div>
-
-    <div class="book-body">
-      <div class="body-inner">
-        <div class="book-header" role="navigation">
-          <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R as GIS for Economists</a>
-          </h1>
-        </div>
-
-        <div class="page-wrapper" tabindex="-1" role="main">
-          <div class="page-inner">
-
-            <section class="normal" id="section-">
-<link href="style.css" rel="stylesheet" type="text/css">
-
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-59758608-3"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-59758608-3');
-</script>
-
-<div id="raster-basics" class="section level1 hasAnchor" number="4">
-<h1><span class="header-section-number">Chapter 4</span> Raster Data Handling<a href="raster-basics.html#raster-basics" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 </div>
-            </section>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="raster-basics" class="section level1" number="4">
+<h1>
+<span class="header-section-number">4</span> Raster Data Handling<a class="anchor" aria-label="anchor" href="#raster-basics"><i class="fas fa-link"></i></a>
+</h1>
+<div id="before-you-start-3" class="section level2 unnumbered">
+<h2>Before you start<a class="anchor" aria-label="anchor" href="#before-you-start-3"><i class="fas fa-link"></i></a>
+</h2>
+<p>In this chapter, we will learn how to use the <code>raster</code> and <code>terra</code> package to handle raster data. The <code>raster</code> package has been (and I must say still is) the most popular and commonly used package for raster data handling. However, we are in the period of transitioning from the <code>raster</code> package to the <code>terra</code> package. The <code>terra</code> package has been under active development to replace the <code>raster</code> package (see the most up-to-date version of the package <a href="https://github.com/rspatial/terra">here</a>). <code>terra</code> is written in C++ and thus is faster than the <code>raster</code> package in many raster data operations. The <code>raster</code> and <code>terra</code> packages share the same function name for many of the raster operations. Key differences will be discussed and will become clear later.</p>
+<p>For economists, raster data extraction for vector data will be by far the most common use case of raster data and also the most time-consuming part of the whole raster data handling experience. Therefore, we will introduce only the essential knowledge of raster data operation required to effectively implement the task of extracting values, which will be covered extensively in Chapter <a href="int-RV.html#int-RV">5</a>. For example, we do not cover raster arithmetic, focal operations, or aggregation. Those who are interested in a fuller treatment of the <code>raster</code> or <code>terra</code> package are referred to <a href="https://rspatial.org/terra/spatial/index.html">Spatial Data Science with R and “terra”</a> or Chapters 3, 4, and 5 of <a href="https://geocompr.robinlovelace.net/">Geocomputation with R</a>, respectively.</p>
+<p>Even though the <code>terra</code> package is a replacement of the <code>raster</code> package and it has been out on CRAN for more than a year, we still learn the raster object classes defined by the <code>raster</code> package and how to switch between the <code>raster</code> and <code>terra</code> object classes. This is because other useful packages for us economists were written to work with the <code>raster</code> object classes and have still not been adapted to support <code>terra</code> object classes at the moment.</p>
+<p>Finally, you might benefit from learning the <code>stars</code> package for raster data operations (covered in Chapter <a href="stars-basics.html#stars-basics">7</a>), particularly if you often work with raster data with the temporal dimension (e.g., PRISM, Daymet). It provides a data model that makes working with raster data with temporal dimensions easier. It also allows you to apply <code>dplyr</code> verbs for data wrangling.</p>
+<div id="direction-for-replication-3" class="section level3 unnumbered">
+<h3>Direction for replication<a class="anchor" aria-label="anchor" href="#direction-for-replication-3"><i class="fas fa-link"></i></a>
+</h3>
+<p><strong>Datasets</strong></p>
+<p>All the datasets that you need to import are available <a href="https://www.dropbox.com/sh/5zkjj02sw79mj1v/AADsP60qwU_YR3fQDLWBpModa?dl=0">here</a>. In this chapter, the path to files is set relative to my own working directory (which is hidden). To run the codes without having to mess with paths to the files, follow these steps:</p>
+<ul>
+<li>set a folder (any folder) as the working directory using <code><a href="https://rdrr.io/r/base/getwd.html">setwd()</a></code><br>
+</li>
+<li>create a folder called “Data” inside the folder designated as the working directory (if you have created a “Data” folder previously, skip this step)</li>
+<li>download the pertinent datasets from <a href="https://www.dropbox.com/sh/5zkjj02sw79mj1v/AADsP60qwU_YR3fQDLWBpModa?dl=0">here</a>
+</li>
+<li>place all the files in the downloaded folder in the “Data” folder</li>
+</ul>
+<p><strong>Packages</strong></p>
+<p>Run the following code to install or load (if already installed) the <code>pacman</code> package, and then install or load (if already installed) the listed package inside the <code><a href="https://rdrr.io/pkg/pacman/man/p_load.html">pacman::p_load()</a></code> function.</p>
+<div class="sourceCode" id="cb309"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="st"><a href="https://github.com/trinker/pacman">"pacman"</a></span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"pacman"</span><span class="op">)</span>
+<span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span>
+  <span class="va">terra</span>, <span class="co"># handle raster data</span>
+  <span class="va">raster</span>, <span class="co"># handle raster data</span>
+  <span class="va">cdlTools</span>, <span class="co"># download CDL data</span>
+  <span class="va">mapview</span>, <span class="co"># create interactive maps</span>
+  <span class="va">dplyr</span>, <span class="co"># data wrangling</span>
+  <span class="va">sf</span> <span class="co"># vector data handling</span>
+<span class="op">)</span></code></pre></div>
+</div>
+</div>
+<div id="raster-data-object-classes" class="section level2" number="4.1">
+<h2>
+<span class="header-section-number">4.1</span> Raster data object classes<a class="anchor" aria-label="anchor" href="#raster-data-object-classes"><i class="fas fa-link"></i></a>
+</h2>
+<div id="raster-package-rasterlayer-rasterstack-and-rasterbrick" class="section level3" number="4.1.1">
+<h3>
+<span class="header-section-number">4.1.1</span> <code>raster</code> package: <code>RasterLayer</code>, <code>RasterStack</code>, and <code>RasterBrick</code><a class="anchor" aria-label="anchor" href="#raster-package-rasterlayer-rasterstack-and-rasterbrick"><i class="fas fa-link"></i></a>
+</h3>
+<p>Let’s start with taking a look at raster data. We will use the CDL data for Iowa in 2015.</p>
+<pre><code>class      : RasterLayer 
+dimensions : 11671, 17795, 207685445  (nrow, ncol, ncell)
+resolution : 30, 30  (x, y)
+extent     : -52095, 481755, 1938165, 2288295  (xmin, xmax, ymin, ymax)
+crs        : +proj=aea +lat_0=23 +lon_0=-96 +lat_1=29.5 +lat_2=45.5 +x_0=0 +y_0=0 +ellps=GRS80 +units=m +no_defs 
+source     : IA_cdl_2015.tif 
+names      : IA_cdl_2015 
+values     : 0, 229  (min, max)</code></pre>
+<p>Evaluating the imported raster object provides you with information about the raster data, such as dimensions (number of cells, number of columns, number of cells), spatial resolution (30 meter by 30 meter for this raster data), extent, CRS and the minimum and maximum values recorded in this raster layer. The class of the downloaded data is <code>RasterLayer</code>, which is a raster data class defined by the <code>raster</code> package. A <code>RasterLayer</code> consists of only one layer, meaning that only a single variable is associated with the cells (here it is land use category code in integer).</p>
+<hr>
+<p>You can stack multiple raster layers of the <strong>same spatial resolution and extent</strong> to create a <code>RasterStack</code> using <code><a href="https://rdrr.io/pkg/raster/man/stack.html">raster::stack()</a></code> or <code>RasterBrick</code> using <code><a href="https://rdrr.io/pkg/raster/man/brick.html">raster::brick()</a></code>. Often times, processing a multi-layer object has computational advantages over processing multiple single-layer one by one<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;You will see this in Chapter &lt;a href="int-RV.html#int-RV"&gt;5&lt;/a&gt; where we learn how to extract values from a raster layer for a vector data.&lt;/p&gt;'><sup>67</sup></a>.</p>
+<p>To create a <code>RasterStack</code> and <code>RasterBrick</code>, let’s load the CDL data for IA in 2016 and stack it with the 2015 data.</p>
+<pre><code>class      : RasterStack 
+dimensions : 11671, 17795, 207685445, 2  (nrow, ncol, ncell, nlayers)
+resolution : 30, 30  (x, y)
+extent     : -52095, 481755, 1938165, 2288295  (xmin, xmax, ymin, ymax)
+crs        : +proj=aea +lat_0=23 +lon_0=-96 +lat_1=29.5 +lat_2=45.5 +x_0=0 +y_0=0 +ellps=GRS80 +units=m +no_defs 
+names      : IA_cdl_2015, IA_cdl_2016 
+min values :           0,           0 
+max values :         229,         241 </code></pre>
+<p><code>IA_cdl_stack</code> is of class <code>RasterStack</code>, and it has two layers of variables: CDL for 2015 and 2016. You can make it a <code>RasterBrick</code> using <code><a href="https://rdrr.io/pkg/raster/man/brick.html">raster::brick()</a></code>:</p>
+<div class="sourceCode" id="cb312"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#--- stack the two ---#</span>
+<span class="va">IA_cdl_brick</span> <span class="op">&lt;-</span> <span class="fu">brick</span><span class="op">(</span><span class="va">IA_cdl_stack</span><span class="op">)</span>
 
-          </div>
-        </div>
-      </div>
-<a href="spatial-intersection-cropping-join.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="before-you-start-3.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
-    </div>
+<span class="co">#--- or this works as well ---#</span>
+<span class="co"># IA_cdl_brick &lt;- brick(IA_cdl_2015, IA_cdl_2016)</span>
+
+<span class="co">#--- take a look ---#</span>
+<span class="va">IA_cdl_brick</span></code></pre></div>
+<pre><code>class      : RasterBrick 
+dimensions : 11671, 17795, 207685445, 2  (nrow, ncol, ncell, nlayers)
+resolution : 30, 30  (x, y)
+extent     : -52095, 481755, 1938165, 2288295  (xmin, xmax, ymin, ymax)
+crs        : +proj=aea +lat_0=23 +lon_0=-96 +lat_1=29.5 +lat_2=45.5 +x_0=0 +y_0=0 +ellps=GRS80 +units=m +no_defs 
+source     : r_tmp_2022-04-12_204537_64560_89224.grd 
+names      : IA_cdl_2015, IA_cdl_2016 
+min values :           0,           0 
+max values :         229,         241 </code></pre>
+<p>You probably noticed that it took some time to create the <code>RasterBrick</code> object<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;Read &lt;a href="https://geocompr.robinlovelace.net/spatial-class.html#raster-classes"&gt;here&lt;/a&gt; for the difference between &lt;code&gt;RasterStack&lt;/code&gt; and &lt;code&gt;RasterBrick&lt;/code&gt;&lt;/p&gt;'><sup>68</sup></a>. While spatial operations on <code>RasterBrick</code> are supposedly faster than <code>RasterStack</code>, the time to create a <code>RasterBrick</code> object itself is often long enough to kill the speed advantage entirely<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;We will see this in Chapter , where we compare the speed of data extraction from &lt;code&gt;RasterStack&lt;/code&gt; and &lt;code&gt;RasterBrick&lt;/code&gt; objects.&lt;/p&gt;"><sup>69</sup></a>. Often, the three raster object types are collectively referred to as <code>Raster</code><span class="math inline">\(^*\)</span> objects for shorthand in the documentation of the <code>raster</code> and other related packages.</p>
+</div>
+<div id="terra-package-spatraster" class="section level3" number="4.1.2">
+<h3>
+<span class="header-section-number">4.1.2</span> <code>terra</code> package: <code>SpatRaster</code><a class="anchor" aria-label="anchor" href="#terra-package-spatraster"><i class="fas fa-link"></i></a>
+</h3>
+<p><code>terra</code> package has only one object class for raster data, <code>SpatRaster</code> and no distinctions between one-layer and multi-layer rasters is necessary. Let’s first convert a <code>RasterLayer</code> to a <code>SpatRaster</code> using <code><a href="https://rdrr.io/pkg/terra/man/rast.html">terra::rast()</a></code> function.</p>
+<div class="sourceCode" id="cb314"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#--- convert to a SpatRaster ---#</span>
+<span class="va">IA_cdl_2015_sr</span> <span class="op">&lt;-</span> <span class="fu">rast</span><span class="op">(</span><span class="va">IA_cdl_2015</span><span class="op">)</span>
+
+<span class="co">#--- take a look ---#</span>
+<span class="va">IA_cdl_2015_sr</span></code></pre></div>
+<pre><code>class       : SpatRaster 
+dimensions  : 11671, 17795, 1  (nrow, ncol, nlyr)
+resolution  : 30, 30  (x, y)
+extent      : -52095, 481755, 1938165, 2288295  (xmin, xmax, ymin, ymax)
+coord. ref. : +proj=aea +lat_0=23 +lon_0=-96 +lat_1=29.5 +lat_2=45.5 +x_0=0 +y_0=0 +ellps=GRS80 +units=m +no_defs 
+source      : IA_cdl_2015.tif 
+name        : IA_cdl_2015 
+min value   :           0 
+max value   :         229 </code></pre>
+<p>You can see that the number of layers (<code>nlyr</code> in dimensions) is <span class="math inline">\(1\)</span> because the original object is a <code>RasterLayer</code>, which by definition has only one layer. Now, let’s convert a <code>RasterStack</code> to a <code>SpatRaster</code> using <code><a href="https://rdrr.io/pkg/terra/man/rast.html">terra::rast()</a></code>.</p>
+<div class="sourceCode" id="cb316"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#--- convert to a SpatRaster ---#</span>
+<span class="va">IA_cdl_stack_sr</span> <span class="op">&lt;-</span> <span class="fu">rast</span><span class="op">(</span><span class="va">IA_cdl_stack</span><span class="op">)</span>
+
+<span class="co">#--- take a look ---#</span>
+<span class="va">IA_cdl_stack_sr</span></code></pre></div>
+<pre><code>class       : SpatRaster 
+dimensions  : 11671, 17795, 2  (nrow, ncol, nlyr)
+resolution  : 30, 30  (x, y)
+extent      : -52095, 481755, 1938165, 2288295  (xmin, xmax, ymin, ymax)
+coord. ref. : +proj=aea +lat_0=23 +lon_0=-96 +lat_1=29.5 +lat_2=45.5 +x_0=0 +y_0=0 +ellps=GRS80 +units=m +no_defs 
+sources     : IA_cdl_2015.tif  
+              IA_cdl_2016.tif  
+names       : IA_cdl_2015, IA_cdl_2016 
+min values  :           0,           0 
+max values  :         229,         241 </code></pre>
+<p>Again, it is a <code>SpatRaster</code>, and you now see that the number of layers is 2. We just confirmed that <code>terra</code> has only one class for raster data whether it is single-layer or multiple-layer ones.</p>
+<p>In order to make multi-layer <code>SpatRaster</code> from multiple single-layer <code>SpatRaster</code> you can just use <code><a href="https://rdrr.io/r/base/c.html">c()</a></code> like below:</p>
+<div class="sourceCode" id="cb318"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#--- create a single-layer SpatRaster ---#</span>
+<span class="va">IA_cdl_2016_sr</span> <span class="op">&lt;-</span> <span class="fu">rast</span><span class="op">(</span><span class="va">IA_cdl_2016</span><span class="op">)</span>
+
+<span class="co">#--- concatenate ---#</span>
+<span class="op">(</span>
+  <span class="va">IA_cdl_ml_sr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">IA_cdl_2015_sr</span>, <span class="va">IA_cdl_2016_sr</span><span class="op">)</span>
+<span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb319"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="op">(</span>
+  <span class="va">IA_cdl_ml_sr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">IA_cdl_2015_sr</span>, <span class="va">IA_cdl_2016_sr</span><span class="op">)</span>
+<span class="op">)</span></code></pre></div>
+<pre><code>class       : SpatRaster 
+dimensions  : 11671, 17795, 2  (nrow, ncol, nlyr)
+resolution  : 30, 30  (x, y)
+extent      : -52095, 481755, 1938165, 2288295  (xmin, xmax, ymin, ymax)
+coord. ref. : +proj=aea +lat_0=23 +lon_0=-96 +lat_1=29.5 +lat_2=45.5 +x_0=0 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs 
+sources     : IA_cdl_2015.tif  
+              IA_cdl_2016.tif  
+names       : Layer_1, Layer_1 
+min values  :       0,       0 
+max values  :     229,     241 </code></pre>
+</div>
+<div id="converting-a-spatraster-object-to-a-raster-object." class="section level3" number="4.1.3">
+<h3>
+<span class="header-section-number">4.1.3</span> Converting a <code>SpatRaster</code> object to a <code>Raster</code><span class="math inline">\(^*\)</span> object.<a class="anchor" aria-label="anchor" href="#converting-a-spatraster-object-to-a-raster-object."><i class="fas fa-link"></i></a>
+</h3>
+<p>You can convert a <code>SpatRaster</code> object to a <code>Raster</code><span class="math inline">\(^*\)</span> object using <code>raster()</code>, <code><a href="https://rdrr.io/r/utils/stack.html">stack()</a></code>, and <code>brick()</code>. Keep in mind that if you use <code>rater()</code> even though <code>SpatRaster</code> has multiple layers, the resulting <code>RasterLayer</code> object has only the first of the multiple layers.</p>
+<div class="sourceCode" id="cb321"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#--- RasterLayer (only 1st layer) ---#</span>
+<span class="va">IA_cdl_stack_sr</span> <span class="op">%&gt;%</span> <span class="fu">raster</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<pre><code>class      : RasterLayer 
+dimensions : 11671, 17795, 207685445  (nrow, ncol, ncell)
+resolution : 30, 30  (x, y)
+extent     : -52095, 481755, 1938165, 2288295  (xmin, xmax, ymin, ymax)
+crs        : +proj=aea +lat_0=23 +lon_0=-96 +lat_1=29.5 +lat_2=45.5 +x_0=0 +y_0=0 +ellps=GRS80 +units=m +no_defs 
+source     : IA_cdl_2015.tif 
+names      : IA_cdl_2015 
+values     : 0, 229  (min, max)</code></pre>
+<div class="sourceCode" id="cb323"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#--- RasterLayer ---#</span>
+<span class="va">IA_cdl_stack_sr</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/utils/stack.html">stack</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<pre><code>class      : RasterStack 
+dimensions : 11671, 17795, 207685445, 2  (nrow, ncol, ncell, nlayers)
+resolution : 30, 30  (x, y)
+extent     : -52095, 481755, 1938165, 2288295  (xmin, xmax, ymin, ymax)
+crs        : +proj=aea +lat_0=23 +lon_0=-96 +lat_1=29.5 +lat_2=45.5 +x_0=0 +y_0=0 +ellps=GRS80 +units=m +no_defs 
+names      : IA_cdl_2015, IA_cdl_2016 
+min values :           0,           0 
+max values :         229,         241 </code></pre>
+<div class="sourceCode" id="cb325"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#--- RasterLayer (this takes some time) ---#</span>
+<span class="va">IA_cdl_stack_sr</span> <span class="op">%&gt;%</span> <span class="fu">brick</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<pre><code>class      : RasterStack 
+dimensions : 11671, 17795, 207685445, 2  (nrow, ncol, ncell, nlayers)
+resolution : 30, 30  (x, y)
+extent     : -52095, 481755, 1938165, 2288295  (xmin, xmax, ymin, ymax)
+crs        : +proj=aea +lat_0=23 +lon_0=-96 +lat_1=29.5 +lat_2=45.5 +x_0=0 +y_0=0 +ellps=GRS80 +units=m +no_defs 
+names      : IA_cdl_2015, IA_cdl_2016 
+min values :           0,           0 
+max values :         229,         241 </code></pre>
+<p>Or, you can just use <code>as(SpatRast, "Raster")</code> like below:</p>
+<div class="sourceCode" id="cb327"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">as</span><span class="op">(</span><span class="va">IA_cdl_stack_sr</span>, <span class="st">"Raster"</span><span class="op">)</span></code></pre></div>
+<pre><code>class      : RasterStack 
+dimensions : 11671, 17795, 207685445, 2  (nrow, ncol, ncell, nlayers)
+resolution : 30, 30  (x, y)
+extent     : -52095, 481755, 1938165, 2288295  (xmin, xmax, ymin, ymax)
+crs        : +proj=aea +lat_0=23 +lon_0=-96 +lat_1=29.5 +lat_2=45.5 +x_0=0 +y_0=0 +ellps=GRS80 +units=m +no_defs 
+names      : IA_cdl_2015, IA_cdl_2016 
+min values :           0,           0 
+max values :         229,         241 </code></pre>
+<p>This works for any Raster<span class="math inline">\(^*\)</span> object and you do not have to pick the right function like above.</p>
+</div>
+<div id="vector-data-in-the-terra-package" class="section level3" number="4.1.4">
+<h3>
+<span class="header-section-number">4.1.4</span> Vector data in the <code>terra</code> package<a class="anchor" aria-label="anchor" href="#vector-data-in-the-terra-package"><i class="fas fa-link"></i></a>
+</h3>
+<p><code>terra</code> package has its own class for vector data, called <code>SpatVector</code>. While we do not use any of the vector data functionality provided by the <code>terra</code> package, we learn how to convert an <code>sf</code> object to <code>SpatVector</code> because <code>terra</code> functions do not support <code>sf</code> as of now (this will likely be resolved very soon). We will see some use cases of this conversion in the next chapter when we learn raster value extractions for vector data using <code><a href="https://rdrr.io/pkg/terra/man/extract.html">terra::extract()</a></code>.</p>
+<p>As an example, let’s use Illinois county border data.</p>
+<pre><code>Simple feature collection with 102 features and 17 fields
+Geometry type: MULTIPOLYGON
+Dimension:     XY
+Bounding box:  xmin: -91.51308 ymin: 36.9703 xmax: -87.01993 ymax: 42.50848
+Geodetic CRS:  NAD83
+First 10 features:
+    STATEFP COUNTYFP COUNTYNS GEOID    NAME       NAMELSAD LSAD CLASSFP MTFCC
+86       17      067 00424235 17067 Hancock Hancock County   06      H1 G4020
+93       17      025 00424214 17025    Clay    Clay County   06      H1 G4020
+132      17      185 00424293 17185  Wabash  Wabash County   06      H1 G4020
+149      17      113 01784833 17113  McLean  McLean County   06      H1 G4020
+159      17      005 00424204 17005    Bond    Bond County   06      H1 G4020
+160      17      009 00424206 17009   Brown   Brown County   06      H1 G4020
+214      17      083 00424243 17083  Jersey  Jersey County   06      H1 G4020
+255      17      147 00424275 17147   Piatt   Piatt County   06      H1 G4020
+267      17      151 00424277 17151    Pope    Pope County   06      H1 G4020
+304      17      011 00424207 17011  Bureau  Bureau County   06      H1 G4020
+    CSAFP CBSAFP METDIVFP FUNCSTAT      ALAND   AWATER    INTPTLAT     INTPTLON
+86    161  22800     &lt;NA&gt;        A 2055798688 53563362 +40.4013180 -091.1688008
+93   &lt;NA&gt;   &lt;NA&gt;     &lt;NA&gt;        A 1213022841  3064720 +38.7468187 -088.4823254
+132  &lt;NA&gt;   &lt;NA&gt;     &lt;NA&gt;        A  578403995 10973569 +38.4458209 -087.8391674
+149   145  14010     &lt;NA&gt;        A 3064597287  7804856 +40.4945594 -088.8445391
+159   476  41180     &lt;NA&gt;        A  985065096  6462629 +38.8859240 -089.4365916
+160  &lt;NA&gt;   &lt;NA&gt;     &lt;NA&gt;        A  791828626  4144346 +39.9620694 -090.7503095
+214   476  41180     &lt;NA&gt;        A  957415216 20333974 +39.0801945 -090.3613850
+255  &lt;NA&gt;  16580     &lt;NA&gt;        A 1137492089   754122 +40.0090327 -088.5923546
+267  &lt;NA&gt;   &lt;NA&gt;     &lt;NA&gt;        A  955362037 14662240 +37.4171687 -088.5423737
+304   176  36837     &lt;NA&gt;        A 2250884551 11523914 +41.4013043 -089.5283772
+                          geometry
+86  MULTIPOLYGON (((-91.37421 4...
+93  MULTIPOLYGON (((-88.69517 3...
+132 MULTIPOLYGON (((-87.9446 38...
+149 MULTIPOLYGON (((-89.2665 40...
+159 MULTIPOLYGON (((-89.36179 3...
+160 MULTIPOLYGON (((-90.91469 4...
+214 MULTIPOLYGON (((-90.59216 3...
+255 MULTIPOLYGON (((-88.74516 4...
+267 MULTIPOLYGON (((-88.70963 3...
+304 MULTIPOLYGON (((-89.85691 4...</code></pre>
+<p>You can convert an <code>sf</code> object to <code>SpatVector</code> object using <code><a href="https://rdrr.io/pkg/terra/man/vect.html">terra::vect()</a></code>.</p>
+<div class="sourceCode" id="cb330"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="op">(</span>
+  <span class="va">IL_county_sv</span> <span class="op">&lt;-</span> <span class="fu">vect</span><span class="op">(</span><span class="va">IL_county</span><span class="op">)</span>
+<span class="op">)</span></code></pre></div>
+<pre><code> class       : SpatVector 
+ geometry    : polygons 
+ dimensions  : 102, 17  (geometries, attributes)
+ extent      : -91.51308, -87.01993, 36.9703, 42.50848  (xmin, xmax, ymin, ymax)
+ coord. ref. : lon/lat NAD83 (EPSG:4269) 
+ names       : STATEFP COUNTYFP COUNTYNS GEOID    NAME       NAMELSAD  LSAD
+ type        :   &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;          &lt;chr&gt; &lt;chr&gt;
+ values      :      17      067 00424235 17067 Hancock Hancock County    06
+                    17      025 00424214 17025    Clay    Clay County    06
+                    17      185 00424293 17185  Wabash  Wabash County    06
+ CLASSFP MTFCC CSAFP (and 7 more)
+   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;             
+      H1 G4020   161             
+      H1 G4020    NA             
+      H1 G4020    NA             </code></pre>
+</div>
+</div>
+<div id="read-and-write-a-raster-data-file" class="section level2" number="4.2">
+<h2>
+<span class="header-section-number">4.2</span> Read and write a raster data file<a class="anchor" aria-label="anchor" href="#read-and-write-a-raster-data-file"><i class="fas fa-link"></i></a>
+</h2>
+<p>Sometimes we can download raster data of interest as we saw in Section 3.1. But, most of the time you need to read raster data stored as a file. Raster data files can come in numerous different formats. For example, PRPISM comes in the Band Interleaved by Line (BIL) format, some of the Daymet data comes in netCDF format. Other popular formats include GeoTiff, SAGA, ENVI, and many others.</p>
+<div id="read-raster-files" class="section level3" number="4.2.1">
+<h3>
+<span class="header-section-number">4.2.1</span> Read raster file(s)<a class="anchor" aria-label="anchor" href="#read-raster-files"><i class="fas fa-link"></i></a>
+</h3>
+<p>You use <code><a href="https://rdrr.io/pkg/terra/man/rast.html">terra::rast()</a></code> to read raster data of many common formats, and it should be almost always the case that the raster data you got can be read using this function. Here, we read a GeoTiff file (a file with .tif extension):</p>
+<div class="sourceCode" id="cb332"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="op">(</span>
+  <span class="va">IA_cdl_2015_sr</span> <span class="op">&lt;-</span> <span class="fu">rast</span><span class="op">(</span><span class="st">"Data/IA_cdl_2015.tif"</span><span class="op">)</span>
+<span class="op">)</span></code></pre></div>
+<pre><code>class       : SpatRaster 
+dimensions  : 11671, 17795, 1  (nrow, ncol, nlyr)
+resolution  : 30, 30  (x, y)
+extent      : -52095, 481755, 1938165, 2288295  (xmin, xmax, ymin, ymax)
+coord. ref. : +proj=aea +lat_0=23 +lon_0=-96 +lat_1=29.5 +lat_2=45.5 +x_0=0 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs 
+source      : IA_cdl_2015.tif 
+name        : Layer_1 
+min value   :       0 
+max value   :     229 </code></pre>
+<p>One important thing to note here is that the cell values of the raster data are actually not in memory when you “read” raster data from a file.
+You basically just established a connection to the file. This helps to reduce the memory footprint of raster data handling. You can check this by <code><a href="https://rdrr.io/pkg/raster/man/datasource.html">raster::inMemory()</a></code> function for <code>Raster</code><span class="math inline">\(^*\)</span> objects, but the same function has not been implemented for <code>terra</code> yet.</p>
+<p>You can read multiple single-layer raster datasets of the same spatial extent and resolution at the same time to have a multi-layer <code>SpatRaster</code> object. Here, we import two single-layer raster datasets (IA_cdl_2015.tif and IA_cdl_2016.tif) to create a two-layer <code>SpatRaster</code> object.</p>
+<div class="sourceCode" id="cb334"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#--- the list of path to the files ---#</span>
+<span class="va">files_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Data/IA_cdl_2015.tif"</span>, <span class="st">"Data/IA_cdl_2016.tif"</span><span class="op">)</span>
+
+<span class="co">#--- read the two at the same time ---#</span>
+<span class="op">(</span>
+  <span class="va">multi_layer_sr</span> <span class="op">&lt;-</span> <span class="fu">rast</span><span class="op">(</span><span class="va">files_list</span><span class="op">)</span>
+<span class="op">)</span></code></pre></div>
+<pre><code>class       : SpatRaster 
+dimensions  : 11671, 17795, 2  (nrow, ncol, nlyr)
+resolution  : 30, 30  (x, y)
+extent      : -52095, 481755, 1938165, 2288295  (xmin, xmax, ymin, ymax)
+coord. ref. : +proj=aea +lat_0=23 +lon_0=-96 +lat_1=29.5 +lat_2=45.5 +x_0=0 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs 
+sources     : IA_cdl_2015.tif  
+              IA_cdl_2016.tif  
+names       : Layer_1, Layer_1 
+min values  :       0,       0 
+max values  :     229,     241 </code></pre>
+<p>Of course, this only works because the two datasets have the identical spatial extent and resolution. There are, however, no restrictions on what variable each of the raster layers represent. For example, you can combine PRISM temperature and precipitation raster layers.</p>
+</div>
+<div id="write-raster-files" class="section level3" number="4.2.2">
+<h3>
+<span class="header-section-number">4.2.2</span> Write raster files<a class="anchor" aria-label="anchor" href="#write-raster-files"><i class="fas fa-link"></i></a>
+</h3>
+<p>You can write a <code>SpatRaster</code> object using <code><a href="https://rdrr.io/pkg/terra/man/writeRaster.html">terra::writeRaster()</a></code>.</p>
+<div class="sourceCode" id="cb336"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/writeRaster.html">writeRaster</a></span><span class="op">(</span><span class="va">IA_cdl_2015_sr</span>, <span class="st">"Data/IA_cdl_stack.tif"</span>, filetype <span class="op">=</span> <span class="st">"GTiff"</span>, overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<p>The above code saves <code>IA_cdl_2015_sr</code> (a <code>SpatRaster</code> object) as a GeoTiff file.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;There are many other alternative formats (see &lt;a href="https://www.rdocumentation.org/packages/raster/versions/3.0-12/topics/writeRaster"&gt;here&lt;/a&gt;)&lt;/p&gt;'><sup>70</sup></a> The filetype option can be dropped as <code>writeRaster()</code> infers the filetype from the extension of the file name. The <code>overwrite = TRUE</code> option is necessary if a file with the same name already exists and you are overwriting it. This is one of the many areas <code>terra</code> is better than <code>raster</code>. <code><a href="https://rdrr.io/pkg/raster/man/writeRaster.html">raster::writeRaster()</a></code> can be frustratingly slow for a large <code>Raster</code><span class="math inline">\(^*\)</span> object. <code><a href="https://rdrr.io/pkg/terra/man/writeRaster.html">terra::writeRaster()</a></code> is much faster.</p>
+<p>You can also save a multi-layer <code>SpatRaster</code> object just like you save a single-layer <code>SpatRaster</code> object.</p>
+<div class="sourceCode" id="cb337"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/writeRaster.html">writeRaster</a></span><span class="op">(</span><span class="va">IA_cdl_stack_sr</span>, <span class="st">"Data/IA_cdl_stack.tif"</span>, filetype <span class="op">=</span> <span class="st">"GTiff"</span>, overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<p>The saved file is a multi-band raster datasets. So, if you have many raster files of the same spatial extent and resolution, you can “stack” them on R and then export it to a single multi-band raster datasets, which cleans up your data folder.</p>
+</div>
+</div>
+<div id="extract-information-from-raster-data-object" class="section level2" number="4.3">
+<h2>
+<span class="header-section-number">4.3</span> Extract information from raster data object<a class="anchor" aria-label="anchor" href="#extract-information-from-raster-data-object"><i class="fas fa-link"></i></a>
+</h2>
+<div id="get-crs" class="section level3" number="4.3.1">
+<h3>
+<span class="header-section-number">4.3.1</span> Get CRS<a class="anchor" aria-label="anchor" href="#get-crs"><i class="fas fa-link"></i></a>
+</h3>
+<p>You often need to extract the CRS of a raster object before you interact it with vector data (e.g., extracting values from a raster layer to vector data, or cropping a raster layer to the spatial extent of vector data), which can be done using <code><a href="https://rdrr.io/pkg/terra/man/crs.html">terra::crs()</a></code>:</p>
+<div class="sourceCode" id="cb338"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/crs.html">crs</a></span><span class="op">(</span><span class="va">IA_cdl_2015_sr</span><span class="op">)</span></code></pre></div>
+<pre><code>[1] "BOUNDCRS[\n    SOURCECRS[\n        PROJCRS[\"unnamed\",\n            BASEGEOGCRS[\"GRS 1980(IUGG, 1980)\",\n                DATUM[\"unknown\",\n                    ELLIPSOID[\"GRS80\",6378137,298.257222101,\n                        LENGTHUNIT[\"metre\",1,\n                            ID[\"EPSG\",9001]]]],\n                PRIMEM[\"Greenwich\",0,\n                    ANGLEUNIT[\"degree\",0.0174532925199433,\n                        ID[\"EPSG\",9122]]]],\n            CONVERSION[\"Albers Equal Area\",\n                METHOD[\"Albers Equal Area\",\n                    ID[\"EPSG\",9822]],\n                PARAMETER[\"Latitude of false origin\",23,\n                    ANGLEUNIT[\"degree\",0.0174532925199433],\n                    ID[\"EPSG\",8821]],\n                PARAMETER[\"Longitude of false origin\",-96,\n                    ANGLEUNIT[\"degree\",0.0174532925199433],\n                    ID[\"EPSG\",8822]],\n                PARAMETER[\"Latitude of 1st standard parallel\",29.5,\n                    ANGLEUNIT[\"degree\",0.0174532925199433],\n                    ID[\"EPSG\",8823]],\n                PARAMETER[\"Latitude of 2nd standard parallel\",45.5,\n                    ANGLEUNIT[\"degree\",0.0174532925199433],\n                    ID[\"EPSG\",8824]],\n                PARAMETER[\"Easting at false origin\",0,\n                    LENGTHUNIT[\"metre\",1],\n                    ID[\"EPSG\",8826]],\n                PARAMETER[\"Northing at false origin\",0,\n                    LENGTHUNIT[\"metre\",1],\n                    ID[\"EPSG\",8827]]],\n            CS[Cartesian,2],\n                AXIS[\"easting\",east,\n                    ORDER[1],\n                    LENGTHUNIT[\"metre\",1,\n                        ID[\"EPSG\",9001]]],\n                AXIS[\"northing\",north,\n                    ORDER[2],\n                    LENGTHUNIT[\"metre\",1,\n                        ID[\"EPSG\",9001]]]]],\n    TARGETCRS[\n        GEOGCRS[\"WGS 84\",\n            DATUM[\"World Geodetic System 1984\",\n                ELLIPSOID[\"WGS 84\",6378137,298.257223563,\n                    LENGTHUNIT[\"metre\",1]]],\n            PRIMEM[\"Greenwich\",0,\n                ANGLEUNIT[\"degree\",0.0174532925199433]],\n            CS[ellipsoidal,2],\n                AXIS[\"geodetic latitude (Lat)\",north,\n                    ORDER[1],\n                    ANGLEUNIT[\"degree\",0.0174532925199433]],\n                AXIS[\"geodetic longitude (Lon)\",east,\n                    ORDER[2],\n                    ANGLEUNIT[\"degree\",0.0174532925199433]],\n            USAGE[\n                SCOPE[\"Horizontal component of 3D system.\"],\n                AREA[\"World.\"],\n                BBOX[-90,-180,90,180]],\n            ID[\"EPSG\",4326]]],\n    ABRIDGEDTRANSFORMATION[\"Transformation to WGS84\",\n        METHOD[\"Position Vector transformation (geog2D domain)\",\n            ID[\"EPSG\",9606]],\n        PARAMETER[\"X-axis translation\",0,\n            ID[\"EPSG\",8605]],\n        PARAMETER[\"Y-axis translation\",0,\n            ID[\"EPSG\",8606]],\n        PARAMETER[\"Z-axis translation\",0,\n            ID[\"EPSG\",8607]],\n        PARAMETER[\"X-axis rotation\",0,\n            ID[\"EPSG\",8608]],\n        PARAMETER[\"Y-axis rotation\",0,\n            ID[\"EPSG\",8609]],\n        PARAMETER[\"Z-axis rotation\",0,\n            ID[\"EPSG\",8610]],\n        PARAMETER[\"Scale difference\",1,\n            ID[\"EPSG\",8611]]]]"</code></pre>
+</div>
+<div id="subset" class="section level3" number="4.3.2">
+<h3>
+<span class="header-section-number">4.3.2</span> Subset<a class="anchor" aria-label="anchor" href="#subset"><i class="fas fa-link"></i></a>
+</h3>
+<p>You can access specific layers in a multi-layer raster object by indexing:</p>
+<div class="sourceCode" id="cb340"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#--- index ---#</span>
+<span class="va">IA_cdl_stack_sr</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span> <span class="co"># (originally IA_cdl_2016.tif)</span></code></pre></div>
+<pre><code>class       : SpatRaster 
+dimensions  : 11671, 17795, 1  (nrow, ncol, nlyr)
+resolution  : 30, 30  (x, y)
+extent      : -52095, 481755, 1938165, 2288295  (xmin, xmax, ymin, ymax)
+coord. ref. : +proj=aea +lat_0=23 +lon_0=-96 +lat_1=29.5 +lat_2=45.5 +x_0=0 +y_0=0 +ellps=GRS80 +units=m +no_defs 
+source      : IA_cdl_2016.tif 
+name        : IA_cdl_2016 
+min value   :           0 
+max value   :         241 </code></pre>
+</div>
+<div id="get-cell-values" class="section level3" number="4.3.3">
+<h3>
+<span class="header-section-number">4.3.3</span> Get cell values<a class="anchor" aria-label="anchor" href="#get-cell-values"><i class="fas fa-link"></i></a>
+</h3>
+<p>You can access the values stored in a <code>SpatRaster</code> object using the <code><a href="https://rdrr.io/pkg/terra/man/values.html">terra::values()</a></code> function:</p>
+<div class="sourceCode" id="cb342"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#--- terra::values ---#</span>
+<span class="va">values_from_rs</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/values.html">values</a></span><span class="op">(</span><span class="va">IA_cdl_stack_sr</span><span class="op">)</span>
+
+<span class="co">#--- take a look ---#</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">values_from_rs</span><span class="op">)</span></code></pre></div>
+<pre><code>     Layer_1 Layer_1
+[1,]       0       0
+[2,]       0       0
+[3,]       0       0
+[4,]       0       0
+[5,]       0       0
+[6,]       0       0</code></pre>
+<p>The returned values come in a matrix form of two columns because we are getting values from a two-layer <code>SpatRaster</code> object (one column for each layer). In general, <code><a href="https://rdrr.io/pkg/terra/man/values.html">terra::values()</a></code> returns a <span class="math inline">\(X\)</span> by <span class="math inline">\(n\)</span> matrix, where <span class="math inline">\(X\)</span> is the number of cells and <span class="math inline">\(n\)</span> is the number of layers.</p>
+</div>
+</div>
+<div id="turning-a-raster-object-into-a-data.frame" class="section level2" number="4.4">
+<h2>
+<span class="header-section-number">4.4</span> Turning a raster object into a <code>data.frame</code><a class="anchor" aria-label="anchor" href="#turning-a-raster-object-into-a-data.frame"><i class="fas fa-link"></i></a>
+</h2>
+<p>When creating maps using <code>ggplot2()</code> from a <code>SpatRaster</code> or <code>Raster</code><span class="math inline">\(^*\)</span> object, it is necessary to first convert it to a <code>data.frame</code> (see Chapter <a href="create-maps.html#geom-raster">8.2</a>). You can use the <code><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame()</a></code> function with <code>xy = TRUE</code> option to construct a <code>data.frame</code> where each row represents a single cell that has cell values for each layer and its coordinates (the center of the cell).</p>
+<div class="sourceCode" id="cb344"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#--- converting to a data.frame ---#</span>
+<span class="va">IA_cdl_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="va">IA_cdl_stack_sr</span>, xy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># this works with Raster* objects as well</span>
+
+<span class="co">#--- take a look ---#</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">IA_cdl_df</span><span class="op">)</span></code></pre></div>
+<pre><code>       x       y Layer_1 Layer_1.1
+1 -52080 2288280       0         0
+2 -52050 2288280       0         0
+3 -52020 2288280       0         0
+4 -51990 2288280       0         0
+5 -51960 2288280       0         0
+6 -51930 2288280       0         0</code></pre>
+<p><span style="color:red"> Note:</span> I have seen cases where a raster object is converted to a <code>data.frame</code> and then to ‘sf’ for the purpose of interacting it with polygons using <code>st_join()</code> to extract and assign cell values for the polygons (see Chapter <a href="int-vv.html#int-vv">3</a> for this type of operation). This is, however, not generally recommended for two reasons. First of all, it is much slower than using functions that work on a raster object and polygons directly to extract values for the polygons, such as <code><a href="https://rdrr.io/pkg/terra/man/extract.html">terra::extract()</a></code> or <code><a href="https://isciences.gitlab.io/exactextractr/reference/exact_extract.html">exactextractr::exact_extract()</a></code>, which are introduced in Chapter <a href="int-RV.html#int-RV">5</a>. This is primarily because converting a raster object to a <code><a href="https://rdrr.io/r/base/data.frame.html">data.frame()</a></code> is very slow. Second, once a raster data object is converted to a point <code>sf</code> data, one can no longer weight cell values according to the degree of their overlaps with the target polygons. The only case I have found the conversion beneficial (or simply necessary) is to create a map using <code>ggplot()</code> from a raster object (the <code>tmap</code> package can work directly with raster objects.). While the desire to work with a <code>data.frame</code> is understandable as we are very comfortable with working on a <code>data.frame</code>, it is very likely that the conversion to a <code>data.frame</code> is not only unnecessary, but also inefficient<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;If you are aware of cases where a conversion to &lt;code&gt;data.frame&lt;/code&gt; is beneficial, please let me know. I will put them here.&lt;/p&gt;"><sup>71</sup></a>.</p>
+</div>
+<div id="quick-visualization" class="section level2" number="4.5">
+<h2>
+<span class="header-section-number">4.5</span> Quick visualization<a class="anchor" aria-label="anchor" href="#quick-visualization"><i class="fas fa-link"></i></a>
+</h2>
+<p>To have a quick visualization of the data values of <code>SpatRaster</code> objects, you can simply use <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code>:</p>
+<div class="sourceCode" id="cb346"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">IA_cdl_2015_sr</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="R_GIS_Book_files/figure-html/plot_stack-1.png" width="672"></div>
+<p>For a more elaborate map using raster data, see Chapter <a href="create-maps.html#geom-raster">8.2</a>.</p>
+</div>
+<div id="work-with-netcdf" class="section level2" number="4.6">
+<h2>
+<span class="header-section-number">4.6</span> Working with netCDFs<a class="anchor" aria-label="anchor" href="#work-with-netcdf"><i class="fas fa-link"></i></a>
+</h2>
+<p>It is worth talking about how to read a <a href="https://pjbartlein.github.io/REarthSysSci/raster_intro.html">netCDFs</a> format – a multidimensional file format that resembles a raster stack/brick. A netCDF file contains data with a specific structure: a two-dimensional spatial grid (e.g., longitude and latitude) and a third dimension which is usually date or time. This structure is convenient for weather data measured on a consistent grid over time. One such dataset is called <a href="http://www.climatologylab.org/gridmet.html">gridMET</a> which maintains a gridded dataset of weather variables at 4km resolution. Let’s download the daily precipitation data for 2018 using <code><a href="https://rdrr.io/pkg/downloader/man/download.html">downloader::download()</a></code><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;gridMET data is also available in the &lt;a href="https://developers.google.com/earth-engine/datasets/"&gt;Google Earth Engine Data Catalog&lt;/a&gt;, which can be accessed with the R library &lt;a href="https://github.com/r-spatial/rgee"&gt;&lt;code&gt;rgee&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;'><sup>72</sup></a>. We set the destination file name (what to call the file and where we want it to be), and the mode to <code>wb</code> for a binary download.</p>
+<div class="sourceCode" id="cb347"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#--- download gridMET precipitation 2018 ---#</span>
+<span class="fu">downloader</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/downloader/man/download.html">download</a></span><span class="op">(</span>
+  url <span class="op">=</span> <span class="fu">str_c</span><span class="op">(</span><span class="st">"http://www.northwestknowledge.net/metdata/data/pr_2018.nc"</span><span class="op">)</span>,
+  destfile <span class="op">=</span> <span class="st">"Data/pr_2018.nc"</span>,
+  mode <span class="op">=</span> <span class="st">"wb"</span>
+<span class="op">)</span></code></pre></div>
+<p>This code should have stored the data as <strong>pr_2018.nc</strong> in the <strong>Data</strong> folder. You can read a netCDF file using <code><a href="https://rdrr.io/pkg/terra/man/rast.html">terra::rast()</a></code>.</p>
+<div class="sourceCode" id="cb348"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="op">(</span>
+  <span class="va">pr_2018_gm</span> <span class="op">&lt;-</span> <span class="fu">rast</span><span class="op">(</span><span class="st">"Data/pr_2018.nc"</span><span class="op">)</span>
+<span class="op">)</span></code></pre></div>
+<pre><code>class       : SpatRaster 
+dimensions  : 585, 1386, 365  (nrow, ncol, nlyr)
+resolution  : 0.04166667, 0.04166667  (x, y)
+extent      : -124.7875, -67.0375, 25.04583, 49.42083  (xmin, xmax, ymin, ymax)
+coord. ref. : lon/lat WGS 84 (EPSG:4326) 
+source      : pr_2018.nc 
+varname     : precipitation_amount (pr) 
+names       : preci~43099, preci~43100, preci~43101, preci~43102, preci~43103, preci~43104, ... 
+unit        :          mm,          mm,          mm,          mm,          mm,          mm, ... </code></pre>
+<p>You can see that it has 365 layers: one layer per day in 2018. Let’s now look at layer names:</p>
+<div class="sourceCode" id="cb350"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">pr_2018_gm</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<pre><code>[1] "precipitation_amount_day=43099" "precipitation_amount_day=43100"
+[3] "precipitation_amount_day=43101" "precipitation_amount_day=43102"
+[5] "precipitation_amount_day=43103" "precipitation_amount_day=43104"</code></pre>
+<p>Since we have 365 layers and the number at the end of the layer names increase by 1, you would think that <strong>n</strong>th layer represents <strong>n</strong>th day of 2018. In this case, you are correct. However, it is always a good practice to confirm what each layer represents without assuming anything. Now, let’s use the <code>ncdf4</code> package, which is built specifically to handle netCDF4 objects.</p>
+<div class="sourceCode" id="cb352"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="op">(</span>
+  <span class="va">pr_2018_nc</span> <span class="op">&lt;-</span> <span class="fu">ncdf4</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ncdf4/man/nc_open.html">nc_open</a></span><span class="op">(</span><span class="st">"Data/pr_2018.nc"</span><span class="op">)</span>
+<span class="op">)</span></code></pre></div>
+<pre><code>File Data/pr_2018.nc (NC_FORMAT_NETCDF4):
+
+     1 variables (excluding dimension variables):
+        unsigned short precipitation_amount[lon,lat,day]   (Chunking: [231,98,61])  (Compression: level 9)
+            _FillValue: 32767
+            units: mm
+            description: Daily Accumulated Precipitation
+            long_name: pr
+            standard_name: pr
+            missing_value: 32767
+            dimensions: lon lat time
+            grid_mapping: crs
+            coordinate_system: WGS84,EPSG:4326
+            scale_factor: 0.1
+            add_offset: 0
+            coordinates: lon lat
+            _Unsigned: true
+
+     4 dimensions:
+        lon  Size:1386 
+            units: degrees_east
+            description: longitude
+            long_name: longitude
+            standard_name: longitude
+            axis: X
+        lat  Size:585 
+            units: degrees_north
+            description: latitude
+            long_name: latitude
+            standard_name: latitude
+            axis: Y
+        day  Size:365 
+            description: days since 1900-01-01
+            units: days since 1900-01-01 00:00:00
+            long_name: time
+            standard_name: time
+            calendar: gregorian
+        crs  Size:1 
+            grid_mapping_name: latitude_longitude
+            longitude_of_prime_meridian: 0
+            semi_major_axis: 6378137
+            long_name: WGS 84
+            inverse_flattening: 298.257223563
+            GeoTransform: -124.7666666333333 0.041666666666666 0  49.400000000000000 -0.041666666666666
+            spatial_ref: GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4326"]]
+
+    19 global attributes:
+        geospatial_bounds_crs: EPSG:4326
+        Conventions: CF-1.6
+        geospatial_bounds: POLYGON((-124.7666666333333 49.400000000000000, -124.7666666333333 25.066666666666666, -67.058333300000015 25.066666666666666, -67.058333300000015 49.400000000000000, -124.7666666333333 49.400000000000000))
+        geospatial_lat_min: 25.066666666666666
+        geospatial_lat_max: 49.40000000000000
+        geospatial_lon_min: -124.7666666333333
+        geospatial_lon_max: -67.058333300000015
+        geospatial_lon_resolution: 0.041666666666666
+        geospatial_lat_resolution: 0.041666666666666
+        geospatial_lat_units: decimal_degrees north
+        geospatial_lon_units: decimal_degrees east
+        coordinate_system: EPSG:4326
+        author: John Abatzoglou - University of Idaho, jabatzoglou@uidaho.edu
+        date: 03 May 2021
+        note1: The projection information for this file is: GCS WGS 1984.
+        note2: Citation: Abatzoglou, J.T., 2013, Development of gridded surface meteorological data for ecological applications and modeling, International Journal of Climatology, DOI: 10.1002/joc.3413
+        note3: Data in slices after last_permanent_slice (1-based) are considered provisional and subject to change with subsequent updates
+        note4: Data in slices after last_provisional_slice (1-based) are considered early and subject to change with subsequent updates
+        note5: Days correspond approximately to calendar days ending at midnight, Mountain Standard Time (7 UTC the next calendar day)</code></pre>
+<p>As you can see from the output, there is tons of information that we did not see when we read the data using <code>rast()</code>, which includes the explanation of the third dimension (day) of this raster object. It turned out that the numerical values at the end of layer names in the <code>SpatRaster</code> object are <strong>days since 1900-01-01</strong>. So, the first layer (named <strong>precipitation_amount_day=43099</strong>) represents:</p>
+<div class="sourceCode" id="cb354"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">ymd</span><span class="op">(</span><span class="st">"1900-01-01"</span><span class="op">)</span> <span class="op">+</span> <span class="fl">43099</span></code></pre></div>
+<pre><code>[1] "2018-01-01"</code></pre>
+<p>Actually, if we use <code><a href="https://rdrr.io/pkg/raster/man/brick.html">raster::brick()</a></code>, instead of <code><a href="https://rdrr.io/pkg/terra/man/rast.html">terra::rast()</a></code>, then we can see the naming convention of the layers:</p>
+<div class="sourceCode" id="cb356"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="op">(</span>
+  <span class="va">pr_2018_b</span> <span class="op">&lt;-</span> <span class="fu">brick</span><span class="op">(</span><span class="st">"Data/pr_2018.nc"</span><span class="op">)</span>
+<span class="op">)</span></code></pre></div>
+<pre><code>class      : RasterBrick 
+dimensions : 585, 1386, 810810, 365  (nrow, ncol, ncell, nlayers)
+resolution : 0.04166667, 0.04166667  (x, y)
+extent     : -124.7875, -67.0375, 25.04583, 49.42083  (xmin, xmax, ymin, ymax)
+crs        : +proj=longlat +datum=WGS84 +no_defs 
+source     : pr_2018.nc 
+names      : X43099, X43100, X43101, X43102, X43103, X43104, X43105, X43106, X43107, X43108, X43109, X43110, X43111, X43112, X43113, ... 
+day (days since 1900-01-01 00:00:00): 43099, 43463 (min, max)
+varname    : precipitation_amount </code></pre>
+<p><code>SpatRaster</code> or <code>RasterBrick</code> objects are easier to work with as many useful functions accept them as inputs, but not the <code>ncdf4</code> object. Personally, I first scrutinize a netCDFs file using <code>nc_open()</code> and then import it as a <code>SpatRaster</code> or <code>RasterBrick</code> object<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Even though &lt;code&gt;RasterBrick&lt;/code&gt; provides the description of how layers are named, I think it is a good practice to see the full description in the &lt;code&gt;ncdf4&lt;/code&gt; object.&lt;/p&gt;"><sup>73</sup></a>. Recovering the dates for the layers is particularly important as we often wrangle the resulting data based on date (e.g., subset the data so that you have only April to September). An example of date recovery can be seen in Chapter <a href="download-data.html#gridMET">9.5</a>.</p>
+<p>Very detailed description of how to work with <code>ncdf4</code> object is provided <a href="https://pjbartlein.github.io/REarthSysSci/netCDF.html">here</a>. However, I would say that economists are unlikely to benefit much from it. As I have stated several times already, we (economists) rarely need to manipulate raster data itself. Our observation units are almost always points (e.g., farms, houses) or polygons (e.g., county boundary) and we just need to associate those units with the values held in raster data (e.g., precipitation). We can simply use raster objects as they are and supply them to functions that take care of the business of raster value extraction, which is covered in the next chapter (Chapter <a href="int-RV.html#int-RV">5</a>).</p>
+
+</div>
+</div>
+
+  <div class="chapter-nav">
+<div class="prev"><a href="int-vv.html"><span class="header-section-number">3</span> Spatial Interactions of Vector Data: Subsetting and Joining</a></div>
+<div class="next"><a href="int-RV.html"><span class="header-section-number">5</span> Spatial Interactions of Vector and Raster Data</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#raster-basics"><span class="header-section-number">4</span> Raster Data Handling</a></li>
+<li>
+<a class="nav-link" href="#before-you-start-3">Before you start</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#direction-for-replication-3">Direction for replication</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#raster-data-object-classes"><span class="header-section-number">4.1</span> Raster data object classes</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#raster-package-rasterlayer-rasterstack-and-rasterbrick"><span class="header-section-number">4.1.1</span> raster package: RasterLayer, RasterStack, and RasterBrick</a></li>
+<li><a class="nav-link" href="#terra-package-spatraster"><span class="header-section-number">4.1.2</span> terra package: SpatRaster</a></li>
+<li><a class="nav-link" href="#converting-a-spatraster-object-to-a-raster-object."><span class="header-section-number">4.1.3</span> Converting a SpatRaster object to a Raster\(^*\) object.</a></li>
+<li><a class="nav-link" href="#vector-data-in-the-terra-package"><span class="header-section-number">4.1.4</span> Vector data in the terra package</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#read-and-write-a-raster-data-file"><span class="header-section-number">4.2</span> Read and write a raster data file</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#read-raster-files"><span class="header-section-number">4.2.1</span> Read raster file(s)</a></li>
+<li><a class="nav-link" href="#write-raster-files"><span class="header-section-number">4.2.2</span> Write raster files</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#extract-information-from-raster-data-object"><span class="header-section-number">4.3</span> Extract information from raster data object</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#get-crs"><span class="header-section-number">4.3.1</span> Get CRS</a></li>
+<li><a class="nav-link" href="#subset"><span class="header-section-number">4.3.2</span> Subset</a></li>
+<li><a class="nav-link" href="#get-cell-values"><span class="header-section-number">4.3.3</span> Get cell values</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#turning-a-raster-object-into-a-data.frame"><span class="header-section-number">4.4</span> Turning a raster object into a data.frame</a></li>
+<li><a class="nav-link" href="#quick-visualization"><span class="header-section-number">4.5</span> Quick visualization</a></li>
+<li><a class="nav-link" href="#work-with-netcdf"><span class="header-section-number">4.6</span> Working with netCDFs</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>R as GIS for Economists</strong>" was written by Taro Mieno. It was last built on 2022-04-12.</p>
   </div>
-<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
-<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
-<script>
-gitbook.require(["gitbook"], function(gitbook) {
-gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": null,
-"text": null
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": null,
-"search": {
-"engine": "fuse",
-"options": null
-},
-"toc": {
-"collapse": "subsection",
-"toc_depth": 3,
-"scroll_highlight": true
-}
-});
-});
-</script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
@@ -624,7 +705,22 @@ gitbook.start({
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
 </script>
 </body>
-
 </html>

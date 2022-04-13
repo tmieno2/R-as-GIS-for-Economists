@@ -1,618 +1,642 @@
 <!DOCTYPE html>
-<html lang="" xml:lang="">
+<html lang="en">
 <head>
-
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>A Loop and Parallel Computing | R as GIS for Economists</title>
-  <meta name="description" content="This is a book for Economists who regularly use spatial datasets for their econometric work." />
-  <meta name="generator" content="bookdown 0.25 and GitBook 2.6.7" />
-
-  <meta property="og:title" content="A Loop and Parallel Computing | R as GIS for Economists" />
-  <meta property="og:type" content="book" />
-  
-  <meta property="og:description" content="This is a book for Economists who regularly use spatial datasets for their econometric work." />
-  
-
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="A Loop and Parallel Computing | R as GIS for Economists" />
-  
-  <meta name="twitter:description" content="This is a book for Economists who regularly use spatial datasets for their econometric work." />
-  
-
-<meta name="author" content="Taro Mieno" />
-
-
-<meta name="date" content="2022-04-12" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-  
-  
-<link rel="prev" href="gridMET.html"/>
-<link rel="next" href="before-you-start-9.html"/>
-<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
-<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
-
-
-
-
-
-
-
-
-<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
-<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
-<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
-<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
-<script src="libs/leaflet-1.3.1/leaflet.js"></script>
-<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
-<script src="libs/proj4-2.6.2/proj4.min.js"></script>
-<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
-<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
-<script src="libs/leaflet-binding-2.1.1/leaflet.js"></script>
-<script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script>
-<script src="libs/leaflet-providers-plugin-2.1.1/leaflet-providers-plugin.js"></script>
-<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="libs/datatables-binding-0.21/datatables.js"></script>
-<link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
-<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet" />
-<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script>
-<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
-
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>A Loop and Parallel Computing | R as GIS for Economists</title>
+<meta name="author" content="Taro Mieno">
+<meta name="description" content="Before you start Here we will learn how to program repetitive operations effectively and fast. We start from the basics of a loop for those who are not familiar with the concept. We then cover...">
+<meta name="generator" content="bookdown 0.25 with bs4_book()">
+<meta property="og:title" content="A Loop and Parallel Computing | R as GIS for Economists">
+<meta property="og:type" content="book">
+<meta property="og:description" content="Before you start Here we will learn how to program repetitive operations effectively and fast. We start from the basics of a loop for those who are not familiar with the concept. We then cover...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="A Loop and Parallel Computing | R as GIS for Economists">
+<meta name="twitter:description" content="Before you start Here we will learn how to program repetitive operations effectively and fast. We start from the basics of a loop for those who are not familiar with the concept. We then cover...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
+<script src="libs/leaflet-1.3.1/leaflet.js"></script><link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
+<script src="libs/proj4-2.6.2/proj4.min.js"></script><script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script><link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
+<script src="libs/leaflet-binding-2.1.1/leaflet.js"></script><script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script><script src="libs/leaflet-providers-plugin-2.1.1/leaflet-providers-plugin.js"></script><link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="libs/datatables-binding-0.21/datatables.js"></script><link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet">
+<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script><link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
 <style type="text/css">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-</style>
-
-<style type="text/css">
-/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}
-</style>
-
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
 </head>
+<body data-spy="scroll" data-target="#toc">
 
-<body>
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
 
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">R as GIS for Economists</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
 
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
 
-  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
-
-    <div class="book-summary">
-      <nav role="navigation">
-
-<ul class="summary">
-<li><a href="./">R as GIS for Economists</a></li>
-
-<li class="divider"></li>
-<li><a href="index.html#welcome">Welcome<span></span></a></li>
-<li><a href="preface.html#preface">Preface<span></span></a>
-<ul>
-<li><a href="why-r-as-gis-for-economists.html#why-r-as-gis-for-economists">Why R as GIS for Economists?<span></span></a>
-<ul>
-<li><a href="why-r-as-gis-for-economists.html#r-vs-python">R vs Python<span></span></a></li>
-<li><a href="why-r-as-gis-for-economists.html#r-vs-arcgis-or-qgis">R vs ArcGIS or QGIS<span></span></a></li>
-<li><a href="why-r-as-gis-for-economists.html#summary">Summary<span></span></a></li>
-</ul></li>
-<li><a href="how-is-this-book-different-from-other-online-books-and-resources.html#how-is-this-book-different-from-other-online-books-and-resources">How is this book different from other online books and resources?<span></span></a></li>
-<li><a href="topics-covered-in-this-book.html#topics-covered-in-this-book">Topics covered in this book<span></span></a></li>
-<li><a href="conventions-of-the-book-and-some-notes.html#conventions-of-the-book-and-some-notes">Conventions of the book and some notes<span></span></a>
-<ul>
-<li><a href="conventions-of-the-book-and-some-notes.html#texts-in-gray-boxes">Texts in gray boxes<span></span></a></li>
-<li><a href="conventions-of-the-book-and-some-notes.html#colored-boxes">Colored Boxes<span></span></a></li>
-<li><a href="conventions-of-the-book-and-some-notes.html#parentheses-around-codes">Parentheses around codes<span></span></a></li>
-<li><a href="conventions-of-the-book-and-some-notes.html#footnotes">Footnotes<span></span></a></li>
-</ul></li>
-<li><a href="session-information.html#session-information">Session Information<span></span></a></li>
-</ul></li>
-<li class="part"><span><b>I Demonstration<span></span></b></span></li>
-<li class="chapter" data-level="1" data-path="demo.html"><a href="demo.html"><i class="fa fa-check"></i><b>1</b> R as GIS: Demonstrations<span></span></a>
-<ul>
-<li><a href="before-you-start.html#before-you-start">Before you start<span></span></a>
-<ul>
-<li><a href="before-you-start.html#target-audience">Target Audience<span></span></a></li>
-<li><a href="before-you-start.html#direction-for-replication">Direction for replication<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="1.1" data-path="Demo1.html"><a href="Demo1.html"><i class="fa fa-check"></i><b>1.1</b> Demonstration 1: The impact of groundwater pumping on depth to water table<span></span></a>
-<ul>
-<li class="chapter" data-level="1.1.1" data-path="Demo1.html"><a href="Demo1.html#project-overview"><i class="fa fa-check"></i><b>1.1.1</b> Project Overview<span></span></a></li>
-<li class="chapter" data-level="1.1.2" data-path="Demo1.html"><a href="Demo1.html#project-demonstration"><i class="fa fa-check"></i><b>1.1.2</b> Project Demonstration<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="1.2" data-path="demonstration-2-precision-agriculture.html"><a href="demonstration-2-precision-agriculture.html"><i class="fa fa-check"></i><b>1.2</b> Demonstration 2: Precision Agriculture<span></span></a>
-<ul>
-<li class="chapter" data-level="1.2.1" data-path="demonstration-2-precision-agriculture.html"><a href="demonstration-2-precision-agriculture.html#project-overview-1"><i class="fa fa-check"></i><b>1.2.1</b> Project Overview<span></span></a></li>
-<li class="chapter" data-level="1.2.2" data-path="demonstration-2-precision-agriculture.html"><a href="demonstration-2-precision-agriculture.html#project-demonstration-1"><i class="fa fa-check"></i><b>1.2.2</b> Project Demonstration<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="1.3" data-path="demo3.html"><a href="demo3.html"><i class="fa fa-check"></i><b>1.3</b> Demonstration 3: Land Use and Weather<span></span></a>
-<ul>
-<li class="chapter" data-level="1.3.1" data-path="demo3.html"><a href="demo3.html#project-overview-2"><i class="fa fa-check"></i><b>1.3.1</b> Project Overview<span></span></a></li>
-<li class="chapter" data-level="1.3.2" data-path="demo3.html"><a href="demo3.html#project-demonstration-2"><i class="fa fa-check"></i><b>1.3.2</b> Project Demonstration<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="1.4" data-path="demo4.html"><a href="demo4.html"><i class="fa fa-check"></i><b>1.4</b> Demonstration 4: The Impact of Railroad Presence on Corn Planted Acreage<span></span></a>
-<ul>
-<li class="chapter" data-level="1.4.1" data-path="demo4.html"><a href="demo4.html#project-overview-3"><i class="fa fa-check"></i><b>1.4.1</b> Project Overview<span></span></a></li>
-<li class="chapter" data-level="1.4.2" data-path="demo4.html"><a href="demo4.html#project-demonstration-3"><i class="fa fa-check"></i><b>1.4.2</b> Project Demonstration<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="1.5" data-path="demonstration-5-groundwater-use-for-agricultural-irrigation.html"><a href="demonstration-5-groundwater-use-for-agricultural-irrigation.html"><i class="fa fa-check"></i><b>1.5</b> Demonstration 5: Groundwater use for agricultural irrigation<span></span></a>
-<ul>
-<li class="chapter" data-level="1.5.1" data-path="demonstration-5-groundwater-use-for-agricultural-irrigation.html"><a href="demonstration-5-groundwater-use-for-agricultural-irrigation.html#project-overview-4"><i class="fa fa-check"></i><b>1.5.1</b> Project Overview<span></span></a></li>
-<li class="chapter" data-level="1.5.2" data-path="demonstration-5-groundwater-use-for-agricultural-irrigation.html"><a href="demonstration-5-groundwater-use-for-agricultural-irrigation.html#project-demonstration-4"><i class="fa fa-check"></i><b>1.5.2</b> Project Demonstration<span></span></a></li>
-</ul></li>
-</ul></li>
-<li class="part"><span><b>II Foundations<span></span></b></span></li>
-<li class="chapter" data-level="2" data-path="vector-basics.html"><a href="vector-basics.html"><i class="fa fa-check"></i><b>2</b> Vector Data Handling with <code>sf</code><span></span></a>
-<ul>
-<li><a href="before-you-start-1.html#before-you-start-1">Before you start<span></span></a>
-<ul>
-<li><a href="before-you-start-1.html#sf-or-sp"><code>sf</code> or <code>sp</code>?<span></span></a></li>
-<li><a href="before-you-start-1.html#direction-for-replication-1">Direction for replication<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="2.1" data-path="spatial-data-structure.html"><a href="spatial-data-structure.html"><i class="fa fa-check"></i><b>2.1</b> Spatial Data Structure<span></span></a></li>
-<li class="chapter" data-level="2.2" data-path="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html"><i class="fa fa-check"></i><b>2.2</b> Simple feature geometry, simple feature geometry list-column, and simple feature<span></span></a>
-<ul>
-<li class="chapter" data-level="2.2.1" data-path="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#simple-feature-geometry-sfg"><i class="fa fa-check"></i><b>2.2.1</b> Simple feature geometry (<code>sfg</code>)<span></span></a></li>
-<li class="chapter" data-level="2.2.2" data-path="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html"><a href="simple-feature-geometry-simple-feature-geometry-list-column-and-simple-feature.html#create-simple-feature-geometry-list-column-sfc-and-simple-feature-sf-from-scratch"><i class="fa fa-check"></i><b>2.2.2</b> Create simple feature geometry list-column (<code>sfc</code>) and simple feature (<code>sf</code>) from scratch<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="2.3" data-path="reading-and-writing-vector-data.html"><a href="reading-and-writing-vector-data.html"><i class="fa fa-check"></i><b>2.3</b> Reading and writing vector data<span></span></a>
-<ul>
-<li class="chapter" data-level="2.3.1" data-path="reading-and-writing-vector-data.html"><a href="reading-and-writing-vector-data.html#reading-a-shapefile"><i class="fa fa-check"></i><b>2.3.1</b> Reading a shapefile<span></span></a></li>
-<li class="chapter" data-level="2.3.2" data-path="reading-and-writing-vector-data.html"><a href="reading-and-writing-vector-data.html#writing-to-a-shapefile"><i class="fa fa-check"></i><b>2.3.2</b> Writing to a shapefile<span></span></a></li>
-<li class="chapter" data-level="2.3.3" data-path="reading-and-writing-vector-data.html"><a href="reading-and-writing-vector-data.html#better-alternatives"><i class="fa fa-check"></i><b>2.3.3</b> Better alternatives<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="2.4" data-path="projection-with-a-different-coordinate-reference-systems.html"><a href="projection-with-a-different-coordinate-reference-systems.html"><i class="fa fa-check"></i><b>2.4</b> Projection with a different Coordinate Reference Systems<span></span></a></li>
-<li class="chapter" data-level="2.5" data-path="quick-and-interactive-view-of-an-sf-object.html"><a href="quick-and-interactive-view-of-an-sf-object.html"><i class="fa fa-check"></i><b>2.5</b> Quick and interactive view of an <code>sf</code> object<span></span></a>
-<ul>
-<li class="chapter" data-level="2.5.1" data-path="quick-and-interactive-view-of-an-sf-object.html"><a href="quick-and-interactive-view-of-an-sf-object.html#quick-view"><i class="fa fa-check"></i><b>2.5.1</b> Quick view<span></span></a></li>
-<li class="chapter" data-level="2.5.2" data-path="quick-and-interactive-view-of-an-sf-object.html"><a href="quick-and-interactive-view-of-an-sf-object.html#interactive-view"><i class="fa fa-check"></i><b>2.5.2</b> Interactive view<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="2.6" data-path="turning-a-data.frame-of-points-into-an-sf.html"><a href="turning-a-data.frame-of-points-into-an-sf.html"><i class="fa fa-check"></i><b>2.6</b> Turning a data.frame of points into an <code>sf</code><span></span></a></li>
-<li class="chapter" data-level="2.7" data-path="conv_sp.html"><a href="conv_sp.html"><i class="fa fa-check"></i><b>2.7</b> Conversion to and from sp objects<span></span></a></li>
-<li class="chapter" data-level="2.8" data-path="non-spatial-transformation-of-sf.html"><a href="non-spatial-transformation-of-sf.html"><i class="fa fa-check"></i><b>2.8</b> Non-spatial transformation of <code>sf</code><span></span></a>
-<ul>
-<li class="chapter" data-level="2.8.1" data-path="non-spatial-transformation-of-sf.html"><a href="non-spatial-transformation-of-sf.html#using-dplyr"><i class="fa fa-check"></i><b>2.8.1</b> Using <code>dplyr</code><span></span></a></li>
-<li class="chapter" data-level="2.8.2" data-path="non-spatial-transformation-of-sf.html"><a href="non-spatial-transformation-of-sf.html#using-data.table"><i class="fa fa-check"></i><b>2.8.2</b> Using <code>data.table</code><span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="2.9" data-path="non-interactive-geometrical-operations.html"><a href="non-interactive-geometrical-operations.html"><i class="fa fa-check"></i><b>2.9</b> Non-interactive geometrical operations<span></span></a>
-<ul>
-<li class="chapter" data-level="2.9.1" data-path="non-interactive-geometrical-operations.html"><a href="non-interactive-geometrical-operations.html#st_buffer"><i class="fa fa-check"></i><b>2.9.1</b> st_buffer<span></span></a></li>
-<li class="chapter" data-level="2.9.2" data-path="non-interactive-geometrical-operations.html"><a href="non-interactive-geometrical-operations.html#st_area"><i class="fa fa-check"></i><b>2.9.2</b> st_area<span></span></a></li>
-<li class="chapter" data-level="2.9.3" data-path="non-interactive-geometrical-operations.html"><a href="non-interactive-geometrical-operations.html#st_centroid"><i class="fa fa-check"></i><b>2.9.3</b> st_centroid<span></span></a></li>
-<li class="chapter" data-level="2.9.4" data-path="non-interactive-geometrical-operations.html"><a href="non-interactive-geometrical-operations.html#st_length"><i class="fa fa-check"></i><b>2.9.4</b> st_length<span></span></a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="3" data-path="int-vv.html"><a href="int-vv.html"><i class="fa fa-check"></i><b>3</b> Spatial Interactions of Vector Data: Subsetting and Joining<span></span></a>
-<ul>
-<li><a href="before-you-start-2.html#before-you-start-2">Before you start<span></span></a>
-<ul>
-<li><a href="before-you-start-2.html#direction-for-replication-2">Direction for replication<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="3.1" data-path="topo.html"><a href="topo.html"><i class="fa fa-check"></i><b>3.1</b> Topological relations<span></span></a>
-<ul>
-<li class="chapter" data-level="3.1.1" data-path="topo.html"><a href="topo.html#st_intersects"><i class="fa fa-check"></i><b>3.1.1</b> st_intersects()<span></span></a></li>
-<li class="chapter" data-level="3.1.2" data-path="topo.html"><a href="topo.html#st_is_within_distance"><i class="fa fa-check"></i><b>3.1.2</b> st_is_within_distance()<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="3.2" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html"><i class="fa fa-check"></i><b>3.2</b> Spatial Subsetting (or Flagging)<span></span></a>
-<ul>
-<li class="chapter" data-level="3.2.1" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#polygons-source-vs-polygons-target"><i class="fa fa-check"></i><b>3.2.1</b> polygons (source) vs polygons (target)<span></span></a></li>
-<li class="chapter" data-level="3.2.2" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#points-source-vs-polygons-target"><i class="fa fa-check"></i><b>3.2.2</b> points (source) vs polygons (target)<span></span></a></li>
-<li class="chapter" data-level="3.2.3" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#lines_polygons"><i class="fa fa-check"></i><b>3.2.3</b> lines (source) vs polygons (target)<span></span></a></li>
-<li class="chapter" data-level="3.2.4" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#polygons_points"><i class="fa fa-check"></i><b>3.2.4</b> polygons (source) vs points (target)<span></span></a></li>
-<li class="chapter" data-level="3.2.5" data-path="spatial-subsetting-or-flagging.html"><a href="spatial-subsetting-or-flagging.html#subsetting-to-a-geographic-extent-bounding-box"><i class="fa fa-check"></i><b>3.2.5</b> Subsetting to a geographic extent (bounding box)<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="3.3" data-path="sp-join.html"><a href="sp-join.html"><i class="fa fa-check"></i><b>3.3</b> Spatial Join<span></span></a>
-<ul>
-<li class="chapter" data-level="3.3.1" data-path="sp-join.html"><a href="sp-join.html#case-1-points-target-vs-polygons-source"><i class="fa fa-check"></i><b>3.3.1</b> Case 1: points (target) vs polygons (source)<span></span></a></li>
-<li class="chapter" data-level="3.3.2" data-path="sp-join.html"><a href="sp-join.html#case-2-polygons-target-vs-points-source"><i class="fa fa-check"></i><b>3.3.2</b> Case 2: polygons (target) vs points (source)<span></span></a></li>
-<li class="chapter" data-level="3.3.3" data-path="sp-join.html"><a href="sp-join.html#polygon-polygon"><i class="fa fa-check"></i><b>3.3.3</b> Case 3: polygons (target) vs polygons (source)<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="3.4" data-path="spatial-intersection-cropping-join.html"><a href="spatial-intersection-cropping-join.html"><i class="fa fa-check"></i><b>3.4</b> Spatial Intersection (cropping join)<span></span></a>
-<ul>
-<li class="chapter" data-level="3.4.1" data-path="spatial-intersection-cropping-join.html"><a href="spatial-intersection-cropping-join.html#st-intersection"><i class="fa fa-check"></i><b>3.4.1</b> <code>st_intersection()</code><span></span></a></li>
-<li class="chapter" data-level="3.4.2" data-path="spatial-intersection-cropping-join.html"><a href="spatial-intersection-cropping-join.html#area-weighted-average"><i class="fa fa-check"></i><b>3.4.2</b> Area-weighted average<span></span></a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="4" data-path="raster-basics.html"><a href="raster-basics.html"><i class="fa fa-check"></i><b>4</b> Raster Data Handling<span></span></a>
-<ul>
-<li><a href="before-you-start-3.html#before-you-start-3">Before you start<span></span></a>
-<ul>
-<li><a href="before-you-start-3.html#direction-for-replication-3">Direction for replication<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="4.1" data-path="raster-data-object-classes.html"><a href="raster-data-object-classes.html"><i class="fa fa-check"></i><b>4.1</b> Raster data object classes<span></span></a>
-<ul>
-<li class="chapter" data-level="4.1.1" data-path="raster-data-object-classes.html"><a href="raster-data-object-classes.html#raster-package-rasterlayer-rasterstack-and-rasterbrick"><i class="fa fa-check"></i><b>4.1.1</b> <code>raster</code> package: <code>RasterLayer</code>, <code>RasterStack</code>, and <code>RasterBrick</code><span></span></a></li>
-<li class="chapter" data-level="4.1.2" data-path="raster-data-object-classes.html"><a href="raster-data-object-classes.html#terra-package-spatraster"><i class="fa fa-check"></i><b>4.1.2</b> <code>terra</code> package: <code>SpatRaster</code><span></span></a></li>
-<li class="chapter" data-level="4.1.3" data-path="raster-data-object-classes.html"><a href="raster-data-object-classes.html#converting-a-spatraster-object-to-a-raster-object."><i class="fa fa-check"></i><b>4.1.3</b> Converting a <code>SpatRaster</code> object to a <code>Raster</code><span class="math inline">\(^*\)</span> object.<span></span></a></li>
-<li class="chapter" data-level="4.1.4" data-path="raster-data-object-classes.html"><a href="raster-data-object-classes.html#vector-data-in-the-terra-package"><i class="fa fa-check"></i><b>4.1.4</b> Vector data in the <code>terra</code> package<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="4.2" data-path="read-and-write-a-raster-data-file.html"><a href="read-and-write-a-raster-data-file.html"><i class="fa fa-check"></i><b>4.2</b> Read and write a raster data file<span></span></a>
-<ul>
-<li class="chapter" data-level="4.2.1" data-path="read-and-write-a-raster-data-file.html"><a href="read-and-write-a-raster-data-file.html#read-raster-files"><i class="fa fa-check"></i><b>4.2.1</b> Read raster file(s)<span></span></a></li>
-<li class="chapter" data-level="4.2.2" data-path="read-and-write-a-raster-data-file.html"><a href="read-and-write-a-raster-data-file.html#write-raster-files"><i class="fa fa-check"></i><b>4.2.2</b> Write raster files<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="4.3" data-path="extract-information-from-raster-data-object.html"><a href="extract-information-from-raster-data-object.html"><i class="fa fa-check"></i><b>4.3</b> Extract information from raster data object<span></span></a>
-<ul>
-<li class="chapter" data-level="4.3.1" data-path="extract-information-from-raster-data-object.html"><a href="extract-information-from-raster-data-object.html#get-crs"><i class="fa fa-check"></i><b>4.3.1</b> Get CRS<span></span></a></li>
-<li class="chapter" data-level="4.3.2" data-path="extract-information-from-raster-data-object.html"><a href="extract-information-from-raster-data-object.html#subset"><i class="fa fa-check"></i><b>4.3.2</b> Subset<span></span></a></li>
-<li class="chapter" data-level="4.3.3" data-path="extract-information-from-raster-data-object.html"><a href="extract-information-from-raster-data-object.html#get-cell-values"><i class="fa fa-check"></i><b>4.3.3</b> Get cell values<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="4.4" data-path="turning-a-raster-object-into-a-data.html"><a href="turning-a-raster-object-into-a-data.html"><i class="fa fa-check"></i><b>4.4</b> Turning a raster object into a <code>data.frame</code><span></span></a></li>
-<li class="chapter" data-level="4.5" data-path="quick-visualization.html"><a href="quick-visualization.html"><i class="fa fa-check"></i><b>4.5</b> Quick visualization<span></span></a></li>
-<li class="chapter" data-level="4.6" data-path="work-with-netcdf.html"><a href="work-with-netcdf.html"><i class="fa fa-check"></i><b>4.6</b> Working with netCDFs<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="int-RV.html"><a href="int-RV.html"><i class="fa fa-check"></i><b>5</b> Spatial Interactions of Vector and Raster Data<span></span></a>
-<ul>
-<li><a href="before-you-start-4.html#before-you-start-4">Before you start<span></span></a>
-<ul>
-<li><a href="before-you-start-4.html#direction-for-replication-4">Direction for replication<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="5.1" data-path="raster-crop.html"><a href="raster-crop.html"><i class="fa fa-check"></i><b>5.1</b> Cropping to the Area of Interest<span></span></a></li>
-<li class="chapter" data-level="5.2" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html"><i class="fa fa-check"></i><b>5.2</b> Extracting Values from Raster Layers for Vector Data<span></span></a>
-<ul>
-<li class="chapter" data-level="5.2.1" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#simple-visual-illustrations-of-raster-data-extraction"><i class="fa fa-check"></i><b>5.2.1</b> Simple visual illustrations of raster data extraction<span></span></a></li>
-<li class="chapter" data-level="5.2.2" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#extracting-to-points"><i class="fa fa-check"></i><b>5.2.2</b> Extracting to Points<span></span></a></li>
-<li class="chapter" data-level="5.2.3" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#extracting-to-polygons-terra-way"><i class="fa fa-check"></i><b>5.2.3</b> Extracting to Polygons (<code>terra</code> way)<span></span></a></li>
-<li class="chapter" data-level="5.2.4" data-path="extracting-values-from-raster-layers-for-vector-data.html"><a href="extracting-values-from-raster-layers-for-vector-data.html#extracting-to-polygons-exactextractr-way"><i class="fa fa-check"></i><b>5.2.4</b> Extracting to Polygons (<code>exactextractr</code> way)<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="5.3" data-path="extract-speed.html"><a href="extract-speed.html"><i class="fa fa-check"></i><b>5.3</b> Extraction speed comparison<span></span></a>
-<ul>
-<li class="chapter" data-level="5.3.1" data-path="extract-speed.html"><a href="extract-speed.html#points-terraextract-and-rasterextract"><i class="fa fa-check"></i><b>5.3.1</b> Points: <code>terra::extract()</code> and <code>raster::extract()</code><span></span></a></li>
-<li class="chapter" data-level="5.3.2" data-path="extract-speed.html"><a href="extract-speed.html#polygons-exact_extract-terraextract-and-rasterextract"><i class="fa fa-check"></i><b>5.3.2</b> Polygons: <code>exact_extract()</code>, <code>terra::extract()</code>, and <code>raster::extract()</code><span></span></a></li>
-<li class="chapter" data-level="5.3.3" data-path="extract-speed.html"><a href="extract-speed.html#single-layer-vs-multi-layer"><i class="fa fa-check"></i><b>5.3.3</b> Single-layer vs multi-layer<span></span></a></li>
-</ul></li>
-</ul></li>
-<li class="part"><span><b>III (slightly) Advanced Topics<span></span></b></span></li>
-<li class="chapter" data-level="6" data-path="EE.html"><a href="EE.html"><i class="fa fa-check"></i><b>6</b> Extraction Speed Considerations<span></span></a>
-<ul>
-<li><a href="before-you-start-5.html#before-you-start-5">Before you start<span></span></a>
-<ul>
-<li><a href="before-you-start-5.html#direction-for-replication-5">Direction for replication<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="6.1" data-path="single-raster-layer.html"><a href="single-raster-layer.html"><i class="fa fa-check"></i><b>6.1</b> Single raster layer<span></span></a>
-<ul>
-<li class="chapter" data-level="6.1.1" data-path="single-raster-layer.html"><a href="single-raster-layer.html#datasets"><i class="fa fa-check"></i><b>6.1.1</b> Datasets<span></span></a></li>
-<li class="chapter" data-level="6.1.2" data-path="single-raster-layer.html"><a href="single-raster-layer.html#parallelization"><i class="fa fa-check"></i><b>6.1.2</b> Parallelization<span></span></a></li>
-<li class="chapter" data-level="6.1.3" data-path="single-raster-layer.html"><a href="single-raster-layer.html#summary-1"><i class="fa fa-check"></i><b>6.1.3</b> Summary<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="6.2" data-path="many-multi-layer.html"><a href="many-multi-layer.html"><i class="fa fa-check"></i><b>6.2</b> Many multi-layer raster files<span></span></a>
-<ul>
-<li class="chapter" data-level="6.2.1" data-path="many-multi-layer.html"><a href="many-multi-layer.html#datasets-1"><i class="fa fa-check"></i><b>6.2.1</b> Datasets<span></span></a></li>
-<li class="chapter" data-level="6.2.2" data-path="many-multi-layer.html"><a href="many-multi-layer.html#non-par-ext-multi"><i class="fa fa-check"></i><b>6.2.2</b> Non-parallelized extraction<span></span></a></li>
-<li class="chapter" data-level="6.2.3" data-path="many-multi-layer.html"><a href="many-multi-layer.html#approach-1-parallelize-over-polygons-and-do-regular-loop-over-year-month"><i class="fa fa-check"></i><b>6.2.3</b> Approach 1: parallelize over polygons and do regular loop over year-month<span></span></a></li>
-<li class="chapter" data-level="6.2.4" data-path="many-multi-layer.html"><a href="many-multi-layer.html#approach-2-parallelize-over-the-temporal-dimension-year-month"><i class="fa fa-check"></i><b>6.2.4</b> Approach 2: parallelize over the temporal dimension (year-month)<span></span></a></li>
-<li class="chapter" data-level="6.2.5" data-path="many-multi-layer.html"><a href="many-multi-layer.html#memory-consideration"><i class="fa fa-check"></i><b>6.2.5</b> Memory consideration<span></span></a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="7" data-path="stars-basics.html"><a href="stars-basics.html"><i class="fa fa-check"></i><b>7</b> Spatiotemporal Raster Data Handling with <code>stars</code><span></span></a>
-<ul>
-<li><a href="before-you-start-6.html#before-you-start-6">Before you start<span></span></a>
-<ul>
-<li><a href="before-you-start-6.html#direction-for-replication-6">Direction for replication<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="7.1" data-path="stars-structure.html"><a href="stars-structure.html"><i class="fa fa-check"></i><b>7.1</b> Understanding the structure of a <code>stars</code> object<span></span></a></li>
-<li class="chapter" data-level="7.2" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html"><i class="fa fa-check"></i><b>7.2</b> Some basic operations on <code>stars</code> objects<span></span></a>
-<ul>
-<li class="chapter" data-level="7.2.1" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html#subset-a-stars-object-by-index"><i class="fa fa-check"></i><b>7.2.1</b> Subset a <code>stars</code> object by index<span></span></a></li>
-<li class="chapter" data-level="7.2.2" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html#set-attribute-names"><i class="fa fa-check"></i><b>7.2.2</b> Set attribute names<span></span></a></li>
-<li class="chapter" data-level="7.2.3" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html#get-the-coordinate-reference-system"><i class="fa fa-check"></i><b>7.2.3</b> Get the coordinate reference system<span></span></a></li>
-<li class="chapter" data-level="7.2.4" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html#get-the-dimension-characteristics-and-values"><i class="fa fa-check"></i><b>7.2.4</b> Get the dimension characteristics and values<span></span></a></li>
-<li class="chapter" data-level="7.2.5" data-path="some-basic-operations-on-stars-objects.html"><a href="some-basic-operations-on-stars-objects.html#attributes-to-dimensions-and-vice-versa"><i class="fa fa-check"></i><b>7.2.5</b> Attributes to dimensions, and vice versa<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="7.3" data-path="quick-visualization-for-exploration.html"><a href="quick-visualization-for-exploration.html"><i class="fa fa-check"></i><b>7.3</b> Quick visualization for exploration<span></span></a>
-<ul>
-<li class="chapter" data-level="7.3.1" data-path="quick-visualization-for-exploration.html"><a href="quick-visualization-for-exploration.html#quick-static-map"><i class="fa fa-check"></i><b>7.3.1</b> quick static map<span></span></a></li>
-<li class="chapter" data-level="7.3.2" data-path="quick-visualization-for-exploration.html"><a href="quick-visualization-for-exploration.html#interactive-map"><i class="fa fa-check"></i><b>7.3.2</b> interactive map<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="7.4" data-path="read-write-stars.html"><a href="read-write-stars.html"><i class="fa fa-check"></i><b>7.4</b> Reading and writing raster data<span></span></a>
-<ul>
-<li class="chapter" data-level="7.4.1" data-path="read-write-stars.html"><a href="read-write-stars.html#reading-raster-data"><i class="fa fa-check"></i><b>7.4.1</b> Reading raster data<span></span></a></li>
-<li class="chapter" data-level="7.4.2" data-path="read-write-stars.html"><a href="read-write-stars.html#writing-a-stars-object-to-a-file"><i class="fa fa-check"></i><b>7.4.2</b> Writing a <code>stars</code> object to a file<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="7.5" data-path="stars-set-time.html"><a href="stars-set-time.html"><i class="fa fa-check"></i><b>7.5</b> Setting the time dimension manually<span></span></a></li>
-<li class="chapter" data-level="7.6" data-path="dplyr-op.html"><a href="dplyr-op.html"><i class="fa fa-check"></i><b>7.6</b> <code>dplyr</code>-like operations<span></span></a>
-<ul>
-<li class="chapter" data-level="7.6.1" data-path="dplyr-op.html"><a href="dplyr-op.html#filter"><i class="fa fa-check"></i><b>7.6.1</b> <code>filter()</code><span></span></a></li>
-<li class="chapter" data-level="7.6.2" data-path="dplyr-op.html"><a href="dplyr-op.html#select"><i class="fa fa-check"></i><b>7.6.2</b> <code>select()</code><span></span></a></li>
-<li class="chapter" data-level="7.6.3" data-path="dplyr-op.html"><a href="dplyr-op.html#mutate"><i class="fa fa-check"></i><b>7.6.3</b> <code>mutate()</code><span></span></a></li>
-<li class="chapter" data-level="7.6.4" data-path="dplyr-op.html"><a href="dplyr-op.html#pull"><i class="fa fa-check"></i><b>7.6.4</b> <code>pull()</code><span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="7.7" data-path="merging-stars-objects-using-c-and-st_mosaic.html"><a href="merging-stars-objects-using-c-and-st_mosaic.html"><i class="fa fa-check"></i><b>7.7</b> Merging <code>stars</code> objects using <code>c()</code> and <code>st_mosaic()</code><span></span></a>
-<ul>
-<li class="chapter" data-level="7.7.1" data-path="merging-stars-objects-using-c-and-st_mosaic.html"><a href="merging-stars-objects-using-c-and-st_mosaic.html#merging-stars-objects-along-the-third-dimension-band"><i class="fa fa-check"></i><b>7.7.1</b> Merging <code>stars</code> objects along the third dimension (band)<span></span></a></li>
-<li class="chapter" data-level="7.7.2" data-path="merging-stars-objects-using-c-and-st_mosaic.html"><a href="merging-stars-objects-using-c-and-st_mosaic.html#merge-two"><i class="fa fa-check"></i><b>7.7.2</b> Merging <code>stars</code> objects of different attributes<span></span></a></li>
-<li class="chapter" data-level="7.7.3" data-path="merging-stars-objects-using-c-and-st_mosaic.html"><a href="merging-stars-objects-using-c-and-st_mosaic.html#merging-stars-objects-of-different-spatial-extents"><i class="fa fa-check"></i><b>7.7.3</b> Merging <code>stars</code> objects of different spatial extents<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="7.8" data-path="convert-to-rb.html"><a href="convert-to-rb.html"><i class="fa fa-check"></i><b>7.8</b> Convert from and to <code>Raster</code><span class="math inline">\(^*\)</span> or <code>SpatRaster</code> objects<span></span></a></li>
-</ul></li>
-<li class="part"><span><b>IV Extensions<span></span></b></span></li>
-<li class="chapter" data-level="8" data-path="create-maps.html"><a href="create-maps.html"><i class="fa fa-check"></i><b>8</b> Creating Maps using <code>ggplot2</code><span></span></a>
-<ul>
-<li><a href="before-you-start-7.html#before-you-start-7">Before you start<span></span></a>
-<ul>
-<li><a href="before-you-start-7.html#direction-for-replication-7">Direction for replication<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="8.1" data-path="geom-sf.html"><a href="geom-sf.html"><i class="fa fa-check"></i><b>8.1</b> Creating maps from <code>sf</code> objects<span></span></a>
-<ul>
-<li class="chapter" data-level="8.1.1" data-path="geom-sf.html"><a href="geom-sf.html#datasets-2"><i class="fa fa-check"></i><b>8.1.1</b> Datasets<span></span></a></li>
-<li class="chapter" data-level="8.1.2" data-path="geom-sf.html"><a href="geom-sf.html#basic-usage-of-geom_sf"><i class="fa fa-check"></i><b>8.1.2</b> Basic usage of <code>geom_sf()</code><span></span></a></li>
-<li class="chapter" data-level="8.1.3" data-path="geom-sf.html"><a href="geom-sf.html#specifying-the-aesthetics"><i class="fa fa-check"></i><b>8.1.3</b> Specifying the aesthetics<span></span></a></li>
-<li class="chapter" data-level="8.1.4" data-path="geom-sf.html"><a href="geom-sf.html#plotting-multiple-spatial-objects-in-one-figure"><i class="fa fa-check"></i><b>8.1.4</b> Plotting multiple spatial objects in one figure<span></span></a></li>
-<li class="chapter" data-level="8.1.5" data-path="geom-sf.html"><a href="geom-sf.html#crs"><i class="fa fa-check"></i><b>8.1.5</b> CRS<span></span></a></li>
-<li class="chapter" data-level="8.1.6" data-path="geom-sf.html"><a href="geom-sf.html#faceting"><i class="fa fa-check"></i><b>8.1.6</b> Faceting<span></span></a></li>
-<li class="chapter" data-level="8.1.7" data-path="geom-sf.html"><a href="geom-sf.html#adding-texts-labels-on-a-map"><i class="fa fa-check"></i><b>8.1.7</b> Adding texts (labels) on a map<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="8.2" data-path="geom-raster.html"><a href="geom-raster.html"><i class="fa fa-check"></i><b>8.2</b> Raster data visualization: <code>geom_raster()</code> and <code>geom_stars()</code><span></span></a>
-<ul>
-<li class="chapter" data-level="8.2.1" data-path="geom-raster.html"><a href="geom-raster.html#visualize-raster-with-geom_raster"><i class="fa fa-check"></i><b>8.2.1</b> Visualize <code>Raster</code><span class="math inline">\(^*\)</span> with <code>geom_raster()</code><span></span></a></li>
-<li class="chapter" data-level="8.2.2" data-path="geom-raster.html"><a href="geom-raster.html#visualize-stars-with-geom_raster"><i class="fa fa-check"></i><b>8.2.2</b> Visualize <code>stars</code> with <code>geom_raster()</code><span></span></a></li>
-<li class="chapter" data-level="8.2.3" data-path="geom-raster.html"><a href="geom-raster.html#visualize-stars-with-geom_stars"><i class="fa fa-check"></i><b>8.2.3</b> Visualize <code>stars</code> with <code>geom_stars()</code><span></span></a></li>
-<li class="chapter" data-level="8.2.4" data-path="geom-raster.html"><a href="geom-raster.html#adding-geom_sf-layers"><i class="fa fa-check"></i><b>8.2.4</b> adding <code>geom_sf()</code> layers<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="8.3" data-path="color-scale.html"><a href="color-scale.html"><i class="fa fa-check"></i><b>8.3</b> Color scale<span></span></a>
-<ul>
-<li class="chapter" data-level="8.3.1" data-path="color-scale.html"><a href="color-scale.html#viridis-color-maps"><i class="fa fa-check"></i><b>8.3.1</b> Viridis color maps<span></span></a></li>
-<li class="chapter" data-level="8.3.2" data-path="color-scale.html"><a href="color-scale.html#rcolorbrewer-scale__distiller-and-scale__brewer"><i class="fa fa-check"></i><b>8.3.2</b> <code>RColorBrewer</code>: <code>scale_*_distiller()</code> and <code>scale_*_brewer()</code><span></span></a></li>
-<li class="chapter" data-level="8.3.3" data-path="color-scale.html"><a href="color-scale.html#colorspace-package"><i class="fa fa-check"></i><b>8.3.3</b> <code>colorspace</code> package<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="8.4" data-path="arranging-maps.html"><a href="arranging-maps.html"><i class="fa fa-check"></i><b>8.4</b> Arranging maps<span></span></a>
-<ul>
-<li class="chapter" data-level="8.4.1" data-path="arranging-maps.html"><a href="arranging-maps.html#multiple-panels-of-figures-as-a-single-figure"><i class="fa fa-check"></i><b>8.4.1</b> Multiple panels of figures as a single figure<span></span></a></li>
-<li class="chapter" data-level="8.4.2" data-path="arranging-maps.html"><a href="arranging-maps.html#a-map-in-a-map-inset"><i class="fa fa-check"></i><b>8.4.2</b> A map in a map: inset<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="8.5" data-path="fine-tune.html"><a href="fine-tune.html"><i class="fa fa-check"></i><b>8.5</b> Fine-tuning maps for publication<span></span></a>
-<ul>
-<li class="chapter" data-level="8.5.1" data-path="fine-tune.html"><a href="fine-tune.html#theme"><i class="fa fa-check"></i><b>8.5.1</b> Setting the theme<span></span></a></li>
-<li class="chapter" data-level="8.5.2" data-path="fine-tune.html"><a href="fine-tune.html#legend"><i class="fa fa-check"></i><b>8.5.2</b> Legend<span></span></a></li>
-<li class="chapter" data-level="8.5.3" data-path="fine-tune.html"><a href="fine-tune.html#facet-strips"><i class="fa fa-check"></i><b>8.5.3</b> Facet strips<span></span></a></li>
-<li class="chapter" data-level="8.5.4" data-path="fine-tune.html"><a href="fine-tune.html#north-arrow-and-scale-bar"><i class="fa fa-check"></i><b>8.5.4</b> North arrow and scale bar<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="8.6" data-path="ggsave.html"><a href="ggsave.html"><i class="fa fa-check"></i><b>8.6</b> Saving a <code>ggplot</code> object as an image<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="9" data-path="download-data.html"><a href="download-data.html"><i class="fa fa-check"></i><b>9</b> Download and process spatial datasets from within R<span></span></a>
-<ul>
-<li><a href="before-you-start-8.html#before-you-start-8">Before you start<span></span></a>
-<ul>
-<li><a href="before-you-start-8.html#direction-for-replication-8">Direction for replication<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="9.1" data-path="nass-quick.html"><a href="nass-quick.html"><i class="fa fa-check"></i><b>9.1</b> USDA NASS QuickStat with <code>tidyUSDA</code><span></span></a>
-<ul>
-<li class="chapter" data-level="9.1.1" data-path="nass-quick.html"><a href="nass-quick.html#look-for-parameter-values"><i class="fa fa-check"></i><b>9.1.1</b> Look for parameter values<span></span></a></li>
-<li class="chapter" data-level="9.1.2" data-path="nass-quick.html"><a href="nass-quick.html#caveats"><i class="fa fa-check"></i><b>9.1.2</b> Caveats<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="9.2" data-path="CropScapeR.html"><a href="CropScapeR.html"><i class="fa fa-check"></i><b>9.2</b> CDL with <code>CropScapeR</code><span></span></a>
-<ul>
-<li class="chapter" data-level="9.2.1" data-path="CropScapeR.html"><a href="CropScapeR.html#getcdldata-download-the-cdl-data-as-raster-data"><i class="fa fa-check"></i><b>9.2.1</b> <code>GetCDLData</code>: Download the CDL data as raster data<span></span></a></li>
-<li class="chapter" data-level="9.2.2" data-path="CropScapeR.html"><a href="CropScapeR.html#data-processing-after-downloading-data"><i class="fa fa-check"></i><b>9.2.2</b> Data processing after downloading data<span></span></a></li>
-<li class="chapter" data-level="9.2.3" data-path="CropScapeR.html"><a href="CropScapeR.html#other-forms-of-cdl-data"><i class="fa fa-check"></i><b>9.2.3</b> Other forms of CDL data<span></span></a></li>
-<li class="chapter" data-level="9.2.4" data-path="CropScapeR.html"><a href="CropScapeR.html#mac-problem"><i class="fa fa-check"></i><b>9.2.4</b> SSL certificate problem on Mac<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="9.3" data-path="download-prism.html"><a href="download-prism.html"><i class="fa fa-check"></i><b>9.3</b> PRISM with <code>prism</code><span></span></a>
-<ul>
-<li class="chapter" data-level="9.3.1" data-path="download-prism.html"><a href="download-prism.html#basics"><i class="fa fa-check"></i><b>9.3.1</b> Basics<span></span></a></li>
-<li class="chapter" data-level="9.3.2" data-path="download-prism.html"><a href="download-prism.html#download-daily-prism-data-for-many-years-and-build-your-own-datasets"><i class="fa fa-check"></i><b>9.3.2</b> Download daily PRISM data for many years and build your own datasets<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="9.4" data-path="daymet-with-daymetr-and-feddata.html"><a href="daymet-with-daymetr-and-feddata.html"><i class="fa fa-check"></i><b>9.4</b> Daymet with <code>daymetr</code> and <code>FedData</code><span></span></a>
-<ul>
-<li class="chapter" data-level="9.4.1" data-path="daymet-with-daymetr-and-feddata.html"><a href="daymet-with-daymetr-and-feddata.html#for-points-data"><i class="fa fa-check"></i><b>9.4.1</b> For points data<span></span></a></li>
-<li class="chapter" data-level="9.4.2" data-path="daymet-with-daymetr-and-feddata.html"><a href="daymet-with-daymetr-and-feddata.html#daymet-poly"><i class="fa fa-check"></i><b>9.4.2</b> For polygons data<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="9.5" data-path="gridMET.html"><a href="gridMET.html"><i class="fa fa-check"></i><b>9.5</b> gridMET<span></span></a>
-<ul>
-<li class="chapter" data-level="9.5.1" data-path="gridMET.html"><a href="gridMET.html#practical-examples"><i class="fa fa-check"></i><b>9.5.1</b> Practical Examples<span></span></a></li>
-</ul></li>
-</ul></li>
-<li class="appendix"><span><b>Appendix<span></span></b></span></li>
-<li class="chapter" data-level="A" data-path="par-comp.html"><a href="par-comp.html"><i class="fa fa-check"></i><b>A</b> Loop and Parallel Computing<span></span></a>
-<ul>
-<li><a href="before-you-start-9.html#before-you-start-9">Before you start<span></span></a>
-<ul>
-<li><a href="before-you-start-9.html#direction-for-replication-9">Direction for replication<span></span></a></li>
-<li><a href="before-you-start-9.html#packages-to-install-and-load">Packages to install and load<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="A.1" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html"><i class="fa fa-check"></i><b>A.1</b> Repetitive processes and looping<span></span></a>
-<ul>
-<li class="chapter" data-level="A.1.1" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html#what-is-looping"><i class="fa fa-check"></i><b>A.1.1</b> What is looping?<span></span></a></li>
-<li class="chapter" data-level="A.1.2" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html#for-loop"><i class="fa fa-check"></i><b>A.1.2</b> For loop<span></span></a></li>
-<li class="chapter" data-level="A.1.3" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html#for-loop-using-the-lapply-function"><i class="fa fa-check"></i><b>A.1.3</b> For loop using the <code>lapply()</code> function<span></span></a></li>
-<li class="chapter" data-level="A.1.4" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html#looping-over-multiple-variables-using-lapply"><i class="fa fa-check"></i><b>A.1.4</b> Looping over multiple variables using lapply()<span></span></a></li>
-<li class="chapter" data-level="A.1.5" data-path="repetitive-processes-and-looping.html"><a href="repetitive-processes-and-looping.html#do-you-really-need-to-loop"><i class="fa fa-check"></i><b>A.1.5</b> Do you really need to loop?<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="A.2" data-path="parcomp.html"><a href="parcomp.html"><i class="fa fa-check"></i><b>A.2</b> Parallelization of embarrassingly parallel processes<span></span></a>
-<ul>
-<li class="chapter" data-level="A.2.1" data-path="parcomp.html"><a href="parcomp.html#mac-or-linux-users"><i class="fa fa-check"></i><b>A.2.1</b> Mac or Linux users<span></span></a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="B" data-path="ggplot2-minimals.html"><a href="ggplot2-minimals.html"><i class="fa fa-check"></i><b>B</b> ggplot2 minimals<span></span></a></li>
-<li><a href="references.html#references">References<span></span></a></li>
-<li class="divider"></li>
-<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
-
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Welcome</a></li>
+<li><a class="" href="preface.html">Preface</a></li>
+<li class="book-part">Demonstration</li>
+<li><a class="" href="demo.html"><span class="header-section-number">1</span> R as GIS: Demonstrations</a></li>
+<li class="book-part">Foundations</li>
+<li><a class="" href="vector-basics.html"><span class="header-section-number">2</span> Vector Data Handling with sf</a></li>
+<li><a class="" href="int-vv.html"><span class="header-section-number">3</span> Spatial Interactions of Vector Data: Subsetting and Joining</a></li>
+<li><a class="" href="raster-basics.html"><span class="header-section-number">4</span> Raster Data Handling</a></li>
+<li><a class="" href="int-RV.html"><span class="header-section-number">5</span> Spatial Interactions of Vector and Raster Data</a></li>
+<li class="book-part">(slightly) Advanced Topics</li>
+<li><a class="" href="EE.html"><span class="header-section-number">6</span> Extraction Speed Considerations</a></li>
+<li><a class="" href="stars-basics.html"><span class="header-section-number">7</span> Spatiotemporal Raster Data Handling with stars</a></li>
+<li class="book-part">Extensions</li>
+<li><a class="" href="create-maps.html"><span class="header-section-number">8</span> Creating Maps using ggplot2</a></li>
+<li><a class="" href="download-data.html"><span class="header-section-number">9</span> Download and process spatial datasets from within R</a></li>
+<li class="book-part">Appendix</li>
+<li><a class="active" href="par-comp.html"><span class="header-section-number">A</span> Loop and Parallel Computing</a></li>
+<li><a class="" href="ggplot2-minimals.html"><span class="header-section-number">B</span> ggplot2 minimals</a></li>
+<li><a class="" href="references.html">References</a></li>
 </ul>
 
+        <div class="book-extra">
+          
+        </div>
       </nav>
-    </div>
-
-    <div class="book-body">
-      <div class="body-inner">
-        <div class="book-header" role="navigation">
-          <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R as GIS for Economists</a>
-          </h1>
-        </div>
-
-        <div class="page-wrapper" tabindex="-1" role="main">
-          <div class="page-inner">
-
-            <section class="normal" id="section-">
-<link href="style.css" rel="stylesheet" type="text/css">
-
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-59758608-3"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-59758608-3');
-</script>
-
-<div id="par-comp" class="section level1 hasAnchor" number="10">
-<h1><span class="header-section-number">A</span> Loop and Parallel Computing<a href="par-comp.html#par-comp" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 </div>
-            </section>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="par-comp" class="section level1" number="10">
+<h1>
+<span class="header-section-number">A</span> Loop and Parallel Computing<a class="anchor" aria-label="anchor" href="#par-comp"><i class="fas fa-link"></i></a>
+</h1>
+<div id="before-you-start-9" class="section level2 unnumbered">
+<h2>Before you start<a class="anchor" aria-label="anchor" href="#before-you-start-9"><i class="fas fa-link"></i></a>
+</h2>
+<p>Here we will learn how to program repetitive operations effectively and fast. We start from the basics of a loop for those who are not familiar with the concept. We then cover parallel computation using the <code>future.lapply</code> and <code>parallel</code> package. Those who are familiar with <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> can go straight to Chapter <a href="par-comp.html#parcomp">A.2</a>.</p>
+<p>Here are the specific learning objectives of this chapter.</p>
+<ol style="list-style-type: decimal">
+<li>Learn how to use <strong>for loop</strong> and <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> to complete repetitive jobs</li>
+<li>Learn how not to loop things that can be easily vectorized</li>
+<li>Learn how to parallelize repetitive jobs using the <code><a href="https://rdrr.io/pkg/future.apply/man/future_lapply.html">future_lapply()</a></code> function from the <code>future.apply</code> package</li>
+</ol>
+<div id="direction-for-replication-9" class="section level3 unnumbered">
+<h3>Direction for replication<a class="anchor" aria-label="anchor" href="#direction-for-replication-9"><i class="fas fa-link"></i></a>
+</h3>
+<p>All the data in this Chapter is generated.</p>
+</div>
+<div id="packages-to-install-and-load" class="section level3 unnumbered">
+<h3>Packages to install and load<a class="anchor" aria-label="anchor" href="#packages-to-install-and-load"><i class="fas fa-link"></i></a>
+</h3>
+<p>Run the following code to install or load (if already installed) the <code>pacman</code> package, and then install or load (if already installed) the listed package inside the <code><a href="https://rdrr.io/pkg/pacman/man/p_load.html">pacman::p_load()</a></code> function.</p>
+<div class="sourceCode" id="cb883"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="st"><a href="https://github.com/trinker/pacman">"pacman"</a></span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"pacman"</span><span class="op">)</span>
+<span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span>
+  <span class="va">dplyr</span>, <span class="co"># data wrangling</span>
+  <span class="va">data.table</span> <span class="co"># data wrangling</span>
+<span class="op">)</span>  </code></pre></div>
+<p>There are other packages that will be loaded during the demonstration.</p>
+<hr>
+</div>
+</div>
+<div id="repetitive-processes-and-looping" class="section level2" number="10.1">
+<h2>
+<span class="header-section-number">A.1</span> Repetitive processes and looping<a class="anchor" aria-label="anchor" href="#repetitive-processes-and-looping"><i class="fas fa-link"></i></a>
+</h2>
+<div id="what-is-looping" class="section level3" number="10.1.1">
+<h3>
+<span class="header-section-number">A.1.1</span> What is looping?<a class="anchor" aria-label="anchor" href="#what-is-looping"><i class="fas fa-link"></i></a>
+</h3>
+<p>We sometimes need to run the same process over and over again often with slight changes in parameters. In such a case, it is very time-consuming and messy to write all of the steps one bye one. For example, suppose you are interested in knowing the square of 1 through 5 (<span class="math inline">\([1, 2, 3, 4, 5]\)</span>). The following code certainly works:</p>
+<div class="sourceCode" id="cb884"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fl">1</span><span class="op">^</span><span class="fl">2</span> </code></pre></div>
+<pre><code>[1] 1</code></pre>
+<div class="sourceCode" id="cb886"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fl">2</span><span class="op">^</span><span class="fl">2</span> </code></pre></div>
+<pre><code>[1] 4</code></pre>
+<div class="sourceCode" id="cb888"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fl">3</span><span class="op">^</span><span class="fl">2</span> </code></pre></div>
+<pre><code>[1] 9</code></pre>
+<div class="sourceCode" id="cb890"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fl">4</span><span class="op">^</span><span class="fl">2</span> </code></pre></div>
+<pre><code>[1] 16</code></pre>
+<div class="sourceCode" id="cb892"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fl">5</span><span class="op">^</span><span class="fl">2</span> </code></pre></div>
+<pre><code>[1] 25</code></pre>
+<p>However, imagine you have to do this for 1000 integers. Yes, you don’t want to write each one of them one by one as that would occupy 1000 lines of your code, and it would be time-consuming. Things will be even worse if you need to repeat much more complicated processes like Monte Carlo simulations. So, let’s learn how to write a program to do repetitive jobs effectively using loop.</p>
+<p>Looping is repeatedly evaluating the same (except parameters) process over and over again. In the example above, the <strong>same</strong> process is the action of squaring. This does not change among the processes you run. What changes is what you square. Looping can help you write a concise code to implement these repetitive processes.</p>
+</div>
+<div id="for-loop" class="section level3" number="10.1.2">
+<h3>
+<span class="header-section-number">A.1.2</span> For loop<a class="anchor" aria-label="anchor" href="#for-loop"><i class="fas fa-link"></i></a>
+</h3>
+<p>Here is how <strong>for loop</strong> works in general:</p>
+<div class="sourceCode" id="cb894"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb894-1"><a href="par-comp.html#cb894-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- NOT RUN ---#</span></span>
+<span id="cb894-2"><a href="par-comp.html#cb894-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (x <span class="cf">in</span> a_list_of_values){</span>
+<span id="cb894-3"><a href="par-comp.html#cb894-3" aria-hidden="true" tabindex="-1"></a>  you do what you want to do with x</span>
+<span id="cb894-4"><a href="par-comp.html#cb894-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>As an example, let’s use this looping syntax to get the same results as the manual squaring of 1 through 5:</p>
+<div class="sourceCode" id="cb895"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw">for</span> <span class="op">(</span><span class="va">x</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span><span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span>
+<span class="op">}</span></code></pre></div>
+<pre><code>[1] 1
+[1] 4
+[1] 9
+[1] 16
+[1] 25</code></pre>
+<p>Here, a list of values is <span class="math inline">\(1, 2, 3, 4, 5]\)</span>. For each value in the list, you square it (<code>x^2</code>) and then print it (<code><a href="https://rdrr.io/r/base/print.html">print()</a></code>). If you want to get the square of <span class="math inline">\(1:1000\)</span>, the only thing you need to change is the list of values to loop over as in:</p>
+<div class="sourceCode" id="cb897"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#--- evaluation not reported as it's too long ---#</span>
+<span class="kw">for</span> <span class="op">(</span><span class="va">x</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">1000</span><span class="op">)</span><span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span>
+<span class="op">}</span></code></pre></div>
+<p>So, the length of the code does not depend on how many repeats you do, which is an obvious improvement over manual typing of every single process one by one. Note that you do not have to use <span class="math inline">\(x\)</span> to refer to an object you are going to use. It could be any combination of letters as long as you use it when you code what you want to do inside the loop. So, this would work just fine,</p>
+<div class="sourceCode" id="cb898"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw">for</span> <span class="op">(</span><span class="va">bluh_bluh_bluh</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span><span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">bluh_bluh_bluh</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span>
+<span class="op">}</span></code></pre></div>
+<pre><code>[1] 1
+[1] 4
+[1] 9
+[1] 16
+[1] 25</code></pre>
+</div>
+<div id="for-loop-using-the-lapply-function" class="section level3" number="10.1.3">
+<h3>
+<span class="header-section-number">A.1.3</span> For loop using the <code>lapply()</code> function<a class="anchor" aria-label="anchor" href="#for-loop-using-the-lapply-function"><i class="fas fa-link"></i></a>
+</h3>
+<p>You can do for loop using the <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> function as well.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;code&gt;lpply()&lt;/code&gt; in only one of the family of &lt;code&gt;apply()&lt;/code&gt; functions. We do not talk about other types of &lt;code&gt;apply()&lt;/code&gt; functions here (e.g., &lt;code&gt;apply()&lt;/code&gt;, &lt;code&gt;spply()&lt;/code&gt;, &lt;code&gt;mapply()&lt;/code&gt;,, &lt;code&gt;tapply()&lt;/code&gt;). Personally, I found myself only rarely using them. But, if you are interested in learning those, take a look at &lt;a href="https://www.datacamp.com/community/tutorials/r-tutorial-apply-family#gs.b=aW_Io"&gt;here&lt;/a&gt; or &lt;a href="https://www.r-bloggers.com/using-apply-sapply-lapply-in-r/"&gt;here&lt;/a&gt;.&lt;/p&gt;'><sup>95</sup></a> Here is how it works:</p>
+<div class="sourceCode" id="cb900"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#--- NOT RUN ---#  </span>
+<span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">A</span>,<span class="va">B</span><span class="op">)</span></code></pre></div>
+<p>where <span class="math inline">\(A\)</span> is the list of values you go through one by one in the order the values are stored, and <span class="math inline">\(B\)</span> is the function you would like to apply to each of the values in <span class="math inline">\(A\)</span>. For example, the following code does exactly the same thing as the above for loop example.</p>
+<div class="sourceCode" id="cb901"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span><span class="va">x</span><span class="op">^</span><span class="fl">2</span><span class="op">}</span><span class="op">)</span></code></pre></div>
+<pre><code>[[1]]
+[1] 1
 
-          </div>
-        </div>
-      </div>
-<a href="gridMET.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="before-you-start-9.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
-    </div>
+[[2]]
+[1] 4
+
+[[3]]
+[1] 9
+
+[[4]]
+[1] 16
+
+[[5]]
+[1] 25</code></pre>
+<p>Here, <span class="math inline">\(A\)</span> is <span class="math inline">\([1, 2, 3, 4, 5]\)</span>. In <span class="math inline">\(B\)</span> you have a function that takes <span class="math inline">\(x\)</span> and square it. So, the above code applies the function to each of <span class="math inline">\([1, 2, 3, 4, 5]\)</span> one by one. In many circumstances, you can write the same looping actions in a much more concise manner using the <code>lapply</code> function than explicitly writing out the loop process as in the above for loop examples. You might have noticed that the output is a list. Yes, <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> returns the outcomes in a list. That is where <strong>l</strong> in <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> comes from.</p>
+<p>When the operation you would like to repeat becomes complicated (almost always the case), it is advisable that you create a function of that process first.</p>
+<div class="sourceCode" id="cb903"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#--- define the function first ---#</span>
+<span class="va">square_it</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span>
+  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">x</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span>
+<span class="op">}</span>
+
+<span class="co">#--- lapply using the pre-defined function ---#</span>
+<span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="va">square_it</span><span class="op">)</span></code></pre></div>
+<pre><code>[[1]]
+[1] 1
+
+[[2]]
+[1] 4
+
+[[3]]
+[1] 9
+
+[[4]]
+[1] 16
+
+[[5]]
+[1] 25</code></pre>
+<p>Finally, it is a myth that you should always use <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> instead of the explicit for loop syntax because <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> (or other <code><a href="https://rdrr.io/r/base/apply.html">apply()</a></code> families) is faster. They are basically the same.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;Check this &lt;a href="https://stackoverflow.com/questions/7142767/why-are-loops-slow-in-r"&gt;discussion&lt;/a&gt; on StackOverflow. You might want to check out &lt;a href="https://www.youtube.com/watch?v=GyNqlOjhPCQ"&gt;this video&lt;/a&gt; at 6:10 as well.&lt;/p&gt;'><sup>96</sup></a></p>
+</div>
+<div id="looping-over-multiple-variables-using-lapply" class="section level3" number="10.1.4">
+<h3>
+<span class="header-section-number">A.1.4</span> Looping over multiple variables using lapply()<a class="anchor" aria-label="anchor" href="#looping-over-multiple-variables-using-lapply"><i class="fas fa-link"></i></a>
+</h3>
+<p><code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> allows you to loop over only one variable. However, it is often the case that you want to loop over multiple variables<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;the &lt;code&gt;map()&lt;/code&gt; function from the &lt;code&gt;purrr&lt;/code&gt; package allows you to loop over two variable.&lt;/p&gt;"><sup>97</sup></a>. However, it is easy to achieve this. The trick is to create a <code>data.frame</code> of the variables where the complete list of the combinations of the variables are stored, and then loop over row of the <code>data.frame</code>. As an example, suppose we are interested in understanding the sensitivity of corn revenue to corn price and applied nitrogen amount. We consider the range of $3.0/bu to $5.0/bu for corn price and 0 lb/acre to 300/acre for nitrogen rate.</p>
+<div class="sourceCode" id="cb905"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#--- corn price vector ---#</span>
+<span class="va">corn_price_vec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">5</span>, by <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
+
+<span class="co">#--- nitrogen vector ---#</span>
+<span class="va">nitrogen_vec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">300</span>, by <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></code></pre></div>
+<p>After creating vectors of the parameters, you combine them to create a complete combination of the parameters using the <code><a href="https://rdrr.io/r/base/expand.grid.html">expand.grid()</a></code> function, and then convert it to a <code>data.frame</code> object<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Converting to a &lt;code&gt;data.frame&lt;/code&gt; is not strictly necessary.&lt;/p&gt;"><sup>98</sup></a>.</p>
+<div class="sourceCode" id="cb906"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#--- crate a data.frame that holds parameter sets to loop over ---#</span>
+<span class="va">parameters_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html">expand.grid</a></span><span class="op">(</span>corn_price <span class="op">=</span> <span class="va">corn_price_vec</span>, nitrogen <span class="op">=</span> <span class="va">nitrogen_vec</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> 
+  <span class="co">#--- convert the matrix to a data.frame ---#</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="op">)</span>
+
+<span class="co">#--- take a look ---#</span>
+<span class="va">parameters_data</span></code></pre></div>
+<pre><code>   corn_price nitrogen
+1           3        0
+2           4        0
+3           5        0
+4           3      100
+5           4      100
+6           5      100
+7           3      200
+8           4      200
+9           5      200
+10          3      300
+11          4      300
+12          5      300</code></pre>
+<p>We now define a function that takes a row number, refer to <code>parameters_data</code> to extract the parameters stored at the row number, and then calculate corn yield and revenue based on the extracted parameters.</p>
+<div class="sourceCode" id="cb908"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">gen_rev_corn</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="op">{</span>
+
+  <span class="co">#--- define corn price ---#</span>
+  <span class="va">corn_price</span> <span class="op">&lt;-</span> <span class="va">parameters_data</span><span class="op">[</span><span class="va">i</span>,<span class="st">'corn_price'</span><span class="op">]</span>
+
+  <span class="co">#--- define nitrogen  ---#</span>
+  <span class="va">nitrogen</span> <span class="op">&lt;-</span> <span class="va">parameters_data</span><span class="op">[</span><span class="va">i</span>,<span class="st">'nitrogen'</span><span class="op">]</span>
+
+  <span class="co">#--- calculate yield ---#</span>
+  <span class="va">yield</span> <span class="op">&lt;-</span> <span class="fl">240</span> <span class="op">*</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fl">0.4</span> <span class="op">-</span> <span class="fl">0.02</span> <span class="op">*</span> <span class="va">nitrogen</span><span class="op">)</span><span class="op">)</span>
+
+  <span class="co">#--- calculate revenue ---#</span>
+  <span class="va">revenue</span> <span class="op">&lt;-</span> <span class="va">corn_price</span> <span class="op">*</span> <span class="va">yield</span> 
+
+  <span class="co">#--- combine all the information you would like to have  ---#</span>
+  <span class="va">data_to_return</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
+    corn_price <span class="op">=</span> <span class="va">corn_price</span>,
+    nitrogen <span class="op">=</span> <span class="va">nitrogen</span>,
+    revenue <span class="op">=</span> <span class="va">revenue</span>
+  <span class="op">)</span>
+
+  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">data_to_return</span><span class="op">)</span>
+<span class="op">}</span></code></pre></div>
+<p>This function takes <span class="math inline">\(i\)</span> (act as a row number within the function), extract corn price and nitrogen from the <span class="math inline">\(i\)</span>th row of <code>parameters_mat</code>, which are then used to calculate yield and revenue<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Yield is generated based on the Mitscherlich-Baule functional form. Yield increases at the decreasing rate as you apply more nitrogen, and yield eventually hits the plateau.&lt;/p&gt;"><sup>99</sup></a>. Finally, it returns a <code>data.frame</code> of all the information you used (the parameters and the outcomes).</p>
+<div class="sourceCode" id="cb909"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#--- loop over all the parameter combinations ---#</span>
+<span class="va">rev_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">parameters_data</span><span class="op">)</span>, <span class="va">gen_rev_corn</span><span class="op">)</span>
+
+<span class="co">#--- take a look ---#</span>
+<span class="va">rev_data</span></code></pre></div>
+<pre><code>[[1]]
+  corn_price nitrogen   revenue
+1          3        0 -354.1138
+
+[[2]]
+  corn_price nitrogen   revenue
+1          4        0 -472.1517
+
+[[3]]
+  corn_price nitrogen   revenue
+1          5        0 -590.1896
+
+[[4]]
+  corn_price nitrogen  revenue
+1          3      100 574.6345
+
+[[5]]
+  corn_price nitrogen  revenue
+1          4      100 766.1793
+
+[[6]]
+  corn_price nitrogen  revenue
+1          5      100 957.7242
+
+[[7]]
+  corn_price nitrogen  revenue
+1          3      200 700.3269
+
+[[8]]
+  corn_price nitrogen  revenue
+1          4      200 933.7692
+
+[[9]]
+  corn_price nitrogen  revenue
+1          5      200 1167.212
+
+[[10]]
+  corn_price nitrogen  revenue
+1          3      300 717.3375
+
+[[11]]
+  corn_price nitrogen  revenue
+1          4      300 956.4501
+
+[[12]]
+  corn_price nitrogen  revenue
+1          5      300 1195.563</code></pre>
+<p>Successful! Now, for us to use the outcome for other purposes like further analysis and visualization, we would need to have all the results combined into a single <code>data.frame</code> instead of a list of <code>data.frame</code>s. To do this, use either <code><a href="https://rdrr.io/pkg/dplyr/man/bind.html">bind_rows()</a></code> from the <code>dplyr</code> package or <code>rbindlist()</code> from the <code>data.table</code> package.</p>
+<div class="sourceCode" id="cb911"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#--- bind_rows ---#</span>
+<span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/bind.html">bind_rows</a></span><span class="op">(</span><span class="va">rev_data</span><span class="op">)</span></code></pre></div>
+<pre><code>   corn_price nitrogen   revenue
+1           3        0 -354.1138
+2           4        0 -472.1517
+3           5        0 -590.1896
+4           3      100  574.6345
+5           4      100  766.1793
+6           5      100  957.7242
+7           3      200  700.3269
+8           4      200  933.7692
+9           5      200 1167.2115
+10          3      300  717.3375
+11          4      300  956.4501
+12          5      300 1195.5626</code></pre>
+<div class="sourceCode" id="cb913"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#--- rbindlist ---#</span>
+<span class="fu">rbindlist</span><span class="op">(</span><span class="va">rev_data</span><span class="op">)</span></code></pre></div>
+<pre><code>    corn_price nitrogen   revenue
+ 1:          3        0 -354.1138
+ 2:          4        0 -472.1517
+ 3:          5        0 -590.1896
+ 4:          3      100  574.6345
+ 5:          4      100  766.1793
+ 6:          5      100  957.7242
+ 7:          3      200  700.3269
+ 8:          4      200  933.7692
+ 9:          5      200 1167.2115
+10:          3      300  717.3375
+11:          4      300  956.4501
+12:          5      300 1195.5626</code></pre>
+</div>
+<div id="do-you-really-need-to-loop" class="section level3" number="10.1.5">
+<h3>
+<span class="header-section-number">A.1.5</span> Do you really need to loop?<a class="anchor" aria-label="anchor" href="#do-you-really-need-to-loop"><i class="fas fa-link"></i></a>
+</h3>
+<p>Actually, we should not have used for loop or <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> in any of the examples above in practice<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;By the way, note that &lt;code&gt;lapply()&lt;/code&gt; is no magic. It’s basically a for loop and not rally any faster than for loop.&lt;/p&gt;"><sup>100</sup></a> This is because they can be easily vectorized. Vectorized operations are those that take vectors as inputs and work on each element of the vectors in parallel<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;This does not mean that the process is parallelized by using multiple cores.&lt;/p&gt;"><sup>101</sup></a>.</p>
+<p>A typical example of a vectorized operation would be this:</p>
+<div class="sourceCode" id="cb915"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#--- define numeric vectors ---#</span>
+<span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">1000</span>
+<span class="va">y</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">1000</span>
+
+<span class="co">#--- element wise addition ---#</span>
+<span class="va">z_vec</span> <span class="op">&lt;-</span> <span class="va">x</span> <span class="op">+</span> <span class="va">y</span> </code></pre></div>
+<p>A non-vectorized version of the same calculation is this:</p>
+<div class="sourceCode" id="cb916"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">z_la</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">1000</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="va">x</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">+</span> <span class="va">y</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span>  <span class="va">unlist</span>
+
+<span class="co">#--- check if identical with z_vec ---#</span>
+<span class="fu"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span><span class="op">(</span><span class="va">z_la</span>, <span class="va">z_vec</span><span class="op">)</span></code></pre></div>
+<pre><code>[1] TRUE</code></pre>
+<p>Both produce the same results. However, R is written in a way that is much better at doing vectorized operations. Let’s time them using the <code><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark()</a></code> function from the <code>microbenchmark</code> package. Here, we do not <code><a href="https://rdrr.io/r/base/unlist.html">unlist()</a></code> after <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> to just focus on the multiplication part.</p>
+<div class="sourceCode" id="cb918"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/joshuaulrich/microbenchmark/">microbenchmark</a></span><span class="op">)</span>
+
+<span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span>
+  <span class="co">#--- vectorized ---#</span>
+  <span class="st">"vectorized"</span> <span class="op">=</span> <span class="op">{</span> <span class="va">x</span> <span class="op">+</span> <span class="va">y</span> <span class="op">}</span>, 
+  <span class="co">#--- not vectorized ---#</span>
+  <span class="st">"not vectorized"</span> <span class="op">=</span> <span class="op">{</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">1000</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="va">x</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">+</span> <span class="va">y</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span><span class="op">}</span>,
+  times <span class="op">=</span> <span class="fl">100</span>, 
+  unit <span class="op">=</span> <span class="st">"ms"</span>
+<span class="op">)</span></code></pre></div>
+<pre><code>Unit: milliseconds
+           expr      min        lq       mean   median        uq       max
+     vectorized 0.002428 0.0028800 0.00316221 0.003082 0.0033105  0.005597
+ not vectorized 0.496875 0.5368535 0.72333386 0.552854 0.5681425 14.101327
+ neval
+   100
+   100</code></pre>
+<p>As you can see, the vectorized version is faster. The time difference comes from R having to conduct many more internal checks and hidden operations for the non-vectorized one<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;See &lt;a href="http://www.noamross.net/archives/2014-04-16-vectorization-in-r-why/"&gt;this&lt;/a&gt; or &lt;a href="https://stackoverflow.com/questions/7142767/why-are-loops-slow-in-r"&gt;this&lt;/a&gt; to have a better understanding of why non-vectorized operations can be slower than vectorized operations.&lt;/p&gt;'><sup>102</sup></a>. Yes, we are talking about a fraction of milliseconds here. But, as the objects to operate on get larger, the difference between vectorized and non-vectorized operations can become substantial<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;See &lt;a href="http://www.win-vector.com/blog/2019/01/what-does-it-mean-to-write-vectorized-code-in-r/"&gt;here&lt;/a&gt; for a good example of such a case. R is often regarded very slow compared to other popular software. But, many of such claims come from not vectorizing operations that can be vectorized. Indeed, many of the base and old R functions are written in C. More recent functions relies on C++ via the &lt;code&gt;Rcpp&lt;/code&gt; package.&lt;/p&gt;'><sup>103</sup></a>.</p>
+<p>The <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> examples can be easily vectorized.</p>
+<p>Instead of this:</p>
+<div class="sourceCode" id="cb920"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">1000</span>, <span class="va">square_it</span><span class="op">)</span></code></pre></div>
+<p>You can just do this:</p>
+<div class="sourceCode" id="cb921"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">square_it</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">1000</span><span class="op">)</span></code></pre></div>
+<p>You can also easily vectorize the revenue calculation demonstrated above. First, define the function differently so that revenue calculation can take corn price and nitrogen vectors and return a revenue vector.</p>
+<div class="sourceCode" id="cb922"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">gen_rev_corn_short</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">corn_price</span>, <span class="va">nitrogen</span><span class="op">)</span> <span class="op">{</span>
+
+  <span class="co">#--- calculate yield ---#</span>
+  <span class="va">yield</span> <span class="op">&lt;-</span> <span class="fl">240</span> <span class="op">*</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fl">0.4</span> <span class="op">-</span> <span class="fl">0.02</span> <span class="op">*</span> <span class="va">nitrogen</span><span class="op">)</span><span class="op">)</span>
+
+  <span class="co">#--- calculate revenue ---#</span>
+  <span class="va">revenue</span> <span class="op">&lt;-</span> <span class="va">corn_price</span> <span class="op">*</span> <span class="va">yield</span> 
+
+  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">revenue</span><span class="op">)</span>
+<span class="op">}</span></code></pre></div>
+<p>Then use the function to calculate revenue and assign it to a new variable in the <code>parameters_data</code> data.</p>
+<div class="sourceCode" id="cb923"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">rev_data_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/mutate.html">mutate</a></span><span class="op">(</span>
+  <span class="va">parameters_data</span>,
+  revenue <span class="op">=</span> <span class="fu">gen_rev_corn_short</span><span class="op">(</span><span class="va">corn_price</span>, <span class="va">nitrogen</span><span class="op">)</span>
+<span class="op">)</span> </code></pre></div>
+<p>Let’s compare the two:</p>
+<div class="sourceCode" id="cb924"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span>
+
+  <span class="co">#--- vectorized ---#</span>
+  <span class="st">"vectorized"</span> <span class="op">=</span> <span class="op">{</span> <span class="va">rev_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/mutate.html">mutate</a></span><span class="op">(</span><span class="va">parameters_data</span>, revenue <span class="op">=</span> <span class="fu">gen_rev_corn_short</span><span class="op">(</span><span class="va">corn_price</span>, <span class="va">nitrogen</span><span class="op">)</span><span class="op">)</span> <span class="op">}</span>,
+  <span class="co">#--- not vectorized ---#</span>
+  <span class="st">"not vectorized"</span> <span class="op">=</span> <span class="op">{</span> <span class="va">parameters_data</span><span class="op">$</span><span class="va">revenue</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">parameters_data</span><span class="op">)</span>, <span class="va">gen_rev_corn</span><span class="op">)</span> <span class="op">}</span>,
+  times <span class="op">=</span> <span class="fl">100</span>, 
+  unit <span class="op">=</span> <span class="st">"ms"</span>
+<span class="op">)</span></code></pre></div>
+<pre><code>Unit: milliseconds
+           expr      min       lq     mean   median       uq      max neval
+     vectorized 0.961107 1.041289 1.554750 1.129748 1.309716 23.56163   100
+ not vectorized 1.894142 2.118015 2.514545 2.282599 2.796153  5.66208   100</code></pre>
+<p>Yes, the vectorized version is faster. So, the lesson here is that if you can vectorize, then vectorize instead of using <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code>. But, of course, things cannot be vectorized in many cases.</p>
+</div>
+</div>
+<div id="parcomp" class="section level2" number="10.2">
+<h2>
+<span class="header-section-number">A.2</span> Parallelization of embarrassingly parallel processes<a class="anchor" aria-label="anchor" href="#parcomp"><i class="fas fa-link"></i></a>
+</h2>
+<p>Parallelization of computation involves distributing the task at hand to multiple cores so that multiple processes are done in parallel. Here, we learn how to parallelize computation in R. Our focus is on the so called <strong>embarrassingly</strong> parallel processes. Embarrassingly parallel processes refer to a collection of processes where each process is completely independent of any another. That is, one process does not use the outputs of any of the other processes. The example of integer squaring is embarrassingly parallel. In order to calculate <span class="math inline">\(1^2\)</span>, you do not need to use the result of <span class="math inline">\(2^2\)</span> or any other squares. Embarrassingly parallel processes are very easy to parallelize because you do not have to worry about which process to complete first to make other processes happen. Fortunately, most of the processes you are interested in parallelizing fall under this category<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;A good example of non-embarrassingly parallel process is dynamic optimization via backward induction. You need to know the optimal solution at &lt;span class="math inline"&gt;\(t = T\)&lt;/span&gt;, before you find the optimal solution at &lt;span class="math inline"&gt;\(t = T-1\)&lt;/span&gt;.&lt;/p&gt;'><sup>104</sup></a>.</p>
+<p>We will use the <code><a href="https://rdrr.io/pkg/future.apply/man/future_lapply.html">future_lapply()</a></code> function from the <code>future.apply</code> package for parallelization<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;There are many other options including the &lt;code&gt;parallel&lt;/code&gt;, &lt;code&gt;foreach&lt;/code&gt; packages.&lt;/p&gt;"><sup>105</sup></a>. Using the package, parallelization is a piece of cake as it is basically the same syntactically as <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code>.</p>
+<div class="sourceCode" id="cb926"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#--- load packages ---#</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://future.apply.futureverse.org">future.apply</a></span><span class="op">)</span> </code></pre></div>
+<p>You can find out how many cores you have available for parallel computation on your computer using the <code><a href="https://rdrr.io/r/parallel/detectCores.html">detectCores()</a></code> function from the <code>parallel</code> package.</p>
+<div class="sourceCode" id="cb927"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">parallel</span><span class="op">)</span>
+
+<span class="co">#--- number of all cores ---#</span>
+<span class="fu"><a href="https://rdrr.io/r/parallel/detectCores.html">detectCores</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<pre><code>[1] 16</code></pre>
+<p>Before we implement parallelized <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code>, we need to declare what backend process we will be using by <code><a href="https://rdrr.io/pkg/future/man/plan.html">plan()</a></code>. Here, we use <code>plan(multiprocess)</code><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;If you are a Mac or Linux user, then the &lt;code&gt;multicore&lt;/code&gt; process will be used, while the &lt;code&gt;multisession&lt;/code&gt; process will be used if you are using a Windows machine. The &lt;code&gt;multicore&lt;/code&gt; process is superior to the &lt;code&gt;multisession&lt;/code&gt; process. See &lt;a href="https://raw.githack.com/uo-ec607/lectures/master/12-parallel/12-parallel.html"&gt;this lecture note&lt;/a&gt; on parallel programming using R by Dr. Grant McDermott’s at the University of Oregon for the distinctions between the two and many other useful concepts for parallelization. At the time of this writing, if you run R through RStudio, &lt;code&gt;multiprocess&lt;/code&gt; option is always redirected to &lt;code&gt;multisession&lt;/code&gt; option because of the instability in doing &lt;code&gt;multiprocess&lt;/code&gt;. If you use Linux or Mac and want to take the full advantage of &lt;code&gt;future_apply&lt;/code&gt;, you should not run your R programs through RStudio at least for now.&lt;/p&gt;'><sup>106</sup></a>. In the <code><a href="https://rdrr.io/pkg/future/man/plan.html">plan()</a></code> function, we can specify the number of workers. Here I will use the total number of cores less 1<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;This way, you can have one more core available to do other tasks comfortably. However, if you don’t mind having your computer completely devoted to the processing task at hand, then there is no reason not to use all the cores.&lt;/p&gt;"><sup>107</sup></a>.</p>
+<div class="sourceCode" id="cb929"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/future/man/plan.html">plan</a></span><span class="op">(</span><span class="va">multiprocess</span>, workers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/parallel/detectCores.html">detectCores</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
+<p><code><a href="https://rdrr.io/pkg/future.apply/man/future_lapply.html">future_lapply()</a></code> works exactly like <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code>.</p>
+<div class="sourceCode" id="cb930"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">sq_ls</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/future.apply/man/future_lapply.html">future_lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">1000</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></code></pre></div>
+<p>This is it. The only difference you see from the serialized processing using <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> is that you changed the function name to <code><a href="https://rdrr.io/pkg/future.apply/man/future_lapply.html">future_lapply()</a></code>.</p>
+<p>Okay, now we know how we parallelize computation. Let’s check how much improvement in implementation time we got by parallelization.</p>
+<div class="sourceCode" id="cb931"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span>
+  <span class="co">#--- parallelized ---#</span>
+  <span class="st">"parallelized"</span> <span class="op">=</span> <span class="op">{</span> <span class="va">sq_ls</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/future.apply/man/future_lapply.html">future_lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">1000</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span> <span class="op">}</span>, 
+  <span class="co">#--- non-parallelized ---#</span>
+  <span class="st">"not parallelized"</span> <span class="op">=</span> <span class="op">{</span> <span class="va">sq_ls</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">1000</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span> <span class="op">}</span>,
+  times <span class="op">=</span> <span class="fl">100</span>, 
+  unit <span class="op">=</span> <span class="st">"ms"</span>
+<span class="op">)</span></code></pre></div>
+<pre><code>Unit: milliseconds
+             expr       min         lq       mean    median         uq
+     parallelized 74.337087 88.5161295 99.5311075 97.196593 108.210706
+ not parallelized  0.411587  0.4805975  0.7229046  0.536682   0.683037
+       max neval
+ 136.86259   100
+  11.07314   100</code></pre>
+<p>Hmmmm, okay, so parallelization made the code slower… How could this be? This is because communicating jobs to each core takes some time as well. So, if each of the iterative processes is super fast (like this example where you just square a number), the time spent on communicating with the cores outweighs the time saving due to parallel computation. Parallelization is more beneficial when each of the repetitive processes takes long.</p>
+<p>One of the very good use cases of parallelization is MC simulation. The following MC simulation tests whether the correlation between an independent variable and error term would cause bias (yes, we know the answer). The <code>MC_sim</code> function first generates a dataset (50,000 observations) according to the following data generating process:</p>
+<p><span class="math display">\[
+ y = 1 + x + v
+\]</span></p>
+<p>where <span class="math inline">\(\mu \sim N(0,1)\)</span>, <span class="math inline">\(x \sim N(0,1) + \mu\)</span>, and <span class="math inline">\(v \sim N(0,1) + \mu\)</span>. The <span class="math inline">\(\mu\)</span> term cause correlation between <span class="math inline">\(x\)</span> (the covariate) and <span class="math inline">\(v\)</span> (the error term). It then estimates the coefficient on <span class="math inline">\(x\)</span> vis OLS, and return the estimate. We would like to repeat this process 1,000 times to understand the property of the OLS estimators under the data generating process. This Monte Carlo simulation is embarrassingly parallel because each process is independent of any other.</p>
+<div class="sourceCode" id="cb933"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#--- repeat steps 1-3 B times ---#</span>
+<span class="va">MC_sim</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span><span class="op">{</span>
+
+  <span class="va">N</span> <span class="op">&lt;-</span> <span class="fl">50000</span> <span class="co"># sample size</span>
+
+  <span class="co">#--- steps 1 and 2:  ---#</span>
+  <span class="va">mu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="va">N</span><span class="op">)</span> <span class="co"># the common term shared by both x and u</span>
+  <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="va">N</span><span class="op">)</span> <span class="op">+</span> <span class="va">mu</span> <span class="co"># independent variable</span>
+  <span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="va">N</span><span class="op">)</span> <span class="op">+</span> <span class="va">mu</span> <span class="co"># error</span>
+  <span class="va">y</span> <span class="op">&lt;-</span> <span class="fl">1</span> <span class="op">+</span> <span class="va">x</span> <span class="op">+</span> <span class="va">v</span> <span class="co"># dependent variable</span>
+  <span class="va">data</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="op">(</span>y <span class="op">=</span> <span class="va">y</span>, x <span class="op">=</span> <span class="va">x</span><span class="op">)</span>
+
+  <span class="co">#--- OLS ---# </span>
+  <span class="va">reg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">y</span><span class="op">~</span><span class="va">x</span>, data <span class="op">=</span> <span class="va">data</span><span class="op">)</span> <span class="co"># OLS</span>
+
+  <span class="co">#--- return the coef ---#</span>
+  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">reg</span><span class="op">$</span><span class="va">coef</span><span class="op">[</span><span class="st">'x'</span><span class="op">]</span><span class="op">)</span>
+<span class="op">}</span></code></pre></div>
+<p>Let’s run one iteration,</p>
+<div class="sourceCode" id="cb934"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">tic</span><span class="op">(</span><span class="op">)</span>
+<span class="fu">MC_sim</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
+<span class="fu">toc</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<pre><code>       x 
+1.503353 </code></pre>
+<pre><code>elapsed 
+  0.023 </code></pre>
+<p>Okay, so it takes 0.023 second for one iteration. Now, let’s run this 1000 times with or without parallelization.</p>
+<p><strong>Not parallelized</strong></p>
+<div class="sourceCode" id="cb937"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#--- non-parallel ---#</span>
+<span class="fu">tic</span><span class="op">(</span><span class="op">)</span>
+<span class="va">MC_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">1000</span>, <span class="va">MC_sim</span><span class="op">)</span>
+<span class="fu">toc</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<pre><code>elapsed 
+ 22.987 </code></pre>
+<p><strong>Parallelized</strong></p>
+<div class="sourceCode" id="cb939"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#--- parallel ---#</span>
+<span class="fu">tic</span><span class="op">(</span><span class="op">)</span>
+<span class="va">MC_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/future.apply/man/future_lapply.html">future_lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">1000</span>, <span class="va">MC_sim</span><span class="op">)</span>
+<span class="fu">toc</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<pre><code>elapsed 
+  4.376 </code></pre>
+<p>As you can see, parallelization makes it much quicker with a noticeable difference in elapsed time. We made the code 5.25 times faster. However, we did not make the process 15 times faster even though we used 15 cores for the parallelized process. This is because of the overhead associated with distributing tasks to the cores. The relative advantage of parallelization would be greater if each iteration took more time. For example, if you are running a process that takes about 2 minutes for 1000 times, it would take approximately 33 hours and 20 minutes. But, it may take only 4 hours if you parallelize it on 15 cores, or maybe even 2 hours if you run it on 30 cores.</p>
+<div id="mac-or-linux-users" class="section level3" number="10.2.1">
+<h3>
+<span class="header-section-number">A.2.1</span> Mac or Linux users<a class="anchor" aria-label="anchor" href="#mac-or-linux-users"><i class="fas fa-link"></i></a>
+</h3>
+<p>For Mac users, <code><a href="https://rdrr.io/r/parallel/mclapply.html">parallel::mclapply()</a></code> is just as compelling (or <code>pbmclapply::pbmclapply()</code> if you want to have a nice progress report, which is very helpful particularly when the process is long). It is just as easy to use as <code><a href="https://rdrr.io/pkg/future.apply/man/future_lapply.html">future_lapply()</a></code> because its syntax is the same as <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code>. You can control the number of cores to employ by adding <code>mc.cores</code> option. Here is an example code that does the same MC simulations we conducted above:</p>
+<div class="sourceCode" id="cb941"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#--- mclapply ---#</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">parallel</span><span class="op">)</span>
+<span class="va">MC_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/parallel/mclapply.html">mclapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">1000</span>, <span class="va">MC_sim</span>, mc.cores <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/parallel/detectCores.html">detectCores</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span>
+
+<span class="co">#--- or with progress bar ---#</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">pbmclapply</span><span class="op">)</span>
+<span class="va">MC_results</span> <span class="op">&lt;-</span> <span class="fu">pbmclapply</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">1000</span>, <span class="va">MC_sim</span>, mc.cores <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/parallel/detectCores.html">detectCores</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
+<!-- ### Some background on the parallelization packages 
+
+For Mac and Linux users the coding cost of parallelization was minimal since when `parallel::mclapply()` was available. Parallelization is really a piece of cake for those who know how to use `lapply()` because the syntax is identical. For Windows users, that had not been the case until the arrival of the `future.apply` package. Windows machines create new threads to run on multiple cores, which do not inherit any of the R objects you have created on the environment. This means that if you need to use a dataset (or any other objects that you are not creating within the loop internally) inside the loop, you have to tell R explicitly what objects you want it to carry to the new threads so they can use those objects themselves. This hassle was eliminated by the `future.apply` package.^[To be honest, I do not completely understand how it does what it does.] On Mac and Linux machines, it was not even an issue because parallelization is done by forking (which Windows machines cannot do), which inherits all the available R objects on the environment. Since the `future.apply` package works for all the platforms, I focused on this package.  -->
+
+</div>
+</div>
+</div>
+
+  <div class="chapter-nav">
+<div class="prev"><a href="download-data.html"><span class="header-section-number">9</span> Download and process spatial datasets from within R</a></div>
+<div class="next"><a href="ggplot2-minimals.html"><span class="header-section-number">B</span> ggplot2 minimals</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#par-comp"><span class="header-section-number">A</span> Loop and Parallel Computing</a></li>
+<li>
+<a class="nav-link" href="#before-you-start-9">Before you start</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#direction-for-replication-9">Direction for replication</a></li>
+<li><a class="nav-link" href="#packages-to-install-and-load">Packages to install and load</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#repetitive-processes-and-looping"><span class="header-section-number">A.1</span> Repetitive processes and looping</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#what-is-looping"><span class="header-section-number">A.1.1</span> What is looping?</a></li>
+<li><a class="nav-link" href="#for-loop"><span class="header-section-number">A.1.2</span> For loop</a></li>
+<li><a class="nav-link" href="#for-loop-using-the-lapply-function"><span class="header-section-number">A.1.3</span> For loop using the lapply() function</a></li>
+<li><a class="nav-link" href="#looping-over-multiple-variables-using-lapply"><span class="header-section-number">A.1.4</span> Looping over multiple variables using lapply()</a></li>
+<li><a class="nav-link" href="#do-you-really-need-to-loop"><span class="header-section-number">A.1.5</span> Do you really need to loop?</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#parcomp"><span class="header-section-number">A.2</span> Parallelization of embarrassingly parallel processes</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#mac-or-linux-users"><span class="header-section-number">A.2.1</span> Mac or Linux users</a></li></ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>R as GIS for Economists</strong>" was written by Taro Mieno. It was last built on 2022-04-12.</p>
   </div>
-<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
-<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
-<script>
-gitbook.require(["gitbook"], function(gitbook) {
-gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": null,
-"text": null
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": null,
-"search": {
-"engine": "fuse",
-"options": null
-},
-"toc": {
-"collapse": "subsection",
-"toc_depth": 3,
-"scroll_highlight": true
-}
-});
-});
-</script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
@@ -624,7 +648,22 @@ gitbook.start({
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
 </script>
 </body>
-
 </html>
