@@ -605,24 +605,32 @@ We now identify the mean value of corn yield, nitrogen rate, and EC for each of 
     #--- EC ---#
     st_join(., aggregate(ec, ., mean), join = st_equals)
 )
-``` 
+```
 
-Here are the visualization of the subplot-level data (Figure \@ref(fig:Demo2-subplot-fig)):  
+Here are the visualization of the subplot-level data (Figure \@ref(fig:Demo2-subplot-fig)):
 
 ```{r Demo2-subplot-fig, fig.cap = "Spatial distribution of subplot-level yield, NH3, and EC", fig.height = 7, cache = TRUE}
-(ggplot() +
+
+g_sub_yield <-
+  ggplot() +
   geom_sf(data = reg_data, aes(fill = yield), color = NA) +
   scale_fill_distiller(name = "Yield", palette = "OrRd", direction = 1) +
-  theme_for_map) /
-  (ggplot() +
-    geom_sf(data = reg_data, aes(fill = aa_NH3), color = NA) +
-    scale_fill_distiller(name = "NH3", palette = "OrRd", direction = 1) +
-    theme_for_map) /
-  (ggplot() +
-    geom_sf(data = reg_data, aes(fill = ec), color = NA) +
-    scale_fill_distiller(name = "EC", palette = "OrRd", direction = 1) +
-    theme_for_map)
-``` 
+  theme_for_map
+
+g_sub_NH3 <-
+  ggplot() +
+  geom_sf(data = reg_data, aes(fill = aa_NH3), color = NA) +
+  scale_fill_distiller(name = "NH3", palette = "OrRd", direction = 1) +
+  theme_for_map
+
+g_sub_ec <-
+  ggplot() +
+  geom_sf(data = reg_data, aes(fill = ec), color = NA) +
+  scale_fill_distiller(name = "EC", palette = "OrRd", direction = 1) +
+  theme_for_map
+
+g_sub_yield / g_sub_NH3 / g_sub_ec
+```
 
 ---
 
