@@ -2765,7 +2765,7 @@ IA_cdl_stack <- stack(IA_cdl_2015, IA_cdl_2016)
 
 #--- take a look ---#
 IA_cdl_stack
-```  
+```
 
 `IA_cdl_stack` is of class `RasterStack`, and it has two layers of variables: CDL for 2015 and 2016. You can make it a `RasterBrick` using `raster::brick()`:
 
@@ -2778,7 +2778,7 @@ IA_cdl_brick <- brick(IA_cdl_stack)
 
 #--- take a look ---#
 IA_cdl_brick
-```  
+```
 
 You probably noticed that it took some time to create the `RasterBrick` object^[Read [here](https://geocompr.robinlovelace.net/spatial-class.html#raster-classes) for the subtle difference between `RasterStack` and `RasterBrick`]. While spatial operations on `RasterBrick` are supposedly faster than `RasterStack`, the time to create a `RasterBrick` object itself is often long enough to kill the speed advantage entirely^[We will see this in Chapter , where we compare the speed of data extraction from `RasterStack` and `RasterBrick` objects.]. Often, the three raster object types are collectively referred to as `Raster`$^*$ objects for shorthand in the documentation of the `raster` and other related packages.
 

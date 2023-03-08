@@ -1,0 +1,204 @@
+### Project Overview
+
+---
+
+**Objective**
+
++ Understand the impact of railroad on corn planted acreage in Illinois
+
+---
+
+**Datasets**
+
++ USDA corn planted acreage for Illinois downloaded from the USDA  NationalAgricultural Statistics Service (NASS) QuickStats service using `tidyUSDA` package 
++ US railroads (line data) downloaded from [here](https://catalog.data.gov/dataset/tiger-line-shapefile-2015-nation-u-s-rails-national-shapefile)
+
+---
+
+**Econometric Model**
+
+We will estimate the following model:
+
+$$
+  y_i = \beta_0 + \beta_1 RL_i + v_i
+$$
+
+where $y_i$ is corn planted acreage in county $i$ in Illinois, $RL_i$ is the total length of railroad, and $v_i$ is the error term.
+
+---
+
+**GIS tasks**
+
++ Download USDA corn planted acreage by county as a spatial dataset (`sf` object)
+  * use `tidyUSDA::getQuickStat()`
++ Import US railroad shape file as a spatial dataset (`sf` object) 
+  * use `sf:st_read()`
++ Spatially subset (crop) the railroad data to the geographic boundary of Illinois 
+  * use `sf_1[sf_2, ]`
++ Find railroads for each county (cross-county railroad will be chopped into pieces for them to fit within a single county)
+  * use `sf::st_intersection()`        
++ Calculate the travel distance of each railroad piece
+  * use `sf::st_length()`
+* create maps using the `ggplot2` package
+  - use `ggplot2::geom_sf()`
+
+---
+
+**Preparation for replication**
+
++ Run the following code to install or load (if already installed) the `pacman` package, and then install or load (if already installed) the listed package inside the `pacman::p_load()` function.
+
+```{r demo4_packages}
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(
+  tidyUSDA, # access USDA NASS data
+  sf, # vector data operations
+  dplyr, # data wrangling
+  ggplot2, # for map creation
+  modelsummary, # regression table generation
+  keyring # API management
+)
+```
+
++ Run the following code to define the theme for map:
+
+```{r define_theme_2, eval = F}
+theme_for_map <-
+  theme(
+    axis.ticks = element_blank(),
+    axis.text = element_blank(),
+    axis.line = element_blank(),
+    panel.border = element_blank(),
+    panel.grid.major = element_line(color = "transparent"),
+    panel.grid.minor = element_line(color = "transparent"),
+    panel.background = element_blank(),
+    plot.background = element_rect(fill = "transparent", color = "transparent")
+  )
+```
+
+### Project Demonstration
+
+We first download corn planted acreage data for 2018 from USDA NASS QuickStat service using `tidyUSDA` package^[In order to actually download the data, you need to obtain the API key [here](https://quickstats.nass.usda.gov/api). Once the API key was obtained, I stored it using `set_key()` from the `keyring` package, which was named "usda_nass_qs_api". In the code to the left, I retrieve the API key using `key_get("usda_nass_qs_api")` in the code. For your replication, replace `key_get("usda_nass_qs_api")` with your own API key.].
+
+```{r get_quicknass, results = "hide", cache = TRUE}
+(
+  IL_corn_planted <-
+    getQuickstat(
+      #--- use your own API key here fore replication ---#
+      key = key_get("usda_nass_qs_api"),
+      program = "SURVEY",
+      data_item = "CORN - ACRES PLANTED",
+      geographic_level = "COUNTY",
+      state = "ILLINOIS",
+      year = "2018",
+      geometry = TRUE
+    ) %>%
+    #--- keep only some of the variables ---#
+    dplyr::select(year, NAME, county_code, short_desc, Value)
+)
+```
+
+```{r IL_corn_planted, echo = F}
+IL_corn_planted
+```
+
+A nice thing about this function is that the data is downloaded as an `sf` object with county geometry with `geometry = TRUE`. So, you can immediately plot it (Figure \@ref(fig:map-il-corn-acreage)) and use it for later spatial interactions without having to merge the downloaded data to an independent county boundary data.
+
+```{r map-il-corn-acreage, fig.cap = "Map of Con Planted Acreage in Illinois in 2018"}
+ggplot(IL_corn_planted) +
+  geom_sf(aes(fill = Value / 1000)) +
+  scale_fill_distiller(name = "Planted Acreage (1000 acres)", palette = "YlOrRd", trans = "reverse") +
+  theme(legend.position = "bottom") +
+  theme_for_map
+```
+
+---
+
+Let's import the U.S. railroad data and reproject to the CRS of `IL_corn_planted`:
+
+```{r Demo5_rail, dependson = "get_quicknass", cache = FALSE}
+rail_roads <-
+  st_read("Data/tl_2015_us_rails.shp") %>%
+  #--- reproject to the CRS of IL_corn_planted ---#
+  st_transform(st_crs(IL_corn_planted))
+```
+
+Here is what it looks like:
+
+```{r Demo5-rail-plot, fig.cap = "Map of Railroads", cache = TRUE}
+ggplot(rail_roads) +
+  geom_sf() +
+  theme_for_map
+```
+
+We now crop it to the Illinois state border (Figure \@ref(fig:Demo5-rail-IL-plot)):
+
+```{r crop_to_IL_run, echo = FALSE, dependson = "get_quicknass", cache = TRUE}
+rail_roads_IL <- rail_roads[IL_corn_planted, ]
+```
+
+```{r crop_to_IL, eval = FALSE, dependson = "get_quicknass"}
+rail_roads_IL <- rail_roads[IL_corn_planted, ]
+```
+
+```{r Demo5-rail-IL-plot, fig.cap = "Map of railroads in Illinois", cache = TRUE}
+ggplot() +
+  geom_sf(data = rail_roads_IL) +
+  theme_for_map
+```
+
+Let's now find railroads for each county, where cross-county railroads will be chopped into pieces so each piece fits completely within a single county, using `st_intersection()`.
+
+```{r intersect_rails, dependson = "get_quicknass", cache = TRUE}
+rails_IL_segmented <- st_intersection(rail_roads_IL, IL_corn_planted)
+```
+
+Here are the railroads for Richland County:
+
+```{r map_seg_rail, dependson = "intersect_rails", fig.height = 6}
+ggplot() +
+  geom_sf(data = dplyr::filter(IL_corn_planted, NAME == "Richland")) +
+  geom_sf(
+    data = dplyr::filter(rails_IL_segmented, NAME == "Richland"),
+    aes(color = LINEARID)
+  ) +
+  theme(legend.position = "bottom") +
+  theme_for_map
+```
+
+We now calculate the travel distance (Great-circle distance) of each railroad piece using `st_length()` and then sum them up by county to find total railroad length by county.
+
+```{r rail_total_county}
+(
+  rail_length_county <-
+    mutate(
+      rails_IL_segmented,
+      length_in_m = as.numeric(st_length(rails_IL_segmented))
+    ) %>%
+    #--- geometry no longer needed ---#
+    st_drop_geometry() %>%
+    #--- group by county ID ---#
+    group_by(county_code) %>%
+    #--- sum rail length by county ---#
+    summarize(length_in_m = sum(length_in_m))
+)
+```
+
+---
+
+We merge the railroad length data to the corn planted acreage data and estimate the model.
+
+```{r merge_data}
+reg_data <- left_join(IL_corn_planted, rail_length_county, by = "county_code")
+```
+
+```{r rail-reg-table}
+lm(Value ~ length_in_m, data = reg_data) %>%
+  modelsummary(
+    stars = TRUE,
+    gof_omit = "IC|Log|Adj|Within|Pseudo"
+  )
+```
+
+---
+

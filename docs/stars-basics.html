@@ -7,7 +7,7 @@
 <title>Chapter 7 Spatiotemporal Raster Data Handling with stars | R as GIS for Economists</title>
 <meta name="author" content="Taro Mieno">
 <meta name="description" content="Before you start In this Chapter, we introduce the stars package (Pebesma 2020) for raster data handling. It can be particularly useful for those who use spatiotemporal raster data often (like...">
-<meta name="generator" content="bookdown 0.25 with bs4_book()">
+<meta name="generator" content="bookdown 0.27 with bs4_book()">
 <meta property="og:title" content="Chapter 7 Spatiotemporal Raster Data Handling with stars | R as GIS for Economists">
 <meta property="og:type" content="book">
 <meta property="og:description" content="Before you start In this Chapter, we introduce the stars package (Pebesma 2020) for raster data handling. It can be particularly useful for those who use spatiotemporal raster data often (like...">
@@ -16,25 +16,25 @@
 <meta name="twitter:description" content="Before you start In this Chapter, we introduce the stars package (Pebesma 2020) for raster data handling. It can be particularly useful for those who use spatiotemporal raster data often (like...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/_Lato-0.4.0/font.css" rel="stylesheet">
-<link href="libs/_Roboto%20Mono-0.4.0/font.css" rel="stylesheet">
-<link href="libs/_Montserrat-0.4.0/font.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/_Lato-0.4.1/font.css" rel="stylesheet">
+<link href="libs/_Roboto%20Mono-0.4.1/font.css" rel="stylesheet">
+<link href="libs/_Montserrat-0.4.1/font.css" rel="stylesheet">
 <script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 <script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
 <script src="libs/leaflet-1.3.1/leaflet.js"></script><link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
 <script src="libs/proj4-2.6.2/proj4.min.js"></script><script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script><link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
 <script src="libs/leaflet-binding-2.1.1/leaflet.js"></script><script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script><script src="libs/leaflet-providers-plugin-2.1.1/leaflet-providers-plugin.js"></script><link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
-<script src="libs/datatables-binding-0.21/datatables.js"></script><link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
+<script src="libs/datatables-binding-0.23/datatables.js"></script><link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
 <link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet">
 <script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script><link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
 <script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script><link href="style.css" rel="stylesheet" type="text/css">
-<!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-59758608-3"></script><script>
+<!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-45VKT2HZSL"></script><script>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
+      function gtag() { dataLayer.push(arguments); }
       gtag('js', new Date());
 
-      gtag('config', 'UA-59758608-3');
+      gtag('config', 'G-45VKT2HZSL');
     </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
     
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
@@ -116,12 +116,10 @@
 <div id="before-you-start-6" class="section level2 unnumbered">
 <h2>Before you start<a class="anchor" aria-label="anchor" href="#before-you-start-6"><i class="fas fa-link"></i></a>
 </h2>
-<p>In this Chapter, we introduce the <code>stars</code> package <span class="citation">(<a href="references.html#ref-stars" role="doc-biblioref">Pebesma 2020</a>)</span> for raster data handling. It can be particularly useful for those who use spatiotemporal raster data often (like daily PRISM and Daymet data) because it brings a framework that provides a consistent treatment of raster data with temporal dimensions. Specifically, <code>stars</code> objects can have a time dimension in addition to the spatial 2D dimensions (longitude and latitude), where the time dimension can take <code>Date</code> values.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;and other &lt;code&gt;Date&lt;/code&gt; classes like &lt;code&gt;POSIXct&lt;/code&gt;&lt;/p&gt;"><sup>77</sup></a> This can be handy for several reasons as you will see below (e.g., filtering the data by date).</p>
-<p>Another advantage of the <code>stars</code> package is its compatibility with <code>sf</code> objects as the lead developer of the two packages is the same person. Therefore, unlike the <code>terra</code> package approach, we do not need any tedious conversions between <code>sf</code> and <code>SpatVector</code>. The <code>stars</code> package also allows <code>dplyr</code>-like data operations using functions like <code><a href="https://rdrr.io/pkg/dplyr/man/filter.html">filter()</a></code>, <code><a href="https://rdrr.io/pkg/dplyr/man/mutate.html">mutate()</a></code> (see section <a href="stars-basics.html#dplyr-op">7.6</a>).</p>
-<!-- The `stars` package has its own set of functions to extract values from raster data for vector data (see section \@ref(extraction-stars)). They are not as fast as `terra::extract()` for points data or `exact_extract()` for polygons data (but, `exact_extract()` will be incorporated very soon). So, if the speed is an issue, you may want to convert `stars` object to `SpatRaster` or `Raster`$^*$ objects so you can use `terra::extract()` for points and `exact_extract()` for polygons data (this will be discussed in section \@ref(extraction-stars)). -->
-<p>In Chapters <a href="raster-basics.html#raster-basics">4</a> and <a href="int-RV.html#int-RV">5</a>, we used the <code>raster</code> and <code>terra</code> packages to handle raster data and interact raster data with vector data. If you do not feel any inconvenience with the approach, you do not need to read on. Also, note that the <code>stars</code> package was not written to replace either <code>raster</code> or <code>terra</code> packages. <a href="https://github.com/r-spatial/stars/wiki/How-%60raster%60-functions-map-to-%60stars%60-functions">Here</a> is a good summary of how <code>raster</code> functions map to <code>stars</code> functions. As you can see, there are many functions that are available to the <code>raster</code> packages that cannot be implemented by the <code>stars</code> package. However, I must say the functionality of the <code>stars</code> package is rather complete at least for most economists, and it is definitely possible to use just the <code>stars</code> package for all the raster data work in most cases.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;at least on the surface&lt;/p&gt;"><sup>78</sup></a></p>
+<p>In this Chapter, we introduce the <code>stars</code> package <span class="citation">(<a href="references.html#ref-stars" role="doc-biblioref">Pebesma 2020</a>)</span> for raster data handling. It can be particularly useful for those who use spatiotemporal raster data often (like daily PRISM and Daymet data) because it brings a framework that provides a consistent treatment of raster data with temporal dimensions. Specifically, <code>stars</code> objects can have a time dimension in addition to the spatial 2D dimensions (longitude and latitude), where the time dimension can take <code>Date</code> values.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;and other &lt;code&gt;Date&lt;/code&gt; classes like &lt;code&gt;POSIXct&lt;/code&gt;&lt;/p&gt;"><sup>81</sup></a> This can be handy for several reasons as you will see below (e.g., filtering the data by date).</p>
+<p>Another advantage of the <code>stars</code> package is its compatibility with <code>sf</code> objects as the lead developer of the two packages is the same person. Therefore, unlike the <code>terra</code> package approach, we do not need any tedious conversions between <code>sf</code> and <code>SpatVector</code>. The <code>stars</code> package also allows <code>dplyr</code>-like data operations using functions like <code><a href="https://dplyr.tidyverse.org/reference/filter.html">filter()</a></code>, <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code> (see section <a href="stars-basics.html#dplyr-op">7.6</a>).</p>
+<p>In Chapters <a href="raster-basics.html#raster-basics">4</a> and <a href="int-RV.html#int-RV">5</a>, we used the <code>raster</code> and <code>terra</code> packages to handle raster data and interact raster data with vector data. If you do not feel any inconvenience with the approach, you do not need to read on. Also, note that the <code>stars</code> package was not written to replace either <code>raster</code> or <code>terra</code> packages. <a href="https://github.com/r-spatial/stars/wiki/How-%60raster%60-functions-map-to-%60stars%60-functions">Here</a> is a good summary of how <code>raster</code> functions map to <code>stars</code> functions. As you can see, there are many functions that are available to the <code>raster</code> packages that cannot be implemented by the <code>stars</code> package. However, I must say the functionality of the <code>stars</code> package is rather complete at least for most economists, and it is definitely possible to use just the <code>stars</code> package for all the raster data work in most cases.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;at least on the surface&lt;/p&gt;"><sup>82</sup></a></p>
 <p>Finally, this book does not cover the use of <code>stars_proxy</code> for big data that does not fit in your memory, which may be useful for some of you. <a href="https://r-spatial.github.io/stars/articles/stars2.html">This</a> provides an introduction to <code>stars_proxy</code> for those interested. This book also does not cover <strong>irregular</strong> raster cells (e.g., curvelinear grids). Interested readers are referred to <a href="https://r-spatial.github.io/stars/articles/stars4.html">here</a>.</p>
-<!-- A `stars` object is much more general than just spatiotmeporal raster data, and it can handle spatiotemporal vector (`sf`) data as well. However, we do not cover it much.  -->
 <div id="direction-for-replication-6" class="section level3 unnumbered">
 <h3>Direction for replication<a class="anchor" aria-label="anchor" href="#direction-for-replication-6"><i class="fas fa-link"></i></a>
 </h3>
@@ -137,35 +135,35 @@
 <ul>
 <li>Run the following code to install or load (if already installed) the <code>pacman</code> package, and then install or load (if already installed) the listed package inside the <code><a href="https://rdrr.io/pkg/pacman/man/p_load.html">pacman::p_load()</a></code> function.</li>
 </ul>
-<div class="sourceCode" id="cb484"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="st"><a href="https://github.com/trinker/pacman">"pacman"</a></span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"pacman"</span><span class="op">)</span>
-<span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span>
-  <span class="va">stars</span>, <span class="co"># spatiotemporal data handling</span>
-  <span class="va">sf</span>, <span class="co"># vector data handling</span>
-  <span class="va">tidyverse</span>, <span class="co"># data wrangling</span>
-  <span class="va">cubelyr</span>, <span class="co"># handle raster data</span>
-  <span class="va">tmap</span>, <span class="co"># make maps</span>
-  <span class="va">mapview</span>, <span class="co"># make maps</span>
-  <span class="va">exactextractr</span>, <span class="co"># fast raster data extraction</span>
-  <span class="va">lubridate</span>, <span class="co"># handle dates</span>
-  <span class="va">prism</span> <span class="co"># download PRISM data</span>
-<span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb508"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="st"><a href="https://github.com/trinker/pacman">"pacman"</a></span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"pacman"</span><span class="op">)</span></span>
+<span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span></span>
+<span>  <span class="va">stars</span>, <span class="co"># spatiotemporal data handling</span></span>
+<span>  <span class="va">sf</span>, <span class="co"># vector data handling</span></span>
+<span>  <span class="va">tidyverse</span>, <span class="co"># data wrangling</span></span>
+<span>  <span class="va">cubelyr</span>, <span class="co"># handle raster data</span></span>
+<span>  <span class="va">tmap</span>, <span class="co"># make maps</span></span>
+<span>  <span class="va">mapview</span>, <span class="co"># make maps</span></span>
+<span>  <span class="va">exactextractr</span>, <span class="co"># fast raster data extraction</span></span>
+<span>  <span class="va">lubridate</span>, <span class="co"># handle dates</span></span>
+<span>  <span class="va">prism</span> <span class="co"># download PRISM data</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <ul>
 <li>Run the following code to define the theme for map:</li>
 </ul>
-<div class="sourceCode" id="cb485"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">theme_set</span><span class="op">(</span><span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
-
-<span class="va">theme_for_map</span> <span class="op">&lt;-</span> <span class="fu">theme</span><span class="op">(</span>
-  axis.ticks <span class="op">=</span> <span class="fu">element_blank</span><span class="op">(</span><span class="op">)</span>,
-  axis.text<span class="op">=</span> <span class="fu">element_blank</span><span class="op">(</span><span class="op">)</span>, 
-  axis.line <span class="op">=</span> <span class="fu">element_blank</span><span class="op">(</span><span class="op">)</span>,
-  panel.border <span class="op">=</span> <span class="fu">element_blank</span><span class="op">(</span><span class="op">)</span>,
-  panel.grid.major <span class="op">=</span> <span class="fu">element_line</span><span class="op">(</span>color<span class="op">=</span><span class="st">'transparent'</span><span class="op">)</span>,
-  panel.grid.minor <span class="op">=</span> <span class="fu">element_line</span><span class="op">(</span>color<span class="op">=</span><span class="st">'transparent'</span><span class="op">)</span>,
-  panel.background <span class="op">=</span> <span class="fu">element_blank</span><span class="op">(</span><span class="op">)</span>,
-  plot.background <span class="op">=</span> <span class="fu">element_rect</span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"transparent"</span>,color<span class="op">=</span><span class="st">'transparent'</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb509"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">theme_set</span><span class="op">(</span><span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">theme_for_map</span> <span class="op">&lt;-</span> <span class="fu">theme</span><span class="op">(</span></span>
+<span>  axis.ticks <span class="op">=</span> <span class="fu">element_blank</span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  axis.text <span class="op">=</span> <span class="fu">element_blank</span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  axis.line <span class="op">=</span> <span class="fu">element_blank</span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  panel.border <span class="op">=</span> <span class="fu">element_blank</span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  panel.grid.major <span class="op">=</span> <span class="fu">element_line</span><span class="op">(</span>color <span class="op">=</span> <span class="st">"transparent"</span><span class="op">)</span>,</span>
+<span>  panel.grid.minor <span class="op">=</span> <span class="fu">element_line</span><span class="op">(</span>color <span class="op">=</span> <span class="st">"transparent"</span><span class="op">)</span>,</span>
+<span>  panel.background <span class="op">=</span> <span class="fu">element_blank</span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  plot.background <span class="op">=</span> <span class="fu">element_rect</span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"transparent"</span>, color <span class="op">=</span> <span class="st">"transparent"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div id="stars-structure" class="section level2" number="7.1">
@@ -173,23 +171,23 @@
 <span class="header-section-number">7.1</span> Understanding the structure of a <code>stars</code> object<a class="anchor" aria-label="anchor" href="#stars-structure"><i class="fas fa-link"></i></a>
 </h2>
 <p>Let’s import a <code>stars</code> object of daily PRISM precipitation and tmax saved as an R dataset.</p>
-<div class="sourceCode" id="cb486"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#--- read PRISM prcp and tmax data  ---#</span>
-<span class="op">(</span>
-<span class="va">prcp_tmax_PRISM_m8_y09</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span><span class="op">(</span><span class="st">"Data/prcp_tmax_PRISM_m8_y09_small.rds"</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb510"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#--- read PRISM prcp and tmax data  ---#</span></span>
+<span><span class="op">(</span></span>
+<span>  <span class="va">prcp_tmax_PRISM_m8_y09</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span><span class="op">(</span><span class="st">"Data/prcp_tmax_PRISM_m8_y09_small.rds"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code>stars object with 3 dimensions and 2 attributes
 attribute(s):
        Min.  1st Qu. Median      Mean  3rd Qu.   Max.
 ppt   0.000  0.00000  0.000  1.292334  0.01100 30.851
 tmax  1.833 17.55575 21.483 22.035435 26.54275 39.707
 dimension(s):
-     from to     offset      delta refsys point values x/y
-x       1 20   -121.729  0.0416667  NAD83 FALSE   NULL [x]
-y       1 20    46.6458 -0.0416667  NAD83 FALSE   NULL [y]
-date    1 10 2009-08-11     1 days   Date    NA   NULL    </code></pre>
+     from to     offset      delta refsys point x/y
+x       1 20   -121.729  0.0416667  NAD83 FALSE [x]
+y       1 20    46.6458 -0.0416667  NAD83 FALSE [y]
+date    1 10 2009-08-11     1 days   Date    NA    </code></pre>
 <p>This <code>stars</code> object has two attributes: <code>ppt</code> (precipitation) and <code>tmax</code> (maximum temperature). They are like variables in a regular <code>data.frame</code>. They hold information we are interested in using for our analysis.</p>
-<p>This <code>stars</code> object has three dimensions: <code>x</code> (longitude), <code>y</code> (latitude), and <code>date</code>. Each dimension has <code>from</code>, <code>to</code>, <code>offset</code>, <code>delta</code>, <code>refsys</code>, <code>point</code>, and <code>values</code>. Here are their definitions (except <code>point</code><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;It is not clear what it really means. I have never had to pay attention to this parameter. So, its definition is not explained here. If you insist on learning what it is the best resource is probably &lt;a href="https://r-spatial.github.io/stars/articles/stars4.html"&gt;this&lt;/a&gt;&lt;/p&gt;'><sup>79</sup></a>):</p>
+<p>This <code>stars</code> object has three dimensions: <code>x</code> (longitude), <code>y</code> (latitude), and <code>date</code>. Each dimension has <code>from</code>, <code>to</code>, <code>offset</code>, <code>delta</code>, <code>refsys</code>, <code>point</code>, and <code>values</code>. Here are their definitions (except <code>point</code><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;It is not clear what it really means. I have never had to pay attention to this parameter. So, its definition is not explained here. If you insist on learning what it is the best resource is probably &lt;a href="https://r-spatial.github.io/stars/articles/stars4.html"&gt;this&lt;/a&gt;&lt;/p&gt;'><sup>83</sup></a>):</p>
 <ul>
 <li>
 <code>from</code>: beginning index</li>
@@ -213,7 +211,7 @@ Figure 7.1: Map of tmax values on August 10, 2009: 20 by 20 matrix of cells
 </p>
 </div>
 <p><br></p>
-<p>You can consider the 2D x-y surface as a matrix, where the location of a cell is defined by the row number and column number. Since the <code>from</code> for <code>x</code> is 1 and <code>to</code> for <code>x</code> is 20, we have 20 columns. Similarly, since the <code>from</code> for <code>y</code> is 1 and <code>to</code> for <code>y</code> is 20, we have 20 rows. The <code>offset</code> value of the <code>x</code> and <code>y</code> dimensions is the longitude and latitude of the upper-left corner point of the upper left cell of the 2D x-y surface, respectively (the red circle in Figure <a href="stars-basics.html#fig:two-d-map">7.1</a>).<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;This changes depending on the &lt;code&gt;delta&lt;/code&gt; of &lt;code&gt;x&lt;/code&gt; and &lt;code&gt;y&lt;/code&gt;. If both of the &lt;code&gt;delta&lt;/code&gt; for &lt;code&gt;x&lt;/code&gt; and &lt;code&gt;y&lt;/code&gt; are positive, then the &lt;code&gt;offset&lt;/code&gt; value of the &lt;code&gt;x&lt;/code&gt; and &lt;code&gt;y&lt;/code&gt; dimensions are the longitude and latitude of the upper-left corner point of the lower-left cell of the 2D x-y surface.&lt;/p&gt;"><sup>80</sup></a> As <code>refsys</code> indicates, they are in NAD83 GCS. The longitude of the upper-left corner point of all the cells in the <span class="math inline">\(j\)</span>th column (from the left) of the 2D x-y surface is -121.7291667 + <span class="math inline">\((j-1)\times\)</span> 0.0416667, where -121.7291667 is <code>offset</code> for <code>x</code> and 0.0416667 is <code>delta</code> for <code>x</code>. Similarly, the latitude of the upper-left corner point of all the cells in the <span class="math inline">\(i\)</span>th row (from the top) of the 2D x-y surface is 46.6458333 +<span class="math inline">\((i-1)\times\)</span> -0.0416667, where 46.6458333 is <code>offset</code> for <code>y</code> and -0.0416667 is <code>delta</code> for <code>y</code>.</p>
+<p>You can consider the 2D x-y surface as a matrix, where the location of a cell is defined by the row number and column number. Since the <code>from</code> for <code>x</code> is 1 and <code>to</code> for <code>x</code> is 20, we have 20 columns. Similarly, since the <code>from</code> for <code>y</code> is 1 and <code>to</code> for <code>y</code> is 20, we have 20 rows. The <code>offset</code> value of the <code>x</code> and <code>y</code> dimensions is the longitude and latitude of the upper-left corner point of the upper left cell of the 2D x-y surface, respectively (the red circle in Figure <a href="stars-basics.html#fig:two-d-map">7.1</a>).<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;This changes depending on the &lt;code&gt;delta&lt;/code&gt; of &lt;code&gt;x&lt;/code&gt; and &lt;code&gt;y&lt;/code&gt;. If both of the &lt;code&gt;delta&lt;/code&gt; for &lt;code&gt;x&lt;/code&gt; and &lt;code&gt;y&lt;/code&gt; are positive, then the &lt;code&gt;offset&lt;/code&gt; value of the &lt;code&gt;x&lt;/code&gt; and &lt;code&gt;y&lt;/code&gt; dimensions are the longitude and latitude of the upper-left corner point of the lower-left cell of the 2D x-y surface.&lt;/p&gt;"><sup>84</sup></a> As <code>refsys</code> indicates, they are in NAD83 GCS. The longitude of the upper-left corner point of all the cells in the <span class="math inline">\(j\)</span>th column (from the left) of the 2D x-y surface is -121.7291667 + <span class="math inline">\((j-1)\times\)</span> 0.0416667, where -121.7291667 is <code>offset</code> for <code>x</code> and 0.0416667 is <code>delta</code> for <code>x</code>. Similarly, the latitude of the upper-left corner point of all the cells in the <span class="math inline">\(i\)</span>th row (from the top) of the 2D x-y surface is 46.6458333 +<span class="math inline">\((i-1)\times\)</span> -0.0416667, where 46.6458333 is <code>offset</code> for <code>y</code> and -0.0416667 is <code>delta</code> for <code>y</code>.</p>
 <p>The dimension characteristics of <code>x</code> and <code>y</code> are shared by all the layers across the date dimension, and a particular combination of <code>x</code> and <code>y</code> indexes refers to exactly the same location on the earth in all the layers across dates (of course). In the <code>date</code> dimension, we have 10 date values since the <code>from</code> for <code>date</code> is 1 and <code>to</code> for <code>date</code> is 10. The <code>refsys</code> of the <code>date</code> dimension is <code>Date</code>. Since the <code>offset</code> is 2009-08-11 and <code>delta</code> is 1, <span class="math inline">\(k\)</span>th layer represents tmax values for August <span class="math inline">\(11+k-1\)</span>, 2009.</p>
 <p>Putting all this information together, we have 20 by 20 x-y surfaces stacked over the <code>date</code> dimension (10 layers), thus making up a 20 by 20 by 10 three-dimensional array (or cube) as shown in the figure below (Figure <a href="stars-basics.html#fig:map-layer-stars-structure">7.2</a>).</p>
 <div class="figure">
@@ -234,56 +232,55 @@ Figure 7.2: Visual illustration of stars data structure
 <span class="header-section-number">7.2.1</span> Subset a <code>stars</code> object by index<a class="anchor" aria-label="anchor" href="#subset-a-stars-object-by-index"><i class="fas fa-link"></i></a>
 </h3>
 <p>In order to access the value of an attribute (say <code>ppt</code>) at a particular location at a particular time from the <code>stars</code> object (<code>prcp_tmax_PRISM_m8_y09</code>), you need to tell R that you are interested in the <code>ppt</code> attribute and specify the corresponding index of <code>x</code>, <code>y</code>, and <code>date</code>. Here, is how you get the <code>ppt</code> value of (3, 4) cell at date = 10.</p>
-<div class="sourceCode" id="cb488"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">prcp_tmax_PRISM_m8_y09</span><span class="op">[</span><span class="st">"ppt"</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">10</span><span class="op">]</span></code></pre></div>
+<div class="sourceCode" id="cb512"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">prcp_tmax_PRISM_m8_y09</span><span class="op">[</span><span class="st">"ppt"</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">10</span><span class="op">]</span></span></code></pre></div>
 <pre><code>stars object with 3 dimensions and 1 attribute
 attribute(s):
      Min. 1st Qu. Median Mean 3rd Qu. Max.
 ppt     0       0      0    0       0    0
 dimension(s):
-     from to     offset      delta refsys point values x/y
-x       3  3   -121.729  0.0416667  NAD83 FALSE   NULL [x]
-y       4  4    46.6458 -0.0416667  NAD83 FALSE   NULL [y]
-date   10 10 2009-08-11     1 days   Date    NA   NULL    </code></pre>
+     from to     offset      delta refsys point x/y
+x       3  3   -121.729  0.0416667  NAD83 FALSE [x]
+y       4  4    46.6458 -0.0416667  NAD83 FALSE [y]
+date   10 10 2009-08-11     1 days   Date    NA    </code></pre>
 <p>This is very much similar to accessing a value from a matrix except that we have more dimensions. The first argument selects the attribute of interest, 2nd <code>x</code>, 3rd <code>y</code>, and 4th <code>date</code>.</p>
 <p>Of course, you can subset a <code>stars</code> object to access the value of multiple cells like this:</p>
-<div class="sourceCode" id="cb490"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">prcp_tmax_PRISM_m8_y09</span><span class="op">[</span><span class="st">"ppt"</span>, <span class="fl">3</span><span class="op">:</span><span class="fl">6</span>, <span class="fl">3</span><span class="op">:</span><span class="fl">4</span>, <span class="fl">5</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span></code></pre></div>
+<div class="sourceCode" id="cb514"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">prcp_tmax_PRISM_m8_y09</span><span class="op">[</span><span class="st">"ppt"</span>, <span class="fl">3</span><span class="op">:</span><span class="fl">6</span>, <span class="fl">3</span><span class="op">:</span><span class="fl">4</span>, <span class="fl">5</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span></span></code></pre></div>
 <pre><code>stars object with 3 dimensions and 1 attribute
 attribute(s):
      Min. 1st Qu. Median     Mean 3rd Qu.  Max.
 ppt     0       0      0 0.043125       0 0.546
 dimension(s):
-     from to     offset      delta refsys point values x/y
-x       3  6   -121.729  0.0416667  NAD83 FALSE   NULL [x]
-y       3  4    46.6458 -0.0416667  NAD83 FALSE   NULL [y]
-date    5 10 2009-08-11     1 days   Date    NA   NULL    </code></pre>
+     from to     offset      delta refsys point x/y
+x       3  6   -121.729  0.0416667  NAD83 FALSE [x]
+y       3  4    46.6458 -0.0416667  NAD83 FALSE [y]
+date    5 10 2009-08-11     1 days   Date    NA    </code></pre>
 </div>
 <div id="set-attribute-names" class="section level3" number="7.2.2">
 <h3>
 <span class="header-section-number">7.2.2</span> Set attribute names<a class="anchor" aria-label="anchor" href="#set-attribute-names"><i class="fas fa-link"></i></a>
 </h3>
 <p>When you read a raster dataset from a GeoTIFF file, the attribute name is the file name by default. So, you will often encounter cases where you want to change the attribute name. You can set the name of attributes using <code><a href="https://rdrr.io/r/stats/setNames.html">setNames()</a></code>.</p>
-<div class="sourceCode" id="cb492"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">prcp_tmax_PRISM_m8_y09_dif_names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/setNames.html">setNames</a></span><span class="op">(</span><span class="va">prcp_tmax_PRISM_m8_y09</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"precipitation"</span>, <span class="st">"maximum_temp"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p>Note that the attribute names of <code>prcp_tmax_PRISM_m8_y09</code> have not changed after this operation (just like <code><a href="https://rdrr.io/pkg/dplyr/man/mutate.html">mutate()</a></code> or other <code>dplyr</code> functions do):</p>
-<div class="sourceCode" id="cb493"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">prcp_tmax_PRISM_m8_y09</span></code></pre></div>
+<div class="sourceCode" id="cb516"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">prcp_tmax_PRISM_m8_y09_dif_names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/setNames.html">setNames</a></span><span class="op">(</span><span class="va">prcp_tmax_PRISM_m8_y09</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"precipitation"</span>, <span class="st">"maximum_temp"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>Note that the attribute names of <code>prcp_tmax_PRISM_m8_y09</code> have not changed after this operation (just like <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code> or other <code>dplyr</code> functions do):</p>
+<div class="sourceCode" id="cb517"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">prcp_tmax_PRISM_m8_y09</span></span></code></pre></div>
 <pre><code>stars object with 3 dimensions and 2 attributes
 attribute(s):
        Min.  1st Qu. Median      Mean  3rd Qu.   Max.
 ppt   0.000  0.00000  0.000  1.292334  0.01100 30.851
 tmax  1.833 17.55575 21.483 22.035435 26.54275 39.707
 dimension(s):
-     from to     offset      delta refsys point values x/y
-x       1 20   -121.729  0.0416667  NAD83 FALSE   NULL [x]
-y       1 20    46.6458 -0.0416667  NAD83 FALSE   NULL [y]
-date    1 10 2009-08-11     1 days   Date    NA   NULL    </code></pre>
+     from to     offset      delta refsys point x/y
+x       1 20   -121.729  0.0416667  NAD83 FALSE [x]
+y       1 20    46.6458 -0.0416667  NAD83 FALSE [y]
+date    1 10 2009-08-11     1 days   Date    NA    </code></pre>
 <p>If you want to reflect changes in the variable names while keeping the same object name, you need to assign the output of <code><a href="https://rdrr.io/r/stats/setNames.html">setNames()</a></code> to the object as follows:</p>
-<div class="sourceCode" id="cb495"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#--- NOT RUN ---#</span>
-<span class="co"># the codes in the rest of the chapter use "ppt" and "tmax" as the variables names, not these ones</span>
-<span class="va">prcp_tmax_PRISM_m8_y09</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/setNames.html">setNames</a></span><span class="op">(</span><span class="va">prcp_tmax_PRISM_m8_y09</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"precipitation"</span>, <span class="st">"maximum_temp"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb519"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># the codes in the rest of the chapter use "ppt" and "tmax" as the variables names, not these ones</span></span>
+<span><span class="va">prcp_tmax_PRISM_m8_y09</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/setNames.html">setNames</a></span><span class="op">(</span><span class="va">prcp_tmax_PRISM_m8_y09</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"precipitation"</span>, <span class="st">"maximum_temp"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>We will be using this function in Chapter <a href="stars-basics.html#merge-two">7.7.2</a>.</p>
 </div>
 <div id="get-the-coordinate-reference-system" class="section level3" number="7.2.3">
@@ -291,19 +288,25 @@ date    1 10 2009-08-11     1 days   Date    NA   NULL    </code></pre>
 <span class="header-section-number">7.2.3</span> Get the coordinate reference system<a class="anchor" aria-label="anchor" href="#get-the-coordinate-reference-system"><i class="fas fa-link"></i></a>
 </h3>
 <p>You can get the CRS of a <code>stars</code> object using <code>st_crs()</code>, which is actually the same function name that we used to extract the CRS of an <code>sf</code> object.</p>
-<div class="sourceCode" id="cb496"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">st_crs</span><span class="op">(</span><span class="va">prcp_tmax_PRISM_m8_y09</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb520"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">st_crs</span><span class="op">(</span><span class="va">prcp_tmax_PRISM_m8_y09</span><span class="op">)</span></span></code></pre></div>
 <pre><code>Coordinate Reference System:
-  User input: GEOGCS["NAD83",DATUM["North_American_Datum_1983",SPHEROID["GRS 1980",6378137,298.2572221010042,AUTHORITY["EPSG","7019"]],AUTHORITY["EPSG","6269"]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433],AUTHORITY["EPSG","4269"]] 
+  User input: NAD83 
   wkt:
-GEOGCS["NAD83",
-    DATUM["North_American_Datum_1983",
-        SPHEROID["GRS 1980",6378137,298.2572221010042,
-            AUTHORITY["EPSG","7019"]],
-        AUTHORITY["EPSG","6269"]],
-    PRIMEM["Greenwich",0],
-    UNIT["degree",0.0174532925199433],
-    AUTHORITY["EPSG","4269"]]</code></pre>
+GEOGCRS["NAD83",
+    DATUM["North American Datum 1983",
+        ELLIPSOID["GRS 1980",6378137,298.257222101004,
+            LENGTHUNIT["metre",1]]],
+    PRIMEM["Greenwich",0,
+        ANGLEUNIT["degree",0.0174532925199433]],
+    CS[ellipsoidal,2],
+        AXIS["geodetic latitude (Lat)",north,
+            ORDER[1],
+            ANGLEUNIT["degree",0.0174532925199433]],
+        AXIS["geodetic longitude (Lon)",east,
+            ORDER[2],
+            ANGLEUNIT["degree",0.0174532925199433]],
+    ID["EPSG",4269]]</code></pre>
 <p>You will use this to change the projection of vector datasets when you interact them:</p>
 <ul>
 <li>crop the <code>stars</code> raster dataset to the spatial extent of <code>sf</code> objects</li>
@@ -316,18 +319,18 @@ GEOGCS["NAD83",
 <span class="header-section-number">7.2.4</span> Get the dimension characteristics and values<a class="anchor" aria-label="anchor" href="#get-the-dimension-characteristics-and-values"><i class="fas fa-link"></i></a>
 </h3>
 <p>You can access these dimension values using <code>st_dimensions()</code>.</p>
-<div class="sourceCode" id="cb498"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#--- get dimension characteristics ---#</span>
-<span class="op">(</span>
-<span class="va">dim_prcp_tmin</span> <span class="op">&lt;-</span> <span class="fu">st_dimensions</span><span class="op">(</span><span class="va">prcp_tmax_PRISM_m8_y09</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
-<pre><code>     from to     offset      delta refsys point values x/y
-x       1 20   -121.729  0.0416667  NAD83 FALSE   NULL [x]
-y       1 20    46.6458 -0.0416667  NAD83 FALSE   NULL [y]
-date    1 10 2009-08-11     1 days   Date    NA   NULL    </code></pre>
+<div class="sourceCode" id="cb522"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#--- get dimension characteristics ---#</span></span>
+<span><span class="op">(</span></span>
+<span>  <span class="va">dim_prcp_tmin</span> <span class="op">&lt;-</span> <span class="fu">st_dimensions</span><span class="op">(</span><span class="va">prcp_tmax_PRISM_m8_y09</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<pre><code>     from to     offset      delta refsys point x/y
+x       1 20   -121.729  0.0416667  NAD83 FALSE [x]
+y       1 20    46.6458 -0.0416667  NAD83 FALSE [y]
+date    1 10 2009-08-11     1 days   Date    NA    </code></pre>
 <p>The following shows what we can get from this object.</p>
-<div class="sourceCode" id="cb500"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">dim_prcp_tmin</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb524"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">dim_prcp_tmin</span><span class="op">)</span></span></code></pre></div>
 <pre><code>List of 3
  $ x   :List of 7
   ..$ from  : num 1
@@ -335,8 +338,8 @@ date    1 10 2009-08-11     1 days   Date    NA   NULL    </code></pre>
   ..$ offset: num -122
   ..$ delta : num 0.0417
   ..$ refsys:List of 2
-  .. ..$ input: chr "GEOGCS[\"NAD83\",DATUM[\"North_American_Datum_1983\",SPHEROID[\"GRS 1980\",6378137,298.2572221010042,AUTHORITY["| __truncated__
-  .. ..$ wkt  : chr "GEOGCS[\"NAD83\",\n    DATUM[\"North_American_Datum_1983\",\n        SPHEROID[\"GRS 1980\",6378137,298.25722210"| __truncated__
+  .. ..$ input: chr "NAD83"
+  .. ..$ wkt  : chr "GEOGCRS[\"NAD83\",\n    DATUM[\"North American Datum 1983\",\n        ELLIPSOID[\"GRS 1980\",6378137,298.257222"| __truncated__
   .. ..- attr(*, "class")= chr "crs"
   ..$ point : logi FALSE
   ..$ values: NULL
@@ -347,8 +350,8 @@ date    1 10 2009-08-11     1 days   Date    NA   NULL    </code></pre>
   ..$ offset: num 46.6
   ..$ delta : num -0.0417
   ..$ refsys:List of 2
-  .. ..$ input: chr "GEOGCS[\"NAD83\",DATUM[\"North_American_Datum_1983\",SPHEROID[\"GRS 1980\",6378137,298.2572221010042,AUTHORITY["| __truncated__
-  .. ..$ wkt  : chr "GEOGCS[\"NAD83\",\n    DATUM[\"North_American_Datum_1983\",\n        SPHEROID[\"GRS 1980\",6378137,298.25722210"| __truncated__
+  .. ..$ input: chr "NAD83"
+  .. ..$ wkt  : chr "GEOGCRS[\"NAD83\",\n    DATUM[\"North American Datum 1983\",\n        ELLIPSOID[\"GRS 1980\",6378137,298.257222"| __truncated__
   .. ..- attr(*, "class")= chr "crs"
   ..$ point : logi FALSE
   ..$ values: NULL
@@ -363,20 +366,24 @@ date    1 10 2009-08-11     1 days   Date    NA   NULL    </code></pre>
   ..$ point : logi NA
   ..$ values: NULL
   ..- attr(*, "class")= chr "dimension"
- - attr(*, "raster")=List of 3
+ - attr(*, "raster")=List of 4
   ..$ affine     : num [1:2] 0 0
   ..$ dimensions : chr [1:2] "x" "y"
   ..$ curvilinear: logi FALSE
+  ..$ blocksizes : int [1:10, 1:2] 20 20 20 20 20 20 20 20 20 20 ...
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : NULL
+  .. .. ..$ : chr [1:2] "x" "y"
   ..- attr(*, "class")= chr "stars_raster"
  - attr(*, "class")= chr "dimensions"</code></pre>
 <p>For example, you can get <code>offset</code> of <code>x</code> as follows:</p>
-<div class="sourceCode" id="cb502"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">dim_prcp_tmin</span><span class="op">$</span><span class="va">x</span><span class="op">$</span><span class="va">offset</span></code></pre></div>
+<div class="sourceCode" id="cb526"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">dim_prcp_tmin</span><span class="op">$</span><span class="va">x</span><span class="op">$</span><span class="va">offset</span></span></code></pre></div>
 <pre><code>[1] -121.7292</code></pre>
 <p>You can extract dimension values using <code>st_get_dimension_values()</code>. For example, to get values of <code>date</code>,</p>
-<div class="sourceCode" id="cb504"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#--- get date values ---#</span>
-<span class="fu">st_get_dimension_values</span><span class="op">(</span><span class="va">prcp_tmax_PRISM_m8_y09</span>, <span class="st">"date"</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb528"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#--- get date values ---#</span></span>
+<span><span class="fu">st_get_dimension_values</span><span class="op">(</span><span class="va">prcp_tmax_PRISM_m8_y09</span>, <span class="st">"date"</span><span class="op">)</span></span></code></pre></div>
 <pre><code> [1] "2009-08-11" "2009-08-12" "2009-08-13" "2009-08-14" "2009-08-15"
  [6] "2009-08-16" "2009-08-17" "2009-08-18" "2009-08-19" "2009-08-20"</code></pre>
 <p>This can be handy as you will see in Chapter <a href="download-data.html#daymet-poly">9.4.2</a>. Later in Chapter <a href="stars-basics.html#stars-set-time">7.5</a>, we will learn how to set dimensions using <code>st_set_dimensions()</code>.</p>
@@ -386,27 +393,27 @@ date    1 10 2009-08-11     1 days   Date    NA   NULL    </code></pre>
 <span class="header-section-number">7.2.5</span> Attributes to dimensions, and vice versa<a class="anchor" aria-label="anchor" href="#attributes-to-dimensions-and-vice-versa"><i class="fas fa-link"></i></a>
 </h3>
 <p>You can make attributes to dimensions using <code><a href="https://rdrr.io/r/base/merge.html">merge()</a></code>.</p>
-<div class="sourceCode" id="cb506"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="op">(</span>
-<span class="va">prcp_tmax_four</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/merge.html">merge</a></span><span class="op">(</span><span class="va">prcp_tmax_PRISM_m8_y09</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb530"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="op">(</span></span>
+<span>  <span class="va">prcp_tmax_four</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/merge.html">merge</a></span><span class="op">(</span><span class="va">prcp_tmax_PRISM_m8_y09</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code>stars object with 4 dimensions and 1 attribute
 attribute(s):
-   Min. 1st Qu. Median     Mean 3rd Qu.   Max.
-X     0       0 11.799 11.66388  21.535 39.707
+          Min. 1st Qu. Median     Mean 3rd Qu.   Max.
+ppt.tmax     0       0 11.799 11.66388  21.535 39.707
 dimension(s):
            from to     offset      delta refsys point     values x/y
 x             1 20   -121.729  0.0416667  NAD83 FALSE       NULL [x]
 y             1 20    46.6458 -0.0416667  NAD83 FALSE       NULL [y]
 date          1 10 2009-08-11     1 days   Date    NA       NULL    
 attributes    1  2         NA         NA     NA    NA ppt , tmax    </code></pre>
-<p>As you can see, the new <code>stars</code> object has an additional dimension called <code>X</code>, which represents attributes and has two dimension values: the first for <code>ppt</code> and second for <code>tmax</code>. Now, if you want to access <code>ppt</code>, you can do the following:</p>
-<div class="sourceCode" id="cb508"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">prcp_tmax_four</span><span class="op">[</span>, , , , <span class="st">"ppt"</span><span class="op">]</span></code></pre></div>
+<p>As you can see, the new <code>stars</code> object has an additional dimension called <code>attributes</code>, which represents attributes and has two dimension values: the first for <code>ppt</code> and second for <code>tmax</code>. Now, if you want to access <code>ppt</code>, you can do the following:</p>
+<div class="sourceCode" id="cb532"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">prcp_tmax_four</span><span class="op">[</span>, , , , <span class="st">"ppt"</span><span class="op">]</span></span></code></pre></div>
 <pre><code>stars object with 4 dimensions and 1 attribute
 attribute(s):
-   Min. 1st Qu. Median     Mean 3rd Qu.   Max.
-X     0       0      0 1.292334   0.011 30.851
+          Min. 1st Qu. Median     Mean 3rd Qu.   Max.
+ppt.tmax     0       0      0 1.292334   0.011 30.851
 dimension(s):
            from to     offset      delta refsys point values x/y
 x             1 20   -121.729  0.0416667  NAD83 FALSE   NULL [x]
@@ -415,18 +422,18 @@ date          1 10 2009-08-11     1 days   Date    NA   NULL
 attributes    1  1         NA         NA     NA    NA    ppt    </code></pre>
 <p>We can do this because the merge kept the attribute names as dimension values as you can see in <code>values</code>.</p>
 <p>You can revert it back to the original state using <code><a href="https://rdrr.io/r/base/split.html">split()</a></code>. Since we want the fourth dimension to dissolve,</p>
-<div class="sourceCode" id="cb510"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/split.html">split</a></span><span class="op">(</span><span class="va">prcp_tmax_four</span>, <span class="fl">4</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb534"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/split.html">split</a></span><span class="op">(</span><span class="va">prcp_tmax_four</span>, <span class="fl">4</span><span class="op">)</span></span></code></pre></div>
 <pre><code>stars object with 3 dimensions and 2 attributes
 attribute(s):
        Min.  1st Qu. Median      Mean  3rd Qu.   Max.
 ppt   0.000  0.00000  0.000  1.292334  0.01100 30.851
 tmax  1.833 17.55575 21.483 22.035435 26.54275 39.707
 dimension(s):
-     from to     offset      delta refsys point values x/y
-x       1 20   -121.729  0.0416667  NAD83 FALSE   NULL [x]
-y       1 20    46.6458 -0.0416667  NAD83 FALSE   NULL [y]
-date    1 10 2009-08-11     1 days   Date    NA   NULL    </code></pre>
+     from to     offset      delta refsys point x/y
+x       1 20   -121.729  0.0416667  NAD83 FALSE [x]
+y       1 20    46.6458 -0.0416667  NAD83 FALSE [y]
+date    1 10 2009-08-11     1 days   Date    NA    </code></pre>
 </div>
 </div>
 <div id="quick-visualization-for-exploration" class="section level2" number="7.3">
@@ -438,16 +445,16 @@ date    1 10 2009-08-11     1 days   Date    NA   NULL    </code></pre>
 <h3>
 <span class="header-section-number">7.3.1</span> quick static map<a class="anchor" aria-label="anchor" href="#quick-static-map"><i class="fas fa-link"></i></a>
 </h3>
-<div class="sourceCode" id="cb512"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">prcp_tmax_PRISM_m8_y09</span><span class="op">[</span><span class="st">"tmax"</span>,,,<span class="op">]</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb536"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">prcp_tmax_PRISM_m8_y09</span><span class="op">[</span><span class="st">"tmax"</span>, , , <span class="op">]</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="R_GIS_Book_files/figure-html/static-map-1.png" width="672"></div>
 <p>It only plots the first attribute if the <code>stars</code> object has multiple attributes:</p>
-<div class="sourceCode" id="cb513"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">prcp_tmax_PRISM_m8_y09</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb537"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">prcp_tmax_PRISM_m8_y09</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="R_GIS_Book_files/figure-html/static-map-one-1.png" width="672"></div>
 <p>, which is identical with this:</p>
-<div class="sourceCode" id="cb514"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">prcp_tmax_PRISM_m8_y09</span><span class="op">[</span><span class="st">"ppt"</span>,,,<span class="op">]</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb538"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">prcp_tmax_PRISM_m8_y09</span><span class="op">[</span><span class="st">"ppt"</span>, , , <span class="op">]</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="R_GIS_Book_files/figure-html/static-map-identical-1.png" width="672"></div>
 </div>
 <div id="interactive-map" class="section level3" number="7.3.2">
@@ -455,36 +462,36 @@ date    1 10 2009-08-11     1 days   Date    NA   NULL    </code></pre>
 <span class="header-section-number">7.3.2</span> interactive map<a class="anchor" aria-label="anchor" href="#interactive-map"><i class="fas fa-link"></i></a>
 </h3>
 <p>You can use the <code>tmap</code> package. You can apply <code>tmap_leaflet()</code> to a static <code>tmap</code> object to make it an interactive map. The <code>tm_facets(as.layers = TRUE)</code> option stacks all the layers in a single map.</p>
-<div class="sourceCode" id="cb515"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#--- make it interactive ---#</span>
-<span class="fu">tmap_leaflet</span><span class="op">(</span>
-  <span class="fu">tm_shape</span><span class="op">(</span><span class="va">prcp_tmax_PRISM_m8_y09</span><span class="op">[</span><span class="st">"tmax"</span>,,,<span class="op">]</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu">tm_raster</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu">tm_facets</span><span class="op">(</span>as.layers <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
-<div id="htmlwidget-2ff1faa96ffef5b58ca8" style="width:672px;height:480px;" class="leaflet html-widget"></div>
-<script type="application/json" data-for="htmlwidget-2ff1faa96ffef5b58ca8">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"createMapPane","args":["tmap401",401]},{"method":"createMapPane","args":["tmap402",402]},{"method":"createMapPane","args":["tmap403",403]},{"method":"createMapPane","args":["tmap404",404]},{"method":"addProviderTiles","args":["Esri.WorldGrayCanvas",null,"Esri.WorldGrayCanvas",{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"pane":"tilePane"}]},{"method":"addProviderTiles","args":["OpenStreetMap",null,"OpenStreetMap",{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"pane":"tilePane"}]},{"method":"addProviderTiles","args":["Esri.WorldTopoMap",null,"Esri.WorldTopoMap",{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"pane":"tilePane"}]},{"method":"addRasterImage","args":["data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAZCAYAAADXPsWXAAAA+0lEQVQ4jbWUMQ6CQBBF365GEk5gY2NCYmVDw2U8kcfwMjY2ViaUNBxBbbAgq8M6g4D6q93MzJ//ZxbcoZg1AEWWsNouAajOdef8CV5eQkEgiM/aHWBeZElvgoxV51pV5pX80fCr7fJNwSLfsMg3QHc+llJX7tKmz0aAnJe0dCxvuOt+3WiJ8m7hWN5aOyHR2oxmN4a3CKQKLQ7t23qSfIu5FYgH2GfJx+sLq40LtSGHwbpylzahQBLcT5dB3w1Edu6ny6Aik8TagESQD6/NwL+2E89Bdv9Iokm1CKQVMOwM6a4qGUMUq36+k6kq4Fd/Ntl9igoAP7Xw53gAhmR4OZAPXA8AAAAASUVORK5CYII=",[[46.6465896110238,-121.729166666664],[45.7799633122388,-120.877513131635]],1,null,"tmap401","2009-08-11"]},{"method":"addLegend","args":[{"colors":["#FFFACE","#FEE697","#FEBE4A","#F88B22","#DB5D0A","#A33803"],"labels":["0 to 5","5 to 10","10 to 15","15 to 20","20 to 25","25 to 30"],"na_color":null,"na_label":"NA","opacity":1,"position":"topright","type":"unknown","title":"tmax","extra":null,"layerId":"legend401","className":"info legend ","group":null}]},{"method":"addRasterImage","args":["data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAZCAYAAADXPsWXAAAA90lEQVQ4ja1TMQ6DMAw8IhSkvoCFpRJSJhaWfqJP6Iv6MRYWpkiMLDyhsNChDTWJQ6DKSUiE2Ofz2ST947Lgi6LKYWPoxs3Zjhm6Eal9KWuFudXeJK6AKKp8Ezi3GrJWK2GIAACEN+oEHBKqgrZlq6DqHZK51d5kA9snbzshoqieNP0EMXSjswtncCuzONNJ95bpKDZKZK3Wh8Jul555T9T9MAHw8SQFfnOfWw3JyC2qfNf8tR0TRJfNfAtNL96/Qyv+szPJ63ldQolNP63vtzJz7lMu2ASGkg0EVcElhwgcJXYSl2wXACJNh1Vy1AuWZM8Lro2oeAOMG378buuhzgAAAABJRU5ErkJggg==",[[46.6465896110238,-121.729166666664],[45.7799633122388,-120.877513131635]],1,null,"tmap402","2009-08-12"]},{"method":"addLegend","args":[{"colors":["#FFFACE","#FEE697","#FEBE4A","#F88B22","#DB5D0A","#A33803"],"labels":["0 to 5","5 to 10","10 to 15","15 to 20","20 to 25","25 to 30"],"na_color":null,"na_label":"NA","opacity":1,"position":"topright","type":"unknown","title":"tmax","extra":null,"layerId":"legend402","className":"info legend ","group":null}]},{"method":"addRasterImage","args":["data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAZCAYAAADXPsWXAAAA4klEQVQ4jbWUPQ6DMAyFHxFi6AlYWDoxZeEcPUJP1OP0El1YOiExdukRWhY6OXJ+nBhE34Ji7JfPcpJqvp5WAOhsCwBohh7LOLkv6fV8g+fxeI2CyCws5qo+t/PKC0JxmlBEZ0okGmVNOEUz9ElSZ8J/SoXLOImt1dI0QsOcTGjAqXIteCR8R6mtIok6c49JqQ06IwBgKFnTu0gS9d5ftptEkenuLTk2rcOYu4CaO5JSZ9uDp5PaLUeQNKEibaFosoWgs617qMSXrWTkHTburNFj/kaxQ6ZTA/opSDRmzzT+oh+HWG88rQTu7AAAAABJRU5ErkJggg==",[[46.6465896110238,-121.729166666664],[45.7799633122388,-120.877513131635]],1,null,"tmap403","2009-08-13"]},{"method":"addLegend","args":[{"colors":["#FFFACE","#FEE697","#FEBE4A","#F88B22","#DB5D0A","#A33803"],"labels":["0 to 5","5 to 10","10 to 15","15 to 20","20 to 25","25 to 30"],"na_color":null,"na_label":"NA","opacity":1,"position":"topright","type":"unknown","title":"tmax","extra":null,"layerId":"legend403","className":"info legend ","group":null}]},{"method":"addRasterImage","args":["data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAZCAYAAADXPsWXAAAA5klEQVQ4jbWUPRKDIBCFV4fhBClsbFJR2VDkFDlZjuM5aKzobTxChsYUus4Ky19GX6XAvP32LUPz/TxX2CW1Al/O2GANz+GeSBmk1ql5K7UKD6p3ksb/b9kylYqbEJpYSyjBrtqxmGKelrvbqTFxxrJ3ISU/o0tIRC55Z+ypMkd9ng69ZPuEpFaBEWqeFgBgMmker4AkRtAPHfRDt5EcVewIqwoNUq0AkEwO5IqLhrpmOhQRv/0QMUCALYeAJPYQoSE1iJJwFbFajuAgoe1wB3GMxSScgS+uvXueghx6kUlqGiWT+ls/6WRnYoeEdjQAAAAASUVORK5CYII=",[[46.6465896110238,-121.729166666664],[45.7799633122388,-120.877513131635]],1,null,"tmap404","2009-08-14"]},{"method":"addLegend","args":[{"colors":["#FFFACE","#FEE697","#FEBE4A","#F88B22","#DB5D0A","#A33803"],"labels":["0 to 5","5 to 10","10 to 15","15 to 20","20 to 25","25 to 30"],"na_color":null,"na_label":"NA","opacity":1,"position":"topright","type":"unknown","title":"tmax","extra":null,"layerId":"legend404","className":"info legend ","group":null}]},{"method":"addLayersControl","args":[["Esri.WorldGrayCanvas","OpenStreetMap","Esri.WorldTopoMap"],["2009-08-11","2009-08-12","2009-08-13","2009-08-14"],{"collapsed":true,"autoZIndex":true,"position":"topleft"}]}],"limits":{"lat":[45.7799633122388,46.6465896110238],"lng":[-121.729166666664,-120.877513131635]},"fitBounds":[45.8124999999965,-121.729166666664,46.6458333333305,-120.89583333333,[]]},"evals":[],"jsHooks":{"render":[{"code":"function(el, x, data) {\n  return (\n\t\t\t\t\t\tfunction(el, x) {\n\t\t\t\t\t\t\tvar tldiv = document.getElementsByClassName(\"leaflet-top leaflet-left\")[0];\n\t\t\t\t\t\t\tvar titlediv = document.createElement('div');\n\t\t\t\t\t\t\ttitlediv.className = \"info legend leaflet-control\";\n\t\t\t\t\t\t\ttitlediv.innerHTML = \"<b>2009-08-11<\/b>\";\n\t\t\t\t\t\t\ttldiv.insertBefore(titlediv, tldiv.childNodes[0]);\n\t\t\t\t\t\t}).call(this.getMap(), el, x, data);\n}","data":null}]}}</script>
+<div class="sourceCode" id="cb539"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#--- make it interactive ---#</span></span>
+<span><span class="fu">tmap_leaflet</span><span class="op">(</span></span>
+<span>  <span class="fu">tm_shape</span><span class="op">(</span><span class="va">prcp_tmax_PRISM_m8_y09</span><span class="op">[</span><span class="st">"tmax"</span>, , , <span class="op">]</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">tm_raster</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">tm_facets</span><span class="op">(</span>as.layers <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<div id="htmlwidget-52baf5b6e760242c48bd" style="width:672px;height:480px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-52baf5b6e760242c48bd">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"createMapPane","args":["tmap401",401]},{"method":"createMapPane","args":["tmap402",402]},{"method":"createMapPane","args":["tmap403",403]},{"method":"createMapPane","args":["tmap404",404]},{"method":"addProviderTiles","args":["Esri.WorldGrayCanvas",null,"Esri.WorldGrayCanvas",{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"pane":"tilePane"}]},{"method":"addProviderTiles","args":["OpenStreetMap",null,"OpenStreetMap",{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"pane":"tilePane"}]},{"method":"addProviderTiles","args":["Esri.WorldTopoMap",null,"Esri.WorldTopoMap",{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"pane":"tilePane"}]},{"method":"addRasterImage","args":["data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAZCAYAAADXPsWXAAAA+0lEQVQ4jbWUMQ6CQBBF365GEk5gY2NCYmVDw2U8kcfwMjY2ViaUNBxBbbAgq8M6g4D6q93MzJ//ZxbcoZg1AEWWsNouAajOdef8CV5eQkEgiM/aHWBeZElvgoxV51pV5pX80fCr7fJNwSLfsMg3QHc+llJX7tKmz0aAnJe0dCxvuOt+3WiJ8m7hWN5aOyHR2oxmN4a3CKQKLQ7t23qSfIu5FYgH2GfJx+sLq40LtSGHwbpylzahQBLcT5dB3w1Edu6ny6Aik8TagESQD6/NwL+2E89Bdv9Iokm1CKQVMOwM6a4qGUMUq36+k6kq4Fd/Ntl9igoAP7Xw53gAhmR4OZAPXA8AAAAASUVORK5CYII=",[[46.6465896110238,-121.729166666664],[45.7799633122388,-120.877513131635]],1,null,"tmap401","2009-08-11"]},{"method":"addLegend","args":[{"colors":["#FFFACE","#FEE697","#FEBE4A","#F88B22","#DB5D0A","#A33803"],"labels":["0 to 5","5 to 10","10 to 15","15 to 20","20 to 25","25 to 30"],"na_color":null,"na_label":"NA","opacity":1,"position":"topright","type":"unknown","title":"tmax","extra":null,"layerId":"legend401","className":"info legend ","group":null}]},{"method":"addRasterImage","args":["data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAZCAYAAADXPsWXAAAA90lEQVQ4ja1TMQ6DMAw8IhSkvoCFpRJSJhaWfqJP6Iv6MRYWpkiMLDyhsNChDTWJQ6DKSUiE2Ofz2ST947Lgi6LKYWPoxs3Zjhm6Eal9KWuFudXeJK6AKKp8Ezi3GrJWK2GIAACEN+oEHBKqgrZlq6DqHZK51d5kA9snbzshoqieNP0EMXSjswtncCuzONNJ95bpKDZKZK3Wh8Jul555T9T9MAHw8SQFfnOfWw3JyC2qfNf8tR0TRJfNfAtNL96/Qyv+szPJ63ldQolNP63vtzJz7lMu2ASGkg0EVcElhwgcJXYSl2wXACJNh1Vy1AuWZM8Lro2oeAOMG378buuhzgAAAABJRU5ErkJggg==",[[46.6465896110238,-121.729166666664],[45.7799633122388,-120.877513131635]],1,null,"tmap402","2009-08-12"]},{"method":"addLegend","args":[{"colors":["#FFFACE","#FEE697","#FEBE4A","#F88B22","#DB5D0A","#A33803"],"labels":["0 to 5","5 to 10","10 to 15","15 to 20","20 to 25","25 to 30"],"na_color":null,"na_label":"NA","opacity":1,"position":"topright","type":"unknown","title":"tmax","extra":null,"layerId":"legend402","className":"info legend ","group":null}]},{"method":"addRasterImage","args":["data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAZCAYAAADXPsWXAAAA4klEQVQ4jbWUPQ6DMAyFHxFi6AlYWDoxZeEcPUJP1OP0El1YOiExdukRWhY6OXJ+nBhE34Ji7JfPcpJqvp5WAOhsCwBohh7LOLkv6fV8g+fxeI2CyCws5qo+t/PKC0JxmlBEZ0okGmVNOEUz9ElSZ8J/SoXLOImt1dI0QsOcTGjAqXIteCR8R6mtIok6c49JqQ06IwBgKFnTu0gS9d5ftptEkenuLTk2rcOYu4CaO5JSZ9uDp5PaLUeQNKEibaFosoWgs617qMSXrWTkHTburNFj/kaxQ6ZTA/opSDRmzzT+oh+HWG88rQTu7AAAAABJRU5ErkJggg==",[[46.6465896110238,-121.729166666664],[45.7799633122388,-120.877513131635]],1,null,"tmap403","2009-08-13"]},{"method":"addLegend","args":[{"colors":["#FFFACE","#FEE697","#FEBE4A","#F88B22","#DB5D0A","#A33803"],"labels":["0 to 5","5 to 10","10 to 15","15 to 20","20 to 25","25 to 30"],"na_color":null,"na_label":"NA","opacity":1,"position":"topright","type":"unknown","title":"tmax","extra":null,"layerId":"legend403","className":"info legend ","group":null}]},{"method":"addRasterImage","args":["data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAZCAYAAADXPsWXAAAA5klEQVQ4jbWUPRKDIBCFV4fhBClsbFJR2VDkFDlZjuM5aKzobTxChsYUus4Ky19GX6XAvP32LUPz/TxX2CW1Al/O2GANz+GeSBmk1ql5K7UKD6p3ksb/b9kylYqbEJpYSyjBrtqxmGKelrvbqTFxxrJ3ISU/o0tIRC55Z+ypMkd9ng69ZPuEpFaBEWqeFgBgMmker4AkRtAPHfRDt5EcVewIqwoNUq0AkEwO5IqLhrpmOhQRv/0QMUCALYeAJPYQoSE1iJJwFbFajuAgoe1wB3GMxSScgS+uvXueghx6kUlqGiWT+ls/6WRnYoeEdjQAAAAASUVORK5CYII=",[[46.6465896110238,-121.729166666664],[45.7799633122388,-120.877513131635]],1,null,"tmap404","2009-08-14"]},{"method":"addLegend","args":[{"colors":["#FFFACE","#FEE697","#FEBE4A","#F88B22","#DB5D0A","#A33803"],"labels":["0 to 5","5 to 10","10 to 15","15 to 20","20 to 25","25 to 30"],"na_color":null,"na_label":"NA","opacity":1,"position":"topright","type":"unknown","title":"tmax","extra":null,"layerId":"legend404","className":"info legend ","group":null}]},{"method":"addLayersControl","args":[["Esri.WorldGrayCanvas","OpenStreetMap","Esri.WorldTopoMap"],["2009-08-11","2009-08-12","2009-08-13","2009-08-14"],{"collapsed":true,"autoZIndex":true,"position":"topleft"}]}],"limits":{"lat":[45.7799633122388,46.6465896110238],"lng":[-121.729166666664,-120.877513131635]},"fitBounds":[45.8124999999965,-121.729166666664,46.6458333333305,-120.89583333333,[]]},"evals":[],"jsHooks":{"render":[{"code":"function(el, x, data) {\n  return (\n\t\t\t\t\t\tfunction(el, x) {\n\t\t\t\t\t\t\tvar tldiv = document.getElementsByClassName(\"leaflet-top leaflet-left\")[0];\n\t\t\t\t\t\t\tvar titlediv = document.createElement('div');\n\t\t\t\t\t\t\ttitlediv.className = \"info legend leaflet-control\";\n\t\t\t\t\t\t\ttitlediv.innerHTML = \"<b>2009-08-11<\/b>\";\n\t\t\t\t\t\t\ttldiv.insertBefore(titlediv, tldiv.childNodes[0]);\n\t\t\t\t\t\t}).call(this.getMap(), el, x, data);\n}","data":null}]}}</script>
 </div>
 </div>
 <div id="read-write-stars" class="section level2" number="7.4">
 <h2>
 <span class="header-section-number">7.4</span> Reading and writing raster data<a class="anchor" aria-label="anchor" href="#read-write-stars"><i class="fas fa-link"></i></a>
 </h2>
-<p>There are so many formats in which raster data is stored. Some of the common ones include GeoTIFF, netCDF, GRIB. All the available GDAL drivers for reading and writing raster data can be found by the following code:<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;What drivers are available varies depending on your particular installation of GDAL version. But, this is not something you need to worry about. It is very unlikely that you are reading or writing raster data in the format that is not available.&lt;/p&gt;"><sup>81</sup></a></p>
-<div class="sourceCode" id="cb516"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_drivers.html">st_drivers</a></span><span class="op">(</span>what <span class="op">=</span> <span class="st">"raster"</span><span class="op">)</span> </code></pre></div>
+<p>There are so many formats in which raster data is stored. Some of the common ones include GeoTIFF, netCDF, GRIB. All the available GDAL drivers for reading and writing raster data can be found by the following code:<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;What drivers are available varies depending on your particular installation of GDAL version. But, this is not something you need to worry about. It is very unlikely that you are reading or writing raster data in the format that is not available.&lt;/p&gt;"><sup>85</sup></a></p>
+<div class="sourceCode" id="cb540"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_drivers.html">st_drivers</a></span><span class="op">(</span>what <span class="op">=</span> <span class="st">"raster"</span><span class="op">)</span></span></code></pre></div>
 <p>The output of the above function is put into a table below.</p>
-<div id="htmlwidget-8a74b20c12bc00de6d8e" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-8a74b20c12bc00de6d8e">{"x":{"filter":"none","vertical":false,"data":[["VRT","DERIVED","GTiff","COG","NITF","RPFTOC","ECRGTOC","HFA","SAR_CEOS","CEOS","JAXAPALSAR","GFF","ELAS","ESRIC","AIG","AAIGrid","GRASSASCIIGrid","ISG","SDTS","DTED","PNG","JPEG","MEM","JDEM","GIF","BIGGIF","ESAT","BSB","XPM","BMP","DIMAP","AirSAR","RS2","SAFE","PCIDSK","PCRaster","ILWIS","SGI","SRTMHGT","Leveller","Terragen","GMT","netCDF","HDF4","HDF4Image","ISIS3","ISIS2","PDS","PDS4","VICAR","TIL","ERS","JP2OpenJPEG","L1B","FIT","GRIB","RMF","WCS","WMS","MSGN","RST","INGR","GSAG","GSBG","GS7BG","COSAR","TSX","COASP","R","MAP","KMLSUPEROVERLAY","WEBP","PDF","Rasterlite","MBTiles","PLMOSAIC","CALS","WMTS","SENTINEL2","MRF","PNM","DOQ1","DOQ2","PAux","MFF","MFF2","FujiBAS","GSC","FAST","BT","LAN","CPG","IDA","NDF","EIR","DIPEx","LCP","GTX","LOSLAS","NTv2","CTable2","ACE2","SNODAS","KRO","ROI_PAC","RRASTER","BYN","ARG","RIK","USGSDEM","GXF","BAG","HDF5","HDF5Image","NWT_GRD","NWT_GRC","ADRG","SRP","BLX","PostGISRaster","SAGA","XYZ","HF2","OZI","CTG","ZMap","NGSGEOID","IRIS","PRF","RDA","EEDAI","DAAS","SIGDEM","TGA","OGCAPI","STACTA","STACIT","GPKG","CAD","PLSCENES","NGW","GenBin","ENVI","EHdr","ISCE","Zarr","HTTP"],["VRT","DERIVED","GTiff","COG","NITF","RPFTOC","ECRGTOC","HFA","SAR_CEOS","CEOS","JAXAPALSAR","GFF","ELAS","ESRIC","AIG","AAIGrid","GRASSASCIIGrid","ISG","SDTS","DTED","PNG","JPEG","MEM","JDEM","GIF","BIGGIF","ESAT","BSB","XPM","BMP","DIMAP","AirSAR","RS2","SAFE","PCIDSK","PCRaster","ILWIS","SGI","SRTMHGT","Leveller","Terragen","GMT","netCDF","HDF4","HDF4Image","ISIS3","ISIS2","PDS","PDS4","VICAR","TIL","ERS","JP2OpenJPEG","L1B","FIT","GRIB","RMF","WCS","WMS","MSGN","RST","INGR","GSAG","GSBG","GS7BG","COSAR","TSX","COASP","R","MAP","KMLSUPEROVERLAY","WEBP","PDF","Rasterlite","MBTiles","PLMOSAIC","CALS","WMTS","SENTINEL2","MRF","PNM","DOQ1","DOQ2","PAux","MFF","MFF2","FujiBAS","GSC","FAST","BT","LAN","CPG","IDA","NDF","EIR","DIPEx","LCP","GTX","LOSLAS","NTv2","CTable2","ACE2","SNODAS","KRO","ROI_PAC","RRASTER","BYN","ARG","RIK","USGSDEM","GXF","BAG","HDF5","HDF5Image","NWT_GRD","NWT_GRC","ADRG","SRP","BLX","PostGISRaster","SAGA","XYZ","HF2","OZI","CTG","ZMap","NGSGEOID","IRIS","PRF","RDA","EEDAI","DAAS","SIGDEM","TGA","OGCAPI","STACTA","STACIT","GPKG","CAD","PLSCENES","NGW","GenBin","ENVI","EHdr","ISCE","Zarr","HTTP"],["Virtual Raster","Derived datasets using VRT pixel functions","GeoTIFF","Cloud optimized GeoTIFF generator","National Imagery Transmission Format","Raster Product Format TOC format","ECRG TOC format","Erdas Imagine Images (.img)","CEOS SAR Image","CEOS Image","JAXA PALSAR Product Reader (Level 1.1/1.5)","Ground-based SAR Applications Testbed File Format (.gff)","ELAS","Esri Compact Cache","Arc/Info Binary Grid","Arc/Info ASCII Grid","GRASS ASCII Grid","International Service for the Geoid","SDTS Raster","DTED Elevation Raster","Portable Network Graphics","JPEG JFIF","In Memory Raster","Japanese DEM (.mem)","Graphics Interchange Format (.gif)","Graphics Interchange Format (.gif)","Envisat Image Format","Maptech BSB Nautical Charts","X11 PixMap Format","MS Windows Device Independent Bitmap","SPOT DIMAP","AirSAR Polarimetric Image","RadarSat 2 XML Product","Sentinel-1 SAR SAFE Product","PCIDSK Database File","PCRaster Raster File","ILWIS Raster Map","SGI Image File Format 1.0","SRTMHGT File Format","Leveller heightfield","Terragen heightfield","GMT NetCDF Grid Format","Network Common Data Format","Hierarchical Data Format Release 4","HDF4 Dataset","USGS Astrogeology ISIS cube (Version 3)","USGS Astrogeology ISIS cube (Version 2)","NASA Planetary Data System","NASA Planetary Data System 4","MIPL VICAR file","EarthWatch .TIL","ERMapper .ers Labelled","JPEG-2000 driver based on OpenJPEG library","NOAA Polar Orbiter Level 1b Data Set","FIT Image","GRIdded Binary (.grb, .grb2)","Raster Matrix Format","OGC Web Coverage Service","OGC Web Map Service","EUMETSAT Archive native (.nat)","Idrisi Raster A.1","Intergraph Raster","Golden Software ASCII Grid (.grd)","Golden Software Binary Grid (.grd)","Golden Software 7 Binary Grid (.grd)","COSAR Annotated Binary Matrix (TerraSAR-X)","TerraSAR-X Product","DRDC COASP SAR Processor Raster","R Object Data Store","OziExplorer .MAP","Kml Super Overlay","WEBP","Geospatial PDF","Rasterlite","MBTiles","Planet Labs Mosaics API","CALS (Type 1)","OGC Web Map Tile Service","Sentinel 2","Meta Raster Format","Portable Pixmap Format (netpbm)","USGS DOQ (Old Style)","USGS DOQ (New Style)","PCI .aux Labelled","Vexcel MFF Raster","Vexcel MFF2 (HKV) Raster","Fuji BAS Scanner Image","GSC Geogrid","EOSAT FAST Format","VTP .bt (Binary Terrain) 1.3 Format","Erdas .LAN/.GIS","Convair PolGASP","Image Data and Analysis","NLAPS Data Format","Erdas Imagine Raw","DIPEx","FARSITE v.4 Landscape File (.lcp)","NOAA Vertical Datum .GTX","NADCON .los/.las Datum Grid Shift","NTv2 Datum Grid Shift","CTable2 Datum Grid Shift","ACE2","Snow Data Assimilation System","KOLOR Raw","ROI_PAC raster","R Raster","Natural Resources Canada's Geoid","Azavea Raster Grid format","Swedish Grid RIK (.rik)","USGS Optional ASCII DEM (and CDED)","GeoSoft Grid Exchange Format","Bathymetry Attributed Grid","Hierarchical Data Format Release 5","HDF5 Dataset","Northwood Numeric Grid Format .grd/.tab","Northwood Classified Grid Format .grc/.tab","ARC Digitized Raster Graphics","Standard Raster Product (ASRP/USRP)","Magellan topo (.blx)","PostGIS Raster driver","SAGA GIS Binary Grid (.sdat, .sg-grd-z)","ASCII Gridded XYZ","HF2/HFZ heightfield raster","OziExplorer Image File","USGS LULC Composite Theme Grid","ZMap Plus Grid","NOAA NGS Geoid Height Grids","IRIS data (.PPI, .CAPPi etc)","Racurs PHOTOMOD PRF","DigitalGlobe Raster Data Access driver","Earth Engine Data API Image","Airbus DS Intelligence Data As A Service driver","Scaled Integer Gridded DEM .sigdem","TGA/TARGA Image File Format","OGCAPI","Spatio-Temporal Asset Catalog Tiled Assets","Spatio-Temporal Asset Catalog Items","GeoPackage","AutoCAD Driver","Planet Labs Scenes API","NextGIS Web","Generic Binary (.hdr Labelled)","ENVI .hdr Labelled","ESRI .hdr Labelled","ISCE raster","Zarr","HTTP Fetching Wrapper"],[true,false,true,false,true,false,false,true,false,false,false,false,true,false,false,false,false,false,false,false,false,false,true,false,false,false,false,false,false,true,false,false,false,false,true,true,true,true,false,true,true,false,true,false,true,true,true,false,true,true,false,true,false,false,false,false,true,false,false,false,true,true,false,true,true,false,false,false,false,false,false,false,true,false,true,false,false,false,false,true,true,false,false,true,true,true,false,false,false,true,true,false,true,false,false,false,false,true,false,true,true,false,false,true,true,true,true,false,false,false,false,true,false,false,true,false,true,false,false,false,true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,true,false,false,true,false,true,true,true,true,false],[true,false,true,true,true,false,false,true,false,false,false,false,false,false,false,true,false,false,false,true,true,true,false,false,true,false,false,false,true,false,false,false,false,false,false,true,true,false,true,false,false,true,true,false,false,true,false,false,true,true,false,false,true,false,true,true,false,false,true,false,true,true,true,true,true,false,false,false,true,false,true,true,true,true,true,false,true,true,false,true,false,false,false,false,true,true,false,false,false,false,false,false,false,false,false,false,true,false,false,false,false,false,false,false,false,true,false,true,false,true,false,true,false,false,true,false,false,false,true,true,true,true,true,false,false,true,false,false,false,false,false,false,true,false,false,false,false,true,false,false,true,false,false,true,false,false,false],[true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true],[false,false,false,false,false,false,false,false,false,false,false,false,false,true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,true,false,false,false,false,false,false,false,true,false,false,false,false,false,true,true,false,false,true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,true,false,true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,true,false,false,true,true,true,true,false,false,false,false,false,true],[true,false,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,false,true,true,true,true,true,true,true,true,true,true,true,true,false,true,true,true,true,true,false,false,false,false,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,false,true,true,true,true,false,true,true,false,true,true,true,true,true,true,true,true,true,false,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,false,true,true,true,true,true,true,true,true,true,false,false,false,true,true,true,true,true,true,true,false,false,true,true,true,true,true,false]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>name<\/th>\n      <th>long_name<\/th>\n      <th>write<\/th>\n      <th>copy<\/th>\n      <th>is_raster<\/th>\n      <th>is_vector<\/th>\n      <th>vsi<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script><div id="reading-raster-data" class="section level3" number="7.4.1">
+<div id="htmlwidget-144d3be889258542630f" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-144d3be889258542630f">{"x":{"filter":"none","vertical":false,"data":[["VRT","DERIVED","GTiff","COG","NITF","RPFTOC","ECRGTOC","HFA","SAR_CEOS","CEOS","JAXAPALSAR","GFF","ELAS","ESRIC","AIG","AAIGrid","GRASSASCIIGrid","ISG","SDTS","DTED","PNG","JPEG","MEM","JDEM","GIF","BIGGIF","ESAT","BSB","XPM","BMP","DIMAP","AirSAR","RS2","SAFE","PCIDSK","PCRaster","ILWIS","SGI","SRTMHGT","Leveller","Terragen","netCDF","HDF4","HDF4Image","ISIS3","ISIS2","PDS","PDS4","VICAR","TIL","ERS","JP2OpenJPEG","L1B","FIT","GRIB","RMF","WCS","WMS","MSGN","RST","GSAG","GSBG","GS7BG","COSAR","TSX","COASP","R","MAP","KMLSUPEROVERLAY","WEBP","PDF","Rasterlite","MBTiles","PLMOSAIC","CALS","WMTS","SENTINEL2","MRF","PNM","DOQ1","DOQ2","PAux","MFF","MFF2","GSC","FAST","BT","LAN","CPG","NDF","EIR","DIPEx","LCP","GTX","LOSLAS","NTv2","CTable2","ACE2","SNODAS","KRO","ROI_PAC","RRASTER","BYN","ARG","RIK","USGSDEM","GXF","BAG","HDF5","HDF5Image","NWT_GRD","NWT_GRC","ADRG","SRP","BLX","PostGISRaster","SAGA","XYZ","HF2","OZI","CTG","ZMap","NGSGEOID","IRIS","PRF","EEDAI","DAAS","SIGDEM","TGA","OGCAPI","STACTA","STACIT","GPKG","CAD","PLSCENES","NGW","GenBin","ENVI","EHdr","ISCE","Zarr","HTTP"],["VRT","DERIVED","GTiff","COG","NITF","RPFTOC","ECRGTOC","HFA","SAR_CEOS","CEOS","JAXAPALSAR","GFF","ELAS","ESRIC","AIG","AAIGrid","GRASSASCIIGrid","ISG","SDTS","DTED","PNG","JPEG","MEM","JDEM","GIF","BIGGIF","ESAT","BSB","XPM","BMP","DIMAP","AirSAR","RS2","SAFE","PCIDSK","PCRaster","ILWIS","SGI","SRTMHGT","Leveller","Terragen","netCDF","HDF4","HDF4Image","ISIS3","ISIS2","PDS","PDS4","VICAR","TIL","ERS","JP2OpenJPEG","L1B","FIT","GRIB","RMF","WCS","WMS","MSGN","RST","GSAG","GSBG","GS7BG","COSAR","TSX","COASP","R","MAP","KMLSUPEROVERLAY","WEBP","PDF","Rasterlite","MBTiles","PLMOSAIC","CALS","WMTS","SENTINEL2","MRF","PNM","DOQ1","DOQ2","PAux","MFF","MFF2","GSC","FAST","BT","LAN","CPG","NDF","EIR","DIPEx","LCP","GTX","LOSLAS","NTv2","CTable2","ACE2","SNODAS","KRO","ROI_PAC","RRASTER","BYN","ARG","RIK","USGSDEM","GXF","BAG","HDF5","HDF5Image","NWT_GRD","NWT_GRC","ADRG","SRP","BLX","PostGISRaster","SAGA","XYZ","HF2","OZI","CTG","ZMap","NGSGEOID","IRIS","PRF","EEDAI","DAAS","SIGDEM","TGA","OGCAPI","STACTA","STACIT","GPKG","CAD","PLSCENES","NGW","GenBin","ENVI","EHdr","ISCE","Zarr","HTTP"],["Virtual Raster","Derived datasets using VRT pixel functions","GeoTIFF","Cloud optimized GeoTIFF generator","National Imagery Transmission Format","Raster Product Format TOC format","ECRG TOC format","Erdas Imagine Images (.img)","CEOS SAR Image","CEOS Image","JAXA PALSAR Product Reader (Level 1.1/1.5)","Ground-based SAR Applications Testbed File Format (.gff)","ELAS","Esri Compact Cache","Arc/Info Binary Grid","Arc/Info ASCII Grid","GRASS ASCII Grid","International Service for the Geoid","SDTS Raster","DTED Elevation Raster","Portable Network Graphics","JPEG JFIF","In Memory Raster","Japanese DEM (.mem)","Graphics Interchange Format (.gif)","Graphics Interchange Format (.gif)","Envisat Image Format","Maptech BSB Nautical Charts","X11 PixMap Format","MS Windows Device Independent Bitmap","SPOT DIMAP","AirSAR Polarimetric Image","RadarSat 2 XML Product","Sentinel-1 SAR SAFE Product","PCIDSK Database File","PCRaster Raster File","ILWIS Raster Map","SGI Image File Format 1.0","SRTMHGT File Format","Leveller heightfield","Terragen heightfield","Network Common Data Format","Hierarchical Data Format Release 4","HDF4 Dataset","USGS Astrogeology ISIS cube (Version 3)","USGS Astrogeology ISIS cube (Version 2)","NASA Planetary Data System","NASA Planetary Data System 4","MIPL VICAR file","EarthWatch .TIL","ERMapper .ers Labelled","JPEG-2000 driver based on OpenJPEG library","NOAA Polar Orbiter Level 1b Data Set","FIT Image","GRIdded Binary (.grb, .grb2)","Raster Matrix Format","OGC Web Coverage Service","OGC Web Map Service","EUMETSAT Archive native (.nat)","Idrisi Raster A.1","Golden Software ASCII Grid (.grd)","Golden Software Binary Grid (.grd)","Golden Software 7 Binary Grid (.grd)","COSAR Annotated Binary Matrix (TerraSAR-X)","TerraSAR-X Product","DRDC COASP SAR Processor Raster","R Object Data Store","OziExplorer .MAP","Kml Super Overlay","WEBP","Geospatial PDF","Rasterlite","MBTiles","Planet Labs Mosaics API","CALS (Type 1)","OGC Web Map Tile Service","Sentinel 2","Meta Raster Format","Portable Pixmap Format (netpbm)","USGS DOQ (Old Style)","USGS DOQ (New Style)","PCI .aux Labelled","Vexcel MFF Raster","Vexcel MFF2 (HKV) Raster","GSC Geogrid","EOSAT FAST Format","VTP .bt (Binary Terrain) 1.3 Format","Erdas .LAN/.GIS","Convair PolGASP","NLAPS Data Format","Erdas Imagine Raw","DIPEx","FARSITE v.4 Landscape File (.lcp)","NOAA Vertical Datum .GTX","NADCON .los/.las Datum Grid Shift","NTv2 Datum Grid Shift","CTable2 Datum Grid Shift","ACE2","Snow Data Assimilation System","KOLOR Raw","ROI_PAC raster","R Raster","Natural Resources Canada's Geoid","Azavea Raster Grid format","Swedish Grid RIK (.rik)","USGS Optional ASCII DEM (and CDED)","GeoSoft Grid Exchange Format","Bathymetry Attributed Grid","Hierarchical Data Format Release 5","HDF5 Dataset","Northwood Numeric Grid Format .grd/.tab","Northwood Classified Grid Format .grc/.tab","ARC Digitized Raster Graphics","Standard Raster Product (ASRP/USRP)","Magellan topo (.blx)","PostGIS Raster driver","SAGA GIS Binary Grid (.sdat, .sg-grd-z)","ASCII Gridded XYZ","HF2/HFZ heightfield raster","OziExplorer Image File","USGS LULC Composite Theme Grid","ZMap Plus Grid","NOAA NGS Geoid Height Grids","IRIS data (.PPI, .CAPPi etc)","Racurs PHOTOMOD PRF","Earth Engine Data API Image","Airbus DS Intelligence Data As A Service driver","Scaled Integer Gridded DEM .sigdem","TGA/TARGA Image File Format","OGCAPI","Spatio-Temporal Asset Catalog Tiled Assets","Spatio-Temporal Asset Catalog Items","GeoPackage","AutoCAD Driver","Planet Labs Scenes API","NextGIS Web","Generic Binary (.hdr Labelled)","ENVI .hdr Labelled","ESRI .hdr Labelled","ISCE raster","Zarr","HTTP Fetching Wrapper"],[true,false,true,false,true,false,false,true,false,false,false,false,true,false,false,false,false,false,false,false,false,false,true,false,false,false,false,false,false,true,false,false,false,false,true,true,true,true,false,true,true,true,false,true,true,true,false,true,true,false,true,false,false,false,false,true,false,false,false,true,false,true,true,false,false,false,false,false,false,false,true,false,true,false,false,false,false,true,true,false,false,true,true,true,false,false,true,true,false,false,false,false,false,true,false,true,true,false,false,true,true,true,true,false,false,false,false,true,false,false,true,false,true,false,false,false,true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,true,false,false,true,false,true,true,true,true,false],[true,false,true,true,true,false,false,true,false,false,false,false,false,false,false,true,false,false,false,true,true,true,false,false,true,false,false,false,true,false,false,false,false,false,false,true,true,false,true,false,false,true,false,false,true,false,false,true,true,false,false,true,false,true,true,false,false,true,false,true,true,true,true,false,false,false,true,false,true,true,true,true,true,false,true,true,false,true,false,false,false,false,true,true,false,false,false,false,false,false,false,false,true,false,false,false,false,false,false,false,false,true,false,true,false,true,false,true,false,false,true,false,false,false,true,true,true,true,true,false,false,true,false,false,false,false,false,true,false,false,false,false,true,false,false,true,false,false,true,false,false,false],[true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true],[false,false,false,false,false,false,false,false,false,false,false,false,false,true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,true,false,false,false,false,false,false,true,false,false,false,false,false,true,true,false,false,true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,true,false,true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,true,false,false,true,true,true,true,false,false,false,false,false,true],[true,false,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,false,true,true,true,true,true,true,true,true,true,true,true,true,false,true,true,true,true,true,false,false,false,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,false,true,true,true,true,false,true,true,false,true,true,true,true,true,true,true,true,true,false,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,false,true,true,true,true,true,true,true,true,true,false,false,true,true,true,true,true,true,true,false,false,true,true,true,true,true,false]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>name<\/th>\n      <th>long_name<\/th>\n      <th>write<\/th>\n      <th>copy<\/th>\n      <th>is_raster<\/th>\n      <th>is_vector<\/th>\n      <th>vsi<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script><div id="reading-raster-data" class="section level3" number="7.4.1">
 <h3>
 <span class="header-section-number">7.4.1</span> Reading raster data<a class="anchor" aria-label="anchor" href="#reading-raster-data"><i class="fas fa-link"></i></a>
 </h3>
 <p>You can use <code>read_stars()</code> to read a raster data file. It is very unlikely that the raster file you are trying to read is not in one of the supported formats.</p>
 <p>For example, you can read a GeoTIFF file as follows:</p>
-<div class="sourceCode" id="cb517"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="op">(</span>
-<span class="va">ppt_m1_y09_stars</span> <span class="op">&lt;-</span> <span class="fu">read_stars</span><span class="op">(</span><span class="st">"Data/PRISM_ppt_y2009_m1.tif"</span><span class="op">)</span> 
-<span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb541"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="op">(</span></span>
+<span>  <span class="va">ppt_m1_y09_stars</span> <span class="op">&lt;-</span> <span class="fu">read_stars</span><span class="op">(</span><span class="st">"Data/PRISM_ppt_y2009_m1.tif"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code>stars object with 3 dimensions and 1 attribute
 attribute(s), summary of first 1e+05 cells:
                         Min. 1st Qu. Median     Mean 3rd Qu.   Max.  NA's
@@ -503,10 +510,10 @@ x    [x]
 y    [y]
 band    </code></pre>
 <p>This one imports a raw PRISM data stored as a BIL file.</p>
-<div class="sourceCode" id="cb519"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="op">(</span>
-<span class="va">prism_tmax_20180701</span> <span class="op">&lt;-</span> <span class="fu">read_stars</span><span class="op">(</span><span class="st">"Data/PRISM_tmax_stable_4kmD2_20180701_bil/PRISM_tmax_stable_4kmD2_20180701_bil.bil"</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb543"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="op">(</span></span>
+<span>  <span class="va">prism_tmax_20180701</span> <span class="op">&lt;-</span> <span class="fu">read_stars</span><span class="op">(</span><span class="st">"Data/PRISM_tmax_stable_4kmD2_20180701_bil/PRISM_tmax_stable_4kmD2_20180701_bil.bil"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code>stars object with 2 dimensions and 1 attribute
 attribute(s):
                                     Min. 1st Qu. Median     Mean 3rd Qu.   Max.
@@ -514,33 +521,37 @@ PRISM_tmax_stable_4kmD2_201807...  3.623  25.318 31.596 29.50749  33.735 48.008
                                      NA's
 PRISM_tmax_stable_4kmD2_201807...  390874
 dimension(s):
-  from   to   offset      delta refsys point values x/y
-x    1 1405 -125.021  0.0416667  NAD83    NA   NULL [x]
-y    1  621  49.9375 -0.0416667  NAD83    NA   NULL [y]</code></pre>
+  from   to   offset      delta refsys x/y
+x    1 1405 -125.021  0.0416667  NAD83 [x]
+y    1  621  49.9375 -0.0416667  NAD83 [y]</code></pre>
 <p>You can import multiple raster data files into one <code>stars</code> object by simply supplying a vector of file names:</p>
-<div class="sourceCode" id="cb521"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Data/PRISM_tmax_stable_4kmD2_20180701_bil/PRISM_tmax_stable_4kmD2_20180701_bil.bil"</span>, <span class="st">"Data/PRISM_tmax_stable_4kmD2_20180702_bil/PRISM_tmax_stable_4kmD2_20180702_bil.bil"</span><span class="op">)</span>
-
-<span class="op">(</span>
-<span class="va">prism_tmax_201807_two</span> <span class="op">&lt;-</span> <span class="fu">read_stars</span><span class="op">(</span><span class="va">files</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb545"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">files</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
+<span>    <span class="st">"Data/PRISM_tmax_stable_4kmD2_20180701_bil/PRISM_tmax_stable_4kmD2_20180701_bil.bil"</span>,</span>
+<span>    <span class="st">"Data/PRISM_tmax_stable_4kmD2_20180702_bil/PRISM_tmax_stable_4kmD2_20180702_bil.bil"</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="op">(</span></span>
+<span>  <span class="va">prism_tmax_201807_two</span> <span class="op">&lt;-</span> <span class="fu">read_stars</span><span class="op">(</span><span class="va">files</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code>stars object with 2 dimensions and 2 attributes
 attribute(s):
                                     Min. 1st Qu. Median     Mean 3rd Qu.   Max.
-PRISM_tmax_stable_4kmD2_201807...  3.623  25.318 31.596 29.50749  33.735 48.008
-PRISM_tmax_stable_4kmD2_201807...  0.808  26.505 30.632 29.93235  33.632 47.999
+1_bil/PRISM_tmax_stable_4kmD2_...  3.623  25.318 31.596 29.50749  33.735 48.008
+2_bil/PRISM_tmax_stable_4kmD2_...  0.808  26.505 30.632 29.93235  33.632 47.999
                                      NA's
-PRISM_tmax_stable_4kmD2_201807...  390874
-PRISM_tmax_stable_4kmD2_201807...  390874
+1_bil/PRISM_tmax_stable_4kmD2_...  390874
+2_bil/PRISM_tmax_stable_4kmD2_...  390874
 dimension(s):
-  from   to   offset      delta refsys point values x/y
-x    1 1405 -125.021  0.0416667  NAD83    NA   NULL [x]
-y    1  621  49.9375 -0.0416667  NAD83    NA   NULL [y]</code></pre>
-<p>As you can see, each file becomes an attribute.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;You can use&lt;/p&gt;"><sup>82</sup></a> It is more convenient to have them as layers stacked along the third dimension. To do that you can add <code>along = 3</code> option as follows:</p>
-<div class="sourceCode" id="cb523"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="op">(</span>
-<span class="va">prism_tmax_201807_two</span> <span class="op">&lt;-</span> <span class="fu">read_stars</span><span class="op">(</span><span class="va">files</span>, along <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+  from   to   offset      delta refsys x/y
+x    1 1405 -125.021  0.0416667  NAD83 [x]
+y    1  621  49.9375 -0.0416667  NAD83 [y]</code></pre>
+<p>As you can see, each file becomes an attribute.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;You can use&lt;/p&gt;"><sup>86</sup></a> It is more convenient to have them as layers stacked along the third dimension. To do that you can add <code>along = 3</code> option as follows:</p>
+<div class="sourceCode" id="cb547"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="op">(</span></span>
+<span>  <span class="va">prism_tmax_201807_two</span> <span class="op">&lt;-</span> <span class="fu">read_stars</span><span class="op">(</span><span class="va">files</span>, along <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code>stars object with 3 dimensions and 1 attribute
 attribute(s), summary of first 1e+05 cells:
                                     Min. 1st Qu. Median     Mean 3rd Qu.   Max.
@@ -548,26 +559,34 @@ PRISM_tmax_stable_4kmD2_201807...  4.693 19.5925 23.653 22.05224 24.5945 33.396
                                     NA's
 PRISM_tmax_stable_4kmD2_201807...  60401
 dimension(s):
-        from   to   offset      delta refsys point values x/y
-x          1 1405 -125.021  0.0416667  NAD83    NA   NULL [x]
-y          1  621  49.9375 -0.0416667  NAD83    NA   NULL [y]
-new_dim    1    2       NA         NA     NA    NA   NULL    </code></pre>
+        from   to   offset      delta refsys
+x          1 1405 -125.021  0.0416667  NAD83
+y          1  621  49.9375 -0.0416667  NAD83
+new_dim    1    2       NA         NA     NA
+                                                                                values
+x                                                                                 NULL
+y                                                                                 NULL
+new_dim 1_bil/PRISM_tmax_stable_4kmD2_20180701, 2_bil/PRISM_tmax_stable_4kmD2_20180702
+        x/y
+x       [x]
+y       [y]
+new_dim    </code></pre>
 <hr>
 <p>Note that while the GeoTIFF format (and many other formats) can store multi-band (multi-layer) raster data allowing for an additional dimension beyond <code>x</code> and <code>y</code>, it does not store the values of the dimension like the <code>date</code> dimension we saw in <code>prcp_tmax_PRISM_m8_y09</code>. So, when you read a multi-layer raster data saved as a GeoTIFF, the third dimension of the resulting <code>stars</code> object will always be called <code>band</code> without any explicit time information. On the other hand, netCDF files are capable of storing the time dimension values. So, when you read a netCDF file with valid time dimension, you will have time dimension when it is read.</p>
-<div class="sourceCode" id="cb525"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="op">(</span>
-<span class="fu">read_ncdf</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"nc/bcsd_obs_1999.nc"</span>, package <span class="op">=</span> <span class="st">"stars"</span><span class="op">)</span><span class="op">)</span>  
-<span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb549"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="op">(</span></span>
+<span>  <span class="fu">read_ncdf</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"nc/bcsd_obs_1999.nc"</span>, package <span class="op">=</span> <span class="st">"stars"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code>stars object with 3 dimensions and 2 attributes
 attribute(s):
                 Min.   1st Qu.   Median      Mean   3rd Qu.      Max. NA's
 pr [mm/m]  0.5900000 56.139999 81.88000 101.26433 121.07250 848.54999 7116
 tas [C]   -0.4209678  8.898887 15.65763  15.48932  21.77979  29.38581 7116
 dimension(s):
-          from to offset delta  refsys point                    values x/y
-longitude    1 81    -85 0.125  WGS 84    NA                      NULL [x]
-latitude     1 33     33 0.125  WGS 84    NA                      NULL [y]
-time         1 12     NA    NA POSIXct    NA 1999-01-31,...,1999-12-31    </code></pre>
+          from to offset delta  refsys                    values x/y
+longitude    1 81    -85 0.125  WGS 84                      NULL [x]
+latitude     1 33     33 0.125  WGS 84                      NULL [y]
+time         1 12     NA    NA POSIXct 1999-01-31,...,1999-12-31    </code></pre>
 <p>The <code>refsys</code> of the time dimension is <code>POSIXct</code>, which is one of the date classes.</p>
 </div>
 <div id="writing-a-stars-object-to-a-file" class="section level3" number="7.4.2">
@@ -576,37 +595,37 @@ time         1 12     NA    NA POSIXct    NA 1999-01-31,...,1999-12-31    </code
 </h3>
 <p>You can write a <code>stars</code> object to a file using <code>write_stars()</code> using one of the GDAL drivers.</p>
 <p>Let’s save <code>prcp_tmax_PRISM_m8_y09["tmax",,,]</code>, which has <code>date</code> dimension whose <code>refsys</code> is <code>Date</code>.</p>
-<div class="sourceCode" id="cb527"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">write_stars</span><span class="op">(</span><span class="va">prcp_tmax_PRISM_m8_y09</span><span class="op">[</span><span class="st">"tmax"</span>,,,<span class="op">]</span>, <span class="st">"Data/tmax_m8_y09_from_stars.tif"</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb551"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">write_stars</span><span class="op">(</span><span class="va">prcp_tmax_PRISM_m8_y09</span><span class="op">[</span><span class="st">"tmax"</span>, , , <span class="op">]</span>, <span class="st">"Data/tmax_m8_y09_from_stars.tif"</span><span class="op">)</span></span></code></pre></div>
 <p>Let’s read the file we just saved.</p>
-<div class="sourceCode" id="cb528"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">read_stars</span><span class="op">(</span><span class="st">"Data/tmax_m8_y09_from_stars.tif"</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb552"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">read_stars</span><span class="op">(</span><span class="st">"Data/tmax_m8_y09_from_stars.tif"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>stars object with 3 dimensions and 1 attribute
 attribute(s):
                              Min.  1st Qu. Median     Mean  3rd Qu.   Max.
 tmax_m8_y09_from_stars.tif  1.833 17.55575 21.483 22.03543 26.54275 39.707
 dimension(s):
-     from to   offset      delta refsys point values x/y
-x       1 20 -121.729  0.0416667  NAD83 FALSE   NULL [x]
-y       1 20  46.6458 -0.0416667  NAD83 FALSE   NULL [y]
-band    1 10       NA         NA     NA    NA   NULL    </code></pre>
+     from to   offset      delta refsys point x/y
+x       1 20 -121.729  0.0416667  NAD83 FALSE [x]
+y       1 20  46.6458 -0.0416667  NAD83 FALSE [y]
+band    1 10       NA         NA     NA    NA    </code></pre>
 <p>Notice that the third dimension is now called band and all the date information is lost. The loss of information happened when we saved <code>prcp_tmax_PRISM_m8_y09["tmax",,,]</code> as a GeoTIFF file. One easy way to avoid this problem is to just save a <code>stars</code> object as an R dataset.</p>
-<div class="sourceCode" id="cb530"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#--- save it as an rds file ---#</span>
-<span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">saveRDS</a></span><span class="op">(</span><span class="va">prcp_tmax_PRISM_m8_y09</span><span class="op">[</span><span class="st">"tmax"</span>,,,<span class="op">]</span>, <span class="st">"Data/tmax_m8_y09_from_stars.rds"</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb531"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#--- read it back ---#</span>
-<span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span><span class="op">(</span><span class="st">"Data/tmax_m8_y09_from_stars.rds"</span><span class="op">)</span> </code></pre></div>
+<div class="sourceCode" id="cb554"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#--- save it as an rds file ---#</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">saveRDS</a></span><span class="op">(</span><span class="va">prcp_tmax_PRISM_m8_y09</span><span class="op">[</span><span class="st">"tmax"</span>, , , <span class="op">]</span>, <span class="st">"Data/tmax_m8_y09_from_stars.rds"</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb555"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#--- read it back ---#</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span><span class="op">(</span><span class="st">"Data/tmax_m8_y09_from_stars.rds"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>stars object with 3 dimensions and 1 attribute
 attribute(s):
        Min.  1st Qu. Median     Mean  3rd Qu.   Max.
 tmax  1.833 17.55575 21.483 22.03543 26.54275 39.707
 dimension(s):
-     from to     offset      delta refsys point values x/y
-x       1 20   -121.729  0.0416667  NAD83 FALSE   NULL [x]
-y       1 20    46.6458 -0.0416667  NAD83 FALSE   NULL [y]
-date    1 10 2009-08-11     1 days   Date    NA   NULL    </code></pre>
-<p>As you can see, date information is retained. So, if you are the only one who uses this data or all of your team members use R, then this is a nice solution to the problem.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;But, you would be giving up the opportunity to use &lt;code&gt;stars_proxy&lt;/code&gt; by doing so.&lt;/p&gt;"><sup>83</sup></a> At the moment, it is not possible to use <code>write_stars()</code> to write to a netCDF file that supports the third dimension as time. However, this may not be the case for a long time (See the discussion <a href="https://github.com/r-spatial/stars/issues/8">here</a>).</p>
+     from to     offset      delta refsys point x/y
+x       1 20   -121.729  0.0416667  NAD83 FALSE [x]
+y       1 20    46.6458 -0.0416667  NAD83 FALSE [y]
+date    1 10 2009-08-11     1 days   Date    NA    </code></pre>
+<p>As you can see, date information is retained. So, if you are the only one who uses this data or all of your team members use R, then this is a nice solution to the problem.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;But, you would be giving up the opportunity to use &lt;code&gt;stars_proxy&lt;/code&gt; by doing so.&lt;/p&gt;"><sup>87</sup></a> At the moment, it is not possible to use <code>write_stars()</code> to write to a netCDF file that supports the third dimension as time. However, this may not be the case for a long time (See the discussion <a href="https://github.com/r-spatial/stars/issues/8">here</a>).</p>
 </div>
 </div>
 <div id="stars-set-time" class="section level2" number="7.5">
@@ -614,10 +633,10 @@ date    1 10 2009-08-11     1 days   Date    NA   NULL    </code></pre>
 <span class="header-section-number">7.5</span> Setting the time dimension manually<a class="anchor" aria-label="anchor" href="#stars-set-time"><i class="fas fa-link"></i></a>
 </h2>
 <p>For this section, we will use PRISM precipitation data for U.S. for January, 2009.</p>
-<div class="sourceCode" id="cb533"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="op">(</span>
-<span class="va">ppt_m1_y09_stars</span> <span class="op">&lt;-</span> <span class="fu">read_stars</span><span class="op">(</span><span class="st">"Data/PRISM/PRISM_ppt_y2009_m1.tif"</span><span class="op">)</span> 
-<span class="op">)</span> </code></pre></div>
+<div class="sourceCode" id="cb557"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="op">(</span></span>
+<span>  <span class="va">ppt_m1_y09_stars</span> <span class="op">&lt;-</span> <span class="fu">read_stars</span><span class="op">(</span><span class="st">"Data/PRISM_ppt_y2009_m1.tif"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code>stars object with 3 dimensions and 1 attribute
 attribute(s), summary of first 1e+05 cells:
                         Min. 1st Qu. Median     Mean 3rd Qu.   Max.  NA's
@@ -635,41 +654,46 @@ band PRISM_ppt_stable_4kmD2_20090101_bil,...,PRISM_ppt_stable_4kmD2_20090131_bil
 x    [x]
 y    [y]
 band    </code></pre>
-<p>As you can see, when you read a GeoTIFF file, the third dimension will always be called <code>band</code> because GeoTIFF format does not support dimension values for the third dimension.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;In Chapter &lt;a href="stars-basics.html#stars-structure"&gt;7.1&lt;/a&gt;, we read an &lt;code&gt;rds&lt;/code&gt;, which is a &lt;code&gt;stars&lt;/code&gt; object with dimension name set manually by me.&lt;/p&gt;'><sup>84</sup></a></p>
-<p>You can use <code>st_set_dimension()</code> to set the third dimension (called <code>band</code>) as the time dimension using <code>Date</code> object. This can be convenient when you would like to filter the data by date using <code><a href="https://rdrr.io/pkg/dplyr/man/filter.html">filter()</a></code> as we will see later.</p>
+<p>As you can see, when you read a GeoTIFF file, the third dimension will always be called <code>band</code> because GeoTIFF format does not support dimension values for the third dimension.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;In Chapter &lt;a href="stars-basics.html#stars-structure"&gt;7.1&lt;/a&gt;, we read an &lt;code&gt;rds&lt;/code&gt;, which is a &lt;code&gt;stars&lt;/code&gt; object with dimension name set manually by me.&lt;/p&gt;'><sup>88</sup></a></p>
+<p>You can use <code>st_set_dimension()</code> to set the third dimension (called <code>band</code>) as the time dimension using <code>Date</code> object. This can be convenient when you would like to filter the data by date using <code><a href="https://dplyr.tidyverse.org/reference/filter.html">filter()</a></code> as we will see later.</p>
 <p>For <code>ppt_m1_y09_stars</code>, precipitation is observed on a daily basis from January 1, 2009 to January 31, 2009, where the band value of <strong>x</strong> corresponds to January <strong>x</strong>, 2009. So, we can first create a vector of dates as follows (If you are not familiar with <code>Dates</code> and the <code>lubridate</code> pacakge, <a href="http://uc-r.github.io/dates/">this</a> is a good resource to learn them.):</p>
-<div class="sourceCode" id="cb535"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#--- starting date ---#</span>
-<span class="va">start_date</span> <span class="op">&lt;-</span> <span class="fu">ymd</span><span class="op">(</span><span class="st">"2009-01-01"</span><span class="op">)</span>
-
-<span class="co">#--- ending date ---#</span>
-<span class="va">end_date</span> <span class="op">&lt;-</span> <span class="fu">ymd</span><span class="op">(</span><span class="st">"2009-01-31"</span><span class="op">)</span>
-
-<span class="co">#--- sequence of dates  ---#</span>
-<span class="va">dates_ls_m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="va">start_date</span>, <span class="va">end_date</span>, <span class="st">"days"</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb559"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#--- starting date ---#</span></span>
+<span><span class="va">start_date</span> <span class="op">&lt;-</span> <span class="fu">ymd</span><span class="op">(</span><span class="st">"2009-01-01"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#--- ending date ---#</span></span>
+<span><span class="va">end_date</span> <span class="op">&lt;-</span> <span class="fu">ymd</span><span class="op">(</span><span class="st">"2009-01-31"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#--- sequence of dates  ---#</span></span>
+<span><span class="va">dates_ls_m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="va">start_date</span>, <span class="va">end_date</span>, <span class="st">"days"</span><span class="op">)</span></span></code></pre></div>
 <p>We can then use <code>st_set_dimensions()</code> to change the third dimension to the dimension of date.</p>
-<div class="sourceCode" id="cb536"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb536-1"><a href="stars-basics.html#cb536-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- syntax (NOT RUN) ---#  </span></span>
-<span id="cb536-2"><a href="stars-basics.html#cb536-2" aria-hidden="true" tabindex="-1"></a><span class="fu">st_set_dimensions</span>(stars object, dimension, <span class="at">values =</span> dimension values, <span class="at">names =</span> name of the dimension)</span></code></pre></div>
-<div class="sourceCode" id="cb537"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="op">(</span>
-<span class="va">ppt_m1_y09_stars</span> <span class="op">&lt;-</span> <span class="fu">st_set_dimensions</span><span class="op">(</span><span class="va">ppt_m1_y09_stars</span>, <span class="fl">3</span>, values <span class="op">=</span> <span class="va">dates_ls_m1</span>, names <span class="op">=</span> <span class="st">"date"</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+<p><code>{ eval = F} st_set_dimensions(   stars object,   dimension,   values = dimension values,   names = name of the dimension  )</code></p>
+<div class="sourceCode" id="cb560"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="op">(</span></span>
+<span>  <span class="va">ppt_m1_y09_stars</span> <span class="op">&lt;-</span></span>
+<span>    <span class="fu">st_set_dimensions</span><span class="op">(</span></span>
+<span>      <span class="va">ppt_m1_y09_stars</span>,</span>
+<span>      <span class="fl">3</span>,</span>
+<span>      values <span class="op">=</span> <span class="va">dates_ls_m1</span>,</span>
+<span>      names <span class="op">=</span> <span class="st">"date"</span></span>
+<span>    <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code>stars object with 3 dimensions and 1 attribute
 attribute(s), summary of first 1e+05 cells:
                         Min. 1st Qu. Median     Mean 3rd Qu.   Max.  NA's
 PRISM_ppt_y2009_m1.tif     0       0  0.436 3.543222  3.4925 56.208 60401
 dimension(s):
-     from   to     offset      delta refsys point values x/y
-x       1 1405   -125.021  0.0416667  NAD83 FALSE   NULL [x]
-y       1  621    49.9375 -0.0416667  NAD83 FALSE   NULL [y]
-date    1   31 2009-01-01     1 days   Date    NA   NULL    </code></pre>
+     from   to     offset      delta refsys point x/y
+x       1 1405   -125.021  0.0416667  NAD83 FALSE [x]
+y       1  621    49.9375 -0.0416667  NAD83 FALSE [y]
+date    1   31 2009-01-01     1 days   Date    NA    </code></pre>
 <p>As you can see, the third dimension has become date. The value of offset for the date dimension has become <code>2009-01-01</code> meaning the starting date value is now <code>2009-01-01</code>. Further, the value of delta is now 1 days, so date dimension of <strong>x</strong> corresponds to <code>2009-01-01</code> + <strong>x</strong> - 1 = <code>2009-01-x</code>.</p>
 <p>Note that the date dimension does not have to be regularly spaced. For example, you may have satellite images available for your area with a 5-day interval sometimes and a 6-day interval other times. This is perfectly fine. As an illustration, I will create a wrong sequence of dates for this data with a 2-day gap in the middle and assign them to the date dimension to see what happens.</p>
-<div class="sourceCode" id="cb539"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#--- 2009-01-23 removed and 2009-02-01 added ---#</span>
-<span class="op">(</span>
-<span class="va">dates_ls_wrong</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="va">start_date</span>, <span class="va">end_date</span>, <span class="st">"days"</span><span class="op">)</span><span class="op">[</span><span class="op">-</span><span class="fl">23</span><span class="op">]</span>, <span class="fu">ymd</span><span class="op">(</span><span class="st">"2009-02-01"</span><span class="op">)</span><span class="op">)</span> 
-<span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb562"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#--- 2009-01-23 removed and 2009-02-01 added ---#</span></span>
+<span><span class="op">(</span></span>
+<span>  <span class="va">dates_ls_wrong</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="va">start_date</span>, <span class="va">end_date</span>, <span class="st">"days"</span><span class="op">)</span><span class="op">[</span><span class="op">-</span><span class="fl">23</span><span class="op">]</span>, <span class="fu">ymd</span><span class="op">(</span><span class="st">"2009-02-01"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code> [1] "2009-01-01" "2009-01-02" "2009-01-03" "2009-01-04" "2009-01-05"
  [6] "2009-01-06" "2009-01-07" "2009-01-08" "2009-01-09" "2009-01-10"
 [11] "2009-01-11" "2009-01-12" "2009-01-13" "2009-01-14" "2009-01-15"
@@ -678,11 +702,17 @@ date    1   31 2009-01-01     1 days   Date    NA   NULL    </code></pre>
 [26] "2009-01-27" "2009-01-28" "2009-01-29" "2009-01-30" "2009-01-31"
 [31] "2009-02-01"</code></pre>
 <p>Now assign these date values to <code>ppt_m1_y09_stars</code>:</p>
-<div class="sourceCode" id="cb541"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#--- set date values ---#</span>
-<span class="op">(</span>
-<span class="va">ppt_m1_y09_stars_wrong</span> <span class="op">&lt;-</span> <span class="fu">st_set_dimensions</span><span class="op">(</span><span class="va">ppt_m1_y09_stars</span>, <span class="fl">3</span>, values <span class="op">=</span> <span class="va">dates_ls_wrong</span>, names <span class="op">=</span> <span class="st">"date"</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb564"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#--- set date values ---#</span></span>
+<span><span class="op">(</span></span>
+<span>  <span class="va">ppt_m1_y09_stars_wrong</span> <span class="op">&lt;-</span></span>
+<span>    <span class="fu">st_set_dimensions</span><span class="op">(</span></span>
+<span>      <span class="va">ppt_m1_y09_stars</span>,</span>
+<span>      <span class="fl">3</span>,</span>
+<span>      values <span class="op">=</span> <span class="va">dates_ls_wrong</span>,</span>
+<span>      names <span class="op">=</span> <span class="st">"date"</span></span>
+<span>    <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code>stars object with 3 dimensions and 1 attribute
 attribute(s), summary of first 1e+05 cells:
                         Min. 1st Qu. Median     Mean 3rd Qu.   Max.  NA's
@@ -692,19 +722,19 @@ dimension(s):
 x       1 1405 -125.021  0.0416667  NAD83 FALSE                      NULL [x]
 y       1  621  49.9375 -0.0416667  NAD83 FALSE                      NULL [y]
 date    1   31       NA         NA   Date    NA 2009-01-01,...,2009-02-01    </code></pre>
-<p>Since the step between the date values is no longer <span class="math inline">\(1\)</span> day for the entire sequence, the value of delta is now <code>NA</code>. However, notice that the value of date is no longer NULL. Since the date is not regular, you can not represent date using three values (<code>from</code>, <code>to</code>, and <code>delta</code>) any more, and date values for each observation have to be stored now.</p>
+<p>Since the step between the date values is no longer <span class="math inline">\(1\)</span> day for the entire sequence, the value of <code>delta</code> is now <code>NA</code>. However, notice that the value of date is no longer NULL. Since the date is not regular, you cannot represent date using three values (<code>from</code>, <code>to</code>, and <code>delta</code>) any more, and date values for each observation have to be stored now.</p>
 <p>Finally, note that just applying <code>st_set_dimensions()</code> to a <code>stars</code> object does not change the dimension of the <code>stars</code> object (just like <code><a href="https://rdrr.io/r/stats/setNames.html">setNames()</a></code> as we discussed above).</p>
-<div class="sourceCode" id="cb543"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">ppt_m1_y09_stars</span></code></pre></div>
+<div class="sourceCode" id="cb566"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ppt_m1_y09_stars</span></span></code></pre></div>
 <pre><code>stars object with 3 dimensions and 1 attribute
 attribute(s), summary of first 1e+05 cells:
                         Min. 1st Qu. Median     Mean 3rd Qu.   Max.  NA's
 PRISM_ppt_y2009_m1.tif     0       0  0.436 3.543222  3.4925 56.208 60401
 dimension(s):
-     from   to     offset      delta refsys point values x/y
-x       1 1405   -125.021  0.0416667  NAD83 FALSE   NULL [x]
-y       1  621    49.9375 -0.0416667  NAD83 FALSE   NULL [y]
-date    1   31 2009-01-01     1 days   Date    NA   NULL    </code></pre>
+     from   to     offset      delta refsys point x/y
+x       1 1405   -125.021  0.0416667  NAD83 FALSE [x]
+y       1  621    49.9375 -0.0416667  NAD83 FALSE [y]
+date    1   31 2009-01-01     1 days   Date    NA    </code></pre>
 <p>As you can see, the date dimension has not been altered. You need to assign the results of <code>st_set_dimensions()</code> to a <code>stars</code> object to see the changes in the dimension reflected just like we did above with the right date values.</p>
 </div>
 <div id="dplyr-op" class="section level2" number="7.6">
@@ -716,78 +746,80 @@ date    1   31 2009-01-01     1 days   Date    NA   NULL    </code></pre>
 <h3>
 <span class="header-section-number">7.6.1</span> <code>filter()</code><a class="anchor" aria-label="anchor" href="#filter"><i class="fas fa-link"></i></a>
 </h3>
-<p>The <code><a href="https://rdrr.io/pkg/dplyr/man/filter.html">filter()</a></code> function allows you to subset data by dimension values: x, y, and band (here date).</p>
+<p>The <code><a href="https://dplyr.tidyverse.org/reference/filter.html">filter()</a></code> function allows you to subset data by dimension values: x, y, and band (here date).</p>
 <hr>
 <p><strong>spatial filtering</strong></p>
-<div class="sourceCode" id="cb545"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
-
-<span class="co">#--- longitude greater than -100 ---#</span>
-<span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/filter.html">filter</a></span><span class="op">(</span><span class="va">ppt_m1_y09_stars</span>, <span class="va">x</span> <span class="op">&gt;</span> <span class="op">-</span><span class="fl">100</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb568"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#--- longitude greater than -100 ---#</span></span>
+<span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">ppt_m1_y09_stars</span>, <span class="va">x</span> <span class="op">&gt;</span> <span class="op">-</span><span class="fl">100</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="R_GIS_Book_files/figure-html/filter_ex-1.png" width="672"></div>
-<div class="sourceCode" id="cb546"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#--- latitude less than 40 ---#</span>
-<span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/filter.html">filter</a></span><span class="op">(</span><span class="va">ppt_m1_y09_stars</span>, <span class="va">y</span> <span class="op">&lt;</span> <span class="fl">40</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb569"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#--- latitude less than 40 ---#</span></span>
+<span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">ppt_m1_y09_stars</span>, <span class="va">y</span> <span class="op">&lt;</span> <span class="fl">40</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="R_GIS_Book_files/figure-html/filter_ex-2.png" width="672"></div>
 <hr>
 <p><strong>temporal filtering</strong></p>
-<p>Finally, since the date dimension is in <code>Date</code>, you can use <code>Date</code> math to filter the data.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Of course, this is possible only because we have assigned date values to the band dimension above.&lt;/p&gt;"><sup>85</sup></a></p>
-<div class="sourceCode" id="cb547"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#--- dates after 2009-01-15  ---#</span>
-<span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/filter.html">filter</a></span><span class="op">(</span><span class="va">ppt_m1_y09_stars</span>, <span class="va">date</span> <span class="op">&gt;</span> <span class="fu">ymd</span><span class="op">(</span><span class="st">"2009-01-21"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<p>Finally, since the date dimension is in <code>Date</code>, you can use <code>Date</code> math to filter the data.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Of course, this is possible only because we have assigned date values to the band dimension above.&lt;/p&gt;"><sup>89</sup></a></p>
+<div class="sourceCode" id="cb570"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#--- dates after 2009-01-15  ---#</span></span>
+<span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">ppt_m1_y09_stars</span>, <span class="va">date</span> <span class="op">&gt;</span> <span class="fu">ymd</span><span class="op">(</span><span class="st">"2009-01-21"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="R_GIS_Book_files/figure-html/filter_ex_date-1.png" width="672"></div>
 <hr>
 <p><strong>filter by attribute?</strong></p>
 <p>Just in case you are wondering. You cannot filter by attribute.</p>
-<div class="sourceCode" id="cb548"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/filter.html">filter</a></span><span class="op">(</span><span class="va">ppt_m1_y09_stars</span>, <span class="va">ppt</span> <span class="op">&gt;</span> <span class="fl">20</span><span class="op">)</span> </code></pre></div>
-<pre><code>Error in `glubort()`:
+<div class="sourceCode" id="cb571"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">ppt_m1_y09_stars</span>, <span class="va">ppt</span> <span class="op">&gt;</span> <span class="fl">20</span><span class="op">)</span></span></code></pre></div>
+<pre><code>Error in `map2_int()`:
+ℹ In index: 1.
+Caused by error in `glubort()`:
 ! ``~``, `ppt &gt; 20` must refer to exactly one dimension, not ``</code></pre>
 </div>
 <div id="select" class="section level3" number="7.6.2">
 <h3>
 <span class="header-section-number">7.6.2</span> <code>select()</code><a class="anchor" aria-label="anchor" href="#select"><i class="fas fa-link"></i></a>
 </h3>
-<p>The <code><a href="https://rdrr.io/pkg/dplyr/man/select.html">select()</a></code> function lets you pick certain attributes.</p>
-<div class="sourceCode" id="cb550"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/select.html">select</a></span><span class="op">(</span><span class="va">prcp_tmax_PRISM_m8_y09</span>, <span class="va">ppt</span><span class="op">)</span></code></pre></div>
+<p>The <code><a href="https://dplyr.tidyverse.org/reference/select.html">select()</a></code> function lets you pick certain attributes.</p>
+<div class="sourceCode" id="cb573"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">prcp_tmax_PRISM_m8_y09</span>, <span class="va">ppt</span><span class="op">)</span></span></code></pre></div>
 <pre><code>stars object with 3 dimensions and 1 attribute
 attribute(s):
      Min. 1st Qu. Median     Mean 3rd Qu.   Max.
 ppt     0       0      0 1.292334   0.011 30.851
 dimension(s):
-     from to     offset      delta refsys point values x/y
-x       1 20   -121.729  0.0416667  NAD83 FALSE   NULL [x]
-y       1 20    46.6458 -0.0416667  NAD83 FALSE   NULL [y]
-date    1 10 2009-08-11     1 days   Date    NA   NULL    </code></pre>
+     from to     offset      delta refsys point x/y
+x       1 20   -121.729  0.0416667  NAD83 FALSE [x]
+y       1 20    46.6458 -0.0416667  NAD83 FALSE [y]
+date    1 10 2009-08-11     1 days   Date    NA    </code></pre>
 </div>
 <div id="mutate" class="section level3" number="7.6.3">
 <h3>
 <span class="header-section-number">7.6.3</span> <code>mutate()</code><a class="anchor" aria-label="anchor" href="#mutate"><i class="fas fa-link"></i></a>
 </h3>
-<p>You can mutate attributes using the <code><a href="https://rdrr.io/pkg/dplyr/man/mutate.html">mutate()</a></code> function. For example, this can be useful to calculate NDVI in a <code>stars</code> object that has Red and NIR (spectral reflectance measurements in the red and near-infrared regions) as attributes. Here, we just simply convert the unit of precipitation from mm to inches.</p>
-<div class="sourceCode" id="cb552"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#--- mm to inches ---#</span>
-<span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/mutate.html">mutate</a></span><span class="op">(</span><span class="va">prcp_tmax_PRISM_m8_y09</span>, ppt <span class="op">=</span> <span class="va">ppt</span> <span class="op">*</span> <span class="fl">0.0393701</span><span class="op">)</span></code></pre></div>
+<p>You can mutate attributes using the <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code> function. For example, this can be useful to calculate NDVI in a <code>stars</code> object that has Red and NIR (spectral reflectance measurements in the red and near-infrared regions) as attributes. Here, we just simply convert the unit of precipitation from mm to inches.</p>
+<div class="sourceCode" id="cb575"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#--- mm to inches ---#</span></span>
+<span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="va">prcp_tmax_PRISM_m8_y09</span>, ppt <span class="op">=</span> <span class="va">ppt</span> <span class="op">*</span> <span class="fl">0.0393701</span><span class="op">)</span></span></code></pre></div>
 <pre><code>stars object with 3 dimensions and 2 attributes
 attribute(s):
        Min.  1st Qu. Median       Mean      3rd Qu.      Max.
 ppt   0.000  0.00000  0.000  0.0508793 4.330711e-04  1.214607
 tmax  1.833 17.55575 21.483 22.0354348 2.654275e+01 39.707001
 dimension(s):
-     from to     offset      delta refsys point values x/y
-x       1 20   -121.729  0.0416667  NAD83 FALSE   NULL [x]
-y       1 20    46.6458 -0.0416667  NAD83 FALSE   NULL [y]
-date    1 10 2009-08-11     1 days   Date    NA   NULL    </code></pre>
+     from to     offset      delta refsys point x/y
+x       1 20   -121.729  0.0416667  NAD83 FALSE [x]
+y       1 20    46.6458 -0.0416667  NAD83 FALSE [y]
+date    1 10 2009-08-11     1 days   Date    NA    </code></pre>
 </div>
 <div id="pull" class="section level3" number="7.6.4">
 <h3>
 <span class="header-section-number">7.6.4</span> <code>pull()</code><a class="anchor" aria-label="anchor" href="#pull"><i class="fas fa-link"></i></a>
 </h3>
-<p>You can extract attribute values using <code><a href="https://rdrr.io/pkg/dplyr/man/pull.html">pull()</a></code>.</p>
-<div class="sourceCode" id="cb554"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#--- tmax values of the 1st date layer ---#</span>
-<span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/pull.html">pull</a></span><span class="op">(</span><span class="va">prcp_tmax_PRISM_m8_y09</span><span class="op">[</span><span class="st">"tmax"</span>,,,<span class="fl">1</span><span class="op">]</span>, <span class="st">"tmax"</span><span class="op">)</span></code></pre></div>
+<p>You can extract attribute values using <code><a href="https://dplyr.tidyverse.org/reference/pull.html">pull()</a></code>.</p>
+<div class="sourceCode" id="cb577"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#--- tmax values of the 1st date layer ---#</span></span>
+<span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">prcp_tmax_PRISM_m8_y09</span><span class="op">[</span><span class="st">"tmax"</span>, , , <span class="fl">1</span><span class="op">]</span>, <span class="st">"tmax"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>, , 1
 
         [,1]   [,2]   [,3]   [,4]   [,5]   [,6]   [,7]   [,8]   [,9]  [,10]
@@ -851,11 +883,11 @@ date    1 10 2009-08-11     1 days   Date    NA   NULL    </code></pre>
 </ul>
 <p>For example, consider merging PRISM precipitation data in January and February. Both of them have exactly the same spatial extent and resolutions and represent the same attribute (precipitation). However, they differ in the third dimension (date). So, you are trying to stack data of the same attributes along the third dimension (date) while making sure that spatial correspondence is maintained. This merge is kind of like <code><a href="https://rdrr.io/r/base/cbind.html">rbind()</a></code> that stacks multiple <code>data.frame</code>s vertically while making sure the variables are aligned correctly.</p>
 <p>Let’s import the PRISM precipitation data for February, 2009.</p>
-<div class="sourceCode" id="cb556"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#--- read the February ppt data ---#        </span>
-<span class="op">(</span>
-<span class="va">ppt_m2_y09_stars</span> <span class="op">&lt;-</span> <span class="fu">read_stars</span><span class="op">(</span><span class="st">"Data/PRISM_ppt_y2009_m2.tif"</span><span class="op">)</span> 
-<span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb579"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#--- read the February ppt data ---#</span></span>
+<span><span class="op">(</span></span>
+<span>  <span class="va">ppt_m2_y09_stars</span> <span class="op">&lt;-</span> <span class="fu">read_stars</span><span class="op">(</span><span class="st">"Data/PRISM_ppt_y2009_m2.tif"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code>stars object with 3 dimensions and 1 attribute
 attribute(s), summary of first 1e+05 cells:
                         Min. 1st Qu. Median      Mean 3rd Qu.   Max.  NA's
@@ -875,48 +907,48 @@ y    [y]
 band    </code></pre>
 <p>Note here that the third dimension of <code>ppt_m2_y09_stars</code> has not been changed to date.</p>
 <p>Now, let’s try to merge the two:</p>
-<div class="sourceCode" id="cb558"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#--- combine the two ---#</span>
-<span class="op">(</span>
-<span class="va">ppt_m1_to_m2_y09_stars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">ppt_m1_y09_stars</span>, <span class="va">ppt_m2_y09_stars</span>, along <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb581"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#--- combine the two ---#</span></span>
+<span><span class="op">(</span></span>
+<span>  <span class="va">ppt_m1_to_m2_y09_stars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">ppt_m1_y09_stars</span>, <span class="va">ppt_m2_y09_stars</span>, along <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code>stars object with 3 dimensions and 1 attribute
 attribute(s), summary of first 1e+05 cells:
                         Min. 1st Qu. Median     Mean 3rd Qu.   Max.  NA's
 PRISM_ppt_y2009_m1.tif     0       0  0.436 3.543222  3.4925 56.208 60401
 dimension(s):
-     from   to     offset      delta refsys point values x/y
-x       1 1405   -125.021  0.0416667  NAD83 FALSE   NULL [x]
-y       1  621    49.9375 -0.0416667  NAD83 FALSE   NULL [y]
-date    1   59 2009-01-01     1 days   Date    NA   NULL    </code></pre>
+     from   to     offset      delta refsys point x/y
+x       1 1405   -125.021  0.0416667  NAD83 FALSE [x]
+y       1  621    49.9375 -0.0416667  NAD83 FALSE [y]
+date    1   59 2009-01-01     1 days   Date    NA    </code></pre>
 <p>As you noticed, the second object (<code>ppt_m2_y09_stars</code>) was assumed to have the same date characteristics as the first one: the data in February is observed daily (<code>delta</code> is 1 day). This causes no problem in this instance as the February data is indeed observed daily starting from <code>2009-02-01</code>. However, be careful if you are appending the data that does not start from 1 day after (or more generally <code>delta</code> for the time dimension) the first data or the data that does not follow the same observation interval.</p>
 <p>For this reason, it is advisable to first set the date values if it has not been set. Pretend that the February data actually starts from <code>2009-02-02</code> to <code>2009-03-01</code> to see what happens when the regular interval (<code>delta</code>) is not kept after merging.</p>
-<div class="sourceCode" id="cb560"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#--- starting date ---#</span>
-<span class="va">start_date</span> <span class="op">&lt;-</span> <span class="fu">ymd</span><span class="op">(</span><span class="st">"2009-02-01"</span><span class="op">)</span>
-
-<span class="co">#--- ending date ---#</span>
-<span class="va">end_date</span> <span class="op">&lt;-</span> <span class="fu">ymd</span><span class="op">(</span><span class="st">"2009-02-28"</span><span class="op">)</span>
-
-<span class="co">#--- sequence of dates  ---#</span>
-<span class="va">dates_ls</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="va">start_date</span>, <span class="va">end_date</span>, <span class="st">"days"</span><span class="op">)</span>       
-
-<span class="co">#--- pretend the data actually starts from `2009-02-02` to `2009-03-01` ---#</span>
-<span class="op">(</span>
-<span class="va">ppt_m2_y09_stars</span> <span class="op">&lt;-</span> <span class="fu">st_set_dimensions</span><span class="op">(</span><span class="va">ppt_m2_y09_stars</span>, <span class="fl">3</span>, values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">dates_ls</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span>, <span class="fu">ymd</span><span class="op">(</span><span class="st">"2009-03-01"</span><span class="op">)</span><span class="op">)</span>, name <span class="op">=</span> <span class="st">"date"</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb583"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#--- starting date ---#</span></span>
+<span><span class="va">start_date</span> <span class="op">&lt;-</span> <span class="fu">ymd</span><span class="op">(</span><span class="st">"2009-02-01"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#--- ending date ---#</span></span>
+<span><span class="va">end_date</span> <span class="op">&lt;-</span> <span class="fu">ymd</span><span class="op">(</span><span class="st">"2009-02-28"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#--- sequence of dates  ---#</span></span>
+<span><span class="va">dates_ls</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="va">start_date</span>, <span class="va">end_date</span>, <span class="st">"days"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#--- pretend the data actually starts from `2009-02-02` to `2009-03-01` ---#</span></span>
+<span><span class="op">(</span></span>
+<span>  <span class="va">ppt_m2_y09_stars</span> <span class="op">&lt;-</span> <span class="fu">st_set_dimensions</span><span class="op">(</span><span class="va">ppt_m2_y09_stars</span>, <span class="fl">3</span>, values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">dates_ls</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span>, <span class="fu">ymd</span><span class="op">(</span><span class="st">"2009-03-01"</span><span class="op">)</span><span class="op">)</span>, name <span class="op">=</span> <span class="st">"date"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code>stars object with 3 dimensions and 1 attribute
 attribute(s), summary of first 1e+05 cells:
                         Min. 1st Qu. Median      Mean 3rd Qu.   Max.  NA's
 PRISM_ppt_y2009_m2.tif     0       0      0 0.1855858       0 11.634 60401
 dimension(s):
-     from   to     offset      delta refsys point values x/y
-x       1 1405   -125.021  0.0416667  NAD83 FALSE   NULL [x]
-y       1  621    49.9375 -0.0416667  NAD83 FALSE   NULL [y]
-date    1   28 2009-02-02     1 days   Date    NA   NULL    </code></pre>
+     from   to     offset      delta refsys point x/y
+x       1 1405   -125.021  0.0416667  NAD83 FALSE [x]
+y       1  621    49.9375 -0.0416667  NAD83 FALSE [y]
+date    1   28 2009-02-02     1 days   Date    NA    </code></pre>
 <p>If you merge the two,</p>
-<div class="sourceCode" id="cb562"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">ppt_m1_y09_stars</span>, <span class="va">ppt_m2_y09_stars</span>, along <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb585"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">ppt_m1_y09_stars</span>, <span class="va">ppt_m2_y09_stars</span>, along <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
 <pre><code>stars object with 3 dimensions and 1 attribute
 attribute(s), summary of first 1e+05 cells:
                         Min. 1st Qu. Median     Mean 3rd Qu.   Max.  NA's
@@ -941,12 +973,12 @@ date    1   59       NA         NA   Date    NA 2009-01-01,...,2009-03-01    </c
 </ul>
 <p>For example, consider merging PRISM precipitation and tmax data in January. Both of them have exactly the same spatial extent and resolutions and the date characteristics (starting and ending on the same dates with the same time interval). However, they differ in what they represent: precipitation and tmax. This merge is kind of like <code><a href="https://rdrr.io/r/base/cbind.html">cbind()</a></code> that combines multiple <code>data.frame</code>s of different variables while making sure the observation correspondence is correct.</p>
 <p>Let’s read the daily tmax data for January, 2009:</p>
-<div class="sourceCode" id="cb564"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="op">(</span>
-<span class="va">tmax_m1_y09_stars</span> <span class="op">&lt;-</span> <span class="fu">read_stars</span><span class="op">(</span><span class="st">"Data/PRISM_tmax_y2009_m1.tif"</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> 
-    <span class="co">#--- change the attribute name ---#</span>
-    <span class="fu"><a href="https://rdrr.io/r/stats/setNames.html">setNames</a></span><span class="op">(</span><span class="st">"tmax"</span><span class="op">)</span>
-<span class="op">)</span>   </code></pre></div>
+<div class="sourceCode" id="cb587"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="op">(</span></span>
+<span>  <span class="va">tmax_m1_y09_stars</span> <span class="op">&lt;-</span> <span class="fu">read_stars</span><span class="op">(</span><span class="st">"Data/PRISM_tmax_y2009_m1.tif"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="co">#--- change the attribute name ---#</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/stats/setNames.html">setNames</a></span><span class="op">(</span><span class="st">"tmax"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code>stars object with 3 dimensions and 1 attribute
 attribute(s), summary of first 1e+05 cells:
          Min. 1st Qu. Median      Mean 3rd Qu.  Max.  NA's
@@ -965,38 +997,38 @@ x    [x]
 y    [y]
 band    </code></pre>
 <p>Now, let’s merge the PRISM ppt and tmax data in January, 2009.</p>
-<div class="sourceCode" id="cb566"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">ppt_m1_y09_stars</span>, <span class="va">tmax_m1_y09_stars</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb589"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">ppt_m1_y09_stars</span>, <span class="va">tmax_m1_y09_stars</span><span class="op">)</span></span></code></pre></div>
 <pre><code>Error in c.stars(ppt_m1_y09_stars, tmax_m1_y09_stars): don't know how to merge arrays: please specify parameter along</code></pre>
 <p>Oops. Well, the problem is that the third dimension of the two objects is not the same. Even though we know that the <strong>x</strong>th element of their third dimension represent the same thing, they look different to R’s eyes. So, we first need to change the third dimension of <code>tmax_m1_y09_stars</code> to be consistent with the third dimension of <code>ppt_m1_y09_stars</code> (<code>dates_ls_m1</code> was defined in Chapter <a href="stars-basics.html#stars-set-time">7.5</a>).</p>
-<div class="sourceCode" id="cb568"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="op">(</span>
-<span class="va">tmax_m1_y09_stars</span> <span class="op">&lt;-</span> <span class="fu">st_set_dimensions</span><span class="op">(</span><span class="va">tmax_m1_y09_stars</span>, <span class="fl">3</span>, values <span class="op">=</span> <span class="va">dates_ls_m1</span>, names <span class="op">=</span> <span class="st">"date"</span><span class="op">)</span>
-<span class="op">)</span>   </code></pre></div>
+<div class="sourceCode" id="cb591"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="op">(</span></span>
+<span>  <span class="va">tmax_m1_y09_stars</span> <span class="op">&lt;-</span> <span class="fu">st_set_dimensions</span><span class="op">(</span><span class="va">tmax_m1_y09_stars</span>, <span class="fl">3</span>, values <span class="op">=</span> <span class="va">dates_ls_m1</span>, names <span class="op">=</span> <span class="st">"date"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code>stars object with 3 dimensions and 1 attribute
 attribute(s), summary of first 1e+05 cells:
          Min. 1st Qu. Median      Mean 3rd Qu.  Max.  NA's
 tmax  -17.898  -7.761 -2.248 -3.062721   1.718 7.994 60401
 dimension(s):
-     from   to     offset      delta refsys point values x/y
-x       1 1405   -125.021  0.0416667  NAD83 FALSE   NULL [x]
-y       1  621    49.9375 -0.0416667  NAD83 FALSE   NULL [y]
-date    1   31 2009-01-01     1 days   Date    NA   NULL    </code></pre>
+     from   to     offset      delta refsys point x/y
+x       1 1405   -125.021  0.0416667  NAD83 FALSE [x]
+y       1  621    49.9375 -0.0416667  NAD83 FALSE [y]
+date    1   31 2009-01-01     1 days   Date    NA    </code></pre>
 <p>Now, we can merge the two.</p>
-<div class="sourceCode" id="cb570"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="op">(</span>
-<span class="va">ppt_tmax_m1_y09_stars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">ppt_m1_y09_stars</span>, <span class="va">tmax_m1_y09_stars</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb593"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="op">(</span></span>
+<span>  <span class="va">ppt_tmax_m1_y09_stars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">ppt_m1_y09_stars</span>, <span class="va">tmax_m1_y09_stars</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code>stars object with 3 dimensions and 2 attributes
 attribute(s), summary of first 1e+05 cells:
                            Min. 1st Qu. Median      Mean 3rd Qu.   Max.  NA's
 PRISM_ppt_y2009_m1.tif    0.000   0.000  0.436  3.543222  3.4925 56.208 60401
 tmax                    -17.898  -7.761 -2.248 -3.062721  1.7180  7.994 60401
 dimension(s):
-     from   to     offset      delta refsys point values x/y
-x       1 1405   -125.021  0.0416667  NAD83 FALSE   NULL [x]
-y       1  621    49.9375 -0.0416667  NAD83 FALSE   NULL [y]
-date    1   31 2009-01-01     1 days   Date    NA   NULL    </code></pre>
+     from   to     offset      delta refsys point x/y
+x       1 1405   -125.021  0.0416667  NAD83 FALSE [x]
+y       1  621    49.9375 -0.0416667  NAD83 FALSE [y]
+date    1   31 2009-01-01     1 days   Date    NA    </code></pre>
 <p>As you can see, now we have another attribute called <code>tmax</code>.</p>
 </div>
 <div id="merging-stars-objects-of-different-spatial-extents" class="section level3" number="7.7.3">
@@ -1007,33 +1039,33 @@ date    1   31 2009-01-01     1 days   Date    NA   NULL    </code></pre>
 <ul>
 <li>the <strong>same</strong> attributes</li>
 <li>
-<strong>different</strong> spatial extent but <strong>same</strong> resolution<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Technically, you can actually merge &lt;code&gt;stars&lt;/code&gt; objects of different spatial resolutions. But, you probably should not.&lt;/p&gt;"><sup>86</sup></a>
+<strong>different</strong> spatial extent but <strong>same</strong> resolution<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Technically, you can actually merge &lt;code&gt;stars&lt;/code&gt; objects of different spatial resolutions. But, you probably should not.&lt;/p&gt;"><sup>90</sup></a>
 </li>
 <li>the <strong>same</strong> bands (dates here)</li>
 </ul>
 <p>Some times you have multiple separate raster datasets that have different spatial coverages and would like to combine them into one. You can do that using <code>st_mosaic()</code>.</p>
 <p>Let’s split <code>tmax_m1_y09_stars</code> into two parts:</p>
-<div class="sourceCode" id="cb572"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">tmax_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/filter.html">filter</a></span><span class="op">(</span><span class="va">tmax_m1_y09_stars</span>, <span class="va">x</span> <span class="op">&lt;=</span> <span class="op">-</span><span class="fl">100</span><span class="op">)</span> 
-<span class="va">tmax_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/filter.html">filter</a></span><span class="op">(</span><span class="va">tmax_m1_y09_stars</span>, <span class="va">x</span> <span class="op">&gt;</span> <span class="op">-</span><span class="fl">100</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb595"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">tmax_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">tmax_m1_y09_stars</span>, <span class="va">x</span> <span class="op">&lt;=</span> <span class="op">-</span><span class="fl">100</span><span class="op">)</span></span>
+<span><span class="va">tmax_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">tmax_m1_y09_stars</span>, <span class="va">x</span> <span class="op">&gt;</span> <span class="op">-</span><span class="fl">100</span><span class="op">)</span></span></code></pre></div>
 <p>Here (Figure <a href="stars-basics.html#fig:map-indiv">7.3</a>) is what they look like (only Jan 1, 1980):</p>
-<div class="sourceCode" id="cb573"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">g_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_stars</span><span class="op">(</span>data <span class="op">=</span> <span class="va">tmax_1</span><span class="op">[</span>,,,<span class="fl">1</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span>
-  <span class="va">theme_for_map</span> <span class="op">+</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/theme.html">theme</a></span><span class="op">(</span>
-    legend.position <span class="op">=</span> <span class="st">"bottom"</span>
-  <span class="op">)</span>
-
-<span class="va">g_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_stars</span><span class="op">(</span>data <span class="op">=</span> <span class="va">tmax_2</span><span class="op">[</span>,,,<span class="fl">1</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span>
-  <span class="va">theme_for_map</span> <span class="op">+</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/theme.html">theme</a></span><span class="op">(</span>
-    legend.position <span class="op">=</span> <span class="st">"bottom"</span>
-  <span class="op">)</span>
-
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com">patchwork</a></span><span class="op">)</span>
-<span class="va">g_1</span> <span class="op">+</span> <span class="va">g_2</span></code></pre></div>
+<div class="sourceCode" id="cb596"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">g_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_stars</span><span class="op">(</span>data <span class="op">=</span> <span class="va">tmax_1</span><span class="op">[</span>, , , <span class="fl">1</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="va">theme_for_map</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span></span>
+<span>    legend.position <span class="op">=</span> <span class="st">"bottom"</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="va">g_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_stars</span><span class="op">(</span>data <span class="op">=</span> <span class="va">tmax_2</span><span class="op">[</span>, , , <span class="fl">1</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="va">theme_for_map</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span></span>
+<span>    legend.position <span class="op">=</span> <span class="st">"bottom"</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com">patchwork</a></span><span class="op">)</span></span>
+<span><span class="va">g_1</span> <span class="op">+</span> <span class="va">g_2</span></span></code></pre></div>
 <div class="figure">
 <span style="display:block;" id="fig:map-indiv"></span>
 <img src="R_GIS_Book_files/figure-html/map-indiv-1.png" alt="Two spatially non-overlapping stars objects" width="672"><p class="caption">
@@ -1041,13 +1073,13 @@ Figure 7.3: Two spatially non-overlapping stars objects
 </p>
 </div>
 <p>Let’s combine the two using <code>st_mosaic()</code>:</p>
-<div class="sourceCode" id="cb574"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">tmax_combined</span> <span class="op">&lt;-</span> <span class="fu">st_mosaic</span><span class="op">(</span><span class="va">tmax_1</span>, <span class="va">tmax_2</span><span class="op">)</span> </code></pre></div>
+<div class="sourceCode" id="cb597"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">tmax_combined</span> <span class="op">&lt;-</span> <span class="fu">st_mosaic</span><span class="op">(</span><span class="va">tmax_1</span>, <span class="va">tmax_2</span><span class="op">)</span></span></code></pre></div>
 <p>Here is what the combined object looks like (Figure <a href="stars-basics.html#fig:plot-combine">7.4</a>)</p>
-<div class="sourceCode" id="cb575"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_stars</span><span class="op">(</span>data <span class="op">=</span> <span class="va">tmax_combined</span><span class="op">[</span>,,,<span class="fl">1</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span>
-  <span class="va">theme_for_map</span> </code></pre></div>
+<div class="sourceCode" id="cb598"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_stars</span><span class="op">(</span>data <span class="op">=</span> <span class="va">tmax_combined</span><span class="op">[</span>, , , <span class="fl">1</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="va">theme_for_map</span></span></code></pre></div>
 <div class="figure">
 <span style="display:block;" id="fig:plot-combine"></span>
 <img src="R_GIS_Book_files/figure-html/plot-combine-1.png" alt="Map of the stars objects combined into one" width="672"><p class="caption">
@@ -1056,23 +1088,23 @@ Figure 7.4: Map of the stars objects combined into one
 </div>
 <hr>
 <p>It is okay to have the two <code>stars</code> objects to be combined have a spatial overlap. The following split creates two <code>stars</code> objects with a spatial overlap.</p>
-<div class="sourceCode" id="cb576"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">tmax_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/filter.html">filter</a></span><span class="op">(</span><span class="va">tmax_m1_y09_stars</span>, <span class="va">x</span> <span class="op">&lt;=</span> <span class="op">-</span><span class="fl">100</span><span class="op">)</span> 
-<span class="va">tmax_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/filter.html">filter</a></span><span class="op">(</span><span class="va">tmax_m1_y09_stars</span>, <span class="va">x</span> <span class="op">&gt;</span> <span class="op">-</span><span class="fl">110</span><span class="op">)</span> </code></pre></div>
+<div class="sourceCode" id="cb599"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">tmax_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">tmax_m1_y09_stars</span>, <span class="va">x</span> <span class="op">&lt;=</span> <span class="op">-</span><span class="fl">100</span><span class="op">)</span></span>
+<span><span class="va">tmax_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">tmax_m1_y09_stars</span>, <span class="va">x</span> <span class="op">&gt;</span> <span class="op">-</span><span class="fl">110</span><span class="op">)</span></span></code></pre></div>
 <p>Here (Figure <a href="stars-basics.html#fig:map-indiv-2">7.5</a>) is what they look like (only Jan 1, 1980):</p>
-<div class="sourceCode" id="cb577"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">g_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_stars</span><span class="op">(</span>data <span class="op">=</span> <span class="va">tmax_m1_y09_stars</span><span class="op">[</span>,,,<span class="fl">1</span><span class="op">]</span>, fill <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_stars</span><span class="op">(</span>data <span class="op">=</span> <span class="va">tmax_1</span><span class="op">[</span>,,,<span class="fl">1</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span>
-  <span class="va">theme_for_map</span>
-
-<span class="va">g_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_stars</span><span class="op">(</span>data <span class="op">=</span> <span class="va">tmax_m1_y09_stars</span><span class="op">[</span>,,,<span class="fl">1</span><span class="op">]</span>, fill <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_stars</span><span class="op">(</span>data <span class="op">=</span> <span class="va">tmax_2</span><span class="op">[</span>,,,<span class="fl">1</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span>
-  <span class="va">theme_for_map</span>
-
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com">patchwork</a></span><span class="op">)</span>
-<span class="va">g_1</span> <span class="op">/</span> <span class="va">g_2</span></code></pre></div>
+<div class="sourceCode" id="cb600"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">g_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_stars</span><span class="op">(</span>data <span class="op">=</span> <span class="va">tmax_m1_y09_stars</span><span class="op">[</span>, , , <span class="fl">1</span><span class="op">]</span>, fill <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_stars</span><span class="op">(</span>data <span class="op">=</span> <span class="va">tmax_1</span><span class="op">[</span>, , , <span class="fl">1</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="va">theme_for_map</span></span>
+<span></span>
+<span><span class="va">g_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_stars</span><span class="op">(</span>data <span class="op">=</span> <span class="va">tmax_m1_y09_stars</span><span class="op">[</span>, , , <span class="fl">1</span><span class="op">]</span>, fill <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_stars</span><span class="op">(</span>data <span class="op">=</span> <span class="va">tmax_2</span><span class="op">[</span>, , , <span class="fl">1</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="va">theme_for_map</span></span>
+<span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com">patchwork</a></span><span class="op">)</span></span>
+<span><span class="va">g_1</span> <span class="op">/</span> <span class="va">g_2</span></span></code></pre></div>
 <div class="figure">
 <span style="display:block;" id="fig:map-indiv-2"></span>
 <img src="R_GIS_Book_files/figure-html/map-indiv-2-1.png" alt="Two spatially overlapping stars objects" width="672"><p class="caption">
@@ -1080,24 +1112,24 @@ Figure 7.5: Two spatially overlapping stars objects
 </p>
 </div>
 <p>As you can see below, <code>st_mosaic()</code> reconciles the spatial overlap between the two <code>stars</code> objects.</p>
-<div class="sourceCode" id="cb578"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="op">(</span>
-<span class="va">tmax_combined</span> <span class="op">&lt;-</span> <span class="fu">st_mosaic</span><span class="op">(</span><span class="va">tmax_1</span>, <span class="va">tmax_2</span><span class="op">)</span> 
-<span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb601"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="op">(</span></span>
+<span>  <span class="va">tmax_combined</span> <span class="op">&lt;-</span> <span class="fu">st_mosaic</span><span class="op">(</span><span class="va">tmax_1</span>, <span class="va">tmax_2</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code>stars object with 3 dimensions and 1 attribute
 attribute(s), summary of first 1e+05 cells:
          Min. 1st Qu. Median      Mean 3rd Qu.  Max.  NA's
 tmax  -17.898  -7.761 -2.248 -3.062721   1.718 7.994 60401
 dimension(s):
-     from   to   offset      delta refsys point values x/y
-x       1 1405 -125.021  0.0416667  NAD83    NA   NULL [x]
-y       1  621  49.9375 -0.0416667  NAD83    NA   NULL [y]
-band    1   31       NA         NA     NA    NA   NULL    </code></pre>
+     from   to   offset      delta refsys x/y
+x       1 1405 -125.021  0.0416667  NAD83 [x]
+y       1  621  49.9375 -0.0416667  NAD83 [y]
+band    1   31       NA         NA     NA    </code></pre>
 <p>Here is the plot (Figure <a href="stars-basics.html#fig:plot-combine-overlapped">7.6</a>):</p>
-<div class="sourceCode" id="cb580"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_stars</span><span class="op">(</span>data <span class="op">=</span> <span class="va">tmax_combined</span><span class="op">[</span>,,,<span class="fl">1</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span>
-  <span class="va">theme_for_map</span></code></pre></div>
+<div class="sourceCode" id="cb603"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_stars</span><span class="op">(</span>data <span class="op">=</span> <span class="va">tmax_combined</span><span class="op">[</span>, , , <span class="fl">1</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="va">theme_for_map</span></span></code></pre></div>
 <div class="figure">
 <span style="display:block;" id="fig:plot-combine-overlapped"></span>
 <img src="R_GIS_Book_files/figure-html/plot-combine-overlapped-1.png" alt="Map of the spatially-overlapping stars objects combined into one" width="672"><p class="caption">
@@ -1111,11 +1143,11 @@ Figure 7.6: Map of the spatially-overlapping stars objects combined into one
 <span class="header-section-number">7.8</span> Convert from and to <code>Raster</code><span class="math inline">\(^*\)</span> or <code>SpatRaster</code> objects<a class="anchor" aria-label="anchor" href="#convert-to-rb"><i class="fas fa-link"></i></a>
 </h2>
 <p>When you need to convert a <code>stars</code> object to a <code>Raster</code><span class="math inline">\(^*\)</span> or <code>SpatRaster</code> object, you can use the <code>as()</code> function as follows:</p>
-<div class="sourceCode" id="cb581"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="op">(</span>
-<span class="co"># to Raster* object</span>
-<span class="va">prcp_tmax_PRISM_m8_y09_rb</span> <span class="op">&lt;-</span> <span class="fu">as</span><span class="op">(</span><span class="va">prcp_tmax_PRISM_m8_y09</span>, <span class="st">"Raster"</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb604"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="op">(</span></span>
+<span>  <span class="co"># to Raster* object</span></span>
+<span>  <span class="va">prcp_tmax_PRISM_m8_y09_rb</span> <span class="op">&lt;-</span> <span class="fu">as</span><span class="op">(</span><span class="va">prcp_tmax_PRISM_m8_y09</span>, <span class="st">"Raster"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code>class      : RasterBrick 
 dimensions : 20, 20, 400, 10  (nrow, ncol, ncell, nlayers)
 resolution : 0.04166667, 0.04166667  (x, y)
@@ -1126,27 +1158,27 @@ names      : layer.1, layer.2, layer.3, layer.4, layer.5, layer.6, layer.7, laye
 min values :       0,       0,       0,       0,       0,       0,       0,       0,       0,        0 
 max values :   0.019,  18.888,  30.851,   4.287,   0.797,   0.003,   3.698,   1.801,   0.000,    0.000 
 time       : 2009-08-11, 2009-08-12, 2009-08-13, 2009-08-14, 2009-08-15, 2009-08-16, 2009-08-17, 2009-08-18, 2009-08-19, 2009-08-20 </code></pre>
-<div class="sourceCode" id="cb583"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="op">(</span>
-<span class="co"># to SpatRaster</span>
-<span class="va">prcp_tmax_PRISM_m8_y09_sr</span> <span class="op">&lt;-</span> <span class="fu">as</span><span class="op">(</span><span class="va">prcp_tmax_PRISM_m8_y09</span>, <span class="st">"SpatRaster"</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb606"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="op">(</span></span>
+<span>  <span class="co"># to SpatRaster</span></span>
+<span>  <span class="va">prcp_tmax_PRISM_m8_y09_sr</span> <span class="op">&lt;-</span> <span class="fu">as</span><span class="op">(</span><span class="va">prcp_tmax_PRISM_m8_y09</span>, <span class="st">"SpatRaster"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code>class       : SpatRaster 
 dimensions  : 20, 20, 10  (nrow, ncol, nlyr)
 resolution  : 0.04166667, 0.04166667  (x, y)
 extent      : -121.7292, -120.8958, 45.8125, 46.64583  (xmin, xmax, ymin, ymax)
 coord. ref. : lon/lat NAD83 (EPSG:4269) 
-source      : memory 
+source(s)   : memory
 names       : date2~08-11, date2~08-12, date2~08-13, date2~08-14, date2~08-15, date2~08-16, ... 
-min values  :           0,           0,           0,           0,           0,           0, ... 
+min values  :       0.000,       0.000,       0.000,       0.000,       0.000,       0.000, ... 
 max values  :       0.019,      18.888,      30.851,       4.287,       0.797,       0.003, ... </code></pre>
 <p>As you can see, date values in <code>prcp_tmax_PRISM_m8_y09</code> appear in the time dimension of <code>prcp_tmax_PRISM_m8_y09_rb</code> (<code>RasterBrick</code>). However, in <code>prcp_tmax_PRISM_m8_y09_sr</code> (<code>SpatRaster</code>), date values appear in the <code>names</code> dimension with <code>date</code> added as prefix to the original date values.</p>
 <p>Note also that the conversion was done for only the <code>ppt</code> attribute. This is simply because the <code>raster</code> and <code>terra</code>package does not accommodate multiple attributes of 3-dimensional array. So, if you want a <code>RasterBrick</code> or <code>SpatRaster</code> of the tmax data, then you need to do the following:</p>
-<div class="sourceCode" id="cb585"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="op">(</span>
-<span class="co"># to RasterBrick</span>
-<span class="va">tmax_PRISM_m8_y09_rb</span> <span class="op">&lt;-</span> <span class="fu">as</span><span class="op">(</span><span class="va">prcp_tmax_PRISM_m8_y09</span><span class="op">[</span><span class="st">"tmax"</span>,,,<span class="op">]</span>, <span class="st">"Raster"</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb608"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="op">(</span></span>
+<span>  <span class="co"># to RasterBrick</span></span>
+<span>  <span class="va">tmax_PRISM_m8_y09_rb</span> <span class="op">&lt;-</span> <span class="fu">as</span><span class="op">(</span><span class="va">prcp_tmax_PRISM_m8_y09</span><span class="op">[</span><span class="st">"tmax"</span>, , , <span class="op">]</span>, <span class="st">"Raster"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code>class      : RasterBrick 
 dimensions : 20, 20, 400, 10  (nrow, ncol, ncell, nlayers)
 resolution : 0.04166667, 0.04166667  (x, y)
@@ -1157,55 +1189,50 @@ names      : layer.1, layer.2, layer.3, layer.4, layer.5, layer.6, layer.7, laye
 min values :  10.188,   8.811,   6.811,   3.640,   1.833,   6.780,  10.318,  14.270,  18.281,   19.818 
 max values :  29.842,  28.892,  27.123,  23.171,  21.858,  24.690,  27.740,  32.906,  35.568,   39.707 
 time       : 2009-08-11, 2009-08-12, 2009-08-13, 2009-08-14, 2009-08-15, 2009-08-16, 2009-08-17, 2009-08-18, 2009-08-19, 2009-08-20 </code></pre>
-<div class="sourceCode" id="cb587"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="op">(</span>
-<span class="co"># to SpatRaster</span>
-<span class="va">tmax_PRISM_m8_y09_sr</span> <span class="op">&lt;-</span> <span class="fu">as</span><span class="op">(</span><span class="va">prcp_tmax_PRISM_m8_y09</span><span class="op">[</span><span class="st">"tmax"</span>,,,<span class="op">]</span>, <span class="st">"SpatRaster"</span><span class="op">)</span>
-<span class="op">)</span> </code></pre></div>
+<div class="sourceCode" id="cb610"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="op">(</span></span>
+<span>  <span class="co"># to SpatRaster</span></span>
+<span>  <span class="va">tmax_PRISM_m8_y09_sr</span> <span class="op">&lt;-</span> <span class="fu">as</span><span class="op">(</span><span class="va">prcp_tmax_PRISM_m8_y09</span><span class="op">[</span><span class="st">"tmax"</span>, , , <span class="op">]</span>, <span class="st">"SpatRaster"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code>class       : SpatRaster 
 dimensions  : 20, 20, 10  (nrow, ncol, nlyr)
 resolution  : 0.04166667, 0.04166667  (x, y)
 extent      : -121.7292, -120.8958, 45.8125, 46.64583  (xmin, xmax, ymin, ymax)
 coord. ref. : lon/lat NAD83 (EPSG:4269) 
-source      : memory 
+source(s)   : memory
 names       : date2~08-11, date2~08-12, date2~08-13, date2~08-14, date2~08-15, date2~08-16, ... 
-min values  :      10.188,       8.811,       6.811,       3.640,       1.833,       6.780, ... 
-max values  :      29.842,      28.892,      27.123,      23.171,      21.858,      24.690, ... </code></pre>
+min values  :      10.188,       8.811,       6.811,       3.640,       1.833,        6.78, ... 
+max values  :      29.842,      28.892,      27.123,      23.171,      21.858,       24.69, ... </code></pre>
 <p>You can convert a <code>Raster</code><span class="math inline">\(^*\)</span> object to a <code>stars</code> object using <code>st_as_stars()</code> (you will see a use case in Chapter <a href="download-data.html#daymet-poly">9.4.2</a>).</p>
-<div class="sourceCode" id="cb589"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="op">(</span>
-<span class="va">tmax_PRISM_m8_y09_back_to_stars</span> <span class="op">&lt;-</span> <span class="fu">st_as_stars</span><span class="op">(</span><span class="va">tmax_PRISM_m8_y09_rb</span><span class="op">)</span> 
-<span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb612"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="op">(</span></span>
+<span>  <span class="va">tmax_PRISM_m8_y09_back_to_stars</span> <span class="op">&lt;-</span> <span class="fu">st_as_stars</span><span class="op">(</span><span class="va">tmax_PRISM_m8_y09_rb</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code>stars object with 3 dimensions and 1 attribute
 attribute(s):
           Min.  1st Qu. Median     Mean  3rd Qu.   Max.
 layer.1  1.833 17.55575 21.483 22.03543 26.54275 39.707
 dimension(s):
-     from to     offset      delta refsys point values x/y
-x       1 20   -121.729  0.0416667  NAD83    NA   NULL [x]
-y       1 20    46.6458 -0.0416667  NAD83    NA   NULL [y]
-band    1 10 2009-08-11     1 days   Date    NA   NULL    </code></pre>
+     from to     offset      delta refsys x/y
+x       1 20   -121.729  0.0416667  NAD83 [x]
+y       1 20    46.6458 -0.0416667  NAD83 [y]
+band    1 10 2009-08-11     1 days   Date    </code></pre>
 <p>Notice that the original date values (stored in the <code>date</code> dimension) are recovered, but its dimension is now called just <code>band</code>.</p>
 <p>You can do the same with a <code>SpatRaster</code> object.</p>
-<div class="sourceCode" id="cb591"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="op">(</span>
-<span class="va">tmax_PRISM_m8_y09_back_to_stars</span> <span class="op">&lt;-</span> <span class="fu">st_as_stars</span><span class="op">(</span><span class="va">tmax_PRISM_m8_y09_sr</span><span class="op">)</span> 
-<span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb614"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="op">(</span></span>
+<span>  <span class="va">tmax_PRISM_m8_y09_back_to_stars</span> <span class="op">&lt;-</span> <span class="fu">st_as_stars</span><span class="op">(</span><span class="va">tmax_PRISM_m8_y09_sr</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code>stars object with 3 dimensions and 1 attribute
 attribute(s):
-         Min.  1st Qu. Median     Mean  3rd Qu.   Max.
-values  1.833 17.55575 21.483 22.03543 26.54275 39.707
+                 Min.  1st Qu. Median     Mean  3rd Qu.   Max.
+date2009-08-11  1.833 17.55575 21.483 22.03543 26.54275 39.707
 dimension(s):
-     from to   offset      delta refsys point                            values
-x       1 20 -121.729  0.0416667  NAD83    NA                              NULL
-y       1 20  46.6458 -0.0416667  NAD83    NA                              NULL
-band    1 10       NA         NA     NA    NA date2009-08-11,...,date2009-08-20
-     x/y
-x    [x]
-y    [y]
-band    </code></pre>
+     from to   offset      delta refsys                            values x/y
+x       1 20 -121.729  0.0416667  NAD83                              NULL [x]
+y       1 20  46.6458 -0.0416667  NAD83                              NULL [y]
+band    1 10       NA         NA     NA date2009-08-11,...,date2009-08-20    </code></pre>
 <p>Note that unlike the conversion from the <code>RasterBrick</code> object, the <code>band</code> dimension inherited values of the <code>name</code> dimension in <code>tmax_PRISM_m8_y09_sr</code>.</p>
-<!-- ## `stars` in a workflow -->
 
 </div>
 </div>
@@ -1278,7 +1305,7 @@ band    </code></pre>
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>R as GIS for Economists</strong>" was written by Taro Mieno. It was last built on 2022-05-28.</p>
+    <p>"<strong>R as GIS for Economists</strong>" was written by Taro Mieno. It was last built on 2023-03-08.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

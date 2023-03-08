@@ -7,7 +7,7 @@
 <title>Welcome | R as GIS for Economists</title>
 <meta name="author" content="Taro Mieno">
 <meta name="description" content="This is a book for Economists who regularly use spatial datasets for their econometric work.">
-<meta name="generator" content="bookdown 0.25 with bs4_book()">
+<meta name="generator" content="bookdown 0.27 with bs4_book()">
 <meta property="og:title" content="Welcome | R as GIS for Economists">
 <meta property="og:type" content="book">
 <meta property="og:description" content="This is a book for Economists who regularly use spatial datasets for their econometric work.">
@@ -16,25 +16,25 @@
 <meta name="twitter:description" content="This is a book for Economists who regularly use spatial datasets for their econometric work.">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/_Lato-0.4.0/font.css" rel="stylesheet">
-<link href="libs/_Roboto%20Mono-0.4.0/font.css" rel="stylesheet">
-<link href="libs/_Montserrat-0.4.0/font.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/_Lato-0.4.1/font.css" rel="stylesheet">
+<link href="libs/_Roboto%20Mono-0.4.1/font.css" rel="stylesheet">
+<link href="libs/_Montserrat-0.4.1/font.css" rel="stylesheet">
 <script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 <script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
 <script src="libs/leaflet-1.3.1/leaflet.js"></script><link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
 <script src="libs/proj4-2.6.2/proj4.min.js"></script><script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script><link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
 <script src="libs/leaflet-binding-2.1.1/leaflet.js"></script><script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script><script src="libs/leaflet-providers-plugin-2.1.1/leaflet-providers-plugin.js"></script><link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
-<script src="libs/datatables-binding-0.21/datatables.js"></script><link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
+<script src="libs/datatables-binding-0.23/datatables.js"></script><link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
 <link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet">
 <script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script><link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
 <script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script><link href="style.css" rel="stylesheet" type="text/css">
-<!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-59758608-3"></script><script>
+<!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-45VKT2HZSL"></script><script>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
+      function gtag() { dataLayer.push(arguments); }
       gtag('js', new Date());
 
-      gtag('config', 'UA-59758608-3');
+      gtag('config', 'G-45VKT2HZSL');
     </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
     
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
@@ -112,12 +112,14 @@
   </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><!--bookdown:title:end--><!--bookdown:title:start--><div id="welcome" class="section level1 unnumbered">
 <h1>Welcome<a class="anchor" aria-label="anchor" href="#welcome"><i class="fas fa-link"></i></a>
 </h1>
-<p>This book is being developed as part of my effort to put together course materials for my data science course targeted at upper-level undergraduate and graduate students at the University of Nebraska Lincoln. This book aims particularly at <strong>spatial data processing for econometric projects</strong>, where spatial variables become part of an econometric analysis. Over the years, I have seen many students and researchers who spend so much time just processing spatial data (often involving clicking the ArcGIS (or QGIS) user interface to death), which is a waste of time from the perspective of academic productivity. My hope is that this book will help researchers become more proficient in spatial data processing and enhance the overall productivity of the fields of economics for which spatial data are essential.</p>
+<p>This book aims particularly at <strong>spatial data processing for econometric projects</strong>, where spatial variables become part of an econometric analysis. Over the years, I have seen many students and researchers who spend so much time just processing spatial data (often involving clicking the ArcGIS (or QGIS) user interface to death), which is a waste of time from the perspective of academic productivity. My hope is that this book helps researchers become more proficient in spatial data processing and enhance the overall productivity of the fields of economics for which spatial data are essential.</p>
 <p><strong>About me</strong></p>
 <p>I am an Associate Professor at the Department of Agricultural Economics at the University of Nebraska Lincoln, where I also teach Econometrics for Master’s students. My research interests lie in precision agriculture, water economics, and agricultural policy. My personal website is <a href="http://taromieno.netlify.com/">here</a>.</p>
 <p><strong>Contributors of the book</strong></p>
 <p>Here is the list of contributors to the book and the parts they contributed to:</p>
 <ul>
+<li>
+<strong>Kyle Butts</strong>, PhD candidate, University of Colorado Boulder</li>
 <li>
 <strong>Bowen Chen</strong>, Data Scientist, Bunge, Missouri
 <ul>
@@ -173,7 +175,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>R as GIS for Economists</strong>" was written by Taro Mieno. It was last built on 2022-05-28.</p>
+    <p>"<strong>R as GIS for Economists</strong>" was written by Taro Mieno. It was last built on 2023-03-08.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

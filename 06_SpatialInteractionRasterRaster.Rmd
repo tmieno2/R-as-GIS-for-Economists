@@ -4,7 +4,7 @@
 library(knitr)
 knitr::opts_chunk$set(
   echo = TRUE,
-  cache = TRUE,
+  # cache = TRUE,
   comment = NA,
   message = FALSE,
   warning = FALSE,
@@ -41,10 +41,8 @@ suppressMessages(library(maps))
 theme_update(
   axis.title.x = element_text(size = 12, angle = 0, hjust = .5, vjust = -0.3, face = "plain", family = "Times"),
   axis.title.y = element_text(size = 12, angle = 90, hjust = .5, vjust = .9, face = "plain", family = "Times"),
-
   axis.text.x = element_text(size = 10, angle = 0, hjust = .5, vjust = 1.5, face = "plain", family = "Times"),
   axis.text.y = element_text(size = 10, angle = 0, hjust = 1, vjust = 0, face = "plain", family = "Times"),
-
   axis.ticks = element_line(size = 0.3, linetype = "solid"),
   # axis.ticks = element_blank(),
   axis.ticks.length = unit(.15, "cm"),

@@ -7,7 +7,7 @@
 <title>B ggplot2 minimals | R as GIS for Economists</title>
 <meta name="author" content="Taro Mieno">
 <meta name="description" content="Note: This section does not provide a complete treatment of the basics of the ggplot2 package. Rather, it provides the minimal knowledge of the package so that readers who are not familiar with...">
-<meta name="generator" content="bookdown 0.25 with bs4_book()">
+<meta name="generator" content="bookdown 0.27 with bs4_book()">
 <meta property="og:title" content="B ggplot2 minimals | R as GIS for Economists">
 <meta property="og:type" content="book">
 <meta property="og:description" content="Note: This section does not provide a complete treatment of the basics of the ggplot2 package. Rather, it provides the minimal knowledge of the package so that readers who are not familiar with...">
@@ -16,25 +16,25 @@
 <meta name="twitter:description" content="Note: This section does not provide a complete treatment of the basics of the ggplot2 package. Rather, it provides the minimal knowledge of the package so that readers who are not familiar with...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/_Lato-0.4.0/font.css" rel="stylesheet">
-<link href="libs/_Roboto%20Mono-0.4.0/font.css" rel="stylesheet">
-<link href="libs/_Montserrat-0.4.0/font.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/_Lato-0.4.1/font.css" rel="stylesheet">
+<link href="libs/_Roboto%20Mono-0.4.1/font.css" rel="stylesheet">
+<link href="libs/_Montserrat-0.4.1/font.css" rel="stylesheet">
 <script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 <script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
 <script src="libs/leaflet-1.3.1/leaflet.js"></script><link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
 <script src="libs/proj4-2.6.2/proj4.min.js"></script><script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script><link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
 <script src="libs/leaflet-binding-2.1.1/leaflet.js"></script><script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script><script src="libs/leaflet-providers-plugin-2.1.1/leaflet-providers-plugin.js"></script><link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
-<script src="libs/datatables-binding-0.21/datatables.js"></script><link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
+<script src="libs/datatables-binding-0.23/datatables.js"></script><link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
 <link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet">
 <script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script><link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
 <script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script><link href="style.css" rel="stylesheet" type="text/css">
-<!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-59758608-3"></script><script>
+<!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-45VKT2HZSL"></script><script>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
+      function gtag() { dataLayer.push(arguments); }
       gtag('js', new Date());
 
-      gtag('config', 'UA-59758608-3');
+      gtag('config', 'G-45VKT2HZSL');
     </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
     
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
@@ -116,8 +116,8 @@
 <p><strong>Note:</strong> This section does not provide a complete treatment of the basics of the <code>ggplot2</code> package. Rather, it provides the minimal knowledge of the package so that readers who are not familiar with the package can still understand the codes for map making presented in Chapter <a href="create-maps.html#create-maps">8</a>.</p>
 <p>The <code>ggplot2</code> package is a general and extensive data visualization tool. It is very popular among R users due to its elegance in and ease of use in generating high-quality figures. The <code>ggplot2</code> package is designed following the “grammar of graphics,” which makes it possible to visualize data in an easy and consistent manner irrespective of the type of figures generated, whether it is a simple scatter plot or a complicated map. This means that learning the basics of how <code>ggplot2</code> works directly helps in creating maps as well. This chapter goes over the basics of how <code>ggplot2</code> works in general.</p>
 <p>In <code>ggplot2</code>, you first specify what data to use and then specify how to use the data for visualization depending on what types of figures you intend to make using <code>geom_*()</code>. As a simple example, let’s use <code>mpg</code> data to create a simple scatter plot. Here is what <code>mpg</code> dataset looks like:</p>
-<div class="sourceCode" id="cb942"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">mpg</span> </code></pre></div>
+<div class="sourceCode" id="cb964"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">mpg</span> </span></code></pre></div>
 <pre><code># A tibble: 234 × 11
    manufacturer model      displ  year   cyl trans drv     cty   hwy fl    class
    &lt;chr&gt;        &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;
@@ -133,36 +133,40 @@
 10 audi         a4 quattro   2    2008     4 manu… 4        20    28 p     comp…
 # … with 224 more rows</code></pre>
 <p>The code below creates a scatter plot of <code>displ</code> and <code>hwy</code> variables in the <code>mpg</code> dataset.</p>
-<div class="sourceCode" id="cb944"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb966"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="R_GIS_Book_files/figure-html/mgp-scatter-1.png" width="672"></div>
-<div class="sourceCode" id="cb945"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span>, color <span class="op">=</span> <span class="va">class</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb967"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span>, color <span class="op">=</span> <span class="va">class</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <span style="display:block;" id="fig:gg-point-class-aes"></span>
 <img src="R_GIS_Book_files/figure-html/gg-point-class-aes-1.png" alt="Scatter plot where observations are color-differentiated by class" width="672"><p class="caption">
 Figure B.1: Scatter plot where observations are color-differentiated by class
 </p>
 </div>
-<p>However, this one does not work because <code>color = class</code> is outside of <code><a href="https://rdrr.io/pkg/ggplot2/man/aes.html">aes()</a></code> and R does not look for <code>class</code> object inside <code>mpg</code>.</p>
-<div class="sourceCode" id="cb946"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span>, color <span class="op">=</span> <span class="va">class</span><span class="op">)</span></code></pre></div>
-<pre><code>Error in rep(value[[k]], length.out = n): attempt to replicate an object of type 'builtin'</code></pre>
+<p>However, this one does not work because <code>color = class</code> is outside of <code><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes()</a></code> and R does not look for <code>class</code> object inside <code>mpg</code>.</p>
+<div class="sourceCode" id="cb968"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span>, color <span class="op">=</span> <span class="va">class</span><span class="op">)</span></span></code></pre></div>
+<pre><code>Error in `geom_point()`:
+! Problem while setting up geom aesthetics.
+ℹ Error occurred in the 1st layer.
+Caused by error in `rep()`:
+! attempt to replicate an object of type 'builtin'</code></pre>
 <div class="inline-figure"><img src="R_GIS_Book_files/figure-html/mpg-aes-1.png" width="672"></div>
 <p>You can still specify the color that is applied universally to all the observations in the dataset like this:</p>
-<div class="sourceCode" id="cb948"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb970"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="R_GIS_Book_files/figure-html/mpg-color-1.png" width="672"></div>
-<p>These examples should clarify what <code><a href="https://rdrr.io/pkg/ggplot2/man/aes.html">aes()</a></code> does: it <strong>makes the aesthetics of the figure data-dependent</strong>.</p>
-<p>In the code to create Figure <a href="ggplot2-minimals.html#fig:gg-point-class-aes">B.1</a>, the default color option was used for color-differentiation by <code>class</code>. You can specify the color scheme using <code>scale_*()</code>. The <code>scale_*()</code> function generally takes the form o f<code>scale_x_y()</code>, where <strong>x</strong> is the type of aesthetics you want to control, and <strong>y</strong> is the method for specifying the color scheme. For example, in the code above, the type of aesthetics is <code>color</code>. And suppose we would like to use the brewer method. Then the <code>scale</code> function we should be using is <code><a href="https://rdrr.io/pkg/ggplot2/man/scale_brewer.html">scale_color_brewer()</a></code>. The code below uses <code><a href="https://rdrr.io/pkg/ggplot2/man/scale_brewer.html">scale_color_brewer()</a></code> and the <code>palette</code> option to specify the color scheme by ourselves.</p>
-<div class="sourceCode" id="cb949"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span>, color <span class="op">=</span> <span class="va">class</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/scale_brewer.html">scale_color_brewer</a></span><span class="op">(</span>palette <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
+<p>These examples should clarify what <code><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes()</a></code> does: it <strong>makes the aesthetics of the figure data-dependent</strong>.</p>
+<p>In the code to create Figure <a href="ggplot2-minimals.html#fig:gg-point-class-aes">B.1</a>, the default color option was used for color-differentiation by <code>class</code>. You can specify the color scheme using <code>scale_*()</code>. The <code>scale_*()</code> function generally takes the form o f<code>scale_x_y()</code>, where <strong>x</strong> is the type of aesthetics you want to control, and <strong>y</strong> is the method for specifying the color scheme. For example, in the code above, the type of aesthetics is <code>color</code>. And suppose we would like to use the brewer method. Then the <code>scale</code> function we should be using is <code><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">scale_color_brewer()</a></code>. The code below uses <code><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">scale_color_brewer()</a></code> and the <code>palette</code> option to specify the color scheme by ourselves.</p>
+<div class="sourceCode" id="cb971"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span>, color <span class="op">=</span> <span class="va">class</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">scale_color_brewer</a></span><span class="op">(</span>palette <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <span style="display:block;" id="fig:gg-point-class-scale"></span>
 <img src="R_GIS_Book_files/figure-html/gg-point-class-scale-1.png" alt="Scatter plot where the color scheme is defined by the user" width="672"><p class="caption">
@@ -170,40 +174,40 @@ Figure B.2: Scatter plot where the color scheme is defined by the user
 </p>
 </div>
 <p>As you can see the color scheme is now changed. There are many other different types of pallets available.</p>
-<p>To create a different type of figure than scatter plot, you can pick a different <code>geom_*()</code>. For example, <code><a href="https://rdrr.io/pkg/ggplot2/man/geom_histogram.html">geom_histogram()</a></code> creates a histogram.</p>
-<div class="sourceCode" id="cb950"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"blue"</span>, fill <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span></code></pre></div>
+<p>To create a different type of figure than scatter plot, you can pick a different <code>geom_*()</code>. For example, <code><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram()</a></code> creates a histogram.</p>
+<div class="sourceCode" id="cb972"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"blue"</span>, fill <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="R_GIS_Book_files/figure-html/geom-hist-1.png" width="672"></div>
 <p>You can save a created figure (or more precisely the data underpins the figure) as an R object as follows:</p>
-<div class="sourceCode" id="cb951"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#--- save the figure to g_plot ---#</span>
-<span class="va">g_plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span>, color <span class="op">=</span> <span class="va">class</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/scale_brewer.html">scale_color_brewer</a></span><span class="op">(</span>palette <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
-
-<span class="co">#--- see the class ---#</span>
-<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">g_plot</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb973"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#--- save the figure to g_plot ---#</span></span>
+<span><span class="va">g_plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span>, color <span class="op">=</span> <span class="va">class</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">scale_color_brewer</a></span><span class="op">(</span>palette <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#--- see the class ---#</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">g_plot</span><span class="op">)</span></span></code></pre></div>
 <pre><code>[1] "gg"     "ggplot"</code></pre>
 <p>You can call the saved object to see the figure.</p>
-<div class="sourceCode" id="cb953"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">g_plot</span></code></pre></div>
+<div class="sourceCode" id="cb975"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">g_plot</span></span></code></pre></div>
 <div class="inline-figure"><img src="R_GIS_Book_files/figure-html/g-call-1.png" width="672"></div>
 <p>Another important feature of <code>ggplot2</code> is that you can add layers to an existing <code>ggplot</code> object by <code>+ geom_*()</code>. For example, the following code adds the linear regression line to the plot:</p>
-<div class="sourceCode" id="cb954"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">g_plot</span> <span class="op">+</span> 
-  <span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/geom_smooth.html">geom_smooth</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span>, method <span class="op">=</span> <span class="st">"lm"</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb976"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">g_plot</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span>, method <span class="op">=</span> <span class="st">"lm"</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="R_GIS_Book_files/figure-html/g-add-layers-1.png" width="672"></div>
 <p>This feature makes it very easy to plot different spatial objects in a single map as we will find out later.</p>
-<p>“Faceting” is another useful feature of the package. Faceting splits the data into groups and generates a figure for each group where the aesthetics of the figures are consistent across the groups. Faceting can be done using <code><a href="https://rdrr.io/pkg/ggplot2/man/facet_wrap.html">facet_wrap()</a></code> or <code><a href="https://rdrr.io/pkg/ggplot2/man/facet_grid.html">facet_grid()</a></code>. Here is an example using <code><a href="https://rdrr.io/pkg/ggplot2/man/facet_wrap.html">facet_wrap()</a></code>:</p>
-<div class="sourceCode" id="cb955"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span>, color <span class="op">=</span> <span class="va">class</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/geom_smooth.html">geom_smooth</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span>, method <span class="op">=</span> <span class="st">"lm"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/scale_brewer.html">scale_color_brewer</a></span><span class="op">(</span>palette <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="va">year</span> <span class="op">~</span> <span class="va">.</span><span class="op">)</span> </code></pre></div>
+<p>“Faceting” is another useful feature of the package. Faceting splits the data into groups and generates a figure for each group where the aesthetics of the figures are consistent across the groups. Faceting can be done using <code><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap()</a></code> or <code><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html">facet_grid()</a></code>. Here is an example using <code><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap()</a></code>:</p>
+<div class="sourceCode" id="cb977"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span>, color <span class="op">=</span> <span class="va">class</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span>, method <span class="op">=</span> <span class="st">"lm"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">scale_color_brewer</a></span><span class="op">(</span>palette <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="va">year</span> <span class="op">~</span> <span class="va">.</span><span class="op">)</span> </span></code></pre></div>
 <div class="inline-figure"><img src="R_GIS_Book_files/figure-html/gg-facet-1.png" width="672"></div>
-<p><code>year ~ .</code> inside <code><a href="https://rdrr.io/pkg/ggplot2/man/facet_wrap.html">facet_wrap()</a></code> tells R to split the data by year. The <code>.</code> in <code>year ~ .</code> means “no variable.”<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;You can do two-way splits by supplying another categorical variable instead of &lt;code&gt;.&lt;/code&gt; in &lt;code&gt;year ~ .&lt;/code&gt;.&lt;/p&gt;"><sup>108</sup></a> So, the above code splits the <code>mpg</code> data by <code>year</code>, applies the <code><a href="https://rdrr.io/pkg/ggplot2/man/geom_point.html">geom_point()</a></code> and <code><a href="https://rdrr.io/pkg/ggplot2/man/geom_smooth.html">geom_smooth()</a></code>, applies <code><a href="https://rdrr.io/pkg/ggplot2/man/scale_brewer.html">scale_color_brewer()</a></code> to each of them, and then creates a figure for each group. The created figures are then presented side-by-side.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;You can change the orientation by using &lt;code&gt;facet_wrap(. ~ year)&lt;/code&gt;.&lt;/p&gt;"><sup>109</sup></a> This feature can be handy, for example, when you would like to display changes in land use over time where faceting is done by year.</p>
+<p><code>year ~ .</code> inside <code><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap()</a></code> tells R to split the data by year. The <code>.</code> in <code>year ~ .</code> means “no variable”.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;You can do two-way splits by supplying another categorical variable instead of &lt;code&gt;.&lt;/code&gt; in &lt;code&gt;year ~ .&lt;/code&gt;.&lt;/p&gt;"><sup>112</sup></a> So, the above code splits the <code>mpg</code> data by <code>year</code>, applies the <code><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point()</a></code> and <code><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth()</a></code>, applies <code><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">scale_color_brewer()</a></code> to each of them, and then creates a figure for each group. The created figures are then presented side-by-side.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;You can change the orientation by using &lt;code&gt;facet_wrap(. ~ year)&lt;/code&gt;.&lt;/p&gt;"><sup>113</sup></a> This feature can be handy, for example, when you would like to display changes in land use over time where faceting is done by year.</p>
 <p>While there are other important <code>ggplot2</code> features to be aware of to make informative maps, I will not discuss them here. Rather, I will introduce them when they first appear in the lecture through examples. For those who are interested in learning the basics of <code>ggplot2</code>, there are numerous books written about it on the market. Some prominent ones are</p>
 
 </div>
@@ -229,7 +233,7 @@ Figure B.2: Scatter plot where the color scheme is defined by the user
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>R as GIS for Economists</strong>" was written by Taro Mieno. It was last built on 2022-05-28.</p>
+    <p>"<strong>R as GIS for Economists</strong>" was written by Taro Mieno. It was last built on 2023-03-08.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

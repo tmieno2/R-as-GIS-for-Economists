@@ -7,7 +7,7 @@
 <title>A Loop and Parallel Computing | R as GIS for Economists</title>
 <meta name="author" content="Taro Mieno">
 <meta name="description" content="Before you start Here we will learn how to program repetitive operations effectively and fast. We start from the basics of a loop for those who are not familiar with the concept. We then cover...">
-<meta name="generator" content="bookdown 0.25 with bs4_book()">
+<meta name="generator" content="bookdown 0.27 with bs4_book()">
 <meta property="og:title" content="A Loop and Parallel Computing | R as GIS for Economists">
 <meta property="og:type" content="book">
 <meta property="og:description" content="Before you start Here we will learn how to program repetitive operations effectively and fast. We start from the basics of a loop for those who are not familiar with the concept. We then cover...">
@@ -16,25 +16,25 @@
 <meta name="twitter:description" content="Before you start Here we will learn how to program repetitive operations effectively and fast. We start from the basics of a loop for those who are not familiar with the concept. We then cover...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/_Lato-0.4.0/font.css" rel="stylesheet">
-<link href="libs/_Roboto%20Mono-0.4.0/font.css" rel="stylesheet">
-<link href="libs/_Montserrat-0.4.0/font.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/_Lato-0.4.1/font.css" rel="stylesheet">
+<link href="libs/_Roboto%20Mono-0.4.1/font.css" rel="stylesheet">
+<link href="libs/_Montserrat-0.4.1/font.css" rel="stylesheet">
 <script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 <script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
 <script src="libs/leaflet-1.3.1/leaflet.js"></script><link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
 <script src="libs/proj4-2.6.2/proj4.min.js"></script><script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script><link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
 <script src="libs/leaflet-binding-2.1.1/leaflet.js"></script><script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script><script src="libs/leaflet-providers-plugin-2.1.1/leaflet-providers-plugin.js"></script><link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
-<script src="libs/datatables-binding-0.21/datatables.js"></script><link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
+<script src="libs/datatables-binding-0.23/datatables.js"></script><link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
 <link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet">
 <script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script><link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
 <script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script><link href="style.css" rel="stylesheet" type="text/css">
-<!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-59758608-3"></script><script>
+<!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-45VKT2HZSL"></script><script>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
+      function gtag() { dataLayer.push(arguments); }
       gtag('js', new Date());
 
-      gtag('config', 'UA-59758608-3');
+      gtag('config', 'G-45VKT2HZSL');
     </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
     
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
@@ -121,7 +121,7 @@
 <ol style="list-style-type: decimal">
 <li>Learn how to use <strong>for loop</strong> and <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> to complete repetitive jobs</li>
 <li>Learn how not to loop things that can be easily vectorized</li>
-<li>Learn how to parallelize repetitive jobs using the <code><a href="https://rdrr.io/pkg/future.apply/man/future_lapply.html">future_lapply()</a></code> function from the <code>future.apply</code> package</li>
+<li>Learn how to parallelize repetitive jobs using the <code><a href="https://future.apply.futureverse.org/reference/future_lapply.html">future_lapply()</a></code> function from the <code>future.apply</code> package</li>
 </ol>
 <div id="direction-for-replication-9" class="section level3 unnumbered">
 <h3>Direction for replication<a class="anchor" aria-label="anchor" href="#direction-for-replication-9"><i class="fas fa-link"></i></a>
@@ -132,12 +132,12 @@
 <h3>Packages to install and load<a class="anchor" aria-label="anchor" href="#packages-to-install-and-load"><i class="fas fa-link"></i></a>
 </h3>
 <p>Run the following code to install or load (if already installed) the <code>pacman</code> package, and then install or load (if already installed) the listed package inside the <code><a href="https://rdrr.io/pkg/pacman/man/p_load.html">pacman::p_load()</a></code> function.</p>
-<div class="sourceCode" id="cb883"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="st"><a href="https://github.com/trinker/pacman">"pacman"</a></span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"pacman"</span><span class="op">)</span>
-<span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span>
-  <span class="va">dplyr</span>, <span class="co"># data wrangling</span>
-  <span class="va">data.table</span> <span class="co"># data wrangling</span>
-<span class="op">)</span>  </code></pre></div>
+<div class="sourceCode" id="cb905"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="st"><a href="https://github.com/trinker/pacman">"pacman"</a></span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"pacman"</span><span class="op">)</span></span>
+<span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span></span>
+<span>  <span class="va">dplyr</span>, <span class="co"># data wrangling</span></span>
+<span>  <span class="va">data.table</span> <span class="co"># data wrangling</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p>There are other packages that will be loaded during the demonstration.</p>
 <hr>
 </div>
@@ -151,20 +151,20 @@
 <span class="header-section-number">A.1.1</span> What is looping?<a class="anchor" aria-label="anchor" href="#what-is-looping"><i class="fas fa-link"></i></a>
 </h3>
 <p>We sometimes need to run the same process over and over again often with slight changes in parameters. In such a case, it is very time-consuming and messy to write all of the steps one bye one. For example, suppose you are interested in knowing the square of 1 through 5 (<span class="math inline">\([1, 2, 3, 4, 5]\)</span>). The following code certainly works:</p>
-<div class="sourceCode" id="cb884"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fl">1</span><span class="op">^</span><span class="fl">2</span> </code></pre></div>
+<div class="sourceCode" id="cb906"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fl">1</span><span class="op">^</span><span class="fl">2</span></span></code></pre></div>
 <pre><code>[1] 1</code></pre>
-<div class="sourceCode" id="cb886"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fl">2</span><span class="op">^</span><span class="fl">2</span> </code></pre></div>
+<div class="sourceCode" id="cb908"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fl">2</span><span class="op">^</span><span class="fl">2</span></span></code></pre></div>
 <pre><code>[1] 4</code></pre>
-<div class="sourceCode" id="cb888"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fl">3</span><span class="op">^</span><span class="fl">2</span> </code></pre></div>
+<div class="sourceCode" id="cb910"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fl">3</span><span class="op">^</span><span class="fl">2</span></span></code></pre></div>
 <pre><code>[1] 9</code></pre>
-<div class="sourceCode" id="cb890"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fl">4</span><span class="op">^</span><span class="fl">2</span> </code></pre></div>
+<div class="sourceCode" id="cb912"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fl">4</span><span class="op">^</span><span class="fl">2</span></span></code></pre></div>
 <pre><code>[1] 16</code></pre>
-<div class="sourceCode" id="cb892"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fl">5</span><span class="op">^</span><span class="fl">2</span> </code></pre></div>
+<div class="sourceCode" id="cb914"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fl">5</span><span class="op">^</span><span class="fl">2</span></span></code></pre></div>
 <pre><code>[1] 25</code></pre>
 <p>However, imagine you have to do this for 1000 integers. Yes, you don’t want to write each one of them one by one as that would occupy 1000 lines of your code, and it would be time-consuming. Things will be even worse if you need to repeat much more complicated processes like Monte Carlo simulations. So, let’s learn how to write a program to do repetitive jobs effectively using loop.</p>
 <p>Looping is repeatedly evaluating the same (except parameters) process over and over again. In the example above, the <strong>same</strong> process is the action of squaring. This does not change among the processes you run. What changes is what you square. Looping can help you write a concise code to implement these repetitive processes.</p>
@@ -174,31 +174,30 @@
 <span class="header-section-number">A.1.2</span> For loop<a class="anchor" aria-label="anchor" href="#for-loop"><i class="fas fa-link"></i></a>
 </h3>
 <p>Here is how <strong>for loop</strong> works in general:</p>
-<div class="sourceCode" id="cb894"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb894-1"><a href="par-comp.html#cb894-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- NOT RUN ---#</span></span>
-<span id="cb894-2"><a href="par-comp.html#cb894-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (x <span class="cf">in</span> a_list_of_values){</span>
-<span id="cb894-3"><a href="par-comp.html#cb894-3" aria-hidden="true" tabindex="-1"></a>  you do what you want to do with x</span>
-<span id="cb894-4"><a href="par-comp.html#cb894-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<pre class="loop_explain"><code>for (x in a_list_of_values){
+  you do what you want to do with x
+}</code></pre>
 <p>As an example, let’s use this looping syntax to get the same results as the manual squaring of 1 through 5:</p>
-<div class="sourceCode" id="cb895"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw">for</span> <span class="op">(</span><span class="va">x</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span><span class="op">{</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span>
-<span class="op">}</span></code></pre></div>
+<div class="sourceCode" id="cb917"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">for</span> <span class="op">(</span><span class="va">x</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 <pre><code>[1] 1
 [1] 4
 [1] 9
 [1] 16
 [1] 25</code></pre>
 <p>Here, a list of values is <span class="math inline">\(1, 2, 3, 4, 5]\)</span>. For each value in the list, you square it (<code>x^2</code>) and then print it (<code><a href="https://rdrr.io/r/base/print.html">print()</a></code>). If you want to get the square of <span class="math inline">\(1:1000\)</span>, the only thing you need to change is the list of values to loop over as in:</p>
-<div class="sourceCode" id="cb897"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#--- evaluation not reported as it's too long ---#</span>
-<span class="kw">for</span> <span class="op">(</span><span class="va">x</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">1000</span><span class="op">)</span><span class="op">{</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span>
-<span class="op">}</span></code></pre></div>
+<div class="sourceCode" id="cb919"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#--- evaluation not reported as it's too long ---#</span></span>
+<span><span class="kw">for</span> <span class="op">(</span><span class="va">x</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">1000</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 <p>So, the length of the code does not depend on how many repeats you do, which is an obvious improvement over manual typing of every single process one by one. Note that you do not have to use <span class="math inline">\(x\)</span> to refer to an object you are going to use. It could be any combination of letters as long as you use it when you code what you want to do inside the loop. So, this would work just fine,</p>
-<div class="sourceCode" id="cb898"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw">for</span> <span class="op">(</span><span class="va">bluh_bluh_bluh</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span><span class="op">{</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">bluh_bluh_bluh</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span>
-<span class="op">}</span></code></pre></div>
+<div class="sourceCode" id="cb920"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">for</span> <span class="op">(</span><span class="va">bluh_bluh_bluh</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">bluh_bluh_bluh</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 <pre><code>[1] 1
 [1] 4
 [1] 9
@@ -209,13 +208,15 @@
 <h3>
 <span class="header-section-number">A.1.3</span> For loop using the <code>lapply()</code> function<a class="anchor" aria-label="anchor" href="#for-loop-using-the-lapply-function"><i class="fas fa-link"></i></a>
 </h3>
-<p>You can do for loop using the <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> function as well.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;code&gt;lpply()&lt;/code&gt; in only one of the family of &lt;code&gt;apply()&lt;/code&gt; functions. We do not talk about other types of &lt;code&gt;apply()&lt;/code&gt; functions here (e.g., &lt;code&gt;apply()&lt;/code&gt;, &lt;code&gt;spply()&lt;/code&gt;, &lt;code&gt;mapply()&lt;/code&gt;,, &lt;code&gt;tapply()&lt;/code&gt;). Personally, I found myself only rarely using them. But, if you are interested in learning those, take a look at &lt;a href="https://www.datacamp.com/community/tutorials/r-tutorial-apply-family#gs.b=aW_Io"&gt;here&lt;/a&gt; or &lt;a href="https://www.r-bloggers.com/using-apply-sapply-lapply-in-r/"&gt;here&lt;/a&gt;.&lt;/p&gt;'><sup>95</sup></a> Here is how it works:</p>
-<div class="sourceCode" id="cb900"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#--- NOT RUN ---#  </span>
-<span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">A</span>,<span class="va">B</span><span class="op">)</span></code></pre></div>
+<p>You can do for loop using the <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> function as well.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;code&gt;lpply()&lt;/code&gt; in only one of the family of &lt;code&gt;apply()&lt;/code&gt; functions. We do not talk about other types of &lt;code&gt;apply()&lt;/code&gt; functions here (e.g., &lt;code&gt;apply()&lt;/code&gt;, &lt;code&gt;spply()&lt;/code&gt;, &lt;code&gt;mapply()&lt;/code&gt;,, &lt;code&gt;tapply()&lt;/code&gt;). Personally, I found myself only rarely using them. But, if you are interested in learning those, take a look at &lt;a href="https://www.datacamp.com/community/tutorials/r-tutorial-apply-family#gs.b=aW_Io"&gt;here&lt;/a&gt; or &lt;a href="https://www.r-bloggers.com/using-apply-sapply-lapply-in-r/"&gt;here&lt;/a&gt;.&lt;/p&gt;'><sup>99</sup></a> Here is how it works:</p>
+<div class="sourceCode" id="cb922"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#--- NOT RUN ---#</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">B</span><span class="op">)</span></span></code></pre></div>
 <p>where <span class="math inline">\(A\)</span> is the list of values you go through one by one in the order the values are stored, and <span class="math inline">\(B\)</span> is the function you would like to apply to each of the values in <span class="math inline">\(A\)</span>. For example, the following code does exactly the same thing as the above for loop example.</p>
-<div class="sourceCode" id="cb901"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span><span class="va">x</span><span class="op">^</span><span class="fl">2</span><span class="op">}</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb923"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">x</span><span class="op">^</span><span class="fl">2</span></span>
+<span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
 <pre><code>[[1]]
 [1] 1
 
@@ -232,14 +233,14 @@
 [1] 25</code></pre>
 <p>Here, <span class="math inline">\(A\)</span> is <span class="math inline">\([1, 2, 3, 4, 5]\)</span>. In <span class="math inline">\(B\)</span> you have a function that takes <span class="math inline">\(x\)</span> and square it. So, the above code applies the function to each of <span class="math inline">\([1, 2, 3, 4, 5]\)</span> one by one. In many circumstances, you can write the same looping actions in a much more concise manner using the <code>lapply</code> function than explicitly writing out the loop process as in the above for loop examples. You might have noticed that the output is a list. Yes, <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> returns the outcomes in a list. That is where <strong>l</strong> in <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> comes from.</p>
 <p>When the operation you would like to repeat becomes complicated (almost always the case), it is advisable that you create a function of that process first.</p>
-<div class="sourceCode" id="cb903"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#--- define the function first ---#</span>
-<span class="va">square_it</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span>
-  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">x</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span>
-<span class="op">}</span>
-
-<span class="co">#--- lapply using the pre-defined function ---#</span>
-<span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="va">square_it</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb925"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#--- define the function first ---#</span></span>
+<span><span class="va">square_it</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">x</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co">#--- lapply using the pre-defined function ---#</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="va">square_it</span><span class="op">)</span></span></code></pre></div>
 <pre><code>[[1]]
 [1] 1
 
@@ -254,28 +255,32 @@
 
 [[5]]
 [1] 25</code></pre>
-<p>Finally, it is a myth that you should always use <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> instead of the explicit for loop syntax because <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> (or other <code><a href="https://rdrr.io/r/base/apply.html">apply()</a></code> families) is faster. They are basically the same.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;Check this &lt;a href="https://stackoverflow.com/questions/7142767/why-are-loops-slow-in-r"&gt;discussion&lt;/a&gt; on StackOverflow. You might want to check out &lt;a href="https://www.youtube.com/watch?v=GyNqlOjhPCQ"&gt;this video&lt;/a&gt; at 6:10 as well.&lt;/p&gt;'><sup>96</sup></a></p>
+<p>Finally, it is a myth that you should always use <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> instead of the explicit for loop syntax because <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> (or other <code><a href="https://rdrr.io/r/base/apply.html">apply()</a></code> families) is faster. They are basically the same.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;Check this &lt;a href="https://stackoverflow.com/questions/7142767/why-are-loops-slow-in-r"&gt;discussion&lt;/a&gt; on StackOverflow. You might want to check out &lt;a href="https://www.youtube.com/watch?v=GyNqlOjhPCQ"&gt;this video&lt;/a&gt; at 6:10 as well.&lt;/p&gt;'><sup>100</sup></a></p>
 </div>
 <div id="looping-over-multiple-variables-using-lapply" class="section level3" number="10.1.4">
 <h3>
 <span class="header-section-number">A.1.4</span> Looping over multiple variables using lapply()<a class="anchor" aria-label="anchor" href="#looping-over-multiple-variables-using-lapply"><i class="fas fa-link"></i></a>
 </h3>
-<p><code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> allows you to loop over only one variable. However, it is often the case that you want to loop over multiple variables<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;the &lt;code&gt;map()&lt;/code&gt; function from the &lt;code&gt;purrr&lt;/code&gt; package allows you to loop over two variable.&lt;/p&gt;"><sup>97</sup></a>. However, it is easy to achieve this. The trick is to create a <code>data.frame</code> of the variables where the complete list of the combinations of the variables are stored, and then loop over row of the <code>data.frame</code>. As an example, suppose we are interested in understanding the sensitivity of corn revenue to corn price and applied nitrogen amount. We consider the range of $3.0/bu to $5.0/bu for corn price and 0 lb/acre to 300/acre for nitrogen rate.</p>
-<div class="sourceCode" id="cb905"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#--- corn price vector ---#</span>
-<span class="va">corn_price_vec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">5</span>, by <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
-
-<span class="co">#--- nitrogen vector ---#</span>
-<span class="va">nitrogen_vec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">300</span>, by <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></code></pre></div>
-<p>After creating vectors of the parameters, you combine them to create a complete combination of the parameters using the <code><a href="https://rdrr.io/r/base/expand.grid.html">expand.grid()</a></code> function, and then convert it to a <code>data.frame</code> object<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Converting to a &lt;code&gt;data.frame&lt;/code&gt; is not strictly necessary.&lt;/p&gt;"><sup>98</sup></a>.</p>
-<div class="sourceCode" id="cb906"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#--- crate a data.frame that holds parameter sets to loop over ---#</span>
-<span class="va">parameters_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html">expand.grid</a></span><span class="op">(</span>corn_price <span class="op">=</span> <span class="va">corn_price_vec</span>, nitrogen <span class="op">=</span> <span class="va">nitrogen_vec</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span> 
-  <span class="co">#--- convert the matrix to a data.frame ---#</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="op">)</span>
-
-<span class="co">#--- take a look ---#</span>
-<span class="va">parameters_data</span></code></pre></div>
+<p><code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> allows you to loop over only one variable. However, it is often the case that you want to loop over multiple variables<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;the &lt;code&gt;map()&lt;/code&gt; function from the &lt;code&gt;purrr&lt;/code&gt; package allows you to loop over two variable.&lt;/p&gt;"><sup>101</sup></a>. However, it is easy to achieve this. The trick is to create a <code>data.frame</code> of the variables where the complete list of the combinations of the variables are stored, and then loop over row of the <code>data.frame</code>. As an example, suppose we are interested in understanding the sensitivity of corn revenue to corn price and applied nitrogen amount. We consider the range of $3.0/bu to $5.0/bu for corn price and 0 lb/acre to 300/acre for nitrogen rate.</p>
+<div class="sourceCode" id="cb927"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#--- corn price vector ---#</span></span>
+<span><span class="va">corn_price_vec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">5</span>, by <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#--- nitrogen vector ---#</span></span>
+<span><span class="va">nitrogen_vec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">300</span>, by <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span></code></pre></div>
+<p>After creating vectors of the parameters, you combine them to create a complete combination of the parameters using the <code><a href="https://rdrr.io/r/base/expand.grid.html">expand.grid()</a></code> function, and then convert it to a <code>data.frame</code> object<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Converting to a &lt;code&gt;data.frame&lt;/code&gt; is not strictly necessary.&lt;/p&gt;"><sup>102</sup></a>.</p>
+<div class="sourceCode" id="cb928"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#--- crate a data.frame that holds parameter sets to loop over ---#</span></span>
+<span><span class="va">parameters_data</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html">expand.grid</a></span><span class="op">(</span></span>
+<span>    corn_price <span class="op">=</span> <span class="va">corn_price_vec</span>,</span>
+<span>    nitrogen <span class="op">=</span> <span class="va">nitrogen_vec</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="co">#--- convert the matrix to a data.frame ---#</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#--- take a look ---#</span></span>
+<span><span class="va">parameters_data</span></span></code></pre></div>
 <pre><code>   corn_price nitrogen
 1           3        0
 2           4        0
@@ -290,37 +295,37 @@
 11          4      300
 12          5      300</code></pre>
 <p>We now define a function that takes a row number, refer to <code>parameters_data</code> to extract the parameters stored at the row number, and then calculate corn yield and revenue based on the extracted parameters.</p>
-<div class="sourceCode" id="cb908"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">gen_rev_corn</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="op">{</span>
-
-  <span class="co">#--- define corn price ---#</span>
-  <span class="va">corn_price</span> <span class="op">&lt;-</span> <span class="va">parameters_data</span><span class="op">[</span><span class="va">i</span>,<span class="st">'corn_price'</span><span class="op">]</span>
-
-  <span class="co">#--- define nitrogen  ---#</span>
-  <span class="va">nitrogen</span> <span class="op">&lt;-</span> <span class="va">parameters_data</span><span class="op">[</span><span class="va">i</span>,<span class="st">'nitrogen'</span><span class="op">]</span>
-
-  <span class="co">#--- calculate yield ---#</span>
-  <span class="va">yield</span> <span class="op">&lt;-</span> <span class="fl">240</span> <span class="op">*</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fl">0.4</span> <span class="op">-</span> <span class="fl">0.02</span> <span class="op">*</span> <span class="va">nitrogen</span><span class="op">)</span><span class="op">)</span>
-
-  <span class="co">#--- calculate revenue ---#</span>
-  <span class="va">revenue</span> <span class="op">&lt;-</span> <span class="va">corn_price</span> <span class="op">*</span> <span class="va">yield</span> 
-
-  <span class="co">#--- combine all the information you would like to have  ---#</span>
-  <span class="va">data_to_return</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
-    corn_price <span class="op">=</span> <span class="va">corn_price</span>,
-    nitrogen <span class="op">=</span> <span class="va">nitrogen</span>,
-    revenue <span class="op">=</span> <span class="va">revenue</span>
-  <span class="op">)</span>
-
-  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">data_to_return</span><span class="op">)</span>
-<span class="op">}</span></code></pre></div>
-<p>This function takes <span class="math inline">\(i\)</span> (act as a row number within the function), extract corn price and nitrogen from the <span class="math inline">\(i\)</span>th row of <code>parameters_mat</code>, which are then used to calculate yield and revenue<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Yield is generated based on the Mitscherlich-Baule functional form. Yield increases at the decreasing rate as you apply more nitrogen, and yield eventually hits the plateau.&lt;/p&gt;"><sup>99</sup></a>. Finally, it returns a <code>data.frame</code> of all the information you used (the parameters and the outcomes).</p>
-<div class="sourceCode" id="cb909"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#--- loop over all the parameter combinations ---#</span>
-<span class="va">rev_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">parameters_data</span><span class="op">)</span>, <span class="va">gen_rev_corn</span><span class="op">)</span>
-
-<span class="co">#--- take a look ---#</span>
-<span class="va">rev_data</span></code></pre></div>
+<div class="sourceCode" id="cb930"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">gen_rev_corn</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="op">{</span></span>
+<span></span>
+<span>  <span class="co">#--- define corn price ---#</span></span>
+<span>  <span class="va">corn_price</span> <span class="op">&lt;-</span> <span class="va">parameters_data</span><span class="op">[</span><span class="va">i</span>, <span class="st">"corn_price"</span><span class="op">]</span></span>
+<span></span>
+<span>  <span class="co">#--- define nitrogen  ---#</span></span>
+<span>  <span class="va">nitrogen</span> <span class="op">&lt;-</span> <span class="va">parameters_data</span><span class="op">[</span><span class="va">i</span>, <span class="st">"nitrogen"</span><span class="op">]</span></span>
+<span></span>
+<span>  <span class="co">#--- calculate yield ---#</span></span>
+<span>  <span class="va">yield</span> <span class="op">&lt;-</span> <span class="fl">240</span> <span class="op">*</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fl">0.4</span> <span class="op">-</span> <span class="fl">0.02</span> <span class="op">*</span> <span class="va">nitrogen</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="co">#--- calculate revenue ---#</span></span>
+<span>  <span class="va">revenue</span> <span class="op">&lt;-</span> <span class="va">corn_price</span> <span class="op">*</span> <span class="va">yield</span></span>
+<span></span>
+<span>  <span class="co">#--- combine all the information you would like to have  ---#</span></span>
+<span>  <span class="va">data_to_return</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
+<span>    corn_price <span class="op">=</span> <span class="va">corn_price</span>,</span>
+<span>    nitrogen <span class="op">=</span> <span class="va">nitrogen</span>,</span>
+<span>    revenue <span class="op">=</span> <span class="va">revenue</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">data_to_return</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<p>This function takes <span class="math inline">\(i\)</span> (act as a row number within the function), extract corn price and nitrogen from the <span class="math inline">\(i\)</span>th row of <code>parameters_mat</code>, which are then used to calculate yield and revenue<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Yield is generated based on the Mitscherlich-Baule functional form. Yield increases at the decreasing rate as you apply more nitrogen, and yield eventually hits the plateau.&lt;/p&gt;"><sup>103</sup></a>. Finally, it returns a <code>data.frame</code> of all the information you used (the parameters and the outcomes).</p>
+<div class="sourceCode" id="cb931"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#--- loop over all the parameter combinations ---#</span></span>
+<span><span class="va">rev_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">parameters_data</span><span class="op">)</span>, <span class="va">gen_rev_corn</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#--- take a look ---#</span></span>
+<span><span class="va">rev_data</span></span></code></pre></div>
 <pre><code>[[1]]
   corn_price nitrogen   revenue
 1          3        0 -354.1138
@@ -368,10 +373,10 @@
 [[12]]
   corn_price nitrogen  revenue
 1          5      300 1195.563</code></pre>
-<p>Successful! Now, for us to use the outcome for other purposes like further analysis and visualization, we would need to have all the results combined into a single <code>data.frame</code> instead of a list of <code>data.frame</code>s. To do this, use either <code><a href="https://rdrr.io/pkg/dplyr/man/bind.html">bind_rows()</a></code> from the <code>dplyr</code> package or <code>rbindlist()</code> from the <code>data.table</code> package.</p>
-<div class="sourceCode" id="cb911"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#--- bind_rows ---#</span>
-<span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/bind.html">bind_rows</a></span><span class="op">(</span><span class="va">rev_data</span><span class="op">)</span></code></pre></div>
+<p>Successful! Now, for us to use the outcome for other purposes like further analysis and visualization, we would need to have all the results combined into a single <code>data.frame</code> instead of a list of <code>data.frame</code>s. To do this, use either <code><a href="https://dplyr.tidyverse.org/reference/bind_rows.html">bind_rows()</a></code> from the <code>dplyr</code> package or <code>rbindlist()</code> from the <code>data.table</code> package.</p>
+<div class="sourceCode" id="cb933"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#--- bind_rows ---#</span></span>
+<span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_rows.html">bind_rows</a></span><span class="op">(</span><span class="va">rev_data</span><span class="op">)</span></span></code></pre></div>
 <pre><code>   corn_price nitrogen   revenue
 1           3        0 -354.1138
 2           4        0 -472.1517
@@ -385,9 +390,9 @@
 10          3      300  717.3375
 11          4      300  956.4501
 12          5      300 1195.5626</code></pre>
-<div class="sourceCode" id="cb913"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#--- rbindlist ---#</span>
-<span class="fu">rbindlist</span><span class="op">(</span><span class="va">rev_data</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb935"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#--- rbindlist ---#</span></span>
+<span><span class="fu">rbindlist</span><span class="op">(</span><span class="va">rev_data</span><span class="op">)</span></span></code></pre></div>
 <pre><code>    corn_price nitrogen   revenue
  1:          3        0 -354.1138
  2:          4        0 -472.1517
@@ -406,82 +411,86 @@
 <h3>
 <span class="header-section-number">A.1.5</span> Do you really need to loop?<a class="anchor" aria-label="anchor" href="#do-you-really-need-to-loop"><i class="fas fa-link"></i></a>
 </h3>
-<p>Actually, we should not have used for loop or <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> in any of the examples above in practice<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;By the way, note that &lt;code&gt;lapply()&lt;/code&gt; is no magic. It’s basically a for loop and not rally any faster than for loop.&lt;/p&gt;"><sup>100</sup></a> This is because they can be easily vectorized. Vectorized operations are those that take vectors as inputs and work on each element of the vectors in parallel<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;This does not mean that the process is parallelized by using multiple cores.&lt;/p&gt;"><sup>101</sup></a>.</p>
+<p>Actually, we should not have used for loop or <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> in any of the examples above in practice<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;By the way, note that &lt;code&gt;lapply()&lt;/code&gt; is no magic. It’s basically a for loop and not rally any faster than for loop.&lt;/p&gt;"><sup>104</sup></a> This is because they can be easily vectorized. Vectorized operations are those that take vectors as inputs and work on each element of the vectors in parallel<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;This does not mean that the process is parallelized by using multiple cores.&lt;/p&gt;"><sup>105</sup></a>.</p>
 <p>A typical example of a vectorized operation would be this:</p>
-<div class="sourceCode" id="cb915"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#--- define numeric vectors ---#</span>
-<span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">1000</span>
-<span class="va">y</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">1000</span>
-
-<span class="co">#--- element wise addition ---#</span>
-<span class="va">z_vec</span> <span class="op">&lt;-</span> <span class="va">x</span> <span class="op">+</span> <span class="va">y</span> </code></pre></div>
+<div class="sourceCode" id="cb937"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#--- define numeric vectors ---#</span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">1000</span></span>
+<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">1000</span></span>
+<span></span>
+<span><span class="co">#--- element wise addition ---#</span></span>
+<span><span class="va">z_vec</span> <span class="op">&lt;-</span> <span class="va">x</span> <span class="op">+</span> <span class="va">y</span></span></code></pre></div>
 <p>A non-vectorized version of the same calculation is this:</p>
-<div class="sourceCode" id="cb916"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">z_la</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">1000</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="va">x</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">+</span> <span class="va">y</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></span>  <span class="va">unlist</span>
-
-<span class="co">#--- check if identical with z_vec ---#</span>
-<span class="fu"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span><span class="op">(</span><span class="va">z_la</span>, <span class="va">z_vec</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb938"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">z_la</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">1000</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="va">x</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">+</span> <span class="va">y</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#--- check if identical with z_vec ---#</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span><span class="op">(</span><span class="va">z_la</span>, <span class="va">z_vec</span><span class="op">)</span></span></code></pre></div>
 <pre><code>[1] TRUE</code></pre>
 <p>Both produce the same results. However, R is written in a way that is much better at doing vectorized operations. Let’s time them using the <code><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark()</a></code> function from the <code>microbenchmark</code> package. Here, we do not <code><a href="https://rdrr.io/r/base/unlist.html">unlist()</a></code> after <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> to just focus on the multiplication part.</p>
-<div class="sourceCode" id="cb918"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/joshuaulrich/microbenchmark/">microbenchmark</a></span><span class="op">)</span>
-
-<span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span>
-  <span class="co">#--- vectorized ---#</span>
-  <span class="st">"vectorized"</span> <span class="op">=</span> <span class="op">{</span> <span class="va">x</span> <span class="op">+</span> <span class="va">y</span> <span class="op">}</span>, 
-  <span class="co">#--- not vectorized ---#</span>
-  <span class="st">"not vectorized"</span> <span class="op">=</span> <span class="op">{</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">1000</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="va">x</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">+</span> <span class="va">y</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span><span class="op">}</span>,
-  times <span class="op">=</span> <span class="fl">100</span>, 
-  unit <span class="op">=</span> <span class="st">"ms"</span>
-<span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb940"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/joshuaulrich/microbenchmark/">microbenchmark</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span></span>
+<span>  <span class="co">#--- vectorized ---#</span></span>
+<span>  <span class="st">"vectorized"</span> <span class="op">=</span> <span class="op">{</span></span>
+<span>    <span class="va">x</span> <span class="op">+</span> <span class="va">y</span></span>
+<span>  <span class="op">}</span>,</span>
+<span>  <span class="co">#--- not vectorized ---#</span></span>
+<span>  <span class="st">"not vectorized"</span> <span class="op">=</span> <span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">1000</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="va">x</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">+</span> <span class="va">y</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span></span>
+<span>  <span class="op">}</span>,</span>
+<span>  times <span class="op">=</span> <span class="fl">100</span>,</span>
+<span>  unit <span class="op">=</span> <span class="st">"ms"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code>Unit: milliseconds
-           expr      min        lq       mean   median        uq       max
-     vectorized 0.002428 0.0028800 0.00316221 0.003082 0.0033105  0.005597
- not vectorized 0.496875 0.5368535 0.72333386 0.552854 0.5681425 14.101327
- neval
-   100
-   100</code></pre>
-<p>As you can see, the vectorized version is faster. The time difference comes from R having to conduct many more internal checks and hidden operations for the non-vectorized one<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;See &lt;a href="http://www.noamross.net/archives/2014-04-16-vectorization-in-r-why/"&gt;this&lt;/a&gt; or &lt;a href="https://stackoverflow.com/questions/7142767/why-are-loops-slow-in-r"&gt;this&lt;/a&gt; to have a better understanding of why non-vectorized operations can be slower than vectorized operations.&lt;/p&gt;'><sup>102</sup></a>. Yes, we are talking about a fraction of milliseconds here. But, as the objects to operate on get larger, the difference between vectorized and non-vectorized operations can become substantial<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;See &lt;a href="http://www.win-vector.com/blog/2019/01/what-does-it-mean-to-write-vectorized-code-in-r/"&gt;here&lt;/a&gt; for a good example of such a case. R is often regarded very slow compared to other popular software. But, many of such claims come from not vectorizing operations that can be vectorized. Indeed, many of the base and old R functions are written in C. More recent functions relies on C++ via the &lt;code&gt;Rcpp&lt;/code&gt; package.&lt;/p&gt;'><sup>103</sup></a>.</p>
+           expr      min        lq       mean   median       uq      max neval
+     vectorized 0.002624 0.0028290 0.00295979 0.002870 0.002993 0.005699   100
+ not vectorized 0.285647 0.2882095 0.30588665 0.290034 0.293314 1.592399   100</code></pre>
+<p>As you can see, the vectorized version is faster. The time difference comes from R having to conduct many more internal checks and hidden operations for the non-vectorized one<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;See &lt;a href="http://www.noamross.net/archives/2014-04-16-vectorization-in-r-why/"&gt;this&lt;/a&gt; or &lt;a href="https://stackoverflow.com/questions/7142767/why-are-loops-slow-in-r"&gt;this&lt;/a&gt; to have a better understanding of why non-vectorized operations can be slower than vectorized operations.&lt;/p&gt;'><sup>106</sup></a>. Yes, we are talking about a fraction of milliseconds here. But, as the objects to operate on get larger, the difference between vectorized and non-vectorized operations can become substantial<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;See &lt;a href="http://www.win-vector.com/blog/2019/01/what-does-it-mean-to-write-vectorized-code-in-r/"&gt;here&lt;/a&gt; for a good example of such a case. R is often regarded very slow compared to other popular software. But, many of such claims come from not vectorizing operations that can be vectorized. Indeed, many of the base and old R functions are written in C. More recent functions relies on C++ via the &lt;code&gt;Rcpp&lt;/code&gt; package.&lt;/p&gt;'><sup>107</sup></a>.</p>
 <p>The <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> examples can be easily vectorized.</p>
 <p>Instead of this:</p>
-<div class="sourceCode" id="cb920"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">1000</span>, <span class="va">square_it</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb942"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">1000</span>, <span class="va">square_it</span><span class="op">)</span></span></code></pre></div>
 <p>You can just do this:</p>
-<div class="sourceCode" id="cb921"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">square_it</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">1000</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb943"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">square_it</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">1000</span><span class="op">)</span></span></code></pre></div>
 <p>You can also easily vectorize the revenue calculation demonstrated above. First, define the function differently so that revenue calculation can take corn price and nitrogen vectors and return a revenue vector.</p>
-<div class="sourceCode" id="cb922"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">gen_rev_corn_short</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">corn_price</span>, <span class="va">nitrogen</span><span class="op">)</span> <span class="op">{</span>
-
-  <span class="co">#--- calculate yield ---#</span>
-  <span class="va">yield</span> <span class="op">&lt;-</span> <span class="fl">240</span> <span class="op">*</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fl">0.4</span> <span class="op">-</span> <span class="fl">0.02</span> <span class="op">*</span> <span class="va">nitrogen</span><span class="op">)</span><span class="op">)</span>
-
-  <span class="co">#--- calculate revenue ---#</span>
-  <span class="va">revenue</span> <span class="op">&lt;-</span> <span class="va">corn_price</span> <span class="op">*</span> <span class="va">yield</span> 
-
-  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">revenue</span><span class="op">)</span>
-<span class="op">}</span></code></pre></div>
+<div class="sourceCode" id="cb944"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">gen_rev_corn_short</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">corn_price</span>, <span class="va">nitrogen</span><span class="op">)</span> <span class="op">{</span></span>
+<span></span>
+<span>  <span class="co">#--- calculate yield ---#</span></span>
+<span>  <span class="va">yield</span> <span class="op">&lt;-</span> <span class="fl">240</span> <span class="op">*</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fl">0.4</span> <span class="op">-</span> <span class="fl">0.02</span> <span class="op">*</span> <span class="va">nitrogen</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="co">#--- calculate revenue ---#</span></span>
+<span>  <span class="va">revenue</span> <span class="op">&lt;-</span> <span class="va">corn_price</span> <span class="op">*</span> <span class="va">yield</span></span>
+<span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">revenue</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 <p>Then use the function to calculate revenue and assign it to a new variable in the <code>parameters_data</code> data.</p>
-<div class="sourceCode" id="cb923"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">rev_data_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/mutate.html">mutate</a></span><span class="op">(</span>
-  <span class="va">parameters_data</span>,
-  revenue <span class="op">=</span> <span class="fu">gen_rev_corn_short</span><span class="op">(</span><span class="va">corn_price</span>, <span class="va">nitrogen</span><span class="op">)</span>
-<span class="op">)</span> </code></pre></div>
+<div class="sourceCode" id="cb945"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">rev_data_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>  <span class="va">parameters_data</span>,</span>
+<span>  revenue <span class="op">=</span> <span class="fu">gen_rev_corn_short</span><span class="op">(</span><span class="va">corn_price</span>, <span class="va">nitrogen</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p>Let’s compare the two:</p>
-<div class="sourceCode" id="cb924"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span>
-
-  <span class="co">#--- vectorized ---#</span>
-  <span class="st">"vectorized"</span> <span class="op">=</span> <span class="op">{</span> <span class="va">rev_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/mutate.html">mutate</a></span><span class="op">(</span><span class="va">parameters_data</span>, revenue <span class="op">=</span> <span class="fu">gen_rev_corn_short</span><span class="op">(</span><span class="va">corn_price</span>, <span class="va">nitrogen</span><span class="op">)</span><span class="op">)</span> <span class="op">}</span>,
-  <span class="co">#--- not vectorized ---#</span>
-  <span class="st">"not vectorized"</span> <span class="op">=</span> <span class="op">{</span> <span class="va">parameters_data</span><span class="op">$</span><span class="va">revenue</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">parameters_data</span><span class="op">)</span>, <span class="va">gen_rev_corn</span><span class="op">)</span> <span class="op">}</span>,
-  times <span class="op">=</span> <span class="fl">100</span>, 
-  unit <span class="op">=</span> <span class="st">"ms"</span>
-<span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb946"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span></span>
+<span>  <span class="co">#--- vectorized ---#</span></span>
+<span>  <span class="st">"vectorized"</span> <span class="op">=</span> <span class="op">{</span></span>
+<span>    <span class="va">rev_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="va">parameters_data</span>, revenue <span class="op">=</span> <span class="fu">gen_rev_corn_short</span><span class="op">(</span><span class="va">corn_price</span>, <span class="va">nitrogen</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">}</span>,</span>
+<span>  <span class="co">#--- not vectorized ---#</span></span>
+<span>  <span class="st">"not vectorized"</span> <span class="op">=</span> <span class="op">{</span></span>
+<span>    <span class="va">parameters_data</span><span class="op">$</span><span class="va">revenue</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">parameters_data</span><span class="op">)</span>, <span class="va">gen_rev_corn</span><span class="op">)</span></span>
+<span>  <span class="op">}</span>,</span>
+<span>  times <span class="op">=</span> <span class="fl">100</span>,</span>
+<span>  unit <span class="op">=</span> <span class="st">"ms"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code>Unit: milliseconds
-           expr      min       lq     mean   median       uq      max neval
-     vectorized 0.961107 1.041289 1.554750 1.129748 1.309716 23.56163   100
- not vectorized 1.894142 2.118015 2.514545 2.282599 2.796153  5.66208   100</code></pre>
+           expr      min        lq      mean    median       uq      max neval
+     vectorized 0.599707 0.6544215 0.7613462 0.7023095 0.777729 4.151291   100
+ not vectorized 0.901180 0.9451320 1.0536438 0.9793260 1.061203 5.605233   100</code></pre>
 <p>Yes, the vectorized version is faster. So, the lesson here is that if you can vectorize, then vectorize instead of using <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code>. But, of course, things cannot be vectorized in many cases.</p>
 </div>
 </div>
@@ -489,110 +498,110 @@
 <h2>
 <span class="header-section-number">A.2</span> Parallelization of embarrassingly parallel processes<a class="anchor" aria-label="anchor" href="#parcomp"><i class="fas fa-link"></i></a>
 </h2>
-<p>Parallelization of computation involves distributing the task at hand to multiple cores so that multiple processes are done in parallel. Here, we learn how to parallelize computation in R. Our focus is on the so called <strong>embarrassingly</strong> parallel processes. Embarrassingly parallel processes refer to a collection of processes where each process is completely independent of any another. That is, one process does not use the outputs of any of the other processes. The example of integer squaring is embarrassingly parallel. In order to calculate <span class="math inline">\(1^2\)</span>, you do not need to use the result of <span class="math inline">\(2^2\)</span> or any other squares. Embarrassingly parallel processes are very easy to parallelize because you do not have to worry about which process to complete first to make other processes happen. Fortunately, most of the processes you are interested in parallelizing fall under this category<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;A good example of non-embarrassingly parallel process is dynamic optimization via backward induction. You need to know the optimal solution at &lt;span class="math inline"&gt;\(t = T\)&lt;/span&gt;, before you find the optimal solution at &lt;span class="math inline"&gt;\(t = T-1\)&lt;/span&gt;.&lt;/p&gt;'><sup>104</sup></a>.</p>
-<p>We will use the <code><a href="https://rdrr.io/pkg/future.apply/man/future_lapply.html">future_lapply()</a></code> function from the <code>future.apply</code> package for parallelization<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;There are many other options including the &lt;code&gt;parallel&lt;/code&gt;, &lt;code&gt;foreach&lt;/code&gt; packages.&lt;/p&gt;"><sup>105</sup></a>. Using the package, parallelization is a piece of cake as it is basically the same syntactically as <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code>.</p>
-<div class="sourceCode" id="cb926"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#--- load packages ---#</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://future.apply.futureverse.org">future.apply</a></span><span class="op">)</span> </code></pre></div>
+<p>Parallelization of computation involves distributing the task at hand to multiple cores so that multiple processes are done in parallel. Here, we learn how to parallelize computation in R. Our focus is on the so called <strong>embarrassingly</strong> parallel processes. Embarrassingly parallel processes refer to a collection of processes where each process is completely independent of any another. That is, one process does not use the outputs of any of the other processes. The example of integer squaring is embarrassingly parallel. In order to calculate <span class="math inline">\(1^2\)</span>, you do not need to use the result of <span class="math inline">\(2^2\)</span> or any other squares. Embarrassingly parallel processes are very easy to parallelize because you do not have to worry about which process to complete first to make other processes happen. Fortunately, most of the processes you are interested in parallelizing fall under this category<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;A good example of non-embarrassingly parallel process is dynamic optimization via backward induction. You need to know the optimal solution at &lt;span class="math inline"&gt;\(t = T\)&lt;/span&gt;, before you find the optimal solution at &lt;span class="math inline"&gt;\(t = T-1\)&lt;/span&gt;.&lt;/p&gt;'><sup>108</sup></a>.</p>
+<p>We will use the <code><a href="https://future.apply.futureverse.org/reference/future_lapply.html">future_lapply()</a></code> function from the <code>future.apply</code> package for parallelization<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;There are many other options including the &lt;code&gt;parallel&lt;/code&gt;, &lt;code&gt;foreach&lt;/code&gt; packages.&lt;/p&gt;"><sup>109</sup></a>. Using the package, parallelization is a piece of cake as it is basically the same syntactically as <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code>.</p>
+<div class="sourceCode" id="cb948"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#--- load packages ---#</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://future.apply.futureverse.org">future.apply</a></span><span class="op">)</span></span></code></pre></div>
 <p>You can find out how many cores you have available for parallel computation on your computer using the <code><a href="https://rdrr.io/r/parallel/detectCores.html">detectCores()</a></code> function from the <code>parallel</code> package.</p>
-<div class="sourceCode" id="cb927"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">parallel</span><span class="op">)</span>
-
-<span class="co">#--- number of all cores ---#</span>
-<span class="fu"><a href="https://rdrr.io/r/parallel/detectCores.html">detectCores</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code>[1] 16</code></pre>
-<p>Before we implement parallelized <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code>, we need to declare what backend process we will be using by <code><a href="https://rdrr.io/pkg/future/man/plan.html">plan()</a></code>. Here, we use <code>plan(multiprocess)</code><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;If you are a Mac or Linux user, then the &lt;code&gt;multicore&lt;/code&gt; process will be used, while the &lt;code&gt;multisession&lt;/code&gt; process will be used if you are using a Windows machine. The &lt;code&gt;multicore&lt;/code&gt; process is superior to the &lt;code&gt;multisession&lt;/code&gt; process. See &lt;a href="https://raw.githack.com/uo-ec607/lectures/master/12-parallel/12-parallel.html"&gt;this lecture note&lt;/a&gt; on parallel programming using R by Dr. Grant McDermott’s at the University of Oregon for the distinctions between the two and many other useful concepts for parallelization. At the time of this writing, if you run R through RStudio, &lt;code&gt;multiprocess&lt;/code&gt; option is always redirected to &lt;code&gt;multisession&lt;/code&gt; option because of the instability in doing &lt;code&gt;multiprocess&lt;/code&gt;. If you use Linux or Mac and want to take the full advantage of &lt;code&gt;future_apply&lt;/code&gt;, you should not run your R programs through RStudio at least for now.&lt;/p&gt;'><sup>106</sup></a>. In the <code><a href="https://rdrr.io/pkg/future/man/plan.html">plan()</a></code> function, we can specify the number of workers. Here I will use the total number of cores less 1<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;This way, you can have one more core available to do other tasks comfortably. However, if you don’t mind having your computer completely devoted to the processing task at hand, then there is no reason not to use all the cores.&lt;/p&gt;"><sup>107</sup></a>.</p>
-<div class="sourceCode" id="cb929"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/future/man/plan.html">plan</a></span><span class="op">(</span><span class="va">multiprocess</span>, workers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/parallel/detectCores.html">detectCores</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
-<p><code><a href="https://rdrr.io/pkg/future.apply/man/future_lapply.html">future_lapply()</a></code> works exactly like <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code>.</p>
-<div class="sourceCode" id="cb930"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">sq_ls</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/future.apply/man/future_lapply.html">future_lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">1000</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></code></pre></div>
-<p>This is it. The only difference you see from the serialized processing using <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> is that you changed the function name to <code><a href="https://rdrr.io/pkg/future.apply/man/future_lapply.html">future_lapply()</a></code>.</p>
+<div class="sourceCode" id="cb949"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">parallel</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#--- number of all cores ---#</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/parallel/detectCores.html">detectCores</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code>[1] 20</code></pre>
+<p>Before we implement parallelized <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code>, we need to declare what backend process we will be using by <code><a href="https://future.futureverse.org/reference/plan.html">plan()</a></code>. Here, we use <code>plan(multisession)</code><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;If you are a Mac or Linux user, then the &lt;code&gt;multicore&lt;/code&gt; is also available. The &lt;code&gt;multicore&lt;/code&gt; process is faster than the &lt;code&gt;multisession&lt;/code&gt; process. See &lt;a href="https://raw.githack.com/uo-ec607/lectures/master/12-parallel/12-parallel.html"&gt;this lecture note&lt;/a&gt; on parallel programming using R by Dr. Grant McDermott’s at the University of Oregon for the distinctions between the two and many other useful concepts for parallelization. However, &lt;code&gt;multicore&lt;/code&gt; is considered less stable than &lt;code&gt;multisession&lt;/code&gt;. At the time of this writing, if you run R through RStudio, &lt;code&gt;multicore&lt;/code&gt; option is not permitted because of its instability.&lt;/p&gt;'><sup>110</sup></a>. In the <code><a href="https://future.futureverse.org/reference/plan.html">plan()</a></code> function, we can specify the number of workers. Here I will use the total number of cores less 1<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;This way, you can have one more core available to do other tasks comfortably. However, if you don’t mind having your computer completely devoted to the processing task at hand, then there is no reason not to use all the cores.&lt;/p&gt;"><sup>111</sup></a>.</p>
+<div class="sourceCode" id="cb951"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://future.futureverse.org/reference/plan.html">plan</a></span><span class="op">(</span><span class="va">multisession</span>, workers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/parallel/detectCores.html">detectCores</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
+<p><code><a href="https://future.apply.futureverse.org/reference/future_lapply.html">future_lapply()</a></code> works exactly like <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code>.</p>
+<div class="sourceCode" id="cb952"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">sq_ls</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://future.apply.futureverse.org/reference/future_lapply.html">future_lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">1000</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<p>This is it. The only difference you see from the serialized processing using <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> is that you changed the function name to <code><a href="https://future.apply.futureverse.org/reference/future_lapply.html">future_lapply()</a></code>.</p>
 <p>Okay, now we know how we parallelize computation. Let’s check how much improvement in implementation time we got by parallelization.</p>
-<div class="sourceCode" id="cb931"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span>
-  <span class="co">#--- parallelized ---#</span>
-  <span class="st">"parallelized"</span> <span class="op">=</span> <span class="op">{</span> <span class="va">sq_ls</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/future.apply/man/future_lapply.html">future_lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">1000</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span> <span class="op">}</span>, 
-  <span class="co">#--- non-parallelized ---#</span>
-  <span class="st">"not parallelized"</span> <span class="op">=</span> <span class="op">{</span> <span class="va">sq_ls</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">1000</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span> <span class="op">}</span>,
-  times <span class="op">=</span> <span class="fl">100</span>, 
-  unit <span class="op">=</span> <span class="st">"ms"</span>
-<span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb953"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span></span>
+<span>  <span class="co">#--- parallelized ---#</span></span>
+<span>  <span class="st">"parallelized"</span> <span class="op">=</span> <span class="op">{</span></span>
+<span>    <span class="va">sq_ls</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://future.apply.futureverse.org/reference/future_lapply.html">future_lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">1000</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span>
+<span>  <span class="op">}</span>,</span>
+<span>  <span class="co">#--- non-parallelized ---#</span></span>
+<span>  <span class="st">"not parallelized"</span> <span class="op">=</span> <span class="op">{</span></span>
+<span>    <span class="va">sq_ls</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">1000</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span>
+<span>  <span class="op">}</span>,</span>
+<span>  times <span class="op">=</span> <span class="fl">100</span>,</span>
+<span>  unit <span class="op">=</span> <span class="st">"ms"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code>Unit: milliseconds
-             expr       min         lq       mean    median         uq
-     parallelized 74.337087 88.5161295 99.5311075 97.196593 108.210706
- not parallelized  0.411587  0.4805975  0.7229046  0.536682   0.683037
-       max neval
- 136.86259   100
-  11.07314   100</code></pre>
+             expr       min         lq       mean    median        uq       max
+     parallelized 56.926327 57.9098965 60.2471343 58.343738 61.590795 81.435225
+ not parallelized  0.226484  0.2335975  0.2582463  0.238292  0.254733  1.109132
+ neval
+   100
+   100</code></pre>
 <p>Hmmmm, okay, so parallelization made the code slower… How could this be? This is because communicating jobs to each core takes some time as well. So, if each of the iterative processes is super fast (like this example where you just square a number), the time spent on communicating with the cores outweighs the time saving due to parallel computation. Parallelization is more beneficial when each of the repetitive processes takes long.</p>
 <p>One of the very good use cases of parallelization is MC simulation. The following MC simulation tests whether the correlation between an independent variable and error term would cause bias (yes, we know the answer). The <code>MC_sim</code> function first generates a dataset (50,000 observations) according to the following data generating process:</p>
 <p><span class="math display">\[
- y = 1 + x + v
+y = 1 + x + v
 \]</span></p>
 <p>where <span class="math inline">\(\mu \sim N(0,1)\)</span>, <span class="math inline">\(x \sim N(0,1) + \mu\)</span>, and <span class="math inline">\(v \sim N(0,1) + \mu\)</span>. The <span class="math inline">\(\mu\)</span> term cause correlation between <span class="math inline">\(x\)</span> (the covariate) and <span class="math inline">\(v\)</span> (the error term). It then estimates the coefficient on <span class="math inline">\(x\)</span> vis OLS, and return the estimate. We would like to repeat this process 1,000 times to understand the property of the OLS estimators under the data generating process. This Monte Carlo simulation is embarrassingly parallel because each process is independent of any other.</p>
-<div class="sourceCode" id="cb933"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#--- repeat steps 1-3 B times ---#</span>
-<span class="va">MC_sim</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span><span class="op">{</span>
-
-  <span class="va">N</span> <span class="op">&lt;-</span> <span class="fl">50000</span> <span class="co"># sample size</span>
-
-  <span class="co">#--- steps 1 and 2:  ---#</span>
-  <span class="va">mu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="va">N</span><span class="op">)</span> <span class="co"># the common term shared by both x and u</span>
-  <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="va">N</span><span class="op">)</span> <span class="op">+</span> <span class="va">mu</span> <span class="co"># independent variable</span>
-  <span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="va">N</span><span class="op">)</span> <span class="op">+</span> <span class="va">mu</span> <span class="co"># error</span>
-  <span class="va">y</span> <span class="op">&lt;-</span> <span class="fl">1</span> <span class="op">+</span> <span class="va">x</span> <span class="op">+</span> <span class="va">v</span> <span class="co"># dependent variable</span>
-  <span class="va">data</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="op">(</span>y <span class="op">=</span> <span class="va">y</span>, x <span class="op">=</span> <span class="va">x</span><span class="op">)</span>
-
-  <span class="co">#--- OLS ---# </span>
-  <span class="va">reg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">y</span><span class="op">~</span><span class="va">x</span>, data <span class="op">=</span> <span class="va">data</span><span class="op">)</span> <span class="co"># OLS</span>
-
-  <span class="co">#--- return the coef ---#</span>
-  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">reg</span><span class="op">$</span><span class="va">coef</span><span class="op">[</span><span class="st">'x'</span><span class="op">]</span><span class="op">)</span>
-<span class="op">}</span></code></pre></div>
+<div class="sourceCode" id="cb955"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#--- repeat steps 1-3 B times ---#</span></span>
+<span><span class="va">MC_sim</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">N</span> <span class="op">&lt;-</span> <span class="fl">50000</span> <span class="co"># sample size</span></span>
+<span></span>
+<span>  <span class="co">#--- steps 1 and 2:  ---#</span></span>
+<span>  <span class="va">mu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="va">N</span><span class="op">)</span> <span class="co"># the common term shared by both x and u</span></span>
+<span>  <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="va">N</span><span class="op">)</span> <span class="op">+</span> <span class="va">mu</span> <span class="co"># independent variable</span></span>
+<span>  <span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="va">N</span><span class="op">)</span> <span class="op">+</span> <span class="va">mu</span> <span class="co"># error</span></span>
+<span>  <span class="va">y</span> <span class="op">&lt;-</span> <span class="fl">1</span> <span class="op">+</span> <span class="va">x</span> <span class="op">+</span> <span class="va">v</span> <span class="co"># dependent variable</span></span>
+<span>  <span class="va">data</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="op">(</span>y <span class="op">=</span> <span class="va">y</span>, x <span class="op">=</span> <span class="va">x</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="co">#--- OLS ---#</span></span>
+<span>  <span class="va">reg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x</span>, data <span class="op">=</span> <span class="va">data</span><span class="op">)</span> <span class="co"># OLS</span></span>
+<span></span>
+<span>  <span class="co">#--- return the coef ---#</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">reg</span><span class="op">$</span><span class="va">coef</span><span class="op">[</span><span class="st">"x"</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 <p>Let’s run one iteration,</p>
-<div class="sourceCode" id="cb934"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">tic</span><span class="op">(</span><span class="op">)</span>
-<span class="fu">MC_sim</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
-<span class="fu">toc</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb956"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">tic</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu">MC_sim</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="fu">toc</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>       x 
 1.503353 </code></pre>
 <pre><code>elapsed 
-  0.023 </code></pre>
-<p>Okay, so it takes 0.023 second for one iteration. Now, let’s run this 1000 times with or without parallelization.</p>
+  0.008 </code></pre>
+<p>Okay, so it takes 0.008 second for one iteration. Now, let’s run this 1000 times with or without parallelization.</p>
 <p><strong>Not parallelized</strong></p>
-<div class="sourceCode" id="cb937"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#--- non-parallel ---#</span>
-<span class="fu">tic</span><span class="op">(</span><span class="op">)</span>
-<span class="va">MC_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">1000</span>, <span class="va">MC_sim</span><span class="op">)</span>
-<span class="fu">toc</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb959"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#--- non-parallel ---#</span></span>
+<span><span class="fu">tic</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">MC_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">1000</span>, <span class="va">MC_sim</span><span class="op">)</span></span>
+<span><span class="fu">toc</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>elapsed 
- 22.987 </code></pre>
+   8.57 </code></pre>
 <p><strong>Parallelized</strong></p>
-<div class="sourceCode" id="cb939"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#--- parallel ---#</span>
-<span class="fu">tic</span><span class="op">(</span><span class="op">)</span>
-<span class="va">MC_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/future.apply/man/future_lapply.html">future_lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">1000</span>, <span class="va">MC_sim</span><span class="op">)</span>
-<span class="fu">toc</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb961"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#--- parallel ---#</span></span>
+<span><span class="fu">tic</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">MC_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://future.apply.futureverse.org/reference/future_lapply.html">future_lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">1000</span>, <span class="va">MC_sim</span><span class="op">)</span></span>
+<span><span class="fu">toc</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>elapsed 
-  4.376 </code></pre>
-<p>As you can see, parallelization makes it much quicker with a noticeable difference in elapsed time. We made the code 5.25 times faster. However, we did not make the process 15 times faster even though we used 15 cores for the parallelized process. This is because of the overhead associated with distributing tasks to the cores. The relative advantage of parallelization would be greater if each iteration took more time. For example, if you are running a process that takes about 2 minutes for 1000 times, it would take approximately 33 hours and 20 minutes. But, it may take only 4 hours if you parallelize it on 15 cores, or maybe even 2 hours if you run it on 30 cores.</p>
+  1.592 </code></pre>
+<p>As you can see, parallelization makes it much quicker with a noticeable difference in elapsed time. We made the code 5.38 times faster. However, we did not make the process 19 times faster even though we used 19 cores for the parallelized process. This is because of the overhead associated with distributing tasks to the cores. The relative advantage of parallelization would be greater if each iteration took more time. For example, if you are running a process that takes about 2 minutes for 1000 times, it would take approximately 33 hours and 20 minutes. But, it may take only 4 hours if you parallelize it on 19 cores, or maybe even 2 hours if you run it on 30 cores.</p>
 <div id="mac-or-linux-users" class="section level3" number="10.2.1">
 <h3>
 <span class="header-section-number">A.2.1</span> Mac or Linux users<a class="anchor" aria-label="anchor" href="#mac-or-linux-users"><i class="fas fa-link"></i></a>
 </h3>
-<p>For Mac users, <code><a href="https://rdrr.io/r/parallel/mclapply.html">parallel::mclapply()</a></code> is just as compelling (or <code>pbmclapply::pbmclapply()</code> if you want to have a nice progress report, which is very helpful particularly when the process is long). It is just as easy to use as <code><a href="https://rdrr.io/pkg/future.apply/man/future_lapply.html">future_lapply()</a></code> because its syntax is the same as <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code>. You can control the number of cores to employ by adding <code>mc.cores</code> option. Here is an example code that does the same MC simulations we conducted above:</p>
-<div class="sourceCode" id="cb941"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#--- mclapply ---#</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">parallel</span><span class="op">)</span>
-<span class="va">MC_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/parallel/mclapply.html">mclapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">1000</span>, <span class="va">MC_sim</span>, mc.cores <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/parallel/detectCores.html">detectCores</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span>
-
-<span class="co">#--- or with progress bar ---#</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">pbmclapply</span><span class="op">)</span>
-<span class="va">MC_results</span> <span class="op">&lt;-</span> <span class="fu">pbmclapply</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">1000</span>, <span class="va">MC_sim</span>, mc.cores <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/parallel/detectCores.html">detectCores</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
-<!-- ### Some background on the parallelization packages 
-
-For Mac and Linux users the coding cost of parallelization was minimal since when `parallel::mclapply()` was available. Parallelization is really a piece of cake for those who know how to use `lapply()` because the syntax is identical. For Windows users, that had not been the case until the arrival of the `future.apply` package. Windows machines create new threads to run on multiple cores, which do not inherit any of the R objects you have created on the environment. This means that if you need to use a dataset (or any other objects that you are not creating within the loop internally) inside the loop, you have to tell R explicitly what objects you want it to carry to the new threads so they can use those objects themselves. This hassle was eliminated by the `future.apply` package.^[To be honest, I do not completely understand how it does what it does.] On Mac and Linux machines, it was not even an issue because parallelization is done by forking (which Windows machines cannot do), which inherits all the available R objects on the environment. Since the `future.apply` package works for all the platforms, I focused on this package.  -->
+<p>For Mac users, <code><a href="https://rdrr.io/r/parallel/mclapply.html">parallel::mclapply()</a></code> is just as compelling (or <code>pbmclapply::pbmclapply()</code> if you want to have a nice progress report, which is very helpful particularly when the process is long). It is just as easy to use as <code><a href="https://future.apply.futureverse.org/reference/future_lapply.html">future_lapply()</a></code> because its syntax is the same as <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code>. You can control the number of cores to employ by adding <code>mc.cores</code> option. Here is an example code that does the same MC simulations we conducted above:</p>
+<div class="sourceCode" id="cb963"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#--- mclapply ---#</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">parallel</span><span class="op">)</span></span>
+<span><span class="va">MC_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/parallel/mclapply.html">mclapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">1000</span>, <span class="va">MC_sim</span>, mc.cores <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/parallel/detectCores.html">detectCores</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#--- or with progress bar ---#</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">pbmclapply</span><span class="op">)</span></span>
+<span><span class="va">MC_results</span> <span class="op">&lt;-</span> <span class="fu">pbmclapply</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">1000</span>, <span class="va">MC_sim</span>, mc.cores <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/parallel/detectCores.html">detectCores</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
 
 </div>
 </div>
@@ -639,7 +648,7 @@ For Mac and Linux users the coding cost of parallelization was minimal since whe
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>R as GIS for Economists</strong>" was written by Taro Mieno. It was last built on 2022-05-28.</p>
+    <p>"<strong>R as GIS for Economists</strong>" was written by Taro Mieno. It was last built on 2023-03-08.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

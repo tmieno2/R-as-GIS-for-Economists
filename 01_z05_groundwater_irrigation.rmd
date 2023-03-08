@@ -1,0 +1,224 @@
+### Project Overview
+
+---
+
+**Objective**
+
++ Understand the impact of monthly precipitation on groundwater use for agricultural irrigation
+
+---
+
+**Datasets**
+
++ Annual groundwater pumping by irrigation wells in Kansas for 2010 and 2011 (originally obtained from the Water Information Management & Analysis System (WIMAS) database)
++ Daymet^[[Daymet website](https://daymet.ornl.gov/)] daily precipitation and maximum temperature downloaded using `daymetr` package
+
+---
+
+**Econometric Model**
+
+The econometric model we would like to estimate is:
+
+$$
+   y_{i,t}  = \alpha +  P_{i,t} \beta + T_{i,t} \gamma + \phi_i + \eta_t + v_{i,t}
+$$
+
+where $y$ is the total groundwater extracted in year $t$, $P_{i,t}$ and $T_{i,t}$ is the collection of monthly total precipitation and mean maximum temperature April through September in year $t$, respectively, $\phi_i$ is the well fixed effect, $\eta_t$ is the year fixed effect, and $v_{i,t}$ is the error term. 
+
+---
+
+**GIS tasks**
+
++ download Daymet precipitation and maximum temperature data for each well from within R in parallel
+  * use `daymetr::download_daymet()` and `future.apply::future_lapply()`
+
+---
+
+**Preparation for replication**
+
++ Run the following code to install or load (if already installed) the `pacman` package, and then install or load (if already installed) the listed package inside the `pacman::p_load()` function.
+
+```{r demo5_packages}
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(
+  daymetr, # get Daymet data
+  sf, # vector data operations
+  dplyr, # data wrangling
+  data.table, # data wrangling
+  ggplot2, # for map creation
+  RhpcBLASctl, # to get the number of available cores
+  future.apply, # parallelization
+  lfe, # fast regression with many fixed effects
+  modelsummary # regression table generation
+)
+```
+
+### Project Demonstration
+
+We have already collected annual groundwater pumping data by irrigation wells in 2010 and 2011 in Kansas from the Water Information Management & Analysis System (WIMAS) database. Let's read in the groundwater use data.  
+
+```{r Demo5_gw}
+#--- read in the data ---#
+(
+  gw_KS_sf <- readRDS("Data/gw_KS_sf.rds")
+)
+```
+
+We have `r length(unique(gw_KS_sf$well_id))` wells in total, and each well has records of groundwater pumping (`af_used`) for years 2010 and 2011. Here is the spatial distribution of the wells. 
+
+```{r Demo5_map}
+KS_counties <- readRDS("Data/KS_county_borders.rds")
+
+tm_shape(KS_counties) +
+  tm_polygons() +
+  tm_shape(gw_KS_sf) +
+  tm_symbols(size = 0.05, col = "black")
+```
+
+<!-- 
+#=========================================
+# Daymet data download and processing 
+#=========================================
+-->
+
+--- 
+
+We now need to get monthly precipitation and maximum temperature data. We have decided that we use [Daymet](https://daymet.ornl.gov/) weather data. Here we use the `download_daymet()` function from the `daymetr` package^[[daymetr vignette](https://cran.r-project.org/web/packages/daymetr/vignettes/daymetr-vignette.html)] that allows us to download all the weather variables for a specified geographic location and time period^[See [here]() for a fuller explanation of how to use the `daymetr` package.]. We write a wrapper function that downloads Daymet data and then processes it to find monthly total precipitation and mean maximum temperature^[This may not be ideal for a real research project because the original raw data is not kept. It is often the case that your econometric plan changes on the course of your project (e.g., using other weather variables or using different temporal aggregation of weather variables instead of monthly aggregation). When this happens, you need to download the same data all over again.]. We then loop over the `r nrow(gw_KS_sf)` wells, which is parallelized using the `future_apply()` function^[For parallelized computation, see Chapter \@ref(par-comp)] from the `future.apply` package. This process takes about an hour on my Mac with parallelization on 7 cores. The data is available in the data repository for this course (named as "all_daymet.rds"). 
+
+```{r Demo5_getdaymet}
+#--- get the geographic coordinates of the wells ---#
+well_locations <-
+  gw_KS_sf %>%
+  unique(by = "well_id") %>%
+  dplyr::select(well_id) %>%
+  cbind(., st_coordinates(.))
+
+#--- define a function that downloads Daymet data by well and process it ---#
+get_daymet <- function(i) {
+  temp_site <- well_locations[i, ]$well_id
+  temp_long <- well_locations[i, ]$X
+  temp_lat <- well_locations[i, ]$Y
+
+  data_temp <-
+    download_daymet(
+      site = temp_site,
+      lat = temp_lat,
+      lon = temp_long,
+      start = 2010,
+      end = 2011,
+      #--- if TRUE, tidy data is returned ---#
+      simplify = TRUE,
+      #--- if TRUE, the downloaded data can be assigned to an R object ---#
+      internal = TRUE
+    ) %>%
+    data.table() %>%
+    #--- keep only precip and tmax ---#
+    .[measurement %in% c("prcp..mm.day.", "tmax..deg.c."), ] %>%
+    #--- recover calender date from Julian day ---#
+    .[, date := as.Date(paste(year, yday, sep = "-"), "%Y-%j")] %>%
+    #--- get month ---#
+    .[, month := month(date)] %>%
+    #--- keep only April through September ---#
+    .[month %in% 4:9, ] %>%
+    .[, .(site, year, month, date, measurement, value)] %>%
+    #--- long to wide ---#
+    dcast(site + year + month + date ~ measurement, value.var = "value") %>%
+    #--- change variable names ---#
+    setnames(c("prcp..mm.day.", "tmax..deg.c."), c("prcp", "tmax")) %>%
+    #--- find the total precip and mean tmax by month-year ---#
+    .[, .(prcp = sum(prcp), tmax = mean(tmax)), by = .(month, year)] %>%
+    .[, well_id := temp_site]
+
+  return(data_temp)
+  gc()
+}
+```
+
+Here is what one run (for the first well) of `get_daymet()` returns 
+
+```{r Demo5_one_run}
+#--- one run ---#
+(
+  returned_data <- get_daymet(1)[]
+)
+```
+
+We get the number of cores you can use by `RhpcBLASctl::get_num_procs()` and parallelize the loop over wells using `future_lapply()`.^[For Mac users, `mclapply` or `pbmclapply` (`mclapply` with progress bar) are good alternatives.]
+
+```{r eval = FALSE}
+#--- prepare for parallelization ---#
+num_cores <- get_num_procs() - 1 # number of cores
+plan(multiprocess, workers = num_cores) # set up cores
+
+#--- run get_daymet with parallelization ---#
+(
+  all_daymet <-
+    future_lapply(
+      1:nrow(well_locations),
+      get_daymet
+    ) %>%
+    rbindlist()
+)
+```
+
+```{r all_daymet_read, echo = FALSE}
+all_daymet <- readRDS("Data/all_daymet.rds")
+all_daymet
+```
+
+---
+
+Before merging the Daymet data, we need to reshape the data into a wide format to get monthly precipitation and maximum temperature as columns.  
+
+```{r Demo5_long_wide}
+#--- long to wide ---#
+daymet_to_merge <-
+  all_daymet %>%
+  dcast(
+    well_id + year ~ month,
+    value.var = c("prcp", "tmax")
+  )
+
+#--- take a look ---#
+daymet_to_merge
+```
+
+Now, let's merge the weather data to the groundwater pumping dataset.
+
+```{r Demo5_merge_weather}
+(
+  reg_data <-
+    data.table(gw_KS_sf) %>%
+    #--- keep only the relevant variables ---#
+    .[, .(well_id, year, af_used)] %>%
+    #--- join ---#
+    daymet_to_merge[., on = c("well_id", "year")]
+)
+```
+
+---
+
+Let's run regression and display the results.
+
+```{r Demo5_reg_display}
+#--- run FE ---#
+reg_results <-
+  fixest::feols(
+    af_used ~ # dependent variable
+      prcp_4 + prcp_5 + prcp_6 + prcp_7 + prcp_8 + prcp_9
+        + tmax_4 + tmax_5 + tmax_6 + tmax_7 + tmax_8 + tmax_9 |
+        well_id + year, # FEs
+    cluster = "well_id",
+    data = reg_data
+  )
+
+#--- display regression results ---#
+modelsummary::modelsummary(
+  reg_results,
+  stars = TRUE,
+  gof_omit = "IC|Log|Adj|Within|Pseudo"
+)
+```
+
+That's it. Do not bother to try to read into the regression results. Again, this is just an illustration of how R can be used to prepare a regression-ready dataset with spatial variables.
+

@@ -13,9 +13,7 @@ description: "This is a book for Economists who regularly use spatial datasets f
 
 # Welcome {-}
 
-
-
-This book is being developed as part of my effort to put together course materials for my data science course targeted at upper-level undergraduate and graduate students at the University of Nebraska Lincoln. This book aims particularly at **spatial data processing for econometric projects**, where spatial variables become part of an econometric analysis. Over the years, I have seen many students and researchers who spend so much time just processing spatial data (often involving clicking the ArcGIS (or QGIS) user interface to death), which is a waste of time from the perspective of academic productivity. My hope is that this book will help researchers become more proficient in spatial data processing and enhance the overall productivity of the fields of economics for which spatial data are essential. 
+This book aims particularly at **spatial data processing for econometric projects**, where spatial variables become part of an econometric analysis. Over the years, I have seen many students and researchers who spend so much time just processing spatial data (often involving clicking the ArcGIS (or QGIS) user interface to death), which is a waste of time from the perspective of academic productivity. My hope is that this book helps researchers become more proficient in spatial data processing and enhance the overall productivity of the fields of economics for which spatial data are essential. 
 
 **About me**
 
@@ -25,6 +23,7 @@ I am an Associate Professor at the Department of Agricultural Economics at the U
 
 Here is the list of contributors to the book and the parts they contributed to: 
 
++ **Kyle Butts**, PhD candidate, University of Colorado Boulder
 + **Bowen Chen**, Data Scientist, Bunge, Missouri
 	* Section \@ref(CropScapeR)
 + **Shinya Uryu**, Assistant Professor, Center for Design-Oriented AI Education and Research, Tokushima University, Japan (github account: <https://github.com/uribo>)  
@@ -55,7 +54,7 @@ Here, I compare them briefly and discuss why R is a good option.
 
 ### R vs Python {-}
 
-Both R and Python are actually heavily dependent on open source software GDAL and GEOS for their core GIS operations (GDAL for reading spatial data, and GEOS for geometrical operations like intersecting two spatial layers).^[For example, see the very first sentence of [this page](https://cran.r-project.org/web/packages/sf/index.html)] So, when you run GIS tasks on R or Python you basically tell R or Python what you want to do and they talk to the software, let it do the job, and return the results to you. This means that R and Python are not much different in their capability at GIS tasks as they are dependent on the common open source software for many GIS tasks. When GDAL and GEOS get better, R and Python get better (with a short lag all thanks to those who make updates available on R). Both of them have good spatial visualization tools as well. Moreover, both R and Python can communicate with QGIS and ArcGIS (as long you as have them installed of course) and use their functionalities from within R and Python via the bridging packages: `RQGIS` and `PyQGIS` for QGIS, and `R-ArcGIS` and `ArcPy`.^[We do not learn them in this lecture note because I do not see much benefits of using them.] So, if you are more familiar with Python than R, go ahead and go with Python. From now on, my discussions assume that you are going for the R option, as otherwise, you would not be reading the rest of the book anyway.
+Both R and Python are actually heavily dependent on open source software GDAL and GEOS for their core GIS operations (GDAL for reading spatial data, and GEOS for geometrical operations like intersecting two spatial layers).^[For example, see the very first sentence of [this page](https://cran.r-project.org/web/packages/sf/index.html)] So, when you run GIS tasks on R or Python you basically tell R or Python what you want to do and they talk to the software, let it do the job, and return the results to you. This means that R and Python are not much different in their capability at GIS tasks as they are dependent on the common open source software for many GIS tasks. When GDAL and GEOS get better, R and Python get better (with a short lag all thanks to those who make updates available on R). Both of them have good spatial visualization tools as well. Moreover, both R and Python can communicate with QGIS and ArcGIS (as long as you have them installed of course) and use their functionalities from within R and Python via the bridging packages: `RQGIS` and `PyQGIS` for QGIS, and `R-ArcGIS` and `ArcPy`.^[We do not learn them in this lecture note because I do not see much benefits of using them.] So, if you are more familiar with Python than R, go ahead and go with Python. From now on, my discussions assume that you are going for the R option, as otherwise, you would not be reading the rest of the book anyway.
 
 ### R vs ArcGIS or QGIS {-}
 
@@ -112,7 +111,7 @@ We are seeing an explosion of online (and free) resources that teach how to use 
 + [Geospatial Health Data: Modeling and Visualization with R-INLA and Shiny](https://www.paulamoraga.com/book-geospatial/)
 <!-- + [Nick Eubank](https://www.nickeubank.com/gis-in-r/) -->
 
-Thanks to all these resources, it has become much easier to self-teach R for GIS work than six or seven years ago when I first started using R for GIS. Even though I have not read through all these resources carefully, I am pretty sure every topic found in this book can also be found _somewhere_ in these resources (except the demonstrations). So, you may wonder why on earth you can benefit from reading this book. It all boils down to search costs. Researchers in different disciplines require different sets of spatial data skills. The available resources are typically very general covering so many topics, some of which economists are unlikely to use. It is particularly hard for those who do not have much experience in GIS to identify whether particular skills are essential or not. So, they could spend so much time learning something that is not really useful. The value of this book lies in its deliberate incomprehensiveness. It only packages materials that satisfy the need of most economists, cutting out many topics that are likely to be of limited use for economists. 
+Thanks to all these resources, it has become much easier to self-teach R for GIS work than 10 years ago when I first started using R for GIS. Even though I have not read through all these resources carefully, I am pretty sure every topic found in this book can also be found _somewhere_ in these resources (except the demonstrations). So, you may wonder why on earth you can benefit from reading this book. It all boils down to search costs. Researchers in different disciplines require different sets of spatial data skills. The available resources are typically very general covering so many topics, some of which economists are unlikely to use. It is particularly hard for those who do not have much experience in GIS to identify whether particular skills are essential or not. So, they could spend so much time learning something that is not really useful. The value of this book lies in its deliberate incomprehensiveness. It only packages materials that satisfy the need of most economists, cutting out many topics that are likely to be of limited use for economists. 
 
 For those who are looking for more comprehensive treatments of spatial data handling and processing in one book, I personally like [Geocomputation with R](https://geocompr.robinlovelace.net/) a lot. Increasingly, the developer of R packages created a website dedicated to their R packages, where you can often find vignettes (tutorials), like [Simple Features for R](https://r-spatial.github.io/sf/). 
 
@@ -142,6 +141,7 @@ The book starts with the very basics of spatial data handling (e.g., importing a
 	* import and export raster data
 	* stack raster data
 	* quick plotting
+	* handle netCDF files
 + Chapter 5: Spatial interactions of vector and raster datasets
 	* cropping a raster layer to the geographic extent of a vector layer 
 	* extracting values from a raster layer to a vector layer
@@ -159,7 +159,7 @@ The book starts with the very basics of spatial data handling (e.g., importing a
 	* USGS (`dataRetrieval`) - under construction
 	* Sentinel 2 (`sen2r`) - under construction
 	* Census (`tidycensus`) - under construction
-+ Appendix A: Loop and parallel computation (available)
++ Appendix A: Loop and parallel computation 
 + Appendix B: Cheatsheet - under construction
 
 As you can see above, this book does not spend any time on the very basics of GIS concepts. Before you start reading the book, you should know the followings at least (it's not much): 

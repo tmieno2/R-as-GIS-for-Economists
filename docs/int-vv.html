@@ -7,7 +7,7 @@
 <title>Chapter 3 Spatial Interactions of Vector Data: Subsetting and Joining | R as GIS for Economists</title>
 <meta name="author" content="Taro Mieno">
 <meta name="description" content="Before you start In this chapter we learn the spatial interactions of two spatial objects. We first look at the topological relations of two spatial objects (how they are spatially related with...">
-<meta name="generator" content="bookdown 0.25 with bs4_book()">
+<meta name="generator" content="bookdown 0.27 with bs4_book()">
 <meta property="og:title" content="Chapter 3 Spatial Interactions of Vector Data: Subsetting and Joining | R as GIS for Economists">
 <meta property="og:type" content="book">
 <meta property="og:description" content="Before you start In this chapter we learn the spatial interactions of two spatial objects. We first look at the topological relations of two spatial objects (how they are spatially related with...">
@@ -16,25 +16,25 @@
 <meta name="twitter:description" content="Before you start In this chapter we learn the spatial interactions of two spatial objects. We first look at the topological relations of two spatial objects (how they are spatially related with...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/_Lato-0.4.0/font.css" rel="stylesheet">
-<link href="libs/_Roboto%20Mono-0.4.0/font.css" rel="stylesheet">
-<link href="libs/_Montserrat-0.4.0/font.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/_Lato-0.4.1/font.css" rel="stylesheet">
+<link href="libs/_Roboto%20Mono-0.4.1/font.css" rel="stylesheet">
+<link href="libs/_Montserrat-0.4.1/font.css" rel="stylesheet">
 <script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 <script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
 <script src="libs/leaflet-1.3.1/leaflet.js"></script><link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
 <script src="libs/proj4-2.6.2/proj4.min.js"></script><script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script><link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
 <script src="libs/leaflet-binding-2.1.1/leaflet.js"></script><script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script><script src="libs/leaflet-providers-plugin-2.1.1/leaflet-providers-plugin.js"></script><link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
-<script src="libs/datatables-binding-0.21/datatables.js"></script><link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
+<script src="libs/datatables-binding-0.23/datatables.js"></script><link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
 <link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet">
 <script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script><link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
 <script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script><link href="style.css" rel="stylesheet" type="text/css">
-<!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-59758608-3"></script><script>
+<!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-45VKT2HZSL"></script><script>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
+      function gtag() { dataLayer.push(arguments); }
       gtag('js', new Date());
 
-      gtag('config', 'UA-59758608-3');
+      gtag('config', 'G-45VKT2HZSL');
     </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
     
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
@@ -133,38 +133,38 @@
 </ul>
 <p><strong>Packages</strong></p>
 <p>Run the following code to install or load (if already installed) the <code>pacman</code> package, and then install or load (if already installed) the listed package inside the <code><a href="https://rdrr.io/pkg/pacman/man/p_load.html">pacman::p_load()</a></code> function.</p>
-<div class="sourceCode" id="cb212"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="st"><a href="https://github.com/trinker/pacman">"pacman"</a></span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"pacman"</span><span class="op">)</span>
-<span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span>
-  <span class="va">sf</span>, <span class="co"># vector data operations</span>
-  <span class="va">dplyr</span>, <span class="co"># data wrangling</span>
-  <span class="va">data.table</span>, <span class="co"># data wrangling</span>
-  <span class="va">ggplot2</span>, <span class="co"># for map creation</span>
-  <span class="va">tmap</span> <span class="co"># for map creation</span>
-<span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb238"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="st"><a href="https://github.com/trinker/pacman">"pacman"</a></span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"pacman"</span><span class="op">)</span></span>
+<span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span></span>
+<span>  <span class="va">sf</span>, <span class="co"># vector data operations</span></span>
+<span>  <span class="va">dplyr</span>, <span class="co"># data wrangling</span></span>
+<span>  <span class="va">data.table</span>, <span class="co"># data wrangling</span></span>
+<span>  <span class="va">ggplot2</span>, <span class="co"># for map creation</span></span>
+<span>  <span class="va">tmap</span> <span class="co"># for map creation</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div id="topo" class="section level2" number="3.1">
 <h2>
 <span class="header-section-number">3.1</span> Topological relations<a class="anchor" aria-label="anchor" href="#topo"><i class="fas fa-link"></i></a>
 </h2>
-<p>Before we learn spatial subsetting and joining, we first look at topological relations. Topological relations refer to the way multiple spatial objects are spatially related to one another. You can identify various types of spatial relations using the <code>sf</code> package. Our main focus is on the intersections of spatial objects, which can be found using <code>st_intersects()</code><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;I would say it is very rare that you use other topological relations like &lt;code&gt;st_within()&lt;/code&gt; or &lt;code&gt;st_touches()&lt;/code&gt;.&lt;/p&gt;"><sup>56</sup></a>. We also briefly cover <code>st_is_within_distance()</code>. If you are interested in other topological relations, run <code>?geos_binary_pred</code>.</p>
+<p>Before we learn spatial subsetting and joining, we first look at topological relations. Topological relations refer to the way multiple spatial objects are spatially related to one another. You can identify various types of spatial relations using the <code>sf</code> package. Our main focus is on the intersections of spatial objects, which can be found using <code>st_intersects()</code><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;I would say it is very rare that you use other topological relations like &lt;code&gt;st_within()&lt;/code&gt; or &lt;code&gt;st_touches()&lt;/code&gt;.&lt;/p&gt;"><sup>60</sup></a>. We also briefly cover <code>st_is_within_distance()</code>. If you are interested in other topological relations, run <code>?geos_binary_pred</code>.</p>
 <hr>
 <p>We first create <code>sf</code> objects we are going to use for illustrations.</p>
 <p><strong>POINTS</strong></p>
-<div class="sourceCode" id="cb213"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#--- create points ---#</span>
-<span class="va">point_1</span> <span class="op">&lt;-</span> <span class="fu">st_point</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>
-<span class="va">point_2</span> <span class="op">&lt;-</span> <span class="fu">st_point</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
-<span class="va">point_3</span> <span class="op">&lt;-</span> <span class="fu">st_point</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span>
-
-<span class="co">#--- combine the points to make a single  sf of points ---#</span>
-<span class="op">(</span>
-<span class="va">points</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">point_1</span>, <span class="va">point_2</span>, <span class="va">point_3</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">st_sfc</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">st_as_sf</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">mutate</span><span class="op">(</span>point_name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"point 1"</span>, <span class="st">"point 2"</span>, <span class="st">"point 3"</span><span class="op">)</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb239"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#--- create points ---#</span></span>
+<span><span class="va">point_1</span> <span class="op">&lt;-</span> <span class="fu">st_point</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">point_2</span> <span class="op">&lt;-</span> <span class="fu">st_point</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">point_3</span> <span class="op">&lt;-</span> <span class="fu">st_point</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#--- combine the points to make a single  sf of points ---#</span></span>
+<span><span class="op">(</span></span>
+<span><span class="va">points</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">point_1</span>, <span class="va">point_2</span>, <span class="va">point_3</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">st_sfc</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">st_as_sf</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>point_name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"point 1"</span>, <span class="st">"point 2"</span>, <span class="st">"point 3"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code>Simple feature collection with 3 features and 1 field
 Geometry type: POINT
 Dimension:     XY
@@ -176,18 +176,18 @@ CRS:           NA
 3 POINT (1 3)    point 3</code></pre>
 <hr>
 <p><strong>LINES</strong></p>
-<div class="sourceCode" id="cb215"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#--- create points ---#</span>
-<span class="va">line_1</span> <span class="op">&lt;-</span> <span class="fu">st_linestring</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2.5</span>, <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
-<span class="va">line_2</span> <span class="op">&lt;-</span> <span class="fu">st_linestring</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1.5</span>, <span class="fl">0.5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2.5</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
-
-<span class="co">#--- combine the points to make a single  sf of points ---#</span>
-<span class="op">(</span>
-<span class="va">lines</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">line_1</span>, <span class="va">line_2</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">st_sfc</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">st_as_sf</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">mutate</span><span class="op">(</span>line_name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"line 1"</span>, <span class="st">"line 2"</span><span class="op">)</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb241"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#--- create points ---#</span></span>
+<span><span class="va">line_1</span> <span class="op">&lt;-</span> <span class="fu">st_linestring</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2.5</span>, <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">line_2</span> <span class="op">&lt;-</span> <span class="fu">st_linestring</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1.5</span>, <span class="fl">0.5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2.5</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#--- combine the points to make a single  sf of points ---#</span></span>
+<span><span class="op">(</span></span>
+<span><span class="va">lines</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">line_1</span>, <span class="va">line_2</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">st_sfc</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">st_as_sf</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>line_name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"line 1"</span>, <span class="st">"line 2"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code>Simple feature collection with 2 features and 1 field
 Geometry type: LINESTRING
 Dimension:     XY
@@ -198,27 +198,27 @@ CRS:           NA
 2 LINESTRING (1.5 0.5, 2.5 2)    line 2</code></pre>
 <hr>
 <p><strong>POLYGONS</strong></p>
-<div class="sourceCode" id="cb217"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#--- create polygons ---#</span>
-<span class="va">polygon_1</span> <span class="op">&lt;-</span> <span class="fu">st_polygon</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">0</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span> 
-<span class="op">)</span><span class="op">)</span>
-
-<span class="va">polygon_2</span> <span class="op">&lt;-</span> <span class="fu">st_polygon</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">1.5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">3.5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2.5</span>, <span class="fl">3.5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2.5</span>, <span class="fl">1.5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">1.5</span><span class="op">)</span><span class="op">)</span> 
-<span class="op">)</span><span class="op">)</span>
-
-<span class="va">polygon_3</span> <span class="op">&lt;-</span> <span class="fu">st_polygon</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">2.5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">3.2</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2.3</span>, <span class="fl">3.2</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">2.5</span><span class="op">)</span><span class="op">)</span> 
-<span class="op">)</span><span class="op">)</span>
-
-<span class="co">#--- combine the polygons to make an sf of polygons ---#</span>
-<span class="op">(</span>
-<span class="va">polygons</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">polygon_1</span>, <span class="va">polygon_2</span>, <span class="va">polygon_3</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">st_sfc</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">st_as_sf</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">mutate</span><span class="op">(</span>polygon_name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"polygon 1"</span>, <span class="st">"polygon 2"</span>, <span class="st">"polygon 3"</span><span class="op">)</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb243"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#--- create polygons ---#</span></span>
+<span><span class="va">polygon_1</span> <span class="op">&lt;-</span> <span class="fu">st_polygon</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">0</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span> </span>
+<span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">polygon_2</span> <span class="op">&lt;-</span> <span class="fu">st_polygon</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">1.5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">3.5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2.5</span>, <span class="fl">3.5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2.5</span>, <span class="fl">1.5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">1.5</span><span class="op">)</span><span class="op">)</span> </span>
+<span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">polygon_3</span> <span class="op">&lt;-</span> <span class="fu">st_polygon</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">2.5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">3.2</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2.3</span>, <span class="fl">3.2</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">2.5</span><span class="op">)</span><span class="op">)</span> </span>
+<span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#--- combine the polygons to make an sf of polygons ---#</span></span>
+<span><span class="op">(</span></span>
+<span><span class="va">polygons</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">polygon_1</span>, <span class="va">polygon_2</span>, <span class="va">polygon_3</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">st_sfc</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">st_as_sf</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>polygon_name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"polygon 1"</span>, <span class="st">"polygon 2"</span>, <span class="st">"polygon 3"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code>Simple feature collection with 3 features and 1 field
 Geometry type: POLYGON
 Dimension:     XY
@@ -230,14 +230,14 @@ CRS:           NA
 3 POLYGON ((0.5 2.5, 0.5 3.2,...    polygon 3</code></pre>
 <hr>
 <p>Figure <a href="int-vv.html#fig:plot-point-polygons">3.1</a> shows how they look:</p>
-<div class="sourceCode" id="cb219"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">polygons</span>, <span class="fu">aes</span><span class="op">(</span>fill <span class="op">=</span> <span class="va">polygon_name</span><span class="op">)</span>, alpha <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">scale_fill_discrete</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Polygons"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">lines</span>, <span class="fu">aes</span><span class="op">(</span>color <span class="op">=</span> <span class="va">line_name</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">scale_color_discrete</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Lines"</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">points</span>, <span class="fu">aes</span><span class="op">(</span>shape <span class="op">=</span> <span class="va">point_name</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">scale_shape_discrete</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Points"</span><span class="op">)</span>  </code></pre></div>
+<div class="sourceCode" id="cb245"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">polygons</span>, <span class="fu">aes</span><span class="op">(</span>fill <span class="op">=</span> <span class="va">polygon_name</span><span class="op">)</span>, alpha <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_fill_discrete</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Polygons"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">lines</span>, <span class="fu">aes</span><span class="op">(</span>color <span class="op">=</span> <span class="va">line_name</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_color_discrete</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Lines"</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">points</span>, <span class="fu">aes</span><span class="op">(</span>shape <span class="op">=</span> <span class="va">point_name</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_shape_discrete</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Points"</span><span class="op">)</span>  </span></code></pre></div>
 <div class="figure">
 <span style="display:block;" id="fig:plot-point-polygons"></span>
 <img src="R_GIS_Book_files/figure-html/plot-point-polygons-1.png" alt="Visualization of the points, lines, and polygons" width="672"><p class="caption">
@@ -251,8 +251,8 @@ Figure 3.1: Visualization of the points, lines, and polygons
 <p>This function identifies which <code>sfg</code> object in an <code>sf</code> (or <code>sfc</code>) intersects with <code>sfg</code> object(s) in another <code>sf</code>. For example, you can use the function to identify which well is located within which county. <code>st_intersects()</code> is the most commonly used topological relation. It is important to understand what it does as it is the default topological relation used when performing spatial subsetting and joining, which we will cover later.</p>
 <hr>
 <p><strong>points and polygons</strong></p>
-<div class="sourceCode" id="cb220"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">st_intersects</span><span class="op">(</span><span class="va">points</span>, <span class="va">polygons</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb246"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">st_intersects</span><span class="op">(</span><span class="va">points</span>, <span class="va">polygons</span><span class="op">)</span></span></code></pre></div>
 <pre><code>Sparse geometry binary predicate list of length 3, where the predicate
 was `intersects'
  1: 1, 2, 3
@@ -260,16 +260,16 @@ was `intersects'
  3: 2, 3</code></pre>
 <p>As you can see, the output is a list of which polygon(s) each of the points intersect with. The numbers 1, 2, and 3 in the first row mean that 1st (polygon 1), 2nd (polygon 2), and 3rd (polygon 3) objects of the <code>polygons</code> intersect with the first point (point 1) of the <code>points</code> object. The fact that point 1 is considered to be intersecting with polygon 2 means that the area inside the border is considered a part of the polygon (of course).</p>
 <p>If you would like the results of <code>st_intersects()</code> in a matrix form with boolean values filling the matrix, you can add <code>sparse = FALSE</code> option.</p>
-<div class="sourceCode" id="cb222"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">st_intersects</span><span class="op">(</span><span class="va">points</span>, <span class="va">polygons</span>, sparse <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb248"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">st_intersects</span><span class="op">(</span><span class="va">points</span>, <span class="va">polygons</span>, sparse <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <pre><code>      [,1]  [,2]  [,3]
 [1,]  TRUE  TRUE  TRUE
 [2,]  TRUE FALSE FALSE
 [3,] FALSE  TRUE  TRUE</code></pre>
 <hr>
 <p><strong>lines and polygons</strong></p>
-<div class="sourceCode" id="cb224"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">st_intersects</span><span class="op">(</span><span class="va">lines</span>, <span class="va">polygons</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb250"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">st_intersects</span><span class="op">(</span><span class="va">lines</span>, <span class="va">polygons</span><span class="op">)</span></span></code></pre></div>
 <pre><code>Sparse geometry binary predicate list of length 2, where the predicate
 was `intersects'
  1: 1
@@ -278,8 +278,8 @@ was `intersects'
 <hr>
 <p><strong>polygons and polygons</strong></p>
 <p>For polygons vs polygons interaction, <code>st_intersects()</code> identifies any polygons that either touches (even at a point like polygons 1 and 3) or share some area.</p>
-<div class="sourceCode" id="cb226"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">st_intersects</span><span class="op">(</span><span class="va">polygons</span>, <span class="va">polygons</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb252"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">st_intersects</span><span class="op">(</span><span class="va">polygons</span>, <span class="va">polygons</span><span class="op">)</span></span></code></pre></div>
 <pre><code>Sparse geometry binary predicate list of length 3, where the predicate
 was `intersects'
  1: 1, 2, 3
@@ -290,23 +290,23 @@ was `intersects'
 <h3>
 <span class="header-section-number">3.1.2</span> st_is_within_distance()<a class="anchor" aria-label="anchor" href="#st_is_within_distance"><i class="fas fa-link"></i></a>
 </h3>
-<p>This function identifies whether two spatial objects are within the distance you specify as the name suggests<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;This function can be useful to identify neighbors. For example, you may want to find irrigation wells located around well &lt;span class="math inline"&gt;\(i\)&lt;/span&gt; to label them as well &lt;span class="math inline"&gt;\(i\)&lt;/span&gt;’s neighbor.&lt;/p&gt;'><sup>57</sup></a>.</p>
+<p>This function identifies whether two spatial objects are within the distance you specify as the name suggests<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;This function can be useful to identify neighbors. For example, you may want to find irrigation wells located around well &lt;span class="math inline"&gt;\(i\)&lt;/span&gt; to label them as well &lt;span class="math inline"&gt;\(i\)&lt;/span&gt;’s neighbor.&lt;/p&gt;'><sup>61</sup></a>.</p>
 <p>Let’s first create two sets of points.</p>
-<div class="sourceCode" id="cb228"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">38424738</span><span class="op">)</span>
-
-<span class="va">points_set_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">st_point</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">st_sfc</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">st_as_sf</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">mutate</span><span class="op">(</span>id <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span><span class="op">)</span>
-
-<span class="va">points_set_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">st_point</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">st_sfc</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">st_as_sf</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">mutate</span><span class="op">(</span>id <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb254"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">38424738</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">points_set_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">st_point</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">st_sfc</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">st_as_sf</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>id <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">points_set_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">st_point</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">st_sfc</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">st_as_sf</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>id <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>Here is how they are spatially distributed (Figure <a href="int-vv.html#fig:map-points-points-points">3.2</a>). Instead of circles of points, their corresponding <code>id</code> (or equivalently row number here) values are displayed.</p>
-<div class="sourceCode" id="cb229"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_sf_text</span><span class="op">(</span>data <span class="op">=</span> <span class="va">points_set_1</span>, <span class="fu">aes</span><span class="op">(</span>label <span class="op">=</span> <span class="va">id</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_sf_text</span><span class="op">(</span>data <span class="op">=</span> <span class="va">points_set_2</span>, <span class="fu">aes</span><span class="op">(</span>label <span class="op">=</span> <span class="va">id</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span> </code></pre></div>
+<div class="sourceCode" id="cb255"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf_text</span><span class="op">(</span>data <span class="op">=</span> <span class="va">points_set_1</span>, <span class="fu">aes</span><span class="op">(</span>label <span class="op">=</span> <span class="va">id</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf_text</span><span class="op">(</span>data <span class="op">=</span> <span class="va">points_set_2</span>, <span class="fu">aes</span><span class="op">(</span>label <span class="op">=</span> <span class="va">id</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span> </span></code></pre></div>
 <div class="figure">
 <span style="display:block;" id="fig:map-points-points-points"></span>
 <img src="R_GIS_Book_files/figure-html/map-points-points-points-1.png" alt="The locations of the set of points" width="672"><p class="caption">
@@ -314,14 +314,14 @@ Figure 3.2: The locations of the set of points
 </p>
 </div>
 <p>We want to know which of the blue points (<code>points_set_2</code>) are located within 0.2 from each of the red points (<code>points_set_1</code>). The following figure (Figure <a href="int-vv.html#fig:points-points-within">3.3</a>) gives us the answer visually.</p>
-<div class="sourceCode" id="cb230"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#--- create 0.2 buffers around points in points_set_1 ---#</span>
-<span class="va">buffer_1</span> <span class="op">&lt;-</span> <span class="fu">st_buffer</span><span class="op">(</span><span class="va">points_set_1</span>, dist <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span>
-
-<span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">buffer_1</span>, color <span class="op">=</span> <span class="st">"red"</span>, fill <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_sf_text</span><span class="op">(</span>data <span class="op">=</span> <span class="va">points_set_1</span>, <span class="fu">aes</span><span class="op">(</span>label <span class="op">=</span> <span class="va">id</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_sf_text</span><span class="op">(</span>data <span class="op">=</span> <span class="va">points_set_2</span>, <span class="fu">aes</span><span class="op">(</span>label <span class="op">=</span> <span class="va">id</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span> </code></pre></div>
+<div class="sourceCode" id="cb256"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#--- create 0.2 buffers around points in points_set_1 ---#</span></span>
+<span><span class="va">buffer_1</span> <span class="op">&lt;-</span> <span class="fu">st_buffer</span><span class="op">(</span><span class="va">points_set_1</span>, dist <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">buffer_1</span>, color <span class="op">=</span> <span class="st">"red"</span>, fill <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf_text</span><span class="op">(</span>data <span class="op">=</span> <span class="va">points_set_1</span>, <span class="fu">aes</span><span class="op">(</span>label <span class="op">=</span> <span class="va">id</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf_text</span><span class="op">(</span>data <span class="op">=</span> <span class="va">points_set_2</span>, <span class="fu">aes</span><span class="op">(</span>label <span class="op">=</span> <span class="va">id</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span> </span></code></pre></div>
 <div class="figure">
 <span style="display:block;" id="fig:points-points-within"></span>
 <img src="R_GIS_Book_files/figure-html/points-points-within-1.png" alt="The blue points within 0.2 radius of the red points" width="672"><p class="caption">
@@ -329,8 +329,8 @@ Figure 3.3: The blue points within 0.2 radius of the red points
 </p>
 </div>
 <p>Confirm your visual inspection results with the outcome of the following code using <code>st_is_within_distance()</code> function.</p>
-<div class="sourceCode" id="cb231"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">st_is_within_distance</span><span class="op">(</span><span class="va">points_set_1</span>, <span class="va">points_set_2</span>, dist <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb257"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">st_is_within_distance</span><span class="op">(</span><span class="va">points_set_1</span>, <span class="va">points_set_2</span>, dist <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span></span></code></pre></div>
 <pre><code>Sparse geometry binary predicate list of length 5, where the predicate
 was `is_within_distance'
  1: 1
@@ -346,34 +346,34 @@ was `is_within_distance'
 </h2>
 <p>Spatial subsetting refers to operations that narrow down the geographic scope of a spatial object (source data) based on another spatial object (target data). We illustrate spatial subsetting using Kansas county borders, the boundary of the High-Plains Aquifer (HPA), and agricultural irrigation wells in Kansas.</p>
 <p>First, let’s import all the files we will use in this section.</p>
-<div class="sourceCode" id="cb233"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#--- Kansas county borders ---#</span>
-<span class="va">KS_counties</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span><span class="op">(</span><span class="st">"Data/KS_county_borders.rds"</span><span class="op">)</span>
-
-<span class="co">#--- HPA boundary ---#</span>
-<span class="va">hpa</span> <span class="op">&lt;-</span> <span class="fu">st_read</span><span class="op">(</span>dsn <span class="op">=</span> <span class="st">"Data"</span>, layer <span class="op">=</span> <span class="st">"hp_bound2010"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="va">.</span><span class="op">[</span><span class="fl">1</span>, <span class="op">]</span> <span class="op">%&gt;%</span>
-  <span class="fu">st_transform</span><span class="op">(</span><span class="fu">st_crs</span><span class="op">(</span><span class="va">KS_counties</span><span class="op">)</span><span class="op">)</span>
-
-<span class="co">#--- all the irrigation wells in KS ---#</span>
-<span class="va">KS_wells</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span><span class="op">(</span><span class="st">"Data/Kansas_wells.rds"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">st_transform</span><span class="op">(</span><span class="fu">st_crs</span><span class="op">(</span><span class="va">KS_counties</span><span class="op">)</span><span class="op">)</span>
-
-<span class="co">#--- US railroad ---#</span>
-<span class="va">rail_roads</span> <span class="op">&lt;-</span> <span class="fu">st_read</span><span class="op">(</span>dsn <span class="op">=</span> <span class="st">"Data"</span>, layer <span class="op">=</span> <span class="st">"tl_2015_us_rails"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">st_transform</span><span class="op">(</span><span class="fu">st_crs</span><span class="op">(</span><span class="va">KS_counties</span><span class="op">)</span><span class="op">)</span> </code></pre></div>
+<div class="sourceCode" id="cb259"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#--- Kansas county borders ---#</span></span>
+<span><span class="va">KS_counties</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span><span class="op">(</span><span class="st">"Data/KS_county_borders.rds"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#--- HPA boundary ---#</span></span>
+<span><span class="va">hpa</span> <span class="op">&lt;-</span> <span class="fu">st_read</span><span class="op">(</span>dsn <span class="op">=</span> <span class="st">"Data"</span>, layer <span class="op">=</span> <span class="st">"hp_bound2010"</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="va">.</span><span class="op">[</span><span class="fl">1</span>, <span class="op">]</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">st_transform</span><span class="op">(</span><span class="fu">st_crs</span><span class="op">(</span><span class="va">KS_counties</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#--- all the irrigation wells in KS ---#</span></span>
+<span><span class="va">KS_wells</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span><span class="op">(</span><span class="st">"Data/Kansas_wells.rds"</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">st_transform</span><span class="op">(</span><span class="fu">st_crs</span><span class="op">(</span><span class="va">KS_counties</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#--- US railroad ---#</span></span>
+<span><span class="va">rail_roads</span> <span class="op">&lt;-</span> <span class="fu">st_read</span><span class="op">(</span>dsn <span class="op">=</span> <span class="st">"Data"</span>, layer <span class="op">=</span> <span class="st">"tl_2015_us_rails"</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">st_transform</span><span class="op">(</span><span class="fu">st_crs</span><span class="op">(</span><span class="va">KS_counties</span><span class="op">)</span><span class="op">)</span> </span></code></pre></div>
 <div id="polygons-source-vs-polygons-target" class="section level3" number="3.2.1">
 <h3>
 <span class="header-section-number">3.2.1</span> polygons (source) vs polygons (target)<a class="anchor" aria-label="anchor" href="#polygons-source-vs-polygons-target"><i class="fas fa-link"></i></a>
 </h3>
-<p>The following map (Figure <a href="int-vv.html#fig:overlap-KS-county-HPA">3.4</a>) shows the Kansas portion of the HPA and Kansas counties.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;If you are a Windows user, you may find that only the &lt;code&gt;KS_counties&lt;/code&gt; are shown on the created map. There seems to be a limitation to graphics in Windows. See &lt;a href="https://github.com/tidyverse/ggplot2/issues/4029"&gt;here&lt;/a&gt;.&lt;/p&gt;'><sup>58</sup></a></p>
-<div class="sourceCode" id="cb234"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#--- add US counties layer ---#</span>
-<span class="fu">tm_shape</span><span class="op">(</span><span class="va">KS_counties</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">tm_polygons</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-<span class="co">#--- add High-Plains Aquifer layer ---#</span>
-<span class="fu">tm_shape</span><span class="op">(</span><span class="va">hpa</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">tm_fill</span><span class="op">(</span>col <span class="op">=</span> <span class="st">"blue"</span>, alpha <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span></code></pre></div>
+<p>The following map (Figure <a href="int-vv.html#fig:overlap-KS-county-HPA">3.4</a>) shows the Kansas portion of the HPA and Kansas counties.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;If you are a Windows user, you may find that only the &lt;code&gt;KS_counties&lt;/code&gt; are shown on the created map. There seems to be a limitation to graphics in Windows. See &lt;a href="https://github.com/tidyverse/ggplot2/issues/4029"&gt;here&lt;/a&gt;.&lt;/p&gt;'><sup>62</sup></a></p>
+<div class="sourceCode" id="cb260"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#--- add US counties layer ---#</span></span>
+<span><span class="fu">tm_shape</span><span class="op">(</span><span class="va">KS_counties</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">tm_polygons</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span><span class="co">#--- add High-Plains Aquifer layer ---#</span></span>
+<span><span class="fu">tm_shape</span><span class="op">(</span><span class="va">hpa</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">tm_fill</span><span class="op">(</span>col <span class="op">=</span> <span class="st">"blue"</span>, alpha <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <span style="display:block;" id="fig:overlap-KS-county-HPA"></span>
 <img src="R_GIS_Book_files/figure-html/overlap-KS-county-HPA-1.png" alt="Kansas portion of High-Plains Aquifer and Kansas counties" width="672"><p class="caption">
@@ -381,23 +381,23 @@ Figure 3.4: Kansas portion of High-Plains Aquifer and Kansas counties
 </p>
 </div>
 <p>The goal here is to select only the counties that intersect with the HPA boundary. When subsetting a data.frame by specifying the row numbers you would like to select, you can do</p>
-<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="int-vv.html#cb235-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- this does not run ---#</span></span>
-<span id="cb235-2"><a href="int-vv.html#cb235-2" aria-hidden="true" tabindex="-1"></a>data.frame[vector of row numbers, ]</span></code></pre></div>
+<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="int-vv.html#cb261-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- this does not run ---#</span></span>
+<span id="cb261-2"><a href="int-vv.html#cb261-2" aria-hidden="true" tabindex="-1"></a>data.frame[vector of row numbers, ]</span></code></pre></div>
 <p>Spatial subsetting of sf objects works in a similar syntax:</p>
-<div class="sourceCode" id="cb236"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#--- this does not run ---#</span>
-<span class="va">sf_1</span><span class="op">[</span><span class="va">sf_2</span>, <span class="op">]</span></code></pre></div>
+<div class="sourceCode" id="cb262"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#--- this does not run ---#</span></span>
+<span><span class="va">sf_1</span><span class="op">[</span><span class="va">sf_2</span>, <span class="op">]</span></span></code></pre></div>
 <p>where you are subsetting <code>sf_1</code> based on <code>sf_2</code>. Instead of row numbers, you provide another sf object in place. The following code spatially subsets Kansas counties based on the HPA boundary.</p>
-<div class="sourceCode" id="cb237"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">counties_in_hpa</span> <span class="op">&lt;-</span> <span class="va">KS_counties</span><span class="op">[</span><span class="va">hpa</span>, <span class="op">]</span></code></pre></div>
+<div class="sourceCode" id="cb263"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">counties_in_hpa</span> <span class="op">&lt;-</span> <span class="va">KS_counties</span><span class="op">[</span><span class="va">hpa</span>, <span class="op">]</span></span></code></pre></div>
 <p>See the results below in Figure <a href="int-vv.html#fig:default-subset">3.5</a>.</p>
-<div class="sourceCode" id="cb238"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#--- add US counties layer ---#</span>
-<span class="fu">tm_shape</span><span class="op">(</span><span class="va">counties_in_hpa</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">tm_polygons</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-<span class="co">#--- add High-Plains Aquifer layer ---#</span>
-<span class="fu">tm_shape</span><span class="op">(</span><span class="va">hpa</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">tm_fill</span><span class="op">(</span>col <span class="op">=</span> <span class="st">"blue"</span>, alpha <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb264"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#--- add US counties layer ---#</span></span>
+<span><span class="fu">tm_shape</span><span class="op">(</span><span class="va">counties_in_hpa</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">tm_polygons</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span><span class="co">#--- add High-Plains Aquifer layer ---#</span></span>
+<span><span class="fu">tm_shape</span><span class="op">(</span><span class="va">hpa</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">tm_fill</span><span class="op">(</span>col <span class="op">=</span> <span class="st">"blue"</span>, alpha <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <span style="display:block;" id="fig:default-subset"></span>
 <img src="R_GIS_Book_files/figure-html/default-subset-1.png" alt="The results of spatially subsetting Kansas counties based on HPA boundary" width="672"><p class="caption">
@@ -406,19 +406,19 @@ Figure 3.5: The results of spatially subsetting Kansas counties based on HPA bou
 </div>
 <p>You can see that only the counties that intersect with the HPA boundary remained. This is because when you use the above syntax of <code>sf_1[sf_2, ]</code>, the default underlying topological relations is <code>st_intersects()</code>. So, if an object in <code>sf_1</code> intersects with any of the objects in <code>sf_2</code> even slightly, then it will remain after subsetting.</p>
 <p>You can specify the spatial operation to be used as an option as in</p>
-<div class="sourceCode" id="cb239"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#--- this does not run ---#</span>
-<span class="va">sf_1</span><span class="op">[</span><span class="va">sf_2</span>, op <span class="op">=</span> <span class="va">topological_relation_type</span><span class="op">]</span> </code></pre></div>
+<div class="sourceCode" id="cb265"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#--- this does not run ---#</span></span>
+<span><span class="va">sf_1</span><span class="op">[</span><span class="va">sf_2</span>, op <span class="op">=</span> <span class="va">topological_relation_type</span><span class="op">]</span> </span></code></pre></div>
 <p>For example, if you only want counties that are completely within the HPA boundary, you can do the following (the map of the results in Figure <a href="int-vv.html#fig:within-subset">3.6</a>):</p>
-<div class="sourceCode" id="cb240"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">counties_within_hpa</span> <span class="op">&lt;-</span> <span class="va">KS_counties</span><span class="op">[</span><span class="va">hpa</span>, , op <span class="op">=</span> <span class="va">st_within</span><span class="op">]</span></code></pre></div>
-<div class="sourceCode" id="cb241"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#--- add US counties layer ---#</span>
-<span class="fu">tm_shape</span><span class="op">(</span><span class="va">counties_within_hpa</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">tm_polygons</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-<span class="co">#--- add High-Plains Aquifer layer ---#</span>
-<span class="fu">tm_shape</span><span class="op">(</span><span class="va">hpa</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">tm_fill</span><span class="op">(</span>col <span class="op">=</span> <span class="st">"blue"</span>, alpha <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb266"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">counties_within_hpa</span> <span class="op">&lt;-</span> <span class="va">KS_counties</span><span class="op">[</span><span class="va">hpa</span>, , op <span class="op">=</span> <span class="va">st_within</span><span class="op">]</span></span></code></pre></div>
+<div class="sourceCode" id="cb267"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#--- add US counties layer ---#</span></span>
+<span><span class="fu">tm_shape</span><span class="op">(</span><span class="va">counties_within_hpa</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">tm_polygons</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span><span class="co">#--- add High-Plains Aquifer layer ---#</span></span>
+<span><span class="fu">tm_shape</span><span class="op">(</span><span class="va">hpa</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">tm_fill</span><span class="op">(</span>col <span class="op">=</span> <span class="st">"blue"</span>, alpha <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <span style="display:block;" id="fig:within-subset"></span>
 <img src="R_GIS_Book_files/figure-html/within-subset-1.png" alt="Kansas counties that are completely within the HPA boundary" width="672"><p class="caption">
@@ -427,12 +427,12 @@ Figure 3.6: Kansas counties that are completely within the HPA boundary
 </div>
 <hr>
 <p>Sometimes, you just want to flag whether two spatial objects intersect or not, instead of dropping non-overlapping observations. In that case, you can use <code>st_intersects()</code>.</p>
-<div class="sourceCode" id="cb242"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#--- check the intersections of HPA and counties  ---#</span>
-<span class="va">intersects_hpa</span> <span class="op">&lt;-</span> <span class="fu">st_intersects</span><span class="op">(</span><span class="va">KS_counties</span>, <span class="va">hpa</span>, sparse <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-
-<span class="co">#--- take a look ---#</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">intersects_hpa</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb268"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#--- check the intersections of HPA and counties  ---#</span></span>
+<span><span class="va">intersects_hpa</span> <span class="op">&lt;-</span> <span class="fu">st_intersects</span><span class="op">(</span><span class="va">KS_counties</span>, <span class="va">hpa</span>, sparse <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#--- take a look ---#</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">intersects_hpa</span><span class="op">)</span></span></code></pre></div>
 <pre><code>      [,1]
 [1,] FALSE
 [2,]  TRUE
@@ -440,12 +440,12 @@ Figure 3.6: Kansas counties that are completely within the HPA boundary
 [4,]  TRUE
 [5,]  TRUE
 [6,]  TRUE</code></pre>
-<div class="sourceCode" id="cb244"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#--- assign the index as a variable ---#</span>
-<span class="va">KS_counties</span> <span class="op">&lt;-</span> <span class="fu">mutate</span><span class="op">(</span><span class="va">KS_counties</span>, intersects_hpa  <span class="op">=</span> <span class="va">intersects_hpa</span><span class="op">)</span>
-
-<span class="co">#--- take a look ---#</span>
-<span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/select.html">select</a></span><span class="op">(</span><span class="va">KS_counties</span>, <span class="va">COUNTYFP</span>, <span class="va">intersects_hpa</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb270"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#--- assign the index as a variable ---#</span></span>
+<span><span class="va">KS_counties</span> <span class="op">&lt;-</span> <span class="fu">mutate</span><span class="op">(</span><span class="va">KS_counties</span>, intersects_hpa  <span class="op">=</span> <span class="va">intersects_hpa</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#--- take a look ---#</span></span>
+<span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">KS_counties</span>, <span class="va">COUNTYFP</span>, <span class="va">intersects_hpa</span><span class="op">)</span></span></code></pre></div>
 <pre><code>Simple feature collection with 105 features and 2 fields
 Geometry type: MULTIPOLYGON
 Dimension:     XY
@@ -474,11 +474,11 @@ First 10 features:
 <span class="header-section-number">3.2.2</span> points (source) vs polygons (target)<a class="anchor" aria-label="anchor" href="#points-source-vs-polygons-target"><i class="fas fa-link"></i></a>
 </h3>
 <p>The following map (Figure <a href="int-vv.html#fig:map-wells-county">3.7</a>) shows the Kansas portion of the HPA and all the irrigation wells in Kansas.</p>
-<div class="sourceCode" id="cb246"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">tm_shape</span><span class="op">(</span><span class="va">KS_wells</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">tm_symbols</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span> <span class="op">+</span>
-<span class="fu">tm_shape</span><span class="op">(</span><span class="va">hpa</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">tm_polygons</span><span class="op">(</span>col <span class="op">=</span> <span class="st">"blue"</span>, alpha <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span> </code></pre></div>
+<div class="sourceCode" id="cb272"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">tm_shape</span><span class="op">(</span><span class="va">KS_wells</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">tm_symbols</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span> <span class="op">+</span></span>
+<span><span class="fu">tm_shape</span><span class="op">(</span><span class="va">hpa</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">tm_polygons</span><span class="op">(</span>col <span class="op">=</span> <span class="st">"blue"</span>, alpha <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span> </span></code></pre></div>
 <div class="figure">
 <span style="display:block;" id="fig:map-wells-county"></span>
 <img src="R_GIS_Book_files/figure-html/map-wells-county-1.png" alt="A map of Kansas irrigation wells and HPA" width="672"><p class="caption">
@@ -486,14 +486,14 @@ Figure 3.7: A map of Kansas irrigation wells and HPA
 </p>
 </div>
 <p>We can select only wells that reside within the HPA boundary using the same syntax as the above example.</p>
-<div class="sourceCode" id="cb247"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">KS_wells_in_hpa</span> <span class="op">&lt;-</span> <span class="va">KS_wells</span><span class="op">[</span><span class="va">hpa</span>, <span class="op">]</span></code></pre></div>
+<div class="sourceCode" id="cb273"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">KS_wells_in_hpa</span> <span class="op">&lt;-</span> <span class="va">KS_wells</span><span class="op">[</span><span class="va">hpa</span>, <span class="op">]</span></span></code></pre></div>
 <p>As you can see in Figure <a href="int-vv.html#fig:map-wells-in-hpa">3.8</a> below, only the wells that are inside (or intersect with) the HPA remained because the default topological relation is <code>st_intersects()</code>.</p>
-<div class="sourceCode" id="cb248"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">tm_shape</span><span class="op">(</span><span class="va">KS_wells_in_hpa</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">tm_symbols</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span> <span class="op">+</span>
-<span class="fu">tm_shape</span><span class="op">(</span><span class="va">hpa</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">tm_polygons</span><span class="op">(</span>col <span class="op">=</span> <span class="st">"blue"</span>, alpha <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span> </code></pre></div>
+<div class="sourceCode" id="cb274"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">tm_shape</span><span class="op">(</span><span class="va">KS_wells_in_hpa</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">tm_symbols</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span> <span class="op">+</span></span>
+<span><span class="fu">tm_shape</span><span class="op">(</span><span class="va">hpa</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">tm_polygons</span><span class="op">(</span>col <span class="op">=</span> <span class="st">"blue"</span>, alpha <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span> </span></code></pre></div>
 <div class="figure">
 <span style="display:block;" id="fig:map-wells-in-hpa"></span>
 <img src="R_GIS_Book_files/figure-html/map-wells-in-hpa-1.png" alt="A map of Kansas irrigation wells and HPA" width="672"><p class="caption">
@@ -502,10 +502,10 @@ Figure 3.8: A map of Kansas irrigation wells and HPA
 </div>
 <hr>
 <p>If you just want to flag wells that intersects with HPA instead of dropping the non-intersecting wells, use <code>st_intersects()</code>:</p>
-<div class="sourceCode" id="cb249"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="op">(</span>
-<span class="va">KS_wells</span> <span class="op">&lt;-</span> <span class="fu">mutate</span><span class="op">(</span><span class="va">KS_wells</span>, in_hpa <span class="op">=</span> <span class="fu">st_intersects</span><span class="op">(</span><span class="va">KS_wells</span>, <span class="va">hpa</span>, sparse <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb275"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="op">(</span></span>
+<span><span class="va">KS_wells</span> <span class="op">&lt;-</span> <span class="fu">mutate</span><span class="op">(</span><span class="va">KS_wells</span>, in_hpa <span class="op">=</span> <span class="fu">st_intersects</span><span class="op">(</span><span class="va">KS_wells</span>, <span class="va">hpa</span>, sparse <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code>Simple feature collection with 37647 features and 3 fields
 Geometry type: POINT
 Dimension:     XY
@@ -534,12 +534,12 @@ First 10 features:
 <span class="header-section-number">3.2.3</span> lines (source) vs polygons (target)<a class="anchor" aria-label="anchor" href="#lines_polygons"><i class="fas fa-link"></i></a>
 </h3>
 <p>The following map (Figure <a href="int-vv.html#fig:map-lines-county">3.9</a>) shows the Kansas counties and U.S. railroads.</p>
-<div class="sourceCode" id="cb251"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">tm_shape</span><span class="op">(</span><span class="va">rail_roads</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">tm_lines</span><span class="op">(</span>col <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span> <span class="op">+</span>
-<span class="fu">tm_shape</span><span class="op">(</span><span class="va">KS_counties</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">tm_polygons</span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>  <span class="op">+</span>
-  <span class="fu">tm_layout</span><span class="op">(</span>frame <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> </code></pre></div>
+<div class="sourceCode" id="cb277"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">tm_shape</span><span class="op">(</span><span class="va">rail_roads</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">tm_lines</span><span class="op">(</span>col <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span> <span class="op">+</span></span>
+<span><span class="fu">tm_shape</span><span class="op">(</span><span class="va">KS_counties</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">tm_polygons</span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>  <span class="op">+</span></span>
+<span>  <span class="fu">tm_layout</span><span class="op">(</span>frame <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> </span></code></pre></div>
 <div class="figure">
 <span style="display:block;" id="fig:map-lines-county"></span>
 <img src="R_GIS_Book_files/figure-html/map-lines-county-1.png" alt="U.S. railroads and Kansas county boundaries" width="672"><p class="caption">
@@ -547,15 +547,15 @@ Figure 3.9: U.S. railroads and Kansas county boundaries
 </p>
 </div>
 <p>We can select only railroads that intersect with Kansas.</p>
-<div class="sourceCode" id="cb252"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">railroads_KS</span> <span class="op">&lt;-</span> <span class="va">rail_roads</span><span class="op">[</span><span class="va">KS_counties</span>, <span class="op">]</span></code></pre></div>
+<div class="sourceCode" id="cb278"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">railroads_KS</span> <span class="op">&lt;-</span> <span class="va">rail_roads</span><span class="op">[</span><span class="va">KS_counties</span>, <span class="op">]</span></span></code></pre></div>
 <p>As you can see in Figure <a href="int-vv.html#fig:map-rail-ks">3.10</a> below, only the railroads that intersect with Kansas were selected. Note the lines that go beyond the Kansas boundary are also selected. Remember, the default is <code>st_intersect()</code>. If you would like the lines beyond the state boundary to be cut out but the intersecting parts of those lines to remain, use <code>st_intersection()</code>, which is explained in Chapter <a href="int-vv.html#st-intersection">3.4.1</a>.</p>
-<div class="sourceCode" id="cb253"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">tm_shape</span><span class="op">(</span><span class="va">railroads_KS</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">tm_lines</span><span class="op">(</span>col <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span> <span class="op">+</span>
-<span class="fu">tm_shape</span><span class="op">(</span><span class="va">KS_counties</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">tm_polygons</span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>  <span class="op">+</span>
-  <span class="fu">tm_layout</span><span class="op">(</span>frame <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> </code></pre></div>
+<div class="sourceCode" id="cb279"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">tm_shape</span><span class="op">(</span><span class="va">railroads_KS</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">tm_lines</span><span class="op">(</span>col <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span> <span class="op">+</span></span>
+<span><span class="fu">tm_shape</span><span class="op">(</span><span class="va">KS_counties</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">tm_polygons</span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>  <span class="op">+</span></span>
+<span>  <span class="fu">tm_layout</span><span class="op">(</span>frame <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> </span></code></pre></div>
 <div class="figure">
 <span style="display:block;" id="fig:map-rail-ks"></span>
 <img src="R_GIS_Book_files/figure-html/map-rail-ks-1.png" alt="Railroads that intersect Kansas county boundaries" width="672"><p class="caption">
@@ -563,18 +563,18 @@ Figure 3.10: Railroads that intersect Kansas county boundaries
 </p>
 </div>
 <hr>
-<p>Unlike the previous two cases, multiple objects (lines) are checked against multiple objects (polygons) for intersection<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Of course, this situation arises for a polygons-polygons case as well. The above polygons-polygons example was an exception because &lt;code&gt;hpa&lt;/code&gt; had only one polygon object.&lt;/p&gt;"><sup>59</sup></a>. Therefore, we cannot use the strategy we took above of returning a vector of <code>TRUE</code> or <code>FALSE</code> using the <code>sparse = TRUE</code> option. Here, we count the number of intersecting counties and then assign <code>TRUE</code> if the number is greater than 0.</p>
-<div class="sourceCode" id="cb254"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#--- check the number of intersecting KS counties ---#</span>
-<span class="va">int_mat</span> <span class="op">&lt;-</span> <span class="fu">st_intersects</span><span class="op">(</span><span class="va">rail_roads</span>, <span class="va">KS_counties</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">length</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span><span class="op">(</span><span class="op">)</span> 
-
-<span class="co">#--- railroads ---#</span>
-<span class="va">rail_roads</span> <span class="op">&lt;-</span> <span class="fu">mutate</span><span class="op">(</span><span class="va">rail_roads</span>, intersect_ks  <span class="op">=</span> <span class="va">int_mat</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span>
-
-<span class="co">#--- take a look ---#</span>
-<span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/select.html">select</a></span><span class="op">(</span><span class="va">rail_roads</span>, <span class="va">LINEARID</span>, <span class="va">intersect_ks</span><span class="op">)</span></code></pre></div>
+<p>Unlike the previous two cases, multiple objects (lines) are checked against multiple objects (polygons) for intersection<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Of course, this situation arises for a polygons-polygons case as well. The above polygons-polygons example was an exception because &lt;code&gt;hpa&lt;/code&gt; had only one polygon object.&lt;/p&gt;"><sup>63</sup></a>. Therefore, we cannot use the strategy we took above of returning a vector of <code>TRUE</code> or <code>FALSE</code> using the <code>sparse = TRUE</code> option. Here, we count the number of intersecting counties and then assign <code>TRUE</code> if the number is greater than 0.</p>
+<div class="sourceCode" id="cb280"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#--- check the number of intersecting KS counties ---#</span></span>
+<span><span class="va">int_mat</span> <span class="op">&lt;-</span> <span class="fu">st_intersects</span><span class="op">(</span><span class="va">rail_roads</span>, <span class="va">KS_counties</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">length</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span><span class="op">(</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="co">#--- railroads ---#</span></span>
+<span><span class="va">rail_roads</span> <span class="op">&lt;-</span> <span class="fu">mutate</span><span class="op">(</span><span class="va">rail_roads</span>, intersect_ks  <span class="op">=</span> <span class="va">int_mat</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#--- take a look ---#</span></span>
+<span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">rail_roads</span>, <span class="va">LINEARID</span>, <span class="va">intersect_ks</span><span class="op">)</span></span></code></pre></div>
 <pre><code>Simple feature collection with 180958 features and 2 fields
 Geometry type: MULTILINESTRING
 Dimension:     XY
@@ -584,7 +584,7 @@ First 10 features:
       LINEARID intersect_ks                       geometry
 1  11020239500        FALSE MULTILINESTRING ((-79.47058...
 2  11020239501        FALSE MULTILINESTRING ((-79.46687...
-3  11020239502        FALSE MULTILINESTRING ((-79.66819...
+3  11020239502        FALSE MULTILINESTRING ((-79.6682 ...
 4  11020239503        FALSE MULTILINESTRING ((-79.46687...
 5  11020239504        FALSE MULTILINESTRING ((-79.74031...
 6  11020239575        FALSE MULTILINESTRING ((-79.43695...
@@ -598,12 +598,12 @@ First 10 features:
 <span class="header-section-number">3.2.4</span> polygons (source) vs points (target)<a class="anchor" aria-label="anchor" href="#polygons_points"><i class="fas fa-link"></i></a>
 </h3>
 <p>The following map (Figure <a href="int-vv.html#fig:map-county-point">3.11</a>) shows the Kansas counties and irrigation wells in Kansas that overlie HPA.</p>
-<div class="sourceCode" id="cb256"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">tm_shape</span><span class="op">(</span><span class="va">KS_counties</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">tm_polygons</span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> <span class="op">+</span>
-<span class="fu">tm_shape</span><span class="op">(</span><span class="va">KS_wells_in_hpa</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">tm_symbols</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">tm_layout</span><span class="op">(</span>frame <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb282"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">tm_shape</span><span class="op">(</span><span class="va">KS_counties</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">tm_polygons</span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> <span class="op">+</span></span>
+<span><span class="fu">tm_shape</span><span class="op">(</span><span class="va">KS_wells_in_hpa</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">tm_symbols</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">tm_layout</span><span class="op">(</span>frame <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <span style="display:block;" id="fig:map-county-point"></span>
 <img src="R_GIS_Book_files/figure-html/map-county-point-1.png" alt="Kansas county boundaries and wells that overlie the HPA" width="672"><p class="caption">
@@ -611,15 +611,15 @@ Figure 3.11: Kansas county boundaries and wells that overlie the HPA
 </p>
 </div>
 <p>We can select only counties that intersect with at least one well.</p>
-<div class="sourceCode" id="cb257"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">KS_counties_intersected</span> <span class="op">&lt;-</span> <span class="va">KS_counties</span><span class="op">[</span><span class="va">KS_wells_in_hpa</span>, <span class="op">]</span>  </code></pre></div>
+<div class="sourceCode" id="cb283"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">KS_counties_intersected</span> <span class="op">&lt;-</span> <span class="va">KS_counties</span><span class="op">[</span><span class="va">KS_wells_in_hpa</span>, <span class="op">]</span>  </span></code></pre></div>
 <p>As you can see in Figure <a href="int-vv.html#fig:subset-county-point">3.12</a> below, only the counties that intersect with at least one well remained.</p>
-<div class="sourceCode" id="cb258"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">tm_shape</span><span class="op">(</span><span class="va">KS_counties</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">tm_polygons</span><span class="op">(</span>col <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">+</span>
-<span class="fu">tm_shape</span><span class="op">(</span><span class="va">KS_counties_intersected</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">tm_polygons</span><span class="op">(</span>col <span class="op">=</span><span class="st">"blue"</span>, alpha <span class="op">=</span> <span class="fl">0.6</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">tm_layout</span><span class="op">(</span>frame <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb284"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">tm_shape</span><span class="op">(</span><span class="va">KS_counties</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">tm_polygons</span><span class="op">(</span>col <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">+</span></span>
+<span><span class="fu">tm_shape</span><span class="op">(</span><span class="va">KS_counties_intersected</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">tm_polygons</span><span class="op">(</span>col <span class="op">=</span><span class="st">"blue"</span>, alpha <span class="op">=</span> <span class="fl">0.6</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">tm_layout</span><span class="op">(</span>frame <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <span style="display:block;" id="fig:subset-county-point"></span>
 <img src="R_GIS_Book_files/figure-html/subset-county-point-1.png" alt="Counties that have at least one well" width="672"><p class="caption">
@@ -628,16 +628,16 @@ Figure 3.12: Counties that have at least one well
 </div>
 <hr>
 <p>To flag counties that have at least one well, use <code>st_intersects()</code> as follows:</p>
-<div class="sourceCode" id="cb259"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">int_mat</span> <span class="op">&lt;-</span> <span class="fu">st_intersects</span><span class="op">(</span><span class="va">KS_counties</span>, <span class="va">KS_wells_in_hpa</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">length</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span><span class="op">(</span><span class="op">)</span>
-
-<span class="co">#--- railroads ---#</span>
-<span class="va">KS_counties</span> <span class="op">&lt;-</span> <span class="fu">mutate</span><span class="op">(</span><span class="va">KS_counties</span>, intersect_wells  <span class="op">=</span> <span class="va">int_mat</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span>
-
-<span class="co">#--- take a look ---#</span>
-<span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/select.html">select</a></span><span class="op">(</span><span class="va">KS_counties</span>, <span class="va">NAME</span>, <span class="va">COUNTYFP</span>, <span class="va">intersect_wells</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb285"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">int_mat</span> <span class="op">&lt;-</span> <span class="fu">st_intersects</span><span class="op">(</span><span class="va">KS_counties</span>, <span class="va">KS_wells_in_hpa</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">length</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#--- railroads ---#</span></span>
+<span><span class="va">KS_counties</span> <span class="op">&lt;-</span> <span class="fu">mutate</span><span class="op">(</span><span class="va">KS_counties</span>, intersect_wells  <span class="op">=</span> <span class="va">int_mat</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#--- take a look ---#</span></span>
+<span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">KS_counties</span>, <span class="va">NAME</span>, <span class="va">COUNTYFP</span>, <span class="va">intersect_wells</span><span class="op">)</span></span></code></pre></div>
 <pre><code>Simple feature collection with 105 features and 3 fields
 Geometry type: MULTIPOLYGON
 Dimension:     XY
@@ -661,26 +661,26 @@ First 10 features:
 <span class="header-section-number">3.2.5</span> Subsetting to a geographic extent (bounding box)<a class="anchor" aria-label="anchor" href="#subsetting-to-a-geographic-extent-bounding-box"><i class="fas fa-link"></i></a>
 </h3>
 <p>We can use <code>st_crop()</code> to crop spatial objects to a spatial bounding box (extent) of a spatial object. The bounding box of an <code>sf</code> is a rectangle represented by the minimum and maximum of <code>x</code> and <code>y</code> that encompass/contain all the spatial objects in the <code>sf</code>. You can use <code>st_bbox()</code> to find the bounding box of an <code>sf</code> object. Let’s get the bounding box of <code>KS_wells_in_hpa</code> (irrigation wells in Kansas that overlie HPA).</p>
-<div class="sourceCode" id="cb261"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#--- get the bounding box of KS_wells ---#</span>
-<span class="op">(</span>
-<span class="va">bbox_KS_wells_in_hpa</span> <span class="op">&lt;-</span> <span class="fu">st_bbox</span><span class="op">(</span><span class="va">KS_wells_in_hpa</span><span class="op">)</span>  
-<span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb287"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#--- get the bounding box of KS_wells ---#</span></span>
+<span><span class="op">(</span></span>
+<span><span class="va">bbox_KS_wells_in_hpa</span> <span class="op">&lt;-</span> <span class="fu">st_bbox</span><span class="op">(</span><span class="va">KS_wells_in_hpa</span><span class="op">)</span>  </span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code>      xmin       ymin       xmax       ymax 
 -102.04953   36.99552  -97.33193   40.00199 </code></pre>
-<div class="sourceCode" id="cb263"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#--- check the class ---#</span>
-<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">bbox_KS_wells_in_hpa</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb289"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#--- check the class ---#</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">bbox_KS_wells_in_hpa</span><span class="op">)</span></span></code></pre></div>
 <pre><code>[1] "bbox"</code></pre>
 <p>Visualizing the bounding box (Figure <a href="int-vv.html#fig:bbox-fig">3.13</a>):</p>
-<div class="sourceCode" id="cb265"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">tm_shape</span><span class="op">(</span><span class="va">KS_counties</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">tm_polygons</span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> <span class="op">+</span>
-<span class="fu">tm_shape</span><span class="op">(</span><span class="va">KS_wells_in_hpa</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">tm_symbols</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span> <span class="op">+</span>
-<span class="fu">tm_shape</span><span class="op">(</span><span class="fu">st_as_sfc</span><span class="op">(</span><span class="va">bbox_KS_wells_in_hpa</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">tm_borders</span><span class="op">(</span>col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">tm_layout</span><span class="op">(</span>frame <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb291"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">tm_shape</span><span class="op">(</span><span class="va">KS_counties</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">tm_polygons</span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> <span class="op">+</span></span>
+<span><span class="fu">tm_shape</span><span class="op">(</span><span class="va">KS_wells_in_hpa</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">tm_symbols</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span> <span class="op">+</span></span>
+<span><span class="fu">tm_shape</span><span class="op">(</span><span class="fu">st_as_sfc</span><span class="op">(</span><span class="va">bbox_KS_wells_in_hpa</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">tm_borders</span><span class="op">(</span>col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">tm_layout</span><span class="op">(</span>frame <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <span style="display:block;" id="fig:bbox-fig"></span>
 <img src="R_GIS_Book_files/figure-html/bbox-fig-1.png" alt="The bounding box of the irrigation wells in Kansas that overlie HPA" width="672"><p class="caption">
@@ -689,15 +689,15 @@ Figure 3.13: The bounding box of the irrigation wells in Kansas that overlie HPA
 </div>
 <p>When you use a bounding box to crop an <code>sf</code> objects, you can consider the bounding box as a single polygon.</p>
 <p>Let’s crop <code>KS_counties</code> using the <code>bbox</code> of the irrigation wells.</p>
-<div class="sourceCode" id="cb266"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">KS_cropped</span> <span class="op">&lt;-</span> <span class="fu">st_crop</span><span class="op">(</span><span class="va">KS_counties</span>, <span class="va">bbox_KS_wells_in_hpa</span><span class="op">)</span>  </code></pre></div>
+<div class="sourceCode" id="cb292"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">KS_cropped</span> <span class="op">&lt;-</span> <span class="fu">st_crop</span><span class="op">(</span><span class="va">KS_counties</span>, <span class="va">bbox_KS_wells_in_hpa</span><span class="op">)</span>  </span></code></pre></div>
 <p>Here is what the cropped data looks like (Figure <a href="int-vv.html#fig:cropped-fig">3.14</a>):</p>
-<div class="sourceCode" id="cb267"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">tm_shape</span><span class="op">(</span><span class="va">KS_counties</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">tm_polygons</span><span class="op">(</span>col <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">+</span>
-<span class="fu">tm_shape</span><span class="op">(</span><span class="va">KS_cropped</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">tm_polygons</span><span class="op">(</span>col <span class="op">=</span><span class="st">"blue"</span>, alpha <span class="op">=</span> <span class="fl">0.6</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">tm_layout</span><span class="op">(</span>frame <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb293"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">tm_shape</span><span class="op">(</span><span class="va">KS_counties</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">tm_polygons</span><span class="op">(</span>col <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">+</span></span>
+<span><span class="fu">tm_shape</span><span class="op">(</span><span class="va">KS_cropped</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">tm_polygons</span><span class="op">(</span>col <span class="op">=</span><span class="st">"blue"</span>, alpha <span class="op">=</span> <span class="fl">0.6</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">tm_layout</span><span class="op">(</span>frame <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <span style="display:block;" id="fig:cropped-fig"></span>
 <img src="R_GIS_Book_files/figure-html/cropped-fig-1.png" alt="The bounding box of the irrigation wells in Kansas that overlie HPA" width="672"><p class="caption">
@@ -705,15 +705,15 @@ Figure 3.14: The bounding box of the irrigation wells in Kansas that overlie HPA
 </p>
 </div>
 <p>As you can see, the <code>st_crop()</code> operation cut some counties at the right edge of the bounding box. So, <code>st_crop()</code> is invasive. If you do not like this to happen and want the complete original counties that have at least one well, you can use the subset approach using <code>[, ]</code> after converting the bounding box to an <code>sfc</code> as follows:</p>
-<div class="sourceCode" id="cb268"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">KS_complete_counties</span> <span class="op">&lt;-</span> <span class="va">KS_counties</span><span class="op">[</span><span class="fu">st_as_sfc</span><span class="op">(</span><span class="va">bbox_KS_wells_in_hpa</span><span class="op">)</span>, <span class="op">]</span>  </code></pre></div>
+<div class="sourceCode" id="cb294"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">KS_complete_counties</span> <span class="op">&lt;-</span> <span class="va">KS_counties</span><span class="op">[</span><span class="fu">st_as_sfc</span><span class="op">(</span><span class="va">bbox_KS_wells_in_hpa</span><span class="op">)</span>, <span class="op">]</span>  </span></code></pre></div>
 <p>Here is what the subsetted Kansas county data looks like (Figure <a href="int-vv.html#fig:cropped-fig-complete">3.15</a>):</p>
-<div class="sourceCode" id="cb269"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">tm_shape</span><span class="op">(</span><span class="va">KS_counties</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">tm_polygons</span><span class="op">(</span>col <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">+</span>
-<span class="fu">tm_shape</span><span class="op">(</span><span class="va">KS_complete_counties</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">tm_polygons</span><span class="op">(</span>col <span class="op">=</span><span class="st">"blue"</span>, alpha <span class="op">=</span> <span class="fl">0.6</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">tm_layout</span><span class="op">(</span>frame <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb295"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">tm_shape</span><span class="op">(</span><span class="va">KS_counties</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">tm_polygons</span><span class="op">(</span>col <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">+</span></span>
+<span><span class="fu">tm_shape</span><span class="op">(</span><span class="va">KS_complete_counties</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">tm_polygons</span><span class="op">(</span>col <span class="op">=</span><span class="st">"blue"</span>, alpha <span class="op">=</span> <span class="fl">0.6</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">tm_layout</span><span class="op">(</span>frame <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <span style="display:block;" id="fig:cropped-fig-complete"></span>
 <img src="R_GIS_Book_files/figure-html/cropped-fig-complete-1.png" alt="The bounding box of the irrigation wells in Kansas that overlie HPA" width="672"><p class="caption">
@@ -751,7 +751,7 @@ Figure 3.15: The bounding box of the irrigation wells in Kansas that overlie HPA
 <li>raster-raster: raster data (target) against raster data (source)</li>
 </ul>
 <p>Among the four, our focus here is the first case. The second case will be discussed in Chapter <a href="int-RV.html#int-RV">5</a>. We will not cover the third and fourth cases in this course because it is almost always the case that our target data is a vector data (e.g., city or farm fields as points, political boundaries as polygons, etc).</p>
-<p>Category 1 can be further broken down into different sub categories depending on the type of spatial object (point, line, and polygon). Here, we will ignore any spatial joins that involve lines. This is because objects represented by lines are rarely observation units in econometric analysis nor the source data from which we will extract values.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;Note that we did not extract any attribute values of the railroads in Chapter &lt;a href="demo.html#demo4"&gt;1.4&lt;/a&gt;. We just calculated the travel length of the railroads, meaning that the geometry of railroads themselves were of interest instead of values associated with the railroads.&lt;/p&gt;'><sup>60</sup></a> Here is the list of the types of spatial joins we will learn.</p>
+<p>Category 1 can be further broken down into different sub categories depending on the type of spatial object (point, line, and polygon). Here, we will ignore any spatial joins that involve lines. This is because objects represented by lines are rarely observation units in econometric analysis nor the source data from which we will extract values.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;Note that we did not extract any attribute values of the railroads in Chapter &lt;a href="#demo4"&gt;&lt;strong&gt;??&lt;/strong&gt;&lt;/a&gt;. We just calculated the travel length of the railroads, meaning that the geometry of railroads themselves were of interest instead of values associated with the railroads.&lt;/p&gt;'><sup>64</sup></a> Here is the list of the types of spatial joins we will learn.</p>
 <ol style="list-style-type: decimal">
 <li>points (target) against polygons (source)</li>
 <li>polygons (target) against points (source)</li>
@@ -765,21 +765,21 @@ Figure 3.15: The bounding box of the irrigation wells in Kansas that overlie HPA
 <h3>
 <span class="header-section-number">3.3.1</span> Case 1: points (target) vs polygons (source)<a class="anchor" aria-label="anchor" href="#case-1-points-target-vs-polygons-source"><i class="fas fa-link"></i></a>
 </h3>
-<p>Case 1, for each of the observations (points) in the target data, finds which polygon in the source data it intersects, and then assign the value associated with the polygon to the point<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;You can see a practical example of this case in action in Demonstration 1 of Chapter &lt;a href="demo.html#demo"&gt;1&lt;/a&gt;.&lt;/p&gt;'><sup>61</sup></a>. In order to achieve this, we can use the <code>st_join()</code> function, whose syntax is as follows:</p>
-<div class="sourceCode" id="cb270"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#--- this does not run ---#</span>
-<span class="fu">st_join</span><span class="op">(</span><span class="va">target_sf</span>, <span class="va">source_sf</span><span class="op">)</span></code></pre></div>
-<p>Similar to spatial subsetting, the default topological relation is <code>st_intersects()</code><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;While it is unlikely you will face the need to change the topological relation, you could do so using the &lt;code&gt;join&lt;/code&gt; option.&lt;/p&gt;"><sup>62</sup></a>.</p>
+<p>Case 1, for each of the observations (points) in the target data, finds which polygon in the source data it intersects, and then assign the value associated with the polygon to the point<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;You can see a practical example of this case in action in Demonstration 1 of Chapter &lt;a href="demo.html#demo"&gt;1&lt;/a&gt;.&lt;/p&gt;'><sup>65</sup></a>. In order to achieve this, we can use the <code>st_join()</code> function, whose syntax is as follows:</p>
+<div class="sourceCode" id="cb296"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#--- this does not run ---#</span></span>
+<span><span class="fu">st_join</span><span class="op">(</span><span class="va">target_sf</span>, <span class="va">source_sf</span><span class="op">)</span></span></code></pre></div>
+<p>Similar to spatial subsetting, the default topological relation is <code>st_intersects()</code><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;While it is unlikely you will face the need to change the topological relation, you could do so using the &lt;code&gt;join&lt;/code&gt; option.&lt;/p&gt;"><sup>66</sup></a>.</p>
 <p>We use the Kansas irrigation well data (points) and Kansas county boundary data (polygons) for a demonstration. Our goal is to assign the county-level corn price information from the Kansas county data to wells. First let me create and add a fake county-level corn price variable to the Kansas county data.</p>
-<div class="sourceCode" id="cb271"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">KS_corn_price</span> <span class="op">&lt;-</span> <span class="va">KS_counties</span> <span class="op">%&gt;%</span>  
-  <span class="fu">mutate</span><span class="op">(</span>corn_price <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">3.2</span>, <span class="fl">3.9</span>, length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/select.html">select</a></span><span class="op">(</span><span class="va">COUNTYFP</span>, <span class="va">corn_price</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb297"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">KS_corn_price</span> <span class="op">&lt;-</span> <span class="va">KS_counties</span> <span class="op">%&gt;%</span>  </span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>corn_price <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">3.2</span>, <span class="fl">3.9</span>, length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">COUNTYFP</span>, <span class="va">corn_price</span><span class="op">)</span></span></code></pre></div>
 <p>Here is the map of Kansas counties color-differentiated by fake corn price (Figure <a href="int-vv.html#fig:map-corn-price">3.16</a>):</p>
-<div class="sourceCode" id="cb272"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">tm_shape</span><span class="op">(</span><span class="va">KS_corn_price</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu">tm_polygons</span><span class="op">(</span>col <span class="op">=</span> <span class="st">"corn_price"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">tm_layout</span><span class="op">(</span>frame <span class="op">=</span> <span class="cn">FALSE</span>, legend.outside <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb298"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">tm_shape</span><span class="op">(</span><span class="va">KS_corn_price</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu">tm_polygons</span><span class="op">(</span>col <span class="op">=</span> <span class="st">"corn_price"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">tm_layout</span><span class="op">(</span>frame <span class="op">=</span> <span class="cn">FALSE</span>, legend.outside <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <span style="display:block;" id="fig:map-corn-price"></span>
 <img src="R_GIS_Book_files/figure-html/map-corn-price-1.png" alt="Map of county-level fake corn price" width="672"><p class="caption">
@@ -787,11 +787,11 @@ Figure 3.16: Map of county-level fake corn price
 </p>
 </div>
 <p>For this particular context, the following code will do the job:</p>
-<div class="sourceCode" id="cb273"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#--- spatial join ---#</span>
-<span class="op">(</span>
-<span class="va">KS_wells_County</span> <span class="op">&lt;-</span> <span class="fu">st_join</span><span class="op">(</span><span class="va">KS_wells</span>, <span class="va">KS_corn_price</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb299"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#--- spatial join ---#</span></span>
+<span><span class="op">(</span></span>
+<span><span class="va">KS_wells_County</span> <span class="op">&lt;-</span> <span class="fu">st_join</span><span class="op">(</span><span class="va">KS_wells</span>, <span class="va">KS_corn_price</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code>Simple feature collection with 37647 features and 5 fields
 Geometry type: POINT
 Dimension:     XY
@@ -810,12 +810,12 @@ First 10 features:
 9    15   0.000000   TRUE      159   3.610577 POINT (-98.30759 38.26787)
 10   17 167.819034   TRUE      069   3.556731 POINT (-100.2785 37.71539)</code></pre>
 <p>You can see from Figure <a href="int-vv.html#fig:map-corn-wells">3.17</a> below that all the wells inside the same county have the same corn price value.</p>
-<div class="sourceCode" id="cb275"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">tm_shape</span><span class="op">(</span><span class="va">KS_counties</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">tm_polygons</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-<span class="fu">tm_shape</span><span class="op">(</span><span class="va">KS_wells_County</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">tm_symbols</span><span class="op">(</span>col <span class="op">=</span> <span class="st">"corn_price"</span>, size <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">tm_layout</span><span class="op">(</span>frame <span class="op">=</span> <span class="cn">FALSE</span>, legend.outside <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb301"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">tm_shape</span><span class="op">(</span><span class="va">KS_counties</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">tm_polygons</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span><span class="fu">tm_shape</span><span class="op">(</span><span class="va">KS_wells_County</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">tm_symbols</span><span class="op">(</span>col <span class="op">=</span> <span class="st">"corn_price"</span>, size <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">tm_layout</span><span class="op">(</span>frame <span class="op">=</span> <span class="cn">FALSE</span>, legend.outside <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <span style="display:block;" id="fig:map-corn-wells"></span>
 <img src="R_GIS_Book_files/figure-html/map-corn-wells-1.png" alt="Map of wells color-differentiated by corn price" width="672"><p class="caption">
@@ -827,14 +827,14 @@ Figure 3.17: Map of wells color-differentiated by corn price
 <h3>
 <span class="header-section-number">3.3.2</span> Case 2: polygons (target) vs points (source)<a class="anchor" aria-label="anchor" href="#case-2-polygons-target-vs-points-source"><i class="fas fa-link"></i></a>
 </h3>
-<p>Case 2, for each of the observations (polygons) in the target data, find which observations (points) in the source data it intersects, and then assign the values associated with the points to the polygon. We use the same function: <code>st_join()</code><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;You can see a practical example of this case in action in Demonstration 2 of Chapter &lt;a href="demo.html#demo"&gt;1&lt;/a&gt;.&lt;/p&gt;'><sup>63</sup></a>.</p>
+<p>Case 2, for each of the observations (polygons) in the target data, find which observations (points) in the source data it intersects, and then assign the values associated with the points to the polygon. We use the same function: <code>st_join()</code><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;You can see a practical example of this case in action in Demonstration 2 of Chapter &lt;a href="demo.html#demo"&gt;1&lt;/a&gt;.&lt;/p&gt;'><sup>67</sup></a>.</p>
 <p>Suppose you are now interested in county-level analysis and you would like to get county-level total groundwater pumping. The target data is <code>KS_counties</code>, and the source data is <code>KS_wells</code>.</p>
-<div class="sourceCode" id="cb276"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#--- spatial join ---#</span>
-<span class="va">KS_County_wells</span> <span class="op">&lt;-</span> <span class="fu">st_join</span><span class="op">(</span><span class="va">KS_counties</span>, <span class="va">KS_wells</span><span class="op">)</span>
-
-<span class="co">#--- take a look ---#</span>
-<span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/select.html">select</a></span><span class="op">(</span><span class="va">KS_County_wells</span>, <span class="va">COUNTYFP</span>, <span class="va">site</span>, <span class="va">af_used</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb302"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#--- spatial join ---#</span></span>
+<span><span class="va">KS_County_wells</span> <span class="op">&lt;-</span> <span class="fu">st_join</span><span class="op">(</span><span class="va">KS_counties</span>, <span class="va">KS_wells</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#--- take a look ---#</span></span>
+<span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">KS_County_wells</span>, <span class="va">COUNTYFP</span>, <span class="va">site</span>, <span class="va">af_used</span><span class="op">)</span></span></code></pre></div>
 <pre><code>Simple feature collection with 37652 features and 3 fields
 Geometry type: MULTIPOLYGON
 Dimension:     XY
@@ -853,10 +853,10 @@ First 10 features:
 2.6      075  1249   0.00000 MULTIPOLYGON (((-102.0446 3...
 2.7      075  1300 320.22612 MULTIPOLYGON (((-102.0446 3...</code></pre>
 <p>As you can see in the resulting dataset, all the unique polygon - point intersecting combinations comprise the observations. For each of the polygons, you will have as many observations as the number of wells that intersect with the polygon. Once you join the two layers, you can find statistics by polygon (county here). Since we want groundwater extraction by county, the following does the job.</p>
-<div class="sourceCode" id="cb278"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">KS_County_wells</span> <span class="op">%&gt;%</span> 
-  <span class="fu">group_by</span><span class="op">(</span><span class="va">COUNTYFP</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">summarize</span><span class="op">(</span>af_used <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">af_used</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> </code></pre></div>
+<div class="sourceCode" id="cb304"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">KS_County_wells</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">COUNTYFP</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">summarize</span><span class="op">(</span>af_used <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">af_used</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> </span></code></pre></div>
 <pre><code>Simple feature collection with 105 features and 2 fields
 Geometry type: POLYGON
 Dimension:     XY
@@ -878,9 +878,9 @@ Geodetic CRS:  NAD83
 # … with 95 more rows</code></pre>
 <p>Of course, it is just as easy to get other types of statistics by simply modifying the <code>summarize()</code> part.</p>
 <p>However, this two-step process can actually be done in one step using <code><a href="https://rdrr.io/r/stats/aggregate.html">aggregate()</a></code>, in which you specify how you want to aggregate with the <code>FUN</code> option as follows:</p>
-<div class="sourceCode" id="cb280"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#--- mean ---#</span>
-<span class="fu"><a href="https://rdrr.io/r/stats/aggregate.html">aggregate</a></span><span class="op">(</span><span class="va">KS_wells</span>, <span class="va">KS_counties</span>, FUN <span class="op">=</span> <span class="va">mean</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb306"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#--- mean ---#</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/aggregate.html">aggregate</a></span><span class="op">(</span><span class="va">KS_wells</span>, <span class="va">KS_counties</span>, FUN <span class="op">=</span> <span class="va">mean</span><span class="op">)</span></span></code></pre></div>
 <pre><code>Simple feature collection with 105 features and 3 fields
 Geometry type: MULTIPOLYGON
 Dimension:     XY
@@ -898,9 +898,9 @@ First 10 features:
 8  28235.82  94.585634 0.9736842 MULTIPOLYGON (((-102.0517 4...
 9  36180.06  44.033911 0.3000000 MULTIPOLYGON (((-98.50445 4...
 10 40016.00   1.142775 0.0000000 MULTIPOLYGON (((-95.50827 3...</code></pre>
-<div class="sourceCode" id="cb282"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#--- sum ---#</span>
-<span class="fu"><a href="https://rdrr.io/r/stats/aggregate.html">aggregate</a></span><span class="op">(</span><span class="va">KS_wells</span>, <span class="va">KS_counties</span>, FUN <span class="op">=</span> <span class="va">sum</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb308"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#--- sum ---#</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/aggregate.html">aggregate</a></span><span class="op">(</span><span class="va">KS_wells</span>, <span class="va">KS_counties</span>, FUN <span class="op">=</span> <span class="va">sum</span><span class="op">)</span></span></code></pre></div>
 <pre><code>Simple feature collection with 105 features and 3 fields
 Geometry type: MULTIPOLYGON
 Dimension:     XY
@@ -919,8 +919,8 @@ First 10 features:
 9   1809003 2.201696e+03     15 MULTIPOLYGON (((-98.50445 4...
 10   160064 4.571102e+00      0 MULTIPOLYGON (((-95.50827 3...</code></pre>
 <p>Notice that the <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code> function was applied to all the columns in <code>KS_wells</code>, including site id number. So, you might want to select variables you want to join before you apply the <code><a href="https://rdrr.io/r/stats/aggregate.html">aggregate()</a></code> function like this:</p>
-<div class="sourceCode" id="cb284"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/aggregate.html">aggregate</a></span><span class="op">(</span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/select.html">select</a></span><span class="op">(</span><span class="va">KS_wells</span>, <span class="va">af_used</span><span class="op">)</span>, <span class="va">KS_counties</span>, FUN <span class="op">=</span> <span class="va">mean</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb310"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/aggregate.html">aggregate</a></span><span class="op">(</span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">KS_wells</span>, <span class="va">af_used</span><span class="op">)</span>, <span class="va">KS_counties</span>, FUN <span class="op">=</span> <span class="va">mean</span><span class="op">)</span></span></code></pre></div>
 <pre><code>Simple feature collection with 105 features and 1 field
 Geometry type: MULTIPOLYGON
 Dimension:     XY
@@ -944,14 +944,14 @@ First 10 features:
 <span class="header-section-number">3.3.3</span> Case 3: polygons (target) vs polygons (source)<a class="anchor" aria-label="anchor" href="#polygon-polygon"><i class="fas fa-link"></i></a>
 </h3>
 <p>For this case, <code>st_join(target_sf, source_sf)</code> will return all the unique intersecting polygon-polygon combinations with the information of the polygon from source_sf attached.</p>
-<p>We will use county-level corn acres in Iowa in 2018 from USDA NASS<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;See Chapter &lt;a href="download-data.html#nass-quick"&gt;9.1&lt;/a&gt; for how to download Quick Stats data from within R.&lt;/p&gt;'><sup>64</sup></a> and Hydrologic Units<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;See &lt;a href="https://water.usgs.gov/GIS/huc.html"&gt;here&lt;/a&gt; for an explanation of what they are. You do not really need to know what HUC units are to understand what’s done in this section.&lt;/p&gt;'><sup>65</sup></a> Our objective here is to find corn acres by HUC units based on the county-level corn acres data<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Yes, there will be substantial measurement errors as the source polygons (corn acres by county) are large relative to the target polygons (HUC units). But, this serves as a good illustration of a polygon-polygon join.&lt;/p&gt;"><sup>66</sup></a>.</p>
+<p>We will use county-level corn acres in Iowa in 2018 from USDA NASS<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;See Chapter &lt;a href="download-data.html#nass-quick"&gt;9.1&lt;/a&gt; for how to download Quick Stats data from within R.&lt;/p&gt;'><sup>68</sup></a> and Hydrologic Units<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;See &lt;a href="https://water.usgs.gov/GIS/huc.html"&gt;here&lt;/a&gt; for an explanation of what they are. You do not really need to know what HUC units are to understand what’s done in this section.&lt;/p&gt;'><sup>69</sup></a> Our objective here is to find corn acres by HUC units based on the county-level corn acres data<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Yes, there will be substantial measurement errors as the source polygons (corn acres by county) are large relative to the target polygons (HUC units). But, this serves as a good illustration of a polygon-polygon join.&lt;/p&gt;"><sup>70</sup></a>.</p>
 <p>We first import the Iowa corn acre data:</p>
-<div class="sourceCode" id="cb286"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#--- IA boundary ---#</span>
-<span class="va">IA_corn</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span><span class="op">(</span><span class="st">"Data/IA_corn.rds"</span><span class="op">)</span>
-
-<span class="co">#--- take a look ---#</span>
-<span class="va">IA_corn</span></code></pre></div>
+<div class="sourceCode" id="cb312"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#--- IA boundary ---#</span></span>
+<span><span class="va">IA_corn</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span><span class="op">(</span><span class="st">"Data/IA_corn.rds"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#--- take a look ---#</span></span>
+<span><span class="va">IA_corn</span></span></code></pre></div>
 <pre><code>Simple feature collection with 93 features and 3 fields
 Geometry type: MULTIPOLYGON
 Dimension:     XY
@@ -970,11 +970,11 @@ First 10 features:
 9          121 2018  70000 MULTIPOLYGON (((396378.1 45...
 10         077 2018 107000 MULTIPOLYGON (((355180.1 46...</code></pre>
 <p>Here is the map of Iowa counties color-differentiated by corn acres (Figure <a href="int-vv.html#fig:map-IA-corn">3.18</a>):</p>
-<div class="sourceCode" id="cb288"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#--- here is the map ---#</span>
-<span class="fu">tm_shape</span><span class="op">(</span><span class="va">IA_corn</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">tm_polygons</span><span class="op">(</span>col <span class="op">=</span> <span class="st">"acres"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">tm_layout</span><span class="op">(</span>frame <span class="op">=</span> <span class="cn">FALSE</span>, legend.outside <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb314"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#--- here is the map ---#</span></span>
+<span><span class="fu">tm_shape</span><span class="op">(</span><span class="va">IA_corn</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">tm_polygons</span><span class="op">(</span>col <span class="op">=</span> <span class="st">"acres"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">tm_layout</span><span class="op">(</span>frame <span class="op">=</span> <span class="cn">FALSE</span>, legend.outside <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <span style="display:block;" id="fig:map-IA-corn"></span>
 <img src="R_GIS_Book_files/figure-html/map-IA-corn-1.png" alt="Map of Iowa counties color-differentiated by corn planted acreage" width="672"><p class="caption">
@@ -982,19 +982,20 @@ Figure 3.18: Map of Iowa counties color-differentiated by corn planted acreage
 </p>
 </div>
 <p>Now import the HUC units data:</p>
-<div class="sourceCode" id="cb289"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#--- import HUC units ---#</span>
-<span class="va">HUC_IA</span> <span class="op">&lt;-</span> <span class="fu">st_read</span><span class="op">(</span>dsn <span class="op">=</span> <span class="st">"Data"</span>, layer <span class="op">=</span> <span class="st">"huc250k"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/select.html">select</a></span><span class="op">(</span><span class="va">HUC_CODE</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="co">#--- reproject to the CRS of IA ---#</span>
-  <span class="fu">st_transform</span><span class="op">(</span><span class="fu">st_crs</span><span class="op">(</span><span class="va">IA_corn</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="co">#--- select HUC units that overlaps with IA ---#</span>
-  <span class="va">.</span><span class="op">[</span><span class="va">IA_corn</span>, <span class="op">]</span></code></pre></div>
+<div class="sourceCode" id="cb315"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#--- import HUC units ---#</span></span>
+<span><span class="va">HUC_IA</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="fu">st_read</span><span class="op">(</span><span class="st">"Data/huc250k.shp"</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">HUC_CODE</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="co">#--- reproject to the CRS of IA ---#</span></span>
+<span>  <span class="fu">st_transform</span><span class="op">(</span><span class="fu">st_crs</span><span class="op">(</span><span class="va">IA_corn</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="co">#--- select HUC units that overlaps with IA ---#</span></span>
+<span>  <span class="va">.</span><span class="op">[</span><span class="va">IA_corn</span>, <span class="op">]</span></span></code></pre></div>
 <p>Here is the map of HUC units (Figure <a href="int-vv.html#fig:HUC-map">3.19</a>):</p>
-<div class="sourceCode" id="cb290"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">tm_shape</span><span class="op">(</span><span class="va">HUC_IA</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">tm_polygons</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">tm_layout</span><span class="op">(</span>frame <span class="op">=</span> <span class="cn">FALSE</span>, legend.outside <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb316"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">tm_shape</span><span class="op">(</span><span class="va">HUC_IA</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">tm_polygons</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">tm_layout</span><span class="op">(</span>frame <span class="op">=</span> <span class="cn">FALSE</span>, legend.outside <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <span style="display:block;" id="fig:HUC-map"></span>
 <img src="R_GIS_Book_files/figure-html/HUC-map-1.png" alt="Map of HUC units that intersect with Iowa state boundary" width="672"><p class="caption">
@@ -1002,12 +1003,12 @@ Figure 3.19: Map of HUC units that intersect with Iowa state boundary
 </p>
 </div>
 <p>Here is a map of Iowa counties with HUC units superimposed on top (Figure <a href="int-vv.html#fig:HUC-county-map">3.20</a>):</p>
-<div class="sourceCode" id="cb291"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">tm_shape</span><span class="op">(</span><span class="va">IA_corn</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">tm_polygons</span><span class="op">(</span>col <span class="op">=</span> <span class="st">"acres"</span><span class="op">)</span> <span class="op">+</span>
-<span class="fu">tm_shape</span><span class="op">(</span><span class="va">HUC_IA</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">tm_polygons</span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">tm_layout</span><span class="op">(</span>frame <span class="op">=</span> <span class="cn">FALSE</span>, legend.outside <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb317"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">tm_shape</span><span class="op">(</span><span class="va">IA_corn</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">tm_polygons</span><span class="op">(</span>col <span class="op">=</span> <span class="st">"acres"</span><span class="op">)</span> <span class="op">+</span></span>
+<span><span class="fu">tm_shape</span><span class="op">(</span><span class="va">HUC_IA</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">tm_polygons</span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">tm_layout</span><span class="op">(</span>frame <span class="op">=</span> <span class="cn">FALSE</span>, legend.outside <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <span style="display:block;" id="fig:HUC-county-map"></span>
 <img src="R_GIS_Book_files/figure-html/HUC-county-map-1.png" alt="Map of HUC units superimposed on the counties in Iowas" width="672"><p class="caption">
@@ -1015,10 +1016,10 @@ Figure 3.20: Map of HUC units superimposed on the counties in Iowas
 </p>
 </div>
 <p>Spatial joining will produce the following.</p>
-<div class="sourceCode" id="cb292"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="op">(</span>
-<span class="va">HUC_joined</span> <span class="op">&lt;-</span> <span class="fu">st_join</span><span class="op">(</span><span class="va">HUC_IA</span>, <span class="va">IA_corn</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb318"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="op">(</span></span>
+<span><span class="va">HUC_joined</span> <span class="op">&lt;-</span> <span class="fu">st_join</span><span class="op">(</span><span class="va">HUC_IA</span>, <span class="va">IA_corn</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code>Simple feature collection with 349 features and 4 fields
 Geometry type: POLYGON
 Dimension:     XY
@@ -1038,11 +1039,11 @@ First 10 features:
 627.2 10170204         167 2018 249000 POLYGON ((248115.2 4891652,...</code></pre>
 <p>Each of the intersecting HUC-county combinations becomes an observation with its resulting geometry the same as the geometry of the HUC unit. To see this, let’s take a look at one of the HUC units.</p>
 <p>The HUC unit with <code>HUC_CODE ==10170203</code> intersects with four County.</p>
-<div class="sourceCode" id="cb294"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#--- get the HUC unit with `HUC_CODE ==10170203`  ---#</span>
-<span class="op">(</span>
-<span class="va">temp_HUC_county</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">HUC_joined</span>, <span class="va">HUC_CODE</span> <span class="op">==</span> <span class="fl">10170203</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb320"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#--- get the HUC unit with `HUC_CODE ==10170203`  ---#</span></span>
+<span><span class="op">(</span></span>
+<span><span class="va">temp_HUC_county</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">HUC_joined</span>, <span class="va">HUC_CODE</span> <span class="op">==</span> <span class="fl">10170203</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code>Simple feature collection with 4 features and 4 fields
 Geometry type: POLYGON
 Dimension:     XY
@@ -1054,10 +1055,10 @@ Projected CRS: NAD83 / UTM zone 15N
 608.2 10170203         193 2018 201000 POLYGON ((235551.4 4907513,...
 608.3 10170203         119 2018 184500 POLYGON ((235551.4 4907513,...</code></pre>
 <p>Figure <a href="int-vv.html#fig:four-county-huc">3.21</a> shows the map of the four observations.</p>
-<div class="sourceCode" id="cb296"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">tm_shape</span><span class="op">(</span><span class="va">temp_HUC_county</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">tm_polygons</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">tm_layout</span><span class="op">(</span>frame <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb322"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">tm_shape</span><span class="op">(</span><span class="va">temp_HUC_county</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">tm_polygons</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">tm_layout</span><span class="op">(</span>frame <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <span style="display:block;" id="fig:four-county-huc"></span>
 <img src="R_GIS_Book_files/figure-html/four-county-huc-1.png" alt="Map of the HUC unit" width="672"><p class="caption">
@@ -1071,18 +1072,18 @@ Figure 3.21: Map of the HUC unit
 <h2>
 <span class="header-section-number">3.4</span> Spatial Intersection (cropping join)<a class="anchor" aria-label="anchor" href="#spatial-intersection-cropping-join"><i class="fas fa-link"></i></a>
 </h2>
-<p>Sometimes you face the need to crop spatial objects by polygon boundaries. For example, we found the total length of the railroads <strong>inside</strong> of each county in Demonstration 4 in Chapter <a href="demo.html#demo4">1.4</a> by cutting off the parts of the railroads that extend beyond the boundary of counties. Also, we just saw that area-weighted averages cannot be found using <code>st_join()</code> because it does not provide information about how much area of each HUC unit is intersecting with each of its intersecting counties. If we can get the geometry of the intersecting part of the HUC unit and the county, then we can calculate its area, which in turn allows us to find area-weighted averages of joined attributes. For these purposes, we can use <code><a href="https://r-spatial.github.io/sf/reference/geos_binary_ops.html">sf::st_intersection()</a></code>. Below, we first illustrate how <code>st_intersection()</code> works for lines-polygons and polygons-polygons intersections (Note that we use the data we generated in Chapter <a href="int-vv.html#topo">3.1</a>). Intersections that involve points using <code>st_intersection()</code> is the same as using <code>st_join()</code> because points are length-less and area-less (nothing to cut). Thus, it is not discussed here.</p>
+<p>Sometimes you face the need to crop spatial objects by polygon boundaries. For example, we found the total length of the railroads <strong>inside</strong> of each county in Demonstration 4 in Chapter <a href="#demo4"><strong>??</strong></a> by cutting off the parts of the railroads that extend beyond the boundary of counties. Also, we just saw that area-weighted averages cannot be found using <code>st_join()</code> because it does not provide information about how much area of each HUC unit is intersecting with each of its intersecting counties. If we can get the geometry of the intersecting part of the HUC unit and the county, then we can calculate its area, which in turn allows us to find area-weighted averages of joined attributes. For these purposes, we can use <code><a href="https://r-spatial.github.io/sf/reference/geos_binary_ops.html">sf::st_intersection()</a></code>. Below, we first illustrate how <code>st_intersection()</code> works for lines-polygons and polygons-polygons intersections (Note that we use the data we generated in Chapter <a href="int-vv.html#topo">3.1</a>). Intersections that involve points using <code>st_intersection()</code> is the same as using <code>st_join()</code> because points are length-less and area-less (nothing to cut). Thus, it is not discussed here.</p>
 <div id="st-intersection" class="section level3" number="3.4.1">
 <h3>
 <span class="header-section-number">3.4.1</span> <code>st_intersection()</code><a class="anchor" aria-label="anchor" href="#st-intersection"><i class="fas fa-link"></i></a>
 </h3>
 <p>While <code>st_intersects()</code> returns the indices of intersecting objects, <code>st_intersection()</code> returns intersecting spatial objects with the non-intersecting parts of the <code>sf</code> objects cut out. Moreover, attribute values of the source <code>sf</code> will be merged to its intersecting <code>sfg</code> in the target <code>sf</code>. We will see how it works for lines-polygons and polygons-polygons cases using the toy examples we used to explain how <code>st_intersects()</code> work. Here is the figure of the lines and polygons (Figure <a href="int-vv.html#fig:plot-lines-polygons">3.22</a>):</p>
-<div class="sourceCode" id="cb297"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">polygons</span>, <span class="fu">aes</span><span class="op">(</span>fill <span class="op">=</span> <span class="va">polygon_name</span><span class="op">)</span>, alpha <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">scale_fill_discrete</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Polygons"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">lines</span>, <span class="fu">aes</span><span class="op">(</span>color <span class="op">=</span> <span class="va">line_name</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">scale_color_discrete</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Lines"</span><span class="op">)</span> </code></pre></div>
+<div class="sourceCode" id="cb323"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">polygons</span>, <span class="fu">aes</span><span class="op">(</span>fill <span class="op">=</span> <span class="va">polygon_name</span><span class="op">)</span>, alpha <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_fill_discrete</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Polygons"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">lines</span>, <span class="fu">aes</span><span class="op">(</span>color <span class="op">=</span> <span class="va">line_name</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_color_discrete</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Lines"</span><span class="op">)</span> </span></code></pre></div>
 <div class="figure">
 <span style="display:block;" id="fig:plot-lines-polygons"></span>
 <img src="R_GIS_Book_files/figure-html/plot-lines-polygons-1.png" alt="Visualization of the points, lines, and polygons" width="672"><p class="caption">
@@ -1092,11 +1093,11 @@ Figure 3.22: Visualization of the points, lines, and polygons
 <hr>
 <p><strong>lines and polygons</strong></p>
 <p>The following code gets the intersection of the lines and the polygons.</p>
-<div class="sourceCode" id="cb298"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="op">(</span>
-<span class="va">intersections_lp</span> <span class="op">&lt;-</span> <span class="fu">st_intersection</span><span class="op">(</span><span class="va">lines</span>, <span class="va">polygons</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">mutate</span><span class="op">(</span>int_name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">line_name</span>, <span class="st">"-"</span>, <span class="va">polygon_name</span><span class="op">)</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb324"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="op">(</span></span>
+<span><span class="va">intersections_lp</span> <span class="op">&lt;-</span> <span class="fu">st_intersection</span><span class="op">(</span><span class="va">lines</span>, <span class="va">polygons</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>int_name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">line_name</span>, <span class="st">"-"</span>, <span class="va">polygon_name</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code>Simple feature collection with 3 features and 3 fields
 Geometry type: LINESTRING
 Dimension:     XY
@@ -1107,27 +1108,27 @@ CRS:           NA
 2      line 2    polygon 1   LINESTRING (1.5 0.5, 2 1.25) line 2-polygon 1
 2.1    line 2    polygon 2 LINESTRING (2.166667 1.5, 2... line 2-polygon 2</code></pre>
 <p>As you can see in the output, each instance of the intersections of the lines and polygons become an observation (line 1-polygon 1, line 2-polygon 1, and line 2-polygon 2). The part of the lines that did not intersect with a polygon is cut out and does not remain in the returned <code>sf</code>. To see this, see Figure <a href="int-vv.html#fig:lines-polygons-int">3.23</a> below:</p>
-<div class="sourceCode" id="cb300"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="co">#--- here are all the original polygons  ---#</span>
-  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">polygons</span>, <span class="fu">aes</span><span class="op">(</span>fill <span class="op">=</span> <span class="va">polygon_name</span><span class="op">)</span>, alpha <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span> <span class="op">+</span>
-  <span class="co">#--- here is what is returned after st_intersection ---#</span>
-  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">intersections_lp</span>, <span class="fu">aes</span><span class="op">(</span>color <span class="op">=</span> <span class="va">int_name</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb326"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="co">#--- here are all the original polygons  ---#</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">polygons</span>, <span class="fu">aes</span><span class="op">(</span>fill <span class="op">=</span> <span class="va">polygon_name</span><span class="op">)</span>, alpha <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="co">#--- here is what is returned after st_intersection ---#</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">intersections_lp</span>, <span class="fu">aes</span><span class="op">(</span>color <span class="op">=</span> <span class="va">int_name</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <span style="display:block;" id="fig:lines-polygons-int"></span>
 <img src="R_GIS_Book_files/figure-html/lines-polygons-int-1.png" alt="The outcome of the intersections of the lines and polygons" width="672"><p class="caption">
 Figure 3.23: The outcome of the intersections of the lines and polygons
 </p>
 </div>
-<p>This further allows us to calculate the length of the part of the lines that are completely contained in polygons, just like we did in Chapter <a href="demo.html#demo4">1.4</a>. Note also that the attribute (<code>polygon_name</code>) of the source <code>sf</code> (the polygons) are merged to their intersecting lines. Therefore, <code>st_intersection()</code> is transforming the original geometries while joining attributes (this is why I call this cropping join).</p>
+<p>This further allows us to calculate the length of the part of the lines that are completely contained in polygons, just like we did in Chapter <a href="#demo4"><strong>??</strong></a>. Note also that the attribute (<code>polygon_name</code>) of the source <code>sf</code> (the polygons) are merged to their intersecting lines. Therefore, <code>st_intersection()</code> is transforming the original geometries while joining attributes (this is why I call this cropping join).</p>
 <hr>
 <p><strong>polygons and polygons</strong></p>
 <p>The following code gets the intersection of polygon 1 and polygon 3 with polygon 2.</p>
-<div class="sourceCode" id="cb301"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="op">(</span>
-<span class="va">intersections_pp</span> <span class="op">&lt;-</span> <span class="fu">st_intersection</span><span class="op">(</span><span class="va">polygons</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span><span class="op">)</span>, <span class="op">]</span>, <span class="va">polygons</span><span class="op">[</span><span class="fl">2</span>, <span class="op">]</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">mutate</span><span class="op">(</span>int_name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">polygon_name</span>, <span class="st">"-"</span>, <span class="va">polygon_name.1</span><span class="op">)</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb327"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="op">(</span></span>
+<span><span class="va">intersections_pp</span> <span class="op">&lt;-</span> <span class="fu">st_intersection</span><span class="op">(</span><span class="va">polygons</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span><span class="op">)</span>, <span class="op">]</span>, <span class="va">polygons</span><span class="op">[</span><span class="fl">2</span>, <span class="op">]</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>int_name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">polygon_name</span>, <span class="st">"-"</span>, <span class="va">polygon_name.1</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code>Simple feature collection with 2 features and 3 fields
 Geometry type: POLYGON
 Dimension:     XY
@@ -1140,12 +1141,12 @@ CRS:           NA
 1 polygon 1-polygon 2
 3 polygon 3-polygon 2</code></pre>
 <p>As you can see in Figure <a href="int-vv.html#fig:polygons-polygons-int">3.24</a>, each instance of the intersections of polygons 1 and 3 against polygon 2 becomes an observation (polygon 1-polygon 2 and polygon 3-polygon 2). Just like the lines-polygons case, the non-intersecting part of polygons 1 and 3 are cut out and do not remain in the returned <code>sf</code>. We will see later that <code>st_intersection()</code> can be used to find area-weighted values from the intersecting polygons with help from <code>st_area()</code>.</p>
-<div class="sourceCode" id="cb303"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="co">#--- here are all the original polygons  ---#</span>
-  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">polygons</span>, <span class="fu">aes</span><span class="op">(</span>fill <span class="op">=</span> <span class="va">polygon_name</span><span class="op">)</span>, alpha <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span> <span class="op">+</span>
-  <span class="co">#--- here is what is returned after st_intersection ---#</span>
-  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">intersections_pp</span>, <span class="fu">aes</span><span class="op">(</span>fill <span class="op">=</span> <span class="va">int_name</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb329"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="co">#--- here are all the original polygons  ---#</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">polygons</span>, <span class="fu">aes</span><span class="op">(</span>fill <span class="op">=</span> <span class="va">polygon_name</span><span class="op">)</span>, alpha <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="co">#--- here is what is returned after st_intersection ---#</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">intersections_pp</span>, <span class="fu">aes</span><span class="op">(</span>fill <span class="op">=</span> <span class="va">int_name</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <span style="display:block;" id="fig:polygons-polygons-int"></span>
 <img src="R_GIS_Book_files/figure-html/polygons-polygons-int-1.png" alt="The outcome of the intersections of polygon 2 and polygons 1 and 3" width="672"><p class="caption">
@@ -1159,11 +1160,11 @@ Figure 3.24: The outcome of the intersections of polygon 2 and polygons 1 and 3
 </h3>
 <p>Let’s now get back to the example of HUC units and county-level corn acres data we saw in Chapter <a href="int-vv.html#sp-join">3.3</a>. We would like to find area-weighted average of corn acres instead of the simple average of corn acres.</p>
 <p>Using <code>st_intersection()</code>, for each of the HUC polygons, we find the intersecting counties, and then divide it into parts based on the boundary of the intersecting polygons.</p>
-<div class="sourceCode" id="cb304"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="op">(</span>
-<span class="va">HUC_intersections</span> <span class="op">&lt;-</span> <span class="fu">st_intersection</span><span class="op">(</span><span class="va">HUC_IA</span>, <span class="va">IA_corn</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">mutate</span><span class="op">(</span>huc_county <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">HUC_CODE</span>, <span class="st">"-"</span>, <span class="va">county_code</span><span class="op">)</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb330"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="op">(</span></span>
+<span><span class="va">HUC_intersections</span> <span class="op">&lt;-</span> <span class="fu">st_intersection</span><span class="op">(</span><span class="va">HUC_IA</span>, <span class="va">IA_corn</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>huc_county <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">HUC_CODE</span>, <span class="st">"-"</span>, <span class="va">county_code</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code>Simple feature collection with 349 features and 5 fields
 Geometry type: GEOMETRY
 Dimension:     XY
@@ -1193,10 +1194,10 @@ First 10 features:
 732.1 07080207-081
 747   07100005-081</code></pre>
 <p>The key difference from the <code>st_join()</code> example is that each observation of the returned data is a unique HUC-county intersection. Figure <a href="int-vv.html#fig:inter-ex">3.25</a> below is a map of all the intersections of the HUC unit with <code>HUC_CODE ==10170203</code> and the four intersecting counties.</p>
-<div class="sourceCode" id="cb306"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">tm_shape</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">HUC_intersections</span>, <span class="va">HUC_CODE</span> <span class="op">==</span> <span class="st">"10170203"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu">tm_polygons</span><span class="op">(</span>col <span class="op">=</span> <span class="st">"huc_county"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">tm_layout</span><span class="op">(</span>frame <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb332"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">tm_shape</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">HUC_intersections</span>, <span class="va">HUC_CODE</span> <span class="op">==</span> <span class="st">"10170203"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu">tm_polygons</span><span class="op">(</span>col <span class="op">=</span> <span class="st">"huc_county"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">tm_layout</span><span class="op">(</span>frame <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <span style="display:block;" id="fig:inter-ex"></span>
 <img src="R_GIS_Book_files/figure-html/inter-ex-1.png" alt="Intersections of a HUC unit and Iowa counties" width="672"><p class="caption">
@@ -1205,17 +1206,17 @@ Figure 3.25: Intersections of a HUC unit and Iowa counties
 </div>
 <p>Note also that the attributes of county data are joined as you can see <code>acres</code> in the output above. As I said earlier, <code>st_intersection()</code> is a spatial kind of spatial join where the resulting observations are the intersections of the target and source <code>sf</code> objects.</p>
 <p>In order to find the area-weighted average of corn acres, you can use <code>st_area()</code> first to calculate the area of the intersections, and then find the area-weighted average as follows:</p>
-<div class="sourceCode" id="cb307"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="op">(</span>
-<span class="va">HUC_aw_acres</span> <span class="op">&lt;-</span> <span class="va">HUC_intersections</span> <span class="op">%&gt;%</span> 
-  <span class="co">#--- get area ---#</span>
-  <span class="fu">mutate</span><span class="op">(</span>area <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="fu">st_area</span><span class="op">(</span><span class="va">.</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="co">#--- get area-weight by HUC unit ---#</span>
-  <span class="fu">group_by</span><span class="op">(</span><span class="va">HUC_CODE</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">mutate</span><span class="op">(</span>weight <span class="op">=</span> <span class="va">area</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">area</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="co">#--- calculate area-weighted corn acreage by HUC unit ---#</span>
-  <span class="fu">summarize</span><span class="op">(</span>aw_acres <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">weight</span> <span class="op">*</span> <span class="va">acres</span><span class="op">)</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb333"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="op">(</span></span>
+<span><span class="va">HUC_aw_acres</span> <span class="op">&lt;-</span> <span class="va">HUC_intersections</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="co">#--- get area ---#</span></span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>area <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="fu">st_area</span><span class="op">(</span><span class="va">.</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="co">#--- get area-weight by HUC unit ---#</span></span>
+<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">HUC_CODE</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>weight <span class="op">=</span> <span class="va">area</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">area</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="co">#--- calculate area-weighted corn acreage by HUC unit ---#</span></span>
+<span>  <span class="fu">summarize</span><span class="op">(</span>aw_acres <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">weight</span> <span class="op">*</span> <span class="va">acres</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code>Simple feature collection with 55 features and 2 fields
 Geometry type: GEOMETRY
 Dimension:     XY
@@ -1231,9 +1232,9 @@ Projected CRS: NAD83 / UTM zone 15N
  5 07060003  149000  MULTIPOLYGON (((692011.6 4712966, 691981.6 4712956, 691881…
  6 07060004  162123. POLYGON ((652046.5 4718813, 651916.4 4718783, 651786.4 471…
  7 07060005  142428. POLYGON ((734140.4 4642126, 733620.4 4641926, 733520.3 464…
- 8 07060006  159635. POLYGON ((720485.9 4656371, 720355.8 4656291, 720275.8 465…
+ 8 07060006  159635. POLYGON ((673976.9 4651911, 673950.7 4651910, 673887.8 465…
  9 07080101  115572. POLYGON ((666760.8 4558401, 666630.9 4558362, 666510.8 455…
-10 07080102  160008. POLYGON ((635896.1 4675834, 636036.2 4675844, 636316.3 467…
+10 07080102  160008. POLYGON ((576151.1 4706650, 575891 4706810, 575741 4706890…
 # … with 45 more rows</code></pre>
 
 </div>
@@ -1294,7 +1295,7 @@ Projected CRS: NAD83 / UTM zone 15N
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>R as GIS for Economists</strong>" was written by Taro Mieno. It was last built on 2022-05-28.</p>
+    <p>"<strong>R as GIS for Economists</strong>" was written by Taro Mieno. It was last built on 2023-03-08.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

@@ -20,22 +20,21 @@ suppressMessages(library(microbenchmark))
 ```{r chunk_set_02,echo=FALSE}
 library(knitr)
 opts_chunk$set(
-  echo= TRUE,
+  echo = TRUE,
   comment = NA,
-  cache = TRUE, 
+  cache = TRUE,
   message = FALSE,
   warning = FALSE,
-  tidy=FALSE,
+  tidy = FALSE,
   #--- figure related ---#
-  fig.align='center',
-  fig.width=5,
-  fig.height=4
+  fig.align = "center",
+  fig.width = 5,
+  fig.height = 4
   # dev='pdf'
-  )
+)
 
 set.seed(903943)
 ```
-
 
 ## Before you start {-}
 
@@ -60,7 +59,7 @@ if (!require("pacman")) install.packages("pacman")
 pacman::p_load(
   dplyr, # data wrangling
   data.table # data wrangling
-)  
+)
 ```
 
 There are other packages that will be loaded during the demonstration.
@@ -74,12 +73,12 @@ There are other packages that will be loaded during the demonstration.
 We sometimes need to run the same process over and over again often with slight changes in parameters. In such a case, it is very time-consuming and messy to write all of the steps one bye one. For example, suppose you are interested in knowing the square of 1 through 5 ($[1, 2, 3, 4, 5]$). The following code certainly works:
 
 ```{r tedious}
-1^2 
-2^2 
-3^2 
-4^2 
-5^2 
-``` 
+1^2
+2^2
+3^2
+4^2
+5^2
+```
 
 However, imagine you have to do this for 1000 integers. Yes, you don't want to write each one of them one by one as that would occupy 1000 lines of your code, and it would be time-consuming. Things will be even worse if you need to repeat much more complicated processes like Monte Carlo simulations. So, let's learn how to write a program to do repetitive jobs effectively using loop. 
 
@@ -89,8 +88,7 @@ Looping is repeatedly evaluating the same (except parameters) process over and o
 
 Here is how **for loop** works in general:
 
-```{r loop_explain, eval = FALSE}
-#--- NOT RUN ---#
+```{loop_explain, eval = FALSE}
 for (x in a_list_of_values){
   you do what you want to do with x
 }
@@ -99,7 +97,7 @@ for (x in a_list_of_values){
 As an example, let's use this looping syntax to get the same results as the manual squaring of 1 through 5:
 
 ```{r loop}
-for (x in 1:5){
+for (x in 1:5) {
   print(x^2)
 }
 ```
@@ -108,7 +106,7 @@ Here, a list of values is $1, 2, 3, 4, 5]$. For each value in the list, you squa
 
 ```{r loop_more, eval=FALSE}
 #--- evaluation not reported as it's too long ---#
-for (x in 1:1000){
+for (x in 1:1000) {
   print(x^2)
 }
 ```
@@ -116,7 +114,7 @@ for (x in 1:1000){
 So, the length of the code does not depend on how many repeats you do, which is an obvious improvement over manual typing of every single process one by one. Note that you do not have to use $x$ to refer to an object you are going to use. It could be any combination of letters as long as you use it when you code what you want to do inside the loop. So, this would work just fine,
 
 ```{r silly_ex}
-for (bluh_bluh_bluh in 1:5){
+for (bluh_bluh_bluh in 1:5) {
   print(bluh_bluh_bluh^2)
 }
 ```
@@ -126,14 +124,16 @@ for (bluh_bluh_bluh in 1:5){
 You can do for loop using the `lapply()` function as well.^[`lpply()` in only one of the family of `apply()` functions. We do not talk about other types of `apply()` functions here (e.g., `apply()`, `spply()`, `mapply()`,, `tapply()`). Personally, I found myself only rarely using them. But, if you are interested in learning those, take a look at [here](https://www.datacamp.com/community/tutorials/r-tutorial-apply-family#gs.b=aW_Io) or [here](https://www.r-bloggers.com/using-apply-sapply-lapply-in-r/).] Here is how it works:
 
 ```{r lappy_syntax, eval = F}
-#--- NOT RUN ---#  
-lapply(A,B)
+#--- NOT RUN ---#
+lapply(A, B)
 ```
 
 where $A$ is the list of values you go through one by one in the order the values are stored, and $B$ is the function you would like to apply to each of the values in $A$. For example, the following code does exactly the same thing as the above for loop example.
 
 ```{r lapply}
-lapply(1:5, function(x){x^2})
+lapply(1:5, function(x) {
+  x^2
+})
 ```
 
 Here, $A$ is $[1, 2, 3, 4, 5]$. In $B$ you have a function that takes $x$ and square it. So, the above code applies the function to each of $[1, 2, 3, 4, 5]$ one by one. In many circumstances, you can write the same looping actions in a much more concise manner using the `lapply` function than explicitly writing out the loop process as in the above for loop examples. You might have noticed that the output is a list. Yes, `lapply()` returns the outcomes in a list. That is where **l** in `lapply()` comes from.  
@@ -142,7 +142,7 @@ When the operation you would like to repeat becomes complicated (almost always t
 
 ```{r def_fcn}
 #--- define the function first ---#
-square_it <- function(x){
+square_it <- function(x) {
   return(x^2)
 }
 
@@ -150,7 +150,8 @@ square_it <- function(x){
 lapply(1:5, square_it)
 ```
 
-Finally, it is a myth that you should always use `lapply()` instead of the explicit for loop syntax because `lapply()` (or other `apply()` families) is faster. They are basically the same.^[Check this [discussion](https://stackoverflow.com/questions/7142767/why-are-loops-slow-in-r) on StackOverflow. You might want to check out [this video](https://www.youtube.com/watch?v=GyNqlOjhPCQ) at 6:10 as well.]  
+Finally, it is a myth that you should always use `lapply()` instead of the explicit for loop syntax because `lapply()` (or other `apply()` families) is faster. They are basically the same.^[Check this [discussion](https://stackoverflow.com/questions/7142767/why-are-loops-slow-in-r) on StackOverflow. You might want to check out [this video](https://www.youtube.com/watch?v=GyNqlOjhPCQ) at 6:10 as well.]
+
 
 ### Looping over multiple variables using lapply()
 
@@ -168,7 +169,11 @@ After creating vectors of the parameters, you combine them to create a complete 
 
 ```{r param_mat}
 #--- crate a data.frame that holds parameter sets to loop over ---#
-parameters_data <- expand.grid(corn_price = corn_price_vec, nitrogen = nitrogen_vec) %>% 
+parameters_data <-
+  expand.grid(
+    corn_price = corn_price_vec,
+    nitrogen = nitrogen_vec
+  ) %>%
   #--- convert the matrix to a data.frame ---#
   data.frame()
 
@@ -182,16 +187,16 @@ We now define a function that takes a row number, refer to `parameters_data` to 
 gen_rev_corn <- function(i) {
 
   #--- define corn price ---#
-  corn_price <- parameters_data[i,'corn_price']
+  corn_price <- parameters_data[i, "corn_price"]
 
   #--- define nitrogen  ---#
-  nitrogen <- parameters_data[i,'nitrogen']
+  nitrogen <- parameters_data[i, "nitrogen"]
 
   #--- calculate yield ---#
   yield <- 240 * (1 - exp(0.4 - 0.02 * nitrogen))
 
   #--- calculate revenue ---#
-  revenue <- corn_price * yield 
+  revenue <- corn_price * yield
 
   #--- combine all the information you would like to have  ---#
   data_to_return <- data.frame(
@@ -202,7 +207,7 @@ gen_rev_corn <- function(i) {
 
   return(data_to_return)
 }
-``` 
+```
 
 This function takes $i$ (act as a row number within the function), extract corn price and nitrogen from the $i$th row of `parameters_mat`, which are then used to calculate yield and revenue^[Yield is generated based on the Mitscherlich-Baule functional form. Yield increases at the decreasing rate as you apply more nitrogen, and yield eventually hits the plateau.]. Finally, it returns a `data.frame` of all the information you used (the parameters and the outcomes).
 
@@ -236,13 +241,13 @@ x <- 1:1000
 y <- 1:1000
 
 #--- element wise addition ---#
-z_vec <- x + y 
+z_vec <- x + y
 ```
 
 A non-vectorized version of the same calculation is this:
 
 ```{r }
-z_la <- lapply(1:1000, function(i) x[i] + y[i]) %>%  unlist
+z_la <- lapply(1:1000, function(i) x[i] + y[i]) %>% unlist()
 
 #--- check if identical with z_vec ---#
 all.equal(z_la, z_vec)
@@ -255,17 +260,21 @@ library(microbenchmark)
 
 microbenchmark(
   #--- vectorized ---#
-  "vectorized" = { x + y }, 
+  "vectorized" = {
+    x + y
+  },
   #--- not vectorized ---#
-  "not vectorized" = { lapply(1:1000, function(i) x[i] + y[i])},
-  times = 100, 
+  "not vectorized" = {
+    lapply(1:1000, function(i) x[i] + y[i])
+  },
+  times = 100,
   unit = "ms"
 )
 ```
 
-As you can see, the vectorized version is faster. The time difference comes from R having to conduct many more internal checks and hidden operations for the non-vectorized one^[See [this](http://www.noamross.net/archives/2014-04-16-vectorization-in-r-why/) or [this](https://stackoverflow.com/questions/7142767/why-are-loops-slow-in-r) to have a better understanding of why non-vectorized operations can be slower than vectorized operations.]. Yes, we are talking about a fraction of milliseconds here. But, as the objects to operate on get larger, the difference between vectorized and non-vectorized operations can become substantial^[See [here](http://www.win-vector.com/blog/2019/01/what-does-it-mean-to-write-vectorized-code-in-r/) for a good example of such a case. R is often regarded very slow compared to other popular software. But, many of such claims come from not vectorizing operations that can be vectorized. Indeed, many of the base and old R functions are written in C. More recent functions relies on C++ via the `Rcpp` package.]. 
-    
-The `lapply()` examples can be easily vectorized.        
+As you can see, the vectorized version is faster. The time difference comes from R having to conduct many more internal checks and hidden operations for the non-vectorized one^[See [this](http://www.noamross.net/archives/2014-04-16-vectorization-in-r-why/) or [this](https://stackoverflow.com/questions/7142767/why-are-loops-slow-in-r) to have a better understanding of why non-vectorized operations can be slower than vectorized operations.]. Yes, we are talking about a fraction of milliseconds here. But, as the objects to operate on get larger, the difference between vectorized and non-vectorized operations can become substantial^[See [here](http://www.win-vector.com/blog/2019/01/what-does-it-mean-to-write-vectorized-code-in-r/) for a good example of such a case. R is often regarded very slow compared to other popular software. But, many of such claims come from not vectorizing operations that can be vectorized. Indeed, many of the base and old R functions are written in C. More recent functions relies on C++ via the `Rcpp` package.].
+
+The `lapply()` examples can be easily vectorized.
 
 Instead of this:
 
@@ -288,11 +297,11 @@ gen_rev_corn_short <- function(corn_price, nitrogen) {
   yield <- 240 * (1 - exp(0.4 - 0.02 * nitrogen))
 
   #--- calculate revenue ---#
-  revenue <- corn_price * yield 
+  revenue <- corn_price * yield
 
   return(revenue)
 }
-```  
+```
 
 Then use the function to calculate revenue and assign it to a new variable in the `parameters_data` data.
 
@@ -300,19 +309,22 @@ Then use the function to calculate revenue and assign it to a new variable in th
 rev_data_2 <- mutate(
   parameters_data,
   revenue = gen_rev_corn_short(corn_price, nitrogen)
-) 
+)
 ```
 
 Let's compare the two:
 
 ```{r }
 microbenchmark(
-
   #--- vectorized ---#
-  "vectorized" = { rev_data <- mutate(parameters_data, revenue = gen_rev_corn_short(corn_price, nitrogen)) },
+  "vectorized" = {
+    rev_data <- mutate(parameters_data, revenue = gen_rev_corn_short(corn_price, nitrogen))
+  },
   #--- not vectorized ---#
-  "not vectorized" = { parameters_data$revenue <- lapply(1:nrow(parameters_data), gen_rev_corn) },
-  times = 100, 
+  "not vectorized" = {
+    parameters_data$revenue <- lapply(1:nrow(parameters_data), gen_rev_corn)
+  },
+  times = 100,
   unit = "ms"
 )
 ```
@@ -327,7 +339,7 @@ We will use the `future_lapply()` function from the `future.apply` package for p
 
 ```{r load_fapply, message=FALSE, warning=FALSE}
 #--- load packages ---#
-library(future.apply) 
+library(future.apply)
 ```
 
 You can find out how many cores you have available for parallel computation on your computer using the `detectCores()` function from the `parallel` package.
@@ -339,10 +351,10 @@ library(parallel)
 detectCores()
 ```
 
-Before we implement parallelized `lapply()`, we need to declare what backend process we will be using by `plan()`. Here, we use `plan(multiprocess)`^[If you are a Mac or Linux user, then the `multicore` process will be used, while the `multisession` process will be used if you are using a Windows machine. The `multicore` process is superior to the `multisession` process. See [this lecture note](https://raw.githack.com/uo-ec607/lectures/master/12-parallel/12-parallel.html) on parallel programming using R by Dr. Grant McDermott's at the University of Oregon for the distinctions between the two and many other useful concepts for parallelization. At the time of this writing, if you run R through RStudio, `multiprocess` option is always redirected to `multisession` option because of the instability in doing `multiprocess`. If you use Linux or Mac and want to take the full advantage of `future_apply`, you should not run your R programs  through RStudio at least for now.]. In the `plan()` function, we can specify the number of workers. Here I will use the total number of cores less 1^[This way, you can have one more core available to do other tasks comfortably. However, if you don't mind having your computer completely devoted to the processing task at hand, then there is no reason not to use all the cores.].  
+Before we implement parallelized `lapply()`, we need to declare what backend process we will be using by `plan()`. Here, we use `plan(multisession)`^[If you are a Mac or Linux user, then the `multicore` is also available. The `multicore` process is faster than the `multisession` process. See [this lecture note](https://raw.githack.com/uo-ec607/lectures/master/12-parallel/12-parallel.html) on parallel programming using R by Dr. Grant McDermott's at the University of Oregon for the distinctions between the two and many other useful concepts for parallelization. However, `multicore` is considered less stable than `multisession`. At the time of this writing, if you run R through RStudio, `multicore` option is not permitted because of its instability.]. In the `plan()` function, we can specify the number of workers. Here I will use the total number of cores less 1^[This way, you can have one more core available to do other tasks comfortably. However, if you don't mind having your computer completely devoted to the processing task at hand, then there is no reason not to use all the cores.].  
 
 ```{r plan}
-plan(multiprocess, workers = detectCores() - 1)
+plan(multisession, workers = detectCores() - 1)
 ```
 
 `future_lapply()` works exactly like `lapply()`. 
@@ -351,17 +363,21 @@ plan(multiprocess, workers = detectCores() - 1)
 sq_ls <- future_lapply(1:1000, function(x) x^2)
 ```
 
-This is it. The only difference you see from the serialized processing using `lapply()` is that you changed the function name to `future_lapply()`. 
+This is it. The only difference you see from the serialized processing using `lapply()` is that you changed the function name to `future_lapply()`.
 
 Okay, now we know how we parallelize computation. Let's check how much improvement in implementation time we got by parallelization. 
 
-```{r do_mb}
+```{r do_mb, cache = TRUE}
 microbenchmark(
   #--- parallelized ---#
-  "parallelized" = { sq_ls <- future_lapply(1:1000, function(x) x^2) }, 
+  "parallelized" = {
+    sq_ls <- future_lapply(1:1000, function(x) x^2)
+  },
   #--- non-parallelized ---#
-  "not parallelized" = { sq_ls <- lapply(1:1000, function(x) x^2) },
-  times = 100, 
+  "not parallelized" = {
+    sq_ls <- lapply(1:1000, function(x) x^2)
+  },
+  times = 100,
   unit = "ms"
 )
 ```
@@ -371,15 +387,14 @@ Hmmmm, okay, so parallelization made the code slower... How could this be? This 
 One of the very good use cases of parallelization is MC simulation. The following MC simulation tests whether the correlation between an independent variable and error term would cause bias (yes, we know the answer). The `MC_sim` function first generates a dataset (50,000 observations) according to the following data generating process:
 
 $$
- y = 1 + x + v
+y = 1 + x + v
 $$
 
 where $\mu \sim N(0,1)$, $x \sim N(0,1) + \mu$, and $v \sim N(0,1) + \mu$. The $\mu$ term cause correlation between $x$ (the covariate) and $v$ (the error term). It then estimates the coefficient on $x$ vis OLS, and return the estimate. We would like to repeat this process 1,000 times to understand the property of the OLS estimators under the data generating process. This Monte Carlo simulation is embarrassingly parallel because each process is independent of any other. 
 
 ```{r def_MC}
 #--- repeat steps 1-3 B times ---#
-MC_sim <- function(i){
-
+MC_sim <- function(i) {
   N <- 50000 # sample size
 
   #--- steps 1 and 2:  ---#
@@ -389,11 +404,11 @@ MC_sim <- function(i){
   y <- 1 + x + v # dependent variable
   data <- data.table(y = y, x = x)
 
-  #--- OLS ---# 
-  reg <- lm(y~x, data = data) # OLS
+  #--- OLS ---#
+  reg <- lm(y ~ x, data = data) # OLS
 
   #--- return the coef ---#
-  return(reg$coef['x'])
+  return(reg$coef["x"])
 }
 ```
 
@@ -426,7 +441,7 @@ MC_results <- lapply(1:1000, MC_sim)
 toc()
 ```
 
-```{r benchmack_non_par_do, echo = FALSE}
+```{r benchmack_non_par_do, echo = FALSE, cache = TRUE}
 #--- non-parallel ---#
 tic.clearlog()
 tic()
@@ -446,8 +461,8 @@ MC_results <- future_lapply(1:1000, MC_sim)
 toc()
 ```
 
-```{r benchmack_par_do, echo = FALSE}
-plan(multiprocess, workers = detectCores() - 1)
+```{r benchmack_par_do, echo = FALSE, cache = TRUE}
+plan(multisession, workers = detectCores() - 1)
 set.seed(783523)
 
 #--- parallel ---#
@@ -460,7 +475,7 @@ time_elapsed_par <- log_txt[[1]]$toc - log_txt[[1]]$tic
 time_elapsed_par
 ```
 
-As you can see, parallelization makes it much quicker with a noticeable difference in elapsed time. We made the code `r round(time_elapsed_ser/time_elapsed_par, digit=2)` times faster. However, we did not make the process `r detectCores()-1` times faster even though we used `r detectCores()-1` cores for the parallelized process. This is because of the overhead associated with distributing tasks to the cores. The relative advantage of parallelization would be greater if each iteration took more time. For example, if you are running a process that takes about 2 minutes for 1000 times, it would take approximately 33 hours and 20 minutes. But, it may take only 4 hours if you parallelize it on `r detectCores()-1` cores, or maybe even 2 hours if you run it on 30 cores. 
+As you can see, parallelization makes it much quicker with a noticeable difference in elapsed time. We made the code `r round(time_elapsed_ser/time_elapsed_par, digit=2)` times faster. However, we did not make the process `r detectCores()-1` times faster even though we used `r detectCores()-1` cores for the parallelized process. This is because of the overhead associated with distributing tasks to the cores. The relative advantage of parallelization would be greater if each iteration took more time. For example, if you are running a process that takes about 2 minutes for 1000 times, it would take approximately 33 hours and 20 minutes. But, it may take only 4 hours if you parallelize it on `r detectCores()-1` cores, or maybe even 2 hours if you run it on 30 cores.
 
 ### Mac or Linux users
 
@@ -474,9 +489,4 @@ MC_results <- mclapply(1:1000, MC_sim, mc.cores = detectCores() - 1)
 #--- or with progress bar ---#
 library(pbmclapply)
 MC_results <- pbmclapply(1:1000, MC_sim, mc.cores = detectCores() - 1)
-``` 
-
-<!-- ### Some background on the parallelization packages 
-
-For Mac and Linux users the coding cost of parallelization was minimal since when `parallel::mclapply()` was available. Parallelization is really a piece of cake for those who know how to use `lapply()` because the syntax is identical. For Windows users, that had not been the case until the arrival of the `future.apply` package. Windows machines create new threads to run on multiple cores, which do not inherit any of the R objects you have created on the environment. This means that if you need to use a dataset (or any other objects that you are not creating within the loop internally) inside the loop, you have to tell R explicitly what objects you want it to carry to the new threads so they can use those objects themselves. This hassle was eliminated by the `future.apply` package.^[To be honest, I do not completely understand how it does what it does.] On Mac and Linux machines, it was not even an issue because parallelization is done by forking (which Windows machines cannot do), which inherits all the available R objects on the environment. Since the `future.apply` package works for all the platforms, I focused on this package.  -->
-
+```

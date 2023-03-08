@@ -1,0 +1,309 @@
+### Project Overview
+
+---
+
+**Objective:**
+
+Create some of the variables used in @nunn2008long (here)[https://scholar.harvard.edu/nunn/publications/long-term-effects-africas-slave-trades]
+
+* the distance variable used as an instrument (distance to the nearest trade center for each country in Africa)   
+* the number of slaves for each of the countries in Africa
+
+The tutorial is originally from http://mkudamatsu.github.io/gis_lecture4.html.
+
+---
+
+**Datasets**
+
+* Coast lines of the world
+* Country boundary in Africa
+* Boundary of ethnic regions in Africa
+
+---
+
+**GIS tasks**
+
+* read an ESRI shape file as an `sf` (spatial) object 
+  - use `sf::st_read()`
+* simply a spatial object (reduce the number of points representing it)
+  - use `rmapshaper::ms_simplify()`
+* find the closest point on the boundary of polygons
+  - use `sf::st_nearest_points()`
+* find the centroid of a polygon
+  - use `sf::st_centroid()`
+* combine multiple lines into a single line
+  - use `sf::st_union()`
+* identify the last point of a line
+  - use `lwgeom::st_endpoint()`
+* calculate the distance between two spatial objects
+  - use `sf::st_distance()`
+* implement area-weighted spatial interpolation
+  - use `sf::st_interpolate_aw()`
+* drop geometry from an `sf` object
+  - use `sf::st_drop_geometry()`
+* convert a regular `data.frame` (non-spatial) with geographic coordinates into an `sf` (spatial) objects
+  - use `sf::st_as_sf()` and `sf::st_set_crs()`
+* reproject an `sf` object to another CRS
+  - use `sf::st_transform()`
+  - use `sf::st_join()`
++ create maps 
+  * use the `ggplot2` package 
+
+---
+
+**Preparation for replication**
+
+Run the following code to install or load (if already installed) the `pacman` package, and then install or load (if already installed) the listed package inside the `pacman::p_load()` function.
+
+```{r demo1_packages}
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(
+  sf, # vector data operations
+  tidyverse, # data wrangling
+  units,
+  rmapshaper,
+  lwgeom,
+  tictoc
+)
+```
+
+### Project Demonstration
+
+We first read all the GIS data we will be using in this demonstration and then reproject them to epsg:3857, which is Pseudo-mercator.
+
+```{r}
+#--- coast line ---#
+coast <-
+  sf::st_read(here::here("Data/nunn_2008/10m-coastline/10m_coastline.shp")) %>%
+  st_transform(3857)
+
+#--- African countries ---#
+countries <-
+  sf::st_read(here::here("Data/nunn_2008/gadm36_africa/gadm36_africa.shp")) %>%
+  st_transform(3857)
+
+#--- ethnic regions ---#
+ethnic_regions <-
+  sf::st_read(here::here("Data/nunn_2008/Murdock_shapefile/borders_tribes.shp")) %>%
+  st_transform(3857)
+
+# lat/long for slave trade centers
+trade_centers <- read_csv(here::here("Data/nunn_2008/nunn2008.csv"))
+```
+
+#### Calculate the distance to the nearest trade center {-}
+
+We first simplify geometries of the African countries using `rmapshaper::ms_simplify()`, so the code run faster, while maintaining borders between countries^[The `keep` option allows you to determine the degree of simplification, with `keep = 1` being remains the same, `keep = 0.001` is quite drastic. The default value if 0.05.]. As comparison, `sf::st_simplify()` does not ensure borders between countries remain (see this by running `countries_simp_sf <- sf::st_simplify(countries)` and `plot(countries_simp_sf$geometry)`).
+
+```{r simplify, cache = TRUE}
+countries_simp <- rmapshaper::ms_simplify(countries)
+```
+
+```{r, cache = TRUE}
+(
+  g_countries <-
+    ggplot(data = countries_simp) +
+    geom_sf() +
+    theme_void()
+)
+```
+
+We now finds the centroid of each country using `st_centroid()`.
+
+```{r}
+countries_centroid <- st_centroid(countries)
+```
+
+The red points represent the centroids.
+```{r, echo = F, cache = TRUE}
+g_countries +
+  geom_sf(data = countries_centroid, color = "red") +
+  theme_void()
+```
+
+Now, for the centroid of each country, we find its closest point on the coast line using `sf::st_nrearest_points()`. `sf::st_nearest_points(x, y)` loops through each geometry in `x` and returns the closest point in each feature of `y`. So, we first union the coast lines so we only get the single closest point on the coast.
+
+```{r, cache = TRUE}
+(
+  coast_union <- st_union(coast)
+)
+```
+
+Notice that `coast_union` is now has a single feature while `coast` has `r nrow(coast)` lines. Now, we are ready to use `st_nearest_points`.
+
+```{r}
+minum_dist_to_coast <- st_nearest_points(countries_centroid, coast_union)
+```
+
+As you can see below, this returns a line between the centroid and the coast.
+
+```{r, cache = TRUE}
+(
+  g_min_dist_line <-
+    ggplot() +
+    geom_sf(data = countries_simp) +
+    geom_sf(data = minum_dist_to_coast, color = "red") +
+    theme_void()
+)
+```
+
+However, what we need is the end point of the lines. We can use `lwgeom::st_endpoint()` to extract such a point^[The `lwgeom` package is a companion to the `sf` package that has less general `st_*()` functions].
+
+```{r }
+closest_pt_on_coast <- lwgeom::st_endpoint(minum_dist_to_coast)
+```
+
+The end points are represented as blue points in the figure below. 
+
+```{r}
+g_min_dist_line +
+  geom_sf(
+    data = closest_pt_on_coast,
+    color = "blue",
+    size = 2
+  ) +
+  theme_void()
+```
+
+Let's make `closest_pt_on_coast` as part of `countries_simp` by assigning it to a new column named `nearest_pt`.
+
+```{r}
+countries_simp$nearest_pt <- closest_pt_on_coast
+```
+
+Let's now calculate the distance between the closest point on the coast to the nearest slave trade center. Before doing so, we first need to convert `trade_centers` to an `sf` object. At the moment, it is merely a `data.frame` and cannot be used for spatial operations like calculating distance. Since the `lon`, `lat` are in epsg:4326, we first create an `sf` using the GRS and then reproejct it to epsg:3857, so it has the same CRS as the other `sf` objects.
+
+```{r}
+(
+  trade_centers_sf <-
+    trade_centers %>%
+    st_as_sf(coords = c("lon", "lat"), crs = 4326) %>%
+    st_transform(crs = 3857)
+)
+```
+
+```{r}
+ggplot() +
+  geom_sf(data = trade_centers_sf, color = "red") +
+  geom_sf(data = countries_simp, aes(geometry = geometry)) +
+  theme_void()
+```
+
+In this demosntration, we calculate distance "as the bird flies" rather than "as the boat travels" using `sf::st_distance()`. This is not ideal, but calculating maritime routes has yet to be implemented in the sf structure. If you are interested in calculating maritime routes, you can follow <https://www.r-bloggers.com/computing-maritime-routes-in-r/>^[This requires the sp package]. `st_distance(x, y)` returns the distance between each of the elements in `x` and `y` in a matrix form.
+
+```{r}
+trade_dist <- st_distance(countries_simp$nearest_pt, trade_centers_sf)
+
+head(trade_dist)
+```
+
+We can get the minimum distance as follows,
+
+```{r}
+(
+  min_trade_dist <- apply(trade_dist, 1, min)
+)
+```
+
+Let's assign these values to a new column named `distance_to_trade_center` in `countries_simp` while converting the unit to kilometer from meter.
+
+```{r}
+countries_simp$distance_to_trade_center <- min_trade_dist / 1000
+```
+
+Figre below color-differentiate countries by their distance to the closeset trade center. 
+
+```{r}
+ggplot() +
+  geom_sf(data = trade_centers_sf, color = "red") +
+  geom_sf(
+    data = countries_simp,
+    aes(geometry = geometry, fill = distance_to_trade_center)
+  ) +
+  theme_void()
+```
+
+---
+
+#### Calculate slaves exported from each country in Africa {-}
+
+@nunn2008long used data on the number slaves exported from each ethnic region in `ethnic_regions`. Note that many ethnic regions intersects more than one countries as can be seen below, where the red and black lines represent country and ethnic region borders, respectively.
+
+```{r}
+ggplot() +
+  geom_sf(
+    data = countries_simp,
+    aes(geometry = geometry),
+    color = "red"
+  ) +
+  geom_sf(
+    data = ethnic_regions,
+    aes(geometry = geometry),
+    color = "grey60",
+    fill = NA
+  ) +
+  theme_void()
+```
+
+So, we need to assign a mapping from the amount of slaves exported from tribal regions to countries. We achieve this by means of "area weighted interpolation." For example, if a country has 40% of a tribal region, then it will be assigned 40% of the slaves exported. The main assumption is that the distribution of slaves traded in a region is uniform.
+
+Unfortunately, ethnic region data is not available on Prof. Nunn's website. So, we generate fake data in this demonstration. Mean is increasing as we move west and normalized by area of region
+
+```{r}
+set.seed(3834)
+#--- calculate area ---#
+ethnic_regions$area <- st_area(ethnic_regions)
+
+#--- generate fake trade numbers ---#
+ethnic_regions$slaves_traded <-
+  rnorm(
+    n = nrow(ethnic_regions),
+    mean = ethnic_regions$area / mean(ethnic_regions$area) * 200 * (60 - ethnic_regions$LON),
+    sd = 100
+  )
+```
+
+```{r}
+ggplot() +
+  geom_sf(
+    data = ethnic_regions,
+    aes(fill = slaves_traded)
+  ) +
+  scale_fill_viridis_c(name = "# of slaves traded") +
+  theme_void() +
+  theme(
+    legend.position = "bottom"
+  )
+```
+
+Let's implement area-weighted interpolation on this fake dataset using `sf::st_interpolate_aw()`. Since we would like to sum the number of exported slaves from each ethnic region, we use `extensive = TRUE` option.^[`extensive= FALSE` does a weighted mean. More information is avaialble (here)[https://edzer.github.io/UseR2017/#higher-level-operations-summarise-interpolate-aggregate-st_join]]
+
+```{r}
+countries_simp$slaves_traded <-
+  st_interpolate_aw(
+    st_make_valid(ethnic_regions[, "slaves_traded"]),
+    st_make_valid(countries_simp),
+    extensive = TRUE
+  ) %>%
+  st_drop_geometry() %>%
+  pull(slaves_traded)
+```
+
+The left and right panel of the figure below shows the number of exported slaves by ethnic region and by country, respectively. 
+
+```{r}
+ethnic_regions_plot <-
+  ggplot(ethnic_regions) +
+  geom_sf(aes(geometry = geometry, fill = slaves_traded), color = NA) +
+  theme_void()
+
+countries_plot <-
+  ggplot(countries_simp) +
+  geom_sf(aes(geometry = geometry, fill = slaves_traded), color = NA) +
+  theme_void()
+
+ethnic_regions_plot | countries_plot
+```
+
+
+

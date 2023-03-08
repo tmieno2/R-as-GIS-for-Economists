@@ -587,7 +587,7 @@ We use the following objects that have the same information but come in differen
 
 ```{r raster-as-stars, echo = F, eval = F}
 tmax_Jan_09 <- 
-  read_stars("Data/PRISM/PRISM_tmax_y2009_m1.tif") %>%
+  read_stars("Data/PRISM_tmax_y2009_m1.tif") %>%
   #--- change the variable name ---#
   setNames("tmax") %>%
   #--- set the date values ---#
@@ -609,7 +609,7 @@ tmax_Jan_09 <- readRDS("Data/tmax_Jan_09_stars.rds")
 
 ```{r echo = F, eval = F}
 as(tmax_Jan_09, "Raster") %>%
-  writeRaster("Data/tmax_Jan_09.tif")
+  writeRaster("Data/tmax_Jan_09.tif", overwrite = TRUE)
 ```
 
 ```{r tmax-data-get-brick, cache = F}
@@ -629,7 +629,7 @@ tmax_Jan_09_df <-
   na.omit() %>%
   #--- change the variable names ---#
   setnames(
-    paste0("tmax_Jan_09.", 1:5),
+    paste0("layer.", 1:5),
     seq(ymd("2009-01-01"), ymd("2009-01-05"), by = "days") %>%
       as.character()
   )

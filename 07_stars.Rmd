@@ -33,6 +33,7 @@ library(gdalcubes)
 library(tidyverse)
 library(lubridate)
 library(tidyr)
+library(viridis)
 library(tictoc)
 library(stars)
 library(tmap)
@@ -46,15 +47,11 @@ In this Chapter, we introduce the `stars` package [@stars] for raster data handl
 
 Another advantage of the `stars` package is its compatibility with `sf` objects as the lead developer of the two packages is the same person. Therefore, unlike the `terra` package approach, we do not need any tedious conversions between `sf` and `SpatVector`. The `stars` package also allows `dplyr`-like data operations using functions like `filter()`, `mutate()` (see section \@ref(dplyr-op)).
 
-<!-- The `stars` package has its own set of functions to extract values from raster data for vector data (see section \@ref(extraction-stars)). They are not as fast as `terra::extract()` for points data or `exact_extract()` for polygons data (but, `exact_extract()` will be incorporated very soon). So, if the speed is an issue, you may want to convert `stars` object to `SpatRaster` or `Raster`$^*$ objects so you can use `terra::extract()` for points and `exact_extract()` for polygons data (this will be discussed in section \@ref(extraction-stars)). -->
-
 In Chapters \@ref(raster-basics) and \@ref(int-RV), we used the `raster` and `terra` packages to handle raster data and interact raster data with vector data. If you do not feel any inconvenience with the approach, you do not need to read on. Also, note that the `stars` package was not written to replace either `raster` or `terra` packages. [Here](https://github.com/r-spatial/stars/wiki/How-%60raster%60-functions-map-to-%60stars%60-functions) is a good summary of how `raster` functions map to `stars` functions. As you can see, there are many functions that are available to the `raster` packages that cannot be implemented by the `stars` package. However, I must say the functionality of the `stars` package is rather complete at least for most economists, and it is definitely possible to use just the `stars` package for all the raster data work in most cases.[^stars-2]
 
 [^stars-2]: at least on the surface
 
 Finally, this book does not cover the use of `stars_proxy` for big data that does not fit in your memory, which may be useful for some of you. [This](https://r-spatial.github.io/stars/articles/stars2.html) provides an introduction to `stars_proxy` for those interested. This book also does not cover **irregular** raster cells (e.g., curvelinear grids). Interested readers are referred to [here](https://r-spatial.github.io/stars/articles/stars4.html).
-
-<!-- A `stars` object is much more general than just spatiotmeporal raster data, and it can handle spatiotemporal vector (`sf`) data as well. However, we do not cover it much.  -->
 
 ### Direction for replication {.unnumbered}
 
@@ -62,13 +59,13 @@ Finally, this book does not cover the use of `stars_proxy` for big data that doe
 
 All the datasets that you need to import are available [here](https://www.dropbox.com/sh/l8fmabfjjcuzu5u/aad75x8b_f3yvaq6ca5ap5oza?dl=0). In this chapter, the path to files is set relative to my own working directory (which is hidden). To run the codes without having to mess with paths to the files, follow these steps:
 
--   set a folder (any folder) as the working directory using `setwd()`\
--   create a folder called "Data" inside the folder designated as the working directory (if you have created a "Data" folder previously, skip this step)
--   download the pertinent datasets from [here](https://www.dropbox.com/sh/l8fmabfjjcuzu5u/aad75x8b_f3yvaq6ca5ap5oza?dl=0) and put them in the "Data" folder
+- set a folder (any folder) as the working directory using `setwd()`\
+- create a folder called "Data" inside the folder designated as the working directory (if you have created a "Data" folder previously, skip this step)
+- download the pertinent datasets from [here](https://www.dropbox.com/sh/l8fmabfjjcuzu5u/aad75x8b_f3yvaq6ca5ap5oza?dl=0) and put them in the "Data" folder
 
 **Packages**
 
--   Run the following code to install or load (if already installed) the `pacman` package, and then install or load (if already installed) the listed package inside the `pacman::p_load()` function.
+- Run the following code to install or load (if already installed) the `pacman` package, and then install or load (if already installed) the listed package inside the `pacman::p_load()` function.
 
 ```{r Chap7_packages}
 if (!require("pacman")) install.packages("pacman")
@@ -85,7 +82,7 @@ pacman::p_load(
 )
 ```
 
--   Run the following code to define the theme for map:
+- Run the following code to define the theme for map:
 
 ```{r define_theme_Chap7, cache = F}
 
@@ -93,87 +90,84 @@ theme_set(theme_bw())
 
 theme_for_map <- theme(
   axis.ticks = element_blank(),
-  axis.text= element_blank(), 
+  axis.text = element_blank(),
   axis.line = element_blank(),
   panel.border = element_blank(),
-  panel.grid.major = element_line(color='transparent'),
-  panel.grid.minor = element_line(color='transparent'),
+  panel.grid.major = element_line(color = "transparent"),
+  panel.grid.minor = element_line(color = "transparent"),
   panel.background = element_blank(),
-  plot.background = element_rect(fill = "transparent",color='transparent')
+  plot.background = element_rect(fill = "transparent", color = "transparent")
 )
 ```
 
 ## Understanding the structure of a `stars` object {#stars-structure}
 
-```{r layers-map-gen, echo = F, echo = F, results = "hide", cache = F}
+```{r layers-map-gen, echo = F, results = "hide", cache = F}
 library(viridis)
 
 theme_for_map <- theme(
   axis.ticks = element_blank(),
-  axis.text = element_blank(), 
-  axis.title = element_blank(), 
+  axis.text = element_blank(),
+  axis.title = element_blank(),
   axis.line = element_blank(),
   panel.border = element_blank(),
   legend.position = "bottom",
-  panel.grid.major = element_line(color='transparent'),
-  panel.grid.minor = element_line(color='transparent'),
+  panel.grid.major = element_line(color = "transparent"),
+  panel.grid.minor = element_line(color = "transparent"),
   panel.background = element_blank(),
-  plot.background = element_rect(fill = "transparent",color='transparent')
-)  
+  plot.background = element_rect(fill = "transparent", color = "transparent")
+)
 
-vec_lr <-c(1, 0) 
-vec_sn <- c(0.6, 0.3)  
+vec_lr <- c(1, 0)
+vec_sn <- c(0.6, 0.3)
 
 nrow <- 20
 ncol <- 20
 
-row_col_data <- expand.grid(row = 1:nrow, col = 1:ncol) %>% 
+row_col_data <- expand.grid(row = 1:nrow, col = 1:ncol) %>%
   data.table()
 
-make_sf_grid <- function(i){
-
+make_sf_grid <- function(i) {
   row_temp <- row_col_data[i, row]
   col_temp <- row_col_data[i, col]
 
   origin <- c(0, 0) + (col_temp - 1) * vec_lr + (row_temp - 1) * vec_sn
 
   temp_mat <- rbind(
-    origin, 
-    origin + vec_lr, 
-    origin + vec_lr + vec_sn, 
-    origin + vec_sn, 
-    origin 
-  ) %>% 
-  list() %>% 
-  st_polygon() %>% 
-  st_sfc() %>% 
-  st_sf()
-
+    origin,
+    origin + vec_lr,
+    origin + vec_lr + vec_sn,
+    origin + vec_sn,
+    origin
+  ) %>%
+    list() %>%
+    st_polygon() %>%
+    st_sfc() %>%
+    st_sf()
 }
 
-all_polygons <- lapply(1:nrow(row_col_data), make_sf_grid) %>% 
+all_polygons <- lapply(1:nrow(row_col_data), make_sf_grid) %>%
   do.call("rbind", .)
 
 g_layers <- ggplot() +
-  scale_fill_viridis(name = 'tmax') +
-  xlim(-6, NA)  +
+  scale_fill_viridis_c(name = "tmax") +
+  xlim(-6, NA) +
   theme_for_map
 
-tmax_m8_y09_stars <- read_stars("Data/PRISM_tmax_y2009_m8.tif") 
+tmax_m8_y09_stars <- read_stars("Data/PRISM_tmax_y2009_m8.tif")
 
 y_shift <- 3
 
-for (i in 1:10){
-
-  tmep_prism_sf <- tmax_m8_y09_stars["PRISM_tmax_y2009_m8.tif", 80:(80+ncol-1), 80:(80+nrow-1), i] 
+for (i in 1:10) {
+  tmep_prism_sf <- tmax_m8_y09_stars["PRISM_tmax_y2009_m8.tif", 80:(80 + ncol - 1), 80:(80 + nrow - 1), i]
 
   temp_values <- pull(tmep_prism_sf, PRISM_tmax_y2009_m8.tif) %>% as.vector()
 
   temp_sf_to_add <- mutate(all_polygons, value = temp_values)
 
   temp_sf_to_add <- st_set_geometry(
-    temp_sf_to_add, 
-    st_geometry(temp_sf_to_add) + c(0, y_shift) * (i-1)
+    temp_sf_to_add,
+    st_geometry(temp_sf_to_add) + c(0, y_shift) * (i - 1)
   )
 
   g_layers <- g_layers +
@@ -181,44 +175,54 @@ for (i in 1:10){
 }
 
 
-for (i in 1:10){
+for (i in 1:10) {
   g_layers <- g_layers +
-    annotate("text", x = -4, y = (i-1)*y_shift, label = paste0("8/", 10 + i, "/2009"), size = 4)
+    annotate("text", x = -4, y = (i - 1) * y_shift, label = paste0("8/", 10 + i, "/2009"), size = 4)
 }
-    
+
 g_layers <- g_layers +
-  annotate("text", x = nrow/2, y = -1, label = "x", size = 6) +
-  annotate("text", x = ncol+8, y = 3, label = "y", size = 6) 
+  annotate("text", x = nrow / 2, y = -1, label = "x", size = 6) +
+  annotate("text", x = ncol + 8, y = 3, label = "y", size = 6)
 
 # saveRDS(g_layers, "Data/stars_layers.rds")
 ```
 
 ```{r prepare_data_and_viz, eval = F, echo = F}
 #--- tmax ---#
-tmax_m8_y09_small <- read_stars("Data/PRISM_tmax_y2009_m8.tif") %>% 
-  .[, 80:(80+ncol-1), 80:(80+nrow-1), 11:20]  
+tmax_m8_y09_small <-
+  read_stars("Data/PRISM_tmax_y2009_m8.tif") %>%
+  .[, 80:(80 + ncol - 1), 80:(80 + nrow - 1), 11:20] %>%
+  st_set_dimensions(3, values = 1:10, names = "band")
 
+#* Note that offset does not get updated when selecting a portion of a stars obejct. Here, we write it to tif and then read it to get the offset right
 write_stars(tmax_m8_y09_small, "Data/PRISM_tmax_y2009_m8_small.tif")
 
-tmax_m8_y09_small <- read_stars("Data/PRISM_tmax_y2009_m8_small.tif") %>% 
+tmax_m8_y09_small <-
+  read_stars("Data/PRISM_tmax_y2009_m8_small.tif") %>%
   setNames("tmax")
 
 #--- ppt ---#
-ppt_m8_y09_small <- read_stars("Data/PRISM_ppt_y2009_m8.tif") %>% 
-  .[, 80:(80+ncol-1), 80:(80+nrow-1), 11:20]  
+ppt_m8_y09_small <-
+  read_stars("Data/PRISM_ppt_y2009_m8.tif") %>%
+  .[, 80:(80 + ncol - 1), 80:(80 + nrow - 1), 11:20] %>%
+  st_set_dimensions(3, values = 1:10, names = "band")
 
 write_stars(ppt_m8_y09_small, "Data/PRISM_ppt_y2009_m8_small.tif")
- 
-ppt_m8_y09_small <- read_stars("Data/PRISM_ppt_y2009_m8_small.tif") %>% 
-  setNames("ppt") 
 
-c(ppt_m8_y09_small, tmax_m8_y09_small) %>% 
+ppt_m8_y09_small <-
+  read_stars("Data/PRISM_ppt_y2009_m8_small.tif") %>%
+  setNames("ppt")
+
+#--- combine ---#
+prcp_tmax_PRISM_m8_y09_small <-
+  c(ppt_m8_y09_small, tmax_m8_y09_small) %>%
   st_set_dimensions(
-    3, 
-    values = seq(ymd("2009/08/11"), ymd("2009/08/20"), by = "days"), 
+    3,
+    values = seq(ymd("2009/08/11"), ymd("2009/08/20"), by = "days"),
     names = "date"
-  ) %>% 
-saveRDS("Data/prcp_tmax_PRISM_m8_y09_small.rds")
+  )
+
+saveRDS(prcp_tmax_PRISM_m8_y09_small, "Data/prcp_tmax_PRISM_m8_y09_small.rds")
 ```
 
 Let's import a `stars` object of daily PRISM precipitation and tmax saved as an R dataset.
@@ -226,7 +230,7 @@ Let's import a `stars` object of daily PRISM precipitation and tmax saved as an 
 ```{r read_prism_stars, cache = F}
 #--- read PRISM prcp and tmax data  ---#
 (
-prcp_tmax_PRISM_m8_y09 <- readRDS("Data/prcp_tmax_PRISM_m8_y09_small.rds")
+  prcp_tmax_PRISM_m8_y09 <- readRDS("Data/prcp_tmax_PRISM_m8_y09_small.rds")
 )
 ```
 
@@ -255,7 +259,7 @@ dim_prcp_tmin <- st_dimensions(prcp_tmax_PRISM_m8_y09)
 # library(mapview)
 # library(leaflet)
 
-temp_data <- prcp_tmax_PRISM_m8_y09["tmax",,,10]
+temp_data <- prcp_tmax_PRISM_m8_y09["tmax", , , 10]
 
 # x_mean <- st_get_dimension_values(temp_data, which = "x") %>%  mean
 # y_mean <- st_get_dimension_values(temp_data, which = "y") %>%  mean
@@ -264,14 +268,15 @@ temp_data <- prcp_tmax_PRISM_m8_y09["tmax",,,10]
 
 # map_view@map %>% setView(x_mean, y_mean, zoom = 7.5)
 
-sf_point <- st_point(c(dim_prcp_tmin$x$offset, dim_prcp_tmin$y$offset)) %>% 
-  st_sfc() %>% 
+sf_point <-
+  st_point(c(dim_prcp_tmin$x$offset, dim_prcp_tmin$y$offset)) %>%
+  st_sfc() %>%
   st_set_crs(st_crs(temp_data))
 
 ggplot() +
   geom_stars(data = temp_data) +
-  geom_sf(data = sf_point, color = "red", shape = 1, size = 3) +
-  scale_fill_viridis(name = 'tmax') + 
+  geom_sf(data = sf_point, color = "red", shape = 1, size = 5) +
+  scale_fill_viridis_c(name = "tmax") +
   theme_for_map
 ```
 
@@ -328,7 +333,6 @@ prcp_tmax_PRISM_m8_y09
 If you want to reflect changes in the variable names while keeping the same object name, you need to assign the output of `setNames()` to the object as follows:
 
 ```{r name_keep, eval = F}
-#--- NOT RUN ---#
 # the codes in the rest of the chapter use "ppt" and "tmax" as the variables names, not these ones
 prcp_tmax_PRISM_m8_y09 <- setNames(prcp_tmax_PRISM_m8_y09, c("precipitation", "maximum_temp"))
 ```
@@ -357,7 +361,7 @@ You can access these dimension values using `st_dimensions()`.
 ```{r get_dim}
 #--- get dimension characteristics ---#
 (
-dim_prcp_tmin <- st_dimensions(prcp_tmax_PRISM_m8_y09)
+  dim_prcp_tmin <- st_dimensions(prcp_tmax_PRISM_m8_y09)
 )
 ```
 
@@ -388,11 +392,11 @@ You can make attributes to dimensions using `merge()`.
 
 ```{r merge-att-dim}
 (
-prcp_tmax_four <- merge(prcp_tmax_PRISM_m8_y09)
+  prcp_tmax_four <- merge(prcp_tmax_PRISM_m8_y09)
 )
 ```
 
-As you can see, the new `stars` object has an additional dimension called `X`, which represents attributes and has two dimension values: the first for `ppt` and second for `tmax`. Now, if you want to access `ppt`, you can do the following:
+As you can see, the new `stars` object has an additional dimension called `attributes`, which represents attributes and has two dimension values: the first for `ppt` and second for `tmax`. Now, if you want to access `ppt`, you can do the following:
 
 ```{r access-ppt}
 prcp_tmax_four[, , , , "ppt"]
@@ -413,7 +417,7 @@ You can use `plot()` to have a quick static map and `mapview()` or the `tmap` pa
 ### quick static map
 
 ```{r static-map}
-plot(prcp_tmax_PRISM_m8_y09["tmax",,,])
+plot(prcp_tmax_PRISM_m8_y09["tmax", , , ])
 ```
 
 It only plots the first attribute if the `stars` object has multiple attributes:
@@ -425,7 +429,7 @@ plot(prcp_tmax_PRISM_m8_y09)
 , which is identical with this:
 
 ```{r static-map-identical}
-plot(prcp_tmax_PRISM_m8_y09["ppt",,,])
+plot(prcp_tmax_PRISM_m8_y09["ppt", , , ])
 ```
 
 ### interactive map
@@ -435,9 +439,9 @@ You can use the `tmap` package. You can apply `tmap_leaflet()` to a static `tmap
 ```{r tmap-int}
 #--- make it interactive ---#
 tmap_leaflet(
-  tm_shape(prcp_tmax_PRISM_m8_y09["tmax",,,]) + 
-  tm_raster() + 
-  tm_facets(as.layers = TRUE)
+  tm_shape(prcp_tmax_PRISM_m8_y09["tmax", , , ]) +
+    tm_raster() +
+    tm_facets(as.layers = TRUE)
 )
 ```
 
@@ -448,7 +452,7 @@ There are so many formats in which raster data is stored. Some of the common one
 [^stars-5]: What drivers are available varies depending on your particular installation of GDAL version. But, this is not something you need to worry about. It is very unlikely that you are reading or writing raster data in the format that is not available.
 
 ```{r get_drivers, eval = F}
-sf::st_drivers(what = "raster") 
+sf::st_drivers(what = "raster")
 ```
 
 The output of the above function is put into a table below.
@@ -466,7 +470,7 @@ For example, you can read a GeoTIFF file as follows:
 
 ```{r read_stars_tif}
 (
-ppt_m1_y09_stars <- read_stars("Data/PRISM_ppt_y2009_m1.tif") 
+  ppt_m1_y09_stars <- read_stars("Data/PRISM_ppt_y2009_m1.tif")
 )
 ```
 
@@ -474,17 +478,21 @@ This one imports a raw PRISM data stored as a BIL file.
 
 ```{r read-prism}
 (
-prism_tmax_20180701 <- read_stars("Data/PRISM_tmax_stable_4kmD2_20180701_bil/PRISM_tmax_stable_4kmD2_20180701_bil.bil")
+  prism_tmax_20180701 <- read_stars("Data/PRISM_tmax_stable_4kmD2_20180701_bil/PRISM_tmax_stable_4kmD2_20180701_bil.bil")
 )
 ```
 
 You can import multiple raster data files into one `stars` object by simply supplying a vector of file names:
 
 ```{r read-prism-files}
-files <- c("Data/PRISM_tmax_stable_4kmD2_20180701_bil/PRISM_tmax_stable_4kmD2_20180701_bil.bil", "Data/PRISM_tmax_stable_4kmD2_20180702_bil/PRISM_tmax_stable_4kmD2_20180702_bil.bil")
+files <-
+  c(
+    "Data/PRISM_tmax_stable_4kmD2_20180701_bil/PRISM_tmax_stable_4kmD2_20180701_bil.bil",
+    "Data/PRISM_tmax_stable_4kmD2_20180702_bil/PRISM_tmax_stable_4kmD2_20180702_bil.bil"
+  )
 
 (
-prism_tmax_201807_two <- read_stars(files)
+  prism_tmax_201807_two <- read_stars(files)
 )
 ```
 
@@ -494,7 +502,7 @@ As you can see, each file becomes an attribute.[^stars-6] It is more convenient 
 
 ```{r read-stars-along}
 (
-prism_tmax_201807_two <- read_stars(files, along = 3)
+  prism_tmax_201807_two <- read_stars(files, along = 3)
 )
 ```
 
@@ -504,7 +512,7 @@ Note that while the GeoTIFF format (and many other formats) can store multi-band
 
 ```{r read_ncdf}
 (
-read_ncdf(system.file("nc/bcsd_obs_1999.nc", package = "stars"))  
+  read_ncdf(system.file("nc/bcsd_obs_1999.nc", package = "stars"))
 )
 ```
 
@@ -517,7 +525,7 @@ You can write a `stars` object to a file using `write_stars()` using one of the 
 Let's save `prcp_tmax_PRISM_m8_y09["tmax",,,]`, which has `date` dimension whose `refsys` is `Date`.
 
 ```{r write_stars, eval = F}
-write_stars(prcp_tmax_PRISM_m8_y09["tmax",,,], "Data/tmax_m8_y09_from_stars.tif")
+write_stars(prcp_tmax_PRISM_m8_y09["tmax", , , ], "Data/tmax_m8_y09_from_stars.tif")
 ```
 
 Let's read the file we just saved.
@@ -530,12 +538,12 @@ Notice that the third dimension is now called band and all the date information 
 
 ```{r save_as_rds, eval = F}
 #--- save it as an rds file ---#
-saveRDS(prcp_tmax_PRISM_m8_y09["tmax",,,], "Data/tmax_m8_y09_from_stars.rds")
+saveRDS(prcp_tmax_PRISM_m8_y09["tmax", , , ], "Data/tmax_m8_y09_from_stars.rds")
 ```
 
 ```{r read_rds}
 #--- read it back ---#
-readRDS("Data/tmax_m8_y09_from_stars.rds") 
+readRDS("Data/tmax_m8_y09_from_stars.rds")
 ```
 
 As you can see, date information is retained. So, if you are the only one who uses this data or all of your team members use R, then this is a nice solution to the problem.[^stars-7] At the moment, it is not possible to use `write_stars()` to write to a netCDF file that supports the third dimension as time. However, this may not be the case for a long time (See the discussion [here](https://github.com/r-spatial/stars/issues/8)).
@@ -548,8 +556,8 @@ For this section, we will use PRISM precipitation data for U.S. for January, 200
 
 ```{r starting_object}
 (
-ppt_m1_y09_stars <- read_stars("Data/PRISM/PRISM_ppt_y2009_m1.tif") 
-) 
+  ppt_m1_y09_stars <- read_stars("Data/PRISM_ppt_y2009_m1.tif")
+)
 ```
 
 As you can see, when you read a GeoTIFF file, the third dimension will always be called `band` because GeoTIFF format does not support dimension values for the third dimension.[^stars-8]
@@ -557,6 +565,7 @@ As you can see, when you read a GeoTIFF file, the third dimension will always be
 [^stars-8]: In Chapter \@ref(stars-structure), we read an `rds`, which is a `stars` object with dimension name set manually by me.
 
 You can use `st_set_dimension()` to set the third dimension (called `band`) as the time dimension using `Date` object. This can be convenient when you would like to filter the data by date using `filter()` as we will see later.
+
 
 For `ppt_m1_y09_stars`, precipitation is observed on a daily basis from January 1, 2009 to January 31, 2009, where the band value of **x** corresponds to January **x**, 2009. So, we can first create a vector of dates as follows (If you are not familiar with `Dates` and the `lubridate` pacakge, [this](http://uc-r.github.io/dates/) is a good resource to learn them.):
 
@@ -573,14 +582,24 @@ dates_ls_m1 <- seq(start_date, end_date, "days")
 
 We can then use `st_set_dimensions()` to change the third dimension to the dimension of date.
 
-```{r eval = F}
-#--- syntax (NOT RUN) ---#	
-st_set_dimensions(stars object, dimension, values = dimension values, names = name of the dimension)
+```{ eval = F}
+st_set_dimensions(
+  stars object,
+  dimension,
+  values = dimension values,
+  names = name of the dimension
+ )
 ```
 
 ```{r dimension_set}
 (
-ppt_m1_y09_stars <- st_set_dimensions(ppt_m1_y09_stars, 3, values = dates_ls_m1, names = "date")
+  ppt_m1_y09_stars <-
+    st_set_dimensions(
+      ppt_m1_y09_stars,
+      3,
+      values = dates_ls_m1,
+      names = "date"
+    )
 )
 ```
 
@@ -591,7 +610,7 @@ Note that the date dimension does not have to be regularly spaced. For example, 
 ```{r wrong_date_seq}
 #--- 2009-01-23 removed and 2009-02-01 added ---#
 (
-dates_ls_wrong <- c(seq(start_date, end_date, "days")[-23], ymd("2009-02-01")) 
+  dates_ls_wrong <- c(seq(start_date, end_date, "days")[-23], ymd("2009-02-01"))
 )
 ```
 
@@ -600,11 +619,17 @@ Now assign these date values to `ppt_m1_y09_stars`:
 ```{r dimension_set_wrong}
 #--- set date values ---#
 (
-ppt_m1_y09_stars_wrong <- st_set_dimensions(ppt_m1_y09_stars, 3, values = dates_ls_wrong, names = "date")
+  ppt_m1_y09_stars_wrong <-
+    st_set_dimensions(
+      ppt_m1_y09_stars,
+      3,
+      values = dates_ls_wrong,
+      names = "date"
+    )
 )
 ```
 
-Since the step between the date values is no longer $1$ day for the entire sequence, the value of delta is now `NA`. However, notice that the value of date is no longer NULL. Since the date is not regular, you can not represent date using three values (`from`, `to`, and `delta`) any more, and date values for each observation have to be stored now.
+Since the step between the date values is no longer $1$ day for the entire sequence, the value of `delta` is now `NA`. However, notice that the value of date is no longer NULL. Since the date is not regular, you cannot represent date using three values (`from`, `to`, and `delta`) any more, and date values for each observation have to be stored now.
 
 Finally, note that just applying `st_set_dimensions()` to a `stars` object does not change the dimension of the `stars` object (just like `setNames()` as we discussed above).
 
@@ -627,7 +652,6 @@ The `filter()` function allows you to subset data by dimension values: x, y, and
 **spatial filtering**
 
 ```{r filter_ex}
-
 library(tidyverse)
 
 #--- longitude greater than -100 ---#
@@ -636,6 +660,7 @@ filter(ppt_m1_y09_stars, x > -100) %>% plot()
 #--- latitude less than 40 ---#
 filter(ppt_m1_y09_stars, y < 40) %>% plot()
 ```
+
 
 ------------------------------------------------------------------------
 
@@ -657,7 +682,7 @@ filter(ppt_m1_y09_stars, date > ymd("2009-01-21")) %>% plot()
 Just in case you are wondering. You cannot filter by attribute.
 
 ```{r error = TRUE}
-filter(ppt_m1_y09_stars, ppt > 20) 
+filter(ppt_m1_y09_stars, ppt > 20)
 ```
 
 ### `select()`
@@ -683,7 +708,7 @@ You can extract attribute values using `pull()`.
 
 ```{r pull}
 #--- tmax values of the 1st date layer ---#
-pull(prcp_tmax_PRISM_m8_y09["tmax",,,1], "tmax")
+pull(prcp_tmax_PRISM_m8_y09["tmax", , , 1], "tmax")
 ```
 
 ## Merging `stars` objects using `c()` and `st_mosaic()`
@@ -701,11 +726,12 @@ For example, consider merging PRISM precipitation data in January and February. 
 Let's import the PRISM precipitation data for February, 2009.
 
 ```{r ppt_feb}
-#--- read the February ppt data ---#		
+#--- read the February ppt data ---#
 (
-ppt_m2_y09_stars <- read_stars("Data/PRISM_ppt_y2009_m2.tif") 
+  ppt_m2_y09_stars <- read_stars("Data/PRISM_ppt_y2009_m2.tif")
 )
 ```
+
 
 Note here that the third dimension of `ppt_m2_y09_stars` has not been changed to date.
 
@@ -714,7 +740,7 @@ Now, let's try to merge the two:
 ```{r combine_r}
 #--- combine the two ---#
 (
-ppt_m1_to_m2_y09_stars <- c(ppt_m1_y09_stars, ppt_m2_y09_stars, along = 3)
+  ppt_m1_to_m2_y09_stars <- c(ppt_m1_y09_stars, ppt_m2_y09_stars, along = 3)
 )
 ```
 
@@ -730,11 +756,11 @@ start_date <- ymd("2009-02-01")
 end_date <- ymd("2009-02-28")
 
 #--- sequence of dates  ---#
-dates_ls <- seq(start_date, end_date, "days")		
+dates_ls <- seq(start_date, end_date, "days")
 
 #--- pretend the data actually starts from `2009-02-02` to `2009-03-01` ---#
 (
-ppt_m2_y09_stars <- st_set_dimensions(ppt_m2_y09_stars, 3, values = c(dates_ls[-1], ymd("2009-03-01")), name = "date")
+  ppt_m2_y09_stars <- st_set_dimensions(ppt_m2_y09_stars, 3, values = c(dates_ls[-1], ymd("2009-03-01")), name = "date")
 )
 ```
 
@@ -760,10 +786,10 @@ Let's read the daily tmax data for January, 2009:
 
 ```{r tmax_read}
 (
-tmax_m1_y09_stars <- read_stars("Data/PRISM_tmax_y2009_m1.tif") %>% 
-	#--- change the attribute name ---#
-	setNames("tmax")
-)	
+  tmax_m1_y09_stars <- read_stars("Data/PRISM_tmax_y2009_m1.tif") %>%
+    #--- change the attribute name ---#
+    setNames("tmax")
+)
 ```
 
 Now, let's merge the PRISM ppt and tmax data in January, 2009.
@@ -776,15 +802,15 @@ Oops. Well, the problem is that the third dimension of the two objects is not th
 
 ```{r set_dim_first_combine}
 (
-tmax_m1_y09_stars <- st_set_dimensions(tmax_m1_y09_stars, 3, values = dates_ls_m1, names = "date")
-)	
+  tmax_m1_y09_stars <- st_set_dimensions(tmax_m1_y09_stars, 3, values = dates_ls_m1, names = "date")
+)
 ```
 
 Now, we can merge the two.
 
 ```{r ppt_tmax_combine_2}
 (
-ppt_tmax_m1_y09_stars <- c(ppt_m1_y09_stars, tmax_m1_y09_stars)
+  ppt_tmax_m1_y09_stars <- c(ppt_m1_y09_stars, tmax_m1_y09_stars)
 )
 ```
 
@@ -805,7 +831,7 @@ Some times you have multiple separate raster datasets that have different spatia
 Let's split `tmax_m1_y09_stars` into two parts:
 
 ```{r split-to-two}
-tmax_1 <- filter(tmax_m1_y09_stars, x <= -100) 
+tmax_1 <- filter(tmax_m1_y09_stars, x <= -100)
 tmax_2 <- filter(tmax_m1_y09_stars, x > -100)
 ```
 
@@ -813,14 +839,14 @@ Here (Figure \@ref(fig:map-indiv)) is what they look like (only Jan 1, 1980):
 
 ```{r map-indiv, fig.cap = "Two spatially non-overlapping stars objects"}
 g_1 <- ggplot() +
-  geom_stars(data = tmax_1[,,,1]) +
+  geom_stars(data = tmax_1[, , , 1]) +
   theme_for_map +
   theme(
     legend.position = "bottom"
   )
 
 g_2 <- ggplot() +
-  geom_stars(data = tmax_2[,,,1]) +
+  geom_stars(data = tmax_2[, , , 1]) +
   theme_for_map +
   theme(
     legend.position = "bottom"
@@ -833,15 +859,15 @@ g_1 + g_2
 Let's combine the two using `st_mosaic()`:
 
 ```{r combine_mosaic}
-tmax_combined <- st_mosaic(tmax_1, tmax_2) 
+tmax_combined <- st_mosaic(tmax_1, tmax_2)
 ```
 
 Here is what the combined object looks like (Figure \@ref(fig:plot-combine))
 
 ```{r plot-combine, fig.cap = "Map of the stars objects combined into one"}
 ggplot() +
-  geom_stars(data = tmax_combined[,,,1]) +
-  theme_for_map 
+  geom_stars(data = tmax_combined[, , , 1]) +
+  theme_for_map
 ```
 
 ------------------------------------------------------------------------
@@ -849,21 +875,21 @@ ggplot() +
 It is okay to have the two `stars` objects to be combined have a spatial overlap. The following split creates two `stars` objects with a spatial overlap.
 
 ```{r split_overlap}
-tmax_1 <- filter(tmax_m1_y09_stars, x <= -100) 
-tmax_2 <- filter(tmax_m1_y09_stars, x > -110) 
+tmax_1 <- filter(tmax_m1_y09_stars, x <= -100)
+tmax_2 <- filter(tmax_m1_y09_stars, x > -110)
 ```
 
 Here (Figure \@ref(fig:map-indiv-2)) is what they look like (only Jan 1, 1980):
 
 ```{r map-indiv-2, fig.height = 8, fig.cap = "Two spatially overlapping stars objects"}
 g_1 <- ggplot() +
-  geom_stars(data = tmax_m1_y09_stars[,,,1], fill = NA) +
-  geom_stars(data = tmax_1[,,,1]) +
+  geom_stars(data = tmax_m1_y09_stars[, , , 1], fill = NA) +
+  geom_stars(data = tmax_1[, , , 1]) +
   theme_for_map
 
 g_2 <- ggplot() +
-  geom_stars(data = tmax_m1_y09_stars[,,,1], fill = NA) +
-  geom_stars(data = tmax_2[,,,1]) +
+  geom_stars(data = tmax_m1_y09_stars[, , , 1], fill = NA) +
+  geom_stars(data = tmax_2[, , , 1]) +
   theme_for_map
 
 library(patchwork)
@@ -874,7 +900,7 @@ As you can see below, `st_mosaic()` reconciles the spatial overlap between the t
 
 ```{r combine_ovelapped}
 (
-tmax_combined <- st_mosaic(tmax_1, tmax_2) 
+  tmax_combined <- st_mosaic(tmax_1, tmax_2)
 )
 ```
 
@@ -882,7 +908,7 @@ Here is the plot (Figure \@ref(fig:plot-combine-overlapped)):
 
 ```{r plot-combine-overlapped, fig.cap = "Map of the spatially-overlapping stars objects combined into one"}
 ggplot() +
-  geom_stars(data = tmax_combined[,,,1]) +
+  geom_stars(data = tmax_combined[, , , 1]) +
   theme_for_map
 ```
 
@@ -892,13 +918,13 @@ When you need to convert a `stars` object to a `Raster`$^*$ or `SpatRaster` obje
 
 ```{r convert_to_raster}
 (
-# to Raster* object
-prcp_tmax_PRISM_m8_y09_rb <- as(prcp_tmax_PRISM_m8_y09, "Raster")
+  # to Raster* object
+  prcp_tmax_PRISM_m8_y09_rb <- as(prcp_tmax_PRISM_m8_y09, "Raster")
 )
 
 (
-# to SpatRaster
-prcp_tmax_PRISM_m8_y09_sr <- as(prcp_tmax_PRISM_m8_y09, "SpatRaster")
+  # to SpatRaster
+  prcp_tmax_PRISM_m8_y09_sr <- as(prcp_tmax_PRISM_m8_y09, "SpatRaster")
 )
 ```
 
@@ -909,21 +935,21 @@ Note also that the conversion was done for only the `ppt` attribute. This is sim
 
 ```{r tmax_conv}
 (
-# to RasterBrick
-tmax_PRISM_m8_y09_rb <- as(prcp_tmax_PRISM_m8_y09["tmax",,,], "Raster")
+  # to RasterBrick
+  tmax_PRISM_m8_y09_rb <- as(prcp_tmax_PRISM_m8_y09["tmax", , , ], "Raster")
 )
 
 (
-# to SpatRaster
-tmax_PRISM_m8_y09_sr <- as(prcp_tmax_PRISM_m8_y09["tmax",,,], "SpatRaster")
-) 
+  # to SpatRaster
+  tmax_PRISM_m8_y09_sr <- as(prcp_tmax_PRISM_m8_y09["tmax", , , ], "SpatRaster")
+)
 ```
 
 You can convert a `Raster`$^*$ object to a `stars` object using `st_as_stars()` (you will see a use case in Chapter \@ref(daymet-poly)).
 
 ```{r from_stars}
 (
-tmax_PRISM_m8_y09_back_to_stars <- st_as_stars(tmax_PRISM_m8_y09_rb) 
+  tmax_PRISM_m8_y09_back_to_stars <- st_as_stars(tmax_PRISM_m8_y09_rb)
 )
 ```
 
@@ -933,10 +959,8 @@ You can do the same with a `SpatRaster` object.
 
 ```{r from_spatraster}
 (
-tmax_PRISM_m8_y09_back_to_stars <- st_as_stars(tmax_PRISM_m8_y09_sr) 
+  tmax_PRISM_m8_y09_back_to_stars <- st_as_stars(tmax_PRISM_m8_y09_sr)
 )
 ```
 
 Note that unlike the conversion from the `RasterBrick` object, the `band` dimension inherited values of the `name` dimension in `tmax_PRISM_m8_y09_sr`.
-
-<!-- ## `stars` in a workflow -->

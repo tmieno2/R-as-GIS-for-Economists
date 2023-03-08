@@ -36,7 +36,7 @@ pacman::p_load(
   CropScapeR, # download CDL data
   prism, # download PRISM data
   exactextractr # extract raster values to sf
-)  
+)
 ```
 
 + Run the following code to define the theme for map:
@@ -46,14 +46,14 @@ theme_set(theme_bw())
 
 theme_for_map <- theme(
   axis.ticks = element_blank(),
-  axis.text= element_blank(), 
+  axis.text = element_blank(),
   axis.line = element_blank(),
   panel.border = element_blank(),
-  panel.grid.major = element_line(color='transparent'),
-  panel.grid.minor = element_line(color='transparent'),
+  panel.grid.major = element_line(color = "transparent"),
+  panel.grid.minor = element_line(color = "transparent"),
   panel.background = element_blank(),
-  plot.background = element_rect(fill = "transparent",color='transparent')
-)  
+  plot.background = element_rect(fill = "transparent", color = "transparent")
+)
 ```
 
 ## USDA NASS QuickStat with `tidyUSDA` {#nass-quick}
@@ -66,29 +66,29 @@ You can download data using `getQuickstat()`. There are number of options you ca
 
 ```{r il_corn_download, eval = FALSE}
 (
-IL_corn_yield <- 
-  getQuickstat(
-    #--- put your API key in place of key_get() ---#
-    key = key_get("usda_nass_qs_api"),
-    program = "SURVEY",
-    commodity = "CORN",
-    geographic_level = "COUNTY",
-    state = "ILLINOIS",
-    year = "2016",
-    geometry = TRUE
-  )  %>% 
-  #--- keep only some of the variables ---#
-  dplyr::select(
-    year, county_name, county_code, state_name, 
-    state_fips_code, short_desc, Value
-  )
+  IL_corn_yield <-
+    getQuickstat(
+      #--- put your API key in place of key_get("usda_nass_qs_api") ---#
+      key = key_get("usda_nass_qs_api"),
+      program = "SURVEY",
+      commodity = "CORN",
+      geographic_level = "COUNTY",
+      state = "ILLINOIS",
+      year = "2016",
+      geometry = TRUE
+    ) %>%
+    #--- keep only some of the variables ---#
+    dplyr::select(
+      year, county_name, county_code, state_name,
+      state_fips_code, short_desc, Value
+    )
 )
 ```
 
 ```{r il_corn_disp, echo = F}
 # saveRDS(IL_corn_yield, "Data/il-corn-yield.rds")
 (
-IL_corn_yield <- readRDS("Data/il-corn-yield.rds")
+  IL_corn_yield <- readRDS("Data/il-corn-yield.rds")
 )
 ```
 
@@ -97,7 +97,7 @@ As you can see, it is an `sf` object with `geometry` column due to `geometry = T
 ```{r corn-yield-IL, fig.cap = "Corn Yield (bu/acre) in Illinois in 2016"}
 ggplot() +
   geom_sf(
-    data = filter(IL_corn_yield, short_desc == "CORN, GRAIN - YIELD, MEASURED IN BU / ACRE"), 
+    data = filter(IL_corn_yield, short_desc == "CORN, GRAIN - YIELD, MEASURED IN BU / ACRE"),
     aes(fill = Value)
   ) +
   theme_for_map
@@ -107,28 +107,28 @@ You can download data for multiple states and years at the same time like below 
 
 ```{r il_co_ne_corn_download, eval = F}
 (
-IL_CO_NE_corn <- 
-  getQuickstat(
-    key = key_get("usda_nass_qs_api"),
-    program = "SURVEY",
-    commodity = "CORN",
-    geographic_level = "COUNTY",
-    state = c("ILLINOIS", "COLORADO", "NEBRASKA"),
-    year = paste(2014:2018),
-    geometry = TRUE
-  ) %>% 
-  #--- keep only some of the variables ---#
-  dplyr::select(
-    year, county_name, county_code, state_name, 
-    state_fips_code, short_desc, Value
-  )
+  IL_CO_NE_corn <-
+    getQuickstat(
+      key = key_get("usda_nass_qs_api"),
+      program = "SURVEY",
+      commodity = "CORN",
+      geographic_level = "COUNTY",
+      state = c("ILLINOIS", "COLORADO", "NEBRASKA"),
+      year = paste(2014:2018),
+      geometry = TRUE
+    ) %>%
+    #--- keep only some of the variables ---#
+    dplyr::select(
+      year, county_name, county_code, state_name,
+      state_fips_code, short_desc, Value
+    )
 )
 ```
 
 ```{r il_co_ne_corn_disp, echo = F}
 # saveRDS(IL_CO_NE_corn, "Data/il-ne-corn-yield.rds")
 (
-IL_CO_NE_corn <- readRDS("Data/il-ne-corn-yield.rds")
+  IL_CO_NE_corn <- readRDS("Data/il-ne-corn-yield.rds")
 )
 ```
 
@@ -138,7 +138,7 @@ This package has a function that lets you see all the possible parameter values 
 
 ```{r see_values_dataitem}
 #--- get all the possible values for data_item ---#
-all_items <- tidyUSDA::allDataItem 
+all_items <- tidyUSDA::allDataItem
 
 #--- take a look at the first six ---#
 head(all_items)
@@ -147,44 +147,44 @@ head(all_items)
 You can use key words like "CORN", "YIELD", "IRRIGATED" to narrow the entire list using `grep()`^[`grep()` is part of the base package, and you do not need to install any package to use it.]: 
 
 ```{r }
-all_items %>% 
-  grep(pattern = "CORN", ., value = TRUE) %>% 
-  grep(pattern = "YIELD", ., value = TRUE) %>% 
-  grep(pattern = "IRRIGATED", ., value = TRUE)  
+all_items %>%
+  grep(pattern = "CORN", ., value = TRUE) %>%
+  grep(pattern = "YIELD", ., value = TRUE) %>%
+  grep(pattern = "IRRIGATED", ., value = TRUE)
 ```
 
 Looking at the list, we know the exact text value we want, which is the first entry of the vector.
 
 ```{r co_corn_download, eval = F}
 (
-CO_ir_corn_yield <- 
-  getQuickstat(
-    key = key_get("usda_nass_qs_api"),
-    program = "SURVEY",
-    data_item = "CORN, GRAIN, IRRIGATED - YIELD, MEASURED IN BU / ACRE",
-    geographic_level = "COUNTY",
-    state = "COLORADO",
-    year = "2018",
-    geometry = TRUE
-  ) %>% 
-  #--- keep only some of the variables ---#
-  dplyr::select(year, NAME, county_code, short_desc, Value)
+  CO_ir_corn_yield <-
+    getQuickstat(
+      key = key_get("usda_nass_qs_api"),
+      program = "SURVEY",
+      data_item = "CORN, GRAIN, IRRIGATED - YIELD, MEASURED IN BU / ACRE",
+      geographic_level = "COUNTY",
+      state = "COLORADO",
+      year = "2018",
+      geometry = TRUE
+    ) %>%
+    #--- keep only some of the variables ---#
+    dplyr::select(year, NAME, county_code, short_desc, Value)
 )
 ```
 
 Here is the complete list of functions that gives you the possible values of the parameters for `getQuickstat()`. 
 
 ```{r eval = F}
-tidyUSDA::allCategory 
-tidyUSDA::allSector 
-tidyUSDA::allGroup 
-tidyUSDA::allCommodity 
-tidyUSDA::allDomain 
-tidyUSDA::allCounty 
-tidyUSDA::allProgram 
-tidyUSDA::allDataItem 
-tidyUSDA::allState 
-tidyUSDA::allGeogLevel 
+tidyUSDA::allCategory
+tidyUSDA::allSector
+tidyUSDA::allGroup
+tidyUSDA::allCommodity
+tidyUSDA::allDomain
+tidyUSDA::allCounty
+tidyUSDA::allProgram
+tidyUSDA::allDataItem
+tidyUSDA::allState
+tidyUSDA::allGeogLevel
 ```
 
 ### Caveats
@@ -193,20 +193,20 @@ You cannot retrieve more than $50,000$ (the limit is set by QuickStat) rows of d
 
 ```{r cav_1, error = TRUE}
 many_states_corn <- getQuickstat(
-    key = key_get("usda_nass_qs_api"),
-    program = "SURVEY",
-    commodity = "CORN",
-    geographic_level = "COUNTY",
-    state = c("ILLINOIS", "COLORADO", "NEBRASKA", "IOWA", "KANSAS"),
-    year = paste(1995:2018),
-    geometry = TRUE
-  ) 
+  key = key_get("usda_nass_qs_api"),
+  program = "SURVEY",
+  commodity = "CORN",
+  geographic_level = "COUNTY",
+  state = c("ILLINOIS", "COLORADO", "NEBRASKA", "IOWA", "KANSAS"),
+  year = paste(1995:2018),
+  geometry = TRUE
+)
 ```
 
 Another caveat is that the query returns an error when there is no observation that satisfy your query criteria. For example, even though "CORN, GRAIN, IRRIGATED - YIELD, MEASURED IN BU / ACRE" is one of the values you can use for `data_item`, there is no entry for the statistic in Illinois in 2018. Therefore, the following query fails.
 
 ```{r cav_2, error = TRUE}
-many_states_corn <- 
+many_states_corn <-
   getQuickstat(
     key = key_get("usda_nass_qs_api"),
     program = "SURVEY",
@@ -215,7 +215,7 @@ many_states_corn <-
     state = "ILLINOIS",
     year = "2018",
     geometry = TRUE
-  ) 
+  )
 ```
 
 <!-- 
@@ -243,29 +243,29 @@ The development version of the package can be downloaded from [its GitHub websit
 
 ```{r, eval = F}
 library(devtools)
-devtools::install_github("cbw1243/CropScapeR")  
+devtools::install_github("cbw1243/CropScapeR")
 ```
 
 Let's load the package.
 
 ```{r CropScapeR-load, eval = F}
-library(CropScapeR)  
+library(CropScapeR)
 ```
 
 
 ```{r, include = F, message = F}
 httr::set_config(httr::config(ssl_verifypeer = 0L))
 
-# data <- GetCDLData(aoi = 17019, year = 2018, type = 'f', save_path = 'data.tif')
-data <- raster('data.tif')
+# data <- GetCDLData(aoi = 17019, year = 2018, type = 'f', save_path = 'Data/data.tif')
+data <- raster("Data/data.tif")
 
-# cdl_Champaign <- GetCDLData(aoi = 17019, year = 2018, type = 'f', save_path = 'ch.tif')
+# cdl_Champaign <- GetCDLData(aoi = 17019, year = 2018, type = 'f', save_path = 'Data/ch.tif')
 
-cdl_Champaign <- raster('ch.tif')
+cdl_Champaign <- raster("Data/ch.tif")
 
-# cdl_sf <- GetCDLData(aoi = 17019, year = 2018, type = 'f', format = "sf", save_path = 'cdl_sf.tif')
+# cdl_sf <- GetCDLData(aoi = 17019, year = 2018, type = 'f', format = "sf", save_path = 'Data/cdl_sf.tif')
 
-cdl_sf <- raster('cdl_sf.tif')
+cdl_sf <- raster("Data/cdl_sf.tif")
 ```
 
 ---
@@ -301,18 +301,20 @@ This section discusses how to download data for an `sf` object, county, and stat
 Let's download the 2018 CDL data for the area that covers Champaign, Vermilion, Ford, and Iroquois Counties in Illinois (a map below).
 
 ```{r IL_4_dips, eval = F}
-#--- get the sf for the four counties  ---# 
-IL_4_county <- tigris::counties(state = "IL", cb = TRUE) %>% 
-  st_as_sf() %>% 
-  filter(NAME %in% c("Champaign", "Vermilion", "Ford", "Iroquois")) 
+#--- get the sf for the four counties  ---#
+IL_4_county <-
+  tigris::counties(state = "IL", cb = TRUE) %>%
+  st_as_sf() %>%
+  filter(NAME %in% c("Champaign", "Vermilion", "Ford", "Iroquois"))
 ```
 
 ```{r IL_4_dips_run, include = F}
-IL_county <- tigris::counties(state = "Illinois", cb = TRUE) %>% 
-  st_as_sf() 
+IL_county <-
+  tigris::counties(state = "Illinois", cb = TRUE) %>%
+  st_as_sf()
 
 (
-IL_county_4 <- filter(IL_county, NAME %in% c("Champaign", "Vermilion", "Ford", "Iroquois"))
+  IL_county_4 <- filter(IL_county, NAME %in% c("Champaign", "Vermilion", "Ford", "Iroquois"))
 )
 ```
 
@@ -329,39 +331,39 @@ When you use an `sf` object for `aoi`, CDL data will be downloaded for the bound
 ggplot() +
   geom_sf(data = IL_county) +
   geom_sf(data = st_as_sfc(st_bbox(IL_county_4)), fill = "red", alpha = 0.4) +
-  theme_void() 
+  theme_void()
 ```
 
 Let's download CDL data for the four counties: 
 
 ```{r IL4-download-disp, eval = F}
 (
-cdl_IL_4 <- GetCDLData(
-  aoi = IL_county_4, 
-  year = "2018", 
-  type = "b" 
-  )
+  cdl_IL_4 <-
+    GetCDLData(
+      aoi = IL_county_4,
+      year = "2018",
+      type = "b"
+    )
 )
-
-``` 
+```
 
 ```{r IL4-read, echo = F}
 # cdl_IL_4 <- GetCDLData(
-#   aoi = IL_county_4, 
-#   year = "2018", 
+#   aoi = IL_county_4,
+#   year = "2018",
 #   type = "b",
-#   save_path = "IL4.tif"
+#   save_path = "Data/IL4.tif",
+#   tol_time = 100
 # )
 (
-cdl_IL_4 <- raster("Data/IL4.tif")
+  cdl_IL_4 <- raster("Data/IL4.tif")
 )
-
-``` 
+```
 
 As you can see, the downloaded data is a `RasterLayer` object^[an object class defined by the `raster` package. See \@ref(raster-basics).]. Note that the CDL data uses the Albers equal-area conic projection. 
 
 ```{r proj-IL4}
-terra::crs(cdl_IL_4) 
+terra::crs(cdl_IL_4)
 ```
 
 Take a look at the downloaded CDL data.
@@ -373,11 +375,11 @@ plot(cdl_IL_4)
 If you do not want to have values outside of the `sf` object, you can use `raster::mask()` to turn them into NA as follows:
 
 ```{r mask-IL4}
-cdl_IL_4_masked <- IL_county_4 %>% 
+cdl_IL_4_masked <- IL_county_4 %>%
   #--- change the CRS first to that of the raster data ---#
-  st_transform(., projection(cdl_IL_4)) %>% 
+  st_transform(., projection(cdl_IL_4)) %>%
   #--- mask the values outside the sf (turn them into NA) ---#
-  raster::mask(cdl_IL_4, .)  
+  raster::mask(cdl_IL_4, .)
 ```
 
 As you can see below, values outside the four counties are now `NA` (black area):
@@ -395,21 +397,20 @@ The following code makes a request to download the CDL data for Champaign county
 
 ```{r eval = F}
 (
-cdl_Champaign <- GetCDLData(aoi = 17019, year = 2018, type = 'f')
+  cdl_Champaign <- GetCDLData(aoi = 17019, year = 2018, type = "f")
 )
 ```
 
 ```{r echo = F}
 (
-cdl_Champaign <- raster("ch.tif")
+  cdl_Champaign <- raster("Data/ch.tif")
 )
-
 ```
 
 In the above code, the FIPS code for Champaign County (17019) was supplied to the `aoi` option. Because a county is used here, the `type` argument is specified as 'f'. 
 
 ```{r fig.width=3, fig.height=3, fig.align='center'}
-plot(cdl_Champaign) 
+plot(cdl_Champaign)
 ```
 
 ---
@@ -420,25 +421,24 @@ The following code makes a request to download the CDL data for the state of Ill
 
 ```{r eval = F}
 (
-cdl_IL <- GetCDLData(aoi = 17, year = 2018, type = 'f')
+  cdl_IL <- GetCDLData(aoi = 17, year = 2018, type = "f")
 )
 ```
 
 ```{r include = F}
 # (
-# cdl_IL <- GetCDLData(aoi = 17, year = 2018, type = 'f', save_path = "IL_state.tif", tol_time = 1000)
+# cdl_IL <- GetCDLData(aoi = 17, year = 2018, type = 'f', save_path = "Data/IL_cdl.tif", tol_time = 1000)
 # )
 
 (
-cdl_IL <- raster("Data/il.tif")
+  cdl_IL <- raster("Data/IL_cdl.tif")
 )
-
 ```
 
 In the above code, the state FIPS code for Illinois ($17$) was supplied to the `aoi` option. Because a county is used here, the `type` argument is specified as 'f'. 
 
 ```{r fig.width=3, fig.height=3, fig.align='center'}
-plot(cdl_IL) 
+plot(cdl_IL)
 ```
 
 #### Other format options
@@ -451,15 +451,14 @@ You could save the downloaded CDL data as a tif file by adding `save_path =` opt
 
 ```{r eval = F}
 (
-cdl_IL_4 <- GetCDLData(
-  aoi = IL_county_4, 
-  year = "2018", 
-  type = "b",
-  save_path = "/Data/IL_4.tif"
+  cdl_IL_4 <- GetCDLData(
+    aoi = IL_county_4,
+    year = "2018",
+    type = "b",
+    save_path = "Data/IL_4.tif"
   )
 )
-
-``` 
+```
 
 With this code, the downloaded data will be saved as "IL_4.tif" in the "Data" folder residing in the current working directory. 
 
@@ -471,9 +470,9 @@ The `GetCDLData` function lets you download CDL data as an `sf` of points, where
 
 ```{r eval = F}
 (
-cdl_sf <- GetCDLData(aoi = 17019, year = 2018, type = 'f', format = "sf")
+  cdl_sf <- GetCDLData(aoi = 17019, year = 2018, type = "f", format = "sf")
 )
-``` 
+```
 
 ```{r include = F}
 cdl_sf
@@ -482,11 +481,11 @@ cdl_sf
 The first column (`value`) is the crop code. Of course, you can manually convert a RasterLayer to an `sf` of points as follows:
 
 ```{r raster-sf-manu}
-as.data.frame(cdl_Champaign, xy = TRUE) %>% 
+as.data.frame(cdl_Champaign, xy = TRUE) %>%
   #--- to sf consisting of points ---#
-  st_as_sf(coords = c("x", "y")) %>% 
+  st_as_sf(coords = c("x", "y")) %>%
   #--- Albert conic projection ---#
-  st_set_crs("+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=23 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs")  
+  st_set_crs("+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=23 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs")
 ```
 
 The `format = sf` option makes `GetCDLData()` do this conversion internally for those who want CDL data as an `sf` consisting of points instead of a `RasterLayer`.
@@ -497,7 +496,7 @@ The downloaded raster data itself is not readily usable immediately for your eco
 
 ```{r get-freq}
 (
-crop_freq <- freq(cdl_Champaign)
+  crop_freq <- freq(cdl_Champaign)
 )
 ```
 
@@ -505,13 +504,12 @@ Clearly, once frequencies are found, you can easily get shares as well:
 
 ```{r get-share}
 (
-crop_data <-crop_freq %>% 
-  #--- matrix to data.frame ---#
-  data.frame(.) %>% 
-  #--- find share ---#
-  mutate(share = count/sum(count))
+  crop_data <- crop_freq %>%
+    #--- matrix to data.frame ---#
+    data.frame(.) %>%
+    #--- find share ---#
+    mutate(share = count / sum(count))
 )
-
 ```
 
 At this point, the data does not tell you which value corresponds to which crop. To find the crop names associated with the crop codes (`value`), you can get the reference table using `data(linkdata)` from the `CropScapeR` package.^[Alternatively, you can download the reference table (a EXCEL file) at <https://www.nass.usda.gov/Research_and_Science/Cropland/docs/cdl_codes_names.xlsx>.] 
@@ -523,7 +521,7 @@ data("linkdata")
 
 ```{r echo = F}
 library(DT)
-datatable(linkdata)  
+datatable(linkdata)
 ```
 
 You can merge the two data sets using `value` from the CDL data and `MasterCat` from `linkdata` as the merging keys:
@@ -531,9 +529,9 @@ You can merge the two data sets using `value` from the CDL data and `MasterCat` 
 
 ```{r }
 (
-crop_data <- dplyr::left_join(crop_data, linkdata, by = c('value' = 'MasterCat'))
+  crop_data <- dplyr::left_join(crop_data, linkdata, by = c("value" = "MasterCat"))
 )
-``` 
+```
 
 `NoData` in `Crop` corresponds to the black area in the above figure, which is the portion of the raster data that does not overlap with the boundary of Champaign County. These points with `NoData` can be removed by using the `filter` function. 
 
@@ -555,14 +553,10 @@ The `GetCDLComp` function allows users to request data on changes in land cover 
 
 Let's see an example. The following codes request data on acreage changes in land cover for Champaign County (FIPS = 17019) from 2017 (`year1 = 2017`) to 2018 (`year2 = 2018`). 
 
-```{r getcdl-comp, eval = F}
+```{r getcdl-comp}
 (
-data_change <- GetCDLComp(aoi = '17019', year1 = 2017, year2 = 2018, type = 'f')
+  data_change <- GetCDLComp(aoi = "17019", year1 = 2017, year2 = 2018, type = "f")
 )
-```
-
-```{r echo = F}
-readRDS("cdl_omp.rds")
 ```
 
 What is returned is a `data.frame` (`data.table`) that has 5 columns. The columns "From" and "To" are crop names. The column "Count" is the pixel count, and "Acreage" is the acres corresponding to the pixel counts. The last column "aoi" is the selected AOI. The first row of the returned data table shows the acreage (i.e., 40,362 acres) of continuous corn during 2017 and 2018. The third row shows the acreage (i.e., 240,506 acres) rotated from corn to soybeans during 2017 and 2018.   
@@ -570,7 +564,7 @@ What is returned is a `data.frame` (`data.table`) that has 5 columns. The column
 Remember that the spatial resolution changes from 56 meters to 30 meters starting 2008. This means that when data is requested for land use changes from 2007 to 2008, two CDL raster layers have different spatial resolutions. Consequently, CropScape API fails to resolve the issue and return an error message saying "Mismatch size of file 1 and file 2." The `GetCDLComp()` function manually resolves this problem by resampling two CDL raster files using the nearest neighbor resampling technique such that both rasters have the same spatial resolutions. The finer resolution raster is downscaled to the lower resolution. Then, the resampled raster layers are merged together to calculate cropland changes. Users can turn off this default behavior by adding `manual_try = FALSE` option. In this case, an error message from CropScape API will be returned with no land use changes results.
 
 ```{r resolu-change, error = TRUE}
-data_change <- GetCDLComp(aoi = '17019', year1 = 2007, year2 = 2008, type = 'f', `manual_try` = FALSE) 
+data_change <- GetCDLComp(aoi = "17019", year1 = 2007, year2 = 2008, type = "f", `manual_try` = FALSE)
 ```
 
 ---
@@ -581,13 +575,13 @@ The `GetCDLStat` function allows users to get acreage by land cover category for
 
 ```{r getcdl-stat, eval = F}
 (
-data_stat <- GetCDLStat(aoi = 17019, year = 2018, type = 'f')
+  data_stat <- GetCDLStat(aoi = 17019, year = 2018, type = "f")
 )
-``` 
+```
 
 ```{r echo = F}
-# saveRDS(data_stat, "cdl_stat.rds") 
-readRDS("cdl_stat.rds") 
+# saveRDS(data_stat, "Data/cdl_stat.rds")
+readRDS("Data/cdl_stat.rds")
 ```
 
 ---
@@ -596,8 +590,8 @@ readRDS("cdl_stat.rds")
 The `GetCDLImage` function allows users to download the image files of the CDL data. This function is very similar to the `GetCDLData` function, except that image files are returned. This function can be helpful if you only want to look at the picture of the CDL data. By default, the picture is saved as the 'png' format. You can also save it in the 'kml' format. 
 
 ```{r getcdl-image, eval = F}
-GetCDLImage(aoi = 17019, year = 2018, type = 'f', verbose = F)
-``` 
+GetCDLImage(aoi = 17019, year = 2018, type = "f", verbose = F)
+```
 
 ### SSL certificate problem on Mac {#mac-problem}
 
@@ -609,26 +603,19 @@ You first need to run the following code before requesting data from CDL.
 
 ```{r ssl}
 #--- Skip the SSL check ---#
-httr::set_config(httr::config(ssl_verifypeer = 0L)) 
+httr::set_config(httr::config(ssl_verifypeer = 0L))
 ```
 
 Now, you can download CDL data by specifying the file path with the `save_path` option like below:
 
 ```{r eval = F}
-
 #--- Download the raster TIF file into specified path, also read into R ---#
-data <- GetCDLData(aoi = 17019, year = 2018, type = 'f', save_path = "ch.tif")
+data <- GetCDLData(aoi = 17019, year = 2018, type = "f", save_path = "Data/ch.tif")
 ```
 
 Hopefully, this problem is fixed by the maintainer of CropScape so that this workaround is not necessary for Mac users.
 
 <!-- ### An example: parallelized processing of CDL data -->
-
-<!-- 
-#/*=================================================*/
-#' # PRISM
-#/*=================================================*/
--->
 
 ## PRISM with `prism` {#download-prism}
 
@@ -636,14 +623,14 @@ Hopefully, this problem is fixed by the maintainer of CropScape so that this wor
 
 [PRISM dataset](https://prism.oregonstate.edu/) provide model-based estimates of precipitation, tmax, and tmin for the U.S. at the 4km by 4km spatial resolution. Here, we use `get_prism_dailys()` from the `prism` package [@prism] to download daily data. Here is its general syntax:
 
-```{r prism_syntax, eval = F}
+```{prism_syntax, eval = F}
 #--- NOT RUN ---#
 get_prism_dailys(
   type = variable type,
   minDate = starting date as character,
   maxDate = ending date as character,
   keepZip = TRUE or FALSE
-) 
+)
 ```
 
 The variables types you can select from is "ppt" (precipitation), "tmean" (mean temperature), "tmin" (minimum temperature), and "tmax" (maximum temperature). For `minDate` and `maxDate`, the dates must be specified in a specific format of "YYYY-MM-DD". `keepZip = FALSE` does not keep the zipped folders of the downloaded files as the name suggests. 
@@ -663,7 +650,7 @@ get_prism_dailys(
   minDate = "2000-01-01",
   maxDate = "2000-01-10",
   keepZip = FALSE
-) 
+)
 ```
 
 When you download data using the above code, you will notice that it creates one folder for one day. For example, for precipitation data for "2000-01-01", you can get the path to the downloaded file as follows: 
@@ -673,14 +660,14 @@ var_type <- "ppt" # variable type
 dates_prism_txt <- str_remove_all("2000-01-01", "-") # date without dashes
 
 #--- folder name ---#
-folder_name <- paste0("PRISM_", var_type, "_stable_4kmD2_", dates_prism_txt, "_bil") 
+folder_name <- paste0("PRISM_", var_type, "_stable_4kmD2_", dates_prism_txt, "_bil")
 
 #--- file name of the downloaded data inside the above folder ---#
-file_name <- paste0("PRISM_", var_type, "_stable_4kmD2_", dates_prism_txt, "_bil.bil") 
+file_name <- paste0("PRISM_", var_type, "_stable_4kmD2_", dates_prism_txt, "_bil.bil")
 
 #--- path to the file relative to the designated data folder (here, it's "Data/PRISM/") ---#
 (
-file_path <- paste0("Data/PRISM/", folder_name, "/", file_name)
+  file_path <- paste0("Data/PRISM/", folder_name, "/", file_name)
 )
 ```
 
@@ -689,12 +676,12 @@ We can then easily read the data using `terra::rast()` or `stars::read_stars()` 
 ```{r read-prism-download}
 #--- as SpatRaster ---#
 (
-prism_2000_01_01_sr <- rast(file_path) 
+  prism_2000_01_01_sr <- rast(file_path)
 )
 
 #--- as stars ---#
 (
-prism_2000_01_01_stars <- read_stars(file_path) 
+  prism_2000_01_01_stars <- read_stars(file_path)
 )
 ```
 
@@ -706,7 +693,6 @@ plot(prism_2000_01_01_stars)
 
 As you can see, the data covers the entire contiguous U.S.
 
-
 ### Download daily PRISM data for many years and build your own datasets
 
 Here, an example of how to create your own sets of PRISM datasets is presented. Creating such datasets and have them locally can be useful if you expect to use the data for many different projects in the future. 
@@ -714,10 +700,10 @@ Here, an example of how to create your own sets of PRISM datasets is presented. 
 Suppose we are interested in saving daily PRISM precipitation data by year-month from 1980 to 2018. We will write a loop that loops over all the year-month combinations. Before writing a loop, let's work on the code for a particular year-month combination: 1990-December. However, we will write codes in a way that can be easily translated into a looped operations later. Specifically, we will define the following variables and use them as if they are variables to be looped over in a loop.
 
 ```{r }
-#--- month to work on ---#  
+#--- month to work on ---#
 temp_month <- 12
 
-#--- year to work on ---#  
+#--- year to work on ---#
 temp_year <- 1990
 ```
 
@@ -725,20 +711,20 @@ We first need to set the path to the folder in which daily PRISM files will be d
 
 ```{r set-path}
 #--- set your own path ---#
-options(prism.path = "Data/PRISM/") 
+options(prism.path = "Data/PRISM/")
 ```
 
-We then set the start and end dates for `get_prism_dailys()`. 
+We then set the start and end dates for `get_prism_dailys()`.
 
 ```{r set-dates}
 #--- starting date of the working month-year ---#
 (
-start_date <- dmy(paste0("1/", temp_month, "/", temp_year))
+  start_date <- dmy(paste0("1/", temp_month, "/", temp_year))
 )
 
 #--- ending date: add a month and then go back 1 day ---#
 (
-end_date <- start_date %m+% months(1) - 1
+  end_date <- start_date %m+% months(1) - 1
 )
 ```
 
@@ -751,55 +737,58 @@ get_prism_dailys(
   minDate = as.character(start_date),
   maxDate = as.character(end_date),
   keepZip = FALSE
-) 
+)
 ```
- 
+
 Once all the data are downloaded, we will read and import them onto R. To do so, we will need the path to all the downloaded files.
 
 ```{r get-file-path}
 #--- list of dates of the working month-year ---#
-dates_ls <- seq(start_date, end_date, "days") 
+dates_ls <- seq(start_date, end_date, "days")
 
 #--- remove dashes ---#
 dates_prism_txt <- str_remove_all(dates_ls, "-")
 
 #--- folder names ---#
-folder_name <- paste0("PRISM_", var_type, "_stable_4kmD2_", dates_prism_txt, "_bil") 
+folder_name <- paste0("PRISM_", var_type, "_stable_4kmD2_", dates_prism_txt, "_bil")
+
 #--- the file name of the downloaded data ---#
-file_name <- paste0("PRISM_", var_type, "_stable_4kmD2_", dates_prism_txt, "_bil.bil") 
+file_name <- paste0("PRISM_", var_type, "_stable_4kmD2_", dates_prism_txt, "_bil.bil")
+
 #--- complete path to the downloaded files ---#
 (
-file_path <- paste0("Data/PRISM/", folder_name, "/", file_name) 
+  file_path <- paste0("Data/PRISM/", folder_name, "/", file_name)
 )
 ```
 
-We now read them as a `stars` object, set the third dimension as date using `Dates` object class, and then save it as an R dataset (This will ensure that date dimensions is kept. See Chapter \@ref(read-write-stars)). 
+We now read them as a `stars` object, set the third dimension as date using `Dates` object class, and then save it as an R dataset (This will ensure that date dimensions is kept. See Chapter \@ref(read-write-stars)).
 
 ```{r save-as-stars, eval = F}
 (
-#--- combine all the PRISM files as stars ---#
-temp_stars <- read_stars(file_path, along = 3)
-  #--- set the third dimension as data ---# 
-  st_set_dimensions("band", values = dates_ls, name = "date")
+  #--- combine all the PRISM files as stars ---#
+  temp_stars <-
+    read_stars(file_path, along = 3) %>%
+    #--- set the third dimension as data ---#
+    st_set_dimensions("band", values = dates_ls, name = "date")
 )
 
 #--- save the stars as an rds file ---#
 saveRDS(
-  temp_stars, 
+  temp_stars,
   paste0("Data/PRISM/PRISM_", var_type, "_y", temp_year, "_m", temp_month, ".rds")
-)  
+)
 ```
 
 You could alternatively read the files into a `SpatRaster` object and save it data as a GeoTIFF file.
 
 ```{r save-as-tiff, eval = F}
 (
-#--- combine all the PRISM files as a RasterStack ---#
-temp_stars <- terra::rast(file_path) 
+  #--- combine all the PRISM files as a RasterStack ---#
+  temp_stars <- terra::rast(file_path)
 )
 
 #--- save as a multi-band GeoTIFF file ---#
-writeRaster(temp_stars, paste0("Data/PRISM/PRISM_", var_type, "_y", temp_year, "_m", temp_month, ".tif"), overwrite = T) 
+writeRaster(temp_stars, paste0("Data/PRISM/PRISM_", var_type, "_y", temp_year, "_m", temp_month, ".tif"), overwrite = T)
 ```
 
 Note that this option of course does not have date as the third dimension. Moreover, the RDS file above takes up only 14 Mb, while the tif file occupies 108 Mb.
@@ -808,7 +797,7 @@ Finally, if you would like, you can delete all the individual PRISM files:
 
 ```{r remove-prism, eval = F}
 #--- delete all the downloaded files ---#
-unlink(paste0("Data/PRISM/", folder_name), recursive = TRUE) 
+unlink(paste0("Data/PRISM/", folder_name), recursive = TRUE)
 ```
 
 ---
@@ -817,9 +806,9 @@ Okay, now that we know what to do with a particular year-month combination, we c
 
 ```{r get_cores}
 library(parallel)
-num_cores <- detectCores() 
+num_cores <- detectCores()
 
-plan(multiprocess, workers = num_cores)
+plan(multisession, workers = num_cores)
 ```
 
 The following function goes through all the steps we saw above for a single year-month combination.
@@ -827,64 +816,63 @@ The following function goes through all the steps we saw above for a single year
 ```{r def-function}
 #--- define a function to download and save PRISM data stacked by month ---#
 get_save_prism <- function(i, var_type) {
-
   print(paste0("working on ", i))
 
   temp_month <- month_year_data[i, month] # working month
   temp_year <- month_year_data[i, year] # working year
-  
+
   #--- starting date of the working month-year ---#
   start_date <- dmy(paste0("1/", temp_month, "/", temp_year))
   #--- end date ---#
   end_date <- start_date %m+% months(1) - 1
 
-  
+
   #--- download daily PRISM data for the working month-year ---#
   get_prism_dailys(
     type = var_type,
     minDate = as.character(start_date),
     maxDate = as.character(end_date),
     keepZip = FALSE
-  ) 
+  )
 
   #--- list of dates of the working month-year ---#
-  dates_ls <- seq(start_date, end_date, "days") 
+  dates_ls <- seq(start_date, end_date, "days")
 
   #--- remove dashes ---#
   dates_prism_txt <- str_remove_all(dates_ls, "-")
 
   #--- folder names ---#
-  folder_name <- paste0("PRISM_", var_type, "_stable_4kmD2_", dates_prism_txt, "_bil") 
+  folder_name <- paste0("PRISM_", var_type, "_stable_4kmD2_", dates_prism_txt, "_bil")
   #--- the file name of the downloaded data ---#
-  file_name <- paste0("PRISM_", var_type, "_stable_4kmD2_", dates_prism_txt, "_bil.bil") 
+  file_name <- paste0("PRISM_", var_type, "_stable_4kmD2_", dates_prism_txt, "_bil.bil")
   #--- complete path to the downloaded files ---#
   file_path <- paste0("Data/PRISM/", folder_name, "/", file_name)
 
   #--- combine all the PRISM files as a RasterStack ---#
-  temp_stars <- stack(file_path) %>% 
+  temp_stars <- stack(file_path) %>%
     #--- convert to stars ---#
-    st_as_stars() %>% 
-    #--- set the third dimension as data ---# 
+    st_as_stars() %>%
+    #--- set the third dimension as data ---#
     st_set_dimensions("band", values = dates_ls, name = "date")
 
   #--- save the stars as an rds file ---#
   saveRDS(
-    temp_stars, 
+    temp_stars,
     paste0("Data/PRISM/PRISM_", var_type, "_y", temp_year, "_m", temp_month, ".rds")
   )
 
   #--- delete all the downloaded files ---#
   unlink(paste0("Data/PRISM/", folder_name), recursive = TRUE)
-} 
+}
 ```
 
 We then create a `data.frame` of all the year-month combinations: 
 
 ```{r data_prep_par_ml}
 (
-#--- create a set of year-month combinations to loop over ---#
-month_year_data <- expand.grid(month  = 1:12, year = 1990:2018) %>% 
-  data.table()
+  #--- create a set of year-month combinations to loop over ---#
+  month_year_data <- expand.grid(month = 1:12, year = 1990:2018) %>%
+    data.table()
 )
 ```
 
@@ -893,8 +881,8 @@ We now do parallelized loop over all the year-month combinations (by looping ove
 ```{r final-loop, eval = F}
 #--- run the above code in parallel ---#
 future_lapply(
-  1:nrow(month_year_data), 
-  function (x) get_save_prism(x, "ppt")
+  1:nrow(month_year_data),
+  function(x) get_save_prism(x, "ppt")
 )
 ```
 
@@ -903,8 +891,8 @@ That's it. Of course, you can do the same thing for tmax by this:
 ```{r final-loop-tmax, eval = F}
 #--- run the above code in parallel ---#
 future_lapply(
-  1:nrow(month_year_data), 
-  function (x) get_save_prism(x, "tmax")
+  1:nrow(month_year_data),
+  function(x) get_save_prism(x, "tmax")
 )
 ```
 
@@ -917,9 +905,8 @@ If you want to save the data by year (each file would be about 168 Mb). You coul
 ```{r def-function-y, eval = F}
 #--- define a function to download and save PRISM data stacked by year ---#
 get_save_prism_y <- function(temp_year, var_type) {
-
   print(paste0("working on ", temp_year))
-  
+
   #--- starting date of the working month-year ---#
   start_date <- dmy(paste0("1/1/", temp_year))
   #--- end date ---#
@@ -931,42 +918,42 @@ get_save_prism_y <- function(temp_year, var_type) {
     minDate = as.character(start_date),
     maxDate = as.character(end_date),
     keepZip = FALSE
-  ) 
+  )
 
   #--- list of dates of the working month-year ---#
-  dates_ls <- seq(start_date, end_date, "days") 
+  dates_ls <- seq(start_date, end_date, "days")
 
   #--- remove dashes ---#
   dates_prism_txt <- str_remove_all(dates_ls, "-")
 
   #--- folder names ---#
-  folder_name <- paste0("PRISM_", var_type, "_stable_4kmD2_", dates_prism_txt, "_bil") 
+  folder_name <- paste0("PRISM_", var_type, "_stable_4kmD2_", dates_prism_txt, "_bil")
   #--- the file name of the downloaded data ---#
-  file_name <- paste0("PRISM_", var_type, "_stable_4kmD2_", dates_prism_txt, "_bil.bil") 
+  file_name <- paste0("PRISM_", var_type, "_stable_4kmD2_", dates_prism_txt, "_bil.bil")
   #--- complete path to the downloaded files ---#
   file_path <- paste0("Data/PRISM/", folder_name, "/", file_name)
 
   #--- combine all the PRISM files as a RasterStack ---#
-  temp_stars <- stack(file_path) %>% 
+  temp_stars <- stack(file_path) %>%
     #--- convert to stars ---#
-    st_as_stars() %>% 
-    #--- set the third dimension as data ---# 
+    st_as_stars() %>%
+    #--- set the third dimension as data ---#
     st_set_dimensions("band", values = dates_ls, name = "date")
 
   #--- save the stars as an rds file ---#
   saveRDS(
-    temp_stars, 
+    temp_stars,
     paste0("Data/PRISM/PRISM_", var_type, "_y", temp_year, ".rds")
   )
 
   #--- delete all the downloaded files ---#
   unlink(paste0("Data/PRISM/", folder_name), recursive = TRUE)
-} 
+}
 
 #--- run the above code in parallel ---#
 future_lapply(
-  1990:2018, 
-  function (x) get_save_prism_y(x, "tmax")
+  1990:2018,
+  function(x) get_save_prism_y(x, "tmax")
 )
 ```
 
@@ -975,22 +962,22 @@ future_lapply(
 For this section, we use the `daymetr` [@daymetr] and `FedData` packages [@feddata].
 
 ```{r daymetr_load}
-library(daymetr)  
-library(FedData)  
+library(daymetr)
+library(FedData)
 ```
 
 Daymet data consists of "tiles," each of which consisting of raster cells of 1km by 1km. Here is the map of the tiles (Figure \@ref(fig:daymet-tiles))
 
 ```{r daymet-tiles, fig.cap = "Daymet Tiles", echo = F}
 library(maps)
-US_map <- st_as_sf(map(database = "state", plot = FALSE, fill = TRUE)) %>% 
-  st_transform(st_crs(tile_outlines)) 
+US_map <- st_as_sf(map(database = "state", plot = FALSE, fill = TRUE)) %>%
+  st_transform(st_crs(tile_outlines))
 
 #--- tiles ---#
 # tm_shape(tile_outlines) +
 #   tm_polygons(col = "blue", alpha = 0.5) +
 # tm_shape(US_map) +
-#   tm_polygons(col = "red", alpha = 0.2) 
+#   tm_polygons(col = "red", alpha = 0.2)
 
 ggplot() +
   geom_sf(data = st_as_sf(tile_outlines), fill = NA, size = 0.7) +
@@ -1032,7 +1019,7 @@ temp_daymet <- download_daymet(
   lon = -100,
   start = 2000,
   end = 2002
-) 
+)
 
 #--- structure ---#
 str(temp_daymet)
@@ -1067,14 +1054,14 @@ temp_daymet_data <- mutate(temp_daymet_data,
 )
 
 #--- take a look ---#
-dplyr::select(temp_daymet_data, year, month, day) %>%  head
+dplyr::select(temp_daymet_data, year, month, day) %>% head()
 ```
 
 This helps you find group statistics like monthly precipitation. 
 
 ```{r monthly_prcp}
-temp_daymet_data %>% 
-  group_by(month) %>% 
+temp_daymet_data %>%
+  group_by(month) %>%
   summarize(prcp = mean(prcp..mm.day.))
 ```
 
@@ -1083,15 +1070,15 @@ Downloading Daymet data for many points is just applying the same operations abo
 ```{r get_random_poitns}
 set.seed(389548)
 
-random_points <- 
-  tigris::counties(state = "CA") %>% 
-  st_as_sf() %>% 
+random_points <-
+  tigris::counties(state = "CA") %>%
+  st_as_sf() %>%
   #--- 10 points ---#
-  st_sample(10) %>% 
+  st_sample(10) %>%
   #--- get the coordinates ---#
-  st_coordinates() %>% 
+  st_coordinates() %>%
   #--- as tibble (data.frame) ---#
-  as_tibble() %>% 
+  as_tibble() %>%
   #--- assign site id ---#
   mutate(site_id = 1:n())
 ```
@@ -1099,8 +1086,7 @@ random_points <-
 To loop over the points, you can first write a function like this:
 
 ```{r }
-get_daymet <- function(i){
-
+get_daymet <- function(i) {
   temp_lat <- random_points[i, ] %>% pull(Y)
   temp_lon <- random_points[i, ] %>% pull(X)
   temp_site <- random_points[i, ] %>% pull(site_id)
@@ -1110,18 +1096,18 @@ get_daymet <- function(i){
     lon = temp_lon,
     start = 2000,
     end = 2002
-  ) %>% 
-  #--- just get the data part ---#
-  .$data %>% 
-  #--- convert to tibble (not strictly necessary) ---#
-  as_tibble() %>% 
-  #--- assign site_id so you know which record is for which site_id ---#
-  mutate(site_id = temp_site) %>% 
-  #--- get date from day of the year ---#
-  mutate(date = as.Date(paste(year, yday, sep = "-"), "%Y-%j"))
+  ) %>%
+    #--- just get the data part ---#
+    .$data %>%
+    #--- convert to tibble (not strictly necessary) ---#
+    as_tibble() %>%
+    #--- assign site_id so you know which record is for which site_id ---#
+    mutate(site_id = temp_site) %>%
+    #--- get date from day of the year ---#
+    mutate(date = as.Date(paste(year, yday, sep = "-"), "%Y-%j"))
 
   return(temp_daymet)
-}  
+}
 ```
 
 Here is what the function returns for the 1st row of `random_points`:
@@ -1135,33 +1121,33 @@ You can now simply loop over the rows.
 
 ```{r loop_daymet, eval = F}
 (
-daymet_all_points <- lapply(1:nrow(random_points), get_daymet) %>% 
-  #--- need to combine the list of data.frames into a single data.frame ---#
-  bind_rows()
+  daymet_all_points <- lapply(1:nrow(random_points), get_daymet) %>%
+    #--- need to combine the list of data.frames into a single data.frame ---#
+    bind_rows()
 )
 ```
 
 ```{r disp_daymet, echo = F}
 # saveRDS(daymet_all_points, "Data/daymet_all_points.rds")
 (
-daymet_all_points <- readRDS("Data/daymet_all_points.rds")
+  daymet_all_points <- readRDS("Data/daymet_all_points.rds")
 )
 ```
 
 Or better yet, you can easily parallelize this process as follows (see Chapter \@ref(par-comp) if you are not familiar with parallelization in R):
 
 ```{r par_daymet, eval = F}
-library(future.apply)    
+library(future.apply)
 library(parallel)
 
 #--- parallelization planning ---#
-plan(multiprocess, workers = detectCores() - 1)
+plan(multisession, workers = detectCores() - 1)
 
 #--- parallelized lapply ---#
-daymet_all_points <- future_lapply(1:nrow(random_points), get_daymet) %>% 
+daymet_all_points <- future_lapply(1:nrow(random_points), get_daymet) %>%
   #--- need to combine the list of data.frames into a single data.frame ---#
   bind_rows()
-```  
+```
 
 ### For polygons data {#daymet-poly}
 
@@ -1178,7 +1164,7 @@ MI_counties_select <- filter(MI_counties, NAME %in% c("Luce", "Chippewa", "Macki
 ```{r michi-fig, fig.cap = "Select Michigan counties for which we download Daymet data", echo = F}
 tm_shape(MI_counties) +
   tm_polygons(fill = NA) +
-tm_shape(MI_counties_select) +
+  tm_shape(MI_counties_select) +
   tm_polygons(col = "blue") +
   tm_layout(frame = NA)
 ```
@@ -1189,24 +1175,23 @@ The code below downloads `prcp` and `tmax` for the spatial extent of Michigan co
 
 ```{r MI_daymet_download, eval = F}
 (
-MI_daymet_select <- FedData::get_daymet(
-  #--- supply the vector data in sp ---#
-  template = as(MI_counties_select, "Spatial"),
-  #--- label ---#
-  label = "MI_counties_select",
-  #--- variables to download ---#
-  elements = c("prcp","tmax"),
-  #--- years ---#
-  years = 2000:2001
+  MI_daymet_select <- FedData::get_daymet(
+    #--- supply the vector data in sp ---#
+    template = as(MI_counties_select, "Spatial"),
+    #--- label ---#
+    label = "MI_counties_select",
+    #--- variables to download ---#
+    elements = c("prcp", "tmax"),
+    #--- years ---#
+    years = 2000:2001
+  )
 )
-)
-
 ```
 
 ```{r MI_daymet_import, echo = F}
 # saveRDS(MI_daymet_select, "Data/tmi_prcp_MI_2000_2001.rds")
 (
-MI_daymet_select <- readRDS("Data/tmi_prcp_MI_2000_2001.rds")
+  MI_daymet_select <- readRDS("Data/tmi_prcp_MI_2000_2001.rds")
 )
 ```
 
@@ -1225,11 +1210,11 @@ prcp_stars <- st_as_stars(MI_daymet_select$prcp)
 Now, the third dimension (band) is not recognized as dates. We can use `st_set_dimension()` to change that (see Chapter \@ref(stars-set-time)). Before that, we first need to recover `Date` values from the "band" values as follows:
 
 ```{r band_to_date}
-date_values <- tmax_stars %>% 
+date_values <- tmax_stars %>%
   #--- get band values ---#
-  st_get_dimension_values(., "band") %>% 
+  st_get_dimension_values(., "band") %>%
   #--- remove X ---#
-  gsub("X", "", .) %>% 
+  gsub("X", "", .) %>%
   #--- convert to date ---#
   ymd(.)
 
@@ -1239,10 +1224,10 @@ head(date_values)
 
 ```{r assign_dates}
 #--- tmax ---#
-st_set_dimensions(tmax_stars, 3, values = date_values, names = "date" )  
+st_set_dimensions(tmax_stars, 3, values = date_values, names = "date")
 
 #--- prcp ---#
-st_set_dimensions(prcp_stars, 3, values = date_values, names = "date" )  
+st_set_dimensions(prcp_stars, 3, values = date_values, names = "date")
 ```
 
 Notice that the date dimension has NA for `delta`. This is because Daymet removes observations for December 31 in leap years to make the time dimension 365 consistently across years. This means that there is a one-day gap between "2000-12-30" and "2000-01-01" as you can see below:
@@ -1261,7 +1246,7 @@ You can use the `downloadr::download()` function to download gridMET data by var
 downloader::download(
   url = "http://www.northwestknowledge.net/metdata/data/pr_2018.nc",
   destfile = "Data/pr_2018.nc",
-  mode = 'wb'
+  mode = "wb"
 )
 ```
 
@@ -1295,7 +1280,7 @@ As another example, if you are interested in downloading the wind speed data for
 downloader::download(
   url = "http://www.northwestknowledge.net/metdata/data/vs_2020.nc",
   destfile = "Data/vs_2020.nc",
-  mode = 'wb'
+  mode = "wb"
 )
 ```
 
@@ -1306,9 +1291,9 @@ Suppose your final goal is to get average daily precipitation (**pr**) and refer
 First get county boundaries for California:
 
 ```{r gm-ca-counties}
-CA_counties <- tigris::counties(state = "CA") %>% 
+CA_counties <- tigris::counties(state = "CA") %>%
   dplyr::select(STATEFP, COUNTYFP)
-``` 
+```
 
 Before writing a loop, let's work on a single case (**pet** for 2015). First, we download and read the data.
 
@@ -1317,38 +1302,38 @@ Before writing a loop, let's work on a single case (**pet** for 2015). First, we
 downloader::download(
   url = "http://www.northwestknowledge.net/metdata/data/pet_2015.nc",
   destfile = "Data/pet_2015.nc",
-  mode = 'wb'
-) 
+  mode = "wb"
+)
 
 #--- read the raster data ---#
 (
-pet_2015 <- rast("Data/pet_2015.nc")
+  pet_2015 <- rast("Data/pet_2015.nc")
 )
 ```
 
 ```{r gm-download-2015-pet-show, echo = F}
 (
-pet_2015 <- rast("Data/pet_2015.nc")
+  pet_2015 <- rast("Data/pet_2015.nc")
 )
 ```
 
 As you can see, it is a multi-layer raster object where each layer represents a single day in 2015. Here is a quick visualization of the first layer.
 
 ```{r gm-2015-pet-viz}
-plot(pet_2015[[1]]) 
+plot(pet_2015[[1]])
 ```
 
 Now, we can use `exactexactr::exact_extract()` to assign cell values to each county and transform it to a more convenient form:
 
 ```{r gm-extract}
-pet_county <- 
+pet_county <-
   #--- extract data for each county ---#
-  exact_extract(pet_2015, CA_counties, progress = FALSE) %>% 
+  exact_extract(pet_2015, CA_counties, progress = FALSE) %>%
   #--- list of data.frames into data.table ---#
   rbindlist(idcol = "rowid")
 
 #--- check the dimension of the output ---#
-dim(pet_county) 
+dim(pet_county)
 ```
 
 As you can see the data has 367 columns: 365 (days) + 1 (`rowid`) + 1 (coverage fraction). Let's take a look at the name of the first six variables.
@@ -1360,17 +1345,17 @@ head(names(pet_county))
 The 5-digit number at the end of the name of the variables for evapotranspiration represents days since Jan 1st, 1900. This can be confirmed using `ncdf4:nc_open()` (see the middle of the output below under **day** of **4 dimensions**):
 
 ```{r gm-ncdf4-check}
-ncdf4::nc_open("Data/pet_2015.nc")  
+ncdf4::nc_open("Data/pet_2015.nc")
 ```
 
 This is universally true for all the gridMET data. We can use this information to recover date. First, let's transform the data from a wide format to a long format for easier operations:
 
 ```{r gm-melt-et}
-pet_county <-  
+pet_county <-
   #--- wide to long ---#
-  melt(pet_county, id.var = c("rowid", "coverage_fraction")) %>% 
+  melt(pet_county, id.var = c("rowid", "coverage_fraction")) %>%
   #--- remove observations with NA values ---#
-  .[!is.na(value), ]   
+  .[!is.na(value), ]
 
 #--- take a look ---#
 pet_county
@@ -1379,9 +1364,9 @@ pet_county
 We now use `str_sub()` to get 5-digit numbers from `variable`, which represents days since Jan 1st, 1900. We can then recover dates using the `lubridate` package.
 
 ```{r gm-recover-date}
-pet_county[, variable := str_sub(variable, -5, -1) %>% as.numeric()] %>% 
+pet_county[, variable := str_sub(variable, -5, -1) %>% as.numeric()] %>%
   #--- recover dates ---#
-  .[, date := variable + lubridate::ymd("1900-01-01")] 
+  .[, date := variable + lubridate::ymd("1900-01-01")]
 
 #--- take a look ---#
 pet_county
@@ -1390,20 +1375,19 @@ pet_county
 Finally, let's calculate the coverage-weighted average of **pet** by county-date.
 
 ```{r gm-get-aw-pet}
-pet_county_avg <- 
-  pet_county[, 
+pet_county_avg <-
+  pet_county[,
     .(value = sum(value * coverage_fraction) / sum(coverage_fraction)),
     by = .(rowid, date)
-  ] %>% 
+  ] %>%
   setnames("value", "pet")
-
 ```
 
 Since `rowid` value of **n** corresponds to the **n** th row in `CA_counties`, it is easy to merge `pet_county_avg` with `CA_counties` (alternatively, you can use `cbind()`).
 
 ```{r gm-merge-back}
-CA_pet <- CA_counties %>% 
-  mutate(rowid = seq_len(nrow(.))) %>% 
+CA_pet <- CA_counties %>%
+  mutate(rowid = seq_len(nrow(.))) %>%
   left_join(pet_county_avg, ., by = "rowid")
 ```
 
@@ -1415,67 +1399,65 @@ get_grid_MET <- function(var_name, year) {
   # var_name <- "pet"
   # year <- 2020
 
-  target_url <- 
-  paste0(
-    "http://www.northwestknowledge.net/metdata/data/",
-    var_name, "_", year,
-    ".nc"
-  )
+  target_url <-
+    paste0(
+      "http://www.northwestknowledge.net/metdata/data/",
+      var_name, "_", year,
+      ".nc"
+    )
 
   file_name <-
-  paste0(
-    "Data/",
-    var_name, "_", year,
-    ".nc"
-  )
+    paste0(
+      "Data/",
+      var_name, "_", year,
+      ".nc"
+    )
 
   downloader::download(
     url = target_url,
     destfile = file_name,
-    mode = 'wb'
+    mode = "wb"
   )
 
   #--- read the raster data ---#
   temp_rast <- rast(file_name)
 
-  temp_data <- 
-  #--- extract data for each county ---#
-  exact_extract(temp_rast, CA_counties) %>% 
-  #--- list of data.frames into data.table ---#
-  rbindlist(idcol = "rowid") %>% 
-  #--- wide to long ---#
-  melt(id.var = c("rowid", "coverage_fraction")) %>% 
-  #--- remove observations with NA values ---#
-  .[!is.na(value), ] %>% 
-  #--- get only the numeric part ---#
-  .[, variable := str_sub(variable, -5, -1) %>% as.numeric()] %>% 
-  #--- recover dates ---#
-  .[, date := variable + ymd("1900-01-01")] %>% 
-  #--- find daily coverage-weight average by county ---#
-  .[, 
-    .(value = sum(value * coverage_fraction) / sum(coverage_fraction)), 
-    by = .(rowid, date)
-  ] %>% 
-  .[, var := var_name]
+  temp_data <-
+    #--- extract data for each county ---#
+    exact_extract(temp_rast, CA_counties) %>%
+    #--- list of data.frames into data.table ---#
+    rbindlist(idcol = "rowid") %>%
+    #--- wide to long ---#
+    melt(id.var = c("rowid", "coverage_fraction")) %>%
+    #--- remove observations with NA values ---#
+    .[!is.na(value), ] %>%
+    #--- get only the numeric part ---#
+    .[, variable := str_sub(variable, -5, -1) %>% as.numeric()] %>%
+    #--- recover dates ---#
+    .[, date := variable + ymd("1900-01-01")] %>%
+    #--- find daily coverage-weight average by county ---#
+    .[,
+      .(value = sum(value * coverage_fraction) / sum(coverage_fraction)),
+      by = .(rowid, date)
+    ] %>%
+    .[, var := var_name]
 
   return(temp_data)
-
 }
-
-``` 
+```
 
 Let's now loop over the variables and years of interest. We first set up a dataset of variable-year combinations for which we loop over.
 
 ```{r gm-set-pars}
 #--- create a dataset of parameters to be looped over---#
 (
-par_data <- 
-  expand.grid(
-    var_name = c("pr", "pet"),
-    year = 2015:2020
-  ) %>% 
-  data.table() %>% 
-  .[, var_name := as.character(var_name)]
+  par_data <-
+    expand.grid(
+      var_name = c("pr", "pet"),
+      year = 2015:2020
+    ) %>%
+    data.table() %>%
+    .[, var_name := as.character(var_name)]
 )
 ```
 
@@ -1484,23 +1466,17 @@ We now loop over the rows of `par_data` in parallel:
 ```{r gm-get-data, results = "hide", eval = F}
 #--- parallel processing ---#
 library(future.apply)
-plan(multiprocess, workers = 12)
+plan(multisession, workers = 12)
 
 (
-all_data <- 
-  future_lapply(
-    seq_len(nrow(par_data)), 
-    function(x) get_grid_MET(par_data[x, var_name], par_data[x, year])
-  ) %>% 
-  rbindlist() %>% 
-  dcast(rowid + date ~ var, value.var = "value")
+  all_data <-
+    future_lapply(
+      seq_len(nrow(par_data)),
+      function(x) get_grid_MET(par_data[x, var_name], par_data[x, year])
+    ) %>%
+    rbindlist() %>%
+    dcast(rowid + date ~ var, value.var = "value")
 )
-
-```
-
-```{r gm-show-data, echo = F}
-# saveRDS(all_data, "Data/gm_all.rds")
-readRDS("Data/gm_all.rds")
 ```
 
 <!-- 
@@ -1519,19 +1495,19 @@ state_ls <- state.abb
 data_ne <- whatNWISdata(stateCd = "NE")
 
 KS_gwl <- readNWISdata(
-    stateCd="Kansas", 
-    startDate = "1980-01-01", 
-    endDate = "2020-01-01", 
-    service = "gwlevels"
-  ) %>% 
-  select(site_no, lev_dt, lev_va) %>% 
+  stateCd = "Kansas",
+  startDate = "1980-01-01",
+  endDate = "2020-01-01",
+  service = "gwlevels"
+) %>%
+  select(site_no, lev_dt, lev_va) %>%
   rename(date = lev_dt, dwt = lev_va)
 
-KS_site_ls <- KS_gwl[,site_no] %>% unique()
+KS_site_ls <- KS_gwl[, site_no] %>% unique()
 
-sites_info <- readNWISsite(siteNumbers = KS_site_ls) %>% 
-  select(site_no, dec_lat_va, dec_long_va) %>% 
-  st_as_sf(coords = c("dec_long_va", "dec_lat_va")) %>% 
+sites_info <- readNWISsite(siteNumbers = KS_site_ls) %>%
+  select(site_no, dec_lat_va, dec_long_va) %>%
+  st_as_sf(coords = c("dec_long_va", "dec_lat_va")) %>%
   st_set_crs(4269)
 ```
 
@@ -1540,9 +1516,9 @@ sites_info <- readNWISsite(siteNumbers = KS_site_ls) %>%
 ```{r , eval = F}
 
 SaltLake_totalN <- readNWISdata(
-  bBox = c(-113.0428, 40.6474, -112.0265, 41.7018), 
-  service = "qw", 
-  parameterCd = "00600", 
+  bBox = c(-113.0428, 40.6474, -112.0265, 41.7018),
+  service = "qw",
+  parameterCd = "00600",
   startDate = "2020-01-01"
 )
 
@@ -1551,16 +1527,16 @@ attributes(SaltLake_totalN)
 attr(SaltLake_totalN, "variableInfo")
 
 
-phosphorous: 00665
-nitrogen: 00665
+phosphorous:00665
+nitrogen:00665
 ```
 
 
 ### Water temperature
 ```{r , eval = F}
 MauiCo_avgdailyQ <- readNWISdata(
-  stateCd = "Hawaii", 
-  service = "dv", 
+  stateCd = "Hawaii",
+  service = "dv",
   parameterCd = "00060"
 )
 
@@ -1575,22 +1551,22 @@ head(MauiCo_avgdailyQ)
 
 ```{r , eval = F}
 wqpcounts_ia <- readWQPdata(
-  statecode="US:19", 
+  statecode = "US:19",
   querySummary = TRUE
 )
 
 IA_lake_phosphorus <- readWQPdata(
-  statecode = "IA", 
-  siteType = "Lake, Reservoir, Impoundment", 
-  characteristicName = "Phosphorus", 
-  startDate = "1990-10-01" 
-) %>% 
-filter(MonitoringLocationIdentifier, ResultMeasureValue, ActivityStartDate)
+  statecode = "IA",
+  siteType = "Lake, Reservoir, Impoundment",
+  characteristicName = "Phosphorus",
+  startDate = "1990-10-01"
+) %>%
+  filter(MonitoringLocationIdentifier, ResultMeasureValue, ActivityStartDate)
 
 #--- get longitude and latitude ---#
-siteInfo <- attr(IA_lake_phosphorus, "siteInfo") %>% 
-  select(MonitoringLocationIdentifier, dec_lat_va, dec_lon_va) %>% 
-  st_as_sf(coords = c("dec_lon_va", "dec_lat_va")) %>% 
+siteInfo <- attr(IA_lake_phosphorus, "siteInfo") %>%
+  select(MonitoringLocationIdentifier, dec_lat_va, dec_lon_va) %>%
+  st_as_sf(coords = c("dec_lon_va", "dec_lat_va")) %>%
   st_set_crs(4269)
 
 attributes()
