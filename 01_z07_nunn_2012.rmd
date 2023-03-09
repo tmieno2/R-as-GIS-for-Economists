@@ -4,50 +4,32 @@
 
 **Objective:**
 
-Create some of the variables used in @nunn2008long (here)[https://scholar.harvard.edu/nunn/publications/long-term-effects-africas-slave-trades]
+@nunn2012ruggedness showed empirically that the ruggedness of the terrain has had a positive impacts on economic developement in African countries. In this demonstration, we calculate Terrain Ruggedness Index (TRI) for African countries from the world elevation data.
 
-* the distance variable used as an instrument (distance to the nearest trade center for each country in Africa)   
-* the number of slaves for each of the countries in Africa
-
-The tutorial is originally from http://mkudamatsu.github.io/gis_lecture4.html.
 
 ---
 
 **Datasets**
 
-* Coast lines of the world
-* Country boundary in Africa
-* Boundary of ethnic regions in Africa
+* World elevation data 
+* World country borders
 
 ---
 
 **GIS tasks**
 
-* read an ESRI shape file as an `sf` (spatial) object 
-  - use `sf::st_read()`
-* simply a spatial object (reduce the number of points representing it)
-  - use `rmapshaper::ms_simplify()`
-* find the closest point on the boundary of polygons
-  - use `sf::st_nearest_points()`
-* find the centroid of a polygon
-  - use `sf::st_centroid()`
-* combine multiple lines into a single line
-  - use `sf::st_union()`
-* identify the last point of a line
-  - use `lwgeom::st_endpoint()`
-* calculate the distance between two spatial objects
-  - use `sf::st_distance()`
-* implement area-weighted spatial interpolation
-  - use `sf::st_interpolate_aw()`
-* drop geometry from an `sf` object
-  - use `sf::st_drop_geometry()`
-* convert a regular `data.frame` (non-spatial) with geographic coordinates into an `sf` (spatial) objects
-  - use `sf::st_as_sf()` and `sf::st_set_crs()`
-* reproject an `sf` object to another CRS
-  - use `sf::st_transform()`
-  - use `sf::st_join()`
+* read a raster file 
+  - use `terra::rast()`
+* import world country border data
+  - use `rnaturalearth::ne_countries()`
+* crop a raster data to a particular region
+  - use `terra::crop()`
+* replace cell values
+  - use `terra::subst()`
+* calculate TRI 
+  - use `terra::focal()`
 + create maps 
-  * use the `ggplot2` package 
+  * use the `tmap` package 
 
 ---
 
@@ -55,82 +37,103 @@ The tutorial is originally from http://mkudamatsu.github.io/gis_lecture4.html.
 
 Run the following code to install or load (if already installed) the `pacman` package, and then install or load (if already installed) the listed package inside the `pacman::p_load()` function.
 
-```{r demo1_packages}
+```{r demo_nunn_2012_packages}
 if (!require("pacman")) install.packages("pacman")
 pacman::p_load(
   sf, # vector data operations
   tidyverse, # data wrangling
   stars,
+  tmap,
+  raster,
+  rnaturalearth,
   skimr
 )
 ```
 
 ### Project Demonstration
 
-# Nunn (2012)
+We first read the world elevation data using `terra::rast()`.
 
-Nunn (2012): https://scholar.harvard.edu/nunn/publications/ruggedness-blessing-bad-geography-africa
-
-
-```{r Load digital elevation map}
-# From https://www.eea.europa.eu/data-and-maps/data/world-digital-elevation-model-etopo5, spatial resolution 5-minute gride, about 10km grid
-
-dem <- stars::read_stars(here::here("data/nunn_2012/GDEM-10km-BW.tif"))
-
-# View stars object
-print(dem)
-
-# rename alwdgg.tif to elevation
-dem$elevation <- dem$`GDEM-10km-BW.tif`
-dem$`GDEM-10km-BW.tif` <- NULL
-
-# Quick plot
-plot(dem)
+```{r read-dem}
+(
+  dem <- terra::rast("Data/nunn_2012/GDEM-10km-BW.tif")
+)
 ```
 
-Stars raster objects keeps track of the x,y (and sometimes time) position in "bands" and the values in "attributes". The bands keep track of the location of each square and the "attribute" keeps track of the value at that square. Therefore, when we work with stars objects, we only want to work with the attributes. 
-
-The first thing to notice is that the ocean floor is recorded as 0, so we are going to replace an elevation of 0 with `NA`s.
-
-```{r}
-dem$elev <- ifelse(dem$elevation == 0, NA, dem$elevation)
-
-plot(dem["elev"])
+```{r map-world-elev, cache = TRUE}
+tm_shape(dem) +
+  tm_raster()
 ```
 
+In this dataset, the elevation of the ocean floor is recorded as 0, so let's replace an elevation of 0 with `NA`s. This avoids a problem associated with calculating TRI later. 
 
-# Nunn (2012) Data Replication
+```{r replace-zero}
+dem <- terra::subst(dem, 0, NA)
+```
 
-We are going to loop through the raster and calculate the Terrain Ruggedness Index (Riley et. al. (1999)):
+```{r map-world-elev-no-zero, cache = TRUE}
+tm_shape(dem) +
+  tm_raster()
+```
+
+Now, since our interest is in Africa, let's just crop the raster data to its African portion. To do so, we first get the world map using `rnaturalearth::ne_countries()` and filter out the non-African countries.
+
+```{r get-africa-sf}
+africa_sf <-
+  #--- get an sf of all the countries in the world ---#
+  rnaturalearth::ne_countries(scale = "medium", returnclass = "sf") %>%
+  #--- filter our non-African countries ---#
+  filter(continent == "Africa")
+```
+
+We can now apply `terra::crop()` to `dem` based on the bounding box of `africa_sf`.
+
+```{r crop-to-africa}
+africa_dem <- terra::crop(dem, africa_sf)
+```
+
+Here is a map of the crop data.
+
+```{r map-africa-elev, cache = TRUE}
+tm_shape(africa_dem) +
+  tm_raster()
+```
+
+Now, we are ready to calculte TRI, which is defined as
 
 $$
-	Ruggedness_{r,c} = \sqrt{\sum_{i=r-1}^{r+1} \sum_{j= r-1}^{r+1} (e_{i,j} - e_{r,c})^2}
+  Ruggedness_{r,c} = \sqrt{\sum_{i=r-1}^{r+1} \sum_{j= r-1}^{r+1} (e_{i,j} - e_{r,c})^2}
 $$
 
-`stars` is not as developed of a package as sf and therefore ocasionally you will need to use functions/packages designed for the `raster` package. One common one is the `focal` or "moving window" function. It allows you to apply a function to every cell of a raster and as an input bring a matrix of the surrounding values. For example `focal(raster, w= matrix(1, nrow=3, ncol=3), fun= any_function)` will pass to your `any_function` a 3x3 matrix of the raster values centered at the point multiplied by 1 for each cell. You can pass any matrix with values of the weight. For example, `focal(raster, w= matrix(1/9, nrow= 3, ncol=3), fun= sum)` will return the average value of the 3x3 matrix.
+We are going to loop through the raster cells and calculate TRI. To do so, we make use of `terra::focal()` It allows you to apply a function to every cell of a raster and bring a matrix of the surrounding values as an input to the function. For example `terra::focal(raster, w = 3, fun = any_function)` will pass to your `any_function` a 3 by 3 matrix of the raster values centered at the point.
 
-The focal function acts weird at the north/south boundaries of the raster. `pad= TRUE, padValue= NA` for example will insert the cells above the northern most cells with NA values when passing to the function. Note focal doesn't do this for the left
+Let's define a function that calculates TRI for a given matrix.
 
-```{r Calculate TRI}
-library("raster")
-demRaster <- as(dem["elev"], "Raster")
-
-calc_ruggedness <- function(matr) {
+```{r define-calc-tri}
+calc_tri <- function(matr) {
   # matr is a length 9 matrix
   center <- matr[5]
   sum_squares <- sum((matr - center)^2, na.rm = TRUE)
   return(sqrt(sum_squares))
 }
-
-triRaster <- focal(demRaster, w = matrix(1, nrow = 3, ncol = 3), fun = calc_ruggedness, pad = TRUE, padValue = NA)
 ```
 
-Last we can convert the tri back into a `stars` object and plot it:
+Now, let's calculate TRI.
 
-```{r}
-tri <- st_as_stars(triRaster)
+```{r calc-tri}
+tri_africa <-
+  terra::focal(
+    africa_dem,
+    w = 3,
+    fun = calc_tri
+  )
+```
 
-plot(tri)
+Here is the map of the calculated TRI.
+
+```{r map-tri}
+tm_shape(tri_africa) +
+  tm_raster()
 ```
 
 

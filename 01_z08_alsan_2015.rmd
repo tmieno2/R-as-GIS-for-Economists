@@ -1,0 +1,338 @@
+### Project Overview
+
+---
+
+**Objective:**
+
+Create TseTse fly suitability index used in @alsan2015effect (find the paper [here](https://www.aeaweb.org/articles?id=10.1257/aer.20130604)) from temperature and humidity raster datasets.
+
+---
+
+**Datasets**
+
+* daily temperature and humidity datasets 
+
+---
+
+**GIS tasks**
+
+* read raster data files in the NetCDF format
+  - use `stars::read_ncdf()`
+* aggregate raster data 
+  - use `stars::st_apply()`
+* read vector data in the geojson format
+  - use `stars::st_read()`
+* shift (rotate) longitude of a raster dataset
+  - use `terra::rotate()`
+* convert `stars` objects to `SpatRaster` objects, and vice versa
+  - use `as(, "SpatRaster")`
+  - use `stars::st_as_stars()`
+* define variables inside a `stars` object
+  - use `mutate()`
+* subset (crop) raster data to a region specified by a vector dataset
+  - use `[]`
+* spatially aggregate raster data by regions specified by a vector dataset
+  - use `aggregate()`
+  - use `exactextractr::exact_extract()`
++ create maps 
+  * use the `ggplot2` package 
+
+---
+
+**Preparation for replication**
+
+Run the following code to install or load (if already installed) the `pacman` package, and then install or load (if already installed) the listed package inside the `pacman::p_load()` function.
+
+```{r demo1_packages}
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(
+  sf, # vector data operations
+  tidyverse, # data wrangling
+  stars,
+  exactextractr
+)
+```
+
+```{r "Setup", results = 'hide', echo = F, warning = F, message = F}
+theme_map <- function(...) {
+  theme_bw() +
+    theme(
+      line = element_blank(),
+      rect = element_blank(),
+      strip.text = element_blank(),
+      axis.text = element_blank(),
+      plot.title = element_blank(),
+      axis.title = element_blank(),
+      plot.margin = structure(c(0, 0, -1, -1), unit = "lines", valid.unit = 3L, class = "unit"),
+      legend.position = "none",
+      ...
+    )
+}
+```
+
+### Project Demonstration
+
+Marcella Alsan's 2015 AER paper "The Effect of the TseTse Fly on African Development" tests a hypothesis about historical African economic development. The hypothesis considers the TseTse fly -- a fly indigenous to Africa that is lethal to crops. The theory posits that the fly prevented agricultural surplus and hence stunted historical economic development in impacted regions of Africa. To test the hypothesis, @Alsan_2015 whats to compare African tribes that were in regions highly affected by the TseTse fly to areas not highly affected. To do so, they use a "sutability index" that is based on an areas average temperature and humidity. 
+
+For this replication, we will recreate the suitability index and aggregate the data at the tribe level. For reference, the original figure from the article is reproduced in Figure \@ref(fig:alsan-orig).
+
+```{r "alsan-orig", echo = F, out.width = "70%", fig.cap = "TseTse Suitability Index from Alsan (2015)", eval = F}
+knitr::include_graphics("Data/alsan-fig.png")
+```
+
+#### Scientific Details {.unnumbered}
+
+Understanding the details of the suitablity index is not necessary, but below I implement the following to derive the index. Feel free to skip this if you would like. 
+
+Let B represent the birth rate, which is temperature dependent, and M represent the mortality of adult flies from dessication. The growth rate, $\lambda$ is defined as:
+$$
+	\lambda= \max(B - M, 0)
+$$
+
+The formula for the birth rate and the mortality rate are determined by scientific experiments and have the following form
+$$
+	B(t) = (-0.0058 * t^2 + .2847 t -2.467)
+$$
+$$
+	M(t, h) = -0.0003 * satdef^2 + 0.0236 * satdef + .235,
+$$
+where $t$ is temperature, $h$ is humidity and $satdef$ is defined as:
+
+$$
+	satdef = \frac{100-h}{100} \left( 6.1078 * exp(\frac{17.2694t}{t+237}) \right)
+$$
+
+A "second form of mortality that is not due to climate, but rather attributable to competition among flies, is introduce. This is known as density dependent mortality, $\Delta$; and can be expressed as:"
+$$
+	\Delta = \phi (N)^\psi
+$$
+
+This yields a steady state equilibrium population of 
+$$
+	N^* = (\frac{\lambda}{\phi})^{1/\psi}
+$$
+which is calibrated with \phi = 0.025 \text{ and } \psi= 1.25.
+
+Lastly, the TseTse Suitability Index is the Z-score of $N^*$.
+
+#### Load and Prepare Data {-}
+
+To generate the data, we first download historical weather data in 1871 from [NOAA-CIRES 20th Century Reanalysis](https://psl.noaa.gov/data/gridded/data.20thC_ReanV2c.html). This data comes in a `NetCDF` file format (with extension `.nc`). We can use `stars::read_ncdf()` read a `NetCDF` file. 
+
+```{r "Load Weather Data", message=FALSE, warning=FALSE}
+# NOAA-CIRES 20th Century Reanalysis version 2
+
+#--- temperature ---#
+(
+  temp_raw <- stars::read_ncdf(
+    here::here("data/alsan_2015/air.sig995.1871.nc")
+  )
+)
+
+#--- humidity ---#
+(
+  humidity_raw <- stars::read_ncdf(
+    here::here("data/alsan_2015/rhum.sig995.1871.nc")
+  )
+)
+```
+
+Since these raster files contain daily observations (see the `time` dimension above), Alsan aggregates them to the annual level. To average across a dimension (e.g. time), we will use the function `stars::st_apply`. 
+
+```{r "Aggregate Data to Annual"}
+# Aggregate to annual average
+temp <-
+  stars::st_apply(
+    X = temp_raw, MARGIN = c("lon", "lat"), FUN = mean
+  ) %>%
+  # Rename "mean" attribute which was created from st_apply
+  # Convert Kelvin to Celsius
+  mutate(temp = mean - 273.15) %>%
+  dplyr::select(temp)
+
+humidity <-
+  stars::st_apply(
+    X = humidity_raw, MARGIN = c("lon", "lat"), FUN = mean
+  ) %>%
+  # Rename "mean" attribute which was created from st_apply
+  mutate(hum = mean) %>%
+  dplyr::select(hum)
+```
+
+We then combine the two to a single weather dataset.
+
+```{r}
+(
+  weather <- c(temp, humidity)
+)
+```
+
+The second piece of data needed is a shape file containing the Tribal boundaries. The original drawings come from Murdock (1959), but were digitized by Nathan Nunn and coauthors and is available [here](https://scholar.harvard.edu/nunn/pages/data-0).
+
+```{r load-tribal-boundary-data, message = FALSE}
+# African Tribes, originally from Murdock (1959)
+tribes <-
+  sf::st_read("Data/alsan_2015/Murdock_shapefile/borders_tribes.geojson") %>%
+  #--- reproject to the CRS of temp_raw ---#
+  st_transform(st_crs(temp_raw))
+
+# Africa
+africa <-
+  sf::st_read(here::here("data/alsan_2015/africa.geojson")) %>%
+  #--- reproject to the CRS of temp_raw ---#
+  st_transform(st_crs(temp_raw))
+```
+
+Here is the map of triabl boundaries superimposed on top of Africa.
+
+```{r g-trial-boundary}
+ggplot() +
+  geom_sf(data = tribes) +
+  geom_sf(data = africa, color = "#F26D21", fill = NA) +
+  coord_sf() +
+  theme_map()
+```
+
+There is a common problem in working with raster data for countries that cross the Prime Meridian. To see the problem, let's plot our weather data:
+
+```{r weather-before-rotation}
+ggplot() +
+  geom_stars(data = weather, mapping = aes(x = lon, y = lat, fill = temp)) +
+  geom_sf(data = africa, color = "#F26D21", fill = NA) +
+  coord_sf() +
+  scale_fill_distiller(type = "seq", palette = "Greys", direction = 1, na.value = NA) +
+  theme_map()
+```
+
+As you can see, the portion of Africa east of the Prime Meridian is wrapped to the other side of the map. That is because there are two ways to handle longitude: either from [0,360] or [-180,180]. Since our data is in [0,360] form, Africa will be cut in half. To convert, we can use the `terra::rotate()` function in the `terra` package. This means that you first need to convert `weather`, which is a `stars`, to a `SpatRaster` object, and then apply `terra::rotate()` to it. 
+
+```{r}
+(
+  weather_raster <-
+    #--- convert to SpatRaster ---#
+    as(weather, "SpatRaster") %>%
+    terra::rotate()
+)
+```
+
+Conversion back to a `stars` object with multiple layers needs some work. Specfically, we turn each layer into a `stars` object and then combine them using `c()`.
+
+```{r}
+weather <-
+  c(
+    st_as_stars(weather_raster$temp),
+    st_as_stars(weather_raster$hum)
+  )
+```
+
+Things are looking good now.
+
+```{r rotated-weather}
+ggplot() +
+  geom_stars(data = weather, mapping = aes(x = x, y = y, fill = temp)) +
+  geom_sf(data = africa, color = "#F26D21", fill = NA) +
+  coord_sf() +
+  scale_fill_distiller(
+    type = "seq", palette = "Greys", direction = 1, na.value = NA
+  ) +
+  theme_map()
+```
+
+#### Calculate TseTse Suitability Index {-}
+
+Following the scientific formulae above, we add those variables to the `stars` object using `mutate()` function as if you are wrangling a `data.frame`.
+
+```{r create-tsetse-index}
+weather <-
+  weather %>%
+  mutate(
+    B = -0.0058 * temp^2 + .2847 * temp - 2.467,
+    satdef = (6.1078 * exp((17.2694 * temp) / (temp + 237))) - (hum / 100) * (6.1078 * exp((17.2694 * temp) / (temp + 237))),
+    M = -0.0003 * satdef^2 + 0.0236 * satdef + .235,
+    lambda = B - M,
+    lambda = ifelse(lambda < 0, 0, lambda),
+    Nstar = (lambda / 0.025)^(1 / 1.25),
+  )
+```
+
+Let's subset `weather` to Africa and then calculate tsetse.
+
+```{r}
+weather_africa <-
+  #--- subset to Africa ---#
+  weather[tribes] %>%
+  #--- calculate TseTse suitability index---#
+  mutate(
+    tsetse = (Nstar - mean(Nstar, na.rm = TRUE)) / sd(Nstar, na.rm = TRUE)
+  )
+```
+
+Here is the map of TseTse suitability index.
+
+```{r tsetse-suitability-index}
+ggplot() +
+  geom_stars(
+    data = weather_africa,
+    mapping = aes(x = x, y = y, fill = tsetse)
+  ) +
+  coord_sf() +
+  scale_fill_distiller(
+    type = "seq", palette = "Greys", direction = -1, na.value = NA
+  ) +
+  theme_map()
+```
+
+Now that we have our raster of the standardized TseTse suitability index, we want to aggregate this to the tribal level. This can be done using `aggregate()`.
+
+```{r aggregate-tsetse}
+agg_tsetse <-
+  aggregate(
+    x = weather_africa["tsetse"],
+    by = tribes,
+    FUN = mean,
+    na.rm = TRUE,
+    as_points = FALSE
+  )
+```
+
+However, we are going to run into a problem due to the size of the tribes relative to the size of the raster cells.
+
+```{r map-agg-tsetse}
+plot(agg_tsetse)
+```
+
+Notice all the holes in the map that we have!^[This problem is documented well in [this thread](https://twitter.com/kylefbutts/status/1270815765948579841?s=20)]. This problem can be fixed using the `exactextractr` package. Since it does not work with `stars` object, we need to convert `weather` to a `SpatRaster` objective from the `terra` package (you can alternatively convert to a `raster` object).
+
+```{r exactextractr-tsetse}
+tribes$tsetse <-
+  exactextractr::exact_extract(
+    x = as(weather["Nstar"], "SpatRaster"),
+    # x = as(weather["Nstar"], "Raster"),
+    y = tribes,
+    fun = "mean",
+    progress = FALSE # not display progress bar
+  )
+```
+
+```{r map-tsese-final}
+ggplot() +
+  geom_sf(data = tribes, aes(fill = tsetse)) +
+  coord_sf() +
+  scale_fill_distiller(
+    type = "seq",
+    palette = "Greys",
+    direction = 1,
+    na.value = "red"
+  )
+```
+
+There we have it! We successfully dealt with a slew of issues but now have created the tsetse susceptability index at the tribal level! 
+
+
+
+
+
+
+
+
+

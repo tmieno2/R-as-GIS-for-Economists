@@ -135,7 +135,7 @@
 <p>Warning: the folder includes a series of daily PRISM datasets stored by month for 10 years. They amount to <span class="math inline">\(12.75\)</span> GB of data.</p>
 <p><strong>Packages</strong></p>
 <p>Run the following code to install or load (if already installed) the <code>pacman</code> package, and then install or load (if already installed) the listed package inside the <code><a href="https://rdrr.io/pkg/pacman/man/p_load.html">pacman::p_load()</a></code> function.</p>
-<div class="sourceCode" id="cb474"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb539"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="st"><a href="https://github.com/trinker/pacman">"pacman"</a></span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"pacman"</span><span class="op">)</span></span>
 <span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span></span>
 <span>  <span class="va">parallel</span>, <span class="co"># for parallelization</span></span>
@@ -155,7 +155,7 @@
 <span class="header-section-number">6.1</span> Single raster layer<a class="anchor" aria-label="anchor" href="#single-raster-layer"><i class="fas fa-link"></i></a>
 </h2>
 <p>Let’s prepare for parallel processing for the rest of the section.</p>
-<div class="sourceCode" id="cb475"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb540"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">parallel</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">#--- get the number of logical cores to use ---#</span></span>
@@ -176,7 +176,7 @@
 <strong>polygons</strong>: Regular polygon grids over Iowa</li>
 </ul>
 <p><strong>Iowa CDL data in 2015</strong></p>
-<div class="sourceCode" id="cb477"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb542"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- Iowa CDL in 2015 ---#</span></span>
 <span><span class="op">(</span></span>
 <span>  <span class="va">IA_cdl_15</span> <span class="op">&lt;-</span> <span class="fu">rast</span><span class="op">(</span><span class="st">"Data/IA_cdl_2015.tif"</span><span class="op">)</span></span>
@@ -193,7 +193,7 @@ min value   :           0
 max value   :         229 </code></pre>
 <p>Values recorded in the raster data are integers representing land use type.</p>
 <p><strong>Regularly-sized grids over Iowa</strong></p>
-<div class="sourceCode" id="cb479"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb544"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- regular grids over Iowa ---#</span></span>
 <span><span class="op">(</span></span>
 <span>  <span class="va">IA_grids</span> <span class="op">&lt;-</span></span>
@@ -210,7 +210,7 @@ Bounding box:  xmin: -53758.56 ymin: 1929065 xmax: 492975.7 ymax: 2293208
 Projected CRS: SOURCECRS
 First 5 geometries:</code></pre>
 <p>Here is how they look (Figure <a href="EE.html#fig:land-grids">6.1</a>):</p>
-<div class="sourceCode" id="cb481"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb546"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">tm_shape</span><span class="op">(</span><span class="va">IA_cdl_15</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">tm_raster</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Land Use "</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">tm_shape</span><span class="op">(</span><span class="va">IA_grids</span><span class="op">)</span> <span class="op">+</span></span>
@@ -228,7 +228,7 @@ Figure 6.1: Regularly-sized grids and land use type in Iowa in 2105
 <span class="header-section-number">6.1.2</span> Parallelization<a class="anchor" aria-label="anchor" href="#parallelization"><i class="fas fa-link"></i></a>
 </h3>
 <p>Here is how long it takes to extract raster data values for the polygon grids using <code><a href="https://isciences.gitlab.io/exactextractr/reference/exact_extract.html">exact_extract()</a></code>.</p>
-<div class="sourceCode" id="cb482"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb547"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">tic</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">temp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://isciences.gitlab.io/exactextractr/reference/exact_extract.html">exact_extract</a></span><span class="op">(</span><span class="va">IA_cdl_15</span>, <span class="va">IA_grids</span><span class="op">)</span></span>
 <span><span class="fu">toc</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
@@ -236,7 +236,7 @@ Figure 6.1: Regularly-sized grids and land use type in Iowa in 2105
  26.879 </code></pre>
 <hr>
 <p>One way to parallelize this process is to let each core work on one polygon at a time. Let’s first define the function to extract values for one polygon and then run it for all the polygons parallelized.</p>
-<div class="sourceCode" id="cb484"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb549"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- function to extract raster values for a single polygon ---#</span></span>
 <span><span class="va">get_values_i</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">temp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://isciences.gitlab.io/exactextractr/reference/exact_extract.html">exact_extract</a></span><span class="op">(</span><span class="va">IA_cdl_15</span>, <span class="va">IA_grids</span><span class="op">[</span><span class="va">i</span>, <span class="op">]</span><span class="op">)</span></span>
@@ -251,7 +251,7 @@ Figure 6.1: Regularly-sized grids and land use type in Iowa in 2105
 <pre><code>elapsed 
  89.721 </code></pre>
 <p>As you can see, this is a terrible way to parallelize the computation process. To see why, let’s look at the computation time of extracting from one polygon, two polygons, and up to five polygons.</p>
-<div class="sourceCode" id="cb486"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb551"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/joshuaulrich/microbenchmark/">microbenchmark</a></span><span class="op">)</span></span>
 <span><span class="va">mb</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span></span>
 <span>  <span class="st">"p_1"</span> <span class="op">=</span> <span class="op">{</span></span>
@@ -271,7 +271,7 @@ Figure 6.1: Regularly-sized grids and land use type in Iowa in 2105
 <span>  <span class="op">}</span>,</span>
 <span>  times <span class="op">=</span> <span class="fl">100</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb487"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb552"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mb</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu">data.table</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="va">.</span><span class="op">[</span>, <span class="va">expr</span> <span class="op">:=</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span><span class="st">"p_"</span>, <span class="st">""</span>, <span class="va">expr</span><span class="op">)</span><span class="op">]</span> <span class="op">%&gt;%</span></span>
@@ -289,7 +289,7 @@ Figure 6.2: Comparison of the computation time of raster data extractions
 <p>As you can see in Figure <a href="EE.html#fig:comp-polygons">6.2</a>, there is a significant overhead (about 0.23 seconds) irrespective of the number of the polygons to extract data for. Once the process is initiated and ready to start extracting values for polygons, it does not spend much time processing for additional units of polygon. So, this is a typical example of how you should NOT parallelize. Since each core processes about <span class="math inline">\(136\)</span> polygons, a very simple math suggests that you would spend at least 31.28 (0.23 <span class="math inline">\(\times\)</span> 136) seconds just for preparing extraction jobs.</p>
 <hr>
 <p>We can minimize this overhead as much as possible by having each core use <code><a href="https://isciences.gitlab.io/exactextractr/reference/exact_extract.html">exact_extract()</a></code> only once in which multiple polygons are processed in the single call. Specifically, we will split the collection of the polygons into 19 groups and have each core extract for one group.</p>
-<div class="sourceCode" id="cb488"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb553"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- number of polygons in a group ---#</span></span>
 <span><span class="va">num_in_group</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">floor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">IA_grids</span><span class="op">)</span> <span class="op">/</span> <span class="va">num_cores</span><span class="op">)</span></span>
 <span></span>
@@ -312,19 +312,19 @@ Figure 6.2: Comparison of the computation time of raster data extractions
 <span><span class="fu">toc</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>elapsed 
  11.901 </code></pre>
-<p>Great, this is much better.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;To get the total time, I should include the codes to generate group id. But, they are so quick that I did not time them.&lt;/p&gt;"><sup>80</sup></a></p>
+<p>Great, this is much better.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;To get the total time, I should include the codes to generate group id. But, they are so quick that I did not time them.&lt;/p&gt;"><sup>81</sup></a></p>
 <hr>
 <p>Now, we can further reduce the processing time by reducing the size of the object that is returned from each core to be collated into one. In the code above, each core returns a list of <code>data.frame</code>s where each grid of the same group has multiple values from the intersecting raster cells.</p>
-<div class="sourceCode" id="cb490"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb555"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- take a look at the the values extracted for the 1st polygon of the 1st group---#</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">temp</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
 <pre><code>[1] "Error in h(simpleError(msg, call)) : \n  error in evaluating the argument 'y' in selecting a method for function 'exact_extract': no applicable method for 'filter' applied to an object of class \"c('sfc_POLYGON', 'sfc')\"\n"</code></pre>
-<div class="sourceCode" id="cb492"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb557"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- the size of the list of data returned by the first core ---#</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/object.size.html">object.size</a></span><span class="op">(</span><span class="va">temp</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/format.html">format</a></span><span class="op">(</span>units <span class="op">=</span> <span class="st">"GB"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>[1] "0 Gb"</code></pre>
 <p>In total, about 3GB of data has to be collated into one list from 19 cores. It turns out, this process is costly. To see this, take a look at the following example where the same <code>exact_extrct()</code> processes are run, yet nothing is returned by each core.</p>
-<div class="sourceCode" id="cb494"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb559"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- define the function to extract values by block of polygons ---#</span></span>
 <span><span class="va">extract_by_group</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">temp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://isciences.gitlab.io/exactextractr/reference/exact_extract.html">exact_extract</a></span><span class="op">(</span><span class="va">IA_cdl_15</span>, <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">IA_grids</span>, <span class="va">group_id</span> <span class="op">==</span> <span class="va">i</span><span class="op">)</span><span class="op">)</span></span>
@@ -345,7 +345,7 @@ Figure 6.2: Comparison of the computation time of raster data extractions
   6.689 </code></pre>
 <p>Approximately 5.212 seconds were used just to collect the 3GB worth of data from the cores into one.</p>
 <p>In most cases, we do not have to carry around all the individual cell values of landuse types for our subsequent analysis. For example, in Demonstration 3 (Chapter <a href="demo.html#demo3">1.3</a>) we just need a summary (count) of each unique landuse type by polygon. So, let’s get the summary before we have the computer collect the objects returned from each core as follows:</p>
-<div class="sourceCode" id="cb496"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb561"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">extract_by_group_reduced</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">temp_return</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://isciences.gitlab.io/exactextractr/reference/exact_extract.html">exact_extract</a></span><span class="op">(</span></span>
 <span>    <span class="va">IA_cdl_15</span>,</span>
@@ -405,7 +405,7 @@ Figure 6.2: Comparison of the computation time of raster data extractions
 <p><strong>daily PRISM precipitation 2010 through 2019</strong></p>
 <p>You can download all the prism files from <a href="https://www.dropbox.com/sh/gkprbgp8sg5362f/AABLLEUjsGkelCK2aUxaUI72a?dl=0">here</a>. For those who are interested in learning how to generate the series of daily PRISM data files stored by month, see section <a href="download-data.html#download-prism">9.3</a> for the code.</p>
 <p><strong>US counties</strong></p>
-<div class="sourceCode" id="cb498"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb563"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span></span>
 <span>  <span class="va">US_county</span> <span class="op">&lt;-</span> <span class="fu">st_as_sf</span><span class="op">(</span><span class="fu">map</span><span class="op">(</span>database <span class="op">=</span> <span class="st">"county"</span>, plot <span class="op">=</span> <span class="cn">FALSE</span>, fill <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
 <span>    <span class="co">#--- get state name from ID  ---#</span></span>
@@ -436,7 +436,7 @@ First 10 features:
 <span class="header-section-number">6.2.2</span> Non-parallelized extraction<a class="anchor" aria-label="anchor" href="#non-par-ext-multi"><i class="fas fa-link"></i></a>
 </h3>
 <p>We have already learned in Chapter <a href="int-RV.html#extract-speed">5.3</a> that extracting values from stacked raster layers is faster than doing so from multiple single-layer raster datasets one at a time. Here, daily precipitation datasets are stacked by year-month and saved as multi-layer GeoTIFF files. For example, <strong>PRISM_ppt_y2009_m1.tif</strong> stores the daily precipitation data for January, 2009. This is how long it takes to extract values for US counties from a month’s of daily PRISM precipitation data.</p>
-<div class="sourceCode" id="cb500"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb565"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">tic</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">temp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://isciences.gitlab.io/exactextractr/reference/exact_extract.html">exact_extract</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/stack.html">stack</a></span><span class="op">(</span><span class="st">"Data/PRISM/PRISM_ppt_y2009_m1.tif"</span><span class="op">)</span>, <span class="va">US_county</span>, progress <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span>
 <span><span class="fu">toc</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
@@ -453,7 +453,7 @@ First 10 features:
 <span class="header-section-number">6.2.3</span> Approach 1: parallelize over polygons and do regular loop over year-month<a class="anchor" aria-label="anchor" href="#approach-1-parallelize-over-polygons-and-do-regular-loop-over-year-month"><i class="fas fa-link"></i></a>
 </h3>
 <p>For this approach, let’s measure the time spent on processing one year-month PRISM dataset and then guess how long it would take to process 120 year-month PRISM datasets.</p>
-<div class="sourceCode" id="cb502"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb567"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- number of polygons in a group ---#</span></span>
 <span><span class="va">num_in_group</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">floor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">US_county</span><span class="op">)</span> <span class="op">/</span> <span class="va">num_cores</span><span class="op">)</span></span>
 <span></span>
@@ -492,13 +492,13 @@ First 10 features:
 <span class="header-section-number">6.2.4</span> Approach 2: parallelize over the temporal dimension (year-month)<a class="anchor" aria-label="anchor" href="#approach-2-parallelize-over-the-temporal-dimension-year-month"><i class="fas fa-link"></i></a>
 </h3>
 <p>Instead of parallelize over polygons, let’s parallelize over time (year-month). To do so, we first create a <code>data.frame</code> that has all the year-month combinations we will work on.</p>
-<div class="sourceCode" id="cb504"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb569"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span></span>
 <span>  <span class="va">month_year_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html">expand.grid</a></span><span class="op">(</span>month <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">12</span>, year <span class="op">=</span> <span class="fl">2009</span><span class="op">:</span><span class="fl">2018</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
 <span>    <span class="fu">data.table</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>The following function extract data from a single year-month case:</p>
-<div class="sourceCode" id="cb505"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb570"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">get_prism_by_month</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">i</span>, <span class="va">vector</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">temp_month</span> <span class="op">&lt;-</span> <span class="va">month_year_data</span><span class="op">[</span><span class="va">i</span>, <span class="va">month</span><span class="op">]</span> <span class="co"># month to work on</span></span>
 <span>  <span class="va">temp_year</span> <span class="op">&lt;-</span> <span class="va">month_year_data</span><span class="op">[</span><span class="va">i</span>, <span class="va">year</span><span class="op">]</span> <span class="co"># year to work on</span></span>
@@ -519,7 +519,7 @@ First 10 features:
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/gc.html">gc</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>We then loop over the rows of <code>month_year_data</code> in parallel.</p>
-<div class="sourceCode" id="cb506"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb571"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">tic</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">temp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/parallel/mclapply.html">mclapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">month_year_data</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">get_prism_by_month</span><span class="op">(</span><span class="va">x</span>, <span class="va">US_county</span><span class="op">)</span>, mc.cores <span class="op">=</span> <span class="va">num_cores</span><span class="op">)</span></span>
 <span><span class="fu">toc</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
@@ -596,7 +596,7 @@ toc()
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>R as GIS for Economists</strong>" was written by Taro Mieno. It was last built on 2023-03-08.</p>
+    <p>"<strong>R as GIS for Economists</strong>" was written by Taro Mieno. It was last built on 2023-03-09.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

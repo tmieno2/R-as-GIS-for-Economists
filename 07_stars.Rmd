@@ -300,6 +300,28 @@ It is not guaranteed that all the dimensions are regularly spaced or timed. For 
 
 ## Some basic operations on `stars` objects
 
+### Create a new attribute and drop a attribute
+
+You can add a new attribute to a `stars` object just like you add a variable to a `data.frame`.
+
+```{r}
+#--- define a new variable which is tmax - 20 ---#
+prcp_tmax_PRISM_m8_y09$tmax_less_20 <- prcp_tmax_PRISM_m8_y09$tmax - 20
+```
+
+As you can see below, `prcp_tmax_PRISM_m8_y09` now has `tmax_less_20` as an attribute.
+```{r}
+prcp_tmax_PRISM_m8_y09
+```
+
+You can drop an attribute by assining `NULL` to the attribute you want to drop.
+
+```{r}
+prcp_tmax_PRISM_m8_y09$tmax_less_20 <- NULL
+
+prcp_tmax_PRISM_m8_y09
+```
+
 ### Subset a `stars` object by index
 
 In order to access the value of an attribute (say `ppt`) at a particular location at a particular time from the `stars` object (`prcp_tmax_PRISM_m8_y09`), you need to tell R that you are interested in the `ppt` attribute and specify the corresponding index of `x`, `y`, and `date`. Here, is how you get the `ppt` value of (3, 4) cell at date = 10.
@@ -912,6 +934,41 @@ ggplot() +
   theme_for_map
 ```
 
+## Apply a function to one or more dimensions
+
+Sometimes, you want to apply a function to one or more dimensions of a `stars` object. For example, you might want to calculate total annual precipitation for each cell from daily precipitation raster data. For illustration, let's create a single-attribute `stars` object that holds daily precipitation in August in 2009.
+
+```{r}
+(
+  ppt_m8_y09 <- prcp_tmax_PRISM_m8_y09["ppt"]
+)
+```
+
+Let's find total precipitation for each cell in August in 2009 using `st_apply()`, which works like this. 
+
+```{}
+st_apply(
+  X = stars object,
+  MARGIN = margin,
+  FUN = function to apply
+)
+```
+
+Since we want to sum the value of attribute (ppt) for each of the cells (each cell is represented by `x-y`), we specify `MARGIN = c("x", "y")` and use `sum()` as the function.
+
+```{r}
+monthly_ppt <-
+  st_apply(
+    ppt_m8_y09,
+    MARGIN = c("x", "y"),
+    FUN = sum
+  )
+```
+
+```{r}
+plot(monthly_ppt)
+```
+
 ## Convert from and to `Raster`$^*$ or `SpatRaster` objects {#convert-to-rb}
 
 When you need to convert a `stars` object to a `Raster`$^*$ or `SpatRaster` object, you can use the `as()` function as follows:
@@ -964,3 +1021,4 @@ You can do the same with a `SpatRaster` object.
 ```
 
 Note that unlike the conversion from the `RasterBrick` object, the `band` dimension inherited values of the `name` dimension in `tmax_PRISM_m8_y09_sr`.
+

@@ -6,14 +6,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Chapter 4 Raster Data Handling | R as GIS for Economists</title>
 <meta name="author" content="Taro Mieno">
-<meta name="description" content="Before you start In this chapter, we will learn how to use the raster and terra package to handle raster data. The raster package has been (and I must say still is) the most popular and commonly...">
+<meta name="description" content="Before you start In this chapter, we will learn how to use the raster and terra package to handle raster data. The raster package has been the most popular and commonly used package for raster...">
 <meta name="generator" content="bookdown 0.27 with bs4_book()">
 <meta property="og:title" content="Chapter 4 Raster Data Handling | R as GIS for Economists">
 <meta property="og:type" content="book">
-<meta property="og:description" content="Before you start In this chapter, we will learn how to use the raster and terra package to handle raster data. The raster package has been (and I must say still is) the most popular and commonly...">
+<meta property="og:description" content="Before you start In this chapter, we will learn how to use the raster and terra package to handle raster data. The raster package has been the most popular and commonly used package for raster...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chapter 4 Raster Data Handling | R as GIS for Economists">
-<meta name="twitter:description" content="Before you start In this chapter, we will learn how to use the raster and terra package to handle raster data. The raster package has been (and I must say still is) the most popular and commonly...">
+<meta name="twitter:description" content="Before you start In this chapter, we will learn how to use the raster and terra package to handle raster data. The raster package has been the most popular and commonly used package for raster...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/_Lato-0.4.1/font.css" rel="stylesheet">
@@ -116,9 +116,9 @@
 <div id="before-you-start-3" class="section level2 unnumbered">
 <h2>Before you start<a class="anchor" aria-label="anchor" href="#before-you-start-3"><i class="fas fa-link"></i></a>
 </h2>
-<p>In this chapter, we will learn how to use the <code>raster</code> and <code>terra</code> package to handle raster data. The <code>raster</code> package has been (and I must say still is) the most popular and commonly used package for raster data handling. However, we are in the period of transitioning from the <code>raster</code> package to the <code>terra</code> package. The <code>terra</code> package has been under active development to replace the <code>raster</code> package (see the most up-to-date version of the package <a href="https://github.com/rspatial/terra">here</a>). <code>terra</code> is written in C++ and thus is faster than the <code>raster</code> package in many raster data operations. The <code>raster</code> and <code>terra</code> packages share the same function name for many of the raster operations. Key differences will be discussed and will become clear later.</p>
+<p>In this chapter, we will learn how to use the <code>raster</code> and <code>terra</code> package to handle raster data. The <code>raster</code> package has been the most popular and commonly used package for raster data handling. However, we are in the period of transitioning from the <code>raster</code> package to the <code>terra</code> package. The <code>terra</code> package has been under active development to replace the <code>raster</code> package (see the most up-to-date version of the package <a href="https://github.com/rspatial/terra">here</a>). <code>terra</code> is written in C++ and thus is faster than the <code>raster</code> package in many raster data operations. The <code>raster</code> and <code>terra</code> packages share the same function name for many of the raster operations. Key differences will be discussed and will become clear later.</p>
 <p>For economists, raster data extraction for vector data will be by far the most common use case of raster data and also the most time-consuming part of the whole raster data handling experience. Therefore, we will introduce only the essential knowledge of raster data operation required to effectively implement the task of extracting values, which will be covered extensively in Chapter <a href="int-RV.html#int-RV">5</a>. For example, we do not cover raster arithmetic, focal operations, or aggregation. Those who are interested in a fuller treatment of the <code>raster</code> or <code>terra</code> package are referred to <a href="https://rspatial.org/terra/spatial/index.html">Spatial Data Science with R and “terra”</a> or Chapters 3, 4, and 5 of <a href="https://geocompr.robinlovelace.net/">Geocomputation with R</a>, respectively.</p>
-<p>Even though the <code>terra</code> package is a replacement of the <code>raster</code> package and it has been out on CRAN for more than a year, we still learn the raster object classes defined by the <code>raster</code> package and how to switch between the <code>raster</code> and <code>terra</code> object classes. This is because other useful packages for us economists were written to work with the <code>raster</code> object classes and have still not been adapted to support <code>terra</code> object classes at the moment.</p>
+<p>Even though the <code>terra</code> package is a replacement of the <code>raster</code> package and it has been out on CRAN for more than several years, we still learn the raster object classes defined by the <code>raster</code> package and how to switch between the <code>raster</code> and <code>terra</code> object classes. This is because other useful packages for us economists were written to work with the <code>raster</code> object classes and have still not been adapted to support <code>terra</code> object classes at the moment.</p>
 <p>Finally, you might benefit from learning the <code>stars</code> package for raster data operations (covered in Chapter <a href="stars-basics.html#stars-basics">7</a>), particularly if you often work with raster data with the temporal dimension (e.g., PRISM, Daymet). It provides a data model that makes working with raster data with temporal dimensions easier. It also allows you to apply <code>dplyr</code> verbs for data wrangling.</p>
 <div id="direction-for-replication-3" class="section level3 unnumbered">
 <h3>Direction for replication<a class="anchor" aria-label="anchor" href="#direction-for-replication-3"><i class="fas fa-link"></i></a>
@@ -135,7 +135,7 @@
 </ul>
 <p><strong>Packages</strong></p>
 <p>Run the following code to install or load (if already installed) the <code>pacman</code> package, and then install or load (if already installed) the listed package inside the <code><a href="https://rdrr.io/pkg/pacman/man/p_load.html">pacman::p_load()</a></code> function.</p>
-<div class="sourceCode" id="cb335"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb400"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="st"><a href="https://github.com/trinker/pacman">"pacman"</a></span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"pacman"</span><span class="op">)</span></span>
 <span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span></span>
 <span>  <span class="va">terra</span>, <span class="co"># handle raster data</span></span>
@@ -166,7 +166,7 @@ names      : IA_cdl_2015
 values     : 0, 229  (min, max)</code></pre>
 <p>Evaluating the imported raster object provides you with information about the raster data, such as dimensions (number of cells, number of columns, number of cells), spatial resolution (30 meter by 30 meter for this raster data), extent, CRS and the minimum and maximum values recorded in this raster layer. The class of the downloaded data is <code>RasterLayer</code>, which is a raster data class defined by the <code>raster</code> package. A <code>RasterLayer</code> consists of only one layer, meaning that only a single variable is associated with the cells (here it is land use category code in integer).</p>
 <hr>
-<p>You can stack multiple raster layers of the <strong>same spatial resolution and extent</strong> to create a <code>RasterStack</code> using <code><a href="https://rdrr.io/pkg/raster/man/stack.html">raster::stack()</a></code> or <code>RasterBrick</code> using <code><a href="https://rdrr.io/pkg/raster/man/brick.html">raster::brick()</a></code>. Often times, processing a multi-layer object has computational advantages over processing multiple single-layer one by one<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;You will see this in Chapter &lt;a href="int-RV.html#int-RV"&gt;5&lt;/a&gt; where we learn how to extract values from a raster layer for a vector data.&lt;/p&gt;'><sup>71</sup></a>.</p>
+<p>You can stack multiple raster layers of the <strong>same spatial resolution and extent</strong> to create a <code>RasterStack</code> using <code><a href="https://rdrr.io/pkg/raster/man/stack.html">raster::stack()</a></code> or <code>RasterBrick</code> using <code><a href="https://rdrr.io/pkg/raster/man/brick.html">raster::brick()</a></code>. Often times, processing a multi-layer object has computational advantages over processing multiple single-layer one by one<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;You will see this in Chapter &lt;a href="int-RV.html#int-RV"&gt;5&lt;/a&gt; where we learn how to extract values from a raster layer for a vector data.&lt;/p&gt;'><sup>72</sup></a>.</p>
 <p>To create a <code>RasterStack</code> and <code>RasterBrick</code>, let’s load the CDL data for IA in 2016 and stack it with the 2015 data.</p>
 <pre><code>class      : RasterStack 
 dimensions : 11671, 17795, 207685445, 2  (nrow, ncol, ncell, nlayers)
@@ -177,7 +177,7 @@ names      : IA_cdl_2015, IA_cdl_2016
 min values :           0,           0 
 max values :         229,         241 </code></pre>
 <p><code>IA_cdl_stack</code> is of class <code>RasterStack</code>, and it has two layers of variables: CDL for 2015 and 2016. You can make it a <code>RasterBrick</code> using <code><a href="https://rdrr.io/pkg/raster/man/brick.html">raster::brick()</a></code>:</p>
-<div class="sourceCode" id="cb338"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb403"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- stack the two ---#</span></span>
 <span><span class="va">IA_cdl_brick</span> <span class="op">&lt;-</span> <span class="fu">brick</span><span class="op">(</span><span class="va">IA_cdl_stack</span><span class="op">)</span></span>
 <span></span>
@@ -186,14 +186,14 @@ max values :         229,         241 </code></pre>
 <span></span>
 <span><span class="co">#--- take a look ---#</span></span>
 <span><span class="va">IA_cdl_brick</span></span></code></pre></div>
-<p>You probably noticed that it took some time to create the <code>RasterBrick</code> object<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;Read &lt;a href="https://geocompr.robinlovelace.net/spatial-class.html#raster-classes"&gt;here&lt;/a&gt; for the difference between &lt;code&gt;RasterStack&lt;/code&gt; and &lt;code&gt;RasterBrick&lt;/code&gt;&lt;/p&gt;'><sup>72</sup></a>. While spatial operations on <code>RasterBrick</code> are supposedly faster than <code>RasterStack</code>, the time to create a <code>RasterBrick</code> object itself is often long enough to kill the speed advantage entirely<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;We will see this in Chapter , where we compare the speed of data extraction from &lt;code&gt;RasterStack&lt;/code&gt; and &lt;code&gt;RasterBrick&lt;/code&gt; objects.&lt;/p&gt;"><sup>73</sup></a>. Often, the three raster object types are collectively referred to as <code>Raster</code><span class="math inline">\(^*\)</span> objects for shorthand in the documentation of the <code>raster</code> and other related packages.</p>
+<p>You probably noticed that it took some time to create the <code>RasterBrick</code> object<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;Read &lt;a href="https://geocompr.robinlovelace.net/spatial-class.html#raster-classes"&gt;here&lt;/a&gt; for the difference between &lt;code&gt;RasterStack&lt;/code&gt; and &lt;code&gt;RasterBrick&lt;/code&gt;&lt;/p&gt;'><sup>73</sup></a>. While spatial operations on <code>RasterBrick</code> are supposedly faster than <code>RasterStack</code>, the time to create a <code>RasterBrick</code> object itself is often long enough to kill the speed advantage entirely<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;We will see this in Chapter , where we compare the speed of data extraction from &lt;code&gt;RasterStack&lt;/code&gt; and &lt;code&gt;RasterBrick&lt;/code&gt; objects.&lt;/p&gt;"><sup>74</sup></a>. Often, the three raster object types are collectively referred to as <code>Raster</code><span class="math inline">\(^*\)</span> objects for shorthand in the documentation of the <code>raster</code> and other related packages.</p>
 </div>
 <div id="terra-package-spatraster" class="section level3" number="4.1.2">
 <h3>
 <span class="header-section-number">4.1.2</span> <code>terra</code> package: <code>SpatRaster</code><a class="anchor" aria-label="anchor" href="#terra-package-spatraster"><i class="fas fa-link"></i></a>
 </h3>
 <p><code>terra</code> package has only one object class for raster data, <code>SpatRaster</code> and no distinctions between one-layer and multi-layer rasters is necessary. Let’s first convert a <code>RasterLayer</code> to a <code>SpatRaster</code> using <code><a href="https://rdrr.io/pkg/terra/man/rast.html">terra::rast()</a></code> function.</p>
-<div class="sourceCode" id="cb339"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb404"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- convert to a SpatRaster ---#</span></span>
 <span><span class="va">IA_cdl_2015_sr</span> <span class="op">&lt;-</span> <span class="fu">rast</span><span class="op">(</span><span class="va">IA_cdl_2015</span><span class="op">)</span></span>
 <span></span>
@@ -210,7 +210,7 @@ name        : IA_cdl_2015
 min value   :           0 
 max value   :         229 </code></pre>
 <p>You can see that the number of layers (<code>nlyr</code> in dimensions) is <span class="math inline">\(1\)</span> because the original object is a <code>RasterLayer</code>, which by definition has only one layer. Now, let’s convert a <code>RasterStack</code> to a <code>SpatRaster</code> using <code><a href="https://rdrr.io/pkg/terra/man/rast.html">terra::rast()</a></code>.</p>
-<div class="sourceCode" id="cb341"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb406"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- convert to a SpatRaster ---#</span></span>
 <span><span class="va">IA_cdl_stack_sr</span> <span class="op">&lt;-</span> <span class="fu">rast</span><span class="op">(</span><span class="va">IA_cdl_stack</span><span class="op">)</span></span>
 <span></span>
@@ -229,7 +229,7 @@ min values  :           0,           0
 max values  :         229,         241 </code></pre>
 <p>Again, it is a <code>SpatRaster</code>, and you now see that the number of layers is 2. We just confirmed that <code>terra</code> has only one class for raster data whether it is single-layer or multiple-layer ones.</p>
 <p>In order to make multi-layer <code>SpatRaster</code> from multiple single-layer <code>SpatRaster</code> you can just use <code><a href="https://rdrr.io/r/base/c.html">c()</a></code> like below:</p>
-<div class="sourceCode" id="cb343"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb408"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- create a single-layer SpatRaster ---#</span></span>
 <span><span class="va">IA_cdl_2016_sr</span> <span class="op">&lt;-</span> <span class="fu">rast</span><span class="op">(</span><span class="va">IA_cdl_2016</span><span class="op">)</span></span>
 <span></span>
@@ -237,7 +237,7 @@ max values  :         229,         241 </code></pre>
 <span><span class="op">(</span></span>
 <span>  <span class="va">IA_cdl_ml_sr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">IA_cdl_2015_sr</span>, <span class="va">IA_cdl_2016_sr</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb344"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb409"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span></span>
 <span>  <span class="va">IA_cdl_ml_sr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">IA_cdl_2015_sr</span>, <span class="va">IA_cdl_2016_sr</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -258,7 +258,7 @@ max values  :         229,         241 </code></pre>
 <span class="header-section-number">4.1.3</span> Converting a <code>SpatRaster</code> object to a <code>Raster</code><span class="math inline">\(^*\)</span> object.<a class="anchor" aria-label="anchor" href="#converting-a-spatraster-object-to-a-raster-object."><i class="fas fa-link"></i></a>
 </h3>
 <p>You can convert a <code>SpatRaster</code> object to a <code>Raster</code><span class="math inline">\(^*\)</span> object using <code>raster()</code>, <code><a href="https://rdrr.io/r/utils/stack.html">stack()</a></code>, and <code>brick()</code>. Keep in mind that if you use <code>rater()</code> even though <code>SpatRaster</code> has multiple layers, the resulting <code>RasterLayer</code> object has only the first of the multiple layers.</p>
-<div class="sourceCode" id="cb346"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb411"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- RasterLayer (only 1st layer) ---#</span></span>
 <span><span class="va">IA_cdl_stack_sr</span> <span class="op">%&gt;%</span> <span class="fu">raster</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>class      : RasterLayer 
@@ -269,7 +269,7 @@ crs        : +proj=aea +lat_0=23 +lon_0=-96 +lat_1=29.5 +lat_2=45.5 +x_0=0 +y_0=
 source     : IA_cdl_2015.tif 
 names      : IA_cdl_2015 
 values     : 0, 229  (min, max)</code></pre>
-<div class="sourceCode" id="cb348"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb413"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- RasterLayer ---#</span></span>
 <span><span class="va">IA_cdl_stack_sr</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/utils/stack.html">stack</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>class      : RasterStack 
@@ -280,7 +280,7 @@ crs        : +proj=aea +lat_0=23 +lon_0=-96 +lat_1=29.5 +lat_2=45.5 +x_0=0 +y_0=
 names      : IA_cdl_2015, IA_cdl_2016 
 min values :           0,           0 
 max values :         229,         241 </code></pre>
-<div class="sourceCode" id="cb350"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb415"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- RasterLayer (this takes some time) ---#</span></span>
 <span><span class="va">IA_cdl_stack_sr</span> <span class="op">%&gt;%</span> <span class="fu">brick</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>class      : RasterStack 
@@ -292,7 +292,7 @@ names      : IA_cdl_2015, IA_cdl_2016
 min values :           0,           0 
 max values :         229,         241 </code></pre>
 <p>Or, you can just use <code>as(SpatRast, "Raster")</code> like below:</p>
-<div class="sourceCode" id="cb352"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb417"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">as</span><span class="op">(</span><span class="va">IA_cdl_stack_sr</span>, <span class="st">"Raster"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>class      : RasterStack 
 dimensions : 11671, 17795, 207685445, 2  (nrow, ncol, ncell, nlayers)
@@ -308,7 +308,7 @@ max values :         229,         241 </code></pre>
 <h3>
 <span class="header-section-number">4.1.4</span> Vector data in the <code>terra</code> package<a class="anchor" aria-label="anchor" href="#vector-data-in-the-terra-package"><i class="fas fa-link"></i></a>
 </h3>
-<p><code>terra</code> package has its own class for vector data, called <code>SpatVector</code>. While we do not use any of the vector data functionality provided by the <code>terra</code> package, we learn how to convert an <code>sf</code> object to <code>SpatVector</code> because <code>terra</code> functions do not support <code>sf</code> as of now (this will likely be resolved very soon). We will see some use cases of this conversion in the next chapter when we learn raster value extractions for vector data using <code><a href="https://rdrr.io/pkg/terra/man/extract.html">terra::extract()</a></code>.</p>
+<p><code>terra</code> package has its own class for vector data, called <code>SpatVector</code>. While we do not use any of the vector data functionality provided by the <code>terra</code> package, we learn how to convert an <code>sf</code> object to <code>SpatVector</code> because some of the <code>terra</code> functions do not support <code>sf</code> as of now (this will likely be resolved very soon). We will see some use cases of this conversion in the next chapter when we learn raster value extractions for vector data using <code><a href="https://rdrr.io/pkg/terra/man/extract.html">terra::extract()</a></code>.</p>
 <p>As an example, let’s use Illinois county border data.</p>
 <pre><code>Simple feature collection with 102 features and 17 fields
 Geometry type: MULTIPOLYGON
@@ -350,7 +350,7 @@ First 10 features:
 267 MULTIPOLYGON (((-88.70963 3...
 304 MULTIPOLYGON (((-89.85691 4...</code></pre>
 <p>You can convert an <code>sf</code> object to <code>SpatVector</code> object using <code><a href="https://rdrr.io/pkg/terra/man/vect.html">terra::vect()</a></code>.</p>
-<div class="sourceCode" id="cb355"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb420"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span></span>
 <span>  <span class="va">IL_county_sv</span> <span class="op">&lt;-</span> <span class="fu">vect</span><span class="op">(</span><span class="va">IL_county</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -381,7 +381,7 @@ First 10 features:
 <span class="header-section-number">4.2.1</span> Read raster file(s)<a class="anchor" aria-label="anchor" href="#read-raster-files"><i class="fas fa-link"></i></a>
 </h3>
 <p>You use <code><a href="https://rdrr.io/pkg/terra/man/rast.html">terra::rast()</a></code> to read raster data of many common formats, and it should be almost always the case that the raster data you got can be read using this function. Here, we read a GeoTiff file (a file with .tif extension):</p>
-<div class="sourceCode" id="cb357"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb422"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span></span>
 <span>  <span class="va">IA_cdl_2015_sr</span> <span class="op">&lt;-</span> <span class="fu">rast</span><span class="op">(</span><span class="st">"Data/IA_cdl_2015.tif"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -398,7 +398,7 @@ max value   :         229 </code></pre>
 <p>One important thing to note here is that the cell values of the raster data are actually not in memory when you “read” raster data from a file.
 You basically just established a connection to the file. This helps to reduce the memory footprint of raster data handling. You can check this by <code><a href="https://rdrr.io/pkg/terra/man/sources.html">raster::inMemory()</a></code> function for <code>Raster</code><span class="math inline">\(^*\)</span> objects, but the same function has not been implemented for <code>terra</code> yet.</p>
 <p>You can read multiple single-layer raster datasets of the same spatial extent and resolution at the same time to have a multi-layer <code>SpatRaster</code> object. Here, we import two single-layer raster datasets (IA_cdl_2015.tif and IA_cdl_2016.tif) to create a two-layer <code>SpatRaster</code> object.</p>
-<div class="sourceCode" id="cb359"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb424"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- the list of path to the files ---#</span></span>
 <span><span class="va">files_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Data/IA_cdl_2015.tif"</span>, <span class="st">"Data/IA_cdl_2016.tif"</span><span class="op">)</span></span>
 <span></span>
@@ -424,11 +424,11 @@ max values  :         229,         241 </code></pre>
 <span class="header-section-number">4.2.2</span> Write raster files<a class="anchor" aria-label="anchor" href="#write-raster-files"><i class="fas fa-link"></i></a>
 </h3>
 <p>You can write a <code>SpatRaster</code> object using <code><a href="https://rdrr.io/pkg/terra/man/writeRaster.html">terra::writeRaster()</a></code>.</p>
-<div class="sourceCode" id="cb361"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb426"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/writeRaster.html">writeRaster</a></span><span class="op">(</span><span class="va">IA_cdl_2015_sr</span>, <span class="st">"Data/IA_cdl_stack.tif"</span>, filetype <span class="op">=</span> <span class="st">"GTiff"</span>, overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<p>The above code saves <code>IA_cdl_2015_sr</code> (a <code>SpatRaster</code> object) as a GeoTiff file.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;There are many other alternative formats (see &lt;a href="https://www.rdocumentation.org/packages/raster/versions/3.0-12/topics/writeRaster"&gt;here&lt;/a&gt;)&lt;/p&gt;'><sup>74</sup></a> The filetype option can be dropped as <code>writeRaster()</code> infers the filetype from the extension of the file name. The <code>overwrite = TRUE</code> option is necessary if a file with the same name already exists and you are overwriting it. This is one of the many areas <code>terra</code> is better than <code>raster</code>. <code><a href="https://rdrr.io/pkg/terra/man/writeRaster.html">raster::writeRaster()</a></code> can be frustratingly slow for a large <code>Raster</code><span class="math inline">\(^*\)</span> object. <code><a href="https://rdrr.io/pkg/terra/man/writeRaster.html">terra::writeRaster()</a></code> is much faster.</p>
+<p>The above code saves <code>IA_cdl_2015_sr</code> (a <code>SpatRaster</code> object) as a GeoTiff file.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;There are many other alternative formats (see &lt;a href="https://www.rdocumentation.org/packages/raster/versions/3.0-12/topics/writeRaster"&gt;here&lt;/a&gt;)&lt;/p&gt;'><sup>75</sup></a> The filetype option can be dropped as <code>writeRaster()</code> infers the filetype from the extension of the file name. The <code>overwrite = TRUE</code> option is necessary if a file with the same name already exists and you are overwriting it. This is one of the many areas <code>terra</code> is better than <code>raster</code>. <code><a href="https://rdrr.io/pkg/terra/man/writeRaster.html">raster::writeRaster()</a></code> can be frustratingly slow for a large <code>Raster</code><span class="math inline">\(^*\)</span> object. <code><a href="https://rdrr.io/pkg/terra/man/writeRaster.html">terra::writeRaster()</a></code> is much faster.</p>
 <p>You can also save a multi-layer <code>SpatRaster</code> object just like you save a single-layer <code>SpatRaster</code> object.</p>
-<div class="sourceCode" id="cb362"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb427"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/writeRaster.html">writeRaster</a></span><span class="op">(</span><span class="va">IA_cdl_stack_sr</span>, <span class="st">"Data/IA_cdl_stack.tif"</span>, filetype <span class="op">=</span> <span class="st">"GTiff"</span>, overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p>The saved file is a multi-band raster datasets. So, if you have many raster files of the same spatial extent and resolution, you can “stack” them on R and then export it to a single multi-band raster datasets, which cleans up your data folder.</p>
 </div>
@@ -442,7 +442,7 @@ max values  :         229,         241 </code></pre>
 <span class="header-section-number">4.3.1</span> Get CRS<a class="anchor" aria-label="anchor" href="#get-crs"><i class="fas fa-link"></i></a>
 </h3>
 <p>You often need to extract the CRS of a raster object before you interact it with vector data (e.g., extracting values from a raster layer to vector data, or cropping a raster layer to the spatial extent of vector data), which can be done using <code><a href="https://rdrr.io/pkg/terra/man/crs.html">terra::crs()</a></code>:</p>
-<div class="sourceCode" id="cb363"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb428"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/crs.html">crs</a></span><span class="op">(</span><span class="va">IA_cdl_2015_sr</span><span class="op">)</span></span></code></pre></div>
 <pre><code>[1] "PROJCRS[\"unnamed\",\n    BASEGEOGCRS[\"NAD83\",\n        DATUM[\"North American Datum 1983\",\n            ELLIPSOID[\"GRS 1980\",6378137,298.257222101004,\n                LENGTHUNIT[\"metre\",1]]],\n        PRIMEM[\"Greenwich\",0,\n            ANGLEUNIT[\"degree\",0.0174532925199433]],\n        ID[\"EPSG\",4269]],\n    CONVERSION[\"Albers Equal Area\",\n        METHOD[\"Albers Equal Area\",\n            ID[\"EPSG\",9822]],\n        PARAMETER[\"Latitude of false origin\",23,\n            ANGLEUNIT[\"degree\",0.0174532925199433],\n            ID[\"EPSG\",8821]],\n        PARAMETER[\"Longitude of false origin\",-96,\n            ANGLEUNIT[\"degree\",0.0174532925199433],\n            ID[\"EPSG\",8822]],\n        PARAMETER[\"Latitude of 1st standard parallel\",29.5,\n            ANGLEUNIT[\"degree\",0.0174532925199433],\n            ID[\"EPSG\",8823]],\n        PARAMETER[\"Latitude of 2nd standard parallel\",45.5,\n            ANGLEUNIT[\"degree\",0.0174532925199433],\n            ID[\"EPSG\",8824]],\n        PARAMETER[\"Easting at false origin\",0,\n            LENGTHUNIT[\"metre\",1],\n            ID[\"EPSG\",8826]],\n        PARAMETER[\"Northing at false origin\",0,\n            LENGTHUNIT[\"metre\",1],\n            ID[\"EPSG\",8827]]],\n    CS[Cartesian,2],\n        AXIS[\"easting\",east,\n            ORDER[1],\n            LENGTHUNIT[\"metre\",1,\n                ID[\"EPSG\",9001]]],\n        AXIS[\"northing\",north,\n            ORDER[2],\n            LENGTHUNIT[\"metre\",1,\n                ID[\"EPSG\",9001]]]]"</code></pre>
 </div>
@@ -451,7 +451,7 @@ max values  :         229,         241 </code></pre>
 <span class="header-section-number">4.3.2</span> Subset<a class="anchor" aria-label="anchor" href="#subset"><i class="fas fa-link"></i></a>
 </h3>
 <p>You can access specific layers in a multi-layer raster object by indexing:</p>
-<div class="sourceCode" id="cb365"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb430"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- index ---#</span></span>
 <span><span class="va">IA_cdl_stack_sr</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span> <span class="co"># (originally IA_cdl_2016.tif)</span></span></code></pre></div>
 <pre><code>class       : SpatRaster 
@@ -470,7 +470,7 @@ max value   :         241 </code></pre>
 <span class="header-section-number">4.3.3</span> Get cell values<a class="anchor" aria-label="anchor" href="#get-cell-values"><i class="fas fa-link"></i></a>
 </h3>
 <p>You can access the values stored in a <code>SpatRaster</code> object using the <code><a href="https://rdrr.io/pkg/terra/man/values.html">terra::values()</a></code> function:</p>
-<div class="sourceCode" id="cb367"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb432"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- terra::values ---#</span></span>
 <span><span class="va">values_from_rs</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/values.html">values</a></span><span class="op">(</span><span class="va">IA_cdl_stack_sr</span><span class="op">)</span></span>
 <span></span>
@@ -491,7 +491,7 @@ max value   :         241 </code></pre>
 <span class="header-section-number">4.4</span> Turning a raster object into a <code>data.frame</code><a class="anchor" aria-label="anchor" href="#turning-a-raster-object-into-a-data.frame"><i class="fas fa-link"></i></a>
 </h2>
 <p>When creating maps using <code>ggplot2()</code> from a <code>SpatRaster</code> or <code>Raster</code><span class="math inline">\(^*\)</span> object, it is necessary to first convert it to a <code>data.frame</code> (see Chapter <a href="create-maps.html#geom-raster">8.2</a>). You can use the <code><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame()</a></code> function with <code>xy = TRUE</code> option to construct a <code>data.frame</code> where each row represents a single cell that has cell values for each layer and its coordinates (the center of the cell).</p>
-<div class="sourceCode" id="cb369"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb434"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- converting to a data.frame ---#</span></span>
 <span><span class="va">IA_cdl_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="va">IA_cdl_stack_sr</span>, xy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># this works with Raster* objects as well</span></span>
 <span></span>
@@ -504,14 +504,14 @@ max value   :         241 </code></pre>
 4 -51990 2288280       0         0
 5 -51960 2288280       0         0
 6 -51930 2288280       0         0</code></pre>
-<p><span style="color:red"> Note:</span> I have seen cases where a raster object is converted to a <code>data.frame</code> and then to ‘sf’ for the purpose of interacting it with polygons using <code>st_join()</code> to extract and assign cell values for the polygons (see Chapter <a href="int-vv.html#int-vv">3</a> for this type of operation). This is, however, not generally recommended for two reasons. First of all, it is much slower than using functions that work on a raster object and polygons directly to extract values for the polygons, such as <code><a href="https://rdrr.io/pkg/terra/man/extract.html">terra::extract()</a></code> or <code><a href="https://isciences.gitlab.io/exactextractr/reference/exact_extract.html">exactextractr::exact_extract()</a></code>, which are introduced in Chapter <a href="int-RV.html#int-RV">5</a>. This is primarily because converting a raster object to a <code><a href="https://rdrr.io/r/base/data.frame.html">data.frame()</a></code> is very slow. Second, once a raster data object is converted to a point <code>sf</code> data, one can no longer weight cell values according to the degree of their overlaps with the target polygons. The only case I have found the conversion beneficial (or simply necessary) is to create a map using <code>ggplot()</code> from a raster object (the <code>tmap</code> package can work directly with raster objects.). While the desire to work with a <code>data.frame</code> is understandable as we are very comfortable with working on a <code>data.frame</code>, it is very likely that the conversion to a <code>data.frame</code> is not only unnecessary, but also inefficient<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;If you are aware of cases where a conversion to &lt;code&gt;data.frame&lt;/code&gt; is beneficial, please let me know. I will put them here.&lt;/p&gt;"><sup>75</sup></a>.</p>
+<p><span style="color:red"> Note:</span> I have seen cases where a raster object is converted to a <code>data.frame</code> and then to ‘sf’ for the purpose of interacting it with polygons using <code>st_join()</code> to extract and assign cell values for the polygons (see Chapter <a href="int-vv.html#int-vv">3</a> for this type of operation). This is, however, not generally recommended for two reasons. First of all, it is much slower than using functions that work on a raster object and polygons directly to extract values for the polygons, such as <code><a href="https://rdrr.io/pkg/terra/man/extract.html">terra::extract()</a></code> or <code><a href="https://isciences.gitlab.io/exactextractr/reference/exact_extract.html">exactextractr::exact_extract()</a></code>, which are introduced in Chapter <a href="int-RV.html#int-RV">5</a>. This is primarily because converting a raster object to a <code><a href="https://rdrr.io/r/base/data.frame.html">data.frame()</a></code> is very slow. Second, once a raster data object is converted to a point <code>sf</code> data, one can no longer weight cell values according to the degree of their overlaps with the target polygons. The only case I have found the conversion beneficial (or simply necessary) is to create a map using <code>ggplot()</code> from a raster object (the <code>tmap</code> package can work directly with raster objects.). While the desire to work with a <code>data.frame</code> is understandable as we are very comfortable with working on a <code>data.frame</code>, it is very likely that the conversion to a <code>data.frame</code> is not only unnecessary, but also inefficient<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;If you are aware of cases where a conversion to &lt;code&gt;data.frame&lt;/code&gt; is beneficial, please let me know. I will put them here.&lt;/p&gt;"><sup>76</sup></a>.</p>
 </div>
 <div id="quick-visualization" class="section level2" number="4.5">
 <h2>
 <span class="header-section-number">4.5</span> Quick visualization<a class="anchor" aria-label="anchor" href="#quick-visualization"><i class="fas fa-link"></i></a>
 </h2>
 <p>To have a quick visualization of the data values of <code>SpatRaster</code> objects, you can simply use <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code>:</p>
-<div class="sourceCode" id="cb371"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb436"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">IA_cdl_2015_sr</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="R_GIS_Book_files/figure-html/plot_stack-1.png" width="672"></div>
 <p>For a more elaborate map using raster data, see Chapter <a href="create-maps.html#geom-raster">8.2</a>.</p>
@@ -520,8 +520,8 @@ max value   :         241 </code></pre>
 <h2>
 <span class="header-section-number">4.6</span> Working with netCDFs<a class="anchor" aria-label="anchor" href="#work-with-netcdf"><i class="fas fa-link"></i></a>
 </h2>
-<p>It is worth talking about how to read a <a href="https://pjbartlein.github.io/REarthSysSci/raster_intro.html">netCDFs</a> format – a multidimensional file format that resembles a raster stack/brick. A netCDF file contains data with a specific structure: a two-dimensional spatial grid (e.g., longitude and latitude) and a third dimension which is usually date or time. This structure is convenient for weather data measured on a consistent grid over time. One such dataset is called <a href="http://www.climatologylab.org/gridmet.html">gridMET</a> which maintains a gridded dataset of weather variables at 4km resolution. Let’s download the daily precipitation data for 2018 using <code><a href="https://rdrr.io/pkg/downloader/man/download.html">downloader::download()</a></code><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;gridMET data is also available in the &lt;a href="https://developers.google.com/earth-engine/datasets/"&gt;Google Earth Engine Data Catalog&lt;/a&gt;, which can be accessed with the R library &lt;a href="https://github.com/r-spatial/rgee"&gt;&lt;code&gt;rgee&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;'><sup>76</sup></a>. We set the destination file name (what to call the file and where we want it to be), and the mode to <code>wb</code> for a binary download.</p>
-<div class="sourceCode" id="cb372"><pre class="downlit sourceCode r">
+<p>It is worth talking about how to read a <a href="https://pjbartlein.github.io/REarthSysSci/raster_intro.html">netCDFs</a> format – a multidimensional file format that resembles a raster stack/brick. A netCDF file contains data with a specific structure: a two-dimensional spatial grid (e.g., longitude and latitude) and a third dimension which is usually date or time. This structure is convenient for weather data measured on a consistent grid over time. One such dataset is called <a href="http://www.climatologylab.org/gridmet.html">gridMET</a> which maintains a gridded dataset of weather variables at 4km resolution. Let’s download the daily precipitation data for 2018 using <code><a href="https://rdrr.io/pkg/downloader/man/download.html">downloader::download()</a></code><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;gridMET data is also available in the &lt;a href="https://developers.google.com/earth-engine/datasets/"&gt;Google Earth Engine Data Catalog&lt;/a&gt;, which can be accessed with the R library &lt;a href="https://github.com/r-spatial/rgee"&gt;&lt;code&gt;rgee&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;'><sup>77</sup></a>. We set the destination file name (what to call the file and where we want it to be), and the mode to <code>wb</code> for a binary download.</p>
+<div class="sourceCode" id="cb437"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- download gridMET precipitation 2018 ---#</span></span>
 <span><span class="fu">downloader</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/downloader/man/download.html">download</a></span><span class="op">(</span></span>
 <span>  url <span class="op">=</span> <span class="fu">str_c</span><span class="op">(</span><span class="st">"http://www.northwestknowledge.net/metdata/data/pr_2018.nc"</span><span class="op">)</span>,</span>
@@ -529,7 +529,7 @@ max value   :         241 </code></pre>
 <span>  mode <span class="op">=</span> <span class="st">"wb"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>This code should have stored the data as <strong>pr_2018.nc</strong> in the <strong>Data</strong> folder. You can read a netCDF file using <code><a href="https://rdrr.io/pkg/terra/man/rast.html">terra::rast()</a></code>.</p>
-<div class="sourceCode" id="cb373"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb438"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span></span>
 <span>  <span class="va">pr_2018_gm</span> <span class="op">&lt;-</span> <span class="fu">rast</span><span class="op">(</span><span class="st">"Data/pr_2018.nc"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -543,13 +543,13 @@ varname     : precipitation_amount (pr)
 names       : preci~43099, preci~43100, preci~43101, preci~43102, preci~43103, preci~43104, ... 
 unit        :          mm,          mm,          mm,          mm,          mm,          mm, ... </code></pre>
 <p>You can see that it has 365 layers: one layer per day in 2018. Let’s now look at layer names:</p>
-<div class="sourceCode" id="cb375"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb440"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">pr_2018_gm</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>[1] "precipitation_amount_day=43099" "precipitation_amount_day=43100"
 [3] "precipitation_amount_day=43101" "precipitation_amount_day=43102"
 [5] "precipitation_amount_day=43103" "precipitation_amount_day=43104"</code></pre>
 <p>Since we have 365 layers and the number at the end of the layer names increase by 1, you would think that <strong>n</strong>th layer represents <strong>n</strong>th day of 2018. In this case, you are correct. However, it is always a good practice to confirm what each layer represents without assuming anything. Now, let’s use the <code>ncdf4</code> package, which is built specifically to handle netCDF4 objects.</p>
-<div class="sourceCode" id="cb377"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb442"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span></span>
 <span>  <span class="va">pr_2018_nc</span> <span class="op">&lt;-</span> <span class="fu">ncdf4</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ncdf4/man/nc_open.html">nc_open</a></span><span class="op">(</span><span class="st">"Data/pr_2018.nc"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -620,11 +620,11 @@ unit        :          mm,          mm,          mm,          mm,          mm,  
         note4: Data in slices after last_provisional_slice (1-based) are considered early and subject to change with subsequent updates
         note5: Days correspond approximately to calendar days ending at midnight, Mountain Standard Time (7 UTC the next calendar day)</code></pre>
 <p>As you can see from the output, there is tons of information that we did not see when we read the data using <code>rast()</code>, which includes the explanation of the third dimension (day) of this raster object. It turned out that the numerical values at the end of layer names in the <code>SpatRaster</code> object are <strong>days since 1900-01-01</strong>. So, the first layer (named <strong>precipitation_amount_day=43099</strong>) represents:</p>
-<div class="sourceCode" id="cb379"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb444"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ymd</span><span class="op">(</span><span class="st">"1900-01-01"</span><span class="op">)</span> <span class="op">+</span> <span class="fl">43099</span></span></code></pre></div>
 <pre><code>[1] "2018-01-01"</code></pre>
 <p>Actually, if we use <code><a href="https://rdrr.io/pkg/raster/man/brick.html">raster::brick()</a></code>, instead of <code><a href="https://rdrr.io/pkg/terra/man/rast.html">terra::rast()</a></code>, then we can see the naming convention of the layers:</p>
-<div class="sourceCode" id="cb381"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb446"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span></span>
 <span>  <span class="va">pr_2018_b</span> <span class="op">&lt;-</span> <span class="fu">brick</span><span class="op">(</span><span class="st">"Data/pr_2018.nc"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -637,7 +637,7 @@ source     : pr_2018.nc
 names      : X43099, X43100, X43101, X43102, X43103, X43104, X43105, X43106, X43107, X43108, X43109, X43110, X43111, X43112, X43113, ... 
 day (days since 1900-01-01 00:00:00): 43099, 43463 (min, max)
 varname    : precipitation_amount </code></pre>
-<p><code>SpatRaster</code> or <code>RasterBrick</code> objects are easier to work with as many useful functions accept them as inputs, but not the <code>ncdf4</code> object. Personally, I first scrutinize a netCDFs file using <code>nc_open()</code> and then import it as a <code>SpatRaster</code> or <code>RasterBrick</code> object<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Even though &lt;code&gt;RasterBrick&lt;/code&gt; provides the description of how layers are named, I think it is a good practice to see the full description in the &lt;code&gt;ncdf4&lt;/code&gt; object.&lt;/p&gt;"><sup>77</sup></a>. Recovering the dates for the layers is particularly important as we often wrangle the resulting data based on date (e.g., subset the data so that you have only April to September). An example of date recovery can be seen in Chapter <a href="download-data.html#gridMET">9.5</a>.</p>
+<p><code>SpatRaster</code> or <code>RasterBrick</code> objects are easier to work with as many useful functions accept them as inputs, but not the <code>ncdf4</code> object. Personally, I first scrutinize a netCDFs file using <code>nc_open()</code> and then import it as a <code>SpatRaster</code> or <code>RasterBrick</code> object<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Even though &lt;code&gt;RasterBrick&lt;/code&gt; provides the description of how layers are named, I think it is a good practice to see the full description in the &lt;code&gt;ncdf4&lt;/code&gt; object.&lt;/p&gt;"><sup>78</sup></a>. Recovering the dates for the layers is particularly important as we often wrangle the resulting data based on date (e.g., subset the data so that you have only April to September). An example of date recovery can be seen in Chapter <a href="download-data.html#gridMET">9.5</a>.</p>
 <p>Very detailed description of how to work with <code>ncdf4</code> object is provided <a href="https://pjbartlein.github.io/REarthSysSci/netCDF.html">here</a>. However, I would say that economists are unlikely to benefit much from it. As I have stated several times already, we (economists) rarely need to manipulate raster data itself. Our observation units are almost always points (e.g., farms, houses) or polygons (e.g., county boundary) and we just need to associate those units with the values held in raster data (e.g., precipitation). We can simply use raster objects as they are and supply them to functions that take care of the business of raster value extraction, which is covered in the next chapter (Chapter <a href="int-RV.html#int-RV">5</a>).</p>
 
 </div>
@@ -693,7 +693,7 @@ varname    : precipitation_amount </code></pre>
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>R as GIS for Economists</strong>" was written by Taro Mieno. It was last built on 2023-03-08.</p>
+    <p>"<strong>R as GIS for Economists</strong>" was written by Taro Mieno. It was last built on 2023-03-09.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

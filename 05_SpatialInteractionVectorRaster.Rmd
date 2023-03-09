@@ -683,7 +683,7 @@ Here we compare the extraction speed of `raster::extract()`, `terra::extract()`,
 
 ### Points: `terra::extract()` and `raster::extract()`
 
-`exact_extract()` uses C++ as the backend. Therefore, it is considerably faster than `raster::extract()`.
+`terra::extract()` uses C++ as the backend. Therefore, it is considerably faster than `raster::extract()`.
 
 ```{r points_extraction_comp}
 #--- terra ---#
@@ -699,7 +699,7 @@ temp <- raster::extract(prism_tmax_0701_KS_lr, KS_wells)
 toc()
 ```
 
-As you can see, `terra::extract()` is much faster. The time differential between the two packages can be substantial as the raster data becomes larger.
+As you can see, `terra::extract()` is much faster. The time differential between the two packages can be substantial as the raster data becomes larger. Until recently, `raster::extract()` was much much slower. However, recent updates to the package made significant improvement in extraction speed.
 
 ### Polygons: `exact_extract()`, `terra::extract()`, and `raster::extract()`
 
@@ -735,7 +735,7 @@ raster_extract_temp <-
 toc()
 ```
 
-As you can see, `raster::extract()` is by far the slowest. `terra::extract()` is faster than `exact_extract()`. However, once the raster data becomes larger (or spatially finer), then `exact_extact()` starts to shine. 
+As you can see, `raster::extract()` is the slowest. `terra::extract()` is faster than `exact_extract()`. However, once the raster data becomes larger (or spatially finer), then `exact_extact()` starts to shine. 
 
 ---
 

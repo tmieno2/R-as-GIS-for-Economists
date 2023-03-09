@@ -41,6 +41,7 @@ library(htmlwidgets)
 library(htmltools)
 library(lubridate)
 library(tidyverse)
+library(patchwork)
 ```
 
 ## Before you start {-}
@@ -91,7 +92,8 @@ pacman::p_load(
   dplyr, # data wrangling
   data.table, # data wrangling
   tmap, # make maps
-  mapview # create an interactive map
+  mapview, # create an interactive map
+  patchwork # arranging maps
 )
 ```
 
@@ -134,7 +136,7 @@ As you can see, the `sfg` consists of a number of points (pairs of two numbers).
 
 ```{r }
 plot(st_geometry(nc[1, ]))
-``` 
+```
 
 We will take a closer look at different types of `sfg` in the next section. 
 
@@ -142,7 +144,7 @@ Finally, the `geometry` variable is a list of individual `sfg`s, called simple f
 
 ```{r }
 dplyr::select(nc, geometry)
-``` 
+```
 
 Elements of a geometry list-column are allowed to be different in nature from other elements^[This is just like a regular `list` object that can contain mixed types of elements: numeric, character, etc]. In the `nc` data, all the elements (`sfg`s) in `geometry` column are `MULTIPOLYGON`. However, you could also have `LINESTRING` or `POINT` objects mixed with `MULTIPOLYGONS` objects in a single `sf` object if you would like. 
 
@@ -436,7 +438,7 @@ The easiest way to visualize an `sf` object is to use `plot()`:
 plot(nc)
 ```
 
-As you can see, `plot()` create a map for each variable where the spatial units are color-differentiated based on the values of the variable. For creating more elaborate maps that are of publication-quality, see Chapter \@ref(create-maps).  
+As you can see, `plot()` create a map for each variable where the spatial units are color-differentiated based on the values of the variable. For creating more elaborate maps that are of publication-quality, see Chapter \@ref(create-maps).
 
 ### Interactive view
 
@@ -657,7 +659,7 @@ wells_no_longer_sf <- st_drop_geometry(wells_sf)
 
 #--- take a look ---#
 head(wells_no_longer_sf)
-``` 
+```
 
 We can now do a group summary very quickly:
 
@@ -729,7 +731,7 @@ Finally, it is easy to revert a `data.table` object back to an `sf` object again
 (
   nc_sf_again <- st_as_sf(nc_dt)
 )
-``` 
+```
 
 So, this means that if you need fast data transformation, you can first turn an `sf` to a `data.table`, transform the data using the `data.table` functionality, and then revert back to `sf`. However, for most economists, the geometry variable itself is not of interest in the sense that it never enters econometric models. For most of us, the geographic information contained in the geometry variable is just a glue to tie two datasets together by geographic referencing. Once we get values of spatial variables of interest, there is no point in keeping your data as an sf object. Personally, whenever I no longer need to carry around the geometry variable, I immediately turn an sf object into a `data.table` for fast data transformation especially when the data is large. 
 
@@ -781,7 +783,7 @@ Let's create buffers around the wells.
 wells_buffer <- st_buffer(urnrd_wells_sf, dist = 1600)
 ```
 
-As you can see, there are many circles around wells with the radius of $1,600$ meters (Figure \@ref(fig:buffer-points-map)).   
+As you can see, there are many circles around wells with the radius of $1,600$ meters (Figure \@ref(fig:buffer-points-map)).
 
 ```{r buffer-points-map, fig.cap = "Buffers around wells"}
 tm_shape(wells_buffer) +
@@ -929,3 +931,127 @@ The `st_distance` function calculates distances between spatial objects. Its out
 st_distance(urnrd_wells_sf[1:10, ], urnrd_wells_sf[1:10, ])
 ```
  -->
+
+### st_union and st_combine
+
+While `st_combine()` combines multiple `sfg`s in a single `sf` object into a single `sfg` without resolving the internal borders, `st_union()` does so with the internal borders resolved. Let's take a look at what `st_combine()` does first using `NE_counties`.
+
+`NE_counties` has three features as you can see below.
+
+```{r}
+NE_counties
+```
+
+After applying `st_combine()`, the resulting object has only a single feature.
+
+```{r}
+(
+  NE_counties_combined <- st_combine(NE_counties)
+)
+```
+
+As you can see in the figure below, the internal borders did not get resolved. It is just that all the three counties are now recognized as a single feature rathern than three separate features.
+
+```{r g-combined}
+ggplot(NE_counties_combined) +
+  geom_sf() +
+  theme_void()
+```
+
+On the other hand, `st_union()` resovle the internal borders, while combining all the features (A use case of `st_union()` can be seen in section \@ref(demo-slave)).
+
+```{r}
+(
+  NE_counties_union <- st_union(NE_counties)
+)
+```
+
+```{r g-unioned}
+ggplot(data = NE_counties_union) +
+  geom_sf() +
+  theme_void()
+```
+
+Note also that the resulting objects of `st_combine()` and `st_union()` are no logner `sf`, rather they are `sfc`, which do not retain the original variables in `NE_counties`.
+
+```{r}
+class(NE_counties_combined)
+class(NE_counties_union)
+```
+
+### st_simplify and ms_simplify
+
+Sometimes, a vector data is excessively detailed for your purpose. For example, when showing the relative location of Japan to the surrounding countries in a map, the spatial object representing Japan does not have to be very accurate in its coaslines, say at the meter level. In such cases, you can simplify the spatial object using `st_simplify()` so that you can render the map much faster.
+
+Here, we use IL County borders for illustration.
+
+```{r}
+IL_counties <- st_read("Data/IL_county_detailed.geojson")
+```
+
+Here is the object size of `IL_counties`.
+
+```{r}
+object.size(IL_counties)
+```
+
+Let's plot this. 
+
+```{r g-IL-boundary}
+ggplot(IL_counties) +
+  geom_sf() +
+  theme_void()
+```
+
+However, if you focus on a single county, you can see that county borders in this data are fairly detaield. Let's look at the Cook county.
+
+```{r g-cook}
+Cook <- filter(IL_counties, NAME == "Cook County")
+
+(
+  g_cook_original <-
+    ggplot(Cook) +
+    geom_sf() +
+    theme_void()
+)
+```
+
+You can see that its border with Lake Michigan has lots of non-linear segments. Let's simplify this using `st_simplify()`. We can use the `dTolerance` option to specify the degree of simplification.
+
+```{r g-cook-simplified}
+Cook_simplify <- st_simplify(Cook, dTolerance = 1000)
+
+g_cook_simplified <-
+  ggplot(Cook_simplify) +
+  geom_sf() +
+  theme_void()
+```
+
+The figure below compares the original (left) and simplified (right) versions.
+
+```{r g-cook-both}
+g_cook_original | g_cook_simplified
+```
+
+Let's now simplify `IL_counties` using `st_simplify()` to make its map light-weight.
+
+```{r g-IL-simplified}
+IL_counties_simplified <- st_simplify(IL_counties, dTolerance = 1000)
+
+ggplot(IL_counties_simplified) +
+  geom_sf(fill = "blue", alpha = 0.5) +
+  theme_void()
+```
+
+You probably notice we now have some gaps between some counties. This is because `st_simplify()` does not respect the internal borders. To simplify only the outer borders, you can use `rmapshaper::ms_simplify()`. The `keep` option controls the degree of simplifcation (the lower, the more simplified). 
+
+```{r g-IL-simplified-fixed}
+IL_counties_mssimplified <- rmapshaper::ms_simplify(IL_counties, keep = 0.01)
+
+ggplot(IL_counties_mssimplified) +
+  geom_sf(fill = "blue", alpha = 0.5) +
+  theme_void()
+```
+
+You can see that internal borders are simplified in a way that does not create holes (see section \@ref(demo-slave) for an application that makes use of `ms_simplify()`).
+

@@ -4,7 +4,7 @@
 
 **Objective:**
 
-Create some of the variables used in @nunn2008long (here)[https://scholar.harvard.edu/nunn/publications/long-term-effects-africas-slave-trades]
+Create some of the variables used in @nunn2008long [here](https://scholar.harvard.edu/nunn/publications/long-term-effects-africas-slave-trades)
 
 * the distance variable used as an instrument (distance to the nearest trade center for each country in Africa)   
 * the number of slaves for each of the countries in Africa
@@ -99,7 +99,7 @@ We first simplify geometries of the African countries using `rmapshaper::ms_simp
 countries_simp <- rmapshaper::ms_simplify(countries)
 ```
 
-```{r, cache = TRUE}
+```{r countries-africa-nunn08, cache = TRUE}
 (
   g_countries <-
     ggplot(data = countries_simp) +
@@ -115,7 +115,7 @@ countries_centroid <- st_centroid(countries)
 ```
 
 The red points represent the centroids.
-```{r, echo = F, cache = TRUE}
+```{r centroids-africa-nunn08, echo = F, cache = TRUE}
 g_countries +
   geom_sf(data = countries_centroid, color = "red") +
   theme_void()
@@ -137,7 +137,7 @@ minum_dist_to_coast <- st_nearest_points(countries_centroid, coast_union)
 
 As you can see below, this returns a line between the centroid and the coast.
 
-```{r, cache = TRUE}
+```{r lines-africa-nunn08, cache = TRUE}
 (
   g_min_dist_line <-
     ggplot() +
@@ -155,7 +155,7 @@ closest_pt_on_coast <- lwgeom::st_endpoint(minum_dist_to_coast)
 
 The end points are represented as blue points in the figure below. 
 
-```{r}
+```{r endpoint-africa-nunn08}
 g_min_dist_line +
   geom_sf(
     data = closest_pt_on_coast,
@@ -182,14 +182,14 @@ Let's now calculate the distance between the closest point on the coast to the n
 )
 ```
 
-```{r}
+```{r trade-center-africa-nunn08}
 ggplot() +
   geom_sf(data = trade_centers_sf, color = "red") +
   geom_sf(data = countries_simp, aes(geometry = geometry)) +
   theme_void()
 ```
 
-In this demosntration, we calculate distance "as the bird flies" rather than "as the boat travels" using `sf::st_distance()`. This is not ideal, but calculating maritime routes has yet to be implemented in the sf structure. If you are interested in calculating maritime routes, you can follow <https://www.r-bloggers.com/computing-maritime-routes-in-r/>^[This requires the sp package]. `st_distance(x, y)` returns the distance between each of the elements in `x` and `y` in a matrix form.
+In this demonstration, we calculate distance "as the bird flies" rather than "as the boat travels" using `sf::st_distance()`. This is not ideal, but calculating maritime routes has yet to be implemented in the sf structure. If you are interested in calculating maritime routes, you can follow <https://www.r-bloggers.com/computing-maritime-routes-in-r/>^[This requires the sp package]. `st_distance(x, y)` returns the distance between each of the elements in `x` and `y` in a matrix form.
 
 ```{r}
 trade_dist <- st_distance(countries_simp$nearest_pt, trade_centers_sf)
@@ -211,16 +211,18 @@ Let's assign these values to a new column named `distance_to_trade_center` in `c
 countries_simp$distance_to_trade_center <- min_trade_dist / 1000
 ```
 
-Figre below color-differentiate countries by their distance to the closeset trade center. 
+Figure below color-differentiate countries by their distance to the closest trade center. 
 
-```{r}
+```{r trade-center-dist-africa-nunn08}
 ggplot() +
   geom_sf(data = trade_centers_sf, color = "red") +
   geom_sf(
     data = countries_simp,
     aes(geometry = geometry, fill = distance_to_trade_center)
   ) +
-  theme_void()
+  scale_fill_viridis_c(name = "Distance to trade center") +
+  theme_void() +
+  theme(legend.position = "bottom")
 ```
 
 ---
@@ -229,7 +231,7 @@ ggplot() +
 
 @nunn2008long used data on the number slaves exported from each ethnic region in `ethnic_regions`. Note that many ethnic regions intersects more than one countries as can be seen below, where the red and black lines represent country and ethnic region borders, respectively.
 
-```{r}
+```{r ethnic-region-africa-nunn08}
 ggplot() +
   geom_sf(
     data = countries_simp,
@@ -263,7 +265,7 @@ ethnic_regions$slaves_traded <-
   )
 ```
 
-```{r}
+```{r fake-trade-africa-nunn08}
 ggplot() +
   geom_sf(
     data = ethnic_regions,
@@ -276,7 +278,7 @@ ggplot() +
   )
 ```
 
-Let's implement area-weighted interpolation on this fake dataset using `sf::st_interpolate_aw()`. Since we would like to sum the number of exported slaves from each ethnic region, we use `extensive = TRUE` option.^[`extensive= FALSE` does a weighted mean. More information is avaialble (here)[https://edzer.github.io/UseR2017/#higher-level-operations-summarise-interpolate-aggregate-st_join]]
+Let's implement area-weighted interpolation on this fake dataset using `sf::st_interpolate_aw()`. Since we would like to sum the number of exported slaves from each ethnic region, we use `extensive = TRUE` option.^[`extensive= FALSE` does a weighted mean. More information is available (here)[https://edzer.github.io/UseR2017/#higher-level-operations-summarise-interpolate-aggregate-st_join]]
 
 ```{r}
 countries_simp$slaves_traded <-
@@ -291,16 +293,20 @@ countries_simp$slaves_traded <-
 
 The left and right panel of the figure below shows the number of exported slaves by ethnic region and by country, respectively. 
 
-```{r}
+```{r fake-trade-country-africa-nunn08}
 ethnic_regions_plot <-
   ggplot(ethnic_regions) +
   geom_sf(aes(geometry = geometry, fill = slaves_traded), color = NA) +
-  theme_void()
+  scale_fill_viridis_c(name = "# of slaves traded") +
+  theme_void() +
+  theme(legend.position = "bottom")
 
 countries_plot <-
   ggplot(countries_simp) +
   geom_sf(aes(geometry = geometry, fill = slaves_traded), color = NA) +
-  theme_void()
+  scale_fill_viridis_c(name = "# of slaves traded") +
+  theme_void() +
+  theme(legend.position = "bottom")
 
 ethnic_regions_plot | countries_plot
 ```
