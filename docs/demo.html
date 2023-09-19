@@ -484,7 +484,7 @@ Projected CRS: WGS 84 / UTM zone 14N
  8 400134101483501  2013  44.8              NA 
  9 400134101483501  2014 -26.7              NA 
 10 400134101483501  2015  NA                NA 
-# … with 2,012 more rows</code></pre>
+# ℹ 2,012 more rows</code></pre>
 <hr>
 <p>Finally, we estimate the model using <code>feols()</code> from the <code>fixest</code> package (see <a href="https://cran.r-project.org/web/packages/fixest/vignettes/fixest_walkthrough.html">here</a> for an introduction).</p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
@@ -1668,7 +1668,7 @@ Figure 1.15: Map of railroads in Illinois
  8 021             155706.
  9 023              78532.
 10 025              92002.
-# … with 72 more rows</code></pre>
+# ℹ 72 more rows</code></pre>
 <hr>
 <p>We merge the railroad length data to the corn planted acreage data and estimate the model.</p>
 <div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
@@ -2037,7 +2037,7 @@ First 10 features:
 <span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="co">#--- display regression results ---#</span></span>
-<span><span class="fu">modelsummary</span><span class="fu">::</span><span class="fu"><a href="https://vincentarelbundock.github.io/modelsummary/reference/modelsummary.html">modelsummary</a></span><span class="op">(</span></span>
+<span><span class="fu">modelsummary</span><span class="fu">::</span><span class="fu"><a href="https://modelsummary.com/reference/modelsummary.html">modelsummary</a></span><span class="op">(</span></span>
 <span>  <span class="va">reg_results</span>,</span>
 <span>  stars <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  gof_omit <span class="op">=</span> <span class="st">"IC|Log|Adj|Within|Pseudo"</span></span>
@@ -2291,7 +2291,7 @@ X
 </h3>
 <hr>
 <p><strong>Objective:</strong></p>
-<p>Create some of the variables used in <span class="citation">Nunn (<a href="references.html#ref-nunn2008long" role="doc-biblioref">2008</a>)</span> <a href="https://scholar.harvard.edu/nunn/publications/long-term-effects-africas-slave-trades">here</a></p>
+<p>Create some of the variables used in <span class="citation">Nunn (<a href="references.html#ref-nunn2008long">2008</a>)</span> <a href="https://scholar.harvard.edu/nunn/publications/long-term-effects-africas-slave-trades">here</a></p>
 <ul>
 <li>the distance variable used as an instrument (distance to the nearest trade center for each country in Africa)<br>
 </li>
@@ -2585,7 +2585,7 @@ Projected CRS: WGS 84 / Pseudo-Mercator
 <div id="calculate-slaves-exported-from-each-country-in-africa" class="section level4 unnumbered">
 <h4>Calculate slaves exported from each country in Africa<a class="anchor" aria-label="anchor" href="#calculate-slaves-exported-from-each-country-in-africa"><i class="fas fa-link"></i></a>
 </h4>
-<p><span class="citation">Nunn (<a href="references.html#ref-nunn2008long" role="doc-biblioref">2008</a>)</span> used data on the number slaves exported from each ethnic region in <code>ethnic_regions</code>. Note that many ethnic regions intersects more than one countries as can be seen below, where the red and black lines represent country and ethnic region borders, respectively.</p>
+<p><span class="citation">Nunn (<a href="references.html#ref-nunn2008long">2008</a>)</span> used data on the number slaves exported from each ethnic region in <code>ethnic_regions</code>. Note that many ethnic regions intersects more than one countries as can be seen below, where the red and black lines represent country and ethnic region borders, respectively.</p>
 <div class="sourceCode" id="cb116"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_sf</span><span class="op">(</span></span>
@@ -2668,7 +2668,7 @@ Projected CRS: WGS 84 / Pseudo-Mercator
 </h3>
 <hr>
 <p><strong>Objective:</strong></p>
-<p><span class="citation">Nunn and Puga (<a href="references.html#ref-nunn2012ruggedness" role="doc-biblioref">2012</a>)</span> showed empirically that the ruggedness of the terrain has had a positive impacts on economic developement in African countries. In this demonstration, we calculate Terrain Ruggedness Index (TRI) for African countries from the world elevation data.</p>
+<p><span class="citation">Nunn and Puga (<a href="references.html#ref-nunn2012ruggedness">2012</a>)</span> showed empirically that the ruggedness of the terrain has had a positive impacts on economic developement in African countries. In this demonstration, we calculate Terrain Ruggedness Index (TRI) for African countries from the world elevation data.</p>
 <hr>
 <p><strong>Datasets</strong></p>
 <ul>
@@ -2809,7 +2809,7 @@ name        : GDEM-10km-BW </code></pre>
 </h3>
 <hr>
 <p><strong>Objective:</strong></p>
-<p>Create TseTse fly suitability index used in <span class="citation">Alsan (<a href="references.html#ref-alsan2015effect" role="doc-biblioref">2015</a>)</span> (find the paper <a href="https://www.aeaweb.org/articles?id=10.1257/aer.20130604">here</a>) from temperature and humidity raster datasets.</p>
+<p>Create TseTse fly suitability index used in <span class="citation">Alsan (<a href="references.html#ref-alsan2015effect">2015</a>)</span> (find the paper <a href="https://www.aeaweb.org/articles?id=10.1257/aer.20130604">here</a>) from temperature and humidity raster datasets.</p>
 <hr>
 <p><strong>Datasets</strong></p>
 <ul>
@@ -2892,7 +2892,7 @@ name        : GDEM-10km-BW </code></pre>
 <h3>
 <span class="header-section-number">1.8.2</span> Project Demonstration<a class="anchor" aria-label="anchor" href="#project-demonstration-7"><i class="fas fa-link"></i></a>
 </h3>
-<p>Marcella Alsan’s 2015 AER paper “The Effect of the TseTse Fly on African Development” tests a hypothesis about historical African economic development. The hypothesis considers the TseTse fly – a fly indigenous to Africa that is lethal to crops. The theory posits that the fly prevented agricultural surplus and hence stunted historical economic development in impacted regions of Africa. To test the hypothesis, <span class="citation">(<a href="#ref-Alsan_2015" role="doc-biblioref"><strong>Alsan_2015?</strong></a>)</span> whats to compare African tribes that were in regions highly affected by the TseTse fly to areas not highly affected. To do so, they use a “sutability index” that is based on an areas average temperature and humidity.</p>
+<p>Marcella Alsan’s 2015 AER paper “The Effect of the TseTse Fly on African Development” tests a hypothesis about historical African economic development. The hypothesis considers the TseTse fly – a fly indigenous to Africa that is lethal to crops. The theory posits that the fly prevented agricultural surplus and hence stunted historical economic development in impacted regions of Africa. To test the hypothesis, <span class="citation">(<a href="#ref-Alsan_2015"><strong>Alsan_2015?</strong></a>)</span> whats to compare African tribes that were in regions highly affected by the TseTse fly to areas not highly affected. To do so, they use a “sutability index” that is based on an areas average temperature and humidity.</p>
 <p>For this replication, we will recreate the suitability index and aggregate the data at the tribe level. For reference, the original figure from the article is reproduced in Figure <a href="#fig:alsan-orig"><strong>??</strong></a>.</p>
 <div id="scientific-details" class="section level4 unnumbered">
 <h4>Scientific Details<a class="anchor" aria-label="anchor" href="#scientific-details"><i class="fas fa-link"></i></a>
@@ -3236,7 +3236,7 @@ max values  :  30.72751, 96.53836 </code></pre>
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>R as GIS for Economists</strong>" was written by Taro Mieno. It was last built on 2023-03-20.</p>
+    <p>"<strong>R as GIS for Economists</strong>" was written by Taro Mieno. It was last built on 2023-09-19.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

@@ -751,7 +751,7 @@ GEOGCS["NAD83",
 <span>  <span class="co">#--- change the variable names ---#</span></span>
 <span>  <span class="fu">setnames</span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"layer."</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fu">ymd</span><span class="op">(</span><span class="st">"2009-01-01"</span><span class="op">)</span>, <span class="fu">ymd</span><span class="op">(</span><span class="st">"2009-01-05"</span><span class="op">)</span>, by <span class="op">=</span> <span class="st">"days"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2009-01-01"</span><span class="op">)</span>, <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2009-01-05"</span><span class="op">)</span>, by <span class="op">=</span> <span class="st">"days"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>      <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span></span>
@@ -1119,26 +1119,30 @@ Call:   head(copy(`_DT1`)[, `:=`(af_used_cat = cut_number(af_used, n = 5))],
 <div class="sourceCode" id="cb769"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">hclwizard</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>you should see a web application pop up that looks like this.</p>
-<div class="inline-figure"><img src="hclwizard.png"></div>
-<p>After you find a color scale you would like to use, you can go to the <strong>Export</strong>tab, select the <strong>R</strong> tab, and then copy the code that appear in the highlighted area.</p>
-<div class="inline-figure"><img src="hclwizard_pick_theme.png"></div>
-<p>You could register the color palette by completing the <code>register =</code> option in the copied code if you think you will use it other times. Otherwise, you can delete the option.</p>
 <div class="sourceCode" id="cb770"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/include_graphics.html">include_graphics</a></span><span class="op">(</span><span class="st">"hclwizard.png"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="hclwizard.png" width="1908"></div>
+<p>After you find a color scale you would like to use, you can go to the <strong>Export</strong>tab, select the <strong>R</strong> tab, and then copy the code that appear in the highlighted area.</p>
+<div class="sourceCode" id="cb771"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/include_graphics.html">include_graphics</a></span><span class="op">(</span><span class="st">"hclwizard_pick_theme.png"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="hclwizard_pick_theme.png" width="1043"></div>
+<p>You could register the color palette by completing the <code>register =</code> option in the copied code if you think you will use it other times. Otherwise, you can delete the option.</p>
+<div class="sourceCode" id="cb772"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">col_palette</span> <span class="op">&lt;-</span> <span class="fu">sequential_hcl</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">7</span>, h <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">36</span>, <span class="fl">200</span><span class="op">)</span>, c <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">60</span>, <span class="cn">NA</span>, <span class="fl">0</span><span class="op">)</span>, l <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">25</span>, <span class="fl">95</span><span class="op">)</span>, power <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.7</span>, <span class="fl">1.3</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>We then use the code as follows:</p>
-<div class="sourceCode" id="cb771"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb773"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">g_col_scale</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_void</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_gradient.html">scale_fill_gradientn</a></span><span class="op">(</span>colors <span class="op">=</span> <span class="va">col_palette</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="R_GIS_Book_files/figure-html/use-col-scale-1.png" width="672"></div>
 <p>Note that you are now using <code>scale_*_gradientn()</code> with this approach.</p>
 <p>For a discrete variable, you can use <code>scale_*_manual()</code>:</p>
-<div class="sourceCode" id="cb772"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb774"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">col_discrete</span> <span class="op">&lt;-</span> <span class="fu">sequential_hcl</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span>, h <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">240</span>, <span class="fl">130</span><span class="op">)</span>, c <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">30</span>, <span class="cn">NA</span>, <span class="fl">33</span><span class="op">)</span>, l <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">25</span>, <span class="fl">95</span><span class="op">)</span>, power <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="cn">NA</span><span class="op">)</span>, rev <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">gw_Stevens</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>color <span class="op">=</span> <span class="va">af_used_cat</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_color_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="va">col_discrete</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="R_GIS_Book_files/figure-html/unnamed-chunk-67-1.png" width="672"></div>
+<div class="inline-figure"><img src="R_GIS_Book_files/figure-html/unnamed-chunk-69-1.png" width="672"></div>
 <!--
 #/*=================================================*/
 #' # Arranging maps
@@ -1155,7 +1159,7 @@ Call:   head(copy(`_DT1`)[, `:=`(af_used_cat = cut_number(af_used, n = 5))],
 <span class="header-section-number">8.4.1</span> Multiple panels of figures as a single figure<a class="anchor" aria-label="anchor" href="#multiple-panels-of-figures-as-a-single-figure"><i class="fas fa-link"></i></a>
 </h3>
 <p>Faceting using <code><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap()</a></code> or <code><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html">facet_grid()</a></code> allows for dividing the data into groups and creating a map for each group. It is particularly suitable for visualizing one variable at different facets. A good example is a collection of maps of tmax observed at different dates (see figure below). Faceting provides a single consistent color scale shared across the facets.</p>
-<div class="sourceCode" id="cb773"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb775"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_tile.html">geom_raster</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">tmax_long_df</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, fill <span class="op">=</span> <span class="va">tmax</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="va">date</span> <span class="op">~</span> <span class="va">.</span><span class="op">)</span> <span class="op">+</span></span>
@@ -1167,23 +1171,23 @@ Call:   head(copy(`_DT1`)[, `:=`(af_used_cat = cut_number(af_used, n = 5))],
 <span>  <span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="R_GIS_Book_files/figure-html/ex-facet-1.png" width="672"></div>
 <p>However, faceting is not suitable for creating maps of different variables. To see this let’s plot tmax and precipitation on Jan 1, 2009 together. We first read precipitation data for Jan 1, 2009.</p>
-<div class="sourceCode" id="cb774"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb776"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ppt_long_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span><span class="op">(</span><span class="st">"Data/ppt_long_df.rds"</span><span class="op">)</span></span></code></pre></div>
 <p>Let’s extract tmax and precipitation on Jan 1, 2009 from their respective datasets, and combine them.</p>
-<div class="sourceCode" id="cb775"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb777"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- get tmax on Jan 1, 2009 ---#</span></span>
-<span><span class="va">tmax_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">tmax_long_df</span>, <span class="va">date</span> <span class="op">==</span> <span class="fu">ymd</span><span class="op">(</span><span class="st">"2009-01-01"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span><span class="va">tmax_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">tmax_long_df</span>, <span class="va">date</span> <span class="op">==</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2009-01-01"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">setnames</span><span class="op">(</span><span class="st">"tmax"</span>, <span class="st">"value"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"tmax"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">#--- get precipitation on Jan 1, 2009 ---#</span></span>
-<span><span class="va">ppt_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">ppt_long_df</span>, <span class="va">date</span> <span class="op">==</span> <span class="fu">ymd</span><span class="op">(</span><span class="st">"2009-01-01"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span><span class="va">ppt_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">ppt_long_df</span>, <span class="va">date</span> <span class="op">==</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2009-01-01"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"ppt"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">#--- combine them ---#</span></span>
 <span><span class="va">combined_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span><span class="op">(</span><span class="va">tmax_df</span>, <span class="va">ppt_df</span><span class="op">)</span></span></code></pre></div>
 <p>Here is the map faceted for tmax and precipitation:</p>
-<div class="sourceCode" id="cb776"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb778"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_tile.html">geom_raster</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">combined_df</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, fill <span class="op">=</span> <span class="va">value</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="va">type</span> <span class="op">~</span> <span class="va">.</span><span class="op">)</span> <span class="op">+</span></span>
@@ -1192,10 +1196,10 @@ Call:   head(copy(`_DT1`)[, `:=`(af_used_cat = cut_number(af_used, n = 5))],
 <div class="inline-figure"><img src="R_GIS_Book_files/figure-html/tm-pr-faceted-1.png" width="672"></div>
 <p>As you can see, a single color scale is created for precipitation recorded in mm and temperature observed in Celsius. On this particular day, precipitation of more than 150 mm was observed on a part of the west coast. Consequently, you see almost no color differentiation on the tmax map which ranges roughly from -20 to 30. It is simply not a good idea to facet for two variables observed at different scales.</p>
 <p>Instead, you should have an independent color scale for each of the variables and then just combine them. Now, you might ask if you really need to combine the two. Can’t you just have two figures and arrange them in the manner you would like on a pdf or WORD document? If you are still convinced that you need to have two panels of figures as one figure, then you can use the <code>patchwork</code> package.</p>
-<div class="sourceCode" id="cb777"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb779"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com">patchwork</a></span><span class="op">)</span></span></code></pre></div>
 <p><code>patchwork</code> combines <code>ggplot</code> objects (maps) using simple operators: <code>+</code>, <code>/</code>, and <code>|</code>. Let’s first create maps of tmax and precipitation separately.</p>
-<div class="sourceCode" id="cb778"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb780"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- tmax ---#</span></span>
 <span><span class="op">(</span></span>
 <span>  <span class="va">g_tmax</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -1206,7 +1210,7 @@ Call:   head(copy(`_DT1`)[, `:=`(af_used_cat = cut_number(af_used, n = 5))],
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="R_GIS_Book_files/figure-html/pw-ex-1.png" width="672"></div>
-<div class="sourceCode" id="cb779"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb781"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- ppt ---#</span></span>
 <span><span class="op">(</span></span>
 <span>  <span class="va">g_ppt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -1219,28 +1223,28 @@ Call:   head(copy(`_DT1`)[, `:=`(af_used_cat = cut_number(af_used, n = 5))],
 <div class="inline-figure"><img src="R_GIS_Book_files/figure-html/pw-ex-2.png" width="672"></div>
 <p>It is best to just look at examples to get the sense of how <code>patchwork</code> works. A fuller treatment of <code>patchwork</code> is found here (<a href="https://patchwork.data-imaginist.com/index.html" class="uri">https://patchwork.data-imaginist.com/index.html</a>).</p>
 <p><strong>Example 1</strong></p>
-<div class="sourceCode" id="cb780"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb782"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">g_tmax</span> <span class="op">+</span> <span class="va">g_ppt</span></span></code></pre></div>
 <div class="inline-figure"><img src="R_GIS_Book_files/figure-html/pw-ex-1-1.png" width="672"></div>
 <p><strong>Example 2</strong></p>
-<div class="sourceCode" id="cb781"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb783"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">g_tmax</span> <span class="op">/</span> <span class="va">g_ppt</span> <span class="op">/</span> <span class="va">g_tmax</span></span></code></pre></div>
 <div class="inline-figure"><img src="R_GIS_Book_files/figure-html/pw-ex-2-1.png" width="672"></div>
 <p><strong>Example 3</strong></p>
-<div class="sourceCode" id="cb782"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb784"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">g_tmax</span> <span class="op">+</span> <span class="va">g_ppt</span> <span class="op">+</span> <span class="fu"><a href="https://patchwork.data-imaginist.com/reference/plot_layout.html">plot_layout</a></span><span class="op">(</span>nrow <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="R_GIS_Book_files/figure-html/pw-ex-3-1.png" width="672"></div>
 <p><strong>Example 4</strong></p>
-<div class="sourceCode" id="cb783"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb785"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">g_tmax</span> <span class="op">+</span> <span class="va">g_ppt</span> <span class="op">+</span> <span class="va">g_tmax</span> <span class="op">+</span> <span class="va">g_ppt</span> <span class="op">+</span> <span class="fu"><a href="https://patchwork.data-imaginist.com/reference/plot_layout.html">plot_layout</a></span><span class="op">(</span>nrow <span class="op">=</span> <span class="fl">3</span>, byrow <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="R_GIS_Book_files/figure-html/pw-ex-4-1.png" width="672"></div>
 <p><strong>Example 5</strong></p>
-<div class="sourceCode" id="cb784"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb786"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">g_tmax</span> <span class="op">|</span> <span class="op">(</span><span class="va">g_ppt</span> <span class="op">/</span> <span class="va">g_tmax</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="R_GIS_Book_files/figure-html/pw-ex-5-1.png" width="672"></div>
 <hr>
 <p>Sometimes figures are placed too close to each other. In such a case, you can pad a figure at the time of generating individual figures by adding the <code>plot.margin</code> option to <code><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme()</a></code>. For example, the following code creates space at the bottom of <code>g_tmax</code> (5 cm), and vertically stack <code>g_tmax</code> and <code>g_ppt</code>.</p>
-<div class="sourceCode" id="cb785"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb787"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- space at the bottom ---#</span></span>
 <span><span class="va">g_tmax</span> <span class="op">&lt;-</span> <span class="va">g_tmax</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>plot.margin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html">unit</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">5</span>, <span class="fl">0</span><span class="op">)</span>, <span class="st">"cm"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
@@ -1260,7 +1264,7 @@ Call:   head(copy(`_DT1`)[, `:=`(af_used_cat = cut_number(af_used, n = 5))],
 <span class="header-section-number">8.4.2</span> A map in a map: inset<a class="anchor" aria-label="anchor" href="#a-map-in-a-map-inset"><i class="fas fa-link"></i></a>
 </h3>
 <p>Sometimes, it is useful to present a map that covers a larger geographical range than the area of interest in the same map. This provides a better sense of the geographic extent and location of the area of interest relative to the larger geographic extent that the readers are more familiar with. For example, suppose your work is restricted to three counties in Kansas: Cheyenne, Sherman, and Wallace. Here is the map of three counties:</p>
-<div class="sourceCode" id="cb786"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb788"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">three_counties</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">KS_county</span>, <span class="va">NAME</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Cheyenne"</span>, <span class="st">"Sherman"</span>, <span class="st">"Wallace"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="op">(</span></span>
@@ -1279,14 +1283,14 @@ Call:   head(copy(`_DT1`)[, `:=`(af_used_cat = cut_number(af_used, n = 5))],
 <li>combine the two using <code><a href="https://ggplot2.tidyverse.org/reference/annotation_custom.html">annotation_custom()</a></code>
 </li>
 </ul>
-<div class="sourceCode" id="cb787"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb789"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- convert the ggplot into a grob ---#</span></span>
 <span><span class="va">grob_aoi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplotGrob.html">ggplotGrob</a></span><span class="op">(</span><span class="va">g_three_counties</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">#--- check the class ---#</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">grob_aoi</span><span class="op">)</span></span></code></pre></div>
 <pre><code>[1] "gtable" "gTree"  "grob"   "gDesc" </code></pre>
-<div class="sourceCode" id="cb789"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb791"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- create a map of Kansas ---#</span></span>
 <span><span class="va">g_region</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">KS_county</span><span class="op">)</span> <span class="op">+</span></span>
@@ -1296,14 +1300,14 @@ Call:   head(copy(`_DT1`)[, `:=`(af_used_cat = cut_number(af_used, n = 5))],
 <span><span class="co">#--- convert to a grob ---#</span></span>
 <span><span class="va">grob_region</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplotGrob.html">ggplotGrob</a></span><span class="op">(</span><span class="va">g_region</span><span class="op">)</span></span></code></pre></div>
 <p>Now that we have two maps, we can now put them on the same map using <code><a href="https://ggplot2.tidyverse.org/reference/annotation_custom.html">annotation_custom()</a></code>. The first task is to initiate a <code>ggplot</code> with <code><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html">coord_equal()</a></code> as follows:</p>
-<div class="sourceCode" id="cb790"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb792"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span></span>
 <span>  <span class="va">g_inset</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html">coord_equal</a></span><span class="op">(</span>xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>, expand <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="R_GIS_Book_files/figure-html/inset-map-1.png" width="672"></div>
 <p>You now have a blank canvas to put the images on. Let’s add a layer to the canvas using <code><a href="https://ggplot2.tidyverse.org/reference/annotation_custom.html">annotation_custom()</a></code> in which you provide the <code>grob</code> object (a map) and specify the range of the canvas the map occupies. Since the extent of x and y are set to [0, 1] above with <code>coord_equal(xlim = c(0, 1), ylim = c(0, 1), expand = FALSE)</code>, the following code put the <code>grob_aoi</code> to cover the entire y range and up to 0.8 of x from 0.</p>
-<div class="sourceCode" id="cb791"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb793"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">g_inset</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotation_custom.html">annotation_custom</a></span><span class="op">(</span><span class="va">grob_aoi</span>,</span>
 <span>    xmin <span class="op">=</span> <span class="fl">0</span>, xmax <span class="op">=</span> <span class="fl">0.8</span>, ymin <span class="op">=</span> <span class="fl">0</span>,</span>
@@ -1311,7 +1315,7 @@ Call:   head(copy(`_DT1`)[, `:=`(af_used_cat = cut_number(af_used, n = 5))],
 <span>  <span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="R_GIS_Book_files/figure-html/inset-annotation-1-1.png" width="672"></div>
 <p>Similarly, we can add <code>grob_region</code> using <code><a href="https://ggplot2.tidyverse.org/reference/annotation_custom.html">annotation_custom()</a></code>. Let’s put it at the right lower corner of the map.</p>
-<div class="sourceCode" id="cb792"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb794"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">g_inset</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotation_custom.html">annotation_custom</a></span><span class="op">(</span><span class="va">grob_aoi</span>,</span>
 <span>    xmin <span class="op">=</span> <span class="fl">0</span>, xmax <span class="op">=</span> <span class="fl">0.8</span>, ymin <span class="op">=</span> <span class="fl">0</span>,</span>
@@ -1323,7 +1327,7 @@ Call:   head(copy(`_DT1`)[, `:=`(af_used_cat = cut_number(af_used, n = 5))],
 <span>  <span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="R_GIS_Book_files/figure-html/inset-annotation-2-1.png" width="672"></div>
 <p>Note that the resulting map still has the default theme because it does not inherit the theme of maps added by <code><a href="https://ggplot2.tidyverse.org/reference/annotation_custom.html">annotation_custom()</a></code>. So, you can add <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_void()</a></code> to the map to make the border disappear.</p>
-<div class="sourceCode" id="cb793"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb795"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">g_inset</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotation_custom.html">annotation_custom</a></span><span class="op">(</span><span class="va">grob_aoi</span>,</span>
 <span>    xmin <span class="op">=</span> <span class="fl">0</span>, xmax <span class="op">=</span> <span class="fl">0.8</span>, ymin <span class="op">=</span> <span class="fl">0</span>,</span>
@@ -1351,7 +1355,7 @@ see [here](https://rud.is/books/30-day-map-challenge/lines-01.html#lines-05)
 <span class="header-section-number">8.5</span> Fine-tuning maps for publication<a class="anchor" aria-label="anchor" href="#fine-tune"><i class="fas fa-link"></i></a>
 </h2>
 <p>This section presents a number of small tips to beautify your maps so that they can be publishable in professional reports. Often times, academic journals have their own particular sets of rules about figures, and reviewers or your boss might have their own views of what maps should look like. Whatever the requirements or requests, you need to accommodate their requests and modify the maps accordingly. It is worth mentioning that there is really nothing specific to creating maps here. Techniques presented here are applicable to any kind of figure. It is just that we limit ourselves to specific components of a figure that you are likely to want to modify from the default when creating maps. Specifically, pre-made <code>ggplot2</code> themes and how to modify legends and facet strips are discussed.</p>
-<div class="sourceCode" id="cb794"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb796"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span></span>
 <span>  <span class="va">gw_by_county</span> <span class="op">&lt;-</span> <span class="fu">st_join</span><span class="op">(</span><span class="va">KS_county</span>, <span class="va">gw_KS_sf</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>    <span class="fu">data.table</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -1398,7 +1402,7 @@ First 10 features:
 8  296955.428 MULTIPOLYGON (((-101.5566 3...
 9    1472.197 MULTIPOLYGON (((-96.96095 3...
 10   3365.272 MULTIPOLYGON (((-96.96095 3...</code></pre>
-<div class="sourceCode" id="cb796"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb798"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span></span>
 <span>  <span class="va">g_base</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">gw_by_county</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">af_used</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -1411,11 +1415,11 @@ First 10 features:
 </h3>
 <!-- https://ggplot2-book.org/polishing.html -->
 <p>Right now, the map shows geographic coordinates, gray background, and grid lines. They are not very aesthetically appealing. Adding the pre-defined theme by <code>theme_*()</code> can alter the theme of a map very quickly. One of the themes suitable for maps is <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_void()</a></code>.</p>
-<div class="sourceCode" id="cb797"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb799"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">g_base</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_void</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="R_GIS_Book_files/figure-html/add-void-1.png" width="672"></div>
 <p>As you can see, all the axes information (<code>axis.title</code>, <code>axis.ticks</code>, <code>axis.text</code>,) and panel information (<code>panel.background</code>, <code>panel.border</code>, <code>panel.grid</code>) are gone among other parts of the figure. You can confirm this by evaluating <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_void()</a></code>.</p>
-<div class="sourceCode" id="cb798"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb800"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_void</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>List of 92
  $ line                      : list()
@@ -1624,11 +1628,11 @@ First 10 features:
  - attr(*, "complete")= logi TRUE
  - attr(*, "validate")= logi TRUE</code></pre>
 <p>Applying the theme to a map obviates the need to suppress parts of a figure individually. You can suppress parts of the figure individually using <code><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme()</a></code>. For example, the following code gets rid of <code>axis.text</code>.</p>
-<div class="sourceCode" id="cb800"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb802"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">g_base</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>axis.text <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="R_GIS_Book_files/figure-html/theme-remove-at-1.png" width="672"></div>
 <p>So, if <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_void()</a></code> is overdoing things, you can build your own theme specifically for maps. For example, this is the theme I used for maps in Chapter <a href="demo.html#demo">1</a>.</p>
-<div class="sourceCode" id="cb801"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb803"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">theme_for_map</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span></span>
 <span>    axis.ticks <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,</span>
@@ -1640,12 +1644,12 @@ First 10 features:
 <span>    plot.background <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_rect</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"transparent"</span>, color <span class="op">=</span> <span class="st">"transparent"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p>Applying the theme to the map:</p>
-<div class="sourceCode" id="cb802"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb804"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">g_base</span> <span class="op">+</span> <span class="va">theme_for_map</span></span></code></pre></div>
 <div class="inline-figure"><img src="R_GIS_Book_files/figure-html/apply-theme-1.png" width="672"></div>
 <p>This is very similar to <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_void()</a></code> except that <code>strip.background</code> is not lost.</p>
 <p>You can use <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_void()</a></code> as a starting point and override components of it like this.</p>
-<div class="sourceCode" id="cb803"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb805"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- bring back a color to strip.background  ---#</span></span>
 <span><span class="va">theme_for_map_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_void</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>strip.background <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_rect</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"gray"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
@@ -1654,14 +1658,14 @@ First 10 features:
 <div class="inline-figure"><img src="R_GIS_Book_files/figure-html/void-correct-theme-1.png" width="672"></div>
 <hr>
 <p><code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw()</a></code> is also a good theme for maps.</p>
-<div class="sourceCode" id="cb804"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb806"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">gw_by_county</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">af_used</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="va">year</span> <span class="op">~</span> <span class="va">.</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="R_GIS_Book_files/figure-html/theme-bw-1.png" width="672"></div>
 <p>If you do not like the gray grid lines, you can remove them like this.</p>
-<div class="sourceCode" id="cb805"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb807"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">gw_by_county</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">af_used</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="va">year</span> <span class="op">~</span> <span class="va">.</span><span class="op">)</span> <span class="op">+</span></span>
@@ -1672,7 +1676,7 @@ First 10 features:
 <div class="inline-figure"><img src="R_GIS_Book_files/figure-html/remove-grid-lines-1.png" width="672"></div>
 <hr>
 <p>Not all themes are suitable for maps. For example, <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic()</a></code> is not a very good option as you can see below:</p>
-<div class="sourceCode" id="cb806"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb808"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">g_base</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="R_GIS_Book_files/figure-html/theme-classic-1.png" width="672"></div>
 <p>If you are not satisfied with <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_void()</a></code> and not willing to make up your own theme, then you may want to take a look at other pre-made themes that are available from <code>ggplot2</code> (see <a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">here</a>) and <code>ggthemes</code> (see <a href="https://yutannihilation.github.io/allYourFigureAreBelongToUs/ggthemes/">here</a>). Note that some themes are more invasive than <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_void()</a></code>, altering the default color scale.</p>
@@ -1683,7 +1687,7 @@ First 10 features:
 </h3>
 <p>Legends can be modified using <code>legend.*()</code> options for <code><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme()</a></code> and <code>guide_*()</code>. It is impossible to discuss every single one of all the options for these functions. So, this section focuses on the most common and useful (that I consider) modifications you can make to legends.</p>
 <p>A legend consists of three elements: legend title, legend key (e.g., color bar), and legend label (or legend text). For example, in the figure below, <code>af_used</code> is the legend title, the color bar is the legend key, and the numbers below the color bar are legend labels. Knowing the name of these elements helps because the name of the options contains the name of the specific part of the legend.</p>
-<div class="sourceCode" id="cb807"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb809"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span></span>
 <span>  <span class="va">g_legend</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">gw_by_county</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">af_used</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -1692,30 +1696,30 @@ First 10 features:
 <span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="R_GIS_Book_files/figure-html/lg-start-1.png" width="672"></div>
 <p>Let’s first change the color scale to Viridis using <code><a href="https://ggplot2.tidyverse.org/reference/scale_viridis.html">scale_fill_viridis_c()</a></code> (see section <a href="create-maps.html#color-scale">8.3</a> for picking a color scale).</p>
-<div class="sourceCode" id="cb808"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb810"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">g_legend</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_viridis.html">scale_fill_viridis_c</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="R_GIS_Book_files/figure-html/lg-viridis-1.png" width="672"></div>
 <p>Right now, the legend title is <code>af_used</code>, which does not tell the readers what it means. In general, you can change the title of a legend by using the <code>name</code> option inside the <code>scale</code> function for the legend (here, <code><a href="https://ggplot2.tidyverse.org/reference/scale_viridis.html">scale_fill_viridis_c()</a></code>). So, this one works:</p>
-<div class="sourceCode" id="cb809"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb811"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">g_legend</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_viridis.html">scale_fill_viridis_c</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Groundwater pumping (acre-feet)"</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="R_GIS_Book_files/figure-html/lg-title-1.png" width="672"></div>
 <p>Alternatively, you can use <code><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs()</a></code> function.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;&lt;code&gt;labs()&lt;/code&gt; can also be used to specify the x- and y-axis titles.&lt;/p&gt;"><sup>93</sup></a>. Since the legend is for the <code>fill</code> aesthetic attribute, you should add <code>fill = "legend title"</code> as follows:</p>
-<div class="sourceCode" id="cb810"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb812"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">g_legend</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_viridis.html">scale_fill_viridis_c</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"Groundwater pumping (acre-feet)"</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="R_GIS_Book_files/figure-html/lg-fill-1.png" width="672"></div>
 <p>Since the legend title is long, the legend is taking up about the half of the space of the entire figure. So, let’s put the legend below the maps (bottom of the figure) by adding <code>theme(legend.position = "bottom")</code>.</p>
-<div class="sourceCode" id="cb811"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb813"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">g_legend</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_viridis.html">scale_fill_viridis_c</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"Groundwater pumping (acre-feet)"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="R_GIS_Book_files/figure-html/lg-bottom-1.png" width="672"></div>
 <p>It would be aesthetically better to have the legend title on top of the color bar. This can be done by using the <code><a href="https://ggplot2.tidyverse.org/reference/guides.html">guides()</a></code> function. Since we would like to alter the aesthetics of the legend for <code>fill</code> involving a color bar, we use <code>fill = guide_colorbar()</code>. To place the legend title on top, you add <code>title.position="top"</code> inside the <code><a href="https://ggplot2.tidyverse.org/reference/guide_colourbar.html">guide_colorbar()</a></code> function as follows:</p>
-<div class="sourceCode" id="cb812"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb814"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">g_legend</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_viridis.html">scale_fill_viridis_c</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"Groundwater pumping (acre-feet)"</span><span class="op">)</span> <span class="op">+</span></span>
@@ -1723,7 +1727,7 @@ First 10 features:
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guides.html">guides</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guide_colourbar.html">guide_colorbar</a></span><span class="op">(</span>title.position <span class="op">=</span> <span class="st">"top"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="R_GIS_Book_files/figure-html/lg-bar-top-1.png" width="672"></div>
 <p>This looks better. But, the legend labels are too close to each other so it is hard to read them because the color bar is too short. Let’s elongate the color bar so that we have enough space between legend labels using <code>legend.key.width =</code> option for <code><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme()</a></code>. Let’s also make the legend thinner using <code>legend.key.height =</code> option.</p>
-<div class="sourceCode" id="cb813"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb815"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">g_legend</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_viridis.html">scale_fill_viridis_c</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"Groundwater pumping (acre-feet)"</span><span class="op">)</span> <span class="op">+</span></span>
@@ -1736,7 +1740,7 @@ First 10 features:
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guides.html">guides</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guide_colourbar.html">guide_colorbar</a></span><span class="op">(</span>title.position <span class="op">=</span> <span class="st">"top"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="R_GIS_Book_files/figure-html/lg-key-1.png" width="672"></div>
 <p>If the journal you are submitting an article to is requesting a specific font family for the texts in the figure, you can use <code>legend.text = element_text()</code> and <code>legend.title = element_text()</code> inside <code><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme()</a></code> for the legend labels and legend title, respectively. The following code uses the font family of “Times” and font size of 12 for both the labels and the title.</p>
-<div class="sourceCode" id="cb814"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb816"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">g_legend</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_viridis.html">scale_fill_viridis_c</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"Groundwater pumping (acre-feet)"</span><span class="op">)</span> <span class="op">+</span></span>
@@ -1753,10 +1757,10 @@ First 10 features:
 <p>For the other options to control the legend with a color bar, see <a href="https://ggplot2.tidyverse.org/reference/guide_colorbar.html">here</a>.</p>
 <hr>
 <p>When the legend is made for discrete values, you can use <code><a href="https://ggplot2.tidyverse.org/reference/guide_legend.html">guide_legend()</a></code>. Let’s use the following map as a starting point.</p>
-<div class="sourceCode" id="cb815"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb817"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- convert af_used to a discrete variable ---#</span></span>
 <span><span class="va">gw_Stevens</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="va">gw_Stevens</span>, af_used_cat <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/cut_interval.html">cut_number</a></span><span class="op">(</span><span class="va">af_used</span>, n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb816"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb818"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span></span>
 <span>  <span class="va">g_legend_2</span> <span class="op">&lt;-</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">gw_Stevens</span><span class="op">)</span> <span class="op">+</span></span>
@@ -1768,14 +1772,14 @@ First 10 features:
 <span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="R_GIS_Book_files/figure-html/tmax-viridis-D-discrete-guide-1.png" width="672"></div>
 <p>The legend is too long, so first put the legend title on top of the legend labels using the code below:</p>
-<div class="sourceCode" id="cb817"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb819"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">g_legend_2</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guides.html">guides</a></span><span class="op">(</span></span>
 <span>    color <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guide_legend.html">guide_legend</a></span><span class="op">(</span>title.position <span class="op">=</span> <span class="st">"top"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="R_GIS_Book_files/figure-html/lg-title-top-again-1.png" width="672"></div>
 <p>Since the legend is for the <code>color</code> aesthetic attribute, <code>color = guide_legend()</code> was used. The legend labels are still a bit too long, so let’s arrange them in two rows using the <code>nrow =</code> option.</p>
-<div class="sourceCode" id="cb818"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb820"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">g_legend_2</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guides.html">guides</a></span><span class="op">(</span></span>
 <span>    color <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guide_legend.html">guide_legend</a></span><span class="op">(</span>title.position <span class="op">=</span> <span class="st">"top"</span>, nrow <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
@@ -1804,7 +1808,7 @@ First 10 features:
 <li><code>strip.switch.pad.grid</code></li>
 <li><code>strip.switch.pad.wrap</code></li>
 </ul>
-<div class="sourceCode" id="cb819"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb821"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="co">#--- KS county boundary ---#</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span>data <span class="op">=</span> <span class="fu">st_transform</span><span class="op">(</span><span class="va">KS_county</span>, <span class="fl">32614</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -1817,14 +1821,14 @@ First 10 features:
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="R_GIS_Book_files/figure-html/facet-wrap-1.png" width="672"></div>
 <p>To make texts in the strips more descriptive of what they actually mean you can make variable that have texts you want to show on the map as their values.</p>
-<div class="sourceCode" id="cb820"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb822"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gw_KS_sf</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">gw_KS_sf</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
 <span>    high_low <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">af_used</span> <span class="op">&gt;</span> <span class="fl">500</span>, <span class="st">"High water use"</span>, <span class="st">"Low water use"</span><span class="op">)</span>,</span>
 <span>    year_txt <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Year: "</span>, <span class="va">year</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb821"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb823"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span></span>
 <span>  <span class="va">g_facet</span> <span class="op">&lt;-</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -1840,7 +1844,7 @@ First 10 features:
 <span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="R_GIS_Book_files/figure-html/facet-text-change-show-1.png" width="672"></div>
 <p>You probably noticed that the high water use cases are now appear on top. This is because the panels of figures are arranged in a way that the strip texts are alphabetically ordered. <code>High water use</code> precedes <code>Low water use</code>. Sometimes, this is not desirable. To force a specific order, you can turn the faceting variable (here <code>high_low</code>) into a <code>factor</code> with the order of its values defined using <code>levels =</code>. The following code converts <code>high_low</code> into a factor where “Low water use” is the first level and “High water use” is the second level.</p>
-<div class="sourceCode" id="cb822"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb824"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gw_KS_sf</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
 <span>    <span class="va">gw_KS_sf</span>,</span>
@@ -1850,7 +1854,7 @@ First 10 features:
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p>Now, “Low water use” cases appear first (on top).</p>
-<div class="sourceCode" id="cb823"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb825"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">g_facet</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="co">#--- KS county boundary ---#</span></span>
@@ -1866,26 +1870,26 @@ First 10 features:
 <span><span class="va">g_facet</span></span></code></pre></div>
 <div class="inline-figure"><img src="R_GIS_Book_files/figure-html/show-order-change-1.png" width="672"></div>
 <p>You can control how strip texts and strip boxes appear using <code>strip.text</code> and <code>strip.background</code> options. Here is an example:</p>
-<div class="sourceCode" id="cb824"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb826"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">g_facet</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span></span>
 <span>  strip.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">12</span>, family <span class="op">=</span> <span class="st">"Times"</span>, color <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span>,</span>
 <span>  strip.background <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_rect</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"red"</span>, color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="R_GIS_Book_files/figure-html/facet-strip-background-1.png" width="672"></div>
 <p>Instead of having descriptions of cases on top of the figures, you could have one of the descriptions on the right side of the figures using <code><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html">facet_grid()</a></code>.</p>
-<div class="sourceCode" id="cb825"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb827"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">g_facet</span> <span class="op">+</span></span>
 <span>  <span class="co">#--- this overrides facet_wrap(high_low ~ year_txt) ---#</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="va">high_low</span> <span class="op">~</span> <span class="va">year_txt</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="R_GIS_Book_files/figure-html/facet-right-1.png" width="672"></div>
 <p>Now case descriptions for <code>high_low</code> are too long and it is squeezing the space for maps. Let’s flip <code>high_low</code> and <code>year</code>.</p>
-<div class="sourceCode" id="cb826"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb828"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">g_facet</span> <span class="op">+</span></span>
 <span>  <span class="co">#--- this overrides facet_grid(high_low ~ year_txt) ---#</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="va">year_txt</span> <span class="op">~</span> <span class="va">high_low</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="R_GIS_Book_files/figure-html/facet-right-left-1.png" width="672"></div>
 <p>This is slightly better than before, but not much. Let’s rotate strip texts for <code>year</code> using the <code>angle =</code> option.</p>
-<div class="sourceCode" id="cb827"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb829"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">g_facet</span> <span class="op">+</span></span>
 <span>  <span class="co">#--- this overrides facet_grid(high_low ~ year_txt) ---#</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="va">year_txt</span> <span class="op">~</span> <span class="va">high_low</span><span class="op">)</span> <span class="op">+</span></span>
@@ -1895,7 +1899,7 @@ First 10 features:
 <div class="inline-figure"><img src="R_GIS_Book_files/figure-html/angle-1.png" width="672"></div>
 <p>Since we only want to change the angle of strip texts for the second faceting variable, we need to work on <code>strip.text.y</code> (if you want to work on the first one, you use <code>strip.text.x</code>.).</p>
 <p>Let’s change the size of the strip texts to 12 and use <code>Times</code> font family.</p>
-<div class="sourceCode" id="cb828"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb830"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">g_facet</span> <span class="op">+</span></span>
 <span>  <span class="co">#--- this overrides facet_grid(high_low ~ year_txt) ---#</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="va">year_txt</span> <span class="op">~</span> <span class="va">high_low</span><span class="op">)</span> <span class="op">+</span></span>
@@ -1906,7 +1910,7 @@ First 10 features:
 <span>  <span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="R_GIS_Book_files/figure-html/font-times-1.png" width="672"></div>
 <p>The strip texts for <code>high_low</code> are too close to maps that letter “g” in “High” is truncated. Let’s move them up.</p>
-<div class="sourceCode" id="cb829"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb831"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">g_facet</span> <span class="op">+</span></span>
 <span>  <span class="co">#--- this overrides facet_grid(high_low ~ year_txt) ---#</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="va">year_txt</span> <span class="op">~</span> <span class="va">high_low</span><span class="op">)</span> <span class="op">+</span></span>
@@ -1917,7 +1921,7 @@ First 10 features:
 <span>  <span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="R_GIS_Book_files/figure-html/move-g-1.png" width="672"></div>
 <p>Now the upper part of the letters is truncated. We could just put more margin below the texts using the <code>margin = margin(top, right, bottom, left, unit in text)</code> option.</p>
-<div class="sourceCode" id="cb830"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb832"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">g_facet</span> <span class="op">+</span></span>
 <span>  <span class="co">#--- this overrides facet_grid(high_low ~ year_txt) ---#</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="va">year_txt</span> <span class="op">~</span> <span class="va">high_low</span><span class="op">)</span> <span class="op">+</span></span>
@@ -1927,7 +1931,7 @@ First 10 features:
 <span>  <span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="R_GIS_Book_files/figure-html/more-margin-1.png" width="672"></div>
 <p>For completeness, let’s make the legend look better as well (this is discussed in section <a href="create-maps.html#theme">8.5.1</a>).</p>
-<div class="sourceCode" id="cb831"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb833"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span></span>
 <span>  <span class="va">g_facet</span> <span class="op">&lt;-</span> <span class="va">g_facet</span> <span class="op">+</span></span>
 <span>    <span class="co">#--- this overrides facet_grid(high_low ~ year_txt) ---#</span></span>
@@ -1956,7 +1960,7 @@ First 10 features:
 <span class="header-section-number">8.5.4</span> North arrow and scale bar<a class="anchor" aria-label="anchor" href="#north-arrow-and-scale-bar"><i class="fas fa-link"></i></a>
 </h3>
 <p>The <code>ggspatial</code> package lets you put a north arrow and scale bar on a map using <code><a href="https://paleolimbot.github.io/ggspatial/reference/annotation_scale.html">annotation_scale()</a></code> and <code><a href="https://paleolimbot.github.io/ggspatial/reference/annotation_north_arrow.html">annotation_north_arrow()</a></code>.</p>
-<div class="sourceCode" id="cb832"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb834"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- get North Carolina county borders ---#</span></span>
 <span><span class="va">nc</span> <span class="op">&lt;-</span> <span class="fu">st_read</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"shape/nc.shp"</span>, package <span class="op">=</span> <span class="st">"sf"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>Reading layer `nc' from data source 
@@ -1967,7 +1971,7 @@ Geometry type: MULTIPOLYGON
 Dimension:     XY
 Bounding box:  xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965
 Geodetic CRS:  NAD27</code></pre>
-<div class="sourceCode" id="cb834"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb836"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span></span>
 <span>  <span class="co">#--- create a simple map ---#</span></span>
 <span>  <span class="va">g_nc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">nc</span><span class="op">)</span> <span class="op">+</span></span>
@@ -1976,7 +1980,7 @@ Geodetic CRS:  NAD27</code></pre>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="R_GIS_Book_files/figure-html/nc-read-map-1.png" width="672"></div>
 <p>Here is an example code that adds a scale bar:</p>
-<div class="sourceCode" id="cb835"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb837"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- load ggspatial ---#</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://paleolimbot.github.io/ggspatial/">ggspatial</a></span><span class="op">)</span></span>
 <span></span>
@@ -1988,7 +1992,7 @@ Geodetic CRS:  NAD27</code></pre>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p><code>location</code> determines where the scale bar is. The first letter is either <code>t</code> (top) or <code>b</code> (bottom), and the second letter is either <code>l (left)</code> or <code>r</code> (right). <code>width_hint</code> is the length of the scale bar relative to the plot. The distance number (200 km) was generated automatically according to the length of the bar.</p>
 <p>You can add pads from the plot border to fine tune the location of the scale bar:</p>
-<div class="sourceCode" id="cb836"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb838"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">g_nc</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://paleolimbot.github.io/ggspatial/reference/annotation_scale.html">annotation_scale</a></span><span class="op">(</span></span>
 <span>    location <span class="op">=</span> <span class="st">"bl"</span>,</span>
@@ -1999,7 +2003,7 @@ Geodetic CRS:  NAD27</code></pre>
 <div class="inline-figure"><img src="R_GIS_Book_files/figure-html/add-pads-1.png" width="672"></div>
 <p>A positive number means that the scale bar will be placed further away from closest border of the plot.</p>
 <p>You can add a north arrow using <code><a href="https://paleolimbot.github.io/ggspatial/reference/annotation_north_arrow.html">annotation_north_arrow()</a></code>. Accepted arguments are similar to those for <code><a href="https://paleolimbot.github.io/ggspatial/reference/annotation_scale.html">annotation_scale()</a></code>.</p>
-<div class="sourceCode" id="cb837"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb839"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">g_nc</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://paleolimbot.github.io/ggspatial/reference/annotation_scale.html">annotation_scale</a></span><span class="op">(</span></span>
 <span>    location <span class="op">=</span> <span class="st">"bl"</span>,</span>
@@ -2100,10 +2104,10 @@ g_facet +
 <span class="header-section-number">8.6</span> Saving a <code>ggplot</code> object as an image<a class="anchor" aria-label="anchor" href="#ggsave"><i class="fas fa-link"></i></a>
 </h2>
 <p>Maps created with <code>ggplot2</code> can be saved using <code><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave()</a></code> with the following syntax:</p>
-<div class="sourceCode" id="cb838"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb838-1"><a href="create-maps.html#cb838-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">filename =</span> file name, <span class="at">plot =</span> ggplot object)</span>
-<span id="cb838-2"><a href="create-maps.html#cb838-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb838-3"><a href="create-maps.html#cb838-3" aria-hidden="true" tabindex="-1"></a><span class="co">#--- or just this ---#</span></span>
-<span id="cb838-4"><a href="create-maps.html#cb838-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(file name, ggplot object)</span></code></pre></div>
+<div class="sourceCode" id="cb840"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb840-1"><a href="create-maps.html#cb840-1" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">filename =</span> file name, <span class="at">plot =</span> ggplot object)</span>
+<span id="cb840-2"><a href="create-maps.html#cb840-2" tabindex="-1"></a></span>
+<span id="cb840-3"><a href="create-maps.html#cb840-3" tabindex="-1"></a><span class="co">#--- or just this ---#</span></span>
+<span id="cb840-4"><a href="create-maps.html#cb840-4" tabindex="-1"></a><span class="fu">ggsave</span>(file name, ggplot object)</span></code></pre></div>
 <p>Many different file formats are supported including pdf, svg, eps, png, jpg, tif, etc. One thing you want to keep in mind is the type of graphics:</p>
 <ul>
 <li>vector graphics (pdf, svg, eps)</li>
@@ -2111,7 +2115,7 @@ g_facet +
 </ul>
 <p>While vector graphics are scalable, raster graphics are not. If you enlarge raster graphics, the cells making up the figure become visible, making the figure unappealing. So, unless it is required to save figures as raster graphics, it is encouraged to save figures as vector graphics.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;One potential advantage of the eps format is that you can adjust parts of the output figure or change the font of characters using a vector graphics editor application such as the Adobe Illustrator. I personally prefer to do everything in R, but you may find this feature appealing and often much quicker.&lt;/p&gt;"><sup>94</sup></a></p>
 <p>Let’s try to save the following <code>ggplot</code> object.</p>
-<div class="sourceCode" id="cb839"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb841"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- get North Carolina county borders ---#</span></span>
 <span><span class="va">nc</span> <span class="op">&lt;-</span> <span class="fu">st_read</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"shape/nc.shp"</span>, package <span class="op">=</span> <span class="st">"sf"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>Reading layer `nc' from data source 
@@ -2122,7 +2126,7 @@ Geometry type: MULTIPOLYGON
 Dimension:     XY
 Bounding box:  xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965
 Geodetic CRS:  NAD27</code></pre>
-<div class="sourceCode" id="cb841"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb843"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span></span>
 <span>  <span class="co">#--- create a map ---#</span></span>
 <span>  <span class="va">g_nc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">nc</span><span class="op">)</span> <span class="op">+</span></span>
@@ -2130,21 +2134,21 @@ Geodetic CRS:  NAD27</code></pre>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="R_GIS_Book_files/figure-html/make-g-nc-to-save-1.png" width="672"></div>
 <p><code><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave()</a></code> automatically detects the file format from the file name. For example, the following code saves <code>g_nc</code> as nc.pdf. <code><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave()</a></code> knows the <code>ggplot</code> object was intended to be saved as a pdf file from the extension of the specified file name.</p>
-<div class="sourceCode" id="cb842"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb844"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave</a></span><span class="op">(</span><span class="st">"nc.pdf"</span>, <span class="va">g_nc</span><span class="op">)</span></span></code></pre></div>
 <p>Similarly,</p>
-<div class="sourceCode" id="cb843"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb845"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- save as an eps file ---#</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave</a></span><span class="op">(</span><span class="st">"nc.eps"</span>, <span class="va">g_nc</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">#--- save as an eps file ---#</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave</a></span><span class="op">(</span><span class="st">"nc.svg"</span>, <span class="va">g_nc</span><span class="op">)</span></span></code></pre></div>
 <p>You can change the output size with <code>height</code> and <code>width</code> options. For example, the following code creates a pdf file of <code>height = 5</code> inches and <code>width = 7</code> inches.</p>
-<div class="sourceCode" id="cb844"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb846"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave</a></span><span class="op">(</span><span class="st">"nc.pdf"</span>, <span class="va">g_nc</span>, height <span class="op">=</span> <span class="fl">5</span>, width <span class="op">=</span> <span class="fl">7</span><span class="op">)</span></span></code></pre></div>
 <p>You change the unit with the <code>units</code> option. By default, <code>in</code> (inches) is used.</p>
 <p>You can control the resolution of the output image by specifying DPI (dots per inch) using the <code>dpi</code> option. The default DPI value is 300, but you can specify any value suitable for the output image, including “retina” (320) or “screen” (72). 600 or higher is recommended when a high resolution output is required.</p>
-<div class="sourceCode" id="cb845"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb847"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- dpi = 320 ---#</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave</a></span><span class="op">(</span><span class="st">"nc_dpi_320.png"</span>, <span class="va">g_nc</span>, height <span class="op">=</span> <span class="fl">5</span>, width <span class="op">=</span> <span class="fl">7</span>, dpi <span class="op">=</span> <span class="fl">320</span><span class="op">)</span></span>
 <span></span>
@@ -2221,7 +2225,7 @@ Geodetic CRS:  NAD27</code></pre>
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>R as GIS for Economists</strong>" was written by Taro Mieno. It was last built on 2023-03-20.</p>
+    <p>"<strong>R as GIS for Economists</strong>" was written by Taro Mieno. It was last built on 2023-09-19.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

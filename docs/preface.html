@@ -164,7 +164,7 @@
 <div id="how-is-this-book-different-from-other-online-books-and-resources" class="section level2 unnumbered">
 <h2>How is this book different from other online books and resources?<a class="anchor" aria-label="anchor" href="#how-is-this-book-different-from-other-online-books-and-resources"><i class="fas fa-link"></i></a>
 </h2>
-<p>We are seeing an explosion of online (and free) resources that teach how to use R for spatial data processing.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;This phenomenon is largely thanks to packages like &lt;code&gt;bookdown&lt;/code&gt; &lt;span class="citation"&gt;(&lt;a href="references.html#ref-Rbookdown" role="doc-biblioref"&gt;Xie 2016&lt;/a&gt;)&lt;/span&gt;, &lt;code&gt;blogdown&lt;/code&gt; &lt;span class="citation"&gt;(&lt;a href="references.html#ref-Rblogdown" role="doc-biblioref"&gt;Xie, Hill, and Thomas 2017&lt;/a&gt;)&lt;/span&gt;, and &lt;code&gt;pkgdown&lt;/code&gt; &lt;span class="citation"&gt;(&lt;a href="references.html#ref-Rpkgdown" role="doc-biblioref"&gt;Wickham and Hesselberth 2020&lt;/a&gt;)&lt;/span&gt; that has significantly lowered the cost of professional contents creation than before. Indeed, this book was built taking advantage of the &lt;code&gt;bookdown&lt;/code&gt; package.&lt;/p&gt;'><sup>6</sup></a> Here is an incomplete list of such resources:</p>
+<p>We are seeing an explosion of online (and free) resources that teach how to use R for spatial data processing.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;This phenomenon is largely thanks to packages like &lt;code&gt;bookdown&lt;/code&gt; &lt;span class="citation"&gt;(&lt;a href="references.html#ref-Rbookdown"&gt;Xie 2016&lt;/a&gt;)&lt;/span&gt;, &lt;code&gt;blogdown&lt;/code&gt; &lt;span class="citation"&gt;(&lt;a href="references.html#ref-Rblogdown"&gt;Xie, Hill, and Thomas 2017&lt;/a&gt;)&lt;/span&gt;, and &lt;code&gt;pkgdown&lt;/code&gt; &lt;span class="citation"&gt;(&lt;a href="references.html#ref-Rpkgdown"&gt;Wickham and Hesselberth 2020&lt;/a&gt;)&lt;/span&gt; that has significantly lowered the cost of professional contents creation than before. Indeed, this book was built taking advantage of the &lt;code&gt;bookdown&lt;/code&gt; package.&lt;/p&gt;'><sup>6</sup></a> Here is an incomplete list of such resources:</p>
 <ul>
 <li><a href="https://geocompr.robinlovelace.net/">Geocomputation with R</a></li>
 <li><a href="https://keen-swartz-3146c4.netlify.app/">Spatial Data Science</a></li>
@@ -293,7 +293,7 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span></span></code></pre></div>
 <p>Outcomes:</p>
-<pre><code>## [1] 0.7939936 0.4763914 0.9946839 0.1859097 0.9007595</code></pre>
+<pre><code>## [1] 0.7999254 0.5457961 0.1648999 0.8990746 0.2197834</code></pre>
 </div>
 <div id="parentheses-around-codes" class="section level3 unnumbered">
 <h3>Parentheses around codes<a class="anchor" aria-label="anchor" href="#parentheses-around-codes"><i class="fas fa-link"></i></a>
@@ -303,7 +303,7 @@
 <code class="sourceCode R"><span><span class="op">(</span></span>
 <span>  <span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<pre><code>## [1] 0.53325362 0.04587207 0.25661195 0.52290856 0.11274900</code></pre>
+<pre><code>## [1] 0.83101244 0.44637269 0.34451835 0.06503508 0.31936829</code></pre>
 <p>The parentheses prints what’s inside of a newly created object (here <code>a</code>) without explicitly evaluating the object. So, basically I am signaling that we will be looking inside of the object that was just created.</p>
 <p>This one prints nothing.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
@@ -336,14 +336,14 @@
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] rstudioapi_0.13 magrittr_2.0.3  knitr_1.39      xml2_1.3.3     
-##  [5] downlit_0.4.2   R6_2.5.1        rlang_1.0.6     fastmap_1.1.0  
-##  [9] stringr_1.5.0   tools_4.2.1     xfun_0.31       cli_3.6.0      
-## [13] jquerylib_0.1.4 withr_2.5.0     htmltools_0.5.2 yaml_2.3.5     
-## [17] digest_0.6.29   lifecycle_1.0.3 bookdown_0.27   vctrs_0.5.2    
-## [21] sass_0.4.1      fs_1.5.2        memoise_2.0.1   glue_1.6.2     
-## [25] cachem_1.0.6    evaluate_0.15   rmarkdown_2.16  stringi_1.7.12 
-## [29] compiler_4.2.1  bslib_0.3.1     jsonlite_1.8.0</code></pre>
+##  [1] rstudioapi_0.15.0 magrittr_2.0.3    knitr_1.39        xml2_1.3.3       
+##  [5] downlit_0.4.2     R6_2.5.1          rlang_1.1.1       fastmap_1.1.0    
+##  [9] stringr_1.5.0     tools_4.2.1       xfun_0.31         cli_3.6.0        
+## [13] jquerylib_0.1.4   withr_2.5.0       htmltools_0.5.5   yaml_2.3.5       
+## [17] digest_0.6.29     lifecycle_1.0.3   bookdown_0.27     vctrs_0.5.2      
+## [21] sass_0.4.1        fs_1.5.2          memoise_2.0.1     glue_1.6.2       
+## [25] cachem_1.0.6      evaluate_0.15     rmarkdown_2.16    stringi_1.7.12   
+## [29] compiler_4.2.1    bslib_0.3.1       jsonlite_1.8.7</code></pre>
 
 </div>
 </div>
@@ -392,7 +392,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>R as GIS for Economists</strong>" was written by Taro Mieno. It was last built on 2023-03-20.</p>
+    <p>"<strong>R as GIS for Economists</strong>" was written by Taro Mieno. It was last built on 2023-09-19.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

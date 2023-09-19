@@ -431,38 +431,38 @@ Bounding box:  xmin: -102.0517 ymin: 36.99302 xmax: -94.58841 ymax: 40.00316
 Geodetic CRS:  NAD83
 First 10 features:
    STATEFP COUNTYFP COUNTYNS       AFFGEOID GEOID         NAME
-1       20      075 00485327 0500000US20075 20075     Hamilton
+1       20      123 00485026 0500000US20123 20123     Mitchell
 2       20      149 00485038 0500000US20149 20149 Pottawatomie
-3       20      003 00484971 0500000US20003 20003     Anderson
-4       20      033 00484986 0500000US20033 20033     Comanche
-5       20      189 00485056 0500000US20189 20189      Stevens
-6       20      161 00485044 0500000US20161 20161        Riley
-7       20      025 00484982 0500000US20025 20025        Clark
-8       20      163 00485045 0500000US20163 20163        Rooks
-9       20      091 00485010 0500000US20091 20091      Johnson
-10      20      187 00485055 0500000US20187 20187      Stanton
+3       20      203 00485062 0500000US20203 20203      Wichita
+4       20      151 00485039 0500000US20151 20151        Pratt
+5       20      043 00484991 0500000US20043 20043     Doniphan
+6       20      145 00485036 0500000US20145 20145       Pawnee
+7       20      119 00485024 0500000US20119 20119        Meade
+8       20      071 00485002 0500000US20071 20071      Greeley
+9       20      001 00484970 0500000US20001 20001        Allen
+10      20      169 00485047 0500000US20169 20169       Saline
               NAMELSAD STUSPS STATE_NAME LSAD      ALAND   AWATER ID     tmax
-1      Hamilton County     KS     Kansas   06 2580958328  2893322  1 34.21421
+1      Mitchell County     KS     Kansas   06 1817632931 44979980  1 34.21421
 2  Pottawatomie County     KS     Kansas   06 2177507162 54149295  2 32.58354
-3      Anderson County     KS     Kansas   06 1501263686 10599981  3 34.63195
-4      Comanche County     KS     Kansas   06 2041681089  3604155  4 33.40829
-5       Stevens County     KS     Kansas   06 1883593926   464936  5 34.01768
-6         Riley County     KS     Kansas   06 1579116499 32002514  6 35.54426
-7         Clark County     KS     Kansas   06 2524300310  6603384  7 34.47948
-8         Rooks County     KS     Kansas   06 2306454194 11962259  8 33.55797
-9       Johnson County     KS     Kansas   06 1226694710 16303985  9 34.77049
-10      Stanton County     KS     Kansas   06 1762103387   178555 10 33.56413
+3       Wichita County     KS     Kansas   06 1861078197    61987  3 34.63195
+4         Pratt County     KS     Kansas   06 1903740950  1771939  4 33.40829
+5      Doniphan County     KS     Kansas   06 1019105691 12424174  5 34.01768
+6        Pawnee County     KS     Kansas   06 1953531647   992041  6 35.54426
+7         Meade County     KS     Kansas   06 2533222397  3258258  7 34.47948
+8       Greeley County     KS     Kansas   06 2016057907        0  8 33.55797
+9         Allen County     KS     Kansas   06 1295764235 13021929  9 34.77049
+10       Saline County     KS     Kansas   06 1865429339  2760902 10 33.56413
                          geometry
-1  POLYGON ((-102.0446 38.0480...
+1  POLYGON ((-98.49007 39.2416...
 2  POLYGON ((-96.72833 39.4271...
-3  POLYGON ((-95.51879 38.0671...
-4  POLYGON ((-99.54467 37.3047...
-5  POLYGON ((-101.5566 37.3884...
-6  POLYGON ((-96.96095 39.2867...
-7  POLYGON ((-100.1072 37.4748...
-8  POLYGON ((-99.60527 39.2638...
-9  POLYGON ((-95.05647 38.9660...
-10 POLYGON ((-102.0419 37.5411...</code></pre>
+3  POLYGON ((-101.5673 38.4666...
+4  POLYGON ((-99.01535 37.6438...
+5  POLYGON ((-95.3399 40, -95....
+6  POLYGON ((-99.58479 38.3493...
+7  POLYGON ((-100.6526 37.4022...
+8  POLYGON ((-102.0453 38.5054...
+9  POLYGON ((-95.52522 37.7473...
+10 POLYGON ((-97.92865 38.8835...</code></pre>
 <p>Instead of finding the mean after applying <code><a href="https://rdrr.io/pkg/terra/man/extract.html">terra::extract()</a></code> as done above, you can do that within <code><a href="https://rdrr.io/pkg/terra/man/extract.html">terra::extract()</a></code> using the <code>fun</code> option.</p>
 <div class="sourceCode" id="cb480"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- extract values from the raster for each county ---#</span></span>
@@ -496,12 +496,12 @@ First 10 features:
 <span><span class="co">#--- take a look ---#</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">tmax_by_county_from_stack</span><span class="op">)</span></span></code></pre></div>
 <pre><code>  ID PRISM_tmax_stable_4kmD2_20180701_bil PRISM_tmax_stable_4kmD2_20180702_bil
-1  1                               31.457                               29.864
-2  1                               31.503                               29.927
-3  1                               31.604                               29.966
-4  1                               31.718                               30.009
-5  1                               31.741                               30.079
-6  1                               31.881                               30.128</code></pre>
+1  1                               33.290                               29.831
+2  1                               33.305                               29.730
+3  1                               33.299                               29.811
+4  1                               33.257                               29.819
+5  1                               33.181                               29.750
+6  1                               33.235                               29.757</code></pre>
 <p>Similar to the single-layer case, the resulting object is a <code>data.frame</code> and you have two columns corresponding to each of the layers in the two-layer raster object.</p>
 <hr>
 <p>Sometimes, you would like to have how much of the raster cells are intersecting with the intersecting polygon to find area-weighted summary later. In that case, you can add <code>exact = TRUE</code> option to <code><a href="https://rdrr.io/pkg/terra/man/extract.html">terra::extract()</a></code>.</p>
@@ -517,19 +517,19 @@ First 10 features:
 <span><span class="co">#--- take a look ---#</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">tmax_by_county_from_stack</span><span class="op">)</span></span></code></pre></div>
 <pre><code>  ID PRISM_tmax_stable_4kmD2_20180701_bil PRISM_tmax_stable_4kmD2_20180702_bil
-1  1                               31.457                               29.864
-2  1                               31.503                               29.927
-3  1                               31.604                               29.966
-4  1                               31.718                               30.009
-5  1                               31.741                               30.079
-6  1                               31.881                               30.128
-   fraction
-1 0.4514711
-2 0.7977501
-3 0.7975878
-4 0.7974255
-5 0.7972632
-6 0.7971788</code></pre>
+1  1                               33.348                               29.844
+2  1                               33.259                               29.709
+3  1                               33.248                               29.590
+4  1                               33.222                               29.560
+5  1                               33.215                               29.670
+6  1                               33.147                               29.599
+    fraction
+1 0.02375324
+2 0.11818764
+3 0.11906455
+4 0.11701276
+5 0.11494852
+6 0.11659929</code></pre>
 <p>As you can see, now you have <code>fraction</code> column to the resulting <code>data.frame</code> and you can find area-weighted summary of the extracted values like this:</p>
 <div class="sourceCode" id="cb487"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tmax_by_county_from_stack</span> <span class="op">%&gt;%</span></span>
@@ -541,17 +541,17 @@ First 10 features:
 <pre><code># A tibble: 105 × 3
       ID tmax_0701 tmax_0702
    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
- 1     1      32.3      30.1
+ 1     1      33.5      30.1
  2     2      35.7      28.8
- 3     3      34.9      29.4
- 4     4      33.8      29.9
- 5     5      34.1      30.5
- 6     6      35.6      29.8
- 7     7      34.1      31.0
- 8     8      33.0      28.9
- 9     9      35.1      29.7
-10    10      33.3      30.2
-# … with 95 more rows</code></pre>
+ 3     3      32.6      30.6
+ 4     4      32.9      29.0
+ 5     5      34.8      28.3
+ 6     6      33.0      30.0
+ 7     7      34.2      30.9
+ 8     8      31.7      30.1
+ 9     9      34.3      29.4
+10    10      34.4      30.5
+# ℹ 95 more rows</code></pre>
 </div>
 <div id="extracting-to-polygons-exactextractr-way" class="section level3" number="5.2.4">
 <h3>
@@ -580,12 +580,12 @@ First 10 features:
 <span><span class="va">tmax_by_county</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>[[1]]
    value coverage_fraction
-1 31.457         0.4514454
-2 31.503         0.7977046
-3 31.604         0.7975423
-4 31.718         0.7973800
-5 31.741         0.7972176
-6 31.881         0.7971521
+1 33.348        0.02374719
+2 33.259        0.11816581
+3 33.248        0.11903353
+4 33.222        0.11700913
+5 33.215        0.11494034
+6 33.147        0.11656883
 
 [[2]]
    value coverage_fraction
@@ -606,32 +606,32 @@ First 10 features:
 <pre><code># A tibble: 15,149 × 3
    id    value coverage_fraction
    &lt;chr&gt; &lt;dbl&gt;             &lt;dbl&gt;
- 1 1      31.5             0.451
- 2 1      31.5             0.798
- 3 1      31.6             0.798
- 4 1      31.7             0.797
- 5 1      31.7             0.797
- 6 1      31.9             0.797
- 7 1      31.9             0.799
- 8 1      32.0             0.801
- 9 1      32.0             0.804
-10 1      32.0             0.807
-# … with 15,139 more rows</code></pre>
+ 1 1      33.3            0.0237
+ 2 1      33.3            0.118 
+ 3 1      33.2            0.119 
+ 4 1      33.2            0.117 
+ 5 1      33.2            0.115 
+ 6 1      33.1            0.117 
+ 7 1      33.2            0.117 
+ 8 1      33.2            0.116 
+ 9 1      33.1            0.112 
+10 1      33.1            0.110 
+# ℹ 15,139 more rows</code></pre>
 <p><code>data.table</code> users can use <code>rbindlist()</code> with the <code>idcol</code> option like below:</p>
 <div class="sourceCode" id="cb495"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">rbindlist</span><span class="op">(</span><span class="va">tmax_by_county</span>, idcol <span class="op">=</span> <span class="st">"id"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>        id  value coverage_fraction
-    1:   1 31.457         0.4514454
-    2:   1 31.503         0.7977046
-    3:   1 31.604         0.7975423
-    4:   1 31.718         0.7973800
-    5:   1 31.741         0.7972176
+    1:   1 33.348        0.02374719
+    2:   1 33.259        0.11816581
+    3:   1 33.248        0.11903353
+    4:   1 33.222        0.11700913
+    5:   1 33.215        0.11494034
    ---                             
-15145: 105 33.653         0.2876675
-15146: 105 33.670         0.2943960
-15147: 105 33.737         0.3016187
-15148: 105 33.789         0.3093757
-15149: 105 33.817         0.1121131</code></pre>
+15145: 105 35.028        0.83252323
+15146: 105 35.059        0.83167112
+15147: 105 35.111        0.83026636
+15148: 105 35.093        0.82874411
+15149: 105 35.053        0.28677887</code></pre>
 <p>Note that <code>id</code> value of <strong>i</strong> represents <strong>i</strong>th element of the list, which in turn corresponds to <strong>i</strong>th polygon in the polygons sf data. Let’s summarize the data by <code>id</code> and then merge it back to the polygons <code>sf</code> data. Here, we calculate coverage-weighted mean of tmax.</p>
 <div class="sourceCode" id="cb497"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- weighted mean ---#</span></span>
@@ -646,17 +646,17 @@ First 10 features:
 <pre><code># A tibble: 105 × 2
       id tmax_aw
    &lt;dbl&gt;   &lt;dbl&gt;
- 1     1    32.3
+ 1     1    33.5
  2     2    35.7
- 3     3    34.9
- 4     4    33.8
- 5     5    34.1
- 6     6    35.6
- 7     7    34.1
- 8     8    33.0
- 9     9    35.1
-10    10    33.3
-# … with 95 more rows</code></pre>
+ 3     3    32.6
+ 4     4    32.9
+ 5     5    34.8
+ 6     6    33.0
+ 7     7    34.2
+ 8     8    31.7
+ 9     9    34.3
+10    10    34.4
+# ℹ 95 more rows</code></pre>
 <div class="sourceCode" id="cb499"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- merge ---#</span></span>
 <span><span class="va">KS_county_sf</span> <span class="op">%&gt;%</span></span>
@@ -670,16 +670,16 @@ Bounding box:  xmin: -102.0517 ymin: 36.99302 xmax: -94.58841 ymax: 40.00316
 Geodetic CRS:  NAD83
 First 10 features:
    id  tmax_aw                       geometry
-1   1 32.31343 POLYGON ((-102.0446 38.0480...
+1   1 33.53676 POLYGON ((-98.49007 39.2416...
 2   2 35.67419 POLYGON ((-96.72833 39.4271...
-3   3 34.89472 POLYGON ((-95.51879 38.0671...
-4   4 33.81025 POLYGON ((-99.54467 37.3047...
-5   5 34.08601 POLYGON ((-101.5566 37.3884...
-6   6 35.57546 POLYGON ((-96.96095 39.2867...
-7   7 34.05798 POLYGON ((-100.1072 37.4748...
-8   8 33.02438 POLYGON ((-99.60527 39.2638...
-9   9 35.11876 POLYGON ((-95.05647 38.9660...
-10 10 33.32522 POLYGON ((-102.0419 37.5411...</code></pre>
+3   3 32.59908 POLYGON ((-101.5673 38.4666...
+4   4 32.92020 POLYGON ((-99.01535 37.6438...
+5   5 34.80511 POLYGON ((-95.3399 40, -95....
+6   6 32.98675 POLYGON ((-99.58479 38.3493...
+7   7 34.16909 POLYGON ((-100.6526 37.4022...
+8   8 31.68179 POLYGON ((-102.0453 38.5054...
+9   9 34.32246 POLYGON ((-95.52522 37.7473...
+10 10 34.37591 POLYGON ((-97.92865 38.8835...</code></pre>
 <hr>
 <p>Extracting values from <code>RasterStack</code> works in exactly the same manner as <code>RasterLayer</code>.</p>
 <div class="sourceCode" id="cb501"><pre class="downlit sourceCode r">
@@ -751,7 +751,7 @@ First 10 features:
  8 1              0.716    PRISM_tmax_stable_4kmD2_20180702_bil  29.7
  9 1              0.717    PRISM_tmax_stable_4kmD2_20180701_bil  34.3
 10 1              0.717    PRISM_tmax_stable_4kmD2_20180702_bil  29.7
-# … with 30,288 more rows</code></pre>
+# ℹ 30,288 more rows</code></pre>
 <p>And then find coverage-weighted tmax by date:</p>
 <div class="sourceCode" id="cb507"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span></span>
@@ -773,7 +773,7 @@ First 10 features:
  8 101   PRISM_tmax_stable_4kmD2_20180702_bil  30.0
  9 102   PRISM_tmax_stable_4kmD2_20180701_bil  33.3
 10 102   PRISM_tmax_stable_4kmD2_20180702_bil  30.2
-# … with 200 more rows</code></pre>
+# ℹ 200 more rows</code></pre>
 <p>For <code>data.table</code> users, this does the same:</p>
 <div class="sourceCode" id="cb509"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span></span>
@@ -812,14 +812,14 @@ First 10 features:
 <span><span class="fu">tic</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">temp</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/extract.html">extract</a></span><span class="op">(</span><span class="va">prism_tmax_0701_KS_sr</span>, <span class="va">KS_wells_sv</span><span class="op">)</span></span>
 <span><span class="fu">toc</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code>0.031 sec elapsed</code></pre>
+<pre><code>0.028 sec elapsed</code></pre>
 <div class="sourceCode" id="cb513"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- raster ---#</span></span>
 <span><span class="va">prism_tmax_0701_KS_lr</span> <span class="op">&lt;-</span> <span class="fu">as</span><span class="op">(</span><span class="va">prism_tmax_0701_KS_sr</span>, <span class="st">"Raster"</span><span class="op">)</span></span>
 <span><span class="fu">tic</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">temp</span> <span class="op">&lt;-</span> <span class="fu">raster</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/extract.html">extract</a></span><span class="op">(</span><span class="va">prism_tmax_0701_KS_lr</span>, <span class="va">KS_wells</span><span class="op">)</span></span>
 <span><span class="fu">toc</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code>0.113 sec elapsed</code></pre>
+<pre><code>0.11 sec elapsed</code></pre>
 <p>As you can see, <code><a href="https://rdrr.io/pkg/terra/man/extract.html">terra::extract()</a></code> is much faster. The time differential between the two packages can be substantial as the raster data becomes larger. Until recently, <code><a href="https://rdrr.io/pkg/terra/man/extract.html">raster::extract()</a></code> was much much slower. However, recent updates to the package made significant improvement in extraction speed.</p>
 </div>
 <div id="polygons-exact_extract-terraextract-and-rasterextract" class="section level3" number="5.3.2">
@@ -836,7 +836,7 @@ First 10 features:
 <span>    <span class="va">KS_county_sv</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="fu">toc</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code>0.036 sec elapsed</code></pre>
+<pre><code>0.03 sec elapsed</code></pre>
 <div class="sourceCode" id="cb517"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- exact_extract ---#</span></span>
 <span><span class="fu">tic</span><span class="op">(</span><span class="op">)</span></span>
@@ -847,7 +847,7 @@ First 10 features:
 <span>    progress <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="fu">toc</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code>0.077 sec elapsed</code></pre>
+<pre><code>0.083 sec elapsed</code></pre>
 <div class="sourceCode" id="cb519"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- raster::extract ---#</span></span>
 <span><span class="fu">tic</span><span class="op">(</span><span class="op">)</span></span>
@@ -857,7 +857,7 @@ First 10 features:
 <span>    <span class="va">KS_county_sf</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="fu">toc</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code>1.101 sec elapsed</code></pre>
+<pre><code>1.032 sec elapsed</code></pre>
 <p>As you can see, <code><a href="https://rdrr.io/pkg/terra/man/extract.html">raster::extract()</a></code> is the slowest. <code><a href="https://rdrr.io/pkg/terra/man/extract.html">terra::extract()</a></code> is faster than <code><a href="https://isciences.gitlab.io/exactextractr/reference/exact_extract.html">exact_extract()</a></code>. However, once the raster data becomes larger (or spatially finer), then <code>exact_extact()</code> starts to shine.</p>
 <hr>
 <p>Let’s disaggregate the prism data by a factor of 10 to create a much larger raster data.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;We did not introduce this function as it is very rare that you need this function in research projects.&lt;/p&gt;"><sup>80</sup></a></p>
@@ -895,7 +895,7 @@ max value   :                               37.656 </code></pre>
 <span>    <span class="va">KS_county_sv</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="fu">toc</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code>2.321 sec elapsed</code></pre>
+<pre><code>2.064 sec elapsed</code></pre>
 <div class="sourceCode" id="cb529"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- exact extract ---#</span></span>
 <span><span class="fu">tic</span><span class="op">(</span><span class="op">)</span></span>
@@ -906,7 +906,7 @@ max value   :                               37.656 </code></pre>
 <span>    progress <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="fu">toc</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code>0.159 sec elapsed</code></pre>
+<pre><code>0.164 sec elapsed</code></pre>
 <p>As you can see, <code><a href="https://isciences.gitlab.io/exactextractr/reference/exact_extract.html">exact_extract()</a></code> is considerably faster. The difference in time becomes even more pronounced as the size of the raster data becomes larger and the number of polygons are greater. The time difference of several seconds seem nothing, but imagine processing PRISM files for the entire US over 20 years, then you would appreciate the speed of <code><a href="https://isciences.gitlab.io/exactextractr/reference/exact_extract.html">exact_extract()</a></code>.</p>
 </div>
 <div id="single-layer-vs-multi-layer" class="section level3" number="5.3.3">
@@ -925,7 +925,7 @@ max value   :                               37.656 </code></pre>
 <span><span class="va">temp</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/extract.html">extract</a></span><span class="op">(</span><span class="va">prism_tmax_0701_KS_sr_10</span>, <span class="va">KS_county_sv</span><span class="op">)</span></span>
 <span><span class="va">temp</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/extract.html">extract</a></span><span class="op">(</span><span class="va">prism_tmax_0701_KS_sr_10</span>, <span class="va">KS_county_sv</span><span class="op">)</span></span>
 <span><span class="fu">toc</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code>12.565 sec elapsed</code></pre>
+<pre><code>11.424 sec elapsed</code></pre>
 <div class="sourceCode" id="cb533"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- extract from a 5-layer SpatRaster ---#</span></span>
 <span><span class="fu">tic</span><span class="op">(</span><span class="op">)</span></span>
@@ -939,7 +939,7 @@ max value   :                               37.656 </code></pre>
 <span>  <span class="op">)</span></span>
 <span><span class="va">temp</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/extract.html">extract</a></span><span class="op">(</span><span class="va">prism_tmax_ml_5</span>, <span class="va">KS_county_sv</span><span class="op">)</span></span>
 <span><span class="fu">toc</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code>3.355 sec elapsed</code></pre>
+<pre><code>3.082 sec elapsed</code></pre>
 <hr>
 <p><strong><code><a href="https://isciences.gitlab.io/exactextractr/reference/exact_extract.html">exact_extract()</a></code></strong></p>
 <div class="sourceCode" id="cb535"><pre class="downlit sourceCode r">
@@ -951,7 +951,7 @@ max value   :                               37.656 </code></pre>
 <span><span class="va">temp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://isciences.gitlab.io/exactextractr/reference/exact_extract.html">exact_extract</a></span><span class="op">(</span><span class="va">prism_tmax_0701_KS_sr_10</span>, <span class="va">KS_county_sf</span>, progress <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="va">temp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://isciences.gitlab.io/exactextractr/reference/exact_extract.html">exact_extract</a></span><span class="op">(</span><span class="va">prism_tmax_0701_KS_sr_10</span>, <span class="va">KS_county_sf</span>, progress <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="fu">toc</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code>0.923 sec elapsed</code></pre>
+<pre><code>0.88 sec elapsed</code></pre>
 <div class="sourceCode" id="cb537"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- extract from from a 5-layer SpatRaster ---#</span></span>
 <span><span class="fu">tic</span><span class="op">(</span><span class="op">)</span></span>
@@ -970,7 +970,7 @@ max value   :                               37.656 </code></pre>
 <span>    progress <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="fu">toc</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code>0.767 sec elapsed</code></pre>
+<pre><code>0.269 sec elapsed</code></pre>
 <p>The reduction in computation time for both methods makes sense. Since both layers have exactly the same geographic extent and resolution, finding the polygons-cells correspondence is done once and then it can be used repeatedly across the layers for the multi-layer <code>SparRaster</code> and <code>RasterStack</code>. This clearly suggests that when you are processing many layers of the same spatial resolution and extent, you should first stack them and then extract values at the same time instead of processing them one by one as long as your memory allows you to do so.</p>
 <!-- There is much more to discuss about the computation speed of raster data extraction for polygons. For those who are interested in this topic, go to Chapter \@ref(EE). -->
 
@@ -1023,7 +1023,7 @@ max value   :                               37.656 </code></pre>
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>R as GIS for Economists</strong>" was written by Taro Mieno. It was last built on 2023-03-20.</p>
+    <p>"<strong>R as GIS for Economists</strong>" was written by Taro Mieno. It was last built on 2023-09-19.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

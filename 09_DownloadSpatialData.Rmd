@@ -769,7 +769,7 @@ We now read them as a `stars` object, set the third dimension as date using `Dat
   temp_stars <-
     read_stars(file_path, along = 3) %>%
     #--- set the third dimension as data ---#
-    st_set_dimensions("band", values = dates_ls, name = "date")
+    st_set_dimensions("new_dim", values = dates_ls, name = "date")
 )
 
 #--- save the stars as an rds file ---#
@@ -816,6 +816,16 @@ The following function goes through all the steps we saw above for a single year
 ```{r def-function}
 #--- define a function to download and save PRISM data stacked by month ---#
 get_save_prism <- function(i, var_type) {
+  
+  #++++++++++++++++++++++++++++++++++++
+  #+ Debug
+  #++++++++++++++++++++++++++++++++++++
+  # i <- 1
+  # var_type <- "ppt"
+
+  #++++++++++++++++++++++++++++++++++++
+  #+ Main
+  #++++++++++++++++++++++++++++++++++++
   print(paste0("working on ", i))
 
   temp_month <- month_year_data[i, month] # working month
@@ -849,7 +859,8 @@ get_save_prism <- function(i, var_type) {
   file_path <- paste0("Data/PRISM/", folder_name, "/", file_name)
 
   #--- combine all the PRISM files as a RasterStack ---#
-  temp_stars <- stack(file_path) %>%
+  temp_stars <-
+    stack(file_path) %>%
     #--- convert to stars ---#
     st_as_stars() %>%
     #--- set the third dimension as data ---#
@@ -864,6 +875,8 @@ get_save_prism <- function(i, var_type) {
   #--- delete all the downloaded files ---#
   unlink(paste0("Data/PRISM/", folder_name), recursive = TRUE)
 }
+
+
 ```
 
 We then create a `data.frame` of all the year-month combinations: 
@@ -871,8 +884,7 @@ We then create a `data.frame` of all the year-month combinations:
 ```{r data_prep_par_ml}
 (
   #--- create a set of year-month combinations to loop over ---#
-  month_year_data <- expand.grid(month = 1:12, year = 1990:2018) %>%
-    data.table()
+  month_year_data <- data.table::CJ(month = 1:12, year = 1990:2018)
 )
 ```
 

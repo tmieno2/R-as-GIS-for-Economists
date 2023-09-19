@@ -381,8 +381,8 @@ Figure 3.4: Kansas portion of High-Plains Aquifer and Kansas counties
 </p>
 </div>
 <p>The goal here is to select only the counties that intersect with the HPA boundary. When subsetting a data.frame by specifying the row numbers you would like to select, you can do</p>
-<div class="sourceCode" id="cb326"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb326-1"><a href="int-vv.html#cb326-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--- this does not run ---#</span></span>
-<span id="cb326-2"><a href="int-vv.html#cb326-2" aria-hidden="true" tabindex="-1"></a>data.frame[vector of row numbers, ]</span></code></pre></div>
+<div class="sourceCode" id="cb326"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb326-1"><a href="int-vv.html#cb326-1" tabindex="-1"></a><span class="co">#--- this does not run ---#</span></span>
+<span id="cb326-2"><a href="int-vv.html#cb326-2" tabindex="-1"></a>data.frame[vector of row numbers, ]</span></code></pre></div>
 <p>Spatial subsetting of sf objects works in a similar syntax:</p>
 <div class="sourceCode" id="cb327"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- this does not run ---#</span></span>
@@ -875,7 +875,7 @@ Geodetic CRS:  NAD83
  8 015         343. ((-97.15333 37.47554, -96.52569 37.4764, -96.5253 37.60701,…
  9 017           0  ((-96.84077 38.08562, -96.52278 38.08637, -96.3581 38.08582…
 10 019           0  ((-96.52558 36.99868, -96.50029 36.99864, -96.21757 36.9990…
-# … with 95 more rows</code></pre>
+# ℹ 95 more rows</code></pre>
 <p>Of course, it is just as easy to get other types of statistics by simply modifying the <code>summarize()</code> part.</p>
 <p>However, this two-step process can actually be done in one step using <code><a href="https://rdrr.io/r/stats/aggregate.html">aggregate()</a></code>, in which you specify how you want to aggregate with the <code>FUN</code> option as follows:</p>
 <div class="sourceCode" id="cb371"><pre class="downlit sourceCode r">
@@ -1235,7 +1235,7 @@ Projected CRS: NAD83 / UTM zone 15N
  8 07060006  159635. POLYGON ((673976.9 4651911, 673950.7 4651910, 673887.8 465…
  9 07080101  115572. POLYGON ((666760.8 4558401, 666630.9 4558362, 666510.8 455…
 10 07080102  160008. POLYGON ((576151.1 4706650, 575891 4706810, 575741 4706890…
-# … with 45 more rows</code></pre>
+# ℹ 45 more rows</code></pre>
 
 </div>
 </div>
@@ -1295,7 +1295,7 @@ Projected CRS: NAD83 / UTM zone 15N
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>R as GIS for Economists</strong>" was written by Taro Mieno. It was last built on 2023-03-20.</p>
+    <p>"<strong>R as GIS for Economists</strong>" was written by Taro Mieno. It was last built on 2023-09-19.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
