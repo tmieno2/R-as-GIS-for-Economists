@@ -7,7 +7,7 @@
 <title>Chapter 5 Spatial Interactions of Vector and Raster Data | R as GIS for Economists</title>
 <meta name="author" content="Taro Mieno">
 <meta name="description" content="Before you start In this chapter we learn the spatial interactions of a vector and raster dataset. We first look at how to crop (spatially subset) a raster dataset based on the geographic extent...">
-<meta name="generator" content="bookdown 0.27 with bs4_book()">
+<meta name="generator" content="bookdown 0.40 with bs4_book()">
 <meta property="og:title" content="Chapter 5 Spatial Interactions of Vector and Raster Data | R as GIS for Economists">
 <meta property="og:type" content="book">
 <meta property="og:description" content="Before you start In this chapter we learn the spatial interactions of a vector and raster dataset. We first look at how to crop (spatially subset) a raster dataset based on the geographic extent...">
@@ -16,26 +16,32 @@
 <meta name="twitter:description" content="Before you start In this chapter we learn the spatial interactions of a vector and raster dataset. We first look at how to crop (spatially subset) a raster dataset based on the geographic extent...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/_Lato-0.4.1/font.css" rel="stylesheet">
-<link href="libs/_Roboto%20Mono-0.4.1/font.css" rel="stylesheet">
-<link href="libs/_Montserrat-0.4.1/font.css" rel="stylesheet">
-<script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
-<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
-<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/Lato-0.4.9/font.css" rel="stylesheet">
+<link href="libs/Roboto_Mono-0.4.9/font.css" rel="stylesheet">
+<link href="libs/Montserrat-0.4.9/font.css" rel="stylesheet">
+<script src="libs/bs3compat-0.8.0/transition.js"></script><script src="libs/bs3compat-0.8.0/tabs.js"></script><script src="libs/bs3compat-0.8.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet">
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script><link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
 <script src="libs/leaflet-1.3.1/leaflet.js"></script><link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
 <script src="libs/proj4-2.6.2/proj4.min.js"></script><script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script><link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
-<script src="libs/leaflet-binding-2.1.1/leaflet.js"></script><script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script><script src="libs/leaflet-providers-plugin-2.1.1/leaflet-providers-plugin.js"></script><link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
-<script src="libs/datatables-binding-0.23/datatables.js"></script><link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
-<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet">
-<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script><link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
-<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script><link href="style.css" rel="stylesheet" type="text/css">
+<script src="libs/leaflet-binding-2.2.2/leaflet.js"></script><script src="libs/leaflet-providers-2.0.0/leaflet-providers_2.0.0.js"></script><script src="libs/leaflet-providers-plugin-2.2.2/leaflet-providers-plugin.js"></script><link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="libs/datatables-binding-0.33/datatables.js"></script><link href="libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet">
+<script src="libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script><link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
+<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script><link href="style.css" rel="stylesheet" type="text/css">
 <!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-59758608-3"></script><script>
       window.dataLayer = window.dataLayer || [];
       function gtag() { dataLayer.push(arguments); }
       gtag('js', new Date());
 
       gtag('config', 'UA-59758608-3');
-    </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    </script>
+</head>
+<body>
+<div class="alert alert-info" role="alert" style="height: 100px; font-size: 24px; color: red">
+    Important!! Some of the contents in this book has become outdated. Please visit the latest version of the book <a href="https://tmieno2.github.io/R-as-GIS-for--Economists-Quarto/">here</a>, which has up-to-date/new contents.
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
     
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   </style>
@@ -44,6 +50,7 @@
     div.csl-bib-body { }
     div.csl-entry {
       clear: both;
+          margin-bottom: 0em;
         }
     .hanging div.csl-entry {
       margin-left:2em;
@@ -62,9 +69,6 @@
     }
   </style>
 <link rel="stylesheet" href="style.css">
-</head>
-<body data-spy="scroll" data-target="#toc">
-
 <div class="container-fluid">
 <div class="row">
   <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
@@ -122,7 +126,7 @@
 <li><p><strong>Polygons</strong>: For each of the polygons, identify all the raster cells that intersect with the polygon, and assign a vector of the cell values to the polygon</p></li>
 </ul>
 <p>This is probably the most important operation economists run on raster datasets.</p>
-<p>We will show how we can use <code><a href="https://rdrr.io/pkg/terra/man/extract.html">terra::extract()</a></code> for both cases. But, we will also see that for polygons, <code><a href="https://isciences.gitlab.io/exactextractr/reference/exact_extract.html">exact_extract()</a></code> from the <code>exactextractr</code> package is often considerably faster than <code><a href="https://rdrr.io/pkg/terra/man/extract.html">terra::extract()</a></code>.</p>
+<p>We will show how we can use <code><a href="https://rspatial.github.io/terra/reference/extract.html">terra::extract()</a></code> for both cases. But, we will also see that for polygons, <code><a href="https://isciences.gitlab.io/exactextractr/reference/exact_extract.html">exact_extract()</a></code> from the <code>exactextractr</code> package is often considerably faster than <code><a href="https://rspatial.github.io/terra/reference/extract.html">terra::extract()</a></code>.</p>
 <p>Finally, you will see conversions between <code>Raster</code><span class="math inline">\(^*\)</span> (<code>raster</code> package) objects and <code>SpatRaster</code> object (<code>terra</code> package) because of the incompatibility of object classes across the key packages. I believe that these hassles will go away soon when they start supporting each other.</p>
 <div id="direction-for-replication-4" class="section level3 unnumbered">
 <h3>Direction for replication<a class="anchor" aria-label="anchor" href="#direction-for-replication-4"><i class="fas fa-link"></i></a>
@@ -139,7 +143,7 @@
 </ul>
 <p><strong>Packages</strong></p>
 <p>Run the following code to install or load (if already installed) the <code>pacman</code> package, and then install or load (if already installed) the listed package inside the <code><a href="https://rdrr.io/pkg/pacman/man/p_load.html">pacman::p_load()</a></code> function.</p>
-<div class="sourceCode" id="cb448"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb447"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="st"><a href="https://github.com/trinker/pacman">"pacman"</a></span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"pacman"</span><span class="op">)</span></span>
 <span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span></span>
 <span>  <span class="va">terra</span>, <span class="co"># handle raster data</span></span>
@@ -162,7 +166,7 @@
 </h2>
 <p>Here we use PRISM maximum temperature (tmax) data as a raster dataset and Kansas county boundaries as a vector dataset.</p>
 <p>Let’s download the tmax data for July 1, 2018 (Figure <a href="int-RV.html#fig:prism-tmax-map">5.1</a>).</p>
-<div class="sourceCode" id="cb449"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb448"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- set the path to the folder to which you save the downloaded PRISM data ---#</span></span>
 <span><span class="co"># This code sets the current working directory as the designated folder</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>prism.path <span class="op">=</span> <span class="st">"Data"</span><span class="op">)</span></span>
@@ -186,7 +190,7 @@ Figure 5.1: Map of PRISM tmax data on July 1, 2018
 </p>
 </div>
 <p>We now get Kansas county border data from the <code>tigris</code> package (Figure <a href="int-RV.html#fig:ks-county-map">5.2</a>) as <code>sf</code>.</p>
-<div class="sourceCode" id="cb450"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb449"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- Kansas boundary (sf) ---#</span></span>
 <span><span class="va">KS_county_sf</span> <span class="op">&lt;-</span></span>
 <span>  <span class="co">#--- get Kansas county boundary ---</span></span>
@@ -194,7 +198,7 @@ Figure 5.1: Map of PRISM tmax data on July 1, 2018
 <span>  <span class="co">#--- sp to sf ---#</span></span>
 <span>  <span class="fu">st_as_sf</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="co">#--- transform using the CRS of the PRISM tmax data  ---#</span></span>
-<span>  <span class="fu">st_transform</span><span class="op">(</span><span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/crs.html">crs</a></span><span class="op">(</span><span class="va">prism_tmax_0701_sr</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu">st_transform</span><span class="op">(</span><span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/crs.html">crs</a></span><span class="op">(</span><span class="va">prism_tmax_0701_sr</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <span style="display:block;" id="fig:ks-county-map"></span>
 <img src="R_GIS_Book_files/figure-html/ks-county-map-1.png" alt="Kansas county boundaries" width="672"><p class="caption">
@@ -202,14 +206,14 @@ Figure 5.2: Kansas county boundaries
 </p>
 </div>
 <hr>
-<p>Sometimes, it is convenient to crop a raster layer to the specific area of interest so that you do not have to carry around unnecessary parts of the raster layer. Moreover, it takes less time to extract values from a raster layer when the size of the raster layer is smaller. You can crop a raster layer by using <code><a href="https://rdrr.io/pkg/terra/man/crop.html">terra::crop()</a></code>. It works like this:</p>
-<div class="sourceCode" id="cb451"><pre class="downlit sourceCode r">
+<p>Sometimes, it is convenient to crop a raster layer to the specific area of interest so that you do not have to carry around unnecessary parts of the raster layer. Moreover, it takes less time to extract values from a raster layer when the size of the raster layer is smaller. You can crop a raster layer by using <code><a href="https://rspatial.github.io/terra/reference/crop.html">terra::crop()</a></code>. It works like this:</p>
+<div class="sourceCode" id="cb450"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- syntax (this does not run) ---#</span></span>
-<span><span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/crop.html">crop</a></span><span class="op">(</span><span class="va">SpatRaster</span>, <span class="va">sf</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/crop.html">crop</a></span><span class="op">(</span><span class="va">SpatRaster</span>, <span class="va">sf</span><span class="op">)</span></span></code></pre></div>
 <p>So, in this case, this does the job.</p>
-<div class="sourceCode" id="cb452"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb451"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- crop the entire PRISM to its KS portion---#</span></span>
-<span><span class="va">prism_tmax_0701_KS_sr</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/crop.html">crop</a></span><span class="op">(</span><span class="va">prism_tmax_0701_sr</span>, <span class="va">KS_county_sf</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">prism_tmax_0701_KS_sr</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/crop.html">crop</a></span><span class="op">(</span><span class="va">prism_tmax_0701_sr</span>, <span class="va">KS_county_sf</span><span class="op">)</span></span></code></pre></div>
 <p>The figure below (Figure <a href="int-RV.html#fig:prism-ks-viz">5.3</a>) shows the PRISM tmax raster data cropped to the geographic extent of Kansas. Notice that the cropped raster layer extends beyond the outer boundary of Kansas state boundary (it is a bit hard to see, but look at the upper right corner).</p>
 <div class="figure">
 <span style="display:block;" id="fig:prism-ks-viz"></span>
@@ -249,9 +253,9 @@ Figure 5.4: Visual illustration of raster data extraction for points data
 Figure 5.5: Visual illustration of raster data extraction for polygons data
 </p>
 </div>
-<p>There is a polygon overlaid on top of the cells along with their centroids represented by black dots. Extracting raster values to a polygon means finding raster cells that intersect with the polygons and get the value of all those cells and assigns them to the polygon. As you can see some cells are completely inside the polygon, while others are only partially overlapping with the polygon. Depending on the function you use and its options, you regard different cells as being spatially related to the polygons. For example, by default, <code><a href="https://rdrr.io/pkg/terra/man/extract.html">terra::extract()</a></code> will extract only the cells whose centroid is inside the polygon. But, you can add an option to include the cells that are only partially intersected with the polygon. In such a case, you can also get the fraction of the cell what is overlapped with the polygon, which enables us to find area-weighted values later. We will discuss the details these below.</p>
+<p>There is a polygon overlaid on top of the cells along with their centroids represented by black dots. Extracting raster values to a polygon means finding raster cells that intersect with the polygons and get the value of all those cells and assigns them to the polygon. As you can see some cells are completely inside the polygon, while others are only partially overlapping with the polygon. Depending on the function you use and its options, you regard different cells as being spatially related to the polygons. For example, by default, <code><a href="https://rspatial.github.io/terra/reference/extract.html">terra::extract()</a></code> will extract only the cells whose centroid is inside the polygon. But, you can add an option to include the cells that are only partially intersected with the polygon. In such a case, you can also get the fraction of the cell what is overlapped with the polygon, which enables us to find area-weighted values later. We will discuss the details these below.</p>
 <p><strong>PRISM tmax data for 07/02/2018</strong></p>
-<div class="sourceCode" id="cb453"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb452"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- download PRISM precipitation data ---#</span></span>
 <span><span class="fu">get_prism_dailys</span><span class="op">(</span></span>
 <span>  type <span class="op">=</span> <span class="st">"tmax"</span>,</span>
@@ -264,9 +268,9 @@ Figure 5.5: Visual illustration of raster data extraction for polygons data
 <span></span>
 <span><span class="co">#--- read in the prism data and crop it to Kansas state border ---#</span></span>
 <span><span class="va">prism_tmax_0702_KS_sr</span> <span class="op">&lt;-</span> <span class="fu">rast</span><span class="op">(</span><span class="va">prism_file</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/crop.html">crop</a></span><span class="op">(</span><span class="va">KS_county_sf</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/crop.html">crop</a></span><span class="op">(</span><span class="va">KS_county_sf</span><span class="op">)</span></span></code></pre></div>
 <p><strong>Irrigation wells in Kansas:</strong></p>
-<div class="sourceCode" id="cb454"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb453"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- read in the KS points data ---#</span></span>
 <span><span class="op">(</span></span>
 <span>  <span class="va">KS_wells</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span><span class="op">(</span><span class="st">"Data/Chap_5_wells_KS.rds"</span><span class="op">)</span></span>
@@ -301,16 +305,16 @@ Figure 5.6: Map of Kansas county borders, irrigation wells, and PRISM tmax
 <h3>
 <span class="header-section-number">5.2.2</span> Extracting to Points<a class="anchor" aria-label="anchor" href="#extracting-to-points"><i class="fas fa-link"></i></a>
 </h3>
-<p>You can extract values from raster layers to points using <code><a href="https://rdrr.io/pkg/terra/man/extract.html">terra::extract()</a></code>. <code><a href="https://rdrr.io/pkg/terra/man/extract.html">terra::extract()</a></code> finds which raster cell each of the points is located within and assigns the value of the cell to the point.</p>
-<div class="sourceCode" id="cb456"><pre class="downlit sourceCode r">
+<p>You can extract values from raster layers to points using <code><a href="https://rspatial.github.io/terra/reference/extract.html">terra::extract()</a></code>. <code><a href="https://rspatial.github.io/terra/reference/extract.html">terra::extract()</a></code> finds which raster cell each of the points is located within and assigns the value of the cell to the point.</p>
+<div class="sourceCode" id="cb455"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- syntax (this does not run) ---#</span></span>
-<span><span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/extract.html">extract</a></span><span class="op">(</span><span class="va">raster</span>, <span class="va">points</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/extract.html">extract</a></span><span class="op">(</span><span class="va">raster</span>, <span class="va">points</span><span class="op">)</span></span></code></pre></div>
 <p>Let’s extract tmax values from the PRISM tmax layer (<code>prism_tmax_0701_KS_sr</code>) to the irrigation wells:</p>
+<div class="sourceCode" id="cb456"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">tmax_from_prism</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/extract.html">extract</a></span><span class="op">(</span><span class="va">prism_tmax_0701_KS_sr</span>, <span class="va">KS_wells</span><span class="op">)</span></span></code></pre></div>
+<p>Oh, okay. So, the problem is that the points data (<code>KS_wells</code>) is an <code>sf</code> object, and <code><a href="https://rspatial.github.io/terra/reference/extract.html">terra::extract()</a></code> does not like it (I thought this would be fixed by now …). Let’s turn KS_wells into an <code>SpatVect</code> object and then apply <code><a href="https://rspatial.github.io/terra/reference/extract.html">terra::extract()</a></code>:</p>
 <div class="sourceCode" id="cb457"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tmax_from_prism</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/extract.html">extract</a></span><span class="op">(</span><span class="va">prism_tmax_0701_KS_sr</span>, <span class="va">KS_wells</span><span class="op">)</span></span></code></pre></div>
-<p>Oh, okay. So, the problem is that the points data (<code>KS_wells</code>) is an <code>sf</code> object, and <code><a href="https://rdrr.io/pkg/terra/man/extract.html">terra::extract()</a></code> does not like it (I thought this would be fixed by now …). Let’s turn KS_wells into an <code>SpatVect</code> object and then apply <code><a href="https://rdrr.io/pkg/terra/man/extract.html">terra::extract()</a></code>:</p>
-<div class="sourceCode" id="cb458"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tmax_from_prism</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/extract.html">extract</a></span><span class="op">(</span><span class="va">prism_tmax_0701_KS_sr</span>, <span class="fu">vect</span><span class="op">(</span><span class="va">KS_wells</span><span class="op">)</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">tmax_from_prism</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/extract.html">extract</a></span><span class="op">(</span><span class="va">prism_tmax_0701_KS_sr</span>, <span class="fu">vect</span><span class="op">(</span><span class="va">KS_wells</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">#--- take a look ---#</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">tmax_from_prism</span><span class="op">)</span></span></code></pre></div>
@@ -322,15 +326,15 @@ Figure 5.6: Map of Kansas county borders, irrigation wells, and PRISM tmax
 5  5                               34.232
 6  6                               35.168</code></pre>
 <p>The resulting object is a <code>data.frame</code>, where the <code>ID</code> variable represents the order of the observations in the points data and the second column represents that values extracted for the points from the raster cells. So, you can assign the extracted values as a new variable of the points data as follows:</p>
-<div class="sourceCode" id="cb460"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb459"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">KS_wells</span><span class="op">$</span><span class="va">tmax_07_01</span> <span class="op">&lt;-</span> <span class="va">tmax_from_prism</span><span class="op">[</span>, <span class="op">-</span><span class="fl">1</span><span class="op">]</span></span></code></pre></div>
 <p>Extracting values from a multi-layer <code>SpatRaster</code> works the same way. Here, we combine <code>prism_tmax_0701_KS_sr</code> and <code>prism_tmax_0702_KS_sr</code> to create a multi-layer <code>SpatRaster</code> and then extract values from them.</p>
-<div class="sourceCode" id="cb461"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb460"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- create a multi-layer SpatRaster ---#</span></span>
 <span><span class="va">prism_tmax_stack</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">prism_tmax_0701_KS_sr</span>, <span class="va">prism_tmax_0702_KS_sr</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">#--- extract tmax values ---#</span></span>
-<span><span class="va">tmax_from_prism_stack</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/extract.html">extract</a></span><span class="op">(</span><span class="va">prism_tmax_stack</span>, <span class="fu">vect</span><span class="op">(</span><span class="va">KS_wells</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">tmax_from_prism_stack</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/extract.html">extract</a></span><span class="op">(</span><span class="va">prism_tmax_stack</span>, <span class="fu">vect</span><span class="op">(</span><span class="va">KS_wells</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">#--- take a look ---#</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">tmax_from_prism_stack</span><span class="op">)</span></span></code></pre></div>
@@ -343,10 +347,10 @@ Figure 5.6: Map of Kansas county borders, irrigation wells, and PRISM tmax
 6  6                               35.168                               30.640</code></pre>
 <p>We now have two columns that hold values extracted from the raster cells: the 2nd column for the 1st raster layer and the 3rd column for the 2nd raster layer in <code>prism_tmax_stack</code>.</p>
 <p><strong>Side note:</strong></p>
-<p>Interestingly, <code><a href="https://rdrr.io/pkg/terra/man/extract.html">terra::extract()</a></code> can work with <code>sf</code> as long as the raster object is of type <code>Raster</code><span class="math inline">\(^*\)</span>. In the code below, <code>prism_tmax_stack</code> is converted to <code>RasterStack</code> before <code><a href="https://rdrr.io/pkg/terra/man/extract.html">terra::extract()</a></code> does its job and it works just fine.</p>
+<p>Interestingly, <code><a href="https://rspatial.github.io/terra/reference/extract.html">terra::extract()</a></code> can work with <code>sf</code> as long as the raster object is of type <code>Raster</code><span class="math inline">\(^*\)</span>. In the code below, <code>prism_tmax_stack</code> is converted to <code>RasterStack</code> before <code><a href="https://rspatial.github.io/terra/reference/extract.html">terra::extract()</a></code> does its job and it works just fine.</p>
+<div class="sourceCode" id="cb462"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">tmax_from_prism</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/extract.html">extract</a></span><span class="op">(</span><span class="fu">as</span><span class="op">(</span><span class="va">prism_tmax_stack</span>, <span class="st">"Raster"</span><span class="op">)</span>, <span class="va">KS_wells</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb463"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tmax_from_prism</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/extract.html">extract</a></span><span class="op">(</span><span class="fu">as</span><span class="op">(</span><span class="va">prism_tmax_stack</span>, <span class="st">"Raster"</span><span class="op">)</span>, <span class="va">KS_wells</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb464"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- take a look ---#</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">tmax_from_prism</span><span class="op">)</span></span></code></pre></div>
 <pre><code>  ID PRISM_tmax_stable_4kmD2_20180701_bil
@@ -356,38 +360,38 @@ Figure 5.6: Map of Kansas county borders, irrigation wells, and PRISM tmax
 4  4                               30.104
 5  5                               34.232
 6  6                               35.168</code></pre>
-<div class="sourceCode" id="cb466"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb465"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- check the class ---#</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">tmax_from_prism</span><span class="op">)</span></span></code></pre></div>
 <pre><code>[1] "data.frame"</code></pre>
 <p>As you can see, the resulting object is a <code>matrix</code> instead of a <code>data.frame</code>. Now, let’s see if we can use a <code>SpatVect</code> instead of an <code>sf</code>.</p>
-<div class="sourceCode" id="cb468"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb467"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tmax_from_prism</span> <span class="op">&lt;-</span></span>
-<span>  <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/extract.html">extract</a></span><span class="op">(</span></span>
+<span>  <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/extract.html">extract</a></span><span class="op">(</span></span>
 <span>    <span class="fu">as</span><span class="op">(</span><span class="va">prism_tmax_stack</span>, <span class="st">"Raster"</span><span class="op">)</span>,</span>
 <span>    <span class="fu">vect</span><span class="op">(</span><span class="va">KS_wells</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<pre><code>Error in (function (classes, fdef, mtable) : unable to find an inherited method for function 'extract' for signature '"RasterBrick", "SpatVector"'</code></pre>
-<p>So, it does not work. It turns out that <code><a href="https://rdrr.io/pkg/terra/man/extract.html">terra::extract()</a></code> works for the combinations of <code>SpatRaster</code>-<code>SpatVect</code> or <code>Raster</code><span class="math inline">\(^*\)</span>-<code>sf</code>/<code>sp</code>.</p>
+<pre><code>Error: unable to find an inherited method for function 'extract' for signature 'x = "RasterBrick", y = "SpatVector"'</code></pre>
+<p>So, it does not work. It turns out that <code><a href="https://rspatial.github.io/terra/reference/extract.html">terra::extract()</a></code> works for the combinations of <code>SpatRaster</code>-<code>SpatVect</code> or <code>Raster</code><span class="math inline">\(^*\)</span>-<code>sf</code>/<code>sp</code>.</p>
 </div>
 <div id="extracting-to-polygons-terra-way" class="section level3" number="5.2.3">
 <h3>
 <span class="header-section-number">5.2.3</span> Extracting to Polygons (<code>terra</code> way)<a class="anchor" aria-label="anchor" href="#extracting-to-polygons-terra-way"><i class="fas fa-link"></i></a>
 </h3>
-<p>You can use <code><a href="https://rdrr.io/pkg/terra/man/extract.html">terra::extract()</a></code> for extracting raster cell values for polygons as well. For each of the polygons, it will identify all the raster cells whose center lies inside the polygon and assign the vector of values of the cells to the polygon. Let’s first convert <code>KS_county_sf</code> (an <code>sf</code> object) to a <code>SpatVector</code>.</p>
-<div class="sourceCode" id="cb470"><pre class="downlit sourceCode r">
+<p>You can use <code><a href="https://rspatial.github.io/terra/reference/extract.html">terra::extract()</a></code> for extracting raster cell values for polygons as well. For each of the polygons, it will identify all the raster cells whose center lies inside the polygon and assign the vector of values of the cells to the polygon. Let’s first convert <code>KS_county_sf</code> (an <code>sf</code> object) to a <code>SpatVector</code>.</p>
+<div class="sourceCode" id="cb469"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- Kansas boundary (SpatVector) ---#</span></span>
 <span><span class="va">KS_county_sv</span> <span class="op">&lt;-</span> <span class="fu">vect</span><span class="op">(</span><span class="va">KS_county_sf</span><span class="op">)</span></span></code></pre></div>
 <!-- (You can change this to the cells that intersect with polygons using the `touch = TRUE` option).  -->
 <p>Now, let’s extract tmax values for each of the KS counties.</p>
-<div class="sourceCode" id="cb471"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb470"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- extract values from the raster for each county ---#</span></span>
-<span><span class="va">tmax_by_county</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/extract.html">extract</a></span><span class="op">(</span><span class="va">prism_tmax_0701_KS_sr</span>, <span class="va">KS_county_sv</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb472"><pre class="downlit sourceCode r">
+<span><span class="va">tmax_by_county</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/extract.html">extract</a></span><span class="op">(</span><span class="va">prism_tmax_0701_KS_sr</span>, <span class="va">KS_county_sv</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb471"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- check the class ---#</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">tmax_by_county</span><span class="op">)</span></span></code></pre></div>
 <pre><code>[1] "data.frame"</code></pre>
-<div class="sourceCode" id="cb474"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb473"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- take a look ---#</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">tmax_by_county</span><span class="op">)</span></span></code></pre></div>
 <pre><code>  ID PRISM_tmax_stable_4kmD2_20180701_bil
@@ -397,7 +401,7 @@ Figure 5.6: Map of Kansas county borders, irrigation wells, and PRISM tmax
 4  1                               34.268
 5  1                               34.262
 6  1                               34.477</code></pre>
-<div class="sourceCode" id="cb476"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb475"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- take a look ---#</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">tail</a></span><span class="op">(</span><span class="va">tmax_by_county</span><span class="op">)</span></span></code></pre></div>
 <pre><code>       ID PRISM_tmax_stable_4kmD2_20180701_bil
@@ -407,8 +411,8 @@ Figure 5.6: Map of Kansas county borders, irrigation wells, and PRISM tmax
 12843 105                               34.381
 12844 105                               34.295
 12845 105                               34.267</code></pre>
-<p>So, <code><a href="https://rdrr.io/pkg/terra/man/extract.html">terra::extract()</a></code> returns a <code>data.frame</code>, where <code>ID</code> values represent the corresponding row number in the polygons data. For example, the observations with <code>ID == n</code> are for the <strong>n</strong>th polygon. Using this information, you can easily merge the extraction results to the polygons data. Suppose you are interested in the mean of the tmax values of the intersecting cells for each of the polygons, then you can do the following:</p>
-<div class="sourceCode" id="cb478"><pre class="downlit sourceCode r">
+<p>So, <code><a href="https://rspatial.github.io/terra/reference/extract.html">terra::extract()</a></code> returns a <code>data.frame</code>, where <code>ID</code> values represent the corresponding row number in the polygons data. For example, the observations with <code>ID == n</code> are for the <strong>n</strong>th polygon. Using this information, you can easily merge the extraction results to the polygons data. Suppose you are interested in the mean of the tmax values of the intersecting cells for each of the polygons, then you can do the following:</p>
+<div class="sourceCode" id="cb477"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- get mean tmax ---#</span></span>
 <span><span class="va">mean_tmax</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">tmax_by_county</span> <span class="op">%&gt;%</span></span>
@@ -431,48 +435,48 @@ Bounding box:  xmin: -102.0517 ymin: 36.99302 xmax: -94.58841 ymax: 40.00316
 Geodetic CRS:  NAD83
 First 10 features:
    STATEFP COUNTYFP COUNTYNS       AFFGEOID GEOID         NAME
-1       20      123 00485026 0500000US20123 20123     Mitchell
-2       20      149 00485038 0500000US20149 20149 Pottawatomie
-3       20      203 00485062 0500000US20203 20203      Wichita
-4       20      151 00485039 0500000US20151 20151        Pratt
-5       20      043 00484991 0500000US20043 20043     Doniphan
-6       20      145 00485036 0500000US20145 20145       Pawnee
-7       20      119 00485024 0500000US20119 20119        Meade
-8       20      071 00485002 0500000US20071 20071      Greeley
-9       20      001 00484970 0500000US20001 20001        Allen
-10      20      169 00485047 0500000US20169 20169       Saline
+1       20      175 00485050 0500000US20175 20175       Seward
+2       20      027 00484983 0500000US20027 20027         Clay
+3       20      171 00485048 0500000US20171 20171        Scott
+4       20      047 00484993 0500000US20047 20047      Edwards
+5       20      147 00485037 0500000US20147 20147     Phillips
+6       20      149 00485038 0500000US20149 20149 Pottawatomie
+7       20      055 00485326 0500000US20055 20055       Finney
+8       20      167 00485046 0500000US20167 20167      Russell
+9       20      135 00485031 0500000US20135 20135         Ness
+10      20      093 00485011 0500000US20093 20093       Kearny
               NAMELSAD STUSPS STATE_NAME LSAD      ALAND   AWATER ID     tmax
-1      Mitchell County     KS     Kansas   06 1817632931 44979980  1 34.21421
-2  Pottawatomie County     KS     Kansas   06 2177507162 54149295  2 32.58354
-3       Wichita County     KS     Kansas   06 1861078197    61987  3 34.63195
-4         Pratt County     KS     Kansas   06 1903740950  1771939  4 33.40829
-5      Doniphan County     KS     Kansas   06 1019105691 12424174  5 34.01768
-6        Pawnee County     KS     Kansas   06 1953531647   992041  6 35.54426
-7         Meade County     KS     Kansas   06 2533222397  3258258  7 34.47948
-8       Greeley County     KS     Kansas   06 2016057907        0  8 33.55797
-9         Allen County     KS     Kansas   06 1295764235 13021929  9 34.77049
-10       Saline County     KS     Kansas   06 1865429339  2760902 10 33.56413
+1        Seward County     KS     Kansas   06 1656693304  1961444  1 34.21421
+2          Clay County     KS     Kansas   06 1671314413 26701337  2 32.58354
+3         Scott County     KS     Kansas   06 1858536838   306079  3 34.63195
+4       Edwards County     KS     Kansas   06 1610699245   206413  4 33.40829
+5      Phillips County     KS     Kansas   06 2294395636 22493383  5 34.01768
+6  Pottawatomie County     KS     Kansas   06 2177493041 54149843  6 35.54426
+7        Finney County     KS     Kansas   06 3372157854  1716371  7 34.47948
+8       Russell County     KS     Kansas   06 2295402858 34126776  8 33.55797
+9          Ness County     KS     Kansas   06 2783562234   667491  9 34.77049
+10       Kearny County     KS     Kansas   06 2254696661  1133601 10 33.56413
                          geometry
-1  POLYGON ((-98.49007 39.2416...
-2  POLYGON ((-96.72833 39.4271...
-3  POLYGON ((-101.5673 38.4666...
-4  POLYGON ((-99.01535 37.6438...
-5  POLYGON ((-95.3399 40, -95....
-6  POLYGON ((-99.58479 38.3493...
-7  POLYGON ((-100.6526 37.4022...
-8  POLYGON ((-102.0453 38.5054...
-9  POLYGON ((-95.52522 37.7473...
-10 POLYGON ((-97.92865 38.8835...</code></pre>
-<p>Instead of finding the mean after applying <code><a href="https://rdrr.io/pkg/terra/man/extract.html">terra::extract()</a></code> as done above, you can do that within <code><a href="https://rdrr.io/pkg/terra/man/extract.html">terra::extract()</a></code> using the <code>fun</code> option.</p>
-<div class="sourceCode" id="cb480"><pre class="downlit sourceCode r">
+1  POLYGON ((-101.0681 37.3877...
+2  POLYGON ((-97.3707 39.21899...
+3  POLYGON ((-101.1284 38.7006...
+4  POLYGON ((-99.56988 37.9130...
+5  POLYGON ((-99.62821 39.7201...
+6  POLYGON ((-96.72774 39.4268...
+7  POLYGON ((-101.103 37.97744...
+8  POLYGON ((-99.04234 38.7118...
+9  POLYGON ((-100.2477 38.6544...
+10 POLYGON ((-101.5419 37.9145...</code></pre>
+<p>Instead of finding the mean after applying <code><a href="https://rspatial.github.io/terra/reference/extract.html">terra::extract()</a></code> as done above, you can do that within <code><a href="https://rspatial.github.io/terra/reference/extract.html">terra::extract()</a></code> using the <code>fun</code> option.</p>
+<div class="sourceCode" id="cb479"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- extract values from the raster for each county ---#</span></span>
 <span><span class="va">tmax_by_county</span> <span class="op">&lt;-</span></span>
-<span>  <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/extract.html">extract</a></span><span class="op">(</span></span>
+<span>  <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/extract.html">extract</a></span><span class="op">(</span></span>
 <span>    <span class="va">prism_tmax_0701_KS_sr</span>,</span>
 <span>    <span class="va">KS_county_sv</span>,</span>
 <span>    fun <span class="op">=</span> <span class="va">mean</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb481"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb480"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- take a look ---#</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">tmax_by_county</span><span class="op">)</span></span></code></pre></div>
 <pre><code>  ID PRISM_tmax_stable_4kmD2_20180701_bil
@@ -485,10 +489,10 @@ First 10 features:
 <p>You can apply other summary functions like <code><a href="https://rdrr.io/r/base/Extremes.html">min()</a></code>, <code><a href="https://rdrr.io/r/base/Extremes.html">max()</a></code>, <code><a href="https://rdrr.io/r/base/sum.html">sum()</a></code>.</p>
 <hr>
 <p>Extracting values from a multi-layer raster data works exactly the same way except that data processing after the value extraction is slightly more complicated.</p>
-<div class="sourceCode" id="cb483"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb482"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- extract from a multi-layer raster object ---#</span></span>
 <span><span class="va">tmax_by_county_from_stack</span> <span class="op">&lt;-</span></span>
-<span>  <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/extract.html">extract</a></span><span class="op">(</span></span>
+<span>  <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/extract.html">extract</a></span><span class="op">(</span></span>
 <span>    <span class="va">prism_tmax_stack</span>,</span>
 <span>    <span class="va">KS_county_sv</span></span>
 <span>  <span class="op">)</span></span>
@@ -496,19 +500,19 @@ First 10 features:
 <span><span class="co">#--- take a look ---#</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">tmax_by_county_from_stack</span><span class="op">)</span></span></code></pre></div>
 <pre><code>  ID PRISM_tmax_stable_4kmD2_20180701_bil PRISM_tmax_stable_4kmD2_20180702_bil
-1  1                               33.290                               29.831
-2  1                               33.305                               29.730
-3  1                               33.299                               29.811
-4  1                               33.257                               29.819
-5  1                               33.181                               29.750
-6  1                               33.235                               29.757</code></pre>
+1  1                               34.181                               30.414
+2  1                               34.180                               30.314
+3  1                               34.210                               30.238
+4  1                               34.190                               30.163
+5  1                               34.292                               30.207
+6  1                               34.258                               30.222</code></pre>
 <p>Similar to the single-layer case, the resulting object is a <code>data.frame</code> and you have two columns corresponding to each of the layers in the two-layer raster object.</p>
 <hr>
-<p>Sometimes, you would like to have how much of the raster cells are intersecting with the intersecting polygon to find area-weighted summary later. In that case, you can add <code>exact = TRUE</code> option to <code><a href="https://rdrr.io/pkg/terra/man/extract.html">terra::extract()</a></code>.</p>
-<div class="sourceCode" id="cb485"><pre class="downlit sourceCode r">
+<p>Sometimes, you would like to have how much of the raster cells are intersecting with the intersecting polygon to find area-weighted summary later. In that case, you can add <code>exact = TRUE</code> option to <code><a href="https://rspatial.github.io/terra/reference/extract.html">terra::extract()</a></code>.</p>
+<div class="sourceCode" id="cb484"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- extract from a multi-layer raster object ---#</span></span>
 <span><span class="va">tmax_by_county_from_stack</span> <span class="op">&lt;-</span></span>
-<span>  <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/extract.html">extract</a></span><span class="op">(</span></span>
+<span>  <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/extract.html">extract</a></span><span class="op">(</span></span>
 <span>    <span class="va">prism_tmax_stack</span>,</span>
 <span>    <span class="va">KS_county_sv</span>,</span>
 <span>    exact <span class="op">=</span> <span class="cn">TRUE</span></span>
@@ -517,21 +521,21 @@ First 10 features:
 <span><span class="co">#--- take a look ---#</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">tmax_by_county_from_stack</span><span class="op">)</span></span></code></pre></div>
 <pre><code>  ID PRISM_tmax_stable_4kmD2_20180701_bil PRISM_tmax_stable_4kmD2_20180702_bil
-1  1                               33.348                               29.844
-2  1                               33.259                               29.709
-3  1                               33.248                               29.590
-4  1                               33.222                               29.560
-5  1                               33.215                               29.670
-6  1                               33.147                               29.599
-    fraction
-1 0.02375324
-2 0.11818764
-3 0.11906455
-4 0.11701276
-5 0.11494852
-6 0.11659929</code></pre>
+1  1                               34.222                               30.489
+2  1                               34.181                               30.414
+3  1                               34.180                               30.314
+4  1                               34.210                               30.238
+5  1                               34.190                               30.163
+6  1                               34.292                               30.207
+   fraction
+1 0.1074196
+2 0.8066955
+3 0.8067041
+4 0.8066761
+5 0.8061875
+6 0.8054752</code></pre>
 <p>As you can see, now you have <code>fraction</code> column to the resulting <code>data.frame</code> and you can find area-weighted summary of the extracted values like this:</p>
-<div class="sourceCode" id="cb487"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb486"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tmax_by_county_from_stack</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">ID</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu">summarize</span><span class="op">(</span></span>
@@ -541,29 +545,29 @@ First 10 features:
 <pre><code># A tibble: 105 × 3
       ID tmax_0701 tmax_0702
    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
- 1     1      33.5      30.1
- 2     2      35.7      28.8
- 3     3      32.6      30.6
- 4     4      32.9      29.0
- 5     5      34.8      28.3
- 6     6      33.0      30.0
- 7     7      34.2      30.9
- 8     8      31.7      30.1
- 9     9      34.3      29.4
-10    10      34.4      30.5
+ 1     1      34.5      30.5
+ 2     2      34.5      29.8
+ 3     3      33.6      31.2
+ 4     4      32.3      29.5
+ 5     5      32.6      28.7
+ 6     6      35.7      28.8
+ 7     7      34.0      30.6
+ 8     8      33.4      29.9
+ 9     9      32.9      30.4
+10    10      33.4      30.6
 # ℹ 95 more rows</code></pre>
 </div>
 <div id="extracting-to-polygons-exactextractr-way" class="section level3" number="5.2.4">
 <h3>
 <span class="header-section-number">5.2.4</span> Extracting to Polygons (<code>exactextractr</code> way)<a class="anchor" aria-label="anchor" href="#extracting-to-polygons-exactextractr-way"><i class="fas fa-link"></i></a>
 </h3>
-<p><code><a href="https://isciences.gitlab.io/exactextractr/reference/exact_extract.html">exact_extract()</a></code> function from the <code>exactextractr</code> package is a faster alternative than <code><a href="https://rdrr.io/pkg/terra/man/extract.html">terra::extract()</a></code> for a large raster data as we confirm later (<code><a href="https://isciences.gitlab.io/exactextractr/reference/exact_extract.html">exact_extract()</a></code> does not work with points data at the moment).<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;See &lt;a href="https://github.com/isciences/exactextract"&gt;here&lt;/a&gt; for how it does extraction tasks differently from other major GIS software.&lt;/p&gt;'><sup>79</sup></a> <code><a href="https://isciences.gitlab.io/exactextractr/reference/exact_extract.html">exact_extract()</a></code> also provides a coverage fraction value for each of the cell-polygon intersections. The syntax of <code><a href="https://isciences.gitlab.io/exactextractr/reference/exact_extract.html">exact_extract()</a></code> is very much similar to <code><a href="https://rdrr.io/pkg/terra/man/extract.html">terra::extract()</a></code>.</p>
-<div class="sourceCode" id="cb489"><pre class="downlit sourceCode r">
+<p><code><a href="https://isciences.gitlab.io/exactextractr/reference/exact_extract.html">exact_extract()</a></code> function from the <code>exactextractr</code> package is a faster alternative than <code><a href="https://rspatial.github.io/terra/reference/extract.html">terra::extract()</a></code> for a large raster data as we confirm later (<code><a href="https://isciences.gitlab.io/exactextractr/reference/exact_extract.html">exact_extract()</a></code> does not work with points data at the moment).<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;See &lt;a href="https://github.com/isciences/exactextract"&gt;here&lt;/a&gt; for how it does extraction tasks differently from other major GIS software.&lt;/p&gt;'><sup>79</sup></a> <code><a href="https://isciences.gitlab.io/exactextractr/reference/exact_extract.html">exact_extract()</a></code> also provides a coverage fraction value for each of the cell-polygon intersections. The syntax of <code><a href="https://isciences.gitlab.io/exactextractr/reference/exact_extract.html">exact_extract()</a></code> is very much similar to <code><a href="https://rspatial.github.io/terra/reference/extract.html">terra::extract()</a></code>.</p>
+<div class="sourceCode" id="cb488"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- syntax (this does not run) ---#</span></span>
 <span><span class="fu">exact_extract</span><span class="op">(</span><span class="va">raster</span>, <span class="va">polygons</span><span class="op">)</span></span></code></pre></div>
 <p><code><a href="https://isciences.gitlab.io/exactextractr/reference/exact_extract.html">exact_extract()</a></code> can accept both <code>SpatRaster</code> and <code>Raster</code><span class="math inline">\(^*\)</span> objects as the raster object. However, while it accepts <code>sf</code> as the polygons object, but it does not accept <code>SpatVect</code>.</p>
 <p>Let’s get tmax values from the PRISM raster layer for Kansas county polygons, the following does the job:</p>
-<div class="sourceCode" id="cb490"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb489"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://isciences.gitlab.io/exactextractr/">"exactextractr"</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">#--- extract values from the raster for each county ---#</span></span>
@@ -575,29 +579,29 @@ First 10 features:
 <span>    progress <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p>The resulting object is a list of <code>data.frame</code>s where <strong>i</strong>th element of the list is for <strong>i</strong>th polygon of the polygons <code>sf</code> object.</p>
-<div class="sourceCode" id="cb491"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb490"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- take a look at the first 6 rows of the first two list elements ---#</span></span>
 <span><span class="va">tmax_by_county</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>[[1]]
    value coverage_fraction
-1 33.348        0.02374719
-2 33.259        0.11816581
-3 33.248        0.11903353
-4 33.222        0.11700913
-5 33.215        0.11494034
-6 33.147        0.11656883
+1 34.222         0.1074141
+2 34.181         0.8066747
+3 34.180         0.8066615
+4 34.210         0.8066448
+5 34.190         0.8061629
+6 34.292         0.8054324
 
 [[2]]
    value coverage_fraction
-1 35.492        0.04248790
-2 35.552        0.08910853
-3 35.638        0.08570296
-4 35.668        0.08580886
-5 35.655        0.08667702
-6 35.543        0.08706726</code></pre>
-<p>For each element of the list, you see <code>value</code> and <code>coverage_fraction</code>. <code>value</code> is the tmax value of the intersecting raster cells, and <code>coverage_fraction</code> is the fraction of the intersecting area relative to the full raster grid, which can help find coverage-weighted summary of the extracted values (like <code>fraction</code> variable when you use <code><a href="https://rdrr.io/pkg/terra/man/extract.html">terra::extract()</a></code> with <code>exact = TRUE</code>).</p>
+1 33.847        0.03732148
+2 33.897        0.10592906
+3 34.010        0.10249268
+4 34.186        0.10018899
+5 34.293        0.10074520
+6 34.220        0.09701102</code></pre>
+<p>For each element of the list, you see <code>value</code> and <code>coverage_fraction</code>. <code>value</code> is the tmax value of the intersecting raster cells, and <code>coverage_fraction</code> is the fraction of the intersecting area relative to the full raster grid, which can help find coverage-weighted summary of the extracted values (like <code>fraction</code> variable when you use <code><a href="https://rspatial.github.io/terra/reference/extract.html">terra::extract()</a></code> with <code>exact = TRUE</code>).</p>
 <p>We can take advantage of <code><a href="https://dplyr.tidyverse.org/reference/bind_rows.html">dplyr::bind_rows()</a></code> to combine the list of the datasets into a single <code>data.frame</code>. In doing so, you can use <code>.id</code> option to create a new identifier column that links each row to its original data.</p>
-<div class="sourceCode" id="cb493"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb492"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span></span>
 <span>  <span class="co">#--- combine ---#</span></span>
 <span>  <span class="va">tmax_combined</span> <span class="op">&lt;-</span> <span class="fu">bind_rows</span><span class="op">(</span><span class="va">tmax_by_county</span>, .id <span class="op">=</span> <span class="st">"id"</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
@@ -606,34 +610,35 @@ First 10 features:
 <pre><code># A tibble: 15,149 × 3
    id    value coverage_fraction
    &lt;chr&gt; &lt;dbl&gt;             &lt;dbl&gt;
- 1 1      33.3            0.0237
- 2 1      33.3            0.118 
- 3 1      33.2            0.119 
- 4 1      33.2            0.117 
- 5 1      33.2            0.115 
- 6 1      33.1            0.117 
- 7 1      33.2            0.117 
- 8 1      33.2            0.116 
- 9 1      33.1            0.112 
-10 1      33.1            0.110 
+ 1 1      34.2             0.107
+ 2 1      34.2             0.807
+ 3 1      34.2             0.807
+ 4 1      34.2             0.807
+ 5 1      34.2             0.806
+ 6 1      34.3             0.805
+ 7 1      34.3             0.805
+ 8 1      34.2             0.805
+ 9 1      34.2             0.803
+10 1      34.2             0.803
 # ℹ 15,139 more rows</code></pre>
 <p><code>data.table</code> users can use <code>rbindlist()</code> with the <code>idcol</code> option like below:</p>
-<div class="sourceCode" id="cb495"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb494"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">rbindlist</span><span class="op">(</span><span class="va">tmax_by_county</span>, idcol <span class="op">=</span> <span class="st">"id"</span><span class="op">)</span></span></code></pre></div>
-<pre><code>        id  value coverage_fraction
-    1:   1 33.348        0.02374719
-    2:   1 33.259        0.11816581
-    3:   1 33.248        0.11903353
-    4:   1 33.222        0.11700913
-    5:   1 33.215        0.11494034
-   ---                             
-15145: 105 35.028        0.83252323
-15146: 105 35.059        0.83167112
-15147: 105 35.111        0.83026636
-15148: 105 35.093        0.82874411
-15149: 105 35.053        0.28677887</code></pre>
+<pre><code>          id  value coverage_fraction
+       &lt;int&gt;  &lt;num&gt;             &lt;num&gt;
+    1:     1 34.222         0.1074141
+    2:     1 34.181         0.8066747
+    3:     1 34.180         0.8066615
+    4:     1 34.210         0.8066448
+    5:     1 34.190         0.8061629
+   ---                               
+15145:   105 34.847         0.7625142
+15146:   105 34.840         0.7627296
+15147:   105 34.625         0.7640904
+15148:   105 34.755         0.7634417
+15149:   105 34.953         0.6051113</code></pre>
 <p>Note that <code>id</code> value of <strong>i</strong> represents <strong>i</strong>th element of the list, which in turn corresponds to <strong>i</strong>th polygon in the polygons sf data. Let’s summarize the data by <code>id</code> and then merge it back to the polygons <code>sf</code> data. Here, we calculate coverage-weighted mean of tmax.</p>
-<div class="sourceCode" id="cb497"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb496"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- weighted mean ---#</span></span>
 <span><span class="op">(</span></span>
 <span>  <span class="va">tmax_by_id</span> <span class="op">&lt;-</span> <span class="va">tmax_combined</span> <span class="op">%&gt;%</span></span>
@@ -646,18 +651,18 @@ First 10 features:
 <pre><code># A tibble: 105 × 2
       id tmax_aw
    &lt;dbl&gt;   &lt;dbl&gt;
- 1     1    33.5
- 2     2    35.7
- 3     3    32.6
- 4     4    32.9
- 5     5    34.8
- 6     6    33.0
- 7     7    34.2
- 8     8    31.7
- 9     9    34.3
-10    10    34.4
+ 1     1    34.5
+ 2     2    34.5
+ 3     3    33.6
+ 4     4    32.3
+ 5     5    32.6
+ 6     6    35.7
+ 7     7    34.0
+ 8     8    33.4
+ 9     9    32.9
+10    10    33.4
 # ℹ 95 more rows</code></pre>
-<div class="sourceCode" id="cb499"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb498"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- merge ---#</span></span>
 <span><span class="va">KS_county_sf</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu">mutate</span><span class="op">(</span><span class="va">id</span> <span class="op">:=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
@@ -670,19 +675,19 @@ Bounding box:  xmin: -102.0517 ymin: 36.99302 xmax: -94.58841 ymax: 40.00316
 Geodetic CRS:  NAD83
 First 10 features:
    id  tmax_aw                       geometry
-1   1 33.53676 POLYGON ((-98.49007 39.2416...
-2   2 35.67419 POLYGON ((-96.72833 39.4271...
-3   3 32.59908 POLYGON ((-101.5673 38.4666...
-4   4 32.92020 POLYGON ((-99.01535 37.6438...
-5   5 34.80511 POLYGON ((-95.3399 40, -95....
-6   6 32.98675 POLYGON ((-99.58479 38.3493...
-7   7 34.16909 POLYGON ((-100.6526 37.4022...
-8   8 31.68179 POLYGON ((-102.0453 38.5054...
-9   9 34.32246 POLYGON ((-95.52522 37.7473...
-10 10 34.37591 POLYGON ((-97.92865 38.8835...</code></pre>
+1   1 34.46388 POLYGON ((-101.0681 37.3877...
+2   2 34.53894 POLYGON ((-97.3707 39.21899...
+3   3 33.56887 POLYGON ((-101.1284 38.7006...
+4   4 32.26198 POLYGON ((-99.56988 37.9130...
+5   5 32.62552 POLYGON ((-99.62821 39.7201...
+6   6 35.67416 POLYGON ((-96.72774 39.4268...
+7   7 33.96688 POLYGON ((-101.103 37.97744...
+8   8 33.35979 POLYGON ((-99.04234 38.7118...
+9   9 32.86975 POLYGON ((-100.2477 38.6544...
+10 10 33.41405 POLYGON ((-101.5419 37.9145...</code></pre>
 <hr>
 <p>Extracting values from <code>RasterStack</code> works in exactly the same manner as <code>RasterLayer</code>.</p>
-<div class="sourceCode" id="cb501"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb500"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tmax_by_county_stack</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="https://isciences.gitlab.io/exactextractr/reference/exact_extract.html">exact_extract</a></span><span class="op">(</span></span>
 <span>    <span class="va">prism_tmax_stack</span>,</span>
@@ -707,7 +712,7 @@ First 10 features:
 5      0.7166024446
 6      0.7175790071</code></pre>
 <p>As you can see above, <code><a href="https://isciences.gitlab.io/exactextractr/reference/exact_extract.html">exact_extract()</a></code> appends additional columns for additional layers.</p>
-<div class="sourceCode" id="cb503"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb502"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- combine them ---#</span></span>
 <span><span class="va">tmax_all_combined</span> <span class="op">&lt;-</span> <span class="fu">bind_rows</span><span class="op">(</span><span class="va">tmax_by_county_stack</span>, .id <span class="op">=</span> <span class="st">"id"</span><span class="op">)</span></span>
 <span></span>
@@ -728,7 +733,7 @@ First 10 features:
 5      0.7166024446
 6      0.7175790071</code></pre>
 <p>In order to find the coverage-weighted tmax by date, you can first pivot it to a long format using <code>dplyr::pivot_longer()</code>.</p>
-<div class="sourceCode" id="cb505"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb504"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- pivot to a longer format ---#</span></span>
 <span><span class="op">(</span></span>
 <span>  <span class="va">tmax_long</span> <span class="op">&lt;-</span> <span class="fu">pivot_longer</span><span class="op">(</span></span>
@@ -753,7 +758,7 @@ First 10 features:
 10 1              0.717    PRISM_tmax_stable_4kmD2_20180702_bil  29.7
 # ℹ 30,288 more rows</code></pre>
 <p>And then find coverage-weighted tmax by date:</p>
-<div class="sourceCode" id="cb507"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb506"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span></span>
 <span>  <span class="va">tmax_long</span> <span class="op">%&gt;%</span></span>
 <span>    <span class="fu">group_by</span><span class="op">(</span><span class="va">id</span>, <span class="va">date</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
@@ -775,69 +780,70 @@ First 10 features:
 10 102   PRISM_tmax_stable_4kmD2_20180702_bil  30.2
 # ℹ 200 more rows</code></pre>
 <p>For <code>data.table</code> users, this does the same:</p>
-<div class="sourceCode" id="cb509"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb508"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span></span>
 <span>  <span class="va">tmax_all_combined</span> <span class="op">%&gt;%</span></span>
 <span>    <span class="fu">data.table</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
 <span>    <span class="fu">melt</span><span class="op">(</span>id.var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"id"</span>, <span class="st">"coverage_fraction"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
 <span>    <span class="va">.</span><span class="op">[</span>, <span class="fu">.</span><span class="op">(</span>tmax <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">value</span> <span class="op">*</span> <span class="va">coverage_fraction</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">coverage_fraction</span><span class="op">)</span><span class="op">)</span>, by <span class="op">=</span> <span class="fu">.</span><span class="op">(</span><span class="va">id</span>, <span class="va">variable</span><span class="op">)</span><span class="op">]</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<pre><code>      id                             variable     tmax
-  1:   1 PRISM_tmax_stable_4kmD2_20180701_bil 34.21148
-  2:   2 PRISM_tmax_stable_4kmD2_20180701_bil 32.59907
-  3:   3 PRISM_tmax_stable_4kmD2_20180701_bil 34.62680
-  4:   4 PRISM_tmax_stable_4kmD2_20180701_bil 33.41405
-  5:   5 PRISM_tmax_stable_4kmD2_20180701_bil 34.02482
- ---                                                  
-206: 101 PRISM_tmax_stable_4kmD2_20180702_bil 30.01027
-207: 102 PRISM_tmax_stable_4kmD2_20180702_bil 30.23891
-208: 103 PRISM_tmax_stable_4kmD2_20180702_bil 30.16537
-209: 104 PRISM_tmax_stable_4kmD2_20180702_bil 30.54567
-210: 105 PRISM_tmax_stable_4kmD2_20180702_bil 30.85847</code></pre>
+<pre><code>         id                             variable     tmax
+     &lt;char&gt;                               &lt;fctr&gt;    &lt;num&gt;
+  1:      1 PRISM_tmax_stable_4kmD2_20180701_bil 34.21148
+  2:      2 PRISM_tmax_stable_4kmD2_20180701_bil 32.59907
+  3:      3 PRISM_tmax_stable_4kmD2_20180701_bil 34.62680
+  4:      4 PRISM_tmax_stable_4kmD2_20180701_bil 33.41405
+  5:      5 PRISM_tmax_stable_4kmD2_20180701_bil 34.02482
+ ---                                                     
+206:    101 PRISM_tmax_stable_4kmD2_20180702_bil 30.01027
+207:    102 PRISM_tmax_stable_4kmD2_20180702_bil 30.23891
+208:    103 PRISM_tmax_stable_4kmD2_20180702_bil 30.16537
+209:    104 PRISM_tmax_stable_4kmD2_20180702_bil 30.54567
+210:    105 PRISM_tmax_stable_4kmD2_20180702_bil 30.85847</code></pre>
 </div>
 </div>
 <div id="extract-speed" class="section level2" number="5.3">
 <h2>
 <span class="header-section-number">5.3</span> Extraction speed comparison<a class="anchor" aria-label="anchor" href="#extract-speed"><i class="fas fa-link"></i></a>
 </h2>
-<p>Here we compare the extraction speed of <code><a href="https://rdrr.io/pkg/terra/man/extract.html">raster::extract()</a></code>, <code><a href="https://rdrr.io/pkg/terra/man/extract.html">terra::extract()</a></code>, and <code><a href="https://isciences.gitlab.io/exactextractr/reference/exact_extract.html">exact_extract()</a></code>.</p>
+<p>Here we compare the extraction speed of <code><a href="https://rspatial.github.io/terra/reference/extract.html">raster::extract()</a></code>, <code><a href="https://rspatial.github.io/terra/reference/extract.html">terra::extract()</a></code>, and <code><a href="https://isciences.gitlab.io/exactextractr/reference/exact_extract.html">exact_extract()</a></code>.</p>
 <div id="points-terraextract-and-rasterextract" class="section level3" number="5.3.1">
 <h3>
 <span class="header-section-number">5.3.1</span> Points: <code>terra::extract()</code> and <code>raster::extract()</code><a class="anchor" aria-label="anchor" href="#points-terraextract-and-rasterextract"><i class="fas fa-link"></i></a>
 </h3>
-<p><code><a href="https://rdrr.io/pkg/terra/man/extract.html">terra::extract()</a></code> uses C++ as the backend. Therefore, it is considerably faster than <code><a href="https://rdrr.io/pkg/terra/man/extract.html">raster::extract()</a></code>.</p>
-<div class="sourceCode" id="cb511"><pre class="downlit sourceCode r">
+<p><code><a href="https://rspatial.github.io/terra/reference/extract.html">terra::extract()</a></code> uses C++ as the backend. Therefore, it is considerably faster than <code><a href="https://rspatial.github.io/terra/reference/extract.html">raster::extract()</a></code>.</p>
+<div class="sourceCode" id="cb510"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- terra ---#</span></span>
 <span><span class="va">KS_wells_sv</span> <span class="op">&lt;-</span> <span class="fu">vect</span><span class="op">(</span><span class="va">KS_wells</span><span class="op">)</span></span>
 <span><span class="fu">tic</span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="va">temp</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/extract.html">extract</a></span><span class="op">(</span><span class="va">prism_tmax_0701_KS_sr</span>, <span class="va">KS_wells_sv</span><span class="op">)</span></span>
+<span><span class="va">temp</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/extract.html">extract</a></span><span class="op">(</span><span class="va">prism_tmax_0701_KS_sr</span>, <span class="va">KS_wells_sv</span><span class="op">)</span></span>
 <span><span class="fu">toc</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code>0.028 sec elapsed</code></pre>
-<div class="sourceCode" id="cb513"><pre class="downlit sourceCode r">
+<pre><code>0.026 sec elapsed</code></pre>
+<div class="sourceCode" id="cb512"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- raster ---#</span></span>
 <span><span class="va">prism_tmax_0701_KS_lr</span> <span class="op">&lt;-</span> <span class="fu">as</span><span class="op">(</span><span class="va">prism_tmax_0701_KS_sr</span>, <span class="st">"Raster"</span><span class="op">)</span></span>
 <span><span class="fu">tic</span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="va">temp</span> <span class="op">&lt;-</span> <span class="fu">raster</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/extract.html">extract</a></span><span class="op">(</span><span class="va">prism_tmax_0701_KS_lr</span>, <span class="va">KS_wells</span><span class="op">)</span></span>
+<span><span class="va">temp</span> <span class="op">&lt;-</span> <span class="fu">raster</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/extract.html">extract</a></span><span class="op">(</span><span class="va">prism_tmax_0701_KS_lr</span>, <span class="va">KS_wells</span><span class="op">)</span></span>
 <span><span class="fu">toc</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code>0.11 sec elapsed</code></pre>
-<p>As you can see, <code><a href="https://rdrr.io/pkg/terra/man/extract.html">terra::extract()</a></code> is much faster. The time differential between the two packages can be substantial as the raster data becomes larger. Until recently, <code><a href="https://rdrr.io/pkg/terra/man/extract.html">raster::extract()</a></code> was much much slower. However, recent updates to the package made significant improvement in extraction speed.</p>
+<pre><code>0.117 sec elapsed</code></pre>
+<p>As you can see, <code><a href="https://rspatial.github.io/terra/reference/extract.html">terra::extract()</a></code> is much faster. The time differential between the two packages can be substantial as the raster data becomes larger. Until recently, <code><a href="https://rspatial.github.io/terra/reference/extract.html">raster::extract()</a></code> was much much slower. However, recent updates to the package made significant improvement in extraction speed.</p>
 </div>
 <div id="polygons-exact_extract-terraextract-and-rasterextract" class="section level3" number="5.3.2">
 <h3>
 <span class="header-section-number">5.3.2</span> Polygons: <code>exact_extract()</code>, <code>terra::extract()</code>, and <code>raster::extract()</code><a class="anchor" aria-label="anchor" href="#polygons-exact_extract-terraextract-and-rasterextract"><i class="fas fa-link"></i></a>
 </h3>
-<p><code><a href="https://rdrr.io/pkg/terra/man/extract.html">terra::extract()</a></code> is faster than <code><a href="https://isciences.gitlab.io/exactextractr/reference/exact_extract.html">exact_extract()</a></code> for a relatively small raster data. Let’s time them and see the difference.</p>
-<div class="sourceCode" id="cb515"><pre class="downlit sourceCode r">
+<p><code><a href="https://rspatial.github.io/terra/reference/extract.html">terra::extract()</a></code> is faster than <code><a href="https://isciences.gitlab.io/exactextractr/reference/exact_extract.html">exact_extract()</a></code> for a relatively small raster data. Let’s time them and see the difference.</p>
+<div class="sourceCode" id="cb514"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- terra::extract ---#</span></span>
 <span><span class="fu">tic</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">terra_extract_temp</span> <span class="op">&lt;-</span></span>
-<span>  <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/extract.html">extract</a></span><span class="op">(</span></span>
+<span>  <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/extract.html">extract</a></span><span class="op">(</span></span>
 <span>    <span class="va">prism_tmax_0701_KS_sr</span>,</span>
 <span>    <span class="va">KS_county_sv</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="fu">toc</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code>0.03 sec elapsed</code></pre>
-<div class="sourceCode" id="cb517"><pre class="downlit sourceCode r">
+<pre><code>0.034 sec elapsed</code></pre>
+<div class="sourceCode" id="cb516"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- exact_extract ---#</span></span>
 <span><span class="fu">tic</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">exact_extract_temp</span> <span class="op">&lt;-</span></span>
@@ -847,24 +853,24 @@ First 10 features:
 <span>    progress <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="fu">toc</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code>0.083 sec elapsed</code></pre>
-<div class="sourceCode" id="cb519"><pre class="downlit sourceCode r">
+<pre><code>0.062 sec elapsed</code></pre>
+<div class="sourceCode" id="cb518"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- raster::extract ---#</span></span>
 <span><span class="fu">tic</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">raster_extract_temp</span> <span class="op">&lt;-</span></span>
-<span>  <span class="fu">raster</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/extract.html">extract</a></span><span class="op">(</span></span>
+<span>  <span class="fu">raster</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/extract.html">extract</a></span><span class="op">(</span></span>
 <span>    <span class="va">prism_tmax_0701_KS_lr</span>,</span>
 <span>    <span class="va">KS_county_sf</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="fu">toc</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code>1.032 sec elapsed</code></pre>
-<p>As you can see, <code><a href="https://rdrr.io/pkg/terra/man/extract.html">raster::extract()</a></code> is the slowest. <code><a href="https://rdrr.io/pkg/terra/man/extract.html">terra::extract()</a></code> is faster than <code><a href="https://isciences.gitlab.io/exactextractr/reference/exact_extract.html">exact_extract()</a></code>. However, once the raster data becomes larger (or spatially finer), then <code>exact_extact()</code> starts to shine.</p>
+<pre><code>1.754 sec elapsed</code></pre>
+<p>As you can see, <code><a href="https://rspatial.github.io/terra/reference/extract.html">raster::extract()</a></code> is the slowest. <code><a href="https://rspatial.github.io/terra/reference/extract.html">terra::extract()</a></code> is faster than <code><a href="https://isciences.gitlab.io/exactextractr/reference/exact_extract.html">exact_extract()</a></code>. However, once the raster data becomes larger (or spatially finer), then <code>exact_extact()</code> starts to shine.</p>
 <hr>
 <p>Let’s disaggregate the prism data by a factor of 10 to create a much larger raster data.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;We did not introduce this function as it is very rare that you need this function in research projects.&lt;/p&gt;"><sup>80</sup></a></p>
-<div class="sourceCode" id="cb521"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb520"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- disaggregate ---#</span></span>
 <span><span class="op">(</span></span>
-<span>  <span class="va">prism_tmax_0701_KS_sr_10</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/disaggregate.html">disagg</a></span><span class="op">(</span><span class="va">prism_tmax_0701_KS_sr</span>, fact <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
+<span>  <span class="va">prism_tmax_0701_KS_sr_10</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/disaggregate.html">disagg</a></span><span class="op">(</span><span class="va">prism_tmax_0701_KS_sr</span>, fact <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <pre><code>class       : SpatRaster 
 dimensions  : 730, 1790, 1  (nrow, ncol, nlyr)
@@ -872,31 +878,32 @@ resolution  : 0.004166667, 0.004166667  (x, y)
 extent      : -102.0625, -94.60417, 36.97917, 40.02083  (xmin, xmax, ymin, ymax)
 coord. ref. : lon/lat NAD83 
 source(s)   : memory
+varname     : PRISM_tmax_stable_4kmD2_20180701_bil 
 name        : PRISM_tmax_stable_4kmD2_20180701_bil 
 min value   :                               27.711 
 max value   :                               37.656 </code></pre>
 <p>The disaggregated PRISM data now has 10 times more rows and columns.</p>
-<div class="sourceCode" id="cb523"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb522"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- original ---#</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">prism_tmax_0701_KS_sr</span><span class="op">)</span></span></code></pre></div>
 <pre><code>[1]  73 179   1</code></pre>
-<div class="sourceCode" id="cb525"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb524"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- disaggregated ---#</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">prism_tmax_0701_KS_sr_10</span><span class="op">)</span></span></code></pre></div>
 <pre><code>[1]  730 1790    1</code></pre>
 <hr>
 <p>Now, let’s compare <code>terra::extrct()</code> and <code>exact_extrct()</code> using the disaggregated data.</p>
-<div class="sourceCode" id="cb527"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb526"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- terra extract ---#</span></span>
 <span><span class="fu">tic</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">terra_extract_temp</span> <span class="op">&lt;-</span></span>
-<span>  <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/extract.html">extract</a></span><span class="op">(</span></span>
+<span>  <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/extract.html">extract</a></span><span class="op">(</span></span>
 <span>    <span class="va">prism_tmax_0701_KS_sr_10</span>,</span>
 <span>    <span class="va">KS_county_sv</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="fu">toc</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code>2.064 sec elapsed</code></pre>
-<div class="sourceCode" id="cb529"><pre class="downlit sourceCode r">
+<pre><code>1.857 sec elapsed</code></pre>
+<div class="sourceCode" id="cb528"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- exact extract ---#</span></span>
 <span><span class="fu">tic</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">exact_extract_temp</span> <span class="op">&lt;-</span></span>
@@ -906,7 +913,7 @@ max value   :                               37.656 </code></pre>
 <span>    progress <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="fu">toc</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code>0.164 sec elapsed</code></pre>
+<pre><code>0.135 sec elapsed</code></pre>
 <p>As you can see, <code><a href="https://isciences.gitlab.io/exactextractr/reference/exact_extract.html">exact_extract()</a></code> is considerably faster. The difference in time becomes even more pronounced as the size of the raster data becomes larger and the number of polygons are greater. The time difference of several seconds seem nothing, but imagine processing PRISM files for the entire US over 20 years, then you would appreciate the speed of <code><a href="https://isciences.gitlab.io/exactextractr/reference/exact_extract.html">exact_extract()</a></code>.</p>
 </div>
 <div id="single-layer-vs-multi-layer" class="section level3" number="5.3.3">
@@ -915,18 +922,18 @@ max value   :                               37.656 </code></pre>
 </h3>
 <p>Pretend that you have five dates of PRISM tmax data (here we repeat the same file five times) and would like to extract values from all of them. Extracting values from a multi-layer raster objects (<code>RasterStack</code> for <code>raster</code> package) takes less time than extracting values from the individual layers one at a time. This can be observed below.</p>
 <hr>
-<p><strong><code><a href="https://rdrr.io/pkg/terra/man/extract.html">terra::extract()</a></code></strong></p>
-<div class="sourceCode" id="cb531"><pre class="downlit sourceCode r">
+<p><strong><code><a href="https://rspatial.github.io/terra/reference/extract.html">terra::extract()</a></code></strong></p>
+<div class="sourceCode" id="cb530"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- extract from 5 layers one at a time ---#</span></span>
 <span><span class="fu">tic</span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="va">temp</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/extract.html">extract</a></span><span class="op">(</span><span class="va">prism_tmax_0701_KS_sr_10</span>, <span class="va">KS_county_sv</span><span class="op">)</span></span>
-<span><span class="va">temp</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/extract.html">extract</a></span><span class="op">(</span><span class="va">prism_tmax_0701_KS_sr_10</span>, <span class="va">KS_county_sv</span><span class="op">)</span></span>
-<span><span class="va">temp</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/extract.html">extract</a></span><span class="op">(</span><span class="va">prism_tmax_0701_KS_sr_10</span>, <span class="va">KS_county_sv</span><span class="op">)</span></span>
-<span><span class="va">temp</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/extract.html">extract</a></span><span class="op">(</span><span class="va">prism_tmax_0701_KS_sr_10</span>, <span class="va">KS_county_sv</span><span class="op">)</span></span>
-<span><span class="va">temp</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/extract.html">extract</a></span><span class="op">(</span><span class="va">prism_tmax_0701_KS_sr_10</span>, <span class="va">KS_county_sv</span><span class="op">)</span></span>
+<span><span class="va">temp</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/extract.html">extract</a></span><span class="op">(</span><span class="va">prism_tmax_0701_KS_sr_10</span>, <span class="va">KS_county_sv</span><span class="op">)</span></span>
+<span><span class="va">temp</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/extract.html">extract</a></span><span class="op">(</span><span class="va">prism_tmax_0701_KS_sr_10</span>, <span class="va">KS_county_sv</span><span class="op">)</span></span>
+<span><span class="va">temp</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/extract.html">extract</a></span><span class="op">(</span><span class="va">prism_tmax_0701_KS_sr_10</span>, <span class="va">KS_county_sv</span><span class="op">)</span></span>
+<span><span class="va">temp</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/extract.html">extract</a></span><span class="op">(</span><span class="va">prism_tmax_0701_KS_sr_10</span>, <span class="va">KS_county_sv</span><span class="op">)</span></span>
+<span><span class="va">temp</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/extract.html">extract</a></span><span class="op">(</span><span class="va">prism_tmax_0701_KS_sr_10</span>, <span class="va">KS_county_sv</span><span class="op">)</span></span>
 <span><span class="fu">toc</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code>11.424 sec elapsed</code></pre>
-<div class="sourceCode" id="cb533"><pre class="downlit sourceCode r">
+<pre><code>10.369 sec elapsed</code></pre>
+<div class="sourceCode" id="cb532"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- extract from a 5-layer SpatRaster ---#</span></span>
 <span><span class="fu">tic</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">prism_tmax_ml_5</span> <span class="op">&lt;-</span></span>
@@ -937,12 +944,12 @@ max value   :                               37.656 </code></pre>
 <span>    <span class="va">prism_tmax_0701_KS_sr_10</span>,</span>
 <span>    <span class="va">prism_tmax_0701_KS_sr_10</span></span>
 <span>  <span class="op">)</span></span>
-<span><span class="va">temp</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/extract.html">extract</a></span><span class="op">(</span><span class="va">prism_tmax_ml_5</span>, <span class="va">KS_county_sv</span><span class="op">)</span></span>
+<span><span class="va">temp</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/extract.html">extract</a></span><span class="op">(</span><span class="va">prism_tmax_ml_5</span>, <span class="va">KS_county_sv</span><span class="op">)</span></span>
 <span><span class="fu">toc</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code>3.082 sec elapsed</code></pre>
+<pre><code>2.942 sec elapsed</code></pre>
 <hr>
 <p><strong><code><a href="https://isciences.gitlab.io/exactextractr/reference/exact_extract.html">exact_extract()</a></code></strong></p>
-<div class="sourceCode" id="cb535"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb534"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- extract from 5 layers one at a time ---#</span></span>
 <span><span class="fu">tic</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">temp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://isciences.gitlab.io/exactextractr/reference/exact_extract.html">exact_extract</a></span><span class="op">(</span><span class="va">prism_tmax_0701_KS_sr_10</span>, <span class="va">KS_county_sf</span>, progress <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
@@ -951,8 +958,8 @@ max value   :                               37.656 </code></pre>
 <span><span class="va">temp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://isciences.gitlab.io/exactextractr/reference/exact_extract.html">exact_extract</a></span><span class="op">(</span><span class="va">prism_tmax_0701_KS_sr_10</span>, <span class="va">KS_county_sf</span>, progress <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="va">temp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://isciences.gitlab.io/exactextractr/reference/exact_extract.html">exact_extract</a></span><span class="op">(</span><span class="va">prism_tmax_0701_KS_sr_10</span>, <span class="va">KS_county_sf</span>, progress <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="fu">toc</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code>0.88 sec elapsed</code></pre>
-<div class="sourceCode" id="cb537"><pre class="downlit sourceCode r">
+<pre><code>0.793 sec elapsed</code></pre>
+<div class="sourceCode" id="cb536"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- extract from from a 5-layer SpatRaster ---#</span></span>
 <span><span class="fu">tic</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">prism_tmax_stack_5</span> <span class="op">&lt;-</span></span>
@@ -963,6 +970,9 @@ max value   :                               37.656 </code></pre>
 <span>    <span class="va">prism_tmax_0701_KS_sr_10</span>,</span>
 <span>    <span class="va">prism_tmax_0701_KS_sr_10</span></span>
 <span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="fu">set.names</span><span class="op">(</span><span class="va">prism_tmax_stack_5</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"layer_"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
 <span><span class="va">temp</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="https://isciences.gitlab.io/exactextractr/reference/exact_extract.html">exact_extract</a></span><span class="op">(</span></span>
 <span>    <span class="va">prism_tmax_stack_5</span>,</span>
@@ -970,7 +980,7 @@ max value   :                               37.656 </code></pre>
 <span>    progress <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="fu">toc</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code>0.269 sec elapsed</code></pre>
+<pre><code>0.284 sec elapsed</code></pre>
 <p>The reduction in computation time for both methods makes sense. Since both layers have exactly the same geographic extent and resolution, finding the polygons-cells correspondence is done once and then it can be used repeatedly across the layers for the multi-layer <code>SparRaster</code> and <code>RasterStack</code>. This clearly suggests that when you are processing many layers of the same spatial resolution and extent, you should first stack them and then extract values at the same time instead of processing them one by one as long as your memory allows you to do so.</p>
 <!-- There is much more to discuss about the computation speed of raster data extraction for polygons. For those who are interested in this topic, go to Chapter \@ref(EE). -->
 
@@ -1023,7 +1033,7 @@ max value   :                               37.656 </code></pre>
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>R as GIS for Economists</strong>" was written by Taro Mieno. It was last built on 2023-09-19.</p>
+    <p>"<strong>R as GIS for Economists</strong>" was written by Taro Mieno. It was last built on 2024-09-24.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
@@ -1036,7 +1046,7 @@ max value   :                               37.656 </code></pre>
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

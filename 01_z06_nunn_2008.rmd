@@ -62,7 +62,9 @@ pacman::p_load(
   tidyverse, # data wrangling
   units,
   rmapshaper,
+  patchwork,
   lwgeom,
+  ggplot2,
   tictoc
 )
 ```
@@ -153,7 +155,7 @@ However, what we need is the end point of the lines. We can use `lwgeom::st_endp
 closest_pt_on_coast <- lwgeom::st_endpoint(minum_dist_to_coast)
 ```
 
-The end points are represented as blue points in the figure below. 
+The end points are represented as blue points in the figure below.
 
 ```{r endpoint-africa-nunn08}
 g_min_dist_line +

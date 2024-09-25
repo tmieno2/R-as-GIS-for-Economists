@@ -258,6 +258,7 @@ weather <-
 Let's subset `weather` to Africa and then calculate tsetse.
 
 ```{r}
+sf_use_s2(FALSE)
 weather_africa <-
   #--- subset to Africa ---#
   weather[tribes] %>%

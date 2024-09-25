@@ -18,29 +18,29 @@ opts_knit$set(root.dir = here())
 
 # Creating Maps using `ggplot2` {#create-maps}
 
+
 ## Before you start {-}
 
-In previous chapters, we have shown how to create very simple maps quickly from vector and raster data. This section focuses on using the `ggplot2` package to create high-quality maps that are publishable in journal articles, conference presentations, and any kind of professional reports. This requires fine-tuning the aesthetics of maps beyond default maps, such as using the appropriate color scheme, removing unnecessary information, formatting legends, etc. This chapter focuses on creating static maps, and does not cover interactive maps that you often see on the web.
+In previous chapters, we explored how to quickly create simple maps using vector and raster data. This section will focus on using `ggplot2` (along with `sf` and `tidyterra`) to produce high-quality maps suitable for publication in journal articles, conference presentations, and professional reports. Achieving this level of quality requires refining the map's aesthetics beyond default settings. This includes choosing appropriate color schemes, removing extraneous elements, and formatting legends. The focus here is on creating static maps, not the interactive ones commonly found on the web.
 
-Creating maps differs from creating non-spatial figures in some ways. However, the underlying principle and syntax under `ggplot2` to create maps and non-spatial figures are very similar. Indeed, you will find map making very intuitive and rather easy if you already have some knowledge of how `ggplot2` works even if you have not created maps using `ggplot2` before. Indeed, the only major difference between them is the choice of `geom_*()` types. We have several `geom_*()` types at our disposal for spatial data visualization.
+Creating maps differs from creating non-spatial figures in some aspects, but the underlying principles and syntax in `ggplot2` for both are quite similar. If you already have experience with `ggplot2`, you will find map-making intuitive and straightforward, even if you have never used it for spatial data before. The primary difference lies in the choice of `geom_*()` functions. For spatial data visualization, several specialized `geom_*()` types are available.
 
 + `geom_sf()` for `sf` (vector) objects
-+ `geom_raster()` for raster data
-+ `geom_stars()` for `stars` (both vector and raster) object
++ `geom_spatraster()` for `spatraster` (raster) objects
 
-These `geom_*()`s allow for visualizing both vector and raster data through consistent and simple `ggplot2` syntax. It provides direct supports to `sf` and `stars` objects, meaning that no transformation of those objects is necessary prior to creating maps. On the other hand, (a very simple) data transformation is necessary for `Raster`$^*$ objects by the `raster` package and `SpatRaster` or `SpatVector` by the `terra` package. We will look at each of the `geom`s individually to understand their basic usage below in sections \@ref(geom-sf) and \@ref(geom-raster). You will notice that there is nothing spatial about the sections following these sections. They are general and applicable to any kind of figures.
+These `geom_*()` functions enable the visualization of both vector and raster data using the consistent and straightforward syntax of `ggplot2`. They offer direct support for `sf` and `spatraster` objects, meaning no prior transformation of these objects is needed before creating maps. In the following sections, \@ref(geom-sf) and \@ref(geom-raster), we will explore each geom individually to understand their basic usage. You will also notice that the principles discussed in the subsequent sections are not specific to spatial data—they are general and applicable to any type of figure.
 
-<span style="color:red"> **Note** </span>: While this chapter does not assume much knowledge of `ggplot2`, the basic knowledge of `ggplot2` is extremely helpful. If you do not know anything about `ggplot2` or you are afraid that your knowledge of `ggplot2` is insufficient, Appendix \@ref(ggplot2-minimals) provides **minimal** knowledge of data visualization using the `ggplot2` package so you can at least understand what is happening in this Chapter.
+<span style="color:red"> **Note** </span>: Although this chapter does not require extensive knowledge of `ggplot2`, having a basic understanding of it will be extremely helpful. If you are unfamiliar with `ggplot2` or feel that your knowledge is insufficient, Appendix \@ref(ggplot2-minimals) offers a minimal introduction to data visualization using the `ggplot2` package. This should provide enough background to help you follow along with the content in this chapter.
 
 ---
 
 **Useful resources**
 
-As mentioned earlier, general knowledge of how `ggplot2` works is very useful. So, any resources for learning `ggplot2` are useful. Some of them are:
+As mentioned earlier, a general understanding of how `ggplot2` works is highly beneficial. Therefore, any resources for learning `ggplot2` can be valuable. Some useful resources include:
 
 + [ggplot2: Elegant Graphics for Data Analysis](https://ggplot2-book.org/)
 
-The following book provides numerous map making examples using `ggplot2`. It is a good place to further improve your map making skills after completing this chapter.
+The following book offers numerous examples of map-making with `ggplot2` and is an excellent resource for further improving your map-making skills after completing this chapter.
 
 + [Bob Rudis' Code Examples](https://rud.is/books/30-day-map-challenge/)
 
@@ -48,7 +48,7 @@ The following book provides numerous map making examples using `ggplot2`. It is 
 
 **Datasets**
 
-All the datasets that you need to import are available [here](https://www.dropbox.com/sh/6utlzzzj2zzr079/AACu5QxM_-bgwWzVzd5xcX4fa?dl=0). In this chapter, the path to files is set relative to my own working directory (which is hidden). To run the codes without having to mess with paths to the files, follow these steps:
+All the datasets that you need to import are available [here](https://www.dropbox.com/sh/6utlzzzj2zzr079/AACu5QxM_-bgwWzVzd5xcX4fa?dl=0). In this chapter, file paths are set relative to my working directory (which is not shown). To run the code without having to adjust the file paths, follow these steps:
 
 + set a folder (any folder) as the working directory using `setwd()`
 + create a folder called "Data" inside the folder designated as the working directory (if you have created a "Data" folder previously, skip this step)
@@ -65,6 +65,7 @@ pacman::p_load(
   stars, # spatiotemporal data handling
   raster, # raster data handling
   terra, # raster data handling
+  tidyterra, # for tidyverse like operations on terra objects
   sf, # vector data handling
   dplyr, # data wrangling
   stringr, # string manipulation
@@ -572,21 +573,25 @@ As you can see, you need to tell where the texts should be placed with `x` and `
 -->
 
 
-## Raster data visualization: `geom_raster()` and `geom_stars()` {#geom-raster}
+## Raster data visualization: `geom_spatraster()`, `geom_raster()`, and `geom_stars()` {#geom-raster}
 
-This section shows how to use `geom_raster()` and `geom_stars()` to create maps from raster datasets of two object classes: `Raster`$^*$ objects from the `raster` package and `stars` objects from the `stars` package. `geom_raster` does not accept either `Raster`$^*$ or `stars` as the input. Instead, `geom_raster()` accepts a `data.frame` with coordinates to create maps. So, it is a two-step procedure
+This section shows how to use `tidyterra::geom_spatraster()`, `ggplot2::geom_raster()` and `stars::geom_stars()` to create maps from raster datasets of three object classes: `SpatRaster` from the `terra` pacakge, `Raster`$^*$ objects from the `raster` package, and `stars` objects from the `stars` package, respectively.
 
-+ convert raster dataset into a `data.frame` with coordinates
-+ use `geom_raster()` to make a map
+Among these methods, `geom_raster()` does not accept `SpatRaster`, `Raster$^*$`, or `stars` objects as input. Instead, `geom_raster()` requires a data.frame containing coordinates to generate maps, making it a two-step process.
 
-`geom_stars()` from the `stars` package accepts a `stars` object, and no data transformation is necessary.
+1. convert raster dataset into a `data.frame` with coordinates
+2. use `geom_raster()` to make a map
+
+On the other hand, `geom_spatraster()` and `geom_stars()` accepts a `SpatRaster` (from the `terra` package) and `stars` object (from the `stars` package), respectivley, and no data transformation is necessary for either of them. For this reason, <span style = "color: red;"> the use of `geom_spatraster()` or `geom_stars` is recommended over `geom_raster()`. </span> 
+
+### Data Preparation
 
 We use the following objects that have the same information but come in different object classes for illustration in this section.
 
 **Raster as stars**
 
 ```{r raster-as-stars, echo = F, eval = F}
-tmax_Jan_09 <- 
+tmax_Jan_09 <-
   read_stars("Data/PRISM_tmax_y2009_m1.tif") %>%
   #--- change the variable name ---#
   setNames("tmax") %>%
@@ -616,7 +621,68 @@ as(tmax_Jan_09, "Raster") %>%
 tmax_Jan_09_rs <- stack("Data/tmax_Jan_09.tif")
 ```
 
-### Visualize `Raster`$^*$ with `geom_raster()`
+**Raster as SpatRaster**
+
+```{r tmax-data-get-sr, cache = F}
+#--- convert RasterStack to SpatRaster ---#
+tmax_Jan_09_sr <- terra::rast(tmax_Jan_09_rs)
+
+#--- change the name of the layers ---#
+set.names(
+  tmax_Jan_09_sr, 
+  seq(ymd("2009-01-01"), ymd("2009-01-05"), by = "days")
+  )
+```
+
+### Visualize with `tidyterra::geom_spatraster()`
+
+Creating a map from a `SpatRaster` is just as simple as creating a map from an `sf` object. You can simply use `geom_spatraster()` where the `data` argument is set to the `SpatRaster` object inside `geom_spatraster()`. To facet by layer, you can apply `facet_wrap(~lyr)` like below. Since it is under the `ggplot2` framework, it is easy to tweak the figure as long as you are familiar with `ggplot2`. 
+
+```{r}
+ggplot() +
+  geom_spatraster(data = tmax_Jan_09_sr) +
+  facet_wrap(~ lyr, ncol = 2) +
+  scale_fill_whitebox_c(
+    palette = "muted",
+    labels = scales::label_number(suffix = "º"),
+    n.breaks = 20,
+    guide = guide_legend(reverse = TRUE)
+  ) +
+  labs(fill = "")
+```
+
+### Visualize `stars` with `geom_stars()`
+
+We saw above that `geom_raster()` requires converting a `stars` object to a `data.frame` first before creating a map. `geom_stars()` from the `stars` package lets you use a `stars` object directly to easily create a map under the `ggplot2` framework. `geom_stars()` works just like `geom_sf()`. All you need to do is supply a `stars` object to `geom_stars()` as data.
+
+```{r stars-stars}
+ggplot() +
+  geom_stars(data = tmax_Jan_09) +
+  theme_void()
+```
+
+The fill color of the raster cells are automatically set to the attribute (here tmax) as if `aes(fill = tmax)`. It is a good idea to add `coord_equal()` because of the same issue we saw with `geom_raster()`.
+
+```{r stars-stars-ce}
+ggplot() +
+  geom_stars(data = tmax_Jan_09) +
+  theme_void() +
+  coord_equal()
+```
+
+By default, `geom_stars()` plots only the first band. In order to present all the layers at the same time, you can add `facet_wrap( ~ x)` where **x** is the name of the third dimension of the stars object (`date` here).
+
+```{r stars-stars-facet}
+ggplot() +
+  geom_stars(data = tmax_Jan_09) +
+  facet_wrap(~date) +
+  coord_equal() +
+  theme_void()
+```
+
+### Visualize with `geom_raster()` (NOT recommended)
+
+#### Visualize `Raster`$^*$ with `geom_raster()`
 
 In order to create maps from the information stored in `Raster`$^*$ objects, you first convert them to a regular `data.frame` using `as.data.frame()` as follows:
 
@@ -670,7 +736,7 @@ g_tmax_map + coord_equal()
 We only visualized tmax data for one day (`layer.1`) out of five days of tmax records. To present all of them at the same time we can facet using `facet_wrap()`. However, before we do that we need to have the data in a long format like this:
 
 ```{r tmax-long}
-tmax_long_df <- 
+tmax_long_df <-
   tmax_Jan_09_df %>%
   pivot_longer(
     c(-x, -y),
@@ -696,13 +762,14 @@ ggplot() +
   )
 ```
 
-### Visualize `stars` with `geom_raster()`
+#### Visualize `stars` with `geom_raster()`
 
 Similarly with `Raster`$^*$ objects, we first need to convert a `stars` to a regular `data.frame` using `as.data.frame()` as follows:
 
 ```{r stars-df}
 #--- converting to a data.frame ---#
-tmax_long_df <- as.data.frame(tmax_Jan_09, xy = TRUE) %>%
+tmax_long_df <-
+  as.data.frame(tmax_Jan_09, xy = TRUE) %>%
   na.omit()
 
 #--- take a look ---#
@@ -723,46 +790,20 @@ ggplot() +
   )
 ```
 
-### Visualize `stars` with `geom_stars()`
-
-We saw above that `geom_raster()` requires converting a `stars` object to a `data.frame` first before creating a map. `geom_stars()` from the `stars` package lets you use a `stars` object directly to easily create a map under the `ggplot2` framework. `geom_stars()` works just like `geom_sf()`. All you need to do is supply a `stars` object to `geom_stars()` as data.
-
-```{r stars-stars}
-ggplot() +
-  geom_stars(data = tmax_Jan_09) +
-  theme_void()
-```
-
-The fill color of the raster cells are automatically set to the attribute (here tmax) as if `aes(fill = tmax)`. It is a good idea to add `coord_equal()` because of the same issue we saw with `geom_raster()`.
-
-```{r stars-stars-ce}
-ggplot() +
-  geom_stars(data = tmax_Jan_09) +
-  theme_void() +
-  coord_equal()
-```
-
-By default, `geom_stars()` plots only the first band. In order to present all the layers at the same time, you can add `facet_wrap( ~ x)` where **x** is the name of the third dimension of the stars object (`date` here).
-
-```{r stars-stars-facet}
-ggplot() +
-  geom_stars(data = tmax_Jan_09) +
-  facet_wrap(~date) +
-  coord_equal() +
-  theme_void()
-```
 
 ### adding `geom_sf()` layers
 
-You can easily add `geom_sf()` layers to a map created with `geom_raster()` or `geom_stars()`. Let's crop the tmax data to Kansas and create a map of tmax values displayed on top of the Kansas county borders.
+You can easily add `geom_sf()` layers to a map created with any of `geom_spatraster()`, `geom_stars()`, and `geom_raster()`. Let's crop the tmax data to Kansas and create a map of tmax values displayed on top of the Kansas county borders.
 
 ```{r add-sf, results = "hide"}
 #--- crop to KS ---#
-KS_tmax_Jan_09_stars <- tmax_Jan_09 %>%
+KS_tmax_Jan_09_stars <- 
+  tmax_Jan_09 %>%
   st_crop(., KS_county)
 
 #--- convert to a df ---#
-KS_tmax_Jan_09_df <- as.data.frame(KS_tmax_Jan_09_stars, xy = TRUE) %>%
+KS_tmax_Jan_09_df <- 
+  as.data.frame(KS_tmax_Jan_09_stars, xy = TRUE) %>%
   na.omit()
 ```
 

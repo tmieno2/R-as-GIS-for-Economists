@@ -7,7 +7,7 @@
 <title>Chapter 1 R as GIS: Demonstrations | R as GIS for Economists</title>
 <meta name="author" content="Taro Mieno">
 <meta name="description" content="Before you start The primary objective of this chapter is to showcase the power of R as GIS through demonstrations via mock-up econometric research projects (first five demonstrations) and...">
-<meta name="generator" content="bookdown 0.27 with bs4_book()">
+<meta name="generator" content="bookdown 0.40 with bs4_book()">
 <meta property="og:title" content="Chapter 1 R as GIS: Demonstrations | R as GIS for Economists">
 <meta property="og:type" content="book">
 <meta property="og:description" content="Before you start The primary objective of this chapter is to showcase the power of R as GIS through demonstrations via mock-up econometric research projects (first five demonstrations) and...">
@@ -16,26 +16,32 @@
 <meta name="twitter:description" content="Before you start The primary objective of this chapter is to showcase the power of R as GIS through demonstrations via mock-up econometric research projects (first five demonstrations) and...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/_Lato-0.4.1/font.css" rel="stylesheet">
-<link href="libs/_Roboto%20Mono-0.4.1/font.css" rel="stylesheet">
-<link href="libs/_Montserrat-0.4.1/font.css" rel="stylesheet">
-<script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
-<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
-<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/Lato-0.4.9/font.css" rel="stylesheet">
+<link href="libs/Roboto_Mono-0.4.9/font.css" rel="stylesheet">
+<link href="libs/Montserrat-0.4.9/font.css" rel="stylesheet">
+<script src="libs/bs3compat-0.8.0/transition.js"></script><script src="libs/bs3compat-0.8.0/tabs.js"></script><script src="libs/bs3compat-0.8.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet">
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script><link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
 <script src="libs/leaflet-1.3.1/leaflet.js"></script><link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
 <script src="libs/proj4-2.6.2/proj4.min.js"></script><script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script><link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
-<script src="libs/leaflet-binding-2.1.1/leaflet.js"></script><script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script><script src="libs/leaflet-providers-plugin-2.1.1/leaflet-providers-plugin.js"></script><link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
-<script src="libs/datatables-binding-0.23/datatables.js"></script><link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
-<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet">
-<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script><link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
-<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script><link href="style.css" rel="stylesheet" type="text/css">
+<script src="libs/leaflet-binding-2.2.2/leaflet.js"></script><script src="libs/leaflet-providers-2.0.0/leaflet-providers_2.0.0.js"></script><script src="libs/leaflet-providers-plugin-2.2.2/leaflet-providers-plugin.js"></script><link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="libs/datatables-binding-0.33/datatables.js"></script><link href="libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet">
+<script src="libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script><link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
+<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script><link href="style.css" rel="stylesheet" type="text/css">
 <!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-59758608-3"></script><script>
       window.dataLayer = window.dataLayer || [];
       function gtag() { dataLayer.push(arguments); }
       gtag('js', new Date());
 
       gtag('config', 'UA-59758608-3');
-    </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    </script>
+</head>
+<body>
+<div class="alert alert-info" role="alert" style="height: 100px; font-size: 24px; color: red">
+    Important!! Some of the contents in this book has become outdated. Please visit the latest version of the book <a href="https://tmieno2.github.io/R-as-GIS-for--Economists-Quarto/">here</a>, which has up-to-date/new contents.
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
     
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   </style>
@@ -44,6 +50,7 @@
     div.csl-bib-body { }
     div.csl-entry {
       clear: both;
+          margin-bottom: 0em;
         }
     .hanging div.csl-entry {
       margin-left:2em;
@@ -62,9 +69,6 @@
     }
   </style>
 <link rel="stylesheet" href="style.css">
-</head>
-<body data-spy="scroll" data-target="#toc">
-
 <div class="container-fluid">
 <div class="row">
   <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
@@ -254,18 +258,19 @@ Figure 1.1: The location of Chase, Dundy, and Perkins County in Nebraska
 <span><span class="op">(</span></span>
 <span>  <span class="va">urnrd_gw</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span><span class="op">(</span><span class="st">"Data/urnrd_gw_pumping.rds"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<pre><code>       well_id year  vol_af      lon     lat
-    1:    1706 2007 182.566 245322.3 4542717
-    2:    2116 2007  46.328 245620.9 4541125
-    3:    2583 2007  38.380 245660.9 4542523
-    4:    2597 2007  70.133 244816.2 4541143
-    5:    3143 2007 135.870 243614.0 4541579
-   ---                                      
-18668:    2006 2012 148.713 284782.5 4432317
-18669:    2538 2012 115.567 284462.6 4432331
-18670:    2834 2012  15.766 283338.0 4431341
-18671:    2834 2012 381.622 283740.4 4431329
-18672:    4983 2012      NA 284636.0 4432725</code></pre>
+<pre><code>       well_id  year  vol_af      lon     lat
+         &lt;num&gt; &lt;int&gt;   &lt;num&gt;    &lt;num&gt;   &lt;num&gt;
+    1:    1706  2007 182.566 245322.3 4542717
+    2:    2116  2007  46.328 245620.9 4541125
+    3:    2583  2007  38.380 245660.9 4542523
+    4:    2597  2007  70.133 244816.2 4541143
+    5:    3143  2007 135.870 243614.0 4541579
+   ---                                       
+18668:    2006  2012 148.713 284782.5 4432317
+18669:    2538  2012 115.567 284462.6 4432331
+18670:    2834  2012  15.766 283338.0 4431341
+18671:    2834  2012 381.622 283740.4 4431329
+18672:    4983  2012      NA 284636.0 4432725</code></pre>
 <p><code>well_id</code> is the unique irrigation well identifier, and <code>vol_af</code> is the amount of groundwater pumped in acre-feet. This dataset is just a regular <code>data.frame</code> with coordinates. We need to convert this dataset into a object of class <code>sf</code> so that we can later identify irrigation wells located within a 2-mile radius of USGS monitoring wells (see Figure <a href="demo.html#fig:sp-dist-wells">1.2</a> for the spatial distribution of the irrigation wells).</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">urnrd_gw_sf</span> <span class="op">&lt;-</span></span>
@@ -447,7 +452,7 @@ Projected CRS: WGS 84 / UTM zone 14N
  8 400130101374401  2008           515. ((278847.4 4433844, 278843 4433675, 278…
  9 400130101374401  2009           351. ((278847.4 4433844, 278843 4433675, 278…
 10 400130101374401  2010           374. ((278847.4 4433844, 278843 4433675, 278…
-# … with 2,386 more rows</code></pre>
+# ℹ 2,386 more rows</code></pre>
 <hr>
 <p>We now merge nearby pumping data to the groundwater level data, and transform the data to obtain the dataset ready for regression analysis.</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
@@ -502,78 +507,136 @@ Projected CRS: WGS 84 / UTM zone 14N
 <span>  stars <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  gof_omit <span class="op">=</span> <span class="st">"IC|Log|Adj|Within|Pseudo"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<div class="inline-table"><table style="NAborder-bottom: 0; width: auto !important; margin-left: auto; margin-right: auto;" class="table">
+ 
+
+  
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>tinytable_ulj2y38wyxsc09583cx1</title>
+<style>
+.table td.tinytable_css_8p1qmnu948ys2cm445b7, .table th.tinytable_css_8p1qmnu948ys2cm445b7 {    border-bottom: solid 0.1em #d3d8dc; }
+.table td.tinytable_css_r90on568cs6vw9niqj9o, .table th.tinytable_css_r90on568cs6vw9niqj9o {    text-align: left; }
+.table td.tinytable_css_utkaunxkiiif7wbxbgtx, .table th.tinytable_css_utkaunxkiiif7wbxbgtx {    text-align: center; }
+.table td.tinytable_css_gic1xqycsyju3f13i569, .table th.tinytable_css_gic1xqycsyju3f13i569 {    border-bottom: solid 0.05em black; }
+    </style>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script><script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+    </script><div class="container">
+      <div class="inline-table"><table class="table table-borderless" id="tinytable_ulj2y38wyxsc09583cx1" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
 <thead><tr>
-<th style="text-align:left;">
-</th>
-<th style="text-align:center;">
-Model 1
-</th>
-</tr></thead>
+<th scope="col"> </th>
+                <th scope="col">(1)</th>
+              </tr></thead>
+<tfoot><tr><td colspan="2">+ p </td></tr></tfoot>
 <tbody>
 <tr>
-<td style="text-align:left;">
-nearby_pumping
-</td>
-<td style="text-align:center;">
-0.001***
-</td>
-</tr>
+<td>nearby_pumping</td>
+                  <td>0.001***   </td>
+                </tr>
 <tr>
-<td style="text-align:left;box-shadow: 0px 1px">
-</td>
-<td style="text-align:center;box-shadow: 0px 1px">
-(0.000)
-</td>
-</tr>
+<td>              </td>
+                  <td>(0.000)    </td>
+                </tr>
 <tr>
-<td style="text-align:left;">
-Num.Obs.
-</td>
-<td style="text-align:center;">
-1342
-</td>
-</tr>
+<td>Num.Obs.      </td>
+                  <td>1342       </td>
+                </tr>
 <tr>
-<td style="text-align:left;">
-RMSE
-</td>
-<td style="text-align:center;">
-1.36
-</td>
-</tr>
+<td>R2            </td>
+                  <td>0.409      </td>
+                </tr>
 <tr>
-<td style="text-align:left;">
-Std.Errors
-</td>
-<td style="text-align:center;">
-by: site_no
-</td>
-</tr>
+<td>RMSE          </td>
+                  <td>1.36       </td>
+                </tr>
 <tr>
-<td style="text-align:left;">
-FE: site_no
-</td>
-<td style="text-align:center;">
-X
-</td>
-</tr>
+<td>Std.Errors    </td>
+                  <td>by: site_no</td>
+                </tr>
 <tr>
-<td style="text-align:left;">
-FE: year
-</td>
-<td style="text-align:center;">
-X
-</td>
-</tr>
+<td>FE: site_no   </td>
+                  <td>X          </td>
+                </tr>
+<tr>
+<td>FE: year      </td>
+                  <td>X          </td>
+                </tr>
 </tbody>
-<tfoot><tr>
-<td style="padding: 0; " colspan="100%">
-<sup></sup> + p &lt; 0.1, * p &lt; 0.05, ** p &lt; 0.01, *** p &lt; 0.001
-</td>
-</tr></tfoot>
 </table></div>
-<hr>
+</div>
+
+    <script>
+      function styleCell_tinytable_v68ehg9gfpti0j5guxvw(i, j, css_id) {
+        var table = document.getElementById("tinytable_ulj2y38wyxsc09583cx1");
+        table.rows[i].cells[j].classList.add(css_id);
+      }
+      function insertSpanRow(i, colspan, content) {
+        var table = document.getElementById('tinytable_ulj2y38wyxsc09583cx1');
+        var newRow = table.insertRow(i);
+        var newCell = newRow.insertCell(0);
+        newCell.setAttribute("colspan", colspan);
+        // newCell.innerText = content;
+        // this may be unsafe, but innerText does not interpret <br>
+        newCell.innerHTML = content;
+      }
+      function spanCell_tinytable_v68ehg9gfpti0j5guxvw(i, j, rowspan, colspan) {
+        var table = document.getElementById("tinytable_ulj2y38wyxsc09583cx1");
+        const targetRow = table.rows[i];
+        const targetCell = targetRow.cells[j];
+        for (let r = 0; r < rowspan; r++) {
+          // Only start deleting cells to the right for the first row (r == 0)
+          if (r === 0) {
+            // Delete cells to the right of the target cell in the first row
+            for (let c = colspan - 1; c > 0; c--) {
+              if (table.rows[i + r].cells[j + c]) {
+                table.rows[i + r].deleteCell(j + c);
+              }
+            }
+          }
+          // For rows below the first, delete starting from the target column
+          if (r > 0) {
+            for (let c = colspan - 1; c >= 0; c--) {
+              if (table.rows[i + r] && table.rows[i + r].cells[j]) {
+                table.rows[i + r].deleteCell(j);
+              }
+            }
+          }
+        }
+        // Set rowspan and colspan of the target cell
+        targetCell.rowSpan = rowspan;
+        targetCell.colSpan = colspan;
+      }
+
+window.addEventListener('load', function () { styleCell_tinytable_v68ehg9gfpti0j5guxvw(0, 0, 'tinytable_css_8p1qmnu948ys2cm445b7') })
+window.addEventListener('load', function () { styleCell_tinytable_v68ehg9gfpti0j5guxvw(0, 1, 'tinytable_css_8p1qmnu948ys2cm445b7') })
+window.addEventListener('load', function () { styleCell_tinytable_v68ehg9gfpti0j5guxvw(0, 0, 'tinytable_css_r90on568cs6vw9niqj9o') })
+window.addEventListener('load', function () { styleCell_tinytable_v68ehg9gfpti0j5guxvw(1, 0, 'tinytable_css_r90on568cs6vw9niqj9o') })
+window.addEventListener('load', function () { styleCell_tinytable_v68ehg9gfpti0j5guxvw(2, 0, 'tinytable_css_r90on568cs6vw9niqj9o') })
+window.addEventListener('load', function () { styleCell_tinytable_v68ehg9gfpti0j5guxvw(3, 0, 'tinytable_css_r90on568cs6vw9niqj9o') })
+window.addEventListener('load', function () { styleCell_tinytable_v68ehg9gfpti0j5guxvw(4, 0, 'tinytable_css_r90on568cs6vw9niqj9o') })
+window.addEventListener('load', function () { styleCell_tinytable_v68ehg9gfpti0j5guxvw(5, 0, 'tinytable_css_r90on568cs6vw9niqj9o') })
+window.addEventListener('load', function () { styleCell_tinytable_v68ehg9gfpti0j5guxvw(6, 0, 'tinytable_css_r90on568cs6vw9niqj9o') })
+window.addEventListener('load', function () { styleCell_tinytable_v68ehg9gfpti0j5guxvw(7, 0, 'tinytable_css_r90on568cs6vw9niqj9o') })
+window.addEventListener('load', function () { styleCell_tinytable_v68ehg9gfpti0j5guxvw(8, 0, 'tinytable_css_r90on568cs6vw9niqj9o') })
+window.addEventListener('load', function () { styleCell_tinytable_v68ehg9gfpti0j5guxvw(0, 1, 'tinytable_css_utkaunxkiiif7wbxbgtx') })
+window.addEventListener('load', function () { styleCell_tinytable_v68ehg9gfpti0j5guxvw(1, 1, 'tinytable_css_utkaunxkiiif7wbxbgtx') })
+window.addEventListener('load', function () { styleCell_tinytable_v68ehg9gfpti0j5guxvw(2, 1, 'tinytable_css_utkaunxkiiif7wbxbgtx') })
+window.addEventListener('load', function () { styleCell_tinytable_v68ehg9gfpti0j5guxvw(3, 1, 'tinytable_css_utkaunxkiiif7wbxbgtx') })
+window.addEventListener('load', function () { styleCell_tinytable_v68ehg9gfpti0j5guxvw(4, 1, 'tinytable_css_utkaunxkiiif7wbxbgtx') })
+window.addEventListener('load', function () { styleCell_tinytable_v68ehg9gfpti0j5guxvw(5, 1, 'tinytable_css_utkaunxkiiif7wbxbgtx') })
+window.addEventListener('load', function () { styleCell_tinytable_v68ehg9gfpti0j5guxvw(6, 1, 'tinytable_css_utkaunxkiiif7wbxbgtx') })
+window.addEventListener('load', function () { styleCell_tinytable_v68ehg9gfpti0j5guxvw(7, 1, 'tinytable_css_utkaunxkiiif7wbxbgtx') })
+window.addEventListener('load', function () { styleCell_tinytable_v68ehg9gfpti0j5guxvw(8, 1, 'tinytable_css_utkaunxkiiif7wbxbgtx') })
+window.addEventListener('load', function () { styleCell_tinytable_v68ehg9gfpti0j5guxvw(2, 0, 'tinytable_css_gic1xqycsyju3f13i569') })
+window.addEventListener('load', function () { styleCell_tinytable_v68ehg9gfpti0j5guxvw(2, 1, 'tinytable_css_gic1xqycsyju3f13i569') })
+    </script><hr>
 </div>
 </div>
 <div id="demo-PA" class="section level2" number="1.2">
@@ -864,130 +927,172 @@ Figure 1.7: Spatial distribution of subplot-level yield, NH3, and EC
 <span>  stars <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  gof_omit <span class="op">=</span> <span class="st">"IC|Log|Adj|Within|Pseudo"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<div class="inline-table"><table style="NAborder-bottom: 0; width: auto !important; margin-left: auto; margin-right: auto;" class="table">
+ 
+
+  
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>tinytable_sq88gu9pom72mvsy65kd</title>
+<style>
+.table td.tinytable_css_cmzjmzxmdw1c61r5ddbw, .table th.tinytable_css_cmzjmzxmdw1c61r5ddbw {    border-bottom: solid 0.1em #d3d8dc; }
+.table td.tinytable_css_03db2jsfmdhlq9452ljp, .table th.tinytable_css_03db2jsfmdhlq9452ljp {    text-align: left; }
+.table td.tinytable_css_rnbkcev1p9a8uginf85w, .table th.tinytable_css_rnbkcev1p9a8uginf85w {    text-align: center; }
+.table td.tinytable_css_d3wuuyrtcjm33nunqtxh, .table th.tinytable_css_d3wuuyrtcjm33nunqtxh {    border-bottom: solid 0.05em black; }
+    </style>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script><script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+    </script><div class="container">
+      <div class="inline-table"><table class="table table-borderless" id="tinytable_sq88gu9pom72mvsy65kd" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
 <thead><tr>
-<th style="text-align:left;">
-</th>
-<th style="text-align:center;">
-Model 1
-</th>
-</tr></thead>
+<th scope="col"> </th>
+                <th scope="col">(1)</th>
+              </tr></thead>
+<tfoot><tr><td colspan="2">+ p </td></tr></tfoot>
 <tbody>
 <tr>
-<td style="text-align:left;">
-(Intercept)
-</td>
-<td style="text-align:center;">
-327.993**
-</td>
-</tr>
+<td>(Intercept)     </td>
+                  <td>327.993**</td>
+                </tr>
 <tr>
-<td style="text-align:left;">
-</td>
-<td style="text-align:center;">
-(125.638)
-</td>
-</tr>
+<td>                </td>
+                  <td>(125.638)</td>
+                </tr>
 <tr>
-<td style="text-align:left;">
-aa_NH3
-</td>
-<td style="text-align:center;">
-−1.223
-</td>
-</tr>
+<td>aa_NH3          </td>
+                  <td>-1.223   </td>
+                </tr>
 <tr>
-<td style="text-align:left;">
-</td>
-<td style="text-align:center;">
-(1.308)
-</td>
-</tr>
+<td>                </td>
+                  <td>(1.308)  </td>
+                </tr>
 <tr>
-<td style="text-align:left;">
-I(aa_NH3^2)
-</td>
-<td style="text-align:center;">
-0.004
-</td>
-</tr>
+<td>I(aa_NH3^2)     </td>
+                  <td>0.004    </td>
+                </tr>
 <tr>
-<td style="text-align:left;">
-</td>
-<td style="text-align:center;">
-(0.003)
-</td>
-</tr>
+<td>                </td>
+                  <td>(0.003)  </td>
+                </tr>
 <tr>
-<td style="text-align:left;">
-I(aa_NH3 * ec)
-</td>
-<td style="text-align:center;">
-0.002
-</td>
-</tr>
+<td>I(aa_NH3 * ec)  </td>
+                  <td>0.002    </td>
+                </tr>
 <tr>
-<td style="text-align:left;">
-</td>
-<td style="text-align:center;">
-(0.003)
-</td>
-</tr>
+<td>                </td>
+                  <td>(0.003)  </td>
+                </tr>
 <tr>
-<td style="text-align:left;">
-I(aa_NH3^2 * ec)
-</td>
-<td style="text-align:center;">
-0.000
-</td>
-</tr>
+<td>I(aa_NH3^2 * ec)</td>
+                  <td>0.000    </td>
+                </tr>
 <tr>
-<td style="text-align:left;box-shadow: 0px 1px">
-</td>
-<td style="text-align:center;box-shadow: 0px 1px">
-(0.000)
-</td>
-</tr>
+<td>                </td>
+                  <td>(0.000)  </td>
+                </tr>
 <tr>
-<td style="text-align:left;">
-Num.Obs.
-</td>
-<td style="text-align:center;">
-784
-</td>
-</tr>
+<td>Num.Obs.        </td>
+                  <td>784      </td>
+                </tr>
 <tr>
-<td style="text-align:left;">
-R2
-</td>
-<td style="text-align:center;">
-0.010
-</td>
-</tr>
+<td>R2              </td>
+                  <td>0.010    </td>
+                </tr>
 <tr>
-<td style="text-align:left;">
-F
-</td>
-<td style="text-align:center;">
-2.023
-</td>
-</tr>
+<td>F               </td>
+                  <td>2.023    </td>
+                </tr>
 <tr>
-<td style="text-align:left;">
-RMSE
-</td>
-<td style="text-align:center;">
-5.71
-</td>
-</tr>
+<td>RMSE            </td>
+                  <td>5.69     </td>
+                </tr>
 </tbody>
-<tfoot><tr>
-<td style="padding: 0; " colspan="100%">
-<sup></sup> + p &lt; 0.1, * p &lt; 0.05, ** p &lt; 0.01, *** p &lt; 0.001
-</td>
-</tr></tfoot>
 </table></div>
-<hr>
+</div>
+
+    <script>
+      function styleCell_tinytable_sqgx25mf4az0czeg4ljf(i, j, css_id) {
+        var table = document.getElementById("tinytable_sq88gu9pom72mvsy65kd");
+        table.rows[i].cells[j].classList.add(css_id);
+      }
+      function insertSpanRow(i, colspan, content) {
+        var table = document.getElementById('tinytable_sq88gu9pom72mvsy65kd');
+        var newRow = table.insertRow(i);
+        var newCell = newRow.insertCell(0);
+        newCell.setAttribute("colspan", colspan);
+        // newCell.innerText = content;
+        // this may be unsafe, but innerText does not interpret <br>
+        newCell.innerHTML = content;
+      }
+      function spanCell_tinytable_sqgx25mf4az0czeg4ljf(i, j, rowspan, colspan) {
+        var table = document.getElementById("tinytable_sq88gu9pom72mvsy65kd");
+        const targetRow = table.rows[i];
+        const targetCell = targetRow.cells[j];
+        for (let r = 0; r < rowspan; r++) {
+          // Only start deleting cells to the right for the first row (r == 0)
+          if (r === 0) {
+            // Delete cells to the right of the target cell in the first row
+            for (let c = colspan - 1; c > 0; c--) {
+              if (table.rows[i + r].cells[j + c]) {
+                table.rows[i + r].deleteCell(j + c);
+              }
+            }
+          }
+          // For rows below the first, delete starting from the target column
+          if (r > 0) {
+            for (let c = colspan - 1; c >= 0; c--) {
+              if (table.rows[i + r] && table.rows[i + r].cells[j]) {
+                table.rows[i + r].deleteCell(j);
+              }
+            }
+          }
+        }
+        // Set rowspan and colspan of the target cell
+        targetCell.rowSpan = rowspan;
+        targetCell.colSpan = colspan;
+      }
+
+window.addEventListener('load', function () { styleCell_tinytable_sqgx25mf4az0czeg4ljf(0, 0, 'tinytable_css_cmzjmzxmdw1c61r5ddbw') })
+window.addEventListener('load', function () { styleCell_tinytable_sqgx25mf4az0czeg4ljf(0, 1, 'tinytable_css_cmzjmzxmdw1c61r5ddbw') })
+window.addEventListener('load', function () { styleCell_tinytable_sqgx25mf4az0czeg4ljf(0, 0, 'tinytable_css_03db2jsfmdhlq9452ljp') })
+window.addEventListener('load', function () { styleCell_tinytable_sqgx25mf4az0czeg4ljf(1, 0, 'tinytable_css_03db2jsfmdhlq9452ljp') })
+window.addEventListener('load', function () { styleCell_tinytable_sqgx25mf4az0czeg4ljf(2, 0, 'tinytable_css_03db2jsfmdhlq9452ljp') })
+window.addEventListener('load', function () { styleCell_tinytable_sqgx25mf4az0czeg4ljf(3, 0, 'tinytable_css_03db2jsfmdhlq9452ljp') })
+window.addEventListener('load', function () { styleCell_tinytable_sqgx25mf4az0czeg4ljf(4, 0, 'tinytable_css_03db2jsfmdhlq9452ljp') })
+window.addEventListener('load', function () { styleCell_tinytable_sqgx25mf4az0czeg4ljf(5, 0, 'tinytable_css_03db2jsfmdhlq9452ljp') })
+window.addEventListener('load', function () { styleCell_tinytable_sqgx25mf4az0czeg4ljf(6, 0, 'tinytable_css_03db2jsfmdhlq9452ljp') })
+window.addEventListener('load', function () { styleCell_tinytable_sqgx25mf4az0czeg4ljf(7, 0, 'tinytable_css_03db2jsfmdhlq9452ljp') })
+window.addEventListener('load', function () { styleCell_tinytable_sqgx25mf4az0czeg4ljf(8, 0, 'tinytable_css_03db2jsfmdhlq9452ljp') })
+window.addEventListener('load', function () { styleCell_tinytable_sqgx25mf4az0czeg4ljf(9, 0, 'tinytable_css_03db2jsfmdhlq9452ljp') })
+window.addEventListener('load', function () { styleCell_tinytable_sqgx25mf4az0czeg4ljf(10, 0, 'tinytable_css_03db2jsfmdhlq9452ljp') })
+window.addEventListener('load', function () { styleCell_tinytable_sqgx25mf4az0czeg4ljf(11, 0, 'tinytable_css_03db2jsfmdhlq9452ljp') })
+window.addEventListener('load', function () { styleCell_tinytable_sqgx25mf4az0czeg4ljf(12, 0, 'tinytable_css_03db2jsfmdhlq9452ljp') })
+window.addEventListener('load', function () { styleCell_tinytable_sqgx25mf4az0czeg4ljf(13, 0, 'tinytable_css_03db2jsfmdhlq9452ljp') })
+window.addEventListener('load', function () { styleCell_tinytable_sqgx25mf4az0czeg4ljf(14, 0, 'tinytable_css_03db2jsfmdhlq9452ljp') })
+window.addEventListener('load', function () { styleCell_tinytable_sqgx25mf4az0czeg4ljf(0, 1, 'tinytable_css_rnbkcev1p9a8uginf85w') })
+window.addEventListener('load', function () { styleCell_tinytable_sqgx25mf4az0czeg4ljf(1, 1, 'tinytable_css_rnbkcev1p9a8uginf85w') })
+window.addEventListener('load', function () { styleCell_tinytable_sqgx25mf4az0czeg4ljf(2, 1, 'tinytable_css_rnbkcev1p9a8uginf85w') })
+window.addEventListener('load', function () { styleCell_tinytable_sqgx25mf4az0czeg4ljf(3, 1, 'tinytable_css_rnbkcev1p9a8uginf85w') })
+window.addEventListener('load', function () { styleCell_tinytable_sqgx25mf4az0czeg4ljf(4, 1, 'tinytable_css_rnbkcev1p9a8uginf85w') })
+window.addEventListener('load', function () { styleCell_tinytable_sqgx25mf4az0czeg4ljf(5, 1, 'tinytable_css_rnbkcev1p9a8uginf85w') })
+window.addEventListener('load', function () { styleCell_tinytable_sqgx25mf4az0czeg4ljf(6, 1, 'tinytable_css_rnbkcev1p9a8uginf85w') })
+window.addEventListener('load', function () { styleCell_tinytable_sqgx25mf4az0czeg4ljf(7, 1, 'tinytable_css_rnbkcev1p9a8uginf85w') })
+window.addEventListener('load', function () { styleCell_tinytable_sqgx25mf4az0czeg4ljf(8, 1, 'tinytable_css_rnbkcev1p9a8uginf85w') })
+window.addEventListener('load', function () { styleCell_tinytable_sqgx25mf4az0czeg4ljf(9, 1, 'tinytable_css_rnbkcev1p9a8uginf85w') })
+window.addEventListener('load', function () { styleCell_tinytable_sqgx25mf4az0czeg4ljf(10, 1, 'tinytable_css_rnbkcev1p9a8uginf85w') })
+window.addEventListener('load', function () { styleCell_tinytable_sqgx25mf4az0czeg4ljf(11, 1, 'tinytable_css_rnbkcev1p9a8uginf85w') })
+window.addEventListener('load', function () { styleCell_tinytable_sqgx25mf4az0czeg4ljf(12, 1, 'tinytable_css_rnbkcev1p9a8uginf85w') })
+window.addEventListener('load', function () { styleCell_tinytable_sqgx25mf4az0czeg4ljf(13, 1, 'tinytable_css_rnbkcev1p9a8uginf85w') })
+window.addEventListener('load', function () { styleCell_tinytable_sqgx25mf4az0czeg4ljf(14, 1, 'tinytable_css_rnbkcev1p9a8uginf85w') })
+window.addEventListener('load', function () { styleCell_tinytable_sqgx25mf4az0czeg4ljf(10, 0, 'tinytable_css_d3wuuyrtcjm33nunqtxh') })
+window.addEventListener('load', function () { styleCell_tinytable_sqgx25mf4az0czeg4ljf(10, 1, 'tinytable_css_d3wuuyrtcjm33nunqtxh') })
+    </script><hr>
 </div>
 </div>
 <div id="demo3" class="section level2" number="1.3">
@@ -1036,7 +1141,7 @@ CS_i = \alpha + \beta_1 PrN_{i} + \beta_2 PrC_{i} + v_i
 </li>
 <li>crop PRISM data to the geographic extent of IA
 <ul>
-<li>use <code><a href="https://rdrr.io/pkg/terra/man/crop.html">raster::crop()</a></code>
+<li>use <code><a href="https://rspatial.github.io/terra/reference/crop.html">raster::crop()</a></code>
 </li>
 </ul>
 </li>
@@ -1083,7 +1188,6 @@ CS_i = \alpha + \beta_1 PrN_{i} + \beta_2 PrC_{i} + v_i
 <span>  <span class="va">modelsummary</span>, <span class="co"># regression table generation</span></span>
 <span>  <span class="va">future.apply</span>, <span class="co"># parallel computation</span></span>
 <span>  <span class="va">cdlTools</span>, <span class="co"># download CDL data</span></span>
-<span>  <span class="va">rgdal</span>, <span class="co"># required for cdlTools</span></span>
 <span>  <span class="va">prism</span>, <span class="co"># download PRISM data</span></span>
 <span>  <span class="va">stringr</span> <span class="co"># string manipulation</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -1212,7 +1316,7 @@ Figure 1.11: Map of PRISM raster data layer
 <span><span class="va">IA_grids_rp_prism</span> <span class="op">&lt;-</span> <span class="fu">st_transform</span><span class="op">(</span><span class="va">IA_grids</span>, <span class="fu">projection</span><span class="op">(</span><span class="va">prism_whole</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">#--- crop the PRISM data for the 1st IA grid ---#</span></span>
-<span><span class="va">PRISM_1</span> <span class="op">&lt;-</span> <span class="fu">raster</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/crop.html">crop</a></span><span class="op">(</span><span class="va">prism_whole</span>, <span class="fu">st_buffer</span><span class="op">(</span><span class="va">IA_grids_rp_prism</span><span class="op">[</span><span class="fl">1</span>, <span class="op">]</span>, dist <span class="op">=</span> <span class="fl">2000</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">PRISM_1</span> <span class="op">&lt;-</span> <span class="fu">raster</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/crop.html">crop</a></span><span class="op">(</span><span class="va">prism_whole</span>, <span class="fu">st_buffer</span><span class="op">(</span><span class="va">IA_grids_rp_prism</span><span class="op">[</span><span class="fl">1</span>, <span class="op">]</span>, dist <span class="op">=</span> <span class="fl">2000</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">#--- map them ---#</span></span>
 <span><span class="fu">tm_shape</span><span class="op">(</span><span class="va">PRISM_1</span><span class="op">)</span> <span class="op">+</span></span>
@@ -1330,100 +1434,148 @@ We first get all the paths to the PRISM files.</p>
 <span>  stars <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  gof_omit <span class="op">=</span> <span class="st">"IC|Log|Adj|Within|Pseudo"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<div class="inline-table"><table style="NAborder-bottom: 0; width: auto !important; margin-left: auto; margin-right: auto;" class="table">
+ 
+
+  
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>tinytable_drkckwksok9d4ctmuubn</title>
+<style>
+.table td.tinytable_css_zi5pstikebakrtq8j8vr, .table th.tinytable_css_zi5pstikebakrtq8j8vr {    border-bottom: solid 0.1em #d3d8dc; }
+.table td.tinytable_css_g8o5k9kmr19eoci0t874, .table th.tinytable_css_g8o5k9kmr19eoci0t874 {    text-align: left; }
+.table td.tinytable_css_bz70zr3adc5p3l27i8cl, .table th.tinytable_css_bz70zr3adc5p3l27i8cl {    text-align: center; }
+.table td.tinytable_css_wwrdcxermy2si3krrs6k, .table th.tinytable_css_wwrdcxermy2si3krrs6k {    border-bottom: solid 0.05em black; }
+    </style>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script><script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+    </script><div class="container">
+      <div class="inline-table"><table class="table table-borderless" id="tinytable_drkckwksok9d4ctmuubn" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
 <thead><tr>
-<th style="text-align:left;">
-</th>
-<th style="text-align:center;">
-Model 1
-</th>
-</tr></thead>
+<th scope="col"> </th>
+                <th scope="col">(1)</th>
+              </tr></thead>
+<tfoot><tr><td colspan="2">+ p </td></tr></tfoot>
 <tbody>
 <tr>
-<td style="text-align:left;">
-(Intercept)
-</td>
-<td style="text-align:center;">
-2.701***
-</td>
-</tr>
+<td>(Intercept) </td>
+                  <td>2.701*** </td>
+                </tr>
 <tr>
-<td style="text-align:left;">
-</td>
-<td style="text-align:center;">
-(0.161)
-</td>
-</tr>
+<td>            </td>
+                  <td>(0.161)  </td>
+                </tr>
 <tr>
-<td style="text-align:left;">
-critical
-</td>
-<td style="text-align:center;">
-−0.002***
-</td>
-</tr>
+<td>critical    </td>
+                  <td>-0.002***</td>
+                </tr>
 <tr>
-<td style="text-align:left;">
-</td>
-<td style="text-align:center;">
-(0.000)
-</td>
-</tr>
+<td>            </td>
+                  <td>(0.000)  </td>
+                </tr>
 <tr>
-<td style="text-align:left;">
-non_critical
-</td>
-<td style="text-align:center;">
-0.000
-</td>
-</tr>
+<td>non_critical</td>
+                  <td>0.000    </td>
+                </tr>
 <tr>
-<td style="text-align:left;box-shadow: 0px 1px">
-</td>
-<td style="text-align:center;box-shadow: 0px 1px">
-(0.000)
-</td>
-</tr>
+<td>            </td>
+                  <td>(0.000)  </td>
+                </tr>
 <tr>
-<td style="text-align:left;">
-Num.Obs.
-</td>
-<td style="text-align:center;">
-1218
-</td>
-</tr>
+<td>Num.Obs.    </td>
+                  <td>1218     </td>
+                </tr>
 <tr>
-<td style="text-align:left;">
-R2
-</td>
-<td style="text-align:center;">
-0.058
-</td>
-</tr>
+<td>R2          </td>
+                  <td>0.058    </td>
+                </tr>
 <tr>
-<td style="text-align:left;">
-F
-</td>
-<td style="text-align:center;">
-37.230
-</td>
-</tr>
+<td>F           </td>
+                  <td>37.230   </td>
+                </tr>
 <tr>
-<td style="text-align:left;">
-RMSE
-</td>
-<td style="text-align:center;">
-0.74
-</td>
-</tr>
+<td>RMSE        </td>
+                  <td>0.74     </td>
+                </tr>
 </tbody>
-<tfoot><tr>
-<td style="padding: 0; " colspan="100%">
-<sup></sup> + p &lt; 0.1, * p &lt; 0.05, ** p &lt; 0.01, *** p &lt; 0.001
-</td>
-</tr></tfoot>
 </table></div>
-<p>Again, do not read into the results as the econometric model is terrible.</p>
+</div>
+
+    <script>
+      function styleCell_tinytable_d8q07cm0q1pwg46i3l74(i, j, css_id) {
+        var table = document.getElementById("tinytable_drkckwksok9d4ctmuubn");
+        table.rows[i].cells[j].classList.add(css_id);
+      }
+      function insertSpanRow(i, colspan, content) {
+        var table = document.getElementById('tinytable_drkckwksok9d4ctmuubn');
+        var newRow = table.insertRow(i);
+        var newCell = newRow.insertCell(0);
+        newCell.setAttribute("colspan", colspan);
+        // newCell.innerText = content;
+        // this may be unsafe, but innerText does not interpret <br>
+        newCell.innerHTML = content;
+      }
+      function spanCell_tinytable_d8q07cm0q1pwg46i3l74(i, j, rowspan, colspan) {
+        var table = document.getElementById("tinytable_drkckwksok9d4ctmuubn");
+        const targetRow = table.rows[i];
+        const targetCell = targetRow.cells[j];
+        for (let r = 0; r < rowspan; r++) {
+          // Only start deleting cells to the right for the first row (r == 0)
+          if (r === 0) {
+            // Delete cells to the right of the target cell in the first row
+            for (let c = colspan - 1; c > 0; c--) {
+              if (table.rows[i + r].cells[j + c]) {
+                table.rows[i + r].deleteCell(j + c);
+              }
+            }
+          }
+          // For rows below the first, delete starting from the target column
+          if (r > 0) {
+            for (let c = colspan - 1; c >= 0; c--) {
+              if (table.rows[i + r] && table.rows[i + r].cells[j]) {
+                table.rows[i + r].deleteCell(j);
+              }
+            }
+          }
+        }
+        // Set rowspan and colspan of the target cell
+        targetCell.rowSpan = rowspan;
+        targetCell.colSpan = colspan;
+      }
+
+window.addEventListener('load', function () { styleCell_tinytable_d8q07cm0q1pwg46i3l74(0, 0, 'tinytable_css_zi5pstikebakrtq8j8vr') })
+window.addEventListener('load', function () { styleCell_tinytable_d8q07cm0q1pwg46i3l74(0, 1, 'tinytable_css_zi5pstikebakrtq8j8vr') })
+window.addEventListener('load', function () { styleCell_tinytable_d8q07cm0q1pwg46i3l74(0, 0, 'tinytable_css_g8o5k9kmr19eoci0t874') })
+window.addEventListener('load', function () { styleCell_tinytable_d8q07cm0q1pwg46i3l74(1, 0, 'tinytable_css_g8o5k9kmr19eoci0t874') })
+window.addEventListener('load', function () { styleCell_tinytable_d8q07cm0q1pwg46i3l74(2, 0, 'tinytable_css_g8o5k9kmr19eoci0t874') })
+window.addEventListener('load', function () { styleCell_tinytable_d8q07cm0q1pwg46i3l74(3, 0, 'tinytable_css_g8o5k9kmr19eoci0t874') })
+window.addEventListener('load', function () { styleCell_tinytable_d8q07cm0q1pwg46i3l74(4, 0, 'tinytable_css_g8o5k9kmr19eoci0t874') })
+window.addEventListener('load', function () { styleCell_tinytable_d8q07cm0q1pwg46i3l74(5, 0, 'tinytable_css_g8o5k9kmr19eoci0t874') })
+window.addEventListener('load', function () { styleCell_tinytable_d8q07cm0q1pwg46i3l74(6, 0, 'tinytable_css_g8o5k9kmr19eoci0t874') })
+window.addEventListener('load', function () { styleCell_tinytable_d8q07cm0q1pwg46i3l74(7, 0, 'tinytable_css_g8o5k9kmr19eoci0t874') })
+window.addEventListener('load', function () { styleCell_tinytable_d8q07cm0q1pwg46i3l74(8, 0, 'tinytable_css_g8o5k9kmr19eoci0t874') })
+window.addEventListener('load', function () { styleCell_tinytable_d8q07cm0q1pwg46i3l74(9, 0, 'tinytable_css_g8o5k9kmr19eoci0t874') })
+window.addEventListener('load', function () { styleCell_tinytable_d8q07cm0q1pwg46i3l74(10, 0, 'tinytable_css_g8o5k9kmr19eoci0t874') })
+window.addEventListener('load', function () { styleCell_tinytable_d8q07cm0q1pwg46i3l74(0, 1, 'tinytable_css_bz70zr3adc5p3l27i8cl') })
+window.addEventListener('load', function () { styleCell_tinytable_d8q07cm0q1pwg46i3l74(1, 1, 'tinytable_css_bz70zr3adc5p3l27i8cl') })
+window.addEventListener('load', function () { styleCell_tinytable_d8q07cm0q1pwg46i3l74(2, 1, 'tinytable_css_bz70zr3adc5p3l27i8cl') })
+window.addEventListener('load', function () { styleCell_tinytable_d8q07cm0q1pwg46i3l74(3, 1, 'tinytable_css_bz70zr3adc5p3l27i8cl') })
+window.addEventListener('load', function () { styleCell_tinytable_d8q07cm0q1pwg46i3l74(4, 1, 'tinytable_css_bz70zr3adc5p3l27i8cl') })
+window.addEventListener('load', function () { styleCell_tinytable_d8q07cm0q1pwg46i3l74(5, 1, 'tinytable_css_bz70zr3adc5p3l27i8cl') })
+window.addEventListener('load', function () { styleCell_tinytable_d8q07cm0q1pwg46i3l74(6, 1, 'tinytable_css_bz70zr3adc5p3l27i8cl') })
+window.addEventListener('load', function () { styleCell_tinytable_d8q07cm0q1pwg46i3l74(7, 1, 'tinytable_css_bz70zr3adc5p3l27i8cl') })
+window.addEventListener('load', function () { styleCell_tinytable_d8q07cm0q1pwg46i3l74(8, 1, 'tinytable_css_bz70zr3adc5p3l27i8cl') })
+window.addEventListener('load', function () { styleCell_tinytable_d8q07cm0q1pwg46i3l74(9, 1, 'tinytable_css_bz70zr3adc5p3l27i8cl') })
+window.addEventListener('load', function () { styleCell_tinytable_d8q07cm0q1pwg46i3l74(10, 1, 'tinytable_css_bz70zr3adc5p3l27i8cl') })
+window.addEventListener('load', function () { styleCell_tinytable_d8q07cm0q1pwg46i3l74(6, 0, 'tinytable_css_wwrdcxermy2si3krrs6k') })
+window.addEventListener('load', function () { styleCell_tinytable_d8q07cm0q1pwg46i3l74(6, 1, 'tinytable_css_wwrdcxermy2si3krrs6k') })
+    </script><p>Again, do not read into the results as the econometric model is terrible.</p>
 <hr>
 </div>
 </div>
@@ -1564,16 +1716,16 @@ First 10 features:
 9  2018 Rock Island         161 CORN - ACRES PLANTED  68400
 10 2018  Stephenson         177 CORN - ACRES PLANTED 166500
                          geometry
-1  MULTIPOLYGON (((-89.85691 4...
-2  MULTIPOLYGON (((-90.16133 4...
-3  MULTIPOLYGON (((-90.43247 4...
-4  MULTIPOLYGON (((-90.50668 4...
-5  MULTIPOLYGON (((-89.63118 4...
-6  MULTIPOLYGON (((-90.99255 4...
-7  MULTIPOLYGON (((-89.68598 4...
-8  MULTIPOLYGON (((-89.33303 4...
-9  MULTIPOLYGON (((-90.33573 4...
-10 MULTIPOLYGON (((-89.92577 4...</code></pre>
+1  MULTIPOLYGON (((-89.16654 4...
+2  MULTIPOLYGON (((-89.97844 4...
+3  MULTIPOLYGON (((-89.85722 4...
+4  MULTIPOLYGON (((-90.21448 4...
+5  MULTIPOLYGON (((-89.05201 4...
+6  MULTIPOLYGON (((-91.11419 4...
+7  MULTIPOLYGON (((-88.94215 4...
+8  MULTIPOLYGON (((-89.46647 4...
+9  MULTIPOLYGON (((-90.33554 4...
+10 MULTIPOLYGON (((-89.62982 4...</code></pre>
 <p>A nice thing about this function is that the data is downloaded as an <code>sf</code> object with county geometry with <code>geometry = TRUE</code>. So, you can immediately plot it (Figure <a href="demo.html#fig:map-il-corn-acreage">1.13</a>) and use it for later spatial interactions without having to merge the downloaded data to an independent county boundary data.</p>
 <div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="va">IL_corn_planted</span><span class="op">)</span> <span class="op">+</span></span>
@@ -1665,7 +1817,7 @@ Figure 1.15: Map of railroads in Illinois
  5 015             161397.
  6 017              30611.
  7 019             389061.
- 8 021             155706.
+ 8 021             155661.
  9 023              78532.
 10 025              92002.
 # ℹ 72 more rows</code></pre>
@@ -1679,85 +1831,136 @@ Figure 1.15: Map of railroads in Illinois
 <span>    stars <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>    gof_omit <span class="op">=</span> <span class="st">"IC|Log|Adj|Within|Pseudo"</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<div class="inline-table"><table style="NAborder-bottom: 0; width: auto !important; margin-left: auto; margin-right: auto;" class="table">
+ 
+
+  
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>tinytable_k3h3ns0glih3576sqdx0</title>
+<style>
+.table td.tinytable_css_1zs9pqy2glax1ebe8iz4, .table th.tinytable_css_1zs9pqy2glax1ebe8iz4 {    border-bottom: solid 0.1em #d3d8dc; }
+.table td.tinytable_css_i6ydlodnydevynv1yn7a, .table th.tinytable_css_i6ydlodnydevynv1yn7a {    text-align: left; }
+.table td.tinytable_css_dicszxjt32zpffg2nqq0, .table th.tinytable_css_dicszxjt32zpffg2nqq0 {    text-align: center; }
+.table td.tinytable_css_hz7xujvz2x5coama6iog, .table th.tinytable_css_hz7xujvz2x5coama6iog {    border-bottom: solid 0.05em black; }
+    </style>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script><script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+    </script><div class="container">
+      <div class="inline-table"><table class="table table-borderless" id="tinytable_k3h3ns0glih3576sqdx0" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
 <thead><tr>
-<th style="text-align:left;">
-</th>
-<th style="text-align:center;">
-Model 1
-</th>
-</tr></thead>
+<th scope="col"> </th>
+                <th scope="col">(1)</th>
+              </tr></thead>
+<tfoot><tr><td colspan="2">+ p </td></tr></tfoot>
 <tbody>
 <tr>
-<td style="text-align:left;">
-(Intercept)
-</td>
-<td style="text-align:center;">
-108173.680***
-</td>
-</tr>
+<td>(Intercept)</td>
+                  <td>108173.178***</td>
+                </tr>
 <tr>
-<td style="text-align:left;">
-</td>
-<td style="text-align:center;">
-(11417.667)
-</td>
-</tr>
+<td>           </td>
+                  <td>(11417.552)  </td>
+                </tr>
 <tr>
-<td style="text-align:left;">
-length_in_m
-</td>
-<td style="text-align:center;">
-0.092+
-</td>
-</tr>
+<td>length_in_m</td>
+                  <td>0.092+       </td>
+                </tr>
 <tr>
-<td style="text-align:left;box-shadow: 0px 1px">
-</td>
-<td style="text-align:center;box-shadow: 0px 1px">
-(0.047)
-</td>
-</tr>
+<td>           </td>
+                  <td>(0.047)      </td>
+                </tr>
 <tr>
-<td style="text-align:left;">
-Num.Obs.
-</td>
-<td style="text-align:center;">
-82
-</td>
-</tr>
+<td>Num.Obs.   </td>
+                  <td>82           </td>
+                </tr>
 <tr>
-<td style="text-align:left;">
-R2
-</td>
-<td style="text-align:center;">
-0.046
-</td>
-</tr>
+<td>R2         </td>
+                  <td>0.046        </td>
+                </tr>
 <tr>
-<td style="text-align:left;">
-F
-</td>
-<td style="text-align:center;">
-3.859
-</td>
-</tr>
+<td>F          </td>
+                  <td>3.859        </td>
+                </tr>
 <tr>
-<td style="text-align:left;">
-RMSE
-</td>
-<td style="text-align:center;">
-68196.36
-</td>
-</tr>
+<td>RMSE       </td>
+                  <td>68196.21     </td>
+                </tr>
 </tbody>
-<tfoot><tr>
-<td style="padding: 0; " colspan="100%">
-<sup></sup> + p &lt; 0.1, * p &lt; 0.05, ** p &lt; 0.01, *** p &lt; 0.001
-</td>
-</tr></tfoot>
 </table></div>
-<hr>
+</div>
+
+    <script>
+      function styleCell_tinytable_zks6bfd9nj36g7b80isu(i, j, css_id) {
+        var table = document.getElementById("tinytable_k3h3ns0glih3576sqdx0");
+        table.rows[i].cells[j].classList.add(css_id);
+      }
+      function insertSpanRow(i, colspan, content) {
+        var table = document.getElementById('tinytable_k3h3ns0glih3576sqdx0');
+        var newRow = table.insertRow(i);
+        var newCell = newRow.insertCell(0);
+        newCell.setAttribute("colspan", colspan);
+        // newCell.innerText = content;
+        // this may be unsafe, but innerText does not interpret <br>
+        newCell.innerHTML = content;
+      }
+      function spanCell_tinytable_zks6bfd9nj36g7b80isu(i, j, rowspan, colspan) {
+        var table = document.getElementById("tinytable_k3h3ns0glih3576sqdx0");
+        const targetRow = table.rows[i];
+        const targetCell = targetRow.cells[j];
+        for (let r = 0; r < rowspan; r++) {
+          // Only start deleting cells to the right for the first row (r == 0)
+          if (r === 0) {
+            // Delete cells to the right of the target cell in the first row
+            for (let c = colspan - 1; c > 0; c--) {
+              if (table.rows[i + r].cells[j + c]) {
+                table.rows[i + r].deleteCell(j + c);
+              }
+            }
+          }
+          // For rows below the first, delete starting from the target column
+          if (r > 0) {
+            for (let c = colspan - 1; c >= 0; c--) {
+              if (table.rows[i + r] && table.rows[i + r].cells[j]) {
+                table.rows[i + r].deleteCell(j);
+              }
+            }
+          }
+        }
+        // Set rowspan and colspan of the target cell
+        targetCell.rowSpan = rowspan;
+        targetCell.colSpan = colspan;
+      }
+
+window.addEventListener('load', function () { styleCell_tinytable_zks6bfd9nj36g7b80isu(0, 0, 'tinytable_css_1zs9pqy2glax1ebe8iz4') })
+window.addEventListener('load', function () { styleCell_tinytable_zks6bfd9nj36g7b80isu(0, 1, 'tinytable_css_1zs9pqy2glax1ebe8iz4') })
+window.addEventListener('load', function () { styleCell_tinytable_zks6bfd9nj36g7b80isu(0, 0, 'tinytable_css_i6ydlodnydevynv1yn7a') })
+window.addEventListener('load', function () { styleCell_tinytable_zks6bfd9nj36g7b80isu(1, 0, 'tinytable_css_i6ydlodnydevynv1yn7a') })
+window.addEventListener('load', function () { styleCell_tinytable_zks6bfd9nj36g7b80isu(2, 0, 'tinytable_css_i6ydlodnydevynv1yn7a') })
+window.addEventListener('load', function () { styleCell_tinytable_zks6bfd9nj36g7b80isu(3, 0, 'tinytable_css_i6ydlodnydevynv1yn7a') })
+window.addEventListener('load', function () { styleCell_tinytable_zks6bfd9nj36g7b80isu(4, 0, 'tinytable_css_i6ydlodnydevynv1yn7a') })
+window.addEventListener('load', function () { styleCell_tinytable_zks6bfd9nj36g7b80isu(5, 0, 'tinytable_css_i6ydlodnydevynv1yn7a') })
+window.addEventListener('load', function () { styleCell_tinytable_zks6bfd9nj36g7b80isu(6, 0, 'tinytable_css_i6ydlodnydevynv1yn7a') })
+window.addEventListener('load', function () { styleCell_tinytable_zks6bfd9nj36g7b80isu(7, 0, 'tinytable_css_i6ydlodnydevynv1yn7a') })
+window.addEventListener('load', function () { styleCell_tinytable_zks6bfd9nj36g7b80isu(8, 0, 'tinytable_css_i6ydlodnydevynv1yn7a') })
+window.addEventListener('load', function () { styleCell_tinytable_zks6bfd9nj36g7b80isu(0, 1, 'tinytable_css_dicszxjt32zpffg2nqq0') })
+window.addEventListener('load', function () { styleCell_tinytable_zks6bfd9nj36g7b80isu(1, 1, 'tinytable_css_dicszxjt32zpffg2nqq0') })
+window.addEventListener('load', function () { styleCell_tinytable_zks6bfd9nj36g7b80isu(2, 1, 'tinytable_css_dicszxjt32zpffg2nqq0') })
+window.addEventListener('load', function () { styleCell_tinytable_zks6bfd9nj36g7b80isu(3, 1, 'tinytable_css_dicszxjt32zpffg2nqq0') })
+window.addEventListener('load', function () { styleCell_tinytable_zks6bfd9nj36g7b80isu(4, 1, 'tinytable_css_dicszxjt32zpffg2nqq0') })
+window.addEventListener('load', function () { styleCell_tinytable_zks6bfd9nj36g7b80isu(5, 1, 'tinytable_css_dicszxjt32zpffg2nqq0') })
+window.addEventListener('load', function () { styleCell_tinytable_zks6bfd9nj36g7b80isu(6, 1, 'tinytable_css_dicszxjt32zpffg2nqq0') })
+window.addEventListener('load', function () { styleCell_tinytable_zks6bfd9nj36g7b80isu(7, 1, 'tinytable_css_dicszxjt32zpffg2nqq0') })
+window.addEventListener('load', function () { styleCell_tinytable_zks6bfd9nj36g7b80isu(8, 1, 'tinytable_css_dicszxjt32zpffg2nqq0') })
+window.addEventListener('load', function () { styleCell_tinytable_zks6bfd9nj36g7b80isu(4, 0, 'tinytable_css_hz7xujvz2x5coama6iog') })
+window.addEventListener('load', function () { styleCell_tinytable_zks6bfd9nj36g7b80isu(4, 1, 'tinytable_css_hz7xujvz2x5coama6iog') })
+    </script><hr>
 </div>
 </div>
 <div id="demo-gw-ir" class="section level2" number="1.5">
@@ -1911,19 +2114,20 @@ First 10 features:
 <span><span class="op">(</span></span>
 <span>  <span class="va">returned_data</span> <span class="op">&lt;-</span> <span class="fu">get_daymet</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">[</span><span class="op">]</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<pre><code>    month year  prcp     tmax well_id
- 1:     4 2010 40.72 20.71700       1
- 2:     5 2010 93.60 24.41677       1
- 3:     6 2010 70.45 32.59933       1
- 4:     7 2010 84.58 33.59903       1
- 5:     8 2010 66.41 34.17323       1
- 6:     9 2010 15.58 31.25800       1
- 7:     4 2011 24.04 21.86367       1
- 8:     5 2011 25.59 26.51097       1
- 9:     6 2011 23.15 35.37533       1
-10:     7 2011 35.10 38.60548       1
-11:     8 2011 36.66 36.94871       1
-12:     9 2011  9.59 28.31800       1</code></pre>
+<pre><code>    month  year  prcp     tmax well_id
+    &lt;num&gt; &lt;int&gt; &lt;num&gt;    &lt;num&gt;   &lt;num&gt;
+ 1:     4  2010 40.72 20.71700       1
+ 2:     5  2010 93.60 24.41677       1
+ 3:     6  2010 70.45 32.59933       1
+ 4:     7  2010 84.58 33.59903       1
+ 5:     8  2010 66.41 34.17323       1
+ 6:     9  2010 15.58 31.25800       1
+ 7:     4  2011 24.04 21.86367       1
+ 8:     5  2011 25.59 26.51097       1
+ 9:     6  2011 23.15 35.37533       1
+10:     7  2011 35.10 38.60548       1
+11:     8  2011 36.66 36.94871       1
+12:     9  2011  9.59 28.31800       1</code></pre>
 <p>We get the number of cores you can use by <code><a href="https://rdrr.io/pkg/RhpcBLASctl/man/RhpcBLASctl-package.html">RhpcBLASctl::get_num_procs()</a></code> and parallelize the loop over wells using <code>future_lapply()</code>.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;For Mac users, &lt;code&gt;mclapply&lt;/code&gt; or &lt;code&gt;pbmclapply&lt;/code&gt; (&lt;code&gt;mclapply&lt;/code&gt; with progress bar) are good alternatives.&lt;/p&gt;"><sup>29</sup></a></p>
 <div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- prepare for parallelization ---#</span></span>
@@ -1939,18 +2143,19 @@ First 10 features:
 <span>    <span class="op">)</span> <span class="op">%&gt;%</span></span>
 <span>    <span class="fu">rbindlist</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<pre><code>        month year prcp     tmax well_id
-     1:     4 2010   42 20.96667       1
-     2:     5 2010   94 24.19355       1
-     3:     6 2010   70 32.51667       1
-     4:     7 2010   89 33.50000       1
-     5:     8 2010   63 34.17742       1
-    ---                                 
-336980:     5 2011   18 26.11290   78051
-336981:     6 2011   25 34.61667   78051
-336982:     7 2011    6 38.37097   78051
-336983:     8 2011   39 36.66129   78051
-336984:     9 2011   23 28.45000   78051</code></pre>
+<pre><code>        month  year  prcp     tmax well_id
+        &lt;num&gt; &lt;num&gt; &lt;num&gt;    &lt;num&gt;   &lt;num&gt;
+     1:     4  2010    42 20.96667       1
+     2:     5  2010    94 24.19355       1
+     3:     6  2010    70 32.51667       1
+     4:     7  2010    89 33.50000       1
+     5:     8  2010    63 34.17742       1
+    ---                                   
+336980:     5  2011    18 26.11290   78051
+336981:     6  2011    25 34.61667   78051
+336982:     7  2011     6 38.37097   78051
+336983:     8  2011    39 36.66129   78051
+336984:     9  2011    23 28.45000   78051</code></pre>
 <hr>
 <p>Before merging the Daymet data, we need to reshape the data into a wide format to get monthly precipitation and maximum temperature as columns.</p>
 <div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
@@ -1964,30 +2169,33 @@ First 10 features:
 <span></span>
 <span><span class="co">#--- take a look ---#</span></span>
 <span><span class="va">daymet_to_merge</span></span></code></pre></div>
-<pre><code>       well_id year prcp_4 prcp_5 prcp_6 prcp_7 prcp_8 prcp_9   tmax_4   tmax_5
-    1:       1 2010     42     94     70     89     63     15 20.96667 24.19355
-    2:       1 2011     25     26     23     35     37      9 21.91667 26.30645
-    3:       3 2010     85     62    109    112     83     41 19.93333 21.64516
-    4:       3 2011     80    104     44    124    118     14 18.40000 22.62903
-    5:       7 2010     44     83     23     99    105     13 18.81667 22.14516
-   ---                                                                         
-56160:   78049 2011     27      6     38     37     34     36 22.81667 26.70968
-56161:   78050 2010     35     48     68    111     56      9 21.38333 24.85484
-56162:   78050 2011     26      7     44     38     34     35 22.76667 26.70968
-56163:   78051 2010     30     62     48     29     76      3 21.05000 24.14516
-56164:   78051 2011     33     18     25      6     39     23 21.90000 26.11290
-         tmax_6   tmax_7   tmax_8   tmax_9
-    1: 32.51667 33.50000 34.17742 31.43333
-    2: 35.16667 38.62903 36.90323 28.66667
-    3: 30.73333 32.80645 33.56452 28.93333
-    4: 30.08333 35.08065 32.90323 25.81667
-    5: 31.30000 33.12903 32.67742 30.16667
-   ---                                    
-56160: 35.01667 38.32258 36.54839 28.80000
-56161: 33.16667 33.88710 34.40323 32.11667
-56162: 34.91667 38.32258 36.54839 28.83333
-56163: 32.90000 33.83871 34.38710 31.56667
-56164: 34.61667 38.37097 36.66129 28.45000</code></pre>
+<pre><code>Key: &lt;well_id, year&gt;
+       well_id  year prcp_4 prcp_5 prcp_6 prcp_7 prcp_8 prcp_9   tmax_4
+         &lt;num&gt; &lt;num&gt;  &lt;num&gt;  &lt;num&gt;  &lt;num&gt;  &lt;num&gt;  &lt;num&gt;  &lt;num&gt;    &lt;num&gt;
+    1:       1  2010     42     94     70     89     63     15 20.96667
+    2:       1  2011     25     26     23     35     37      9 21.91667
+    3:       3  2010     85     62    109    112     83     41 19.93333
+    4:       3  2011     80    104     44    124    118     14 18.40000
+    5:       7  2010     44     83     23     99    105     13 18.81667
+   ---                                                                 
+56160:   78049  2011     27      6     38     37     34     36 22.81667
+56161:   78050  2010     35     48     68    111     56      9 21.38333
+56162:   78050  2011     26      7     44     38     34     35 22.76667
+56163:   78051  2010     30     62     48     29     76      3 21.05000
+56164:   78051  2011     33     18     25      6     39     23 21.90000
+         tmax_5   tmax_6   tmax_7   tmax_8   tmax_9
+          &lt;num&gt;    &lt;num&gt;    &lt;num&gt;    &lt;num&gt;    &lt;num&gt;
+    1: 24.19355 32.51667 33.50000 34.17742 31.43333
+    2: 26.30645 35.16667 38.62903 36.90323 28.66667
+    3: 21.64516 30.73333 32.80645 33.56452 28.93333
+    4: 22.62903 30.08333 35.08065 32.90323 25.81667
+    5: 22.14516 31.30000 33.12903 32.67742 30.16667
+   ---                                             
+56160: 26.70968 35.01667 38.32258 36.54839 28.80000
+56161: 24.85484 33.16667 33.88710 34.40323 32.11667
+56162: 26.70968 34.91667 38.32258 36.54839 28.83333
+56163: 24.14516 32.90000 33.83871 34.38710 31.56667
+56164: 26.11290 34.61667 38.37097 36.66129 28.45000</code></pre>
 <p>Now, let’s merge the weather data to the groundwater pumping dataset.</p>
 <div class="sourceCode" id="cb86"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span></span>
@@ -1998,30 +2206,32 @@ First 10 features:
 <span>    <span class="co">#--- join ---#</span></span>
 <span>    <span class="va">daymet_to_merge</span><span class="op">[</span><span class="va">.</span>, on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"well_id"</span>, <span class="st">"year"</span><span class="op">)</span><span class="op">]</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<pre><code>       well_id year prcp_4 prcp_5 prcp_6 prcp_7 prcp_8 prcp_9   tmax_4   tmax_5
-    1:       1 2010     42     94     70     89     63     15 20.96667 24.19355
-    2:       1 2011     25     26     23     35     37      9 21.91667 26.30645
-    3:       3 2010     85     62    109    112     83     41 19.93333 21.64516
-    4:       3 2011     80    104     44    124    118     14 18.40000 22.62903
-    5:       7 2010     44     83     23     99    105     13 18.81667 22.14516
-   ---                                                                         
-56221:   79348 2011     NA     NA     NA     NA     NA     NA       NA       NA
-56222:   79349 2011     NA     NA     NA     NA     NA     NA       NA       NA
-56223:   79367 2011     NA     NA     NA     NA     NA     NA       NA       NA
-56224:   79372 2011     NA     NA     NA     NA     NA     NA       NA       NA
-56225:   80930 2011     NA     NA     NA     NA     NA     NA       NA       NA
-         tmax_6   tmax_7   tmax_8   tmax_9   af_used
-    1: 32.51667 33.50000 34.17742 31.43333  67.00000
-    2: 35.16667 38.62903 36.90323 28.66667 171.00000
-    3: 30.73333 32.80645 33.56452 28.93333  30.93438
-    4: 30.08333 35.08065 32.90323 25.81667  12.00000
-    5: 31.30000 33.12903 32.67742 30.16667   0.00000
-   ---                                              
-56221:       NA       NA       NA       NA  76.00000
-56222:       NA       NA       NA       NA 182.00000
-56223:       NA       NA       NA       NA   0.00000
-56224:       NA       NA       NA       NA 134.00000
-56225:       NA       NA       NA       NA  23.69150</code></pre>
+<pre><code>       well_id  year prcp_4 prcp_5 prcp_6 prcp_7 prcp_8 prcp_9   tmax_4
+         &lt;num&gt; &lt;num&gt;  &lt;num&gt;  &lt;num&gt;  &lt;num&gt;  &lt;num&gt;  &lt;num&gt;  &lt;num&gt;    &lt;num&gt;
+    1:       1  2010     42     94     70     89     63     15 20.96667
+    2:       1  2011     25     26     23     35     37      9 21.91667
+    3:       3  2010     85     62    109    112     83     41 19.93333
+    4:       3  2011     80    104     44    124    118     14 18.40000
+    5:       7  2010     44     83     23     99    105     13 18.81667
+   ---                                                                 
+56221:   79348  2011     NA     NA     NA     NA     NA     NA       NA
+56222:   79349  2011     NA     NA     NA     NA     NA     NA       NA
+56223:   79367  2011     NA     NA     NA     NA     NA     NA       NA
+56224:   79372  2011     NA     NA     NA     NA     NA     NA       NA
+56225:   80930  2011     NA     NA     NA     NA     NA     NA       NA
+         tmax_5   tmax_6   tmax_7   tmax_8   tmax_9   af_used
+          &lt;num&gt;    &lt;num&gt;    &lt;num&gt;    &lt;num&gt;    &lt;num&gt;     &lt;num&gt;
+    1: 24.19355 32.51667 33.50000 34.17742 31.43333  67.00000
+    2: 26.30645 35.16667 38.62903 36.90323 28.66667 171.00000
+    3: 21.64516 30.73333 32.80645 33.56452 28.93333  30.93438
+    4: 22.62903 30.08333 35.08065 32.90323 25.81667  12.00000
+    5: 22.14516 31.30000 33.12903 32.67742 30.16667   0.00000
+   ---                                                       
+56221:       NA       NA       NA       NA       NA  76.00000
+56222:       NA       NA       NA       NA       NA 182.00000
+56223:       NA       NA       NA       NA       NA   0.00000
+56224:       NA       NA       NA       NA       NA 134.00000
+56225:       NA       NA       NA       NA       NA  23.69150</code></pre>
 <hr>
 <p>Let’s run regression and display the results.</p>
 <div class="sourceCode" id="cb88"><pre class="downlit sourceCode r">
@@ -2037,248 +2247,273 @@ First 10 features:
 <span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="co">#--- display regression results ---#</span></span>
-<span><span class="fu">modelsummary</span><span class="fu">::</span><span class="fu"><a href="https://modelsummary.com/reference/modelsummary.html">modelsummary</a></span><span class="op">(</span></span>
+<span><span class="fu">modelsummary</span><span class="fu">::</span><span class="fu"><a href="https://modelsummary.com/man/modelsummary.html">modelsummary</a></span><span class="op">(</span></span>
 <span>  <span class="va">reg_results</span>,</span>
 <span>  stars <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  gof_omit <span class="op">=</span> <span class="st">"IC|Log|Adj|Within|Pseudo"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<div class="inline-table"><table style="NAborder-bottom: 0; width: auto !important; margin-left: auto; margin-right: auto;" class="table">
+ 
+
+  
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>tinytable_pqmjlry9rmkxs7akqemu</title>
+<style>
+.table td.tinytable_css_deahzrfemf77jrl43wrx, .table th.tinytable_css_deahzrfemf77jrl43wrx {    border-bottom: solid 0.1em #d3d8dc; }
+.table td.tinytable_css_ezlj6d8hn49b4lhy1c9w, .table th.tinytable_css_ezlj6d8hn49b4lhy1c9w {    text-align: left; }
+.table td.tinytable_css_gi0qhnlynb8avwb1yonl, .table th.tinytable_css_gi0qhnlynb8avwb1yonl {    text-align: center; }
+.table td.tinytable_css_tgomm9mf6yju6k3re5wb, .table th.tinytable_css_tgomm9mf6yju6k3re5wb {    border-bottom: solid 0.05em black; }
+    </style>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script><script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+    </script><div class="container">
+      <div class="inline-table"><table class="table table-borderless" id="tinytable_pqmjlry9rmkxs7akqemu" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
 <thead><tr>
-<th style="text-align:left;">
-</th>
-<th style="text-align:center;">
-Model 1
-</th>
-</tr></thead>
+<th scope="col"> </th>
+                <th scope="col">(1)</th>
+              </tr></thead>
+<tfoot><tr><td colspan="2">+ p </td></tr></tfoot>
 <tbody>
 <tr>
-<td style="text-align:left;">
-prcp_4
-</td>
-<td style="text-align:center;">
-−0.053**
-</td>
-</tr>
+<td>prcp_4     </td>
+                  <td>-0.053**   </td>
+                </tr>
 <tr>
-<td style="text-align:left;">
-</td>
-<td style="text-align:center;">
-(0.017)
-</td>
-</tr>
+<td>           </td>
+                  <td>(0.017)    </td>
+                </tr>
 <tr>
-<td style="text-align:left;">
-prcp_5
-</td>
-<td style="text-align:center;">
-0.112***
-</td>
-</tr>
+<td>prcp_5     </td>
+                  <td>0.112***   </td>
+                </tr>
 <tr>
-<td style="text-align:left;">
-</td>
-<td style="text-align:center;">
-(0.010)
-</td>
-</tr>
+<td>           </td>
+                  <td>(0.010)    </td>
+                </tr>
 <tr>
-<td style="text-align:left;">
-prcp_6
-</td>
-<td style="text-align:center;">
-−0.073***
-</td>
-</tr>
+<td>prcp_6     </td>
+                  <td>-0.073***  </td>
+                </tr>
 <tr>
-<td style="text-align:left;">
-</td>
-<td style="text-align:center;">
-(0.008)
-</td>
-</tr>
+<td>           </td>
+                  <td>(0.008)    </td>
+                </tr>
 <tr>
-<td style="text-align:left;">
-prcp_7
-</td>
-<td style="text-align:center;">
-0.014
-</td>
-</tr>
+<td>prcp_7     </td>
+                  <td>0.014      </td>
+                </tr>
 <tr>
-<td style="text-align:left;">
-</td>
-<td style="text-align:center;">
-(0.010)
-</td>
-</tr>
+<td>           </td>
+                  <td>(0.010)    </td>
+                </tr>
 <tr>
-<td style="text-align:left;">
-prcp_8
-</td>
-<td style="text-align:center;">
-0.093***
-</td>
-</tr>
+<td>prcp_8     </td>
+                  <td>0.093***   </td>
+                </tr>
 <tr>
-<td style="text-align:left;">
-</td>
-<td style="text-align:center;">
-(0.014)
-</td>
-</tr>
+<td>           </td>
+                  <td>(0.014)    </td>
+                </tr>
 <tr>
-<td style="text-align:left;">
-prcp_9
-</td>
-<td style="text-align:center;">
-−0.177***
-</td>
-</tr>
+<td>prcp_9     </td>
+                  <td>-0.177***  </td>
+                </tr>
 <tr>
-<td style="text-align:left;">
-</td>
-<td style="text-align:center;">
-(0.025)
-</td>
-</tr>
+<td>           </td>
+                  <td>(0.025)    </td>
+                </tr>
 <tr>
-<td style="text-align:left;">
-tmax_4
-</td>
-<td style="text-align:center;">
-9.159***
-</td>
-</tr>
+<td>tmax_4     </td>
+                  <td>9.159***   </td>
+                </tr>
 <tr>
-<td style="text-align:left;">
-</td>
-<td style="text-align:center;">
-(1.227)
-</td>
-</tr>
+<td>           </td>
+                  <td>(1.227)    </td>
+                </tr>
 <tr>
-<td style="text-align:left;">
-tmax_5
-</td>
-<td style="text-align:center;">
-−7.505***
-</td>
-</tr>
+<td>tmax_5     </td>
+                  <td>-7.505***  </td>
+                </tr>
 <tr>
-<td style="text-align:left;">
-</td>
-<td style="text-align:center;">
-(1.062)
-</td>
-</tr>
+<td>           </td>
+                  <td>(1.062)    </td>
+                </tr>
 <tr>
-<td style="text-align:left;">
-tmax_6
-</td>
-<td style="text-align:center;">
-15.134***
-</td>
-</tr>
+<td>tmax_6     </td>
+                  <td>15.134***  </td>
+                </tr>
 <tr>
-<td style="text-align:left;">
-</td>
-<td style="text-align:center;">
-(1.360)
-</td>
-</tr>
+<td>           </td>
+                  <td>(1.360)    </td>
+                </tr>
 <tr>
-<td style="text-align:left;">
-tmax_7
-</td>
-<td style="text-align:center;">
-3.969*
-</td>
-</tr>
+<td>tmax_7     </td>
+                  <td>3.969*     </td>
+                </tr>
 <tr>
-<td style="text-align:left;">
-</td>
-<td style="text-align:center;">
-(1.618)
-</td>
-</tr>
+<td>           </td>
+                  <td>(1.618)    </td>
+                </tr>
 <tr>
-<td style="text-align:left;">
-tmax_8
-</td>
-<td style="text-align:center;">
-3.420**
-</td>
-</tr>
+<td>tmax_8     </td>
+                  <td>3.420**    </td>
+                </tr>
 <tr>
-<td style="text-align:left;">
-</td>
-<td style="text-align:center;">
-(1.066)
-</td>
-</tr>
+<td>           </td>
+                  <td>(1.066)    </td>
+                </tr>
 <tr>
-<td style="text-align:left;">
-tmax_9
-</td>
-<td style="text-align:center;">
-−11.803***
-</td>
-</tr>
+<td>tmax_9     </td>
+                  <td>-11.803*** </td>
+                </tr>
 <tr>
-<td style="text-align:left;box-shadow: 0px 1px">
-</td>
-<td style="text-align:center;box-shadow: 0px 1px">
-(1.801)
-</td>
-</tr>
+<td>           </td>
+                  <td>(1.801)    </td>
+                </tr>
 <tr>
-<td style="text-align:left;">
-Num.Obs.
-</td>
-<td style="text-align:center;">
-55754
-</td>
-</tr>
+<td>Num.Obs.   </td>
+                  <td>55754      </td>
+                </tr>
 <tr>
-<td style="text-align:left;">
-RMSE
-</td>
-<td style="text-align:center;">
-33.01
-</td>
-</tr>
+<td>R2         </td>
+                  <td>0.942      </td>
+                </tr>
 <tr>
-<td style="text-align:left;">
-Std.Errors
-</td>
-<td style="text-align:center;">
-by: well_id
-</td>
-</tr>
+<td>RMSE       </td>
+                  <td>33.01      </td>
+                </tr>
 <tr>
-<td style="text-align:left;">
-FE: well_id
-</td>
-<td style="text-align:center;">
-X
-</td>
-</tr>
+<td>Std.Errors </td>
+                  <td>by: well_id</td>
+                </tr>
 <tr>
-<td style="text-align:left;">
-FE: year
-</td>
-<td style="text-align:center;">
-X
-</td>
-</tr>
+<td>FE: well_id</td>
+                  <td>X          </td>
+                </tr>
+<tr>
+<td>FE: year   </td>
+                  <td>X          </td>
+                </tr>
 </tbody>
-<tfoot><tr>
-<td style="padding: 0; " colspan="100%">
-<sup></sup> + p &lt; 0.1, * p &lt; 0.05, ** p &lt; 0.01, *** p &lt; 0.001
-</td>
-</tr></tfoot>
 </table></div>
-<p>That’s it. Do not bother to try to read into the regression results. Again, this is just an illustration of how R can be used to prepare a regression-ready dataset with spatial variables.</p>
+</div>
+
+    <script>
+      function styleCell_tinytable_7p4v768zexkn95x66ewn(i, j, css_id) {
+        var table = document.getElementById("tinytable_pqmjlry9rmkxs7akqemu");
+        table.rows[i].cells[j].classList.add(css_id);
+      }
+      function insertSpanRow(i, colspan, content) {
+        var table = document.getElementById('tinytable_pqmjlry9rmkxs7akqemu');
+        var newRow = table.insertRow(i);
+        var newCell = newRow.insertCell(0);
+        newCell.setAttribute("colspan", colspan);
+        // newCell.innerText = content;
+        // this may be unsafe, but innerText does not interpret <br>
+        newCell.innerHTML = content;
+      }
+      function spanCell_tinytable_7p4v768zexkn95x66ewn(i, j, rowspan, colspan) {
+        var table = document.getElementById("tinytable_pqmjlry9rmkxs7akqemu");
+        const targetRow = table.rows[i];
+        const targetCell = targetRow.cells[j];
+        for (let r = 0; r < rowspan; r++) {
+          // Only start deleting cells to the right for the first row (r == 0)
+          if (r === 0) {
+            // Delete cells to the right of the target cell in the first row
+            for (let c = colspan - 1; c > 0; c--) {
+              if (table.rows[i + r].cells[j + c]) {
+                table.rows[i + r].deleteCell(j + c);
+              }
+            }
+          }
+          // For rows below the first, delete starting from the target column
+          if (r > 0) {
+            for (let c = colspan - 1; c >= 0; c--) {
+              if (table.rows[i + r] && table.rows[i + r].cells[j]) {
+                table.rows[i + r].deleteCell(j);
+              }
+            }
+          }
+        }
+        // Set rowspan and colspan of the target cell
+        targetCell.rowSpan = rowspan;
+        targetCell.colSpan = colspan;
+      }
+
+window.addEventListener('load', function () { styleCell_tinytable_7p4v768zexkn95x66ewn(0, 0, 'tinytable_css_deahzrfemf77jrl43wrx') })
+window.addEventListener('load', function () { styleCell_tinytable_7p4v768zexkn95x66ewn(0, 1, 'tinytable_css_deahzrfemf77jrl43wrx') })
+window.addEventListener('load', function () { styleCell_tinytable_7p4v768zexkn95x66ewn(0, 0, 'tinytable_css_ezlj6d8hn49b4lhy1c9w') })
+window.addEventListener('load', function () { styleCell_tinytable_7p4v768zexkn95x66ewn(1, 0, 'tinytable_css_ezlj6d8hn49b4lhy1c9w') })
+window.addEventListener('load', function () { styleCell_tinytable_7p4v768zexkn95x66ewn(2, 0, 'tinytable_css_ezlj6d8hn49b4lhy1c9w') })
+window.addEventListener('load', function () { styleCell_tinytable_7p4v768zexkn95x66ewn(3, 0, 'tinytable_css_ezlj6d8hn49b4lhy1c9w') })
+window.addEventListener('load', function () { styleCell_tinytable_7p4v768zexkn95x66ewn(4, 0, 'tinytable_css_ezlj6d8hn49b4lhy1c9w') })
+window.addEventListener('load', function () { styleCell_tinytable_7p4v768zexkn95x66ewn(5, 0, 'tinytable_css_ezlj6d8hn49b4lhy1c9w') })
+window.addEventListener('load', function () { styleCell_tinytable_7p4v768zexkn95x66ewn(6, 0, 'tinytable_css_ezlj6d8hn49b4lhy1c9w') })
+window.addEventListener('load', function () { styleCell_tinytable_7p4v768zexkn95x66ewn(7, 0, 'tinytable_css_ezlj6d8hn49b4lhy1c9w') })
+window.addEventListener('load', function () { styleCell_tinytable_7p4v768zexkn95x66ewn(8, 0, 'tinytable_css_ezlj6d8hn49b4lhy1c9w') })
+window.addEventListener('load', function () { styleCell_tinytable_7p4v768zexkn95x66ewn(9, 0, 'tinytable_css_ezlj6d8hn49b4lhy1c9w') })
+window.addEventListener('load', function () { styleCell_tinytable_7p4v768zexkn95x66ewn(10, 0, 'tinytable_css_ezlj6d8hn49b4lhy1c9w') })
+window.addEventListener('load', function () { styleCell_tinytable_7p4v768zexkn95x66ewn(11, 0, 'tinytable_css_ezlj6d8hn49b4lhy1c9w') })
+window.addEventListener('load', function () { styleCell_tinytable_7p4v768zexkn95x66ewn(12, 0, 'tinytable_css_ezlj6d8hn49b4lhy1c9w') })
+window.addEventListener('load', function () { styleCell_tinytable_7p4v768zexkn95x66ewn(13, 0, 'tinytable_css_ezlj6d8hn49b4lhy1c9w') })
+window.addEventListener('load', function () { styleCell_tinytable_7p4v768zexkn95x66ewn(14, 0, 'tinytable_css_ezlj6d8hn49b4lhy1c9w') })
+window.addEventListener('load', function () { styleCell_tinytable_7p4v768zexkn95x66ewn(15, 0, 'tinytable_css_ezlj6d8hn49b4lhy1c9w') })
+window.addEventListener('load', function () { styleCell_tinytable_7p4v768zexkn95x66ewn(16, 0, 'tinytable_css_ezlj6d8hn49b4lhy1c9w') })
+window.addEventListener('load', function () { styleCell_tinytable_7p4v768zexkn95x66ewn(17, 0, 'tinytable_css_ezlj6d8hn49b4lhy1c9w') })
+window.addEventListener('load', function () { styleCell_tinytable_7p4v768zexkn95x66ewn(18, 0, 'tinytable_css_ezlj6d8hn49b4lhy1c9w') })
+window.addEventListener('load', function () { styleCell_tinytable_7p4v768zexkn95x66ewn(19, 0, 'tinytable_css_ezlj6d8hn49b4lhy1c9w') })
+window.addEventListener('load', function () { styleCell_tinytable_7p4v768zexkn95x66ewn(20, 0, 'tinytable_css_ezlj6d8hn49b4lhy1c9w') })
+window.addEventListener('load', function () { styleCell_tinytable_7p4v768zexkn95x66ewn(21, 0, 'tinytable_css_ezlj6d8hn49b4lhy1c9w') })
+window.addEventListener('load', function () { styleCell_tinytable_7p4v768zexkn95x66ewn(22, 0, 'tinytable_css_ezlj6d8hn49b4lhy1c9w') })
+window.addEventListener('load', function () { styleCell_tinytable_7p4v768zexkn95x66ewn(23, 0, 'tinytable_css_ezlj6d8hn49b4lhy1c9w') })
+window.addEventListener('load', function () { styleCell_tinytable_7p4v768zexkn95x66ewn(24, 0, 'tinytable_css_ezlj6d8hn49b4lhy1c9w') })
+window.addEventListener('load', function () { styleCell_tinytable_7p4v768zexkn95x66ewn(25, 0, 'tinytable_css_ezlj6d8hn49b4lhy1c9w') })
+window.addEventListener('load', function () { styleCell_tinytable_7p4v768zexkn95x66ewn(26, 0, 'tinytable_css_ezlj6d8hn49b4lhy1c9w') })
+window.addEventListener('load', function () { styleCell_tinytable_7p4v768zexkn95x66ewn(27, 0, 'tinytable_css_ezlj6d8hn49b4lhy1c9w') })
+window.addEventListener('load', function () { styleCell_tinytable_7p4v768zexkn95x66ewn(28, 0, 'tinytable_css_ezlj6d8hn49b4lhy1c9w') })
+window.addEventListener('load', function () { styleCell_tinytable_7p4v768zexkn95x66ewn(29, 0, 'tinytable_css_ezlj6d8hn49b4lhy1c9w') })
+window.addEventListener('load', function () { styleCell_tinytable_7p4v768zexkn95x66ewn(30, 0, 'tinytable_css_ezlj6d8hn49b4lhy1c9w') })
+window.addEventListener('load', function () { styleCell_tinytable_7p4v768zexkn95x66ewn(0, 1, 'tinytable_css_gi0qhnlynb8avwb1yonl') })
+window.addEventListener('load', function () { styleCell_tinytable_7p4v768zexkn95x66ewn(1, 1, 'tinytable_css_gi0qhnlynb8avwb1yonl') })
+window.addEventListener('load', function () { styleCell_tinytable_7p4v768zexkn95x66ewn(2, 1, 'tinytable_css_gi0qhnlynb8avwb1yonl') })
+window.addEventListener('load', function () { styleCell_tinytable_7p4v768zexkn95x66ewn(3, 1, 'tinytable_css_gi0qhnlynb8avwb1yonl') })
+window.addEventListener('load', function () { styleCell_tinytable_7p4v768zexkn95x66ewn(4, 1, 'tinytable_css_gi0qhnlynb8avwb1yonl') })
+window.addEventListener('load', function () { styleCell_tinytable_7p4v768zexkn95x66ewn(5, 1, 'tinytable_css_gi0qhnlynb8avwb1yonl') })
+window.addEventListener('load', function () { styleCell_tinytable_7p4v768zexkn95x66ewn(6, 1, 'tinytable_css_gi0qhnlynb8avwb1yonl') })
+window.addEventListener('load', function () { styleCell_tinytable_7p4v768zexkn95x66ewn(7, 1, 'tinytable_css_gi0qhnlynb8avwb1yonl') })
+window.addEventListener('load', function () { styleCell_tinytable_7p4v768zexkn95x66ewn(8, 1, 'tinytable_css_gi0qhnlynb8avwb1yonl') })
+window.addEventListener('load', function () { styleCell_tinytable_7p4v768zexkn95x66ewn(9, 1, 'tinytable_css_gi0qhnlynb8avwb1yonl') })
+window.addEventListener('load', function () { styleCell_tinytable_7p4v768zexkn95x66ewn(10, 1, 'tinytable_css_gi0qhnlynb8avwb1yonl') })
+window.addEventListener('load', function () { styleCell_tinytable_7p4v768zexkn95x66ewn(11, 1, 'tinytable_css_gi0qhnlynb8avwb1yonl') })
+window.addEventListener('load', function () { styleCell_tinytable_7p4v768zexkn95x66ewn(12, 1, 'tinytable_css_gi0qhnlynb8avwb1yonl') })
+window.addEventListener('load', function () { styleCell_tinytable_7p4v768zexkn95x66ewn(13, 1, 'tinytable_css_gi0qhnlynb8avwb1yonl') })
+window.addEventListener('load', function () { styleCell_tinytable_7p4v768zexkn95x66ewn(14, 1, 'tinytable_css_gi0qhnlynb8avwb1yonl') })
+window.addEventListener('load', function () { styleCell_tinytable_7p4v768zexkn95x66ewn(15, 1, 'tinytable_css_gi0qhnlynb8avwb1yonl') })
+window.addEventListener('load', function () { styleCell_tinytable_7p4v768zexkn95x66ewn(16, 1, 'tinytable_css_gi0qhnlynb8avwb1yonl') })
+window.addEventListener('load', function () { styleCell_tinytable_7p4v768zexkn95x66ewn(17, 1, 'tinytable_css_gi0qhnlynb8avwb1yonl') })
+window.addEventListener('load', function () { styleCell_tinytable_7p4v768zexkn95x66ewn(18, 1, 'tinytable_css_gi0qhnlynb8avwb1yonl') })
+window.addEventListener('load', function () { styleCell_tinytable_7p4v768zexkn95x66ewn(19, 1, 'tinytable_css_gi0qhnlynb8avwb1yonl') })
+window.addEventListener('load', function () { styleCell_tinytable_7p4v768zexkn95x66ewn(20, 1, 'tinytable_css_gi0qhnlynb8avwb1yonl') })
+window.addEventListener('load', function () { styleCell_tinytable_7p4v768zexkn95x66ewn(21, 1, 'tinytable_css_gi0qhnlynb8avwb1yonl') })
+window.addEventListener('load', function () { styleCell_tinytable_7p4v768zexkn95x66ewn(22, 1, 'tinytable_css_gi0qhnlynb8avwb1yonl') })
+window.addEventListener('load', function () { styleCell_tinytable_7p4v768zexkn95x66ewn(23, 1, 'tinytable_css_gi0qhnlynb8avwb1yonl') })
+window.addEventListener('load', function () { styleCell_tinytable_7p4v768zexkn95x66ewn(24, 1, 'tinytable_css_gi0qhnlynb8avwb1yonl') })
+window.addEventListener('load', function () { styleCell_tinytable_7p4v768zexkn95x66ewn(25, 1, 'tinytable_css_gi0qhnlynb8avwb1yonl') })
+window.addEventListener('load', function () { styleCell_tinytable_7p4v768zexkn95x66ewn(26, 1, 'tinytable_css_gi0qhnlynb8avwb1yonl') })
+window.addEventListener('load', function () { styleCell_tinytable_7p4v768zexkn95x66ewn(27, 1, 'tinytable_css_gi0qhnlynb8avwb1yonl') })
+window.addEventListener('load', function () { styleCell_tinytable_7p4v768zexkn95x66ewn(28, 1, 'tinytable_css_gi0qhnlynb8avwb1yonl') })
+window.addEventListener('load', function () { styleCell_tinytable_7p4v768zexkn95x66ewn(29, 1, 'tinytable_css_gi0qhnlynb8avwb1yonl') })
+window.addEventListener('load', function () { styleCell_tinytable_7p4v768zexkn95x66ewn(30, 1, 'tinytable_css_gi0qhnlynb8avwb1yonl') })
+window.addEventListener('load', function () { styleCell_tinytable_7p4v768zexkn95x66ewn(24, 0, 'tinytable_css_tgomm9mf6yju6k3re5wb') })
+window.addEventListener('load', function () { styleCell_tinytable_7p4v768zexkn95x66ewn(24, 1, 'tinytable_css_tgomm9mf6yju6k3re5wb') })
+    </script><p>That’s it. Do not bother to try to read into the regression results. Again, this is just an illustration of how R can be used to prepare a regression-ready dataset with spatial variables.</p>
 </div>
 </div>
 <div id="demo-slave" class="section level2" number="1.6">
@@ -2340,7 +2575,7 @@ X
 </li>
 <li>identify the last point of a line
 <ul>
-<li>use <code><a href="https://rdrr.io/pkg/lwgeom/man/st_startpoint.html">lwgeom::st_endpoint()</a></code>
+<li>use <code><a href="https://r-spatial.github.io/lwgeom/reference/st_startpoint.html">lwgeom::st_endpoint()</a></code>
 </li>
 </ul>
 </li>
@@ -2392,7 +2627,9 @@ X
 <span>  <span class="va">tidyverse</span>, <span class="co"># data wrangling</span></span>
 <span>  <span class="va">units</span>,</span>
 <span>  <span class="va">rmapshaper</span>,</span>
+<span>  <span class="va">patchwork</span>,</span>
 <span>  <span class="va">lwgeom</span>,</span>
+<span>  <span class="va">ggplot2</span>,</span>
 <span>  <span class="va">tictoc</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -2486,9 +2723,9 @@ Projected CRS: WGS 84 / Pseudo-Mercator</code></pre>
 <span>    <span class="fu">theme_void</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="R_GIS_Book_files/figure-html/lines-africa-nunn08-1.png" width="672"></div>
-<p>However, what we need is the end point of the lines. We can use <code><a href="https://rdrr.io/pkg/lwgeom/man/st_startpoint.html">lwgeom::st_endpoint()</a></code> to extract such a point<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;The &lt;code&gt;lwgeom&lt;/code&gt; package is a companion to the &lt;code&gt;sf&lt;/code&gt; package that has less general &lt;code&gt;st_*()&lt;/code&gt; functions&lt;/p&gt;"><sup>31</sup></a>.</p>
+<p>However, what we need is the end point of the lines. We can use <code><a href="https://r-spatial.github.io/lwgeom/reference/st_startpoint.html">lwgeom::st_endpoint()</a></code> to extract such a point<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;The &lt;code&gt;lwgeom&lt;/code&gt; package is a companion to the &lt;code&gt;sf&lt;/code&gt; package that has less general &lt;code&gt;st_*()&lt;/code&gt; functions&lt;/p&gt;"><sup>31</sup></a>.</p>
 <div class="sourceCode" id="cb104"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">closest_pt_on_coast</span> <span class="op">&lt;-</span> <span class="fu">lwgeom</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lwgeom/man/st_startpoint.html">st_endpoint</a></span><span class="op">(</span><span class="va">minum_dist_to_coast</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">closest_pt_on_coast</span> <span class="op">&lt;-</span> <span class="fu">lwgeom</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/lwgeom/reference/st_startpoint.html">st_endpoint</a></span><span class="op">(</span><span class="va">minum_dist_to_coast</span><span class="op">)</span></span></code></pre></div>
 <p>The end points are represented as blue points in the figure below.</p>
 <div class="sourceCode" id="cb105"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">g_min_dist_line</span> <span class="op">+</span></span>
@@ -2680,7 +2917,7 @@ Projected CRS: WGS 84 / Pseudo-Mercator
 <ul>
 <li>read a raster file
 <ul>
-<li>use <code><a href="https://rdrr.io/pkg/terra/man/rast.html">terra::rast()</a></code>
+<li>use <code><a href="https://rspatial.github.io/terra/reference/rast.html">terra::rast()</a></code>
 </li>
 </ul>
 </li>
@@ -2692,19 +2929,19 @@ Projected CRS: WGS 84 / Pseudo-Mercator
 </li>
 <li>crop a raster data to a particular region
 <ul>
-<li>use <code><a href="https://rdrr.io/pkg/terra/man/crop.html">terra::crop()</a></code>
+<li>use <code><a href="https://rspatial.github.io/terra/reference/crop.html">terra::crop()</a></code>
 </li>
 </ul>
 </li>
 <li>replace cell values
 <ul>
-<li>use <code><a href="https://rdrr.io/pkg/terra/man/subst.html">terra::subst()</a></code>
+<li>use <code><a href="https://rspatial.github.io/terra/reference/subst.html">terra::subst()</a></code>
 </li>
 </ul>
 </li>
 <li>calculate TRI
 <ul>
-<li>use <code><a href="https://rdrr.io/pkg/terra/man/focal.html">terra::focal()</a></code>
+<li>use <code><a href="https://rspatial.github.io/terra/reference/focal.html">terra::focal()</a></code>
 </li>
 </ul>
 </li>
@@ -2733,10 +2970,10 @@ Projected CRS: WGS 84 / Pseudo-Mercator
 <h3>
 <span class="header-section-number">1.7.2</span> Project Demonstration<a class="anchor" aria-label="anchor" href="#project-demonstration-6"><i class="fas fa-link"></i></a>
 </h3>
-<p>We first read the world elevation data using <code><a href="https://rdrr.io/pkg/terra/man/rast.html">terra::rast()</a></code>.</p>
+<p>We first read the world elevation data using <code><a href="https://rspatial.github.io/terra/reference/rast.html">terra::rast()</a></code>.</p>
 <div class="sourceCode" id="cb122"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span></span>
-<span>  <span class="va">dem</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/rast.html">rast</a></span><span class="op">(</span><span class="st">"Data/nunn_2012/GDEM-10km-BW.tif"</span><span class="op">)</span></span>
+<span>  <span class="va">dem</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html">rast</a></span><span class="op">(</span><span class="st">"Data/nunn_2012/GDEM-10km-BW.tif"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <pre><code>class       : SpatRaster 
 dimensions  : 2160, 4320, 1  (nrow, ncol, nlyr)
@@ -2751,7 +2988,7 @@ name        : GDEM-10km-BW </code></pre>
 <div class="inline-figure"><img src="R_GIS_Book_files/figure-html/map-world-elev-1.png" width="672"></div>
 <p>In this dataset, the elevation of the ocean floor is recorded as 0, so let’s replace an elevation of 0 with <code>NA</code>s. This avoids a problem associated with calculating TRI later.</p>
 <div class="sourceCode" id="cb125"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">dem</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/subst.html">subst</a></span><span class="op">(</span><span class="va">dem</span>, <span class="fl">0</span>, <span class="cn">NA</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">dem</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/subst.html">subst</a></span><span class="op">(</span><span class="va">dem</span>, <span class="fl">0</span>, <span class="cn">NA</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb126"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">tm_shape</span><span class="op">(</span><span class="va">dem</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">tm_raster</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
@@ -2763,9 +3000,9 @@ name        : GDEM-10km-BW </code></pre>
 <span>  <span class="fu">rnaturalearth</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/rnaturalearth/reference/ne_countries.html">ne_countries</a></span><span class="op">(</span>scale <span class="op">=</span> <span class="st">"medium"</span>, returnclass <span class="op">=</span> <span class="st">"sf"</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="co">#--- filter our non-African countries ---#</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">continent</span> <span class="op">==</span> <span class="st">"Africa"</span><span class="op">)</span></span></code></pre></div>
-<p>We can now apply <code><a href="https://rdrr.io/pkg/terra/man/crop.html">terra::crop()</a></code> to <code>dem</code> based on the bounding box of <code>africa_sf</code>.</p>
+<p>We can now apply <code><a href="https://rspatial.github.io/terra/reference/crop.html">terra::crop()</a></code> to <code>dem</code> based on the bounding box of <code>africa_sf</code>.</p>
 <div class="sourceCode" id="cb128"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">africa_dem</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/crop.html">crop</a></span><span class="op">(</span><span class="va">dem</span>, <span class="va">africa_sf</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">africa_dem</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/crop.html">crop</a></span><span class="op">(</span><span class="va">dem</span>, <span class="va">africa_sf</span><span class="op">)</span></span></code></pre></div>
 <p>Here is a map of the crop data.</p>
 <div class="sourceCode" id="cb129"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">tm_shape</span><span class="op">(</span><span class="va">africa_dem</span><span class="op">)</span> <span class="op">+</span></span>
@@ -2775,7 +3012,7 @@ name        : GDEM-10km-BW </code></pre>
 <p><span class="math display">\[
   Ruggedness_{r,c} = \sqrt{\sum_{i=r-1}^{r+1} \sum_{j= r-1}^{r+1} (e_{i,j} - e_{r,c})^2}
 \]</span></p>
-<p>We are going to loop through the raster cells and calculate TRI. To do so, we make use of <code><a href="https://rdrr.io/pkg/terra/man/focal.html">terra::focal()</a></code> It allows you to apply a function to every cell of a raster and bring a matrix of the surrounding values as an input to the function. For example <code>terra::focal(raster, w = 3, fun = any_function)</code> will pass to your <code>any_function</code> a 3 by 3 matrix of the raster values centered at the point.</p>
+<p>We are going to loop through the raster cells and calculate TRI. To do so, we make use of <code><a href="https://rspatial.github.io/terra/reference/focal.html">terra::focal()</a></code> It allows you to apply a function to every cell of a raster and bring a matrix of the surrounding values as an input to the function. For example <code>terra::focal(raster, w = 3, fun = any_function)</code> will pass to your <code>any_function</code> a 3 by 3 matrix of the raster values centered at the point.</p>
 <p>Let’s define a function that calculates TRI for a given matrix.</p>
 <div class="sourceCode" id="cb130"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">calc_tri</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">matr</span><span class="op">)</span> <span class="op">{</span></span>
@@ -2787,7 +3024,7 @@ name        : GDEM-10km-BW </code></pre>
 <p>Now, let’s calculate TRI.</p>
 <div class="sourceCode" id="cb131"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tri_africa</span> <span class="op">&lt;-</span></span>
-<span>  <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/focal.html">focal</a></span><span class="op">(</span></span>
+<span>  <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/focal.html">focal</a></span><span class="op">(</span></span>
 <span>    <span class="va">africa_dem</span>,</span>
 <span>    w <span class="op">=</span> <span class="fl">3</span>,</span>
 <span>    fun <span class="op">=</span> <span class="va">calc_tri</span></span>
@@ -2838,7 +3075,7 @@ name        : GDEM-10km-BW </code></pre>
 </li>
 <li>shift (rotate) longitude of a raster dataset
 <ul>
-<li>use <code><a href="https://rdrr.io/pkg/terra/man/rotate.html">terra::rotate()</a></code>
+<li>use <code><a href="https://rspatial.github.io/terra/reference/rotate.html">terra::rotate()</a></code>
 </li>
 </ul>
 </li>
@@ -3041,19 +3278,19 @@ Geodetic CRS:  WGS 84</code></pre>
 <span>  <span class="fu">scale_fill_distiller</span><span class="op">(</span>type <span class="op">=</span> <span class="st">"seq"</span>, palette <span class="op">=</span> <span class="st">"Greys"</span>, direction <span class="op">=</span> <span class="fl">1</span>, na.value <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">theme_map</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="R_GIS_Book_files/figure-html/weather-before-rotation-1.png" width="672"></div>
-<p>As you can see, the portion of Africa east of the Prime Meridian is wrapped to the other side of the map. That is because there are two ways to handle longitude: either from [0,360] or [-180,180]. Since our data is in [0,360] form, Africa will be cut in half. To convert, we can use the <code><a href="https://rdrr.io/pkg/terra/man/rotate.html">terra::rotate()</a></code> function in the <code>terra</code> package. This means that you first need to convert <code>weather</code>, which is a <code>stars</code>, to a <code>SpatRaster</code> object, and then apply <code><a href="https://rdrr.io/pkg/terra/man/rotate.html">terra::rotate()</a></code> to it.</p>
+<p>As you can see, the portion of Africa east of the Prime Meridian is wrapped to the other side of the map. That is because there are two ways to handle longitude: either from [0,360] or [-180,180]. Since our data is in [0,360] form, Africa will be cut in half. To convert, we can use the <code><a href="https://rspatial.github.io/terra/reference/rotate.html">terra::rotate()</a></code> function in the <code>terra</code> package. This means that you first need to convert <code>weather</code>, which is a <code>stars</code>, to a <code>SpatRaster</code> object, and then apply <code><a href="https://rspatial.github.io/terra/reference/rotate.html">terra::rotate()</a></code> to it.</p>
 <div class="sourceCode" id="cb147"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span></span>
 <span>  <span class="va">weather_raster</span> <span class="op">&lt;-</span></span>
 <span>    <span class="co">#--- convert to SpatRaster ---#</span></span>
 <span>    <span class="fu">as</span><span class="op">(</span><span class="va">weather</span>, <span class="st">"SpatRaster"</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>    <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/rotate.html">rotate</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>    <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/rotate.html">rotate</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <pre><code>class       : SpatRaster 
 dimensions  : 91, 180, 2  (nrow, ncol, nlyr)
 resolution  : 2, 2  (x, y)
 extent      : -181, 179, -91, 91  (xmin, xmax, ymin, ymax)
-coord. ref. : lon/lat WGS 84 (EPSG:4326) 
+coord. ref. : lon/lat WGS 84 
 source(s)   : memory
 names       :      temp,      hum 
 min values  : -47.37911, 18.93425 
@@ -3094,7 +3331,8 @@ max values  :  30.72751, 96.53836 </code></pre>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p>Let’s subset <code>weather</code> to Africa and then calculate tsetse.</p>
 <div class="sourceCode" id="cb152"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">weather_africa</span> <span class="op">&lt;-</span></span>
+<code class="sourceCode R"><span><span class="fu">sf_use_s2</span><span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="va">weather_africa</span> <span class="op">&lt;-</span></span>
 <span>  <span class="co">#--- subset to Africa ---#</span></span>
 <span>  <span class="va">weather</span><span class="op">[</span><span class="va">tribes</span><span class="op">]</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="co">#--- calculate TseTse suitability index---#</span></span>
@@ -3236,7 +3474,7 @@ max values  :  30.72751, 96.53836 </code></pre>
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>R as GIS for Economists</strong>" was written by Taro Mieno. It was last built on 2023-09-19.</p>
+    <p>"<strong>R as GIS for Economists</strong>" was written by Taro Mieno. It was last built on 2024-09-24.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
@@ -3249,7 +3487,7 @@ max values  :  30.72751, 96.53836 </code></pre>
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

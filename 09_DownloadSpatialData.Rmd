@@ -1357,6 +1357,7 @@ head(names(pet_county))
 The 5-digit number at the end of the name of the variables for evapotranspiration represents days since Jan 1st, 1900. This can be confirmed using `ncdf4:nc_open()` (see the middle of the output below under **day** of **4 dimensions**):
 
 ```{r gm-ncdf4-check}
+#| cache: false
 ncdf4::nc_open("Data/pet_2015.nc")
 ```
 

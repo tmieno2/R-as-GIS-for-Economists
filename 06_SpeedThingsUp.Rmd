@@ -17,21 +17,20 @@ knitr::opts_chunk$set(
 
 ```{r, echo=FALSE, warning=FALSE, cache = FALSE}
 #--- load packages ---#
-suppressMessages(library(data.table))
-suppressMessages(library(exactextractr))
-suppressMessages(library(prism))
-suppressMessages(library(sf))
-suppressMessages(library(terra))
-suppressMessages(library(raster))
-suppressMessages(library(tidyverse))
-suppressMessages(library(DT))
-suppressMessages(library(tictoc))
-suppressMessages(library(tmap))
-suppressMessages(library(future.apply))
-suppressMessages(library(parallel))
-suppressMessages(library(maps))
-suppressMessages(library(bench))
-suppressMessages(library(stringr))
+library(data.table)
+library(exactextractr)
+library(prism)
+library(sf)
+library(terra)
+library(raster)
+library(tidyverse)
+library(DT)
+library(tictoc)
+library(tmap)
+library(future.apply)
+library(parallel)
+library(maps)
+library(stringr)
 ```
 
 ## Before you start {-}
@@ -475,11 +474,12 @@ You can download all the prism files from [here](https://www.dropbox.com/sh/gkpr
 
 ```{r US_county, cache = TRUE}
 (
-  US_county <- st_as_sf(map(database = "county", plot = FALSE, fill = TRUE)) %>%
+  US_county <- 
+    st_as_sf(maps::map(database = "county", plot = FALSE, fill = TRUE)) %>%
     #--- get state name from ID  ---#
     mutate(state = str_split(ID, ",") %>% lapply(., `[[`, 1) %>% unlist()) %>%
     #--- project to the CRS of the CDL data ---#
-    st_transform(projection(brick("Data/PRISM/PRISM_ppt_y2017_m7.tif")))
+    st_transform(projection(brick("Data/PRISM/PRISM_ppt_y1990_m12.tif")))
 )
 ```
 

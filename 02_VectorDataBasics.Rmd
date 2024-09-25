@@ -6,7 +6,7 @@
 library(knitr)
 knitr::opts_chunk$set(
   echo = TRUE,
-  # cache = TRUE,
+  cache = TRUE,
   comment = NA,
   message = FALSE,
   warning = FALSE,
@@ -26,9 +26,7 @@ setwd(here())
 #--- load packages ---#
 library(data.table)
 library(here)
-library(rgdal)
 library(stringr)
-library(rgeos)
 library(sf)
 library(ggplot2)
 library(leaflet)
@@ -986,7 +984,7 @@ Sometimes, a vector data is excessively detailed for your purpose. For example, 
 Here, we use IL County borders for illustration.
 
 ```{r}
-IL_counties <- st_read("Data/IL_county_detailed.geojson")
+IL_counties <- tigris::counties(state = "Illinois", cb = TRUE, progress_bar = FALSE)
 ```
 
 Here is the object size of `IL_counties`.
@@ -1006,12 +1004,14 @@ ggplot(IL_counties) +
 However, if you focus on a single county, you can see that county borders in this data are fairly detaield. Let's look at the Cook county.
 
 ```{r g-cook}
-Cook <- filter(IL_counties, NAME == "Cook County")
+#| eval: false
+Cook <- filter(IL_counties, NAME == "Cook")
 
 (
   g_cook_original <-
     ggplot(Cook) +
     geom_sf() +
+    coord_sf(lims_method = "geometry_bbox") +
     theme_void()
 )
 ```
@@ -1019,23 +1019,28 @@ Cook <- filter(IL_counties, NAME == "Cook County")
 You can see that its border with Lake Michigan has lots of non-linear segments. Let's simplify this using `st_simplify()`. We can use the `dTolerance` option to specify the degree of simplification.
 
 ```{r g-cook-simplified}
+#| eval: false
 Cook_simplify <- st_simplify(Cook, dTolerance = 1000)
 
 g_cook_simplified <-
   ggplot(Cook_simplify) +
   geom_sf() +
+  coord_sf(lims_method = "geometry_bbox") +
   theme_void()
 ```
 
 The figure below compares the original (left) and simplified (right) versions.
 
 ```{r g-cook-both}
+#| cache: false
+#| eval: false
 g_cook_original | g_cook_simplified
 ```
 
 Let's now simplify `IL_counties` using `st_simplify()` to make its map light-weight.
 
 ```{r g-IL-simplified}
+#| eval: false
 IL_counties_simplified <- st_simplify(IL_counties, dTolerance = 1000)
 
 ggplot(IL_counties_simplified) +
@@ -1046,6 +1051,7 @@ ggplot(IL_counties_simplified) +
 You probably notice we now have some gaps between some counties. This is because `st_simplify()` does not respect the internal borders. To simplify only the outer borders, you can use `rmapshaper::ms_simplify()`. The `keep` option controls the degree of simplifcation (the lower, the more simplified). 
 
 ```{r g-IL-simplified-fixed}
+#| eval: false
 IL_counties_mssimplified <- rmapshaper::ms_simplify(IL_counties, keep = 0.01)
 
 ggplot(IL_counties_mssimplified) +

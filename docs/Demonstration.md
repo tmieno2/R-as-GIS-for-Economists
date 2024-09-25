@@ -907,7 +907,6 @@ pacman::p_load(
   stargazer, # regression table generation
   future.apply, # parallel computation
   cdlTools, # download CDL data
-  rgdal, # required for cdlTools
   prism, # download PRISM data
   stringr # string manipulation
 )  

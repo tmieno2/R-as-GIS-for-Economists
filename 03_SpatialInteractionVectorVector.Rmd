@@ -1,11 +1,11 @@
 # Spatial Interactions of Vector Data: Subsetting and Joining {#int-vv}
 
-```{r chap3_setup, include = FALSE}
+```{r chap3_setup, include = FALSE, cache = FALSE}
 library(tufte)
 library(knitr)
 knitr::opts_chunk$set(
   echo = TRUE,
-  # cache = TRUE,
+  cache = TRUE,
   comment = NA,
   message = FALSE,
   warning = FALSE,
@@ -24,10 +24,8 @@ setwd(here())
 ```{r, include = FALSE, cache = FALSE}
 #--- load packages ---#
 library(data.table)
-library(rgdal)
 library(exactextractr)
 library(stringr)
-library(rgeos)
 library(sf)
 library(ggplot2)
 library(raster)
