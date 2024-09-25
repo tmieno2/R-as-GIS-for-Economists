@@ -7,7 +7,7 @@
 <title>Chapter 9 Download and process spatial datasets from within R | R as GIS for Economists</title>
 <meta name="author" content="Taro Mieno">
 <meta name="description" content="Before you start There are many publicly available spatial datasets that can be downloaded using R. Programming data downloading using R instead of manually downloading data from websites can save...">
-<meta name="generator" content="bookdown 0.40 with bs4_book()">
+<meta name="generator" content="bookdown 0.38 with bs4_book()">
 <meta property="og:title" content="Chapter 9 Download and process spatial datasets from within R | R as GIS for Economists">
 <meta property="og:type" content="book">
 <meta property="og:description" content="Before you start There are many publicly available spatial datasets that can be downloaded using R. Programming data downloading using R instead of manually downloading data from websites can save...">
@@ -19,7 +19,7 @@
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/Lato-0.4.9/font.css" rel="stylesheet">
 <link href="libs/Roboto_Mono-0.4.9/font.css" rel="stylesheet">
 <link href="libs/Montserrat-0.4.9/font.css" rel="stylesheet">
-<script src="libs/bs3compat-0.8.0/transition.js"></script><script src="libs/bs3compat-0.8.0/tabs.js"></script><script src="libs/bs3compat-0.8.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs3compat-0.7.0/transition.js"></script><script src="libs/bs3compat-0.7.0/tabs.js"></script><script src="libs/bs3compat-0.7.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet">
 <script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script><link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
 <script src="libs/leaflet-1.3.1/leaflet.js"></script><link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
@@ -39,7 +39,7 @@
 </head>
 <body>
 <div class="alert alert-info" role="alert" style="height: 100px; font-size: 24px; color: red">
-    Important!! Some of the contents in this book has become outdated. Please visit the latest version of the book <a href="https://tmieno2.github.io/R-as-GIS-for--Economists-Quarto/">here</a>, which has up-to-date/new contents.
+    Important!! Some of the contents in this book has become outdated. Please visit the latest version of the book <a href="https://tmieno2.github.io/R-as-GIS-for-Economists-Quarto/">here</a>, which has up-to-date/new contents.
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
     
@@ -1253,7 +1253,7 @@ Figure 9.2: PRISM precipitation data for January 1, 2000
 <p>For this section, we use the <code>daymetr</code> <span class="citation">(<a href="references.html#ref-daymetr">Hufkens et al. 2018</a>)</span> and <code>FedData</code> packages <span class="citation">(<a href="references.html#ref-feddata">Bocinsky 2016</a>)</span>.</p>
 <div class="sourceCode" id="cb933"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/bluegreen-labs/daymetr">daymetr</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">FedData</span><span class="op">)</span></span></code></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/FedData/">FedData</a></span><span class="op">)</span></span></code></pre></div>
 <p>Daymet data consists of “tiles,” each of which consisting of raster cells of 1km by 1km. Here is the map of the tiles (Figure <a href="download-data.html#fig:daymet-tiles">9.3</a>)</p>
 <div class="figure">
 <span style="display:block;" id="fig:daymet-tiles"></span>
@@ -1272,7 +1272,7 @@ Figure 9.3: Daymet Tiles
 <li>day length</li>
 </ul>
 <p>So, Daymet provides information about more weather variables than PRISM, which helps to find some weather-dependent metrics, such as evapotranspiration.</p>
-<p>The easiest way find Daymet values for your vector data depends on whether it is points or polygons data. For points data, <code><a href="https://rdrr.io/pkg/daymetr/man/download_daymet.html">daymetr::download_daymet()</a></code> is the easiest because it will directly return weather values to the point of interest. Internally, it finds the cell in which the point is located, and then return the values of the cell for the specified length of period. <code><a href="https://rdrr.io/pkg/daymetr/man/download_daymet.html">daymetr::download_daymet()</a></code> does all this for you. For polygons, we need to first download pertinent Daymet data for the region of interest first and then extract values for each of the polygons ourselves, which we learned in Chapter <a href="int-RV.html#int-RV">5</a>. Unfortunately, the netCDF data downloaded from <code><a href="https://rdrr.io/pkg/daymetr/man/download_daymet_ncss.html">daymetr::download_daymet_ncss()</a></code> cannot be easily read by the <code>raster</code> package nor the <code>stars</code> package. On the contrary, <code>FedData::get_daymet()</code> download the the requested Daymet data and save it as a <code>RasterBrick</code> object, which can be easily turned into <code>stars</code> object using <code>st_as_stars()</code>.</p>
+<p>The easiest way find Daymet values for your vector data depends on whether it is points or polygons data. For points data, <code><a href="https://rdrr.io/pkg/daymetr/man/download_daymet.html">daymetr::download_daymet()</a></code> is the easiest because it will directly return weather values to the point of interest. Internally, it finds the cell in which the point is located, and then return the values of the cell for the specified length of period. <code><a href="https://rdrr.io/pkg/daymetr/man/download_daymet.html">daymetr::download_daymet()</a></code> does all this for you. For polygons, we need to first download pertinent Daymet data for the region of interest first and then extract values for each of the polygons ourselves, which we learned in Chapter <a href="int-RV.html#int-RV">5</a>. Unfortunately, the netCDF data downloaded from <code><a href="https://rdrr.io/pkg/daymetr/man/download_daymet_ncss.html">daymetr::download_daymet_ncss()</a></code> cannot be easily read by the <code>raster</code> package nor the <code>stars</code> package. On the contrary, <code><a href="https://docs.ropensci.org/FedData/reference/get_daymet.html">FedData::get_daymet()</a></code> download the the requested Daymet data and save it as a <code>RasterBrick</code> object, which can be easily turned into <code>stars</code> object using <code>st_as_stars()</code>.</p>
 <div id="for-points-data" class="section level3" number="9.4.1">
 <h3>
 <span class="header-section-number">9.4.1</span> For points data<a class="anchor" aria-label="anchor" href="#for-points-data"><i class="fas fa-link"></i></a>
@@ -1422,7 +1422,7 @@ Figure 9.3: Daymet Tiles
 <span><span class="op">}</span></span></code></pre></div>
 <p>Here is what the function returns for the 1st row of <code>random_points</code>:</p>
 <div class="sourceCode" id="cb945"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">get_daymet</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/FedData/reference/get_daymet.html">get_daymet</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span></code></pre></div>
 <pre><code># A tibble: 1,095 × 11
     year  yday dayl..s. prcp..mm.day. srad..W.m.2. swe..kg.m.2. tmax..deg.c.
    &lt;int&gt; &lt;int&gt;    &lt;dbl&gt;         &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;
@@ -1492,11 +1492,11 @@ Figure 9.3: Daymet Tiles
 Figure 9.4: Select Michigan counties for which we download Daymet data
 </p>
 </div>
-<p>We can use <code>FedData::get_daymet()</code> to download Daymet data that covers the spatial extent of the polygons data. The downloaded dataset can be assigned to an R object as <code>RasterBrick</code> (you could alternatively write the downloaded data to a file). In order to let the function know the spatial extent for which it download Daymet data, we supply a <code>SpatialPolygonsDataFrame</code> object supported by the <code>sp</code> package. Since our main vector data handling package is <code>sf</code> we need to convert the <code>sf</code> object to a <code>sp</code> object.</p>
+<p>We can use <code><a href="https://docs.ropensci.org/FedData/reference/get_daymet.html">FedData::get_daymet()</a></code> to download Daymet data that covers the spatial extent of the polygons data. The downloaded dataset can be assigned to an R object as <code>RasterBrick</code> (you could alternatively write the downloaded data to a file). In order to let the function know the spatial extent for which it download Daymet data, we supply a <code>SpatialPolygonsDataFrame</code> object supported by the <code>sp</code> package. Since our main vector data handling package is <code>sf</code> we need to convert the <code>sf</code> object to a <code>sp</code> object.</p>
 <p>The code below downloads <code>prcp</code> and <code>tmax</code> for the spatial extent of Michigan counties for 2000 and 2001:</p>
 <div class="sourceCode" id="cb951"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span></span>
-<span>  <span class="va">MI_daymet_select</span> <span class="op">&lt;-</span> <span class="fu">FedData</span><span class="fu">::</span><span class="fu">get_daymet</span><span class="op">(</span></span>
+<span>  <span class="va">MI_daymet_select</span> <span class="op">&lt;-</span> <span class="fu">FedData</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/FedData/reference/get_daymet.html">get_daymet</a></span><span class="op">(</span></span>
 <span>    <span class="co">#--- supply the vector data in sp ---#</span></span>
 <span>    template <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/methods/as.html">as</a></span><span class="op">(</span><span class="va">MI_counties_select</span>, <span class="st">"Spatial"</span><span class="op">)</span>,</span>
 <span>    <span class="co">#--- label ---#</span></span>
@@ -1596,7 +1596,7 @@ date 2000-01-01,...,2001-12-31    </code></pre>
 <p><a href="http://www.climatologylab.org/gridmet.html">gridMET</a> is a dataset of <strong>daily</strong> meteorological data that covers the contiguous US since 1979. It spatial resolution is the same as PRISM data at 4-km by 4-km. Indeed gridMET is a product of combining <a href="https://prism.oregonstate.edu/">PRISM</a> and Land Data Assimilation System (<a href="https://ldas.gsfc.nasa.gov/nldas/NLDAS2forcing.php" class="uri">https://ldas.gsfc.nasa.gov/nldas/NLDAS2forcing.php</a>) (in particular NLDAS-2). It offer more variables than PRISM, including maximum temperature, minimum temperature, precipitation accumulation, downward surface shortwave radiation, wind-velocity, humidity (maximum and minimum relative humidity and specific humidity. It also offers derived products such as reference evapotranspiration (calculated based on Penman-Montieth equation).</p>
 <p>You can use the <code>downloadr::download()</code> function to download gridMET data by variable-year. For example, to download precipitation data for 2018, you can run the following code:</p>
 <div class="sourceCode" id="cb962"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">downloader</span><span class="fu">::</span><span class="fu">download</span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="fu">downloader</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/downloader/man/download.html">download</a></span><span class="op">(</span></span>
 <span>  url <span class="op">=</span> <span class="st">"http://www.northwestknowledge.net/metdata/data/pr_2018.nc"</span>,</span>
 <span>  destfile <span class="op">=</span> <span class="st">"Data/pr_2018.nc"</span>,</span>
 <span>  mode <span class="op">=</span> <span class="st">"wb"</span></span>
@@ -1625,7 +1625,7 @@ date 2000-01-01,...,2001-12-31    </code></pre>
 </ul>
 <p>As another example, if you are interested in downloading the wind speed data for 2020, then you can use the following code.</p>
 <div class="sourceCode" id="cb963"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">downloader</span><span class="fu">::</span><span class="fu">download</span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="fu">downloader</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/downloader/man/download.html">download</a></span><span class="op">(</span></span>
 <span>  url <span class="op">=</span> <span class="st">"http://www.northwestknowledge.net/metdata/data/vs_2020.nc"</span>,</span>
 <span>  destfile <span class="op">=</span> <span class="st">"Data/vs_2020.nc"</span>,</span>
 <span>  mode <span class="op">=</span> <span class="st">"wb"</span></span>
@@ -1642,7 +1642,7 @@ date 2000-01-01,...,2001-12-31    </code></pre>
 <p>Before writing a loop, let’s work on a single case (<strong>pet</strong> for 2015). First, we download and read the data.</p>
 <div class="sourceCode" id="cb965"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- download data ---#</span></span>
-<span><span class="fu">downloader</span><span class="fu">::</span><span class="fu">download</span><span class="op">(</span></span>
+<span><span class="fu">downloader</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/downloader/man/download.html">download</a></span><span class="op">(</span></span>
 <span>  url <span class="op">=</span> <span class="st">"http://www.northwestknowledge.net/metdata/data/pet_2015.nc"</span>,</span>
 <span>  destfile <span class="op">=</span> <span class="st">"Data/pet_2015.nc"</span>,</span>
 <span>  mode <span class="op">=</span> <span class="st">"wb"</span></span>
@@ -1832,7 +1832,7 @@ unit        :          mm,          mm,          mm,          mm,          mm,  
 <span>      <span class="st">".nc"</span></span>
 <span>    <span class="op">)</span></span>
 <span></span>
-<span>  <span class="fu">downloader</span><span class="fu">::</span><span class="fu">download</span><span class="op">(</span></span>
+<span>  <span class="fu">downloader</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/downloader/man/download.html">download</a></span><span class="op">(</span></span>
 <span>    url <span class="op">=</span> <span class="va">target_url</span>,</span>
 <span>    destfile <span class="op">=</span> <span class="va">file_name</span>,</span>
 <span>    mode <span class="op">=</span> <span class="st">"wb"</span></span>

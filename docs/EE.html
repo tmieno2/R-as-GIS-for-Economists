@@ -7,7 +7,7 @@
 <title>Chapter 6 Extraction Speed Considerations | R as GIS for Economists</title>
 <meta name="author" content="Taro Mieno">
 <meta name="description" content="Before you start In this chapter, we learn how to parallelize raster data extraction for polygons data. We do not cover parallelization of raster data extraction for points data because it is very...">
-<meta name="generator" content="bookdown 0.40 with bs4_book()">
+<meta name="generator" content="bookdown 0.38 with bs4_book()">
 <meta property="og:title" content="Chapter 6 Extraction Speed Considerations | R as GIS for Economists">
 <meta property="og:type" content="book">
 <meta property="og:description" content="Before you start In this chapter, we learn how to parallelize raster data extraction for polygons data. We do not cover parallelization of raster data extraction for points data because it is very...">
@@ -19,7 +19,7 @@
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/Lato-0.4.9/font.css" rel="stylesheet">
 <link href="libs/Roboto_Mono-0.4.9/font.css" rel="stylesheet">
 <link href="libs/Montserrat-0.4.9/font.css" rel="stylesheet">
-<script src="libs/bs3compat-0.8.0/transition.js"></script><script src="libs/bs3compat-0.8.0/tabs.js"></script><script src="libs/bs3compat-0.8.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs3compat-0.7.0/transition.js"></script><script src="libs/bs3compat-0.7.0/tabs.js"></script><script src="libs/bs3compat-0.7.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet">
 <script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script><link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
 <script src="libs/leaflet-1.3.1/leaflet.js"></script><link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
@@ -39,7 +39,7 @@
 </head>
 <body>
 <div class="alert alert-info" role="alert" style="height: 100px; font-size: 24px; color: red">
-    Important!! Some of the contents in this book has become outdated. Please visit the latest version of the book <a href="https://tmieno2.github.io/R-as-GIS-for--Economists-Quarto/">here</a>, which has up-to-date/new contents.
+    Important!! Some of the contents in this book has become outdated. Please visit the latest version of the book <a href="https://tmieno2.github.io/R-as-GIS-for-Economists-Quarto/">here</a>, which has up-to-date/new contents.
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
     
@@ -166,7 +166,7 @@
 <span><span class="op">(</span></span>
 <span>  <span class="va">num_cores</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/parallel/detectCores.html">detectCores</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<pre><code>[1] 7</code></pre>
+<pre><code>[1] 19</code></pre>
 <div id="datasets" class="section level3" number="6.1.1">
 <h3>
 <span class="header-section-number">6.1.1</span> Datasets<a class="anchor" aria-label="anchor" href="#datasets"><i class="fas fa-link"></i></a>
@@ -292,7 +292,7 @@ Figure 6.2: Comparison of the computation time of raster data extractions
 </div>
 <p>As you can see in Figure <a href="EE.html#fig:comp-polygons">6.2</a>, there is a significant overhead (about 0.23 seconds) irrespective of the number of the polygons to extract data for. Once the process is initiated and ready to start extracting values for polygons, it does not spend much time processing for additional units of polygon. So, this is a typical example of how you should NOT parallelize. Since each core processes about <span class="math inline">\(136\)</span> polygons, a very simple math suggests that you would spend at least 31.28 (0.23 <span class="math inline">\(\times\)</span> 136) seconds just for preparing extraction jobs.</p>
 <hr>
-<p>We can minimize this overhead as much as possible by having each core use <code><a href="https://isciences.gitlab.io/exactextractr/reference/exact_extract.html">exact_extract()</a></code> only once in which multiple polygons are processed in the single call. Specifically, we will split the collection of the polygons into 7 groups and have each core extract for one group.</p>
+<p>We can minimize this overhead as much as possible by having each core use <code><a href="https://isciences.gitlab.io/exactextractr/reference/exact_extract.html">exact_extract()</a></code> only once in which multiple polygons are processed in the single call. Specifically, we will split the collection of the polygons into 19 groups and have each core extract for one group.</p>
 <div class="sourceCode" id="cb552"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- number of polygons in a group ---#</span></span>
 <span><span class="va">num_in_group</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">floor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">IA_grids</span><span class="op">)</span> <span class="op">/</span> <span class="va">num_cores</span><span class="op">)</span></span>
@@ -327,7 +327,7 @@ Figure 6.2: Comparison of the computation time of raster data extractions
 <code class="sourceCode R"><span><span class="co">#--- the size of the list of data returned by the first core ---#</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/object.size.html">object.size</a></span><span class="op">(</span><span class="va">temp</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/format.html">format</a></span><span class="op">(</span>units <span class="op">=</span> <span class="st">"GB"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>[1] "0 Gb"</code></pre>
-<p>In total, about 3GB of data has to be collated into one list from 7 cores. It turns out, this process is costly. To see this, take a look at the following example where the same <code>exact_extrct()</code> processes are run, yet nothing is returned by each core.</p>
+<p>In total, about 3GB of data has to be collated into one list from 19 cores. It turns out, this process is costly. To see this, take a look at the following example where the same <code>exact_extrct()</code> processes are run, yet nothing is returned by each core.</p>
 <div class="sourceCode" id="cb558"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#--- define the function to extract values by block of polygons ---#</span></span>
 <span><span class="va">extract_by_group</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="op">{</span></span>
@@ -537,7 +537,7 @@ alabama,cherokee alabama,cherokee MULTIPOLYGON (((-85.46812 3... alabama</code><
 <span class="header-section-number">6.2.5</span> Memory consideration<a class="anchor" aria-label="anchor" href="#memory-consideration"><i class="fas fa-link"></i></a>
 </h3>
 <p>So far, we have paid no attention to the memory footprint of the parallelized processes. But, it is crucial when parallelizing many large datasets. Approaches 1 and 2 differ substantially in their memory footprints.</p>
-<p>Approach 1 divides the polygons into a group of polygons and parallelizes over the groups when extracting raster values. Approach 2 extracts and holds raster values for 7 of the whole U.S. polygons. So, Approach 1 clearly has a lesser memory footprint. Approach 2 used about 40 Gb of the computer’s memory, almost maxing out the 64 Gb RAM memory of my computer (it’s not just R or C++ that are consuming RAM memory at the time). If you do not go over the limit, it is perfectly fine. Approach 2 is definitely a better option for me. However, if I had 32 Gb RAM memory, Approach 2 would have suffered a significant loss in its performance, while Approach 1 would not have. Or, if the raster data had twice as many cells with the same spatial extent, then Approach 2 would have suffered a significant loss in its performance, while Approach 1 would not have.</p>
+<p>Approach 1 divides the polygons into a group of polygons and parallelizes over the groups when extracting raster values. Approach 2 extracts and holds raster values for 19 of the whole U.S. polygons. So, Approach 1 clearly has a lesser memory footprint. Approach 2 used about 40 Gb of the computer’s memory, almost maxing out the 64 Gb RAM memory of my computer (it’s not just R or C++ that are consuming RAM memory at the time). If you do not go over the limit, it is perfectly fine. Approach 2 is definitely a better option for me. However, if I had 32 Gb RAM memory, Approach 2 would have suffered a significant loss in its performance, while Approach 1 would not have. Or, if the raster data had twice as many cells with the same spatial extent, then Approach 2 would have suffered a significant loss in its performance, while Approach 1 would not have.</p>
 <p>It is easy to come up with a case where Approach 1 is preferable. For example, suppose you have multiple 10-Gb raster layers and your computer has 16 Gb RAM memory. Then, Approach 2 clearly does not work, and Approach 1 is your only choice, which is better than not parallelizing at all.</p>
 <p>In summary, while letting each core process a larger amount of data, you need to be careful not to exceed the RAM memory limit of your computer.</p>
 <!-- ```{r by_year, eval = F}
